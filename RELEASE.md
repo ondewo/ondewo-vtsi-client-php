@@ -22,7 +22,8 @@
   that are not committed do not exist for anybody who installs the package.
 * Ships as the composer package `ondewo/vtsi-client-php`, installable with
   `composer require ondewo/vtsi-client-php`. Requires PHP >= 8.1 and the `grpc` PHP extension, which every
-  generated `<Service>Client` needs because it extends `\Grpc\BaseStub`.
+  generated `<Service>Client` needs because it extends `\Grpc\BaseStub`, and — for the JSON wire format only —
+  `ext-bcmath`.
 * Hand-written sources live in `auth/` at the repository root, never in the compiler-owned `src/`.
   `Ondewo\Vtsi\Auth\BearerTokenAuthenticator` turns a token into the `$opts` array a generated stub is
   constructed with and stamps `authorization: Bearer <token>` onto the metadata of every call. The namespace
@@ -45,6 +46,9 @@
 * GitHub Actions runs `composer validate`, `php -l`, the suite and the coverage gate on PHP 8.1 and 8.4
   against the committed stubs — no docker image is built and no submodule is checked out there. No step is
   guarded by a directory check, so a tree without code goes red instead of reporting success.
+* The job installs `ext-bcmath` alongside `ext-grpc`: `google/protobuf` only *suggests* bcmath, but its
+  pure-PHP JSON parser range-checks every integer with `bccomp()`, so `mergeFromJsonString()` on a message
+  with an int field dies without it. The suite covers that path explicitly.
 * The dev tool chain (PHPUnit, the coverage gate) lives in its own composer project under `tools/`. It is
   deliberately **not** `require-dev` in the root manifest: `composer update --no-dev` still resolves dev
   requirements, and the compiler image resolves the merged manifest with the network disabled, so one

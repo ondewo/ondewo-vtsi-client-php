@@ -57,12 +57,14 @@ jobs:
       - uses: actions/checkout@v7
 
       # Same toolchain as ci.yml's lower matrix leg: ext-grpc because every generated
-      # <Service>Client extends \Grpc\BaseStub, pcov because the coverage gate below needs a driver.
+      # <Service>Client extends \Grpc\BaseStub, pcov because the coverage gate below needs a driver,
+      # and ext-bcmath because google/protobuf's pure-PHP JSON parser range-checks integers with
+      # bccomp() - `make coverage` below runs the very suite that exercises that path.
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: grpc
+          extensions: grpc, bcmath
           coverage: pcov
           tools: composer:v2
 

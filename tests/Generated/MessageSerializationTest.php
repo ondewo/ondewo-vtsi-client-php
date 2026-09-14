@@ -10,6 +10,7 @@ use Ondewo\Nlu\AgentStatus;
 use Ondewo\Nlu\AgentView;
 use Ondewo\Nlu\ListAgentsRequest;
 use Ondewo\Nlu\RagUpdateDatasetRequest;
+use Ondewo\Vtsi\CallLogEntry;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
@@ -18,9 +19,9 @@ use UnexpectedValueException;
  * generator: a field that is declared but never written, a presence field that silently drops its
  * zero value, an enum whose zero constant moved.
  *
- * PRODUCT-SPECIFIC: the messages below come from the ondewo-nlu-api protos that ondewo-vtsi-api
- * vendors and this client therefore ships. Replicating this suite to another ONDEWO client means
- * swapping them for that api's own messages.
+ * PRODUCT-SPECIFIC: the messages below come from ondewo-vtsi-api's own protos and from the
+ * ondewo-nlu-api protos it vendors, both of which this client ships. Replicating this suite to
+ * another ONDEWO client means swapping them for that api's own messages.
  */
 final class MessageSerializationTest extends TestCase
 {
@@ -114,6 +115,37 @@ final class MessageSerializationTest extends TestCase
 
         self::assertSame('page-2', $parsed->getPageToken());
         self::assertSame(AgentView::AGENT_VIEW_FULL, $parsed->getAgentView());
+    }
+
+    public function testAnIntegerFieldSurvivesAJsonRoundTrip(): void
+    {
+        // Its own case because google/protobuf's PURE-PHP JSON parser range-checks every integer
+        // with bccomp(): without ext-bcmath this dies with "Call to undefined function
+        // Google\Protobuf\Internal\bccomp()" on the first int field it meets. The extension is a
+        // `suggest` of google/protobuf, not a `require`, so nothing else would surface that.
+        // int64 and int32 are both here: JSON spells the first as a string and the second as a
+        // number, which are different branches of the parser - and of the range check.
+        $entry = new CallLogEntry();
+        $entry->setSeq(1700000000123);
+        $entry->setMessage('call answered');
+        $entry->setContainerName('ondewo-sip-1');
+        $entry->setPhysicalLineCount(4);
+
+        $json = $entry->serializeToJsonString();
+
+        // The integers have to REACH the JSON or the parser never range-checks them, and the case
+        // would be green with or without the extension: a proto3 scalar at its zero value is
+        // omitted from the JSON entirely.
+        self::assertStringContainsString('"seq":"1700000000123"', $json);
+        self::assertStringContainsString('"physicalLineCount":4', $json);
+
+        $parsed = new CallLogEntry();
+        $parsed->mergeFromJsonString($json);
+
+        self::assertSame(1700000000123, $parsed->getSeq());
+        self::assertSame('call answered', $parsed->getMessage());
+        self::assertSame('ondewo-sip-1', $parsed->getContainerName());
+        self::assertSame(4, $parsed->getPhysicalLineCount());
     }
 
     public function testTheEnumZeroValueIsTheUnspecifiedMember(): void

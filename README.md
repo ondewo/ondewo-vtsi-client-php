@@ -38,6 +38,9 @@ The only hand-written PHP is the bearer-token authentication surface in `auth/`,
 
 * PHP >= 8.1
 * The **grpc** PHP extension (`ext-grpc`) — every generated `<Service>Client` extends `\Grpc\BaseStub`
+* The **bcmath** PHP extension (`ext-bcmath`) — only to parse integers out of the JSON wire
+  format; `google/protobuf` merely *suggests* it, so `mergeFromJsonString()` on a message with an
+  int field fails without it
 * [Composer](https://getcomposer.org/) 2.x
 * Docker — only to *regenerate* the stubs, never to *use* the client
 
@@ -45,7 +48,7 @@ Installing the extension:
 
 ```bash
 # Debian / Ubuntu
-sudo apt-get install -y php-grpc
+sudo apt-get install -y php-grpc php-bcmath
 # or, from source
 sudo pecl install grpc
 ```
@@ -81,7 +84,9 @@ Two things a consumer has to know:
 * **`ext-grpc` is a hard requirement**, not an optional extra — every generated `<Service>Client`
   extends `\Grpc\BaseStub`, so composer refuses to install the package without it. Install it first
   (see [Requirements](#requirements) above); `composer require ondewo/vtsi-client-php --ignore-platform-req=ext-grpc`
-  will resolve, but the client will fatal at runtime.
+  will resolve, but the client will fatal at runtime. **`ext-bcmath` is not declared** — `google/protobuf`
+  only *suggests* it — but its pure-PHP JSON parser range-checks integers with `bccomp()`, so install it
+  too if you read or write the JSON wire format.
 * **There is no build step.** Packagist serves the tree of a git tag verbatim and the generated stubs are
   committed, so the package a consumer downloads is byte-for-byte the tagged repository: after
   `composer require`, `vendor/ondewo/vtsi-client-php/src/` already holds every stub and the autoloader is
@@ -237,7 +242,7 @@ What the suite actually asserts:
 | Test | What it would catch |
 | --- | --- |
 | `tests/Generated/GeneratedCodeTest.php` | A stub that does not load, a `GPBMetadata` descriptor whose `initOnce()` chain has a missing transitive import, a service whose client class was never generated, an empty `src/` |
-| `tests/Generated/MessageSerializationTest.php` | A field that never reaches the wire, a `proto3 optional` field that drops its zero value, a moved enum zero constant, a broken JSON mapping |
+| `tests/Generated/MessageSerializationTest.php` | A field that never reaches the wire, a `proto3 optional` field that drops its zero value, a moved enum zero constant, a broken JSON mapping (including the integer path, which needs `ext-bcmath`) |
 | `tests/Generated/ServiceClientTest.php` | A stub that cannot be constructed, a missing or re-shaped RPC method, a streaming RPC generated as a unary one |
 | `tests/Auth/BearerTokenAuthenticatorTest.php` | Any regression in the hand-written auth surface |
 

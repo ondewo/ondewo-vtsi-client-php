@@ -46,11 +46,14 @@ jobs:
       # ext-grpc is a hard requirement of the generated stubs: every *Client.php extends
       # \Grpc\BaseStub. setup-php ships a prebuilt extension, so no PECL C++ build is needed.
       # pcov is the coverage driver the threshold gate below needs.
+      # bcmath is what google/protobuf's PURE-PHP JSON parser range-checks integers with; it only
+      # `suggest`s the extension, so mergeFromJsonString() on any int field dies with "Call to
+      # undefined function Google\Protobuf\Internal\bccomp()" without it.
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: grpc
+          extensions: grpc, bcmath
           coverage: pcov
           tools: composer:v2
 
@@ -58,6 +61,7 @@ jobs:
         run: |
           php --version
           php -r 'exit(extension_loaded("grpc") ? 0 : 1);' || { echo "::error::ext-grpc did not load"; exit 1; }
+          php -r 'exit(extension_loaded("bcmath") ? 0 : 1);' || { echo "::error::ext-bcmath did not load"; exit 1; }
           composer --version
 
       # Deliberately NOT --strict: the `version` field the release targets bump is a
