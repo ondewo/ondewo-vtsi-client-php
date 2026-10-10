@@ -19,15 +19,15 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     /**
      * Should audio object store save audio sent to the Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      */
-    protected $activate_s2t = false;
+    protected $activate_s2t = null;
     /**
      * Should audio object store save audio generated from the Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      */
-    protected $activate_t2s = false;
+    protected $activate_t2s = null;
 
     /**
      * Constructor.
@@ -49,18 +49,28 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     /**
      * Should audio object store save audio sent to the Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @return bool
      */
     public function getActivateS2T()
     {
-        return $this->activate_s2t;
+        return isset($this->activate_s2t) ? $this->activate_s2t : false;
+    }
+
+    public function hasActivateS2T()
+    {
+        return isset($this->activate_s2t);
+    }
+
+    public function clearActivateS2T()
+    {
+        unset($this->activate_s2t);
     }
 
     /**
      * Should audio object store save audio sent to the Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @param bool $var
      * @return $this
      */
@@ -75,18 +85,28 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     /**
      * Should audio object store save audio generated from the Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      * @return bool
      */
     public function getActivateT2S()
     {
-        return $this->activate_t2s;
+        return isset($this->activate_t2s) ? $this->activate_t2s : false;
+    }
+
+    public function hasActivateT2S()
+    {
+        return isset($this->activate_t2s);
+    }
+
+    public function clearActivateT2S()
+    {
+        unset($this->activate_t2s);
     }
 
     /**
      * Should audio object store save audio generated from the Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      * @param bool $var
      * @return $this
      */

@@ -19,27 +19,27 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     /**
      * should RabbitMQ Message Broker be activated for Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      */
-    protected $activate_s2t = false;
+    protected $activate_s2t = null;
     /**
      * should RabbitMQ Message Broker be activated for NLU platform
      *
-     * Generated from protobuf field <code>bool activate_nlu = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      */
-    protected $activate_nlu = false;
+    protected $activate_nlu = null;
     /**
      * should RabbitMQ Message Broker be activated for Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 3;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      */
-    protected $activate_t2s = false;
+    protected $activate_t2s = null;
     /**
      * should RabbitMQ Message Broker be activated for SIP platform
      *
-     * Generated from protobuf field <code>bool activate_sip = 4;</code>
+     * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      */
-    protected $activate_sip = false;
+    protected $activate_sip = null;
 
     /**
      * Constructor.
@@ -65,18 +65,28 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     /**
      * should RabbitMQ Message Broker be activated for Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @return bool
      */
     public function getActivateS2T()
     {
-        return $this->activate_s2t;
+        return isset($this->activate_s2t) ? $this->activate_s2t : false;
+    }
+
+    public function hasActivateS2T()
+    {
+        return isset($this->activate_s2t);
+    }
+
+    public function clearActivateS2T()
+    {
+        unset($this->activate_s2t);
     }
 
     /**
      * should RabbitMQ Message Broker be activated for Speech-2-Text platform
      *
-     * Generated from protobuf field <code>bool activate_s2t = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @param bool $var
      * @return $this
      */
@@ -91,18 +101,28 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     /**
      * should RabbitMQ Message Broker be activated for NLU platform
      *
-     * Generated from protobuf field <code>bool activate_nlu = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      * @return bool
      */
     public function getActivateNlu()
     {
-        return $this->activate_nlu;
+        return isset($this->activate_nlu) ? $this->activate_nlu : false;
+    }
+
+    public function hasActivateNlu()
+    {
+        return isset($this->activate_nlu);
+    }
+
+    public function clearActivateNlu()
+    {
+        unset($this->activate_nlu);
     }
 
     /**
      * should RabbitMQ Message Broker be activated for NLU platform
      *
-     * Generated from protobuf field <code>bool activate_nlu = 2;</code>
+     * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      * @param bool $var
      * @return $this
      */
@@ -117,18 +137,28 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     /**
      * should RabbitMQ Message Broker be activated for Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 3;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      * @return bool
      */
     public function getActivateT2S()
     {
-        return $this->activate_t2s;
+        return isset($this->activate_t2s) ? $this->activate_t2s : false;
+    }
+
+    public function hasActivateT2S()
+    {
+        return isset($this->activate_t2s);
+    }
+
+    public function clearActivateT2S()
+    {
+        unset($this->activate_t2s);
     }
 
     /**
      * should RabbitMQ Message Broker be activated for Text-2-Speech platform
      *
-     * Generated from protobuf field <code>bool activate_t2s = 3;</code>
+     * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      * @param bool $var
      * @return $this
      */
@@ -143,18 +173,28 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     /**
      * should RabbitMQ Message Broker be activated for SIP platform
      *
-     * Generated from protobuf field <code>bool activate_sip = 4;</code>
+     * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      * @return bool
      */
     public function getActivateSip()
     {
-        return $this->activate_sip;
+        return isset($this->activate_sip) ? $this->activate_sip : false;
+    }
+
+    public function hasActivateSip()
+    {
+        return isset($this->activate_sip);
+    }
+
+    public function clearActivateSip()
+    {
+        unset($this->activate_sip);
     }
 
     /**
      * should RabbitMQ Message Broker be activated for SIP platform
      *
-     * Generated from protobuf field <code>bool activate_sip = 4;</code>
+     * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      * @param bool $var
      * @return $this
      */

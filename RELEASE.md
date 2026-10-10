@@ -2,6 +2,65 @@
 
 *****************
 
+## Release ONDEWO VTSI PHP Client 9.0.0
+
+### Breaking Changes
+
+* Tracking API Version [9.0.0](https://github.com/ondewo/ondewo-vtsi-api/releases/tag/9.0.0) ( [Documentation](https://ondewo.github.io/ondewo-vtsi-api/) ),
+  a major release that is binary wire-compatible in both directions but source-breaking:
+  * `AsteriskConfigsFiles.sip_conf_file_string` is renamed to `pjsip_conf_file_string` (same field number and type).
+    **Migration:** replace `getSipConfFileString()` / `setSipConfFileString()` with `getPjsipConfFileString()` /
+    `setPjsipConfFileString()`, the `sip_conf_file_string` key of a constructor `$data` array with
+    `pjsip_conf_file_string`, and the JSON key `sipConfFileString` with `pjsipConfFileString`.
+  * Eleven singular scalars of `ondewo/vtsi/calls.proto` gained explicit presence (`optional`):
+    `InterruptionHandlingConfig.transcribe_on_disabled_interruptions`,
+    `TurnDetectionConfig.turn_detection_system_prompt` / `turn_detection_user_prompt`,
+    `AudioObjectStorageConfig.activate_audio_object_storage`,
+    `AudioObjectStorageServicesActivationConfig.activate_s2t` / `activate_t2s`,
+    `MessageBrokerConfig.activate_message_broker` and
+    `MessageBrokerServicesActivationConfig.activate_s2t` / `activate_nlu` / `activate_t2s` / `activate_sip`.
+    Their getters and setters are unchanged; each now also has `has...()` / `clear...()`. **Migration:** a value set
+    explicitly to its default (`false`, `""`) is now sent on the wire and read by the server as an explicit value;
+    call `clear...()` (or do not set it) to leave it unset.
+
+### New Features
+
+* New service clients, each a generated `<Service>Client` like the existing ones (use them with
+  `Ondewo\Vtsi\Auth\ClientConfig` / `BearerTokenAuthenticator` exactly as `CallsClient`):
+  * `Ondewo\Vtsi\CampaignsClient` (`ondewo.vtsi.Campaigns`, `campaigns.proto`): campaign CRUD, start / stop /
+    hard stop / resume, statistics, campaign calls and the server stream `StreamCampaignStatus`.
+  * `Ondewo\Vtsi\EventsClient` (`ondewo.vtsi.Events`, `events.proto`): VTSI event subscriptions, webhooks
+    (incl. `TestWebhook`) and the server stream `SubscribeVtsiEvents`.
+  * `Ondewo\Vtsi\SoftphonesClient` (`ondewo.vtsi.Softphones`, `softphones.proto`, marked unreleased / in development
+    in the API): softphone accounts, credential rotation, certificates and provisioning (10 RPCs).
+* New `Calls` RPCs: `AddCallersToCampaign`, `AddScheduledCallersToCampaign`, the status streams
+  `StreamCallerStatus` / `StreamListenerStatus` / `StreamScheduledCallerStatus`, call control `InviteToCall`,
+  `RemoveCallParticipant`, `SetCallMediaControl`, live call audio `StreamCallAudio` (bidirectional) and
+  `ListenCallAudio` (server stream); idempotency keys on the five batch-creating `Calls` requests; typed transfers
+  (`TransferCallRequest.target` / `mode` / `headers` / `ring_timeout_s`, `TransferCallResponse.outcome`).
+* Answering machine detection for pooled persistent callers (`AnsweringMachineDetectionConfig`, `AmdAction`,
+  `AmdSensitivity`) and the `Call` fields `redial_recommended`, `redial_reason`,
+  `answering_machine_detection_end_description`, `media_control`, `participants`, `last_transfer`, `sip_call_id`.
+* `AsteriskConfigsVariables`: `sip_trunk_transport`, `sip_trunk_source_cidr`, `sip_trunk_ca_certificates_pem`,
+  `sip_trunk_verify_server` and `softphone_permit_cidrs`; `VtsiProject.transfer_phone_number_allowlist`.
+* The vendored `ondewo/sip` protos move to [ondewo-sip-api 5.5.0](https://github.com/ondewo/ondewo-sip-api/releases/tag/5.5.0);
+  the shipped `Ondewo\Sip` stubs are identical to those of `ondewo/sip-client-php` 5.5.0, so install that version
+  next to this one. The vendored NLU, S2T and T2S protos are unchanged.
+
+### Improvements
+
+* Proto compiler pinned to [5.15.5](https://github.com/ondewo/ondewo-proto-compiler/releases/tag/5.15.5).
+
+### Tests
+
+* `tests/Generated/GeneratedCodeTest.php` expects `CampaignsClient`, `EventsClient` and `SoftphonesClient`.
+* `tests/Generated/ServiceClientTest.php` constructs each new service client and checks every unary RPC of the new
+  services and the new `Calls` RPCs, the six server streams and the bidirectional `StreamCallAudio`.
+* `tests/Generated/MessageSerializationTest.php` covers the `pjsip_conf_file_string` rename and an explicit `false` on
+  a scalar that gained presence.
+
+*****************
+
 ## Release ONDEWO VTSI PHP Client 8.7.1
 
 ### Improvements

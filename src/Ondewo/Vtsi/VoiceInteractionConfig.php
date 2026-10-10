@@ -35,6 +35,14 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.ResponseTimingConfig response_timing_config = 3;</code>
      */
     protected $response_timing_config = null;
+    /**
+     * Configuration of the answering machine detection (AMD) of an outbound call.
+     * Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
+     * is rejected with INVALID_ARGUMENT
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.AnsweringMachineDetectionConfig answering_machine_detection_config = 4;</code>
+     */
+    protected $answering_machine_detection_config = null;
 
     /**
      * Constructor.
@@ -48,6 +56,10 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      *           Configuration of the interruption (barge-in) handling
      *     @type \Ondewo\Vtsi\ResponseTimingConfig $response_timing_config
      *           Configuration of the response timing
+     *     @type \Ondewo\Vtsi\AnsweringMachineDetectionConfig $answering_machine_detection_config
+     *           Configuration of the answering machine detection (AMD) of an outbound call.
+     *           Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
+     *           is rejected with INVALID_ARGUMENT
      * }
      */
     public function __construct($data = NULL) {
@@ -159,6 +171,46 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\ResponseTimingConfig::class);
         $this->response_timing_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Configuration of the answering machine detection (AMD) of an outbound call.
+     * Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
+     * is rejected with INVALID_ARGUMENT
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.AnsweringMachineDetectionConfig answering_machine_detection_config = 4;</code>
+     * @return \Ondewo\Vtsi\AnsweringMachineDetectionConfig|null
+     */
+    public function getAnsweringMachineDetectionConfig()
+    {
+        return $this->answering_machine_detection_config;
+    }
+
+    public function hasAnsweringMachineDetectionConfig()
+    {
+        return isset($this->answering_machine_detection_config);
+    }
+
+    public function clearAnsweringMachineDetectionConfig()
+    {
+        unset($this->answering_machine_detection_config);
+    }
+
+    /**
+     * Configuration of the answering machine detection (AMD) of an outbound call.
+     * Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
+     * is rejected with INVALID_ARGUMENT
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.AnsweringMachineDetectionConfig answering_machine_detection_config = 4;</code>
+     * @param \Ondewo\Vtsi\AnsweringMachineDetectionConfig $var
+     * @return $this
+     */
+    public function setAnsweringMachineDetectionConfig($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AnsweringMachineDetectionConfig::class);
+        $this->answering_machine_detection_config = $var;
 
         return $this;
     }

@@ -44,15 +44,15 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
     /**
      * System prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_system_prompt = 5;</code>
+     * Generated from protobuf field <code>optional string turn_detection_system_prompt = 5;</code>
      */
-    protected $turn_detection_system_prompt = '';
+    protected $turn_detection_system_prompt = null;
     /**
      * User prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_user_prompt = 6;</code>
+     * Generated from protobuf field <code>optional string turn_detection_user_prompt = 6;</code>
      */
-    protected $turn_detection_user_prompt = '';
+    protected $turn_detection_user_prompt = null;
 
     /**
      * Constructor.
@@ -209,18 +209,28 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
     /**
      * System prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_system_prompt = 5;</code>
+     * Generated from protobuf field <code>optional string turn_detection_system_prompt = 5;</code>
      * @return string
      */
     public function getTurnDetectionSystemPrompt()
     {
-        return $this->turn_detection_system_prompt;
+        return isset($this->turn_detection_system_prompt) ? $this->turn_detection_system_prompt : '';
+    }
+
+    public function hasTurnDetectionSystemPrompt()
+    {
+        return isset($this->turn_detection_system_prompt);
+    }
+
+    public function clearTurnDetectionSystemPrompt()
+    {
+        unset($this->turn_detection_system_prompt);
     }
 
     /**
      * System prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_system_prompt = 5;</code>
+     * Generated from protobuf field <code>optional string turn_detection_system_prompt = 5;</code>
      * @param string $var
      * @return $this
      */
@@ -235,18 +245,28 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
     /**
      * User prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_user_prompt = 6;</code>
+     * Generated from protobuf field <code>optional string turn_detection_user_prompt = 6;</code>
      * @return string
      */
     public function getTurnDetectionUserPrompt()
     {
-        return $this->turn_detection_user_prompt;
+        return isset($this->turn_detection_user_prompt) ? $this->turn_detection_user_prompt : '';
+    }
+
+    public function hasTurnDetectionUserPrompt()
+    {
+        return isset($this->turn_detection_user_prompt);
+    }
+
+    public function clearTurnDetectionUserPrompt()
+    {
+        unset($this->turn_detection_user_prompt);
     }
 
     /**
      * User prompt for the semantic (LLM) turn detection model of the speech-to-text service
      *
-     * Generated from protobuf field <code>string turn_detection_user_prompt = 6;</code>
+     * Generated from protobuf field <code>optional string turn_detection_user_prompt = 6;</code>
      * @param string $var
      * @return $this
      */

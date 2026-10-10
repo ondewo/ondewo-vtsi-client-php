@@ -31,11 +31,41 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * transfer_id to transfer the call to, so the number or voip number you want to be transferred too
+     * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
+     * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      */
     protected $transfer_id = '';
+    /**
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
+     */
+    protected $target = null;
+    /**
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
+     */
+    protected $mode = 0;
+    /**
+     * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
+     * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
+     * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
+     * number target
+     *
+     * Generated from protobuf field <code>map<string, string> headers = 6;</code>
+     */
+    private $headers;
+    /**
+     * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
+     * <code>30</code>
+     *
+     * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
+     */
+    protected $ring_timeout_s = 0;
 
     /**
      * Constructor.
@@ -50,7 +80,21 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type string $transfer_id
-     *           transfer_id to transfer the call to, so the number or voip number you want to be transferred too
+     *           LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
+     *           <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
+     *           <code>INVALID_ARGUMENT</code>
+     *     @type \Ondewo\Vtsi\CallTarget $target
+     *           Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     *     @type int $mode
+     *           How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     *     @type array|\Google\Protobuf\Internal\MapField $headers
+     *           Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
+     *           entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
+     *           dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
+     *           number target
+     *     @type int $ring_timeout_s
+     *           WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
+     *           <code>30</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -115,7 +159,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * transfer_id to transfer the call to, so the number or voip number you want to be transferred too
+     * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
+     * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @return string
@@ -126,7 +172,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * transfer_id to transfer the call to, so the number or voip number you want to be transferred too
+     * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
+     * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @param string $var
@@ -136,6 +184,128 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->transfer_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
+     * @return \Ondewo\Vtsi\CallTarget|null
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    public function hasTarget()
+    {
+        return isset($this->target);
+    }
+
+    public function clearTarget()
+    {
+        unset($this->target);
+    }
+
+    /**
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
+     * @param \Ondewo\Vtsi\CallTarget $var
+     * @return $this
+     */
+    public function setTarget($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallTarget::class);
+        $this->target = $var;
+
+        return $this;
+    }
+
+    /**
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
+     * @return int
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setMode($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferMode::class);
+        $this->mode = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
+     * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
+     * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
+     * number target
+     *
+     * Generated from protobuf field <code>map<string, string> headers = 6;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
+     * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
+     * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
+     * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
+     * number target
+     *
+     * Generated from protobuf field <code>map<string, string> headers = 6;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setHeaders($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->headers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
+     * <code>30</code>
+     *
+     * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
+     * @return int
+     */
+    public function getRingTimeoutS()
+    {
+        return $this->ring_timeout_s;
+    }
+
+    /**
+     * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
+     * <code>30</code>
+     *
+     * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setRingTimeoutS($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->ring_timeout_s = $var;
 
         return $this;
     }

@@ -24,7 +24,7 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * The asterisk sip call name that was assigned to the call
+     * The call name that was assigned to the call
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -91,6 +91,18 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string error_message = 11;</code>
      */
     protected $error_message = '';
+    /**
+     * Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
+     * A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
+     * <code>PENDING</code> while the call is not started or waits for a retry,
+     * <code>FIRING</code> while an attempt is being started or running, and <code>DONE</code> /
+     * <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
+     * <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
+     * own retry settings are not used; the campaign&apos;s apply.
+     *
+     * Generated from protobuf field <code>string campaign_name = 12;</code>
+     */
+    protected $campaign_name = '';
 
     /**
      * Constructor.
@@ -102,7 +114,7 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      *           Resource name of the scheduled caller
      *           <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
      *     @type string $call_name
-     *           The asterisk sip call name that was assigned to the call
+     *           The call name that was assigned to the call
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type \Ondewo\Vtsi\SipBaseConfig $sip_config
@@ -129,6 +141,14 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      *           SCHEDULED_CALLER_STATUS_CANCELLED
      *     @type string $error_message
      *           Why starting the call failed. Only populated when the status is SCHEDULED_CALLER_STATUS_FAILED
+     *     @type string $campaign_name
+     *           Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
+     *           A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
+     *           <code>PENDING</code> while the call is not started or waits for a retry,
+     *           <code>FIRING</code> while an attempt is being started or running, and <code>DONE</code> /
+     *           <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
+     *           <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
+     *           own retry settings are not used; the campaign&apos;s apply.
      * }
      */
     public function __construct($data = NULL) {
@@ -165,7 +185,7 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The asterisk sip call name that was assigned to the call
+     * The call name that was assigned to the call
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -178,7 +198,7 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The asterisk sip call name that was assigned to the call
+     * The call name that was assigned to the call
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -496,6 +516,44 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->error_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
+     * A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
+     * <code>PENDING</code> while the call is not started or waits for a retry,
+     * <code>FIRING</code> while an attempt is being started or running, and <code>DONE</code> /
+     * <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
+     * <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
+     * own retry settings are not used; the campaign&apos;s apply.
+     *
+     * Generated from protobuf field <code>string campaign_name = 12;</code>
+     * @return string
+     */
+    public function getCampaignName()
+    {
+        return $this->campaign_name;
+    }
+
+    /**
+     * Resource name of the campaign this scheduled caller belongs to. Empty when it belongs to none.
+     * A campaign&apos;s scheduled caller mirrors its campaign call: <code>status</code> is
+     * <code>PENDING</code> while the call is not started or waits for a retry,
+     * <code>FIRING</code> while an attempt is being started or running, and <code>DONE</code> /
+     * <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
+     * <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
+     * own retry settings are not used; the campaign&apos;s apply.
+     *
+     * Generated from protobuf field <code>string campaign_name = 12;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->campaign_name = $var;
 
         return $this;
     }

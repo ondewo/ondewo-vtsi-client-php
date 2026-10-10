@@ -126,6 +126,63 @@ class Call extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platforms = 18;</code>
      */
     protected $platforms = null;
+    /**
+     * Optional: Whether the callee should be called again later, set only when the answering machine
+     * detection (AMD) ended the call: true for an answering machine or a network announcement hung up
+     * on without a voice message, false once a voice message was left and false for a fax.
+     * Unset when AMD did not end the call.
+     * The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
+     * No call is redialled automatically; the marker is for the campaign logic of the client
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 19;</code>
+     */
+    protected $redial_recommended = null;
+    /**
+     * Optional: Reason of redial_recommended, set together with it. One of
+     * "answering_machine", "network_announcement" or "fax"
+     *
+     * Generated from protobuf field <code>optional string redial_reason = 20;</code>
+     */
+    protected $redial_reason = null;
+    /**
+     * Optional: Description of how a call ended by the answering machine detection (AMD) ended, i.e. the
+     * description of its terminal ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_FINISHED status. One of
+     * "Answering machine detected with hang up",
+     * "Answering machine detected with left voice message and hang up",
+     * "Answering machine detected, call ended by the answering machine" or
+     * "Answering machine detected, call ended by the answering machine after leaving a voice message".
+     * Unset when AMD did not end the call
+     *
+     * Generated from protobuf field <code>optional string answering_machine_detection_end_description = 21;</code>
+     */
+    protected $answering_machine_detection_end_description = null;
+    /**
+     * Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallMediaControlState media_control = 22;</code>
+     */
+    protected $media_control = null;
+    /**
+     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
+     */
+    private $participants;
+    /**
+     * The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTransferRecord last_transfer = 24;</code>
+     */
+    protected $last_transfer = null;
+    /**
+     * Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
+     * the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string sip_call_id = 25;</code>
+     */
+    protected $sip_call_id = '';
 
     /**
      * Constructor.
@@ -171,6 +228,35 @@ class Call extends \Google\Protobuf\Internal\Message
      *           NLU session name
      *     @type int $platforms
      *           Messages for each of the Intent.Message.Platform were sent to the user
+     *     @type bool $redial_recommended
+     *           Optional: Whether the callee should be called again later, set only when the answering machine
+     *           detection (AMD) ended the call: true for an answering machine or a network announcement hung up
+     *           on without a voice message, false once a voice message was left and false for a fax.
+     *           Unset when AMD did not end the call.
+     *           The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
+     *           No call is redialled automatically; the marker is for the campaign logic of the client
+     *     @type string $redial_reason
+     *           Optional: Reason of redial_recommended, set together with it. One of
+     *           "answering_machine", "network_announcement" or "fax"
+     *     @type string $answering_machine_detection_end_description
+     *           Optional: Description of how a call ended by the answering machine detection (AMD) ended, i.e. the
+     *           description of its terminal ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_FINISHED status. One of
+     *           "Answering machine detected with hang up",
+     *           "Answering machine detected with left voice message and hang up",
+     *           "Answering machine detected, call ended by the answering machine" or
+     *           "Answering machine detected, call ended by the answering machine after leaving a voice message".
+     *           Unset when AMD did not end the call
+     *     @type \Ondewo\Vtsi\CallMediaControlState $media_control
+     *           Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
+     *           Set in the SHALLOW and FULL views
+     *     @type \Ondewo\Vtsi\CallParticipant[] $participants
+     *           Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     *     @type \Ondewo\Vtsi\CallTransferRecord $last_transfer
+     *           The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views
+     *     @type string $sip_call_id
+     *           Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
+     *           the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+     *           Set in the SHALLOW and FULL views
      * }
      */
     public function __construct($data = NULL) {
@@ -746,6 +832,268 @@ class Call extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platforms = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Whether the callee should be called again later, set only when the answering machine
+     * detection (AMD) ended the call: true for an answering machine or a network announcement hung up
+     * on without a voice message, false once a voice message was left and false for a fax.
+     * Unset when AMD did not end the call.
+     * The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
+     * No call is redialled automatically; the marker is for the campaign logic of the client
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 19;</code>
+     * @return bool
+     */
+    public function getRedialRecommended()
+    {
+        return isset($this->redial_recommended) ? $this->redial_recommended : false;
+    }
+
+    public function hasRedialRecommended()
+    {
+        return isset($this->redial_recommended);
+    }
+
+    public function clearRedialRecommended()
+    {
+        unset($this->redial_recommended);
+    }
+
+    /**
+     * Optional: Whether the callee should be called again later, set only when the answering machine
+     * detection (AMD) ended the call: true for an answering machine or a network announcement hung up
+     * on without a voice message, false once a voice message was left and false for a fax.
+     * Unset when AMD did not end the call.
+     * The AMD verdict, cause and confidence of the call are in sip_status.amd_result.
+     * No call is redialled automatically; the marker is for the campaign logic of the client
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 19;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setRedialRecommended($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->redial_recommended = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Reason of redial_recommended, set together with it. One of
+     * "answering_machine", "network_announcement" or "fax"
+     *
+     * Generated from protobuf field <code>optional string redial_reason = 20;</code>
+     * @return string
+     */
+    public function getRedialReason()
+    {
+        return isset($this->redial_reason) ? $this->redial_reason : '';
+    }
+
+    public function hasRedialReason()
+    {
+        return isset($this->redial_reason);
+    }
+
+    public function clearRedialReason()
+    {
+        unset($this->redial_reason);
+    }
+
+    /**
+     * Optional: Reason of redial_recommended, set together with it. One of
+     * "answering_machine", "network_announcement" or "fax"
+     *
+     * Generated from protobuf field <code>optional string redial_reason = 20;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setRedialReason($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->redial_reason = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Description of how a call ended by the answering machine detection (AMD) ended, i.e. the
+     * description of its terminal ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_FINISHED status. One of
+     * "Answering machine detected with hang up",
+     * "Answering machine detected with left voice message and hang up",
+     * "Answering machine detected, call ended by the answering machine" or
+     * "Answering machine detected, call ended by the answering machine after leaving a voice message".
+     * Unset when AMD did not end the call
+     *
+     * Generated from protobuf field <code>optional string answering_machine_detection_end_description = 21;</code>
+     * @return string
+     */
+    public function getAnsweringMachineDetectionEndDescription()
+    {
+        return isset($this->answering_machine_detection_end_description) ? $this->answering_machine_detection_end_description : '';
+    }
+
+    public function hasAnsweringMachineDetectionEndDescription()
+    {
+        return isset($this->answering_machine_detection_end_description);
+    }
+
+    public function clearAnsweringMachineDetectionEndDescription()
+    {
+        unset($this->answering_machine_detection_end_description);
+    }
+
+    /**
+     * Optional: Description of how a call ended by the answering machine detection (AMD) ended, i.e. the
+     * description of its terminal ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_FINISHED status. One of
+     * "Answering machine detected with hang up",
+     * "Answering machine detected with left voice message and hang up",
+     * "Answering machine detected, call ended by the answering machine" or
+     * "Answering machine detected, call ended by the answering machine after leaving a voice message".
+     * Unset when AMD did not end the call
+     *
+     * Generated from protobuf field <code>optional string answering_machine_detection_end_description = 21;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setAnsweringMachineDetectionEndDescription($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->answering_machine_detection_end_description = $var;
+
+        return $this;
+    }
+
+    /**
+     * Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallMediaControlState media_control = 22;</code>
+     * @return \Ondewo\Vtsi\CallMediaControlState|null
+     */
+    public function getMediaControl()
+    {
+        return $this->media_control;
+    }
+
+    public function hasMediaControl()
+    {
+        return isset($this->media_control);
+    }
+
+    public function clearMediaControl()
+    {
+        unset($this->media_control);
+    }
+
+    /**
+     * Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallMediaControlState media_control = 22;</code>
+     * @param \Ondewo\Vtsi\CallMediaControlState $var
+     * @return $this
+     */
+    public function setMediaControl($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallMediaControlState::class);
+        $this->media_control = $var;
+
+        return $this;
+    }
+
+    /**
+     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
+     * @return RepeatedField<\Ondewo\Vtsi\CallParticipant>
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
+    }
+
+    /**
+     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
+     * @param \Ondewo\Vtsi\CallParticipant[] $var
+     * @return $this
+     */
+    public function setParticipants($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallParticipant::class);
+        $this->participants = $arr;
+
+        return $this;
+    }
+
+    /**
+     * The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTransferRecord last_transfer = 24;</code>
+     * @return \Ondewo\Vtsi\CallTransferRecord|null
+     */
+    public function getLastTransfer()
+    {
+        return $this->last_transfer;
+    }
+
+    public function hasLastTransfer()
+    {
+        return isset($this->last_transfer);
+    }
+
+    public function clearLastTransfer()
+    {
+        unset($this->last_transfer);
+    }
+
+    /**
+     * The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallTransferRecord last_transfer = 24;</code>
+     * @param \Ondewo\Vtsi\CallTransferRecord $var
+     * @return $this
+     */
+    public function setLastTransfer($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallTransferRecord::class);
+        $this->last_transfer = $var;
+
+        return $this;
+    }
+
+    /**
+     * Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
+     * the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string sip_call_id = 25;</code>
+     * @return string
+     */
+    public function getSipCallId()
+    {
+        return $this->sip_call_id;
+    }
+
+    /**
+     * Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
+     * the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string sip_call_id = 25;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setSipCallId($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->sip_call_id = $var;
 
         return $this;
     }

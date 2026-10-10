@@ -19,9 +19,9 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     /**
      * Audio storage should be activated or not
      *
-     * Generated from protobuf field <code>bool activate_audio_object_storage = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      */
-    protected $activate_audio_object_storage = false;
+    protected $activate_audio_object_storage = null;
     /**
      * Configuration of the Minio Audio Object Store
      *
@@ -49,18 +49,28 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     /**
      * Audio storage should be activated or not
      *
-     * Generated from protobuf field <code>bool activate_audio_object_storage = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      * @return bool
      */
     public function getActivateAudioObjectStorage()
     {
-        return $this->activate_audio_object_storage;
+        return isset($this->activate_audio_object_storage) ? $this->activate_audio_object_storage : false;
+    }
+
+    public function hasActivateAudioObjectStorage()
+    {
+        return isset($this->activate_audio_object_storage);
+    }
+
+    public function clearActivateAudioObjectStorage()
+    {
+        unset($this->activate_audio_object_storage);
     }
 
     /**
      * Audio storage should be activated or not
      *
-     * Generated from protobuf field <code>bool activate_audio_object_storage = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      * @param bool $var
      * @return $this
      */
