@@ -19,9 +19,9 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     /**
      * Should the broker be activated or not
      *
-     * Generated from protobuf field <code>bool activate_message_broker = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      */
-    protected $activate_message_broker = false;
+    protected $activate_message_broker = null;
     /**
      * Configuration of the Broker service activation
      *
@@ -52,18 +52,28 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     /**
      * Should the broker be activated or not
      *
-     * Generated from protobuf field <code>bool activate_message_broker = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      * @return bool
      */
     public function getActivateMessageBroker()
     {
-        return $this->activate_message_broker;
+        return isset($this->activate_message_broker) ? $this->activate_message_broker : false;
+    }
+
+    public function hasActivateMessageBroker()
+    {
+        return isset($this->activate_message_broker);
+    }
+
+    public function clearActivateMessageBroker()
+    {
+        unset($this->activate_message_broker);
     }
 
     /**
      * Should the broker be activated or not
      *
-     * Generated from protobuf field <code>bool activate_message_broker = 1;</code>
+     * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      * @param bool $var
      * @return $this
      */

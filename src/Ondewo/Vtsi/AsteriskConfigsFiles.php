@@ -17,11 +17,16 @@ use Google\Protobuf\RepeatedField;
 class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
 {
     /**
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * <pre><code>pjsip.conf</code></pre>. Field number 1 and type <pre><code>string</code></pre> are
+     * unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      *
-     * Generated from protobuf field <code>string sip_conf_file_string = 1;</code>
+     * Generated from protobuf field <code>string pjsip_conf_file_string = 1;</code>
      */
-    protected $sip_conf_file_string = '';
+    protected $pjsip_conf_file_string = '';
     /**
      * extensions.conf file as string
      *
@@ -47,8 +52,13 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type string $sip_conf_file_string
-     *           sip.conf file as string
+     *     @type string $pjsip_conf_file_string
+     *           pjsip.conf file as string.
+     *           Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
+     *           was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     *           <pre><code>pjsip.conf</code></pre>. Field number 1 and type <pre><code>string</code></pre> are
+     *           unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
+     *           wire-compatible in both directions and source-breaking only.
      *     @type string $extensions_conf_file_string
      *           extensions.conf file as string
      *     @type string $queues_conf_file_string
@@ -63,27 +73,37 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * <pre><code>pjsip.conf</code></pre>. Field number 1 and type <pre><code>string</code></pre> are
+     * unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      *
-     * Generated from protobuf field <code>string sip_conf_file_string = 1;</code>
+     * Generated from protobuf field <code>string pjsip_conf_file_string = 1;</code>
      * @return string
      */
-    public function getSipConfFileString()
+    public function getPjsipConfFileString()
     {
-        return $this->sip_conf_file_string;
+        return $this->pjsip_conf_file_string;
     }
 
     /**
-     * sip.conf file as string
+     * pjsip.conf file as string.
+     * Renamed from <pre><code>sip_conf_file_string</code></pre> in 9.0.0: the chan_sip driver this field
+     * was named after was removed in Asterisk 21, and the file an Asterisk 22 server reads is
+     * <pre><code>pjsip.conf</code></pre>. Field number 1 and type <pre><code>string</code></pre> are
+     * unchanged and no <pre><code>json_name</code></pre> override was added, so the change is binary
+     * wire-compatible in both directions and source-breaking only.
      *
-     * Generated from protobuf field <code>string sip_conf_file_string = 1;</code>
+     * Generated from protobuf field <code>string pjsip_conf_file_string = 1;</code>
      * @param string $var
      * @return $this
      */
-    public function setSipConfFileString($var)
+    public function setPjsipConfFileString($var)
     {
         GPBUtil::checkString($var, True);
-        $this->sip_conf_file_string = $var;
+        $this->pjsip_conf_file_string = $var;
 
         return $this;
     }

@@ -29,7 +29,10 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      */
     protected $port = 0;
     /**
-     * Optional: GRPC cert for the given service
+     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
+     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
+     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
+     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      */
@@ -46,7 +49,10 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      *     @type int $port
      *           service port
      *     @type string $grpc_cert
-     *           Optional: GRPC cert for the given service
+     *           PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
+     *           escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
+     *           server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
+     *           refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
      * }
      */
     public function __construct($data = NULL) {
@@ -107,7 +113,10 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: GRPC cert for the given service
+     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
+     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
+     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
+     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      * @return string
@@ -118,7 +127,10 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: GRPC cert for the given service
+     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
+     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
+     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
+     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      * @param string $var

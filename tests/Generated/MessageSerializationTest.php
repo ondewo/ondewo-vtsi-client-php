@@ -10,7 +10,9 @@ use Ondewo\Nlu\AgentStatus;
 use Ondewo\Nlu\AgentView;
 use Ondewo\Nlu\ListAgentsRequest;
 use Ondewo\Nlu\RagUpdateDatasetRequest;
+use Ondewo\Vtsi\AsteriskConfigsFiles;
 use Ondewo\Vtsi\CallLogEntry;
+use Ondewo\Vtsi\MessageBrokerServicesActivationConfig;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
@@ -99,6 +101,40 @@ final class MessageSerializationTest extends TestCase
         $reparsed = new RagUpdateDatasetRequest();
         $reparsed->mergeFromString($untouched->serializeToString());
         self::assertFalse($reparsed->hasDescription());
+    }
+
+    /**
+     * ondewo-vtsi-api 9.0.0 gave eleven `calls.proto` scalars explicit presence; an explicitly
+     * sent `false` must now reach the wire and be told apart from "not set".
+     */
+    public function testAScalarThatGainedPresenceIn9KeepsAnExplicitFalse(): void
+    {
+        $config = new MessageBrokerServicesActivationConfig();
+        $config->setActivateS2T(false);
+        self::assertTrue($config->hasActivateS2T());
+
+        $parsed = new MessageBrokerServicesActivationConfig();
+        $parsed->mergeFromString($config->serializeToString());
+        self::assertTrue($parsed->hasActivateS2T(), 'an explicitly set false was dropped on the wire');
+        self::assertFalse($parsed->getActivateS2T());
+
+        self::assertFalse((new MessageBrokerServicesActivationConfig())->hasActivateS2T());
+    }
+
+    /**
+     * ondewo-vtsi-api 9.0.0 renamed `sip_conf_file_string` (field 1) to `pjsip_conf_file_string`.
+     */
+    public function testThePjsipConfFileFieldReplacesTheSipConfFileField(): void
+    {
+        self::assertFalse(method_exists(AsteriskConfigsFiles::class, 'getSipConfFileString'));
+
+        $files = new AsteriskConfigsFiles();
+        $files->setPjsipConfFileString('[transport-tls]');
+
+        $parsed = new AsteriskConfigsFiles();
+        $parsed->mergeFromJsonString($files->serializeToJsonString());
+        self::assertSame('[transport-tls]', $parsed->getPjsipConfFileString());
+        self::assertStringContainsString('"pjsipConfFileString"', $files->serializeToJsonString());
     }
 
     public function testAMessageSurvivesAJsonRoundTrip(): void

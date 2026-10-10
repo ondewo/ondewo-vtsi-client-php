@@ -52,6 +52,78 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string sip_trunk_phone_number = 6;</code>
      */
     protected $sip_trunk_phone_number = '';
+    /**
+     * OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
+     * == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     */
+    protected $sip_trunk_transport = 0;
+    /**
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
+     * REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
+     * <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>: Asterisk drops a
+     * <pre><code>type=identify</code></pre> section whose <pre><code>match=</code></pre> does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_source_cidr = 8;</code>
+     */
+    protected $sip_trunk_source_cidr = null;
+    /**
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when <pre><code>sip_trunk_verify_server</code></pre> is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while <pre><code>sip_trunk_transport</code></pre>
+     * is <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>
+     * is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     */
+    protected $sip_trunk_ca_certificates_pem = null;
+    /**
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
+     * <pre><code>sip_trunk_host</code></pre> (<pre><code>verify_server=yes</code></pre>), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or
+     * <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
+     *
+     * Generated from protobuf field <code>optional bool sip_trunk_verify_server = 10;</code>
+     */
+    protected $sip_trunk_verify_server = null;
+    /**
+     * Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
+     * <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
+     * allow-list of the project&apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&apos;s <code>ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS</code>, by default the
+     * private networks (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>,
+     * <code>fc00::/7</code>). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (<code>0.0.0.0/0</code>), entries that together cover a whole address family and shorthand
+     * spellings are refused with <code>INVALID_ARGUMENT</code>. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * <code>sip_trunk_source_cidr</code> or authenticated by its registration); VTSI&apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of <code>asterisk_configs</code>.
+     *
+     * Generated from protobuf field <code>repeated string softphone_permit_cidrs = 11;</code>
+     */
+    private $softphone_permit_cidrs;
 
     /**
      * Constructor.
@@ -71,6 +143,58 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      *           Transfer number host.
      *     @type string $sip_trunk_phone_number
      *           SIP trunk phone number / caller id.
+     *     @type int $sip_trunk_transport
+     *           OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
+     *           == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
+     *           nothing gets an encrypted trunk.
+     *     @type string $sip_trunk_source_cidr
+     *           OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
+     *           REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
+     *           <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
+     *           where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     *           otherwise. A hostname is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>: Asterisk drops a
+     *           <pre><code>type=identify</code></pre> section whose <pre><code>match=</code></pre> does not resolve,
+     *           and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     *           inbound call.
+     *     @type string $sip_trunk_ca_certificates_pem
+     *           OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     *           or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
+     *           Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     *           certificate chain and host name only when <pre><code>sip_trunk_verify_server</code></pre> is also
+     *           true. With verification off the bundle is validated and stored, so it can be staged before
+     *           verification is switched on, and the trunk behaves exactly as without it.
+     *           Applies only to the TLS trunk transport: setting it while <pre><code>sip_trunk_transport</code></pre>
+     *           is <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>
+     *           is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>, as is a bundle that is not PEM, contains a
+     *           private key or any block other than a certificate, contains a certificate that is not a CA
+     *           (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     *           This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     *     @type bool $sip_trunk_verify_server
+     *           OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     *           When true, Asterisk verifies the carrier's certificate chain against
+     *           <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
+     *           <pre><code>sip_trunk_host</code></pre> (<pre><code>verify_server=yes</code></pre>), and refuses a
+     *           carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     *           <pre><code>INVALID_ARGUMENT</code></pre>, because the verification it asks for cannot happen.
+     *           false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     *           Applies only to the TLS trunk transport: true on a <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or
+     *           <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
+     *           <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
+     *     @type string[] $softphone_permit_cidrs
+     *           Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     *           written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
+     *           <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
+     *           allow-list of the project&apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     *           BOTH TLS ports, because an account&apos;s ACL cannot tell ports apart and its transport restricts nothing
+     *           inbound. Empty: the server&apos;s <code>ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS</code>, by default the
+     *           private networks (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>,
+     *           <code>fc00::/7</code>). That server value is a CEILING: every entry here must lie inside it, so a project can
+     *           only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     *           default route (<code>0.0.0.0/0</code>), entries that together cover a whole address family and shorthand
+     *           spellings are refused with <code>INVALID_ARGUMENT</code>. The list is only effective when the port sees the real
+     *           client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     *           <code>sip_trunk_source_cidr</code> or authenticated by its registration); VTSI&apos;s own call containers are
+     *           scoped separately by the server. Updatable with the rest of <code>asterisk_configs</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -230,6 +354,250 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->sip_trunk_phone_number = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
+     * == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @return int
+     */
+    public function getSipTrunkTransport()
+    {
+        return $this->sip_trunk_transport;
+    }
+
+    /**
+     * OPTIONAL: transport for the SIP trunk. Unset == <pre><code>SIP_TRUNK_TRANSPORT_UNSPECIFIED</code></pre>
+     * == <pre><code>SIP_TRUNK_TRANSPORT_TLS</code></pre>: encryption is the default, so a caller that says
+     * nothing gets an encrypted trunk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSipTrunkTransport($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\SipTrunkTransport::class);
+        $this->sip_trunk_transport = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
+     * REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
+     * <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>: Asterisk drops a
+     * <pre><code>type=identify</code></pre> section whose <pre><code>match=</code></pre> does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @return string
+     */
+    public function getSipTrunkSourceCidr()
+    {
+        return isset($this->sip_trunk_source_cidr) ? $this->sip_trunk_source_cidr : '';
+    }
+
+    public function hasSipTrunkSourceCidr()
+    {
+        return isset($this->sip_trunk_source_cidr);
+    }
+
+    public function clearSipTrunkSourceCidr()
+    {
+        unset($this->sip_trunk_source_cidr);
+    }
+
+    /**
+     * OPTIONAL: the source address or CIDR the carrier sends from, e.g. <pre><code>203.0.113.7/32</code></pre>.
+     * REQUIRED when <pre><code>sip_trunk_transport</code></pre> is
+     * <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>,
+     * where the trunk is matched by source address rather than authenticated by a TLS certificate; ignored
+     * otherwise. A hostname is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>: Asterisk drops a
+     * <pre><code>type=identify</code></pre> section whose <pre><code>match=</code></pre> does not resolve,
+     * and it does so silently, so an unresolvable name would read as a working trunk that never matches an
+     * inbound call.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_source_cidr = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setSipTrunkSourceCidr($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->sip_trunk_source_cidr = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when <pre><code>sip_trunk_verify_server</code></pre> is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while <pre><code>sip_trunk_transport</code></pre>
+     * is <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>
+     * is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @return string
+     */
+    public function getSipTrunkCaCertificatesPem()
+    {
+        return isset($this->sip_trunk_ca_certificates_pem) ? $this->sip_trunk_ca_certificates_pem : '';
+    }
+
+    public function hasSipTrunkCaCertificatesPem()
+    {
+        return isset($this->sip_trunk_ca_certificates_pem);
+    }
+
+    public function clearSipTrunkCaCertificatesPem()
+    {
+        unset($this->sip_trunk_ca_certificates_pem);
+    }
+
+    /**
+     * OPTIONAL: the PEM bundle of the CA certificate(s) the carrier's TLS certificate chains to, i.e. one
+     * or more <pre><code>-----BEGIN CERTIFICATE-----</code></pre> blocks and nothing else.
+     * Storing a bundle does NOT by itself turn verification on: Asterisk verifies the carrier's
+     * certificate chain and host name only when <pre><code>sip_trunk_verify_server</code></pre> is also
+     * true. With verification off the bundle is validated and stored, so it can be staged before
+     * verification is switched on, and the trunk behaves exactly as without it.
+     * Applies only to the TLS trunk transport: setting it while <pre><code>sip_trunk_transport</code></pre>
+     * is <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre>
+     * is REFUSED with <pre><code>INVALID_ARGUMENT</code></pre>, as is a bundle that is not PEM, contains a
+     * private key or any block other than a certificate, contains a certificate that is not a CA
+     * (basicConstraints CA=true) or has expired, or exceeds the server's count and size limits.
+     * This is PUBLIC data, not a secret: it is returned by Get and List like every other field here.
+     *
+     * Generated from protobuf field <code>optional string sip_trunk_ca_certificates_pem = 9;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setSipTrunkCaCertificatesPem($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->sip_trunk_ca_certificates_pem = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
+     * <pre><code>sip_trunk_host</code></pre> (<pre><code>verify_server=yes</code></pre>), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or
+     * <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
+     *
+     * Generated from protobuf field <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @return bool
+     */
+    public function getSipTrunkVerifyServer()
+    {
+        return isset($this->sip_trunk_verify_server) ? $this->sip_trunk_verify_server : false;
+    }
+
+    public function hasSipTrunkVerifyServer()
+    {
+        return isset($this->sip_trunk_verify_server);
+    }
+
+    public function clearSipTrunkVerifyServer()
+    {
+        unset($this->sip_trunk_verify_server);
+    }
+
+    /**
+     * OPTIONAL: verify the carrier's TLS certificate. Default false (unset == false).
+     * When true, Asterisk verifies the carrier's certificate chain against
+     * <pre><code>sip_trunk_ca_certificates_pem</code></pre> and its host name against
+     * <pre><code>sip_trunk_host</code></pre> (<pre><code>verify_server=yes</code></pre>), and refuses a
+     * carrier that fails either check. true WITHOUT a CA bundle is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>, because the verification it asks for cannot happen.
+     * false or unset: the carrier's certificate is NOT verified, whether or not a bundle is stored.
+     * Applies only to the TLS trunk transport: true on a <pre><code>SIP_TRUNK_TRANSPORT_UDP</code></pre> or
+     * <pre><code>SIP_TRUNK_TRANSPORT_TCP</code></pre> trunk is REFUSED with
+     * <pre><code>INVALID_ARGUMENT</code></pre>; false there is accepted and changes nothing.
+     *
+     * Generated from protobuf field <code>optional bool sip_trunk_verify_server = 10;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setSipTrunkVerifyServer($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->sip_trunk_verify_server = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
+     * <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
+     * allow-list of the project&apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&apos;s <code>ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS</code>, by default the
+     * private networks (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>,
+     * <code>fc00::/7</code>). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (<code>0.0.0.0/0</code>), entries that together cover a whole address family and shorthand
+     * spellings are refused with <code>INVALID_ARGUMENT</code>. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * <code>sip_trunk_source_cidr</code> or authenticated by its registration); VTSI&apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of <code>asterisk_configs</code>.
+     *
+     * Generated from protobuf field <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @return RepeatedField<string>
+     */
+    public function getSoftphonePermitCidrs()
+    {
+        return $this->softphone_permit_cidrs;
+    }
+
+    /**
+     * Optional: Source addresses that may reach this project&apos;s SOFTPHONE accounts, as IPv4/IPv6 CIDR networks
+     * written in full with an explicit prefix length (e.g. <code>203.0.113.0/24</code>). Every softphone account gets
+     * <code>deny</code> for every IPv4 and IPv6 source plus one <code>permit</code> per entry. This is the source
+     * allow-list of the project&apos;s EXTERNAL TLS port for softphones; it applies to every softphone account on
+     * BOTH TLS ports, because an account&apos;s ACL cannot tell ports apart and its transport restricts nothing
+     * inbound. Empty: the server&apos;s <code>ONDEWO_VTSI_ASTERISK_SOFTPHONE_PERMIT_CIDRS</code>, by default the
+     * private networks (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>,
+     * <code>fc00::/7</code>). That server value is a CEILING: every entry here must lie inside it, so a project can
+     * only narrow the list; only the operator can open the port to every source. Entries outside the ceiling, a
+     * default route (<code>0.0.0.0/0</code>), entries that together cover a whole address family and shorthand
+     * spellings are refused with <code>INVALID_ARGUMENT</code>. The list is only effective when the port sees the real
+     * client addresses (no SNAT or proxy in front of it). The carrier trunk is not affected (it is matched by
+     * <code>sip_trunk_source_cidr</code> or authenticated by its registration); VTSI&apos;s own call containers are
+     * scoped separately by the server. Updatable with the rest of <code>asterisk_configs</code>.
+     *
+     * Generated from protobuf field <code>repeated string softphone_permit_cidrs = 11;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setSoftphonePermitCidrs($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->softphone_permit_cidrs = $arr;
 
         return $this;
     }

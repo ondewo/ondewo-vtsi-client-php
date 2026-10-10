@@ -42,6 +42,33 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string error_message = 4;</code>
      */
     protected $error_message = '';
+    /**
+     * Outcome of the transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
+     */
+    protected $outcome = 0;
+    /**
+     * The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
+     * <code>ondewoqueue</code> or the E.164 number
+     *
+     * Generated from protobuf field <code>string resolved_target = 6;</code>
+     */
+    protected $resolved_target = '';
+    /**
+     * SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
+     * <code>0</code>
+     *
+     * Generated from protobuf field <code>int32 sip_response_code = 7;</code>
+     */
+    protected $sip_response_code = 0;
+    /**
+     * Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
+     * <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
+     *
+     * Generated from protobuf field <code>string error_reason = 8;</code>
+     */
+    protected $error_reason = '';
 
     /**
      * Constructor.
@@ -59,6 +86,17 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      *           transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too
      *     @type string $error_message
      *           error message if you have any so if it's unhealthy
+     *     @type int $outcome
+     *           Outcome of the transfer
+     *     @type string $resolved_target
+     *           The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
+     *           <code>ondewoqueue</code> or the E.164 number
+     *     @type int $sip_response_code
+     *           SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
+     *           <code>0</code>
+     *     @type string $error_reason
+     *           Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
+     *           <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
      * }
      */
     public function __construct($data = NULL) {
@@ -170,6 +208,116 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->error_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Outcome of the transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
+     * @return int
+     */
+    public function getOutcome()
+    {
+        return $this->outcome;
+    }
+
+    /**
+     * Outcome of the transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setOutcome($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferOutcome::class);
+        $this->outcome = $var;
+
+        return $this;
+    }
+
+    /**
+     * The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
+     * <code>ondewoqueue</code> or the E.164 number
+     *
+     * Generated from protobuf field <code>string resolved_target = 6;</code>
+     * @return string
+     */
+    public function getResolvedTarget()
+    {
+        return $this->resolved_target;
+    }
+
+    /**
+     * The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
+     * <code>ondewoqueue</code> or the E.164 number
+     *
+     * Generated from protobuf field <code>string resolved_target = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setResolvedTarget($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->resolved_target = $var;
+
+        return $this;
+    }
+
+    /**
+     * SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
+     * <code>0</code>
+     *
+     * Generated from protobuf field <code>int32 sip_response_code = 7;</code>
+     * @return int
+     */
+    public function getSipResponseCode()
+    {
+        return $this->sip_response_code;
+    }
+
+    /**
+     * SIP response code of the REFER where known (<code>202</code> accepted, the refusal code otherwise), else
+     * <code>0</code>
+     *
+     * Generated from protobuf field <code>int32 sip_response_code = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSipResponseCode($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->sip_response_code = $var;
+
+        return $this;
+    }
+
+    /**
+     * Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
+     * <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
+     *
+     * Generated from protobuf field <code>string error_reason = 8;</code>
+     * @return string
+     */
+    public function getErrorReason()
+    {
+        return $this->error_reason;
+    }
+
+    /**
+     * Stable reason token of a refusal or failure, e.g. <code>target-not-registered</code>, <code>listener-busy</code>,
+     * <code>queue-empty</code>, <code>self-transfer</code>, <code>number-not-allowed</code>; empty on success
+     *
+     * Generated from protobuf field <code>string error_reason = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setErrorReason($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->error_reason = $var;
 
         return $this;
     }

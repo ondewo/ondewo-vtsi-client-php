@@ -28,6 +28,20 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      */
     private $caller_requests;
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+     * deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+     * of running the request a second time, whichever server replica it reaches, for as long as the server
+     * retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+     * key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+     * first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+     * that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+     * no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+     * make a single caller or listener idempotent, send it as a batch of one.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     */
+    protected $idempotency_key = '';
 
     /**
      * Constructor.
@@ -39,6 +53,16 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartCallerRequest[] $caller_requests
      *           Callers that should be started
+     *     @type string $idempotency_key
+     *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+     *           deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+     *           of running the request a second time, whichever server replica it reaches, for as long as the server
+     *           retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+     *           key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+     *           first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+     *           that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+     *           no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+     *           make a single caller or listener idempotent, send it as a batch of one.
      * }
      */
     public function __construct($data = NULL) {
@@ -94,6 +118,48 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\StartCallerRequest::class);
         $this->caller_requests = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+     * deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+     * of running the request a second time, whichever server replica it reaches, for as long as the server
+     * retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+     * key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+     * first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+     * that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+     * no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+     * make a single caller or listener idempotent, send it as a batch of one.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     * @return string
+     */
+    public function getIdempotencyKey()
+    {
+        return $this->idempotency_key;
+    }
+
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
+     * deduplication. A retry carrying the same key returns the response of the first successful attempt instead
+     * of running the request a second time, whichever server replica it reaches, for as long as the server
+     * retains the key (24 hours by default). The key is scoped to the VTSI project and to this RPC. Reusing a
+     * key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that arrives while the
+     * first attempt is still running is answered <code>ABORTED</code> and may be retried later. A first attempt
+     * that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
+     * no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
+     * make a single caller or listener idempotent, send it as a batch of one.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIdempotencyKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->idempotency_key = $var;
 
         return $this;
     }

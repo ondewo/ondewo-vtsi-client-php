@@ -115,6 +115,18 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int32 deployed_listeners = 16;</code>
      */
     protected $deployed_listeners = 0;
+    /**
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
+     * number or number prefix (<pre><code>^\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
+     * <pre><code>+4312345678</code></pre>; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
+     * <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
+     * Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
+     *
+     * Generated from protobuf field <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     */
+    private $transfer_phone_number_allowlist;
 
     /**
      * Constructor.
@@ -157,6 +169,14 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      *           The number of deployed callers in this project.
      *     @type int $deployed_listeners
      *           The number of deployed listeners in this project.
+     *     @type string[] $transfer_phone_number_allowlist
+     *           OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     *           <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
+     *           number or number prefix (<pre><code>^\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
+     *           <pre><code>+4312345678</code></pre>; a number is allowed when it starts with any entry. Empty: any valid E.164
+     *           number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
+     *           <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
+     *           Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
      * }
      */
     public function __construct($data = NULL) {
@@ -612,6 +632,44 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->deployed_listeners = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
+     * number or number prefix (<pre><code>^\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
+     * <pre><code>+4312345678</code></pre>; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
+     * <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
+     * Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
+     *
+     * Generated from protobuf field <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @return RepeatedField<string>
+     */
+    public function getTransferPhoneNumberAllowlist()
+    {
+        return $this->transfer_phone_number_allowlist;
+    }
+
+    /**
+     * OPTIONAL: Restricts the phone numbers a call of this project may be transferred to with
+     * <pre><code>TransferCall</code></pre> and a <pre><code>CallTarget.phone_number</code></pre>. Each entry is an E.164
+     * number or number prefix (<pre><code>^\+[1-9][0-9]{0,14}$</code></pre>), e.g. <pre><code>+43</code></pre> or
+     * <pre><code>+4312345678</code></pre>; a number is allowed when it starts with any entry. Empty: any valid E.164
+     * number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
+     * <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
+     * Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
+     *
+     * Generated from protobuf field <code>repeated string transfer_phone_number_allowlist = 17;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setTransferPhoneNumberAllowlist($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->transfer_phone_number_allowlist = $arr;
 
         return $this;
     }

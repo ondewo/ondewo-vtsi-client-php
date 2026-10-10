@@ -66,9 +66,9 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     /**
      * Transcribe caller speech while the bot is speaking even if interruptions are disabled
      *
-     * Generated from protobuf field <code>bool transcribe_on_disabled_interruptions = 8;</code>
+     * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      */
-    protected $transcribe_on_disabled_interruptions = false;
+    protected $transcribe_on_disabled_interruptions = null;
 
     /**
      * Constructor.
@@ -369,18 +369,28 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     /**
      * Transcribe caller speech while the bot is speaking even if interruptions are disabled
      *
-     * Generated from protobuf field <code>bool transcribe_on_disabled_interruptions = 8;</code>
+     * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      * @return bool
      */
     public function getTranscribeOnDisabledInterruptions()
     {
-        return $this->transcribe_on_disabled_interruptions;
+        return isset($this->transcribe_on_disabled_interruptions) ? $this->transcribe_on_disabled_interruptions : false;
+    }
+
+    public function hasTranscribeOnDisabledInterruptions()
+    {
+        return isset($this->transcribe_on_disabled_interruptions);
+    }
+
+    public function clearTranscribeOnDisabledInterruptions()
+    {
+        unset($this->transcribe_on_disabled_interruptions);
     }
 
     /**
      * Transcribe caller speech while the bot is speaking even if interruptions are disabled
      *
-     * Generated from protobuf field <code>bool transcribe_on_disabled_interruptions = 8;</code>
+     * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      * @param bool $var
      * @return $this
      */

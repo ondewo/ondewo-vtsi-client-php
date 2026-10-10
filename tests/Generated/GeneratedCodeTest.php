@@ -34,8 +34,11 @@ final class GeneratedCodeTest extends TestCase
      */
     private const EXPECTED_SERVICE_CLIENTS = [
         \Ondewo\Vtsi\CallsClient::class,
+        \Ondewo\Vtsi\CampaignsClient::class,
+        \Ondewo\Vtsi\EventsClient::class,
         \Ondewo\Vtsi\LogsClient::class,
         \Ondewo\Vtsi\ProjectsClient::class,
+        \Ondewo\Vtsi\SoftphonesClient::class,
         \Ondewo\Nlu\AgentsClient::class,
         \Ondewo\Nlu\AiServicesClient::class,
         \Ondewo\Nlu\CcaiProjectsClient::class,
