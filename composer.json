@@ -2,7 +2,13 @@
   "name": "ondewo/vtsi-client-php",
   "description": "ONDEWO VTSI (Virtual Telephony Server Interface) gRPC client for PHP, generated from the ondewo-vtsi-api protocol buffer definitions",
   "type": "library",
-  "keywords": ["ondewo", "vtsi", "grpc", "protobuf", "client"],
+  "keywords": [
+    "ondewo",
+    "vtsi",
+    "grpc",
+    "protobuf",
+    "client"
+  ],
   "homepage": "https://github.com/ondewo/ondewo-vtsi-client-php",
   "license": "Apache-2.0",
   "authors": [
@@ -26,7 +32,10 @@
     "psr/log": "To receive ClientConfig's insecure-channel warning on a PSR-3 logger instead of error_log()"
   },
   "autoload": {
-    "classmap": ["src/"],
+    "classmap": [
+      "auth/",
+      "src/"
+    ],
     "psr-4": {
       "Ondewo\\Vtsi\\Auth\\": "auth/"
     }
