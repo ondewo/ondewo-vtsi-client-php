@@ -10,20 +10,23 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents a request to stop a specific listener.
+ * Response to stopping a listener, and one entry of <code>StopListenersResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopListenerResponse</code>
  */
 class StopListenerResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The name of the stop listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The name of the stopped listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
     /**
-     * error message if there are any.
+     * Empty on success. <code>StopListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>StopListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>StopListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -36,9 +39,12 @@ class StopListenerResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
-     *           The name of the stop listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *           The name of the stopped listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *     @type string $error_message
-     *           error message if there are any.
+     *           Empty on success. <code>StopListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     *           entry of <code>StopListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     *           status code <code>StopListener</code> would have answered, e.g.
+     *           <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +53,7 @@ class StopListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of the stop listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The name of the stopped listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -58,7 +64,7 @@ class StopListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of the stop listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The name of the stopped listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -73,7 +79,10 @@ class StopListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Empty on success. <code>StopListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>StopListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>StopListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +93,10 @@ class StopListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Empty on success. <code>StopListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>StopListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>StopListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

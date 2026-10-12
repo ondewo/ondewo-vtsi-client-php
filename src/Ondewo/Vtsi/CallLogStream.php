@@ -44,13 +44,17 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      */
     protected $channel = 0;
     /**
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also <code>vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string project_id = 5;</code>
      */
     protected $project_id = '';
     /**
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>,
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre> or
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>.
+     * Empty for a container that serves none (e.g. the project&apos;s Asterisk).
      *
      * Generated from protobuf field <code>string voip_call_name = 6;</code>
      */
@@ -150,6 +154,14 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int64 dropped_line_count = 21;</code>
      */
     protected $dropped_line_count = 0;
+    /**
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * <code>project_id</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 22;</code>
+     */
+    protected $vtsi_project_name = '';
 
     /**
      * Constructor.
@@ -167,9 +179,13 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      *     @type int $channel
      *           The docker channel this stream captures.
      *     @type string $project_id
-     *           Uuid of the VTSI project owning the container.
+     *           Uuid of the VTSI project owning the container. See also <code>vtsi_project_name</code>.
      *     @type string $voip_call_name
-     *           Resource name of the caller or listener the container serves.
+     *           Resource name of the caller, listener or scheduled caller the container serves:
+     *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>,
+     *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre> or
+     *           <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>.
+     *           Empty for a container that serves none (e.g. the project&apos;s Asterisk).
      *     @type int $call_type
      *           Whether the container serves a caller or a listener.
      *     @type string $sip_account
@@ -205,6 +221,10 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      *           How many physical log lines were deliberately not stored, summed over every reason: the ingest
      *           severity floor, the emitter denylist, the conversation-content denylist, an oversized line, and
      *           retention. A non-zero value is why a stream can be thinner than the container&apos;s own log.
+     *     @type string $vtsi_project_name
+     *           Resource name of the VTSI project owning the container, the resource-name form of
+     *           <code>project_id</code>.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      * }
      */
     public function __construct($data = NULL) {
@@ -319,7 +339,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also <code>vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string project_id = 5;</code>
      * @return string
@@ -330,7 +350,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Uuid of the VTSI project owning the container.
+     * Uuid of the VTSI project owning the container. See also <code>vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string project_id = 5;</code>
      * @param string $var
@@ -345,7 +365,11 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>,
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre> or
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>.
+     * Empty for a container that serves none (e.g. the project&apos;s Asterisk).
      *
      * Generated from protobuf field <code>string voip_call_name = 6;</code>
      * @return string
@@ -356,7 +380,11 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Resource name of the caller or listener the container serves.
+     * Resource name of the caller, listener or scheduled caller the container serves:
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>,
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre> or
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>.
+     * Empty for a container that serves none (e.g. the project&apos;s Asterisk).
      *
      * Generated from protobuf field <code>string voip_call_name = 6;</code>
      * @param string $var
@@ -786,6 +814,36 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt64($var);
         $this->dropped_line_count = $var;
+
+        return $this;
+    }
+
+    /**
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * <code>project_id</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 22;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * Resource name of the VTSI project owning the container, the resource-name form of
+     * <code>project_id</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 22;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
 
         return $this;
     }

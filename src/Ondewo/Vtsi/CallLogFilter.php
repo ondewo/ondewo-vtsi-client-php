@@ -83,21 +83,28 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      */
     private $sip_accounts;
     /**
-     * SIP ports of the per-call container.
+     * Deprecated: use <code>sip_port_numbers</code>. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with <code>sip_port_numbers</code> by OR.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 11;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 11 [deprecated = true];</code>
+     * @deprecated
      */
     private $sip_ports;
     /**
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use <code>csi_port_numbers</code>. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 12;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 12 [deprecated = true];</code>
+     * @deprecated
      */
     private $csi_ports;
     /**
-     * Asterisk ports of the project.
+     * Deprecated: use <code>asterisk_port_numbers</code>. Asterisk ports of the project, as decimal
+     * strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string asterisk_ports = 13;</code>
+     * Generated from protobuf field <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
+     * @deprecated
      */
     private $asterisk_ports;
     /**
@@ -205,17 +212,41 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      */
     private $thread_names;
     /**
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 30;</code>
      */
     protected $start_time = null;
     /**
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * <code>start_time</code> after <code>end_time</code> is rejected with <code>INVALID_ARGUMENT</code>
+     * (equal instants select the entries of exactly that instant).
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 31;</code>
      */
     protected $end_time = null;
+    /**
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * <code>sip_ports</code>, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 32;</code>
+     */
+    private $sip_port_numbers;
+    /**
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * <code>sip_port_numbers</code>; combined with the deprecated <code>csi_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 33;</code>
+     */
+    private $csi_port_numbers;
+    /**
+     * Asterisk ports of the project (1..65535). Identity filter, like <code>sip_port_numbers</code>;
+     * combined with the deprecated <code>asterisk_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 asterisk_port_numbers = 34;</code>
+     */
+    private $asterisk_port_numbers;
 
     /**
      * Constructor.
@@ -246,11 +277,15 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      *     @type string[] $sip_accounts
      *           Asterisk SIP account names, for example <code>sut\@asterisk.local</code>.
      *     @type string[] $sip_ports
-     *           SIP ports of the per-call container.
+     *           Deprecated: use <code>sip_port_numbers</code>. SIP ports of the per-call container, as decimal
+     *           strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     *           parses the filter matches nothing. Combined with <code>sip_port_numbers</code> by OR.
      *     @type string[] $csi_ports
-     *           ONDEWO CSI ports of the per-call container.
+     *           Deprecated: use <code>csi_port_numbers</code>. ONDEWO CSI ports of the per-call container, as
+     *           decimal strings, parsed like <code>sip_ports</code>.
      *     @type string[] $asterisk_ports
-     *           Asterisk ports of the project.
+     *           Deprecated: use <code>asterisk_port_numbers</code>. Asterisk ports of the project, as decimal
+     *           strings, parsed like <code>sip_ports</code>.
      *     @type string[] $phone_numbers
      *           Phone numbers of the calls of interest.
      *     @type string[] $callee_ids
@@ -292,9 +327,21 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      *     @type string[] $thread_names
      *           Restrict to entries emitted by these threads.
      *     @type \Google\Protobuf\Timestamp $start_time
-     *           Only return entries at or after this instant.
+     *           Only return entries at or after this instant. A zero timestamp counts as unset.
      *     @type \Google\Protobuf\Timestamp $end_time
-     *           Only return entries at or before this instant.
+     *           Only return entries at or before this instant. A zero timestamp counts as unset. A
+     *           <code>start_time</code> after <code>end_time</code> is rejected with <code>INVALID_ARGUMENT</code>
+     *           (equal instants select the entries of exactly that instant).
+     *     @type int[] $sip_port_numbers
+     *           SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     *           <code>sip_ports</code>, with which it is combined by OR. A value outside 1..65535 is rejected with
+     *           <code>INVALID_ARGUMENT</code>.
+     *     @type int[] $csi_port_numbers
+     *           ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     *           <code>sip_port_numbers</code>; combined with the deprecated <code>csi_ports</code> by OR.
+     *     @type int[] $asterisk_port_numbers
+     *           Asterisk ports of the project (1..65535). Identity filter, like <code>sip_port_numbers</code>;
+     *           combined with the deprecated <code>asterisk_ports</code> by OR.
      * }
      */
     public function __construct($data = NULL) {
@@ -567,78 +614,110 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP ports of the per-call container.
+     * Deprecated: use <code>sip_port_numbers</code>. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with <code>sip_port_numbers</code> by OR.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 11;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 11 [deprecated = true];</code>
      * @return RepeatedField<string>
+     * @deprecated
      */
     public function getSipPorts()
     {
+        if (count($this->sip_ports) !== 0) {
+            @trigger_error('sip_ports is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->sip_ports;
     }
 
     /**
-     * SIP ports of the per-call container.
+     * Deprecated: use <code>sip_port_numbers</code>. SIP ports of the per-call container, as decimal
+     * strings. A value that is not a decimal integer is ignored (logged by the server); when no value
+     * parses the filter matches nothing. Combined with <code>sip_port_numbers</code> by OR.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 11;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 11 [deprecated = true];</code>
      * @param string[] $var
      * @return $this
+     * @deprecated
      */
     public function setSipPorts($var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        if (count($arr) !== 0) {
+            @trigger_error('sip_ports is deprecated.', E_USER_DEPRECATED);
+        }
         $this->sip_ports = $arr;
 
         return $this;
     }
 
     /**
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use <code>csi_port_numbers</code>. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 12;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 12 [deprecated = true];</code>
      * @return RepeatedField<string>
+     * @deprecated
      */
     public function getCsiPorts()
     {
+        if (count($this->csi_ports) !== 0) {
+            @trigger_error('csi_ports is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->csi_ports;
     }
 
     /**
-     * ONDEWO CSI ports of the per-call container.
+     * Deprecated: use <code>csi_port_numbers</code>. ONDEWO CSI ports of the per-call container, as
+     * decimal strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 12;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 12 [deprecated = true];</code>
      * @param string[] $var
      * @return $this
+     * @deprecated
      */
     public function setCsiPorts($var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        if (count($arr) !== 0) {
+            @trigger_error('csi_ports is deprecated.', E_USER_DEPRECATED);
+        }
         $this->csi_ports = $arr;
 
         return $this;
     }
 
     /**
-     * Asterisk ports of the project.
+     * Deprecated: use <code>asterisk_port_numbers</code>. Asterisk ports of the project, as decimal
+     * strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string asterisk_ports = 13;</code>
+     * Generated from protobuf field <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
      * @return RepeatedField<string>
+     * @deprecated
      */
     public function getAsteriskPorts()
     {
+        if (count($this->asterisk_ports) !== 0) {
+            @trigger_error('asterisk_ports is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->asterisk_ports;
     }
 
     /**
-     * Asterisk ports of the project.
+     * Deprecated: use <code>asterisk_port_numbers</code>. Asterisk ports of the project, as decimal
+     * strings, parsed like <code>sip_ports</code>.
      *
-     * Generated from protobuf field <code>repeated string asterisk_ports = 13;</code>
+     * Generated from protobuf field <code>repeated string asterisk_ports = 13 [deprecated = true];</code>
      * @param string[] $var
      * @return $this
+     * @deprecated
      */
     public function setAsteriskPorts($var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        if (count($arr) !== 0) {
+            @trigger_error('asterisk_ports is deprecated.', E_USER_DEPRECATED);
+        }
         $this->asterisk_ports = $arr;
 
         return $this;
@@ -1107,7 +1186,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 30;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -1128,7 +1207,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only return entries at or after this instant.
+     * Only return entries at or after this instant. A zero timestamp counts as unset.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 30;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -1143,7 +1222,9 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * <code>start_time</code> after <code>end_time</code> is rejected with <code>INVALID_ARGUMENT</code>
+     * (equal instants select the entries of exactly that instant).
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 31;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -1164,7 +1245,9 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only return entries at or before this instant.
+     * Only return entries at or before this instant. A zero timestamp counts as unset. A
+     * <code>start_time</code> after <code>end_time</code> is rejected with <code>INVALID_ARGUMENT</code>
+     * (equal instants select the entries of exactly that instant).
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 31;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -1174,6 +1257,92 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
+
+        return $this;
+    }
+
+    /**
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * <code>sip_ports</code>, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 32;</code>
+     * @return RepeatedField<int>
+     */
+    public function getSipPortNumbers()
+    {
+        return $this->sip_port_numbers;
+    }
+
+    /**
+     * SIP ports of the per-call container (1..65535). Identity filter; replaces the deprecated string
+     * <code>sip_ports</code>, with which it is combined by OR. A value outside 1..65535 is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 32;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setSipPortNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
+        $this->sip_port_numbers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * <code>sip_port_numbers</code>; combined with the deprecated <code>csi_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 33;</code>
+     * @return RepeatedField<int>
+     */
+    public function getCsiPortNumbers()
+    {
+        return $this->csi_port_numbers;
+    }
+
+    /**
+     * ONDEWO CSI ports of the per-call container (1..65535). Identity filter, like
+     * <code>sip_port_numbers</code>; combined with the deprecated <code>csi_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 33;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setCsiPortNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
+        $this->csi_port_numbers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Asterisk ports of the project (1..65535). Identity filter, like <code>sip_port_numbers</code>;
+     * combined with the deprecated <code>asterisk_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @return RepeatedField<int>
+     */
+    public function getAsteriskPortNumbers()
+    {
+        return $this->asterisk_port_numbers;
+    }
+
+    /**
+     * Asterisk ports of the project (1..65535). Identity filter, like <code>sip_port_numbers</code>;
+     * combined with the deprecated <code>asterisk_ports</code> by OR.
+     *
+     * Generated from protobuf field <code>repeated int32 asterisk_port_numbers = 34;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setAsteriskPortNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
+        $this->asterisk_port_numbers = $arr;
 
         return $this;
     }

@@ -18,10 +18,21 @@ class DeleteVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 {
     /**
      * Resource name of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
+    /**
+     * Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
+     * (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -31,6 +42,13 @@ class DeleteVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
      *
      *     @type string $name
      *           Resource name of the subscription.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+     *           Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
+     *           (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
+     *           returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
+     *           anything is deleted. It shapes only the response: the subscription is deleted regardless.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,6 +58,8 @@ class DeleteVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 
     /**
      * Resource name of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -51,6 +71,8 @@ class DeleteVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 
     /**
      * Resource name of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -60,6 +82,48 @@ class DeleteVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
+     * (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>DeleteVtsiEventSubscriptionResponse</code> field paths to populate
+     * (as <code>DeleteCampaignRequest.field_mask</code>). <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before
+     * anything is deleted. It shapes only the response: the subscription is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

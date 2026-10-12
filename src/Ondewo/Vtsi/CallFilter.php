@@ -10,102 +10,189 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Definition of a CallFilter, representing filters for querying calls.
+ * Narrows a set of calls of one project: the calls <code>ListCalls</code> lists, <code>GetCallStatistics</code>
+ * counts and <code>StopAllCalls</code> stops. Every field is optional; an unset field, or an empty repeated field
+ * or map, does not filter. Fields are combined with AND, the values within one repeated field with OR (except
+ * <code>caller_names</code> and <code>listener_names</code>, which are OR-ed with each other), and the entries
+ * of <code>labels</code> with AND. The project is the enclosing request&apos;s <code>vtsi_project_name</code>.
+ * An invalid value is rejected with <code>INVALID_ARGUMENT</code> naming the field, before anything is read or
+ * stopped.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallFilter</code>
  */
 class CallFilter extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Filter by call names.
+     * Optional: Filter by call names (<code>Call.name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string call_names = 1;</code>
      */
     private $call_names;
     /**
-     * Optional: Filter by NLU session names.
+     * Optional: Filter by NLU session names (<code>Call.nlu_session_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string nlu_session_names = 2;</code>
      */
     private $nlu_session_names;
     /**
-     * Optional: Filter by SIP accounts.
+     * Optional: Filter by SIP accounts (<code>Call.sip_account</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string sip_accounts = 3;</code>
      */
     private $sip_accounts;
     /**
-     * Optional: Filter by phone numbers.
+     * Optional: Filter by phone numbers (<code>Call.phone_number</code>), exact match as stored (no
+     * normalisation: <code>+43...</code> and <code>0043...</code> are different values).
      *
      * Generated from protobuf field <code>repeated string phone_numbers = 4;</code>
      */
     private $phone_numbers;
     /**
-     * Optional: Filter by container names.
+     * Optional: Filter by container names (<code>Call.container_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string container_names = 5;</code>
      */
     private $container_names;
     /**
-     * Optional: Filter by SIP ports.
+     * Deprecated: use <code>sip_port_numbers</code>. Filter by SIP ports given as decimal strings, e.g.
+     * <code>"5060"</code>; a value that is not a decimal integer is <code>INVALID_ARGUMENT</code>. Still honoured,
+     * OR-ed with <code>sip_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 6;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 6 [deprecated = true];</code>
+     * @deprecated
      */
     private $sip_ports;
     /**
-     * Optional: Filter by CSI ports.
+     * Deprecated: use <code>csi_port_numbers</code>. Filter by CSI ports given as decimal strings, with the rules of
+     * <code>sip_ports</code>. Still honoured, OR-ed with <code>csi_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 7;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 7 [deprecated = true];</code>
+     * @deprecated
      */
     private $csi_ports;
     /**
-     * Optional: Filter by call types (both by default, or only listeners, or only callers).
+     * Optional: Filter by call types (<code>Call.call_type</code>). Empty, or a list containing <code>BOTH</code>,
+     * matches every type.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallType call_types = 8;</code>
      */
     private $call_types;
     /**
-     * Optional: Filter based on SIP status types.
+     * Optional: Filter by the call&apos;s current or last SIP status type (<code>Call.sip_status_type</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
      */
     private $sip_status_types;
     /**
-     * Optional: Filter based on active or inactive calls.
+     * Optional: Only active (<code>CALL_STATUS_ACTIVE</code>) or only inactive (<code>CALL_STATUS_INACTIVE</code>)
+     * calls. Unset or <code>CALL_STATUS_UNSPECIFIED</code> does not filter.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallStatus call_status = 10;</code>
      */
     protected $call_status = null;
     /**
-     * Optional: Start time of the log.
+     * Optional: Only calls that STARTED at or after this instant: <code>Call.start_time &gt;= start_time</code>
+     * (inclusive). Calls without a start time (the waiting call of a persistent listener or pooled caller) never
+     * match while it is set. Unset, or the zero timestamp, does not filter.
+     * <p>The window is on two different instants, the start and the end of the call; it is NOT an overlap test.
+     * With both bounds set a call matches when it started at or after <code>start_time</code> AND ended at or
+     * before <code>end_time</code>, i.e. it lies entirely inside the window. To find the calls that were running
+     * at some instant, use <code>call_status</code> and the duration bounds instead.</p>
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 11;</code>
      */
     protected $start_time = null;
     /**
-     * Optional: End time of the log.
+     * Optional: Only calls that ENDED at or before this instant: <code>Call.end_time &lt;= end_time</code>
+     * (inclusive). An active call has no end time and therefore never matches while it is set. Unset, or the zero
+     * timestamp, does not filter. See <code>start_time</code> for the window semantics.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 12;</code>
      */
     protected $end_time = null;
     /**
-     * Optional: Match only sessions for which the duration in seconds is larger or equal.
+     * Optional: Match only calls whose duration in seconds is larger than or equal to this value (inclusive). The
+     * duration is <code>end_time - start_time</code>, and for an active call the time since its start, so an active
+     * call can match. <code>0</code> does not filter, so the explicit value 0 is the same as unset.
      *
      * Generated from protobuf field <code>optional float duration_in_s_min = 13;</code>
      */
     protected $duration_in_s_min = null;
     /**
-     * Optional: Match only calls for which the duration in seconds is smaller or equal.
+     * Optional: Match only calls whose duration in seconds is smaller than or equal to this value (inclusive),
+     * computed as for <code>duration_in_s_min</code>. <code>0</code> does not filter.
      *
      * Generated from protobuf field <code>optional float duration_in_s_max = 14;</code>
      */
     protected $duration_in_s_max = null;
     /**
-     * Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>
+     * Optional: Filter by the NLU message platform of the call (<code>Call.platforms</code>), e.g.
+     * <code>Platform.PLATFORM_UNSPECIFIED</code> (the default platform: text).
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 15;</code>
      */
     private $platforms;
+    /**
+     * Optional: Only calls carrying every one of these labels (<code>Call.labels</code>). An entry with an empty
+     * value matches on the presence of the key alone; otherwise the value must match exactly (case-sensitive).
+     * Keys must satisfy the key bounds of <code>Call.labels</code> and at most 64 entries are accepted, otherwise
+     * <code>INVALID_ARGUMENT</code> naming the key. Same semantics as <code>SoftphoneAccountFilter.labels</code>.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 18;</code>
+     */
+    private $labels;
+    /**
+     * Optional: Only calls placed by one of these callers (the calls whose <code>name</code> lies below one of
+     * them). Each entry is a caller resource name of the request&apos;s project,
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>; a malformed name or a
+     * caller of another project is <code>INVALID_ARGUMENT</code>, while a well-formed name that names no caller
+     * (also a deleted one) simply matches no call. Combined with <code>listener_names</code> by OR: a call matches
+     * when it belongs to one of the named callers or one of the named listeners. Both empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated string caller_names = 19;</code>
+     */
+    private $caller_names;
+    /**
+     * Optional: Only calls taken by one of these listeners, with the rules of <code>caller_names</code> (OR-ed with
+     * it). Each entry is of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>repeated string listener_names = 20;</code>
+     */
+    private $listener_names;
+    /**
+     * Optional: Only calls whose <code>Call.redial_recommended</code> equals this value. Unset does not filter.
+     * <code>false</code> matches only calls whose field is SET to false (AMD ended the call with a voice message
+     * left, or on a fax); calls on which AMD did not decide, i.e. whose field is unset, match neither value.
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 21;</code>
+     */
+    protected $redial_recommended = null;
+    /**
+     * Optional: Only calls whose last transfer attempt (<code>Call.last_transfer.outcome</code>) had one of these
+     * outcomes. <code>TRANSFER_OUTCOME_UNSPECIFIED</code> in the list matches the calls without any transfer
+     * attempt. Empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferOutcome transfer_outcomes = 22;</code>
+     */
+    private $transfer_outcomes;
+    /**
+     * Optional: Filter by SIP ports (<code>Call.sip_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>sip_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 23;</code>
+     */
+    private $sip_port_numbers;
+    /**
+     * Optional: Filter by CSI ports (<code>Call.csi_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>csi_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 24;</code>
+     */
+    private $csi_port_numbers;
+    protected $campaign;
 
     /**
      * Constructor.
@@ -114,35 +201,91 @@ class CallFilter extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string[] $call_names
-     *           Optional: Filter by call names.
+     *           Optional: Filter by call names (<code>Call.name</code>), exact match.
      *     @type string[] $nlu_session_names
-     *           Optional: Filter by NLU session names.
+     *           Optional: Filter by NLU session names (<code>Call.nlu_session_name</code>), exact match.
      *     @type string[] $sip_accounts
-     *           Optional: Filter by SIP accounts.
+     *           Optional: Filter by SIP accounts (<code>Call.sip_account</code>), exact match.
      *     @type string[] $phone_numbers
-     *           Optional: Filter by phone numbers.
+     *           Optional: Filter by phone numbers (<code>Call.phone_number</code>), exact match as stored (no
+     *           normalisation: <code>+43...</code> and <code>0043...</code> are different values).
      *     @type string[] $container_names
-     *           Optional: Filter by container names.
+     *           Optional: Filter by container names (<code>Call.container_name</code>), exact match.
      *     @type string[] $sip_ports
-     *           Optional: Filter by SIP ports.
+     *           Deprecated: use <code>sip_port_numbers</code>. Filter by SIP ports given as decimal strings, e.g.
+     *           <code>"5060"</code>; a value that is not a decimal integer is <code>INVALID_ARGUMENT</code>. Still honoured,
+     *           OR-ed with <code>sip_port_numbers</code>.
      *     @type string[] $csi_ports
-     *           Optional: Filter by CSI ports.
+     *           Deprecated: use <code>csi_port_numbers</code>. Filter by CSI ports given as decimal strings, with the rules of
+     *           <code>sip_ports</code>. Still honoured, OR-ed with <code>csi_port_numbers</code>.
      *     @type int[] $call_types
-     *           Optional: Filter by call types (both by default, or only listeners, or only callers).
+     *           Optional: Filter by call types (<code>Call.call_type</code>). Empty, or a list containing <code>BOTH</code>,
+     *           matches every type.
      *     @type int[] $sip_status_types
-     *           Optional: Filter based on SIP status types.
+     *           Optional: Filter by the call&apos;s current or last SIP status type (<code>Call.sip_status_type</code>).
      *     @type int $call_status
-     *           Optional: Filter based on active or inactive calls.
+     *           Optional: Only active (<code>CALL_STATUS_ACTIVE</code>) or only inactive (<code>CALL_STATUS_INACTIVE</code>)
+     *           calls. Unset or <code>CALL_STATUS_UNSPECIFIED</code> does not filter.
      *     @type \Google\Protobuf\Timestamp $start_time
-     *           Optional: Start time of the log.
+     *           Optional: Only calls that STARTED at or after this instant: <code>Call.start_time &gt;= start_time</code>
+     *           (inclusive). Calls without a start time (the waiting call of a persistent listener or pooled caller) never
+     *           match while it is set. Unset, or the zero timestamp, does not filter.
+     *           <p>The window is on two different instants, the start and the end of the call; it is NOT an overlap test.
+     *           With both bounds set a call matches when it started at or after <code>start_time</code> AND ended at or
+     *           before <code>end_time</code>, i.e. it lies entirely inside the window. To find the calls that were running
+     *           at some instant, use <code>call_status</code> and the duration bounds instead.</p>
      *     @type \Google\Protobuf\Timestamp $end_time
-     *           Optional: End time of the log.
+     *           Optional: Only calls that ENDED at or before this instant: <code>Call.end_time &lt;= end_time</code>
+     *           (inclusive). An active call has no end time and therefore never matches while it is set. Unset, or the zero
+     *           timestamp, does not filter. See <code>start_time</code> for the window semantics.
      *     @type float $duration_in_s_min
-     *           Optional: Match only sessions for which the duration in seconds is larger or equal.
+     *           Optional: Match only calls whose duration in seconds is larger than or equal to this value (inclusive). The
+     *           duration is <code>end_time - start_time</code>, and for an active call the time since its start, so an active
+     *           call can match. <code>0</code> does not filter, so the explicit value 0 is the same as unset.
      *     @type float $duration_in_s_max
-     *           Optional: Match only calls for which the duration in seconds is smaller or equal.
+     *           Optional: Match only calls whose duration in seconds is smaller than or equal to this value (inclusive),
+     *           computed as for <code>duration_in_s_min</code>. <code>0</code> does not filter.
      *     @type int[] $platforms
-     *           Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>
+     *           Optional: Filter by the NLU message platform of the call (<code>Call.platforms</code>), e.g.
+     *           <code>Platform.PLATFORM_UNSPECIFIED</code> (the default platform: text).
+     *     @type string $campaign_name
+     *           Resource name of the campaign.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *     @type string $campaign_display_name
+     *           Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     *           the request&apos;s <code>vtsi_project_name</code>.
+     *     @type array|\Google\Protobuf\Internal\MapField $labels
+     *           Optional: Only calls carrying every one of these labels (<code>Call.labels</code>). An entry with an empty
+     *           value matches on the presence of the key alone; otherwise the value must match exactly (case-sensitive).
+     *           Keys must satisfy the key bounds of <code>Call.labels</code> and at most 64 entries are accepted, otherwise
+     *           <code>INVALID_ARGUMENT</code> naming the key. Same semantics as <code>SoftphoneAccountFilter.labels</code>.
+     *     @type string[] $caller_names
+     *           Optional: Only calls placed by one of these callers (the calls whose <code>name</code> lies below one of
+     *           them). Each entry is a caller resource name of the request&apos;s project,
+     *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>; a malformed name or a
+     *           caller of another project is <code>INVALID_ARGUMENT</code>, while a well-formed name that names no caller
+     *           (also a deleted one) simply matches no call. Combined with <code>listener_names</code> by OR: a call matches
+     *           when it belongs to one of the named callers or one of the named listeners. Both empty does not filter.
+     *     @type string[] $listener_names
+     *           Optional: Only calls taken by one of these listeners, with the rules of <code>caller_names</code> (OR-ed with
+     *           it). Each entry is of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *     @type bool $redial_recommended
+     *           Optional: Only calls whose <code>Call.redial_recommended</code> equals this value. Unset does not filter.
+     *           <code>false</code> matches only calls whose field is SET to false (AMD ended the call with a voice message
+     *           left, or on a fax); calls on which AMD did not decide, i.e. whose field is unset, match neither value.
+     *     @type int[] $transfer_outcomes
+     *           Optional: Only calls whose last transfer attempt (<code>Call.last_transfer.outcome</code>) had one of these
+     *           outcomes. <code>TRANSFER_OUTCOME_UNSPECIFIED</code> in the list matches the calls without any transfer
+     *           attempt. Empty does not filter.
+     *     @type int[] $sip_port_numbers
+     *           Optional: Filter by SIP ports (<code>Call.sip_port</code>), 1 to 65535 each, otherwise
+     *           <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>sip_ports</code>; when both are set
+     *           their values are combined (OR).
+     *     @type int[] $csi_port_numbers
+     *           Optional: Filter by CSI ports (<code>Call.csi_port</code>), 1 to 65535 each, otherwise
+     *           <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>csi_ports</code>; when both are set
+     *           their values are combined (OR).
      * }
      */
     public function __construct($data = NULL) {
@@ -151,7 +294,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by call names.
+     * Optional: Filter by call names (<code>Call.name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string call_names = 1;</code>
      * @return RepeatedField<string>
@@ -162,7 +305,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by call names.
+     * Optional: Filter by call names (<code>Call.name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string call_names = 1;</code>
      * @param string[] $var
@@ -177,7 +320,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by NLU session names.
+     * Optional: Filter by NLU session names (<code>Call.nlu_session_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string nlu_session_names = 2;</code>
      * @return RepeatedField<string>
@@ -188,7 +331,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by NLU session names.
+     * Optional: Filter by NLU session names (<code>Call.nlu_session_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string nlu_session_names = 2;</code>
      * @param string[] $var
@@ -203,7 +346,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by SIP accounts.
+     * Optional: Filter by SIP accounts (<code>Call.sip_account</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string sip_accounts = 3;</code>
      * @return RepeatedField<string>
@@ -214,7 +357,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by SIP accounts.
+     * Optional: Filter by SIP accounts (<code>Call.sip_account</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string sip_accounts = 3;</code>
      * @param string[] $var
@@ -229,7 +372,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by phone numbers.
+     * Optional: Filter by phone numbers (<code>Call.phone_number</code>), exact match as stored (no
+     * normalisation: <code>+43...</code> and <code>0043...</code> are different values).
      *
      * Generated from protobuf field <code>repeated string phone_numbers = 4;</code>
      * @return RepeatedField<string>
@@ -240,7 +384,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by phone numbers.
+     * Optional: Filter by phone numbers (<code>Call.phone_number</code>), exact match as stored (no
+     * normalisation: <code>+43...</code> and <code>0043...</code> are different values).
      *
      * Generated from protobuf field <code>repeated string phone_numbers = 4;</code>
      * @param string[] $var
@@ -255,7 +400,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by container names.
+     * Optional: Filter by container names (<code>Call.container_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string container_names = 5;</code>
      * @return RepeatedField<string>
@@ -266,7 +411,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by container names.
+     * Optional: Filter by container names (<code>Call.container_name</code>), exact match.
      *
      * Generated from protobuf field <code>repeated string container_names = 5;</code>
      * @param string[] $var
@@ -281,59 +426,82 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by SIP ports.
+     * Deprecated: use <code>sip_port_numbers</code>. Filter by SIP ports given as decimal strings, e.g.
+     * <code>"5060"</code>; a value that is not a decimal integer is <code>INVALID_ARGUMENT</code>. Still honoured,
+     * OR-ed with <code>sip_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 6;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 6 [deprecated = true];</code>
      * @return RepeatedField<string>
+     * @deprecated
      */
     public function getSipPorts()
     {
+        if (count($this->sip_ports) !== 0) {
+            @trigger_error('sip_ports is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->sip_ports;
     }
 
     /**
-     * Optional: Filter by SIP ports.
+     * Deprecated: use <code>sip_port_numbers</code>. Filter by SIP ports given as decimal strings, e.g.
+     * <code>"5060"</code>; a value that is not a decimal integer is <code>INVALID_ARGUMENT</code>. Still honoured,
+     * OR-ed with <code>sip_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string sip_ports = 6;</code>
+     * Generated from protobuf field <code>repeated string sip_ports = 6 [deprecated = true];</code>
      * @param string[] $var
      * @return $this
+     * @deprecated
      */
     public function setSipPorts($var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        if (count($arr) !== 0) {
+            @trigger_error('sip_ports is deprecated.', E_USER_DEPRECATED);
+        }
         $this->sip_ports = $arr;
 
         return $this;
     }
 
     /**
-     * Optional: Filter by CSI ports.
+     * Deprecated: use <code>csi_port_numbers</code>. Filter by CSI ports given as decimal strings, with the rules of
+     * <code>sip_ports</code>. Still honoured, OR-ed with <code>csi_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 7;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 7 [deprecated = true];</code>
      * @return RepeatedField<string>
+     * @deprecated
      */
     public function getCsiPorts()
     {
+        if (count($this->csi_ports) !== 0) {
+            @trigger_error('csi_ports is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->csi_ports;
     }
 
     /**
-     * Optional: Filter by CSI ports.
+     * Deprecated: use <code>csi_port_numbers</code>. Filter by CSI ports given as decimal strings, with the rules of
+     * <code>sip_ports</code>. Still honoured, OR-ed with <code>csi_port_numbers</code>.
      *
-     * Generated from protobuf field <code>repeated string csi_ports = 7;</code>
+     * Generated from protobuf field <code>repeated string csi_ports = 7 [deprecated = true];</code>
      * @param string[] $var
      * @return $this
+     * @deprecated
      */
     public function setCsiPorts($var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        if (count($arr) !== 0) {
+            @trigger_error('csi_ports is deprecated.', E_USER_DEPRECATED);
+        }
         $this->csi_ports = $arr;
 
         return $this;
     }
 
     /**
-     * Optional: Filter by call types (both by default, or only listeners, or only callers).
+     * Optional: Filter by call types (<code>Call.call_type</code>). Empty, or a list containing <code>BOTH</code>,
+     * matches every type.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallType call_types = 8;</code>
      * @return RepeatedField<int>
@@ -344,7 +512,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter by call types (both by default, or only listeners, or only callers).
+     * Optional: Filter by call types (<code>Call.call_type</code>). Empty, or a list containing <code>BOTH</code>,
+     * matches every type.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallType call_types = 8;</code>
      * @param int[] $var
@@ -359,7 +528,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter based on SIP status types.
+     * Optional: Filter by the call&apos;s current or last SIP status type (<code>Call.sip_status_type</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
      * @return RepeatedField<int>
@@ -370,7 +539,7 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter based on SIP status types.
+     * Optional: Filter by the call&apos;s current or last SIP status type (<code>Call.sip_status_type</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
      * @param int[] $var
@@ -385,7 +554,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter based on active or inactive calls.
+     * Optional: Only active (<code>CALL_STATUS_ACTIVE</code>) or only inactive (<code>CALL_STATUS_INACTIVE</code>)
+     * calls. Unset or <code>CALL_STATUS_UNSPECIFIED</code> does not filter.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallStatus call_status = 10;</code>
      * @return int
@@ -406,7 +576,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Filter based on active or inactive calls.
+     * Optional: Only active (<code>CALL_STATUS_ACTIVE</code>) or only inactive (<code>CALL_STATUS_INACTIVE</code>)
+     * calls. Unset or <code>CALL_STATUS_UNSPECIFIED</code> does not filter.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallStatus call_status = 10;</code>
      * @param int $var
@@ -421,7 +592,13 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Start time of the log.
+     * Optional: Only calls that STARTED at or after this instant: <code>Call.start_time &gt;= start_time</code>
+     * (inclusive). Calls without a start time (the waiting call of a persistent listener or pooled caller) never
+     * match while it is set. Unset, or the zero timestamp, does not filter.
+     * <p>The window is on two different instants, the start and the end of the call; it is NOT an overlap test.
+     * With both bounds set a call matches when it started at or after <code>start_time</code> AND ended at or
+     * before <code>end_time</code>, i.e. it lies entirely inside the window. To find the calls that were running
+     * at some instant, use <code>call_status</code> and the duration bounds instead.</p>
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 11;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -442,7 +619,13 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Start time of the log.
+     * Optional: Only calls that STARTED at or after this instant: <code>Call.start_time &gt;= start_time</code>
+     * (inclusive). Calls without a start time (the waiting call of a persistent listener or pooled caller) never
+     * match while it is set. Unset, or the zero timestamp, does not filter.
+     * <p>The window is on two different instants, the start and the end of the call; it is NOT an overlap test.
+     * With both bounds set a call matches when it started at or after <code>start_time</code> AND ended at or
+     * before <code>end_time</code>, i.e. it lies entirely inside the window. To find the calls that were running
+     * at some instant, use <code>call_status</code> and the duration bounds instead.</p>
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp start_time = 11;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -457,7 +640,9 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: End time of the log.
+     * Optional: Only calls that ENDED at or before this instant: <code>Call.end_time &lt;= end_time</code>
+     * (inclusive). An active call has no end time and therefore never matches while it is set. Unset, or the zero
+     * timestamp, does not filter. See <code>start_time</code> for the window semantics.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 12;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -478,7 +663,9 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: End time of the log.
+     * Optional: Only calls that ENDED at or before this instant: <code>Call.end_time &lt;= end_time</code>
+     * (inclusive). An active call has no end time and therefore never matches while it is set. Unset, or the zero
+     * timestamp, does not filter. See <code>start_time</code> for the window semantics.
      *
      * Generated from protobuf field <code>optional .google.protobuf.Timestamp end_time = 12;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -493,7 +680,9 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Match only sessions for which the duration in seconds is larger or equal.
+     * Optional: Match only calls whose duration in seconds is larger than or equal to this value (inclusive). The
+     * duration is <code>end_time - start_time</code>, and for an active call the time since its start, so an active
+     * call can match. <code>0</code> does not filter, so the explicit value 0 is the same as unset.
      *
      * Generated from protobuf field <code>optional float duration_in_s_min = 13;</code>
      * @return float
@@ -514,7 +703,9 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Match only sessions for which the duration in seconds is larger or equal.
+     * Optional: Match only calls whose duration in seconds is larger than or equal to this value (inclusive). The
+     * duration is <code>end_time - start_time</code>, and for an active call the time since its start, so an active
+     * call can match. <code>0</code> does not filter, so the explicit value 0 is the same as unset.
      *
      * Generated from protobuf field <code>optional float duration_in_s_min = 13;</code>
      * @param float $var
@@ -529,7 +720,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Match only calls for which the duration in seconds is smaller or equal.
+     * Optional: Match only calls whose duration in seconds is smaller than or equal to this value (inclusive),
+     * computed as for <code>duration_in_s_min</code>. <code>0</code> does not filter.
      *
      * Generated from protobuf field <code>optional float duration_in_s_max = 14;</code>
      * @return float
@@ -550,7 +742,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Match only calls for which the duration in seconds is smaller or equal.
+     * Optional: Match only calls whose duration in seconds is smaller than or equal to this value (inclusive),
+     * computed as for <code>duration_in_s_min</code>. <code>0</code> does not filter.
      *
      * Generated from protobuf field <code>optional float duration_in_s_max = 14;</code>
      * @param float $var
@@ -565,7 +758,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>
+     * Optional: Filter by the NLU message platform of the call (<code>Call.platforms</code>), e.g.
+     * <code>Platform.PLATFORM_UNSPECIFIED</code> (the default platform: text).
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 15;</code>
      * @return RepeatedField<int>
@@ -576,7 +770,8 @@ class CallFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Platform responses sent to the user. Default is text: <code>Platform.PLATFORM_UNSPECIFIED</code>
+     * Optional: Filter by the NLU message platform of the call (<code>Call.platforms</code>), e.g.
+     * <code>Platform.PLATFORM_UNSPECIFIED</code> (the default platform: text).
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 15;</code>
      * @param int[] $var
@@ -588,6 +783,308 @@ class CallFilter extends \Google\Protobuf\Internal\Message
         $this->platforms = $arr;
 
         return $this;
+    }
+
+    /**
+     * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 16;</code>
+     * @return string
+     */
+    public function getCampaignName()
+    {
+        return $this->readOneof(16);
+    }
+
+    public function hasCampaignName()
+    {
+        return $this->hasOneof(16);
+    }
+
+    /**
+     * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 16;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(16, $var);
+
+        return $this;
+    }
+
+    /**
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * the request&apos;s <code>vtsi_project_name</code>.
+     *
+     * Generated from protobuf field <code>string campaign_display_name = 17;</code>
+     * @return string
+     */
+    public function getCampaignDisplayName()
+    {
+        return $this->readOneof(17);
+    }
+
+    public function hasCampaignDisplayName()
+    {
+        return $this->hasOneof(17);
+    }
+
+    /**
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * the request&apos;s <code>vtsi_project_name</code>.
+     *
+     * Generated from protobuf field <code>string campaign_display_name = 17;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignDisplayName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(17, $var);
+
+        return $this;
+    }
+
+    /**
+     * Optional: Only calls carrying every one of these labels (<code>Call.labels</code>). An entry with an empty
+     * value matches on the presence of the key alone; otherwise the value must match exactly (case-sensitive).
+     * Keys must satisfy the key bounds of <code>Call.labels</code> and at most 64 entries are accepted, otherwise
+     * <code>INVALID_ARGUMENT</code> naming the key. Same semantics as <code>SoftphoneAccountFilter.labels</code>.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 18;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * Optional: Only calls carrying every one of these labels (<code>Call.labels</code>). An entry with an empty
+     * value matches on the presence of the key alone; otherwise the value must match exactly (case-sensitive).
+     * Keys must satisfy the key bounds of <code>Call.labels</code> and at most 64 entries are accepted, otherwise
+     * <code>INVALID_ARGUMENT</code> naming the key. Same semantics as <code>SoftphoneAccountFilter.labels</code>.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 18;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setLabels($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->labels = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Only calls placed by one of these callers (the calls whose <code>name</code> lies below one of
+     * them). Each entry is a caller resource name of the request&apos;s project,
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>; a malformed name or a
+     * caller of another project is <code>INVALID_ARGUMENT</code>, while a well-formed name that names no caller
+     * (also a deleted one) simply matches no call. Combined with <code>listener_names</code> by OR: a call matches
+     * when it belongs to one of the named callers or one of the named listeners. Both empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated string caller_names = 19;</code>
+     * @return RepeatedField<string>
+     */
+    public function getCallerNames()
+    {
+        return $this->caller_names;
+    }
+
+    /**
+     * Optional: Only calls placed by one of these callers (the calls whose <code>name</code> lies below one of
+     * them). Each entry is a caller resource name of the request&apos;s project,
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>; a malformed name or a
+     * caller of another project is <code>INVALID_ARGUMENT</code>, while a well-formed name that names no caller
+     * (also a deleted one) simply matches no call. Combined with <code>listener_names</code> by OR: a call matches
+     * when it belongs to one of the named callers or one of the named listeners. Both empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated string caller_names = 19;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setCallerNames($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->caller_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Only calls taken by one of these listeners, with the rules of <code>caller_names</code> (OR-ed with
+     * it). Each entry is of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>repeated string listener_names = 20;</code>
+     * @return RepeatedField<string>
+     */
+    public function getListenerNames()
+    {
+        return $this->listener_names;
+    }
+
+    /**
+     * Optional: Only calls taken by one of these listeners, with the rules of <code>caller_names</code> (OR-ed with
+     * it). Each entry is of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>repeated string listener_names = 20;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setListenerNames($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->listener_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Only calls whose <code>Call.redial_recommended</code> equals this value. Unset does not filter.
+     * <code>false</code> matches only calls whose field is SET to false (AMD ended the call with a voice message
+     * left, or on a fax); calls on which AMD did not decide, i.e. whose field is unset, match neither value.
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 21;</code>
+     * @return bool
+     */
+    public function getRedialRecommended()
+    {
+        return isset($this->redial_recommended) ? $this->redial_recommended : false;
+    }
+
+    public function hasRedialRecommended()
+    {
+        return isset($this->redial_recommended);
+    }
+
+    public function clearRedialRecommended()
+    {
+        unset($this->redial_recommended);
+    }
+
+    /**
+     * Optional: Only calls whose <code>Call.redial_recommended</code> equals this value. Unset does not filter.
+     * <code>false</code> matches only calls whose field is SET to false (AMD ended the call with a voice message
+     * left, or on a fax); calls on which AMD did not decide, i.e. whose field is unset, match neither value.
+     *
+     * Generated from protobuf field <code>optional bool redial_recommended = 21;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setRedialRecommended($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->redial_recommended = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Only calls whose last transfer attempt (<code>Call.last_transfer.outcome</code>) had one of these
+     * outcomes. <code>TRANSFER_OUTCOME_UNSPECIFIED</code> in the list matches the calls without any transfer
+     * attempt. Empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferOutcome transfer_outcomes = 22;</code>
+     * @return RepeatedField<int>
+     */
+    public function getTransferOutcomes()
+    {
+        return $this->transfer_outcomes;
+    }
+
+    /**
+     * Optional: Only calls whose last transfer attempt (<code>Call.last_transfer.outcome</code>) had one of these
+     * outcomes. <code>TRANSFER_OUTCOME_UNSPECIFIED</code> in the list matches the calls without any transfer
+     * attempt. Empty does not filter.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferOutcome transfer_outcomes = 22;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setTransferOutcomes($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\TransferOutcome::class);
+        $this->transfer_outcomes = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Filter by SIP ports (<code>Call.sip_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>sip_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 23;</code>
+     * @return RepeatedField<int>
+     */
+    public function getSipPortNumbers()
+    {
+        return $this->sip_port_numbers;
+    }
+
+    /**
+     * Optional: Filter by SIP ports (<code>Call.sip_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>sip_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 sip_port_numbers = 23;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setSipPortNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
+        $this->sip_port_numbers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Filter by CSI ports (<code>Call.csi_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>csi_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 24;</code>
+     * @return RepeatedField<int>
+     */
+    public function getCsiPortNumbers()
+    {
+        return $this->csi_port_numbers;
+    }
+
+    /**
+     * Optional: Filter by CSI ports (<code>Call.csi_port</code>), 1 to 65535 each, otherwise
+     * <code>INVALID_ARGUMENT</code>. Replaces the deprecated string field <code>csi_ports</code>; when both are set
+     * their values are combined (OR).
+     *
+     * Generated from protobuf field <code>repeated int32 csi_port_numbers = 24;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setCsiPortNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
+        $this->csi_port_numbers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCampaign()
+    {
+        return $this->whichOneof("campaign");
     }
 
 }

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to updated VTSI project
+ * Response to the update of a VTSI project
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateVtsiProjectResponse</code>
  */
@@ -23,11 +23,20 @@ class UpdateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
     protected $error_message = '';
+    /**
+     * The project after the update (with <code>validate_only</code>: the would-be project), in the full
+     * view, redacted like <code>GetVtsiProject</code> and narrowed by
+     * <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     */
+    protected $vtsi_project = null;
 
     /**
      * Constructor.
@@ -38,7 +47,12 @@ class UpdateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $error_message
-     *           error message if there are any.
+     *           Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     *           description). Kept for wire compatibility.
+     *     @type \Ondewo\Vtsi\VtsiProject $vtsi_project
+     *           The project after the update (with <code>validate_only</code>: the would-be project), in the full
+     *           view, redacted like <code>GetVtsiProject</code> and narrowed by
+     *           <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
      * }
      */
     public function __construct($data = NULL) {
@@ -73,7 +87,8 @@ class UpdateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +99,8 @@ class UpdateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var
@@ -94,6 +110,46 @@ class UpdateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->error_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * The project after the update (with <code>validate_only</code>: the would-be project), in the full
+     * view, redacted like <code>GetVtsiProject</code> and narrowed by
+     * <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @return \Ondewo\Vtsi\VtsiProject|null
+     */
+    public function getVtsiProject()
+    {
+        return $this->vtsi_project;
+    }
+
+    public function hasVtsiProject()
+    {
+        return isset($this->vtsi_project);
+    }
+
+    public function clearVtsiProject()
+    {
+        unset($this->vtsi_project);
+    }
+
+    /**
+     * The project after the update (with <code>validate_only</code>: the would-be project), in the full
+     * view, redacted like <code>GetVtsiProject</code> and narrowed by
+     * <code>UpdateVtsiProjectRequest.field_mask</code>. Left unset by a 9.0.0 server.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 3;</code>
+     * @param \Ondewo\Vtsi\VtsiProject $var
+     * @return $this
+     */
+    public function setVtsiProject($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiProject::class);
+        $this->vtsi_project = $var;
 
         return $this;
     }

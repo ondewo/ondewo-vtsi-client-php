@@ -22,6 +22,15 @@ class StopListenerRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
+    /**
+     * Optional. Partial response: the field paths of <code>StopListenerResponse</code> to populate, i.e.
+     * <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
+     * Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
+     * it, before anything is stopped. It shapes only the response: the listener is stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -31,6 +40,11 @@ class StopListenerRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $name
      *           The name of the listener to stop in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths of <code>StopListenerResponse</code> to populate, i.e.
+     *           <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
+     *           Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
+     *           it, before anything is stopped. It shapes only the response: the listener is stopped regardless.
      * }
      */
     public function __construct($data = NULL) {
@@ -60,6 +74,48 @@ class StopListenerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths of <code>StopListenerResponse</code> to populate, i.e.
+     * <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
+     * Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
+     * it, before anything is stopped. It shapes only the response: the listener is stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths of <code>StopListenerResponse</code> to populate, i.e.
+     * <code>error_message</code> (the response carries no <code>Listener</code>). <code>name</code> is always populated.
+     * Unset or empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming
+     * it, before anything is stopped. It shapes only the response: the listener is stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

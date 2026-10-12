@@ -31,13 +31,23 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      */
     protected $display_name = '';
     /**
-     * The maximum number of callers that this project can have.
+     * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     * provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
+     * &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
+     * <code>StartCaller</code> / <code>StartCallers</code> beyond the free capacity is refused with
+     * <code>RESOURCE_EXHAUSTED</code>; an idle pooled (persistent) caller does not count. Changing it on a
+     * <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
+     * <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
      *
      * Generated from protobuf field <code>int32 max_callers = 3;</code>
      */
     protected $max_callers = 0;
     /**
-     * The maximum number of listeners that this project can have.
+     * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     * accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
+     * <code>0</code> means no listener can be started, a <code>StartListener</code> /
+     * <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
+     * on a <code>DEPLOYED</code> project redeploys it.
      *
      * Generated from protobuf field <code>int32 max_listeners = 4;</code>
      */
@@ -91,7 +101,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      */
     protected $active_listeners = 0;
     /**
-     * The port of the asterisk server
+     * The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
+     * which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
+     * every response carries the project&apos;s port in both. On create and update, <code>0</code> means
+     * &quot;not stated&quot; (on create: assign a free port); a value set here is copied into
+     * <code>asterisk_configs.asterisk_port</code>; both set and different is refused with
+     * <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
+     * voids every softphone client certificate (the certificate authorities belong to the port).
      *
      * Generated from protobuf field <code>int32 asterisk_port = 13;</code>
      */
@@ -127,6 +143,43 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated string transfer_phone_number_allowlist = 17;</code>
      */
     private $transfer_phone_number_allowlist;
+    /**
+     * Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
+     * <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
+     * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string status_message = 18;</code>
+     */
+    protected $status_message = '';
+    /**
+     * Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     */
+    protected $status_changed_at = null;
+    /**
+     * Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
+     * <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
+     * much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
+     * <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     */
+    protected $trunk_registration_state = 0;
+    /**
+     * Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
+     * pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string asterisk_version_effective = 21;</code>
+     */
+    protected $asterisk_version_effective = '';
 
     /**
      * Constructor.
@@ -141,9 +194,19 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      *     @type string $display_name
      *           OPTIONAL: The display name of the project
      *     @type int $max_callers
-     *           The maximum number of callers that this project can have.
+     *           The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     *           provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
+     *           &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
+     *           <code>StartCaller</code> / <code>StartCallers</code> beyond the free capacity is refused with
+     *           <code>RESOURCE_EXHAUSTED</code>; an idle pooled (persistent) caller does not count. Changing it on a
+     *           <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
+     *           <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
      *     @type int $max_listeners
-     *           The maximum number of listeners that this project can have.
+     *           The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     *           accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
+     *           <code>0</code> means no listener can be started, a <code>StartListener</code> /
+     *           <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
+     *           on a <code>DEPLOYED</code> project redeploys it.
      *     @type \Ondewo\Vtsi\AsteriskConfigs $asterisk_configs
      *           Configs to start the asterisk server.
      *     @type int $vtsi_project_status
@@ -161,7 +224,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      *     @type int $active_listeners
      *           The number of active listeners in this project.
      *     @type int $asterisk_port
-     *           The port of the asterisk server
+     *           The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
+     *           which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
+     *           every response carries the project&apos;s port in both. On create and update, <code>0</code> means
+     *           &quot;not stated&quot; (on create: assign a free port); a value set here is copied into
+     *           <code>asterisk_configs.asterisk_port</code>; both set and different is refused with
+     *           <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
+     *           voids every softphone client certificate (the certificate authorities belong to the port).
      *     @type string[] $nlu_agent_names
      *           Associated NLU agents.
      *           Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
@@ -177,6 +246,27 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      *           number is allowed. A refused number answers <pre><code>TRANSFER_OUTCOME_TARGET_INVALID</code></pre> with
      *           <pre><code>error_reason = number-not-allowed</code></pre> and nothing is sent.
      *           Updatable with the update mask path <pre><code>transfer_phone_number_allowlist</code></pre>.
+     *     @type string $status_message
+     *           Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
+     *           <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
+     *           <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
+     *           of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     *           change. Secrets are redacted. Ignored on create and update.
+     *     @type \Google\Protobuf\Timestamp $status_changed_at
+     *           Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
+     *           has not changed since an older server created it. Ignored on create and update.
+     *     @type int $trunk_registration_state
+     *           Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
+     *           on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
+     *           <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
+     *           much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
+     *           <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
+     *     @type string $asterisk_version_effective
+     *           Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
+     *           ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
+     *           pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
+     *           of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     *           would start, e.g. after the server default changed. Ignored on create and update.
      * }
      */
     public function __construct($data = NULL) {
@@ -241,7 +331,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The maximum number of callers that this project can have.
+     * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     * provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
+     * &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
+     * <code>StartCaller</code> / <code>StartCallers</code> beyond the free capacity is refused with
+     * <code>RESOURCE_EXHAUSTED</code>; an idle pooled (persistent) caller does not count. Changing it on a
+     * <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
+     * <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
      *
      * Generated from protobuf field <code>int32 max_callers = 3;</code>
      * @return int
@@ -252,7 +348,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The maximum number of callers that this project can have.
+     * The maximum number of callers that this project can have, i.e. the number of caller SIP accounts
+     * provisioned on its Asterisk. <code>0</code> means NO caller can be started (it is not
+     * &quot;unlimited&quot;); negative values are refused with <code>INVALID_ARGUMENT</code>. A
+     * <code>StartCaller</code> / <code>StartCallers</code> beyond the free capacity is refused with
+     * <code>RESOURCE_EXHAUSTED</code>; an idle pooled (persistent) caller does not count. Changing it on a
+     * <code>DEPLOYED</code> project REDEPLOYS the project, which ends every running call (see
+     * <code>UpdateVtsiProject</code>); lowering it below the number of running callers is not refused.
      *
      * Generated from protobuf field <code>int32 max_callers = 3;</code>
      * @param int $var
@@ -267,7 +369,11 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The maximum number of listeners that this project can have.
+     * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     * accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
+     * <code>0</code> means no listener can be started, a <code>StartListener</code> /
+     * <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
+     * on a <code>DEPLOYED</code> project redeploys it.
      *
      * Generated from protobuf field <code>int32 max_listeners = 4;</code>
      * @return int
@@ -278,7 +384,11 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The maximum number of listeners that this project can have.
+     * The maximum number of listeners that this project can have, i.e. the number of listener SIP
+     * accounts provisioned on its Asterisk. Same semantics as <code>max_callers</code>:
+     * <code>0</code> means no listener can be started, a <code>StartListener</code> /
+     * <code>StartListeners</code> beyond the free capacity is <code>RESOURCE_EXHAUSTED</code>, and a change
+     * on a <code>DEPLOYED</code> project redeploys it.
      *
      * Generated from protobuf field <code>int32 max_listeners = 4;</code>
      * @param int $var
@@ -531,7 +641,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The port of the asterisk server
+     * The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
+     * which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
+     * every response carries the project&apos;s port in both. On create and update, <code>0</code> means
+     * &quot;not stated&quot; (on create: assign a free port); a value set here is copied into
+     * <code>asterisk_configs.asterisk_port</code>; both set and different is refused with
+     * <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
+     * voids every softphone client certificate (the certificate authorities belong to the port).
      *
      * Generated from protobuf field <code>int32 asterisk_port = 13;</code>
      * @return int
@@ -542,7 +658,13 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The port of the asterisk server
+     * The port of the asterisk server. The same value as <code>asterisk_configs.asterisk_port</code>, of
+     * which it is a convenience copy: <code>asterisk_configs.asterisk_port</code> is authoritative, and
+     * every response carries the project&apos;s port in both. On create and update, <code>0</code> means
+     * &quot;not stated&quot; (on create: assign a free port); a value set here is copied into
+     * <code>asterisk_configs.asterisk_port</code>; both set and different is refused with
+     * <code>INVALID_ARGUMENT</code>. Changing the port of a <code>DEPLOYED</code> project redeploys it and
+     * voids every softphone client certificate (the certificate authorities belong to the port).
      *
      * Generated from protobuf field <code>int32 asterisk_port = 13;</code>
      * @param int $var
@@ -670,6 +792,146 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->transfer_phone_number_allowlist = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
+     * <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
+     * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string status_message = 18;</code>
+     * @return string
+     */
+    public function getStatusMessage()
+    {
+        return $this->status_message;
+    }
+
+    /**
+     * Output only. Human-readable detail of the current <code>vtsi_project_status</code>: the reason of a
+     * <code>DEPLOY_FAILED</code> project (the same text as the <code>description</code> of the
+     * <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED</code> event), or the reason the last undeploy or update
+     * of the project failed. Empty when there is nothing to report; cleared by the next successful status
+     * change. Secrets are redacted. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string status_message = 18;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setStatusMessage($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->status_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getStatusChangedAt()
+    {
+        return $this->status_changed_at;
+    }
+
+    public function hasStatusChangedAt()
+    {
+        return isset($this->status_changed_at);
+    }
+
+    public function clearStatusChangedAt()
+    {
+        unset($this->status_changed_at);
+    }
+
+    /**
+     * Output only. When <code>vtsi_project_status</code> last changed. Unset for a project whose status
+     * has not changed since an older server created it. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp status_changed_at = 19;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setStatusChangedAt($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->status_changed_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
+     * <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
+     * much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
+     * <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @return int
+     */
+    public function getTrunkRegistrationState()
+    {
+        return $this->trunk_registration_state;
+    }
+
+    /**
+     * Output only. Registration state of the project&apos;s SIP trunk with the carrier, as last observed
+     * on the running Asterisk (<code>pjsip show registrations</code>), refreshed every
+     * <code>ONDEWO_VTSI_ASTERISK_OBSERVER_INTERVAL_S</code> seconds (default 30), so it may lag by that
+     * much. <code>TRUNK_REGISTRATION_STATE_UNSPECIFIED</code> when the project is not
+     * <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setTrunkRegistrationState($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\TrunkRegistrationState::class);
+        $this->trunk_registration_state = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
+     * pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string asterisk_version_effective = 21;</code>
+     * @return string
+     */
+    public function getAsteriskVersionEffective()
+    {
+        return $this->asterisk_version_effective;
+    }
+
+    /**
+     * Output only. The Asterisk version the project&apos;s container RUNS, i.e. the docker image tag of the
+     * ONDEWO Asterisk image it was deployed from: <code>asterisk_configs.asterisk_version</code> when
+     * pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
+     * of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
+     * would start, e.g. after the server default changed. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>string asterisk_version_effective = 21;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setAsteriskVersionEffective($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->asterisk_version_effective = $var;
 
         return $this;
     }

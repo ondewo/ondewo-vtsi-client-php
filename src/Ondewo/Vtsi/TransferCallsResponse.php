@@ -23,13 +23,16 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The responses for each transfer call request
+     * One entry per entry of the request, in request order: the outcome of that transfer, or its
+     * <code>error_message</code>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallResponse transfer_call_responses = 2;</code>
      */
     private $transfer_call_responses;
     /**
-     * overall error message if you have any so if it's unhealthy
+     * A summary when at least one entry failed (e.g. <code>Errors occurred during the transfer of 2 out of 5
+     * calls.</code>), empty when no entry carries an <code>error_message</code>. Telephony outcomes are read from
+     * each entry&apos;s <code>outcome</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,9 +47,12 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\TransferCallResponse[] $transfer_call_responses
-     *           The responses for each transfer call request
+     *           One entry per entry of the request, in request order: the outcome of that transfer, or its
+     *           <code>error_message</code>
      *     @type string $error_message
-     *           overall error message if you have any so if it's unhealthy
+     *           A summary when at least one entry failed (e.g. <code>Errors occurred during the transfer of 2 out of 5
+     *           calls.</code>), empty when no entry carries an <code>error_message</code>. Telephony outcomes are read from
+     *           each entry&apos;s <code>outcome</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -81,7 +87,8 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The responses for each transfer call request
+     * One entry per entry of the request, in request order: the outcome of that transfer, or its
+     * <code>error_message</code>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallResponse transfer_call_responses = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\TransferCallResponse>
@@ -92,7 +99,8 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The responses for each transfer call request
+     * One entry per entry of the request, in request order: the outcome of that transfer, or its
+     * <code>error_message</code>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallResponse transfer_call_responses = 2;</code>
      * @param \Ondewo\Vtsi\TransferCallResponse[] $var
@@ -107,7 +115,9 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * A summary when at least one entry failed (e.g. <code>Errors occurred during the transfer of 2 out of 5
+     * calls.</code>), empty when no entry carries an <code>error_message</code>. Telephony outcomes are read from
+     * each entry&apos;s <code>outcome</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -118,7 +128,9 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * A summary when at least one entry failed (e.g. <code>Errors occurred during the transfer of 2 out of 5
+     * calls.</code>), empty when no entry carries an <code>error_message</code>. Telephony outcomes are read from
+     * each entry&apos;s <code>outcome</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

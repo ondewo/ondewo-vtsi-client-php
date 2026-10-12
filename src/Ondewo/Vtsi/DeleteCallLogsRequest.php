@@ -28,11 +28,19 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &quot;delete
-     * everything&quot;.
+     * everything&quot;. The time window alone counts as a set field.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
      */
     protected $filter = null;
+    /**
+     * Optional. Validate only: run every check of a real deletion and report in the response how many
+     * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     * deletion may count differently (live capture, retention). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     */
+    protected $validate_only = false;
 
     /**
      * Constructor.
@@ -47,7 +55,11 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      *           The entries to delete. Only the identity fields and the time window apply; content filters are
      *           rejected, because deleting by message content is not an auditable operation. At least one
      *           field must be set: an empty filter is rejected rather than treated as &quot;delete
-     *           everything&quot;.
+     *           everything&quot;. The time window alone counts as a set field.
+     *     @type bool $validate_only
+     *           Optional. Validate only: run every check of a real deletion and report in the response how many
+     *           entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     *           deletion may count differently (live capture, retention). Default <code>false</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -87,7 +99,7 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &quot;delete
-     * everything&quot;.
+     * everything&quot;. The time window alone counts as a set field.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
      * @return \Ondewo\Vtsi\CallLogFilter|null
@@ -111,7 +123,7 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * The entries to delete. Only the identity fields and the time window apply; content filters are
      * rejected, because deleting by message content is not an auditable operation. At least one
      * field must be set: an empty filter is rejected rather than treated as &quot;delete
-     * everything&quot;.
+     * everything&quot;. The time window alone counts as a set field.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallLogFilter filter = 2;</code>
      * @param \Ondewo\Vtsi\CallLogFilter $var
@@ -121,6 +133,36 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallLogFilter::class);
         $this->filter = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Validate only: run every check of a real deletion and report in the response how many
+     * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     * deletion may count differently (live capture, retention). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     * @return bool
+     */
+    public function getValidateOnly()
+    {
+        return $this->validate_only;
+    }
+
+    /**
+     * Optional. Validate only: run every check of a real deletion and report in the response how many
+     * entries and log streams WOULD be deleted now, but delete nothing. The counts are a snapshot; a later
+     * deletion may count differently (live capture, retention). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setValidateOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->validate_only = $var;
 
         return $this;
     }

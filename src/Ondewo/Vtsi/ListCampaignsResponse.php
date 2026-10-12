@@ -18,7 +18,7 @@ use Google\Protobuf\RepeatedField;
 class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The campaigns of this page, newest first.
+     * The campaigns of this page, in the request&apos;s <code>order_by</code> (newest first by default).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      */
@@ -37,7 +37,7 @@ class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\Campaign[] $campaigns
-     *           The campaigns of this page, newest first.
+     *           The campaigns of this page, in the request&apos;s <code>order_by</code> (newest first by default).
      *     @type string $next_page_token
      *           Token for the next page. Empty when there are no more results.
      * }
@@ -48,7 +48,7 @@ class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaigns of this page, newest first.
+     * The campaigns of this page, in the request&apos;s <code>order_by</code> (newest first by default).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\Campaign>
@@ -59,7 +59,7 @@ class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaigns of this page, newest first.
+     * The campaigns of this page, in the request&apos;s <code>order_by</code> (newest first by default).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      * @param \Ondewo\Vtsi\Campaign[] $var

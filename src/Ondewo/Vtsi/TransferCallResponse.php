@@ -31,13 +31,18 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too
+     * The legacy raw target of the request (<code>TransferCallRequest.transfer_id</code>), echoed; empty for a
+     * typed <code>target</code> (see <code>resolved_target</code>)
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      */
     protected $transfer_id = '';
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty unless the transfer failed. <code>TransferCall</code> reports a refusal before any side effect as a gRPC
+     * status and a telephony outcome in <code>outcome</code> / <code>error_reason</code>, so it is empty there. In an
+     * entry of <code>TransferCallsResponse</code> it is the error of an entry <code>TransferCall</code> would have
+     * refused with a gRPC status, prefixed with the name of that status code, e.g.
+     * <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      */
@@ -83,9 +88,14 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type string $transfer_id
-     *           transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too
+     *           The legacy raw target of the request (<code>TransferCallRequest.transfer_id</code>), echoed; empty for a
+     *           typed <code>target</code> (see <code>resolved_target</code>)
      *     @type string $error_message
-     *           error message if you have any so if it's unhealthy
+     *           Empty unless the transfer failed. <code>TransferCall</code> reports a refusal before any side effect as a gRPC
+     *           status and a telephony outcome in <code>outcome</code> / <code>error_reason</code>, so it is empty there. In an
+     *           entry of <code>TransferCallsResponse</code> it is the error of an entry <code>TransferCall</code> would have
+     *           refused with a gRPC status, prefixed with the name of that status code, e.g.
+     *           <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
      *     @type int $outcome
      *           Outcome of the transfer
      *     @type string $resolved_target
@@ -161,7 +171,8 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too
+     * The legacy raw target of the request (<code>TransferCallRequest.transfer_id</code>), echoed; empty for a
+     * typed <code>target</code> (see <code>resolved_target</code>)
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @return string
@@ -172,7 +183,8 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * transfer id to transfer the calls to, so the phone number or voip number you want to be transferred too
+     * The legacy raw target of the request (<code>TransferCallRequest.transfer_id</code>), echoed; empty for a
+     * typed <code>target</code> (see <code>resolved_target</code>)
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @param string $var
@@ -187,7 +199,11 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty unless the transfer failed. <code>TransferCall</code> reports a refusal before any side effect as a gRPC
+     * status and a telephony outcome in <code>outcome</code> / <code>error_reason</code>, so it is empty there. In an
+     * entry of <code>TransferCallsResponse</code> it is the error of an entry <code>TransferCall</code> would have
+     * refused with a gRPC status, prefixed with the name of that status code, e.g.
+     * <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @return string
@@ -198,7 +214,11 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty unless the transfer failed. <code>TransferCall</code> reports a refusal before any side effect as a gRPC
+     * status and a telephony outcome in <code>outcome</code> / <code>error_reason</code>, so it is empty there. In an
+     * entry of <code>TransferCallsResponse</code> it is the error of an entry <code>TransferCall</code> would have
+     * refused with a gRPC status, prefixed with the name of that status code, e.g.
+     * <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @param string $var

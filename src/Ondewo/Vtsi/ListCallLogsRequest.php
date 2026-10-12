@@ -31,8 +31,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      */
     protected $filter = null;
     /**
-     * Return at most this many entries. <code>0</code> (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. <code>0</code> (the default) and negative values apply the
+     * server default (<code>ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES</code>, default 5000); values above the
+     * server hard cap (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it.
      *
      * Generated from protobuf field <code>optional int32 max_lines = 3;</code>
      */
@@ -66,6 +67,30 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional bool oldest_first = 7;</code>
      */
     protected $oldest_first = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogEntry</code>,
+     * relative to the <code>CallLogEntry</code> message (no <code>log_entries.</code> prefix), e.g.
+     * <code>timestamp</code>, <code>level</code>, <code>message</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>log_stream</code> and
+     * <code>seq</code>, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+     * the server&apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (<code>truncated</code>, the <code>seq</code> bounds, <code>next_resume_token</code>)
+     * are computed exactly as without a mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Also count the matching entries: fills <code>ListCallLogsResponse.total_matching_count</code>
+     * and <code>count_by_level</code> over the WHOLE filtered history (not only the returned window, and
+     * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     * is off by default; set it on the first page only.
+     *
+     * Generated from protobuf field <code>bool include_counts = 9;</code>
+     */
+    protected $include_counts = false;
 
     /**
      * Constructor.
@@ -79,8 +104,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\CallLogFilter $filter
      *           Optional. A filter to narrow the response down to the entries of interest.
      *     @type int $max_lines
-     *           Return at most this many entries. <code>0</code> (the default) applies the server default;
-     *           values above the server hard cap are clamped to it.
+     *           Return at most this many entries. <code>0</code> (the default) and negative values apply the
+     *           server default (<code>ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES</code>, default 5000); values above the
+     *           server hard cap (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it.
      *     @type int|string $before_seq
      *           Optional cursor for infinite-scroll UP: return the newest entries with <code>seq</code> less
      *           than this value. Valid only when the filter resolves to exactly one log stream.
@@ -94,6 +120,22 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      *           Walk forward from the cursor oldest-first instead of returning the most recent window. A
      *           client paging through a whole backlog must set this: the default window silently skips
      *           everything between the cursor and the newest entries.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>CallLogEntry</code>,
+     *           relative to the <code>CallLogEntry</code> message (no <code>log_entries.</code> prefix), e.g.
+     *           <code>timestamp</code>, <code>level</code>, <code>message</code>. Nested paths through singular
+     *           message fields are allowed; a path below a repeated or map field is not. <code>log_stream</code> and
+     *           <code>seq</code>, which together identify an entry, are always populated. Unset or empty returns
+     *           every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+     *           the server&apos;s secret redaction of the log text, so it can only narrow the response and never
+     *           populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     *           the response (<code>truncated</code>, the <code>seq</code> bounds, <code>next_resume_token</code>)
+     *           are computed exactly as without a mask.
+     *     @type bool $include_counts
+     *           Optional. Also count the matching entries: fills <code>ListCallLogsResponse.total_matching_count</code>
+     *           and <code>count_by_level</code> over the WHOLE filtered history (not only the returned window, and
+     *           ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     *           is off by default; set it on the first page only.
      * }
      */
     public function __construct($data = NULL) {
@@ -166,8 +208,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Return at most this many entries. <code>0</code> (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. <code>0</code> (the default) and negative values apply the
+     * server default (<code>ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES</code>, default 5000); values above the
+     * server hard cap (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it.
      *
      * Generated from protobuf field <code>optional int32 max_lines = 3;</code>
      * @return int
@@ -188,8 +231,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Return at most this many entries. <code>0</code> (the default) applies the server default;
-     * values above the server hard cap are clamped to it.
+     * Return at most this many entries. <code>0</code> (the default) and negative values apply the
+     * server default (<code>ONDEWO_VTSI_LOG_DEFAULT_MAX_LINES</code>, default 5000); values above the
+     * server hard cap (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it.
      *
      * Generated from protobuf field <code>optional int32 max_lines = 3;</code>
      * @param int $var
@@ -353,6 +397,92 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->oldest_first = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogEntry</code>,
+     * relative to the <code>CallLogEntry</code> message (no <code>log_entries.</code> prefix), e.g.
+     * <code>timestamp</code>, <code>level</code>, <code>message</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>log_stream</code> and
+     * <code>seq</code>, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+     * the server&apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (<code>truncated</code>, the <code>seq</code> bounds, <code>next_resume_token</code>)
+     * are computed exactly as without a mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogEntry</code>,
+     * relative to the <code>CallLogEntry</code> message (no <code>log_entries.</code> prefix), e.g.
+     * <code>timestamp</code>, <code>level</code>, <code>message</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>log_stream</code> and
+     * <code>seq</code>, which together identify an entry, are always populated. Unset or empty returns
+     * every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after
+     * the server&apos;s secret redaction of the log text, so it can only narrow the response and never
+     * populates a field that was left empty. It shapes only the entries: the window and cursor fields of
+     * the response (<code>truncated</code>, the <code>seq</code> bounds, <code>next_resume_token</code>)
+     * are computed exactly as without a mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 8;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Also count the matching entries: fills <code>ListCallLogsResponse.total_matching_count</code>
+     * and <code>count_by_level</code> over the WHOLE filtered history (not only the returned window, and
+     * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     * is off by default; set it on the first page only.
+     *
+     * Generated from protobuf field <code>bool include_counts = 9;</code>
+     * @return bool
+     */
+    public function getIncludeCounts()
+    {
+        return $this->include_counts;
+    }
+
+    /**
+     * Optional. Also count the matching entries: fills <code>ListCallLogsResponse.total_matching_count</code>
+     * and <code>count_by_level</code> over the WHOLE filtered history (not only the returned window, and
+     * ignoring the cursors). Counting reads every matching entry and can be slow on a large project, so it
+     * is off by default; set it on the first page only.
+     *
+     * Generated from protobuf field <code>bool include_counts = 9;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setIncludeCounts($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->include_counts = $var;
 
         return $this;
     }

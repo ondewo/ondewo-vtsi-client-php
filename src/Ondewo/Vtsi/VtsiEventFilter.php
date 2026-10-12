@@ -10,14 +10,19 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription.
+ * Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription, and narrows a
+ * <code>RedeliverWebhookEvents</code> window. Every set field narrows the selection (AND); the entries of one
+ * list are alternatives (OR).
  *
  * Generated from protobuf message <code>ondewo.vtsi.VtsiEventFilter</code>
  */
 class VtsiEventFilter extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
+     * empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
+     * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
      */
@@ -37,6 +42,21 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated string campaign_names = 3;</code>
      */
     private $campaign_names;
+    /**
+     * Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
+     * <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>bool all_events = 4;</code>
+     */
+    protected $all_events = false;
+    /**
+     * Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
+     * Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     */
+    private $excluded_events;
 
     /**
      * Constructor.
@@ -45,7 +65,10 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int[] $events
-     *           Only these events. Empty means every event.
+     *           Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
+     *           empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
+     *           constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
+     *           rejected with <code>INVALID_ARGUMENT</code>.
      *     @type string[] $resource_name_prefixes
      *           Only events whose <code>resource_name</code> starts with one of these prefixes. Empty means
      *           every resource of the project. Same semantics as
@@ -53,6 +76,13 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      *     @type string[] $campaign_names
      *           Only events of these campaigns. Same semantics as
      *           <code>VtsiEventSubscription.campaign_names</code>.
+     *     @type bool $all_events
+     *           Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
+     *           <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
+     *           rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type int[] $excluded_events
+     *           Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
+     *           Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -61,7 +91,10 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
+     * empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
+     * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
      * @return RepeatedField<int>
@@ -72,7 +105,10 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Only these events. Empty means every event.
+     * Only these events. Empty means every event (unlike <code>VtsiEventSubscription.events</code>, where
+     * empty is refused unless <code>all_events</code> is set: a filter is a one-off request, so "no
+     * constraint" is its natural empty value). <code>VTSI_EVENT_UNSPECIFIED</code> or a reserved value is
+     * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
      * @param int[] $var
@@ -140,6 +176,64 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
+     * <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>bool all_events = 4;</code>
+     * @return bool
+     */
+    public function getAllEvents()
+    {
+        return $this->all_events;
+    }
+
+    /**
+     * Every event, explicitly; equivalent to an empty <code>events</code> and present for symmetry with
+     * <code>VtsiEventSubscription.all_events</code>. Set together with a non-empty <code>events</code> is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>bool all_events = 4;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setAllEvents($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->all_events = $var;
+
+        return $this;
+    }
+
+    /**
+     * Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
+     * Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @return RepeatedField<int>
+     */
+    public function getExcludedEvents()
+    {
+        return $this->excluded_events;
+    }
+
+    /**
+     * Events NOT to select, subtracted from the selection of <code>events</code> / <code>all_events</code>.
+     * Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setExcludedEvents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
+        $this->excluded_events = $arr;
 
         return $this;
     }

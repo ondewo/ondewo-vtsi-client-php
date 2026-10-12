@@ -10,14 +10,16 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to get a call instance&apos;s call logs
+ * Request to get a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.GetCallRequest</code>
  */
 class GetCallRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>call_name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
@@ -31,11 +33,24 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      */
     protected $call_view = null;
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Call</code>, relative to the
+     * <code>Call</code> message, e.g. <code>call_type</code>, <code>phone_number</code>, <code>labels</code>,
+     * <code>sip_status.status_type</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field the <code>call_view</code> populates. An unknown path is rejected with <code>INVALID_ARGUMENT</code>
+     * naming it. Applied after the <code>call_view</code> and the server&apos;s role-based redaction of
+     * <code>common_services_config</code>, so it can only narrow the response and never populates a field that
+     * was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -44,13 +59,24 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Required. Redundant with the project segment of <code>call_name</code>, by the rule of
+     *           <code>GetCallerRequest.vtsi_project_name</code>.
      *     @type string $call_name
      *           call name
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type int $call_view
-     *           you can specify the view to be shallow or full .. see above for more info
+     *           Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in the returned <code>Call</code>, relative to the
+     *           <code>Call</code> message, e.g. <code>call_type</code>, <code>phone_number</code>, <code>labels</code>,
+     *           <code>sip_status.status_type</code>. Nested paths through singular message fields are allowed; a path
+     *           below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     *           field the <code>call_view</code> populates. An unknown path is rejected with <code>INVALID_ARGUMENT</code>
+     *           naming it. Applied after the <code>call_view</code> and the server&apos;s role-based redaction of
+     *           <code>common_services_config</code>, so it can only narrow the response and never populates a field that
+     *           was left empty.
      * }
      */
     public function __construct($data = NULL) {
@@ -59,7 +85,9 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>call_name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -70,7 +98,9 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>call_name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -115,7 +145,7 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @return int
@@ -136,7 +166,7 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @param int $var
@@ -146,6 +176,56 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Call</code>, relative to the
+     * <code>Call</code> message, e.g. <code>call_type</code>, <code>phone_number</code>, <code>labels</code>,
+     * <code>sip_status.status_type</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field the <code>call_view</code> populates. An unknown path is rejected with <code>INVALID_ARGUMENT</code>
+     * naming it. Applied after the <code>call_view</code> and the server&apos;s role-based redaction of
+     * <code>common_services_config</code>, so it can only narrow the response and never populates a field that
+     * was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Call</code>, relative to the
+     * <code>Call</code> message, e.g. <code>call_type</code>, <code>phone_number</code>, <code>labels</code>,
+     * <code>sip_status.status_type</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field the <code>call_view</code> populates. An unknown path is rejected with <code>INVALID_ARGUMENT</code>
+     * naming it. Applied after the <code>call_view</code> and the server&apos;s role-based redaction of
+     * <code>common_services_config</code>, so it can only narrow the response and never populates a field that
+     * was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

@@ -23,13 +23,16 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The call ids that were assigned to each listener
+     * One entry per listener that was STARTED, in request order. A requested listener that failed to start was rolled
+     * back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
+     * for it.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerResponse listener_responses = 2;</code>
      */
     private $listener_responses;
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when every requested listener was started. Otherwise an accounting of the batch: how many listeners were
+     * requested, how many were started, and why each of the others was not
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,9 +47,12 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartListenerResponse[] $listener_responses
-     *           The call ids that were assigned to each listener
+     *           One entry per listener that was STARTED, in request order. A requested listener that failed to start was rolled
+     *           back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
+     *           for it.
      *     @type string $error_message
-     *           overall error message if you have any so if it's unhealthy
+     *           Empty when every requested listener was started. Otherwise an accounting of the batch: how many listeners were
+     *           requested, how many were started, and why each of the others was not
      * }
      */
     public function __construct($data = NULL) {
@@ -81,7 +87,9 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The call ids that were assigned to each listener
+     * One entry per listener that was STARTED, in request order. A requested listener that failed to start was rolled
+     * back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
+     * for it.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerResponse listener_responses = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartListenerResponse>
@@ -92,7 +100,9 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The call ids that were assigned to each listener
+     * One entry per listener that was STARTED, in request order. A requested listener that failed to start was rolled
+     * back and has NO entry here (so the list can be shorter than the request); <code>error_message</code> accounts
+     * for it.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerResponse listener_responses = 2;</code>
      * @param \Ondewo\Vtsi\StartListenerResponse[] $var
@@ -107,7 +117,8 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when every requested listener was started. Otherwise an accounting of the batch: how many listeners were
+     * requested, how many were started, and why each of the others was not
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -118,7 +129,8 @@ class StartListenersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when every requested listener was started. Otherwise an accounting of the batch: how many listeners were
+     * requested, how many were started, and why each of the others was not
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

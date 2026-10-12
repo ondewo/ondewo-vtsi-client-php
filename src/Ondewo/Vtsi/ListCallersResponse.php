@@ -17,19 +17,26 @@ use Google\Protobuf\RepeatedField;
 class ListCallersResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of callers.
+     * The callers of this page, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
+     * ascending.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Caller callers = 1;</code>
      */
     private $callers;
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque. Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      */
     protected $next_page_token = '';
+    /**
+     * The number of callers the request matches across all pages (its selector and filters, not
+     * <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
+     * listing as callers are started, stopped or deleted.
+     *
+     * Generated from protobuf field <code>int32 total_size = 3;</code>
+     */
+    protected $total_size = 0;
 
     /**
      * Constructor.
@@ -38,11 +45,14 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\Caller[] $callers
-     *           The list of callers.
+     *           The callers of this page, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
+     *           ascending.
      *     @type string $next_page_token
-     *           Token to retrieve the next page of results.
-     *           This field is a string that holds a token for fetching the next page of results.
-     *           If there are no more results in the list, this field will be empty.
+     *           Token to retrieve the next page of results. Opaque. Empty when there are no more results.
+     *     @type int $total_size
+     *           The number of callers the request matches across all pages (its selector and filters, not
+     *           <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
+     *           listing as callers are started, stopped or deleted.
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +61,8 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of callers.
+     * The callers of this page, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
+     * ascending.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Caller callers = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\Caller>
@@ -62,7 +73,8 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of callers.
+     * The callers of this page, ordered by the caller&apos;s uuid (the last segment of <code>name</code>),
+     * ascending.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Caller callers = 1;</code>
      * @param \Ondewo\Vtsi\Caller[] $var
@@ -77,9 +89,7 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque. Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @return string
@@ -90,9 +100,7 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque. Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @param string $var
@@ -102,6 +110,36 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->next_page_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * The number of callers the request matches across all pages (its selector and filters, not
+     * <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
+     * listing as callers are started, stopped or deleted.
+     *
+     * Generated from protobuf field <code>int32 total_size = 3;</code>
+     * @return int
+     */
+    public function getTotalSize()
+    {
+        return $this->total_size;
+    }
+
+    /**
+     * The number of callers the request matches across all pages (its selector and filters, not
+     * <code>page_size</code>), counted exactly when this page was read. It can change between the pages of one
+     * listing as callers are started, stopped or deleted.
+     *
+     * Generated from protobuf field <code>int32 total_size = 3;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setTotalSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->total_size = $var;
 
         return $this;
     }

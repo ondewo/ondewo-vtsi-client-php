@@ -27,7 +27,9 @@ class CampaignState
      */
     const CAMPAIGN_STATE_CREATED = 1;
     /**
-     * Calls are being started, at most <code>max_parallel_calls</code> at a time.
+     * Calls are being started, at most <code>max_parallel_calls</code> at a time. A campaign with a
+     * <code>calling_window</code> stays in this state outside its slots and starts no call there; see
+     * <code>Campaign.outside_calling_window</code>.
      *
      * Generated from protobuf enum <code>CAMPAIGN_STATE_RUNNING = 2;</code>
      */

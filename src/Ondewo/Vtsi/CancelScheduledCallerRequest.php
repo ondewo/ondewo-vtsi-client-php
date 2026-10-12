@@ -29,6 +29,17 @@ class CancelScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
+    /**
+     * Optional. Partial response: the field paths of <code>CancelScheduledCallerResponse</code> to populate, i.e.
+     * <code>status</code>, <code>cancelled</code> and <code>error_message</code> (the response carries no
+     * <code>ScheduledCaller</code>). <code>name</code> is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is cancelled. It shapes
+     * only the response: the scheduled caller is cancelled regardless. In a <code>CancelScheduledCallers</code>
+     * batch the batch&apos;s own <code>field_mask</code> applies.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -41,6 +52,13 @@ class CancelScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           The name of the scheduled caller to cancel of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths of <code>CancelScheduledCallerResponse</code> to populate, i.e.
+     *           <code>status</code>, <code>cancelled</code> and <code>error_message</code> (the response carries no
+     *           <code>ScheduledCaller</code>). <code>name</code> is always populated. Unset or empty returns every field. An
+     *           unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is cancelled. It shapes
+     *           only the response: the scheduled caller is cancelled regardless. In a <code>CancelScheduledCallers</code>
+     *           batch the batch&apos;s own <code>field_mask</code> applies.
      * }
      */
     public function __construct($data = NULL) {
@@ -98,6 +116,52 @@ class CancelScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths of <code>CancelScheduledCallerResponse</code> to populate, i.e.
+     * <code>status</code>, <code>cancelled</code> and <code>error_message</code> (the response carries no
+     * <code>ScheduledCaller</code>). <code>name</code> is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is cancelled. It shapes
+     * only the response: the scheduled caller is cancelled regardless. In a <code>CancelScheduledCallers</code>
+     * batch the batch&apos;s own <code>field_mask</code> applies.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths of <code>CancelScheduledCallerResponse</code> to populate, i.e.
+     * <code>status</code>, <code>cancelled</code> and <code>error_message</code> (the response carries no
+     * <code>ScheduledCaller</code>). <code>name</code> is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is cancelled. It shapes
+     * only the response: the scheduled caller is cancelled regardless. In a <code>CancelScheduledCallers</code>
+     * batch the batch&apos;s own <code>field_mask</code> applies.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

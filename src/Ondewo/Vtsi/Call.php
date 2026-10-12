@@ -10,7 +10,9 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Call
+ * A call of a listener or caller: one record per call, kept after the call ended. Every field is output only
+ * except <code>labels</code> (see <code>UpdateCall</code>). The WAITING record of a persistent listener or pooled
+ * caller (status <code>NO_ONGOING_CALL</code>, not active, no start time) is a <code>Call</code> too.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Call</code>
  */
@@ -25,43 +27,47 @@ class Call extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * sip account used
+     * The SIP account (on the project&apos;s Asterisk) the call&apos;s container registered with, e.g.
+     * <code>ondewo0007</code>
      *
      * Generated from protobuf field <code>string sip_account = 2;</code>
      */
     protected $sip_account = '';
     /**
-     * container name which you get from docker ps
+     * Name of the call&apos;s ondewo-sip container, as <code>docker ps</code> shows it
      *
      * Generated from protobuf field <code>string container_name = 3;</code>
      */
     protected $container_name = '';
     /**
-     * Listener or caller enum .. if not specified
+     * <code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code> (see
+     * <code>CallType</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 4;</code>
      */
     protected $call_type = 0;
     /**
-     * callee voip id or callee phone number
+     * The callee (outbound call) or the calling party (inbound call): a phone number or a VoIP id, as dialled or
+     * as received
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      */
     protected $phone_number = '';
     /**
-     * start time of log
+     * When the call started (the SIP call was set up); unset for the waiting record of a persistent listener or
+     * pooled caller
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 6;</code>
      */
     protected $start_time = null;
     /**
-     * end time of log
+     * When the call ended; unset while the call is active
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp end_time = 7;</code>
      */
     protected $end_time = null;
     /**
-     * current sip status type
+     * The call&apos;s current SIP status type, or its last one once the call ended
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 8;</code>
      */
@@ -85,13 +91,13 @@ class Call extends \Google\Protobuf\Internal\Message
      */
     protected $services_statuses = null;
     /**
-     * Is a call active or not
+     * Whether the call is active, i.e. set up or connected
      *
      * Generated from protobuf field <code>bool active = 12;</code>
      */
     protected $active = false;
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 13;</code>
      */
@@ -103,13 +109,13 @@ class Call extends \Google\Protobuf\Internal\Message
      */
     protected $common_services_config = null;
     /**
-     * SIP port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s ondewo-sip container
      *
      * Generated from protobuf field <code>optional int32 sip_port = 15;</code>
      */
     protected $sip_port = null;
     /**
-     * CSI port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s CSI (speech-to-speech) process
      *
      * Generated from protobuf field <code>optional int32 csi_port = 16;</code>
      */
@@ -164,7 +170,11 @@ class Call extends \Google\Protobuf\Internal\Message
      */
     protected $media_control = null;
     /**
-     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     * Participants invited into the call (<code>InviteToCall</code>), oldest invitation first. FULL view: all of
+     * them, including those that FAILED or LEFT; SHALLOW view: only those still RINGING or JOINED; MINIMUM view:
+     * none. So the complete participant history of a call is read with <code>GetCall</code>,
+     * <code>call_view = FULL</code> (and <code>field_mask = participants</code> to read nothing else). Participants
+     * are kept as long as the call record.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
      */
@@ -183,6 +193,24 @@ class Call extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string sip_call_id = 25;</code>
      */
     protected $sip_call_id = '';
+    /**
+     * Client-defined descriptive labels of the call, e.g. <code>{"ticket": "4711", "outcome": "callback"}</code>.
+     * Empty until a client sets them; the server never sets or interprets them. Written ONLY by
+     * <code>UpdateCall</code> / <code>UpdateCalls</code> with the <code>update_mask</code> path
+     * <code>labels</code>, which REPLACES the whole map (an empty map clears it); a path below it (e.g.
+     * <code>labels.ticket</code>) is rejected. Bounds, each refused with <code>INVALID_ARGUMENT</code> naming
+     * the label: at most 64 entries; a key of 1 to 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting
+     * with a letter; a value of at most 256 characters. These are exactly the bounds of
+     * <code>SoftphoneAccount.labels</code>.
+     * Stored with the call record, so they survive the end of the call and are kept as long as the record.
+     * The waiting call of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not
+     * active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
+     * This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
+     * anything about the live call being changed. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 26;</code>
+     */
+    private $labels;
 
     /**
      * Constructor.
@@ -195,19 +223,23 @@ class Call extends \Google\Protobuf\Internal\Message
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type string $sip_account
-     *           sip account used
+     *           The SIP account (on the project&apos;s Asterisk) the call&apos;s container registered with, e.g.
+     *           <code>ondewo0007</code>
      *     @type string $container_name
-     *           container name which you get from docker ps
+     *           Name of the call&apos;s ondewo-sip container, as <code>docker ps</code> shows it
      *     @type int $call_type
-     *           Listener or caller enum .. if not specified
+     *           <code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code> (see
+     *           <code>CallType</code>)
      *     @type string $phone_number
-     *           callee voip id or callee phone number
+     *           The callee (outbound call) or the calling party (inbound call): a phone number or a VoIP id, as dialled or
+     *           as received
      *     @type \Google\Protobuf\Timestamp $start_time
-     *           start time of log
+     *           When the call started (the SIP call was set up); unset for the waiting record of a persistent listener or
+     *           pooled caller
      *     @type \Google\Protobuf\Timestamp $end_time
-     *           end time of log
+     *           When the call ended; unset while the call is active
      *     @type int $sip_status_type
-     *           current sip status type
+     *           The call&apos;s current SIP status type, or its last one once the call ended
      *     @type \Ondewo\Sip\SipStatus $sip_status
      *           current sip status
      *     @type \Ondewo\Sip\SipStatusHistoryResponse $sip_status_history
@@ -215,15 +247,15 @@ class Call extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\AllServicesStatuses $services_statuses
      *           All container health statuses
      *     @type bool $active
-     *           Is a call active or not
+     *           Whether the call is active, i.e. set up or connected
      *     @type string $vtsi_project_name
-     *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
      *           Detailed configuration of the services used for the call such as S2T, T2S, NLU, SIP and CSI
      *     @type int $sip_port
-     *           SIP port of the call
+     *           Port (1 to 65535) of the gRPC server of the call&apos;s ondewo-sip container
      *     @type int $csi_port
-     *           CSI port of the call
+     *           Port (1 to 65535) of the gRPC server of the call&apos;s CSI (speech-to-speech) process
      *     @type string $nlu_session_name
      *           NLU session name
      *     @type int $platforms
@@ -250,13 +282,31 @@ class Call extends \Google\Protobuf\Internal\Message
      *           Media control state of the call (bot muted, listening paused, connected audio streams, joined participants).
      *           Set in the SHALLOW and FULL views
      *     @type \Ondewo\Vtsi\CallParticipant[] $participants
-     *           Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     *           Participants invited into the call (<code>InviteToCall</code>), oldest invitation first. FULL view: all of
+     *           them, including those that FAILED or LEFT; SHALLOW view: only those still RINGING or JOINED; MINIMUM view:
+     *           none. So the complete participant history of a call is read with <code>GetCall</code>,
+     *           <code>call_view = FULL</code> (and <code>field_mask = participants</code> to read nothing else). Participants
+     *           are kept as long as the call record.
      *     @type \Ondewo\Vtsi\CallTransferRecord $last_transfer
      *           The last transfer attempt of the call; unset if there was none. Set in the SHALLOW and FULL views
      *     @type string $sip_call_id
      *           Identifier the call&apos;s SIP container minted for the call (<code>ondewo.sip.SipStatus.call_id</code>). Empty until
      *           the call was identified; call control requests are refused (<code>call-not-yet-identified</code>) until then.
      *           Set in the SHALLOW and FULL views
+     *     @type array|\Google\Protobuf\Internal\MapField $labels
+     *           Client-defined descriptive labels of the call, e.g. <code>{"ticket": "4711", "outcome": "callback"}</code>.
+     *           Empty until a client sets them; the server never sets or interprets them. Written ONLY by
+     *           <code>UpdateCall</code> / <code>UpdateCalls</code> with the <code>update_mask</code> path
+     *           <code>labels</code>, which REPLACES the whole map (an empty map clears it); a path below it (e.g.
+     *           <code>labels.ticket</code>) is rejected. Bounds, each refused with <code>INVALID_ARGUMENT</code> naming
+     *           the label: at most 64 entries; a key of 1 to 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting
+     *           with a letter; a value of at most 256 characters. These are exactly the bounds of
+     *           <code>SoftphoneAccount.labels</code>.
+     *           Stored with the call record, so they survive the end of the call and are kept as long as the record.
+     *           The waiting call of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not
+     *           active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
+     *           This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
+     *           anything about the live call being changed. Set in the SHALLOW and FULL views.
      * }
      */
     public function __construct($data = NULL) {
@@ -295,7 +345,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * sip account used
+     * The SIP account (on the project&apos;s Asterisk) the call&apos;s container registered with, e.g.
+     * <code>ondewo0007</code>
      *
      * Generated from protobuf field <code>string sip_account = 2;</code>
      * @return string
@@ -306,7 +357,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * sip account used
+     * The SIP account (on the project&apos;s Asterisk) the call&apos;s container registered with, e.g.
+     * <code>ondewo0007</code>
      *
      * Generated from protobuf field <code>string sip_account = 2;</code>
      * @param string $var
@@ -321,7 +373,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * container name which you get from docker ps
+     * Name of the call&apos;s ondewo-sip container, as <code>docker ps</code> shows it
      *
      * Generated from protobuf field <code>string container_name = 3;</code>
      * @return string
@@ -332,7 +384,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * container name which you get from docker ps
+     * Name of the call&apos;s ondewo-sip container, as <code>docker ps</code> shows it
      *
      * Generated from protobuf field <code>string container_name = 3;</code>
      * @param string $var
@@ -347,7 +399,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Listener or caller enum .. if not specified
+     * <code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code> (see
+     * <code>CallType</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 4;</code>
      * @return int
@@ -358,7 +411,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Listener or caller enum .. if not specified
+     * <code>LISTENER</code>, <code>CALLER</code> or <code>SCHEDULED_CALLER</code>; never <code>BOTH</code> (see
+     * <code>CallType</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 4;</code>
      * @param int $var
@@ -373,7 +427,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * callee voip id or callee phone number
+     * The callee (outbound call) or the calling party (inbound call): a phone number or a VoIP id, as dialled or
+     * as received
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      * @return string
@@ -384,7 +439,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * callee voip id or callee phone number
+     * The callee (outbound call) or the calling party (inbound call): a phone number or a VoIP id, as dialled or
+     * as received
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      * @param string $var
@@ -399,7 +455,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * start time of log
+     * When the call started (the SIP call was set up); unset for the waiting record of a persistent listener or
+     * pooled caller
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 6;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -420,7 +477,8 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * start time of log
+     * When the call started (the SIP call was set up); unset for the waiting record of a persistent listener or
+     * pooled caller
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 6;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -435,7 +493,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * end time of log
+     * When the call ended; unset while the call is active
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp end_time = 7;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -456,7 +514,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * end time of log
+     * When the call ended; unset while the call is active
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp end_time = 7;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -471,7 +529,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * current sip status type
+     * The call&apos;s current SIP status type, or its last one once the call ended
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 8;</code>
      * @return int
@@ -482,7 +540,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * current sip status type
+     * The call&apos;s current SIP status type, or its last one once the call ended
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 8;</code>
      * @param int $var
@@ -605,7 +663,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Is a call active or not
+     * Whether the call is active, i.e. set up or connected
      *
      * Generated from protobuf field <code>bool active = 12;</code>
      * @return bool
@@ -616,7 +674,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Is a call active or not
+     * Whether the call is active, i.e. set up or connected
      *
      * Generated from protobuf field <code>bool active = 12;</code>
      * @param bool $var
@@ -631,7 +689,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 13;</code>
      * @return string
@@ -642,7 +700,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 13;</code>
      * @param string $var
@@ -693,7 +751,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s ondewo-sip container
      *
      * Generated from protobuf field <code>optional int32 sip_port = 15;</code>
      * @return int
@@ -714,7 +772,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s ondewo-sip container
      *
      * Generated from protobuf field <code>optional int32 sip_port = 15;</code>
      * @param int $var
@@ -729,7 +787,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * CSI port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s CSI (speech-to-speech) process
      *
      * Generated from protobuf field <code>optional int32 csi_port = 16;</code>
      * @return int
@@ -750,7 +808,7 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * CSI port of the call
+     * Port (1 to 65535) of the gRPC server of the call&apos;s CSI (speech-to-speech) process
      *
      * Generated from protobuf field <code>optional int32 csi_port = 16;</code>
      * @param int $var
@@ -1007,7 +1065,11 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     * Participants invited into the call (<code>InviteToCall</code>), oldest invitation first. FULL view: all of
+     * them, including those that FAILED or LEFT; SHALLOW view: only those still RINGING or JOINED; MINIMUM view:
+     * none. So the complete participant history of a call is read with <code>GetCall</code>,
+     * <code>call_view = FULL</code> (and <code>field_mask = participants</code> to read nothing else). Participants
+     * are kept as long as the call record.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
      * @return RepeatedField<\Ondewo\Vtsi\CallParticipant>
@@ -1018,7 +1080,11 @@ class Call extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Participants invited into the call. FULL view: all of them; SHALLOW view: those still ringing or joined
+     * Participants invited into the call (<code>InviteToCall</code>), oldest invitation first. FULL view: all of
+     * them, including those that FAILED or LEFT; SHALLOW view: only those still RINGING or JOINED; MINIMUM view:
+     * none. So the complete participant history of a call is read with <code>GetCall</code>,
+     * <code>call_view = FULL</code> (and <code>field_mask = participants</code> to read nothing else). Participants
+     * are kept as long as the call record.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallParticipant participants = 23;</code>
      * @param \Ondewo\Vtsi\CallParticipant[] $var
@@ -1094,6 +1160,56 @@ class Call extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->sip_call_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Client-defined descriptive labels of the call, e.g. <code>{"ticket": "4711", "outcome": "callback"}</code>.
+     * Empty until a client sets them; the server never sets or interprets them. Written ONLY by
+     * <code>UpdateCall</code> / <code>UpdateCalls</code> with the <code>update_mask</code> path
+     * <code>labels</code>, which REPLACES the whole map (an empty map clears it); a path below it (e.g.
+     * <code>labels.ticket</code>) is rejected. Bounds, each refused with <code>INVALID_ARGUMENT</code> naming
+     * the label: at most 64 entries; a key of 1 to 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting
+     * with a letter; a value of at most 256 characters. These are exactly the bounds of
+     * <code>SoftphoneAccount.labels</code>.
+     * Stored with the call record, so they survive the end of the call and are kept as long as the record.
+     * The waiting call of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not
+     * active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
+     * This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
+     * anything about the live call being changed. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 26;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * Client-defined descriptive labels of the call, e.g. <code>{"ticket": "4711", "outcome": "callback"}</code>.
+     * Empty until a client sets them; the server never sets or interprets them. Written ONLY by
+     * <code>UpdateCall</code> / <code>UpdateCalls</code> with the <code>update_mask</code> path
+     * <code>labels</code>, which REPLACES the whole map (an empty map clears it); a path below it (e.g.
+     * <code>labels.ticket</code>) is rejected. Bounds, each refused with <code>INVALID_ARGUMENT</code> naming
+     * the label: at most 64 entries; a key of 1 to 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting
+     * with a letter; a value of at most 256 characters. These are exactly the bounds of
+     * <code>SoftphoneAccount.labels</code>.
+     * Stored with the call record, so they survive the end of the call and are kept as long as the record.
+     * The waiting call of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not
+     * active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
+     * This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
+     * anything about the live call being changed. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>map<string, string> labels = 26;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setLabels($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->labels = $arr;
 
         return $this;
     }

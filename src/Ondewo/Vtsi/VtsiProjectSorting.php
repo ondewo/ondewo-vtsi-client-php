@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * This protobuf message defines the sorting order for VTSI (Virtual Test System Infrastructure) projects.
+ * This protobuf message defines the sorting order for VTSI (Virtual Telephone System Integration) projects.
  *
  * Generated from protobuf message <code>ondewo.vtsi.VtsiProjectSorting</code>
  */

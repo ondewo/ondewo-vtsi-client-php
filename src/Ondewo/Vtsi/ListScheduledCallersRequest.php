@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents a request to list the scheduled callers of a vtsi-project.
+ * Represents a request to list the scheduled callers of a VTSI project.
  *
  * Generated from protobuf message <code>ondewo.vtsi.ListScheduledCallersRequest</code>
  */
@@ -24,14 +24,18 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>statuses</code>,
+     * <code>campaign_name</code>, <code>scheduled_after</code> and <code>scheduled_before</code>; a token issued
+     * for another listing is rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>,
+     * <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      */
     protected $page_token = null;
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each scheduled caller to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      */
@@ -43,6 +47,55 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .ondewo.vtsi.ScheduledCallerStatus statuses = 4;</code>
      */
     private $statuses;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
+     * <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
+     * path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
+     * <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
+     * 1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
+     * the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     */
+    protected $page_size = 0;
+    /**
+     * Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
+     * does not filter. It must be a campaign of <code>vtsi_project_name</code>: a malformed name or a campaign of
+     * another project is <code>INVALID_ARGUMENT</code>, an unknown campaign <code>NOT_FOUND</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 7;</code>
+     */
+    protected $campaign_name = '';
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is at or after this instant (inclusive).
+     * Unset does not filter.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_after = 8;</code>
+     */
+    protected $scheduled_after = null;
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is strictly before this instant
+     * (exclusive), so that consecutive windows never overlap. Unset does not filter. When both bounds are set,
+     * <code>scheduled_before</code> must be after <code>scheduled_after</code>, otherwise
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_before = 9;</code>
+     */
+    protected $scheduled_before = null;
 
     /**
      * Constructor.
@@ -54,13 +107,46 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project name for which to perform the call.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $page_token
-     *           Optional. The next_page_token value returned from a previous list request.
-     *           Example: "current_index-1--page_size-20"
+     *           Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     *           API. Valid only with the same <code>vtsi_project_name</code>, <code>statuses</code>,
+     *           <code>campaign_name</code>, <code>scheduled_after</code> and <code>scheduled_before</code>; a token issued
+     *           for another listing is rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>,
+     *           <code>call_view</code> and <code>field_mask</code> may change between pages.
      *     @type int $call_view
-     *           you can specify the view to be shallow or full
+     *           Optional. How much of each scheduled caller to populate; see <code>CallView</code>. Unset means
+     *           <code>SHALLOW</code>.
      *     @type int[] $statuses
      *           Optional. Only return scheduled callers in one of these states.
      *           An empty list returns every state.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned
+     *           <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
+     *           <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
+     *           <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
+     *           path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     *           returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     *           server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     *           response and never populates a field that was left empty. Not part of the paging contract: a
+     *           <code>page_token</code> stays valid with another mask.
+     *     @type int $page_size
+     *           Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
+     *           <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
+     *           1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
+     *           the pages of one listing.
+     *     @type string $campaign_name
+     *           Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
+     *           does not filter. It must be a campaign of <code>vtsi_project_name</code>: a malformed name or a campaign of
+     *           another project is <code>INVALID_ARGUMENT</code>, an unknown campaign <code>NOT_FOUND</code>.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *     @type \Google\Protobuf\Timestamp $scheduled_after
+     *           Optional. Only scheduled callers whose <code>scheduled_time</code> is at or after this instant (inclusive).
+     *           Unset does not filter.
+     *     @type \Google\Protobuf\Timestamp $scheduled_before
+     *           Optional. Only scheduled callers whose <code>scheduled_time</code> is strictly before this instant
+     *           (exclusive), so that consecutive windows never overlap. Unset does not filter. When both bounds are set,
+     *           <code>scheduled_before</code> must be after <code>scheduled_after</code>, otherwise
+     *           <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -97,8 +183,11 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>statuses</code>,
+     * <code>campaign_name</code>, <code>scheduled_after</code> and <code>scheduled_before</code>; a token issued
+     * for another listing is rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>,
+     * <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @return string
@@ -119,8 +208,11 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>statuses</code>,
+     * <code>campaign_name</code>, <code>scheduled_after</code> and <code>scheduled_before</code>; a token issued
+     * for another listing is rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>,
+     * <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @param string $var
@@ -135,7 +227,8 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each scheduled caller to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @return int
@@ -156,7 +249,8 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each scheduled caller to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @param int $var
@@ -194,6 +288,204 @@ class ListScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\ScheduledCallerStatus::class);
         $this->statuses = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
+     * <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
+     * path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>ScheduledCaller</code>, relative to the <code>ScheduledCaller</code> message (no
+     * <code>scheduled_callers.</code> prefix), e.g. <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a
+     * path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
+     * <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
+     * 1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
+     * the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @return int
+     */
+    public function getPageSize()
+    {
+        return $this->page_size;
+    }
+
+    /**
+     * Optional. Maximum number of scheduled callers per page. <code>0</code> keeps the page size the
+     * <code>page_token</code> was issued with, and means the server default of 25 on a first page; values above
+     * 1000 are clamped to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between
+     * the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPageSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->page_size = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
+     * does not filter. It must be a campaign of <code>vtsi_project_name</code>: a malformed name or a campaign of
+     * another project is <code>INVALID_ARGUMENT</code>, an unknown campaign <code>NOT_FOUND</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 7;</code>
+     * @return string
+     */
+    public function getCampaignName()
+    {
+        return $this->campaign_name;
+    }
+
+    /**
+     * Optional. Only the scheduled callers of this campaign (<code>ScheduledCaller.campaign_name</code>). Empty
+     * does not filter. It must be a campaign of <code>vtsi_project_name</code>: a malformed name or a campaign of
+     * another project is <code>INVALID_ARGUMENT</code>, an unknown campaign <code>NOT_FOUND</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 7;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->campaign_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is at or after this instant (inclusive).
+     * Unset does not filter.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_after = 8;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getScheduledAfter()
+    {
+        return $this->scheduled_after;
+    }
+
+    public function hasScheduledAfter()
+    {
+        return isset($this->scheduled_after);
+    }
+
+    public function clearScheduledAfter()
+    {
+        unset($this->scheduled_after);
+    }
+
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is at or after this instant (inclusive).
+     * Unset does not filter.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_after = 8;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setScheduledAfter($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->scheduled_after = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is strictly before this instant
+     * (exclusive), so that consecutive windows never overlap. Unset does not filter. When both bounds are set,
+     * <code>scheduled_before</code> must be after <code>scheduled_after</code>, otherwise
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_before = 9;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getScheduledBefore()
+    {
+        return $this->scheduled_before;
+    }
+
+    public function hasScheduledBefore()
+    {
+        return isset($this->scheduled_before);
+    }
+
+    public function clearScheduledBefore()
+    {
+        unset($this->scheduled_before);
+    }
+
+    /**
+     * Optional. Only scheduled callers whose <code>scheduled_time</code> is strictly before this instant
+     * (exclusive), so that consecutive windows never overlap. Unset does not filter. When both bounds are set,
+     * <code>scheduled_before</code> must be after <code>scheduled_after</code>, otherwise
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_before = 9;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setScheduledBefore($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->scheduled_before = $var;
 
         return $this;
     }

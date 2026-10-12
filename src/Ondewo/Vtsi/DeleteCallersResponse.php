@@ -17,13 +17,15 @@ use Google\Protobuf\RepeatedField;
 class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * responses to delete callers
+     * One entry per distinct name of the request, in request order (a name given twice is reported once), each
+     * with its own <code>error_message</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.DeleteCallerResponse delete_caller_responses = 1;</code>
      */
     private $delete_caller_responses;
     /**
-     * error message if there are any.
+     * A summary when at least one entry failed (e.g. <code>2 of 5 callers were not deleted</code>), empty when every
+     * entry succeeded. The failed entries carry their own <code>error_message</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -36,9 +38,11 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\DeleteCallerResponse[] $delete_caller_responses
-     *           responses to delete callers
+     *           One entry per distinct name of the request, in request order (a name given twice is reported once), each
+     *           with its own <code>error_message</code>.
      *     @type string $error_message
-     *           error message if there are any.
+     *           A summary when at least one entry failed (e.g. <code>2 of 5 callers were not deleted</code>), empty when every
+     *           entry succeeded. The failed entries carry their own <code>error_message</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +51,8 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * responses to delete callers
+     * One entry per distinct name of the request, in request order (a name given twice is reported once), each
+     * with its own <code>error_message</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.DeleteCallerResponse delete_caller_responses = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\DeleteCallerResponse>
@@ -58,7 +63,8 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * responses to delete callers
+     * One entry per distinct name of the request, in request order (a name given twice is reported once), each
+     * with its own <code>error_message</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.DeleteCallerResponse delete_caller_responses = 1;</code>
      * @param \Ondewo\Vtsi\DeleteCallerResponse[] $var
@@ -73,7 +79,8 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * A summary when at least one entry failed (e.g. <code>2 of 5 callers were not deleted</code>), empty when every
+     * entry succeeded. The failed entries carry their own <code>error_message</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +91,8 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * A summary when at least one entry failed (e.g. <code>2 of 5 callers were not deleted</code>), empty when every
+     * entry succeeded. The failed entries carry their own <code>error_message</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

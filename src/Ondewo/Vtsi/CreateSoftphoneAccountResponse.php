@@ -26,6 +26,7 @@ class CreateSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
     /**
      * ONE-TIME secrets: the SIP password and, for
      * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
+     * For a replayed <code>idempotency_key</code>: the newly rotated secrets.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
      */
@@ -42,6 +43,7 @@ class CreateSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\SoftphoneCredentials $credentials
      *           ONE-TIME secrets: the SIP password and, for
      *           <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
+     *           For a replayed <code>idempotency_key</code>: the newly rotated secrets.
      * }
      */
     public function __construct($data = NULL) {
@@ -88,6 +90,7 @@ class CreateSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
     /**
      * ONE-TIME secrets: the SIP password and, for
      * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
+     * For a replayed <code>idempotency_key</code>: the newly rotated secrets.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
      * @return \Ondewo\Vtsi\SoftphoneCredentials|null
@@ -110,6 +113,7 @@ class CreateSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
     /**
      * ONE-TIME secrets: the SIP password and, for
      * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code>, the PKCS#12 bundle and its password.
+     * For a replayed <code>idempotency_key</code>: the newly rotated secrets.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneCredentials credentials = 2;</code>
      * @param \Ondewo\Vtsi\SoftphoneCredentials $var

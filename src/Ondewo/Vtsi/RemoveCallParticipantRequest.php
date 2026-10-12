@@ -29,7 +29,9 @@ class RemoveCallParticipantRequest extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * Identifier of the participant (<code>CallParticipant.participant_id</code>)
+     * Identifier of the participant (<code>CallParticipant.participant_id</code>). It must be a participant of
+     * <code>call_name</code>: an unknown identifier, or one of another call, is <code>NOT_FOUND</code> with
+     * <code>reason=participant-not-found</code>.
      *
      * Generated from protobuf field <code>string participant_id = 3;</code>
      */
@@ -46,7 +48,9 @@ class RemoveCallParticipantRequest extends \Google\Protobuf\Internal\Message
      *     @type string $call_name
      *           Name of the call
      *     @type string $participant_id
-     *           Identifier of the participant (<code>CallParticipant.participant_id</code>)
+     *           Identifier of the participant (<code>CallParticipant.participant_id</code>). It must be a participant of
+     *           <code>call_name</code>: an unknown identifier, or one of another call, is <code>NOT_FOUND</code> with
+     *           <code>reason=participant-not-found</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -107,7 +111,9 @@ class RemoveCallParticipantRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identifier of the participant (<code>CallParticipant.participant_id</code>)
+     * Identifier of the participant (<code>CallParticipant.participant_id</code>). It must be a participant of
+     * <code>call_name</code>: an unknown identifier, or one of another call, is <code>NOT_FOUND</code> with
+     * <code>reason=participant-not-found</code>.
      *
      * Generated from protobuf field <code>string participant_id = 3;</code>
      * @return string
@@ -118,7 +124,9 @@ class RemoveCallParticipantRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Identifier of the participant (<code>CallParticipant.participant_id</code>)
+     * Identifier of the participant (<code>CallParticipant.participant_id</code>). It must be a participant of
+     * <code>call_name</code>: an unknown identifier, or one of another call, is <code>NOT_FOUND</code> with
+     * <code>reason=participant-not-found</code>.
      *
      * Generated from protobuf field <code>string participant_id = 3;</code>
      * @param string $var

@@ -10,26 +10,39 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to stop/kill specific ondewo-sip listeners or callers instance for a specific vtsi-project.
+ * Request to stop several calls, each like <code>StopCall</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopCallsRequest</code>
  */
 class StopCallsRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of every call of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * call names to stop
+     * The calls to stop, 1 to 1000 names (a name given twice is stopped and reported once)
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>repeated string call_names = 2;</code>
      */
     private $call_names;
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -38,11 +51,20 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of every call of the request, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string[] $call_names
-     *           call names to stop
+     *           The calls to stop, 1 to 1000 names (a name given twice is stopped and reported once)
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in EVERY entry of
+     *           <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     *           <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     *           entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     *           <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     *           unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     *           shapes only the response: the calls are stopped regardless.
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +73,8 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of every call of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -62,7 +85,8 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of every call of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -77,7 +101,7 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * call names to stop
+     * The calls to stop, 1 to 1000 names (a name given twice is stopped and reported once)
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -90,7 +114,7 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * call names to stop
+     * The calls to stop, 1 to 1000 names (a name given twice is stopped and reported once)
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -102,6 +126,54 @@ class StopCallsRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->call_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

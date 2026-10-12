@@ -18,17 +18,34 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
 {
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
      * Optional. The <code>resume_token</code> of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
+     * with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
      *
      * Generated from protobuf field <code>optional string resume_token = 4;</code>
      */
     protected $resume_token = null;
+    /**
+     * Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * <code>resume_token</code>: use <code>start_time</code> for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (<code>ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S</code>, 24 h by default) is <code>OUT_OF_RANGE</code>; later
+     * than the server&apos;s clock is <code>INVALID_ARGUMENT</code>. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 5;</code>
+     */
+    protected $start_time = null;
     protected $selector;
 
     /**
@@ -39,15 +56,33 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $vtsi_project_name
      *           VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     *           <code>NOT_FOUND</code>.
      *     @type string $event_subscription_name
-     *           Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     *           here). The format is:
+     *           Select events exactly as this subscription does: its <code>events</code> or
+     *           <code>all_events</code>, minus its <code>excluded_events</code>, narrowed by its
+     *           <code>resource_name_prefixes</code> and <code>campaign_names</code> (its <code>webhook_names</code>
+     *           are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     *           update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     *           be a subscription of <code>vtsi_project_name</code> (<code>INVALID_ARGUMENT</code> otherwise) and
+     *           enabled (<code>FAILED_PRECONDITION</code> otherwise). The format is:
      *           <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
      *     @type \Ondewo\Vtsi\VtsiEventFilter $filter
      *           An inline filter.
      *     @type string $resume_token
      *           Optional. The <code>resume_token</code> of a previous response: continue after it.
-     *           Unset starts with events that happen from now on.
+     *           Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
+     *           with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
+     *     @type \Google\Protobuf\Timestamp $start_time
+     *           Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
+     *           the project that occurred at or after this time and match the selector, oldest first (journal order),
+     *           then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     *           <code>resume_token</code>: use <code>start_time</code> for a first connection or after losing the token,
+     *           the token for every reconnect. Older than the journal retention
+     *           (<code>ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S</code>, 24 h by default) is <code>OUT_OF_RANGE</code>; later
+     *           than the server&apos;s clock is <code>INVALID_ARGUMENT</code>. The journal holds only events of periods in
+     *           which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     *           report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
      * }
      */
     public function __construct($data = NULL) {
@@ -57,6 +92,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -68,6 +105,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -82,8 +121,13 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its <code>events</code> or
+     * <code>all_events</code>, minus its <code>excluded_events</code>, narrowed by its
+     * <code>resource_name_prefixes</code> and <code>campaign_names</code> (its <code>webhook_names</code>
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of <code>vtsi_project_name</code> (<code>INVALID_ARGUMENT</code> otherwise) and
+     * enabled (<code>FAILED_PRECONDITION</code> otherwise). The format is:
      * <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string event_subscription_name = 2;</code>
@@ -100,8 +144,13 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Use the events and resource prefixes of this subscription (its webhooks are irrelevant
-     * here). The format is:
+     * Select events exactly as this subscription does: its <code>events</code> or
+     * <code>all_events</code>, minus its <code>excluded_events</code>, narrowed by its
+     * <code>resource_name_prefixes</code> and <code>campaign_names</code> (its <code>webhook_names</code>
+     * are irrelevant here). Read when the stream opens and re-read within a few seconds of an update, so an
+     * update applies to the open stream; disabling or deleting the subscription ends the stream. It must
+     * be a subscription of <code>vtsi_project_name</code> (<code>INVALID_ARGUMENT</code> otherwise) and
+     * enabled (<code>FAILED_PRECONDITION</code> otherwise). The format is:
      * <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string event_subscription_name = 2;</code>
@@ -149,7 +198,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. The <code>resume_token</code> of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
+     * with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
      *
      * Generated from protobuf field <code>optional string resume_token = 4;</code>
      * @return string
@@ -171,7 +221,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. The <code>resume_token</code> of a previous response: continue after it.
-     * Unset starts with events that happen from now on.
+     * Unset starts with events that happen from now on (or at <code>start_time</code>). Mutually exclusive
+     * with <code>start_time</code> (both set is <code>INVALID_ARGUMENT</code>).
      *
      * Generated from protobuf field <code>optional string resume_token = 4;</code>
      * @param string $var
@@ -181,6 +232,58 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->resume_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * <code>resume_token</code>: use <code>start_time</code> for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (<code>ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S</code>, 24 h by default) is <code>OUT_OF_RANGE</code>; later
+     * than the server&apos;s clock is <code>INVALID_ARGUMENT</code>. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getStartTime()
+    {
+        return $this->start_time;
+    }
+
+    public function hasStartTime()
+    {
+        return isset($this->start_time);
+    }
+
+    public function clearStartTime()
+    {
+        unset($this->start_time);
+    }
+
+    /**
+     * Optional. Replay from the server&apos;s event journal: the stream first delivers the journaled events of
+     * the project that occurred at or after this time and match the selector, oldest first (journal order),
+     * then continues live without a gap or a duplicate at the seam. Mutually exclusive with
+     * <code>resume_token</code>: use <code>start_time</code> for a first connection or after losing the token,
+     * the token for every reconnect. Older than the journal retention
+     * (<code>ONDEWO_VTSI_EVENT_JOURNAL_RETENTION_S</code>, 24 h by default) is <code>OUT_OF_RANGE</code>; later
+     * than the server&apos;s clock is <code>INVALID_ARGUMENT</code>. The journal holds only events of periods in
+     * which the project had an open stream or an enabled subscription, so the replay can have gaps it cannot
+     * report; reconcile with the status RPCs when completeness matters. Unset (the default) starts live.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp start_time = 5;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setStartTime($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->start_time = $var;
 
         return $this;
     }

@@ -18,6 +18,8 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
 {
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
@@ -34,6 +36,20 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional string page_token = 3;</code>
      */
     protected $page_token = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
+     * relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
+     * <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the masking of the custom header values (a
+     * returned value stays <code>********</code>), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -43,10 +59,22 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $vtsi_project_name
      *           VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     *           <code>NOT_FOUND</code>.
      *     @type int $page_size
      *           Optional. <code>0</code> means 20; above 1000 clamped; negative rejected.
      *     @type string $page_token
      *           Optional. The <code>next_page_token</code> of a previous response.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
+     *           relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
+     *           <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
+     *           singular message fields are allowed; a path below a repeated or map field is not. <code>name</code>
+     *           is always populated. Unset or empty returns every field. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Applied after the masking of the custom header values (a
+     *           returned value stays <code>********</code>), so it can only narrow the response and never populates a
+     *           field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     *           with another mask.
      * }
      */
     public function __construct($data = NULL) {
@@ -56,6 +84,8 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -67,6 +97,8 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -138,6 +170,58 @@ class ListWebhooksRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->page_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
+     * relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
+     * <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the masking of the custom header values (a
+     * returned value stays <code>********</code>), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Webhook</code>,
+     * relative to the <code>Webhook</code> message (no <code>webhooks.</code> prefix), e.g.
+     * <code>display_name</code>, <code>url</code>, <code>delivery_statistics</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the masking of the custom header values (a
+     * returned value stays <code>********</code>), so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

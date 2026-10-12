@@ -9,6 +9,10 @@ use UnexpectedValueException;
 
 /**
  * Whether adding calls to a campaign also starts it.
+ * <p>Note: unlike most enums of this API, the zero value <code>CAMPAIGN_START_MODE_UNSPECIFIED</code> is not
+ * "no value" but a behaviour of its own (the default described below), which differs from both named
+ * values for an existing <code>CREATED</code> campaign. It keeps its released name for wire and source
+ * compatibility; send it (or leave the field unset) to get that default.</p>
  *
  * Protobuf type <code>ondewo.vtsi.CampaignStartMode</code>
  */
@@ -16,7 +20,8 @@ class CampaignStartMode
 {
     /**
      * The default: a NEW campaign is created <code>RUNNING</code>; an EXISTING campaign keeps its
-     * state (except that a <code>COMPLETED</code> one becomes <code>RUNNING</code> again).
+     * state (except that a <code>COMPLETED</code> one becomes <code>RUNNING</code> again). An existing
+     * <code>CREATED</code> campaign therefore stays <code>CREATED</code>.
      *
      * Generated from protobuf enum <code>CAMPAIGN_START_MODE_UNSPECIFIED = 0;</code>
      */

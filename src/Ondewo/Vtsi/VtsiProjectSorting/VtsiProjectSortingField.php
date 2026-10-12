@@ -16,7 +16,7 @@ use UnexpectedValueException;
 class VtsiProjectSortingField
 {
     /**
-     * No sorting
+     * The default order: by <code>display_name</code>, ascending.
      *
      * Generated from protobuf enum <code>NO_VTSI_PROJECT_SORTING = 0;</code>
      */

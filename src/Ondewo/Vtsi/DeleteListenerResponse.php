@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents a request to delete a specific listener.
+ * Response to deleting a listener, and one entry of <code>DeleteListenersResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.DeleteListenerResponse</code>
  */
@@ -23,7 +23,10 @@ class DeleteListenerResponse extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * error message if there are any.
+     * Empty on success. <code>DeleteListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>DeleteListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>DeleteListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -38,7 +41,10 @@ class DeleteListenerResponse extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           The name of the deleted listener in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *     @type string $error_message
-     *           error message if there are any.
+     *           Empty on success. <code>DeleteListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     *           entry of <code>DeleteListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     *           status code <code>DeleteListener</code> would have answered, e.g.
+     *           <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -73,7 +79,10 @@ class DeleteListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Empty on success. <code>DeleteListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>DeleteListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>DeleteListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +93,10 @@ class DeleteListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Empty on success. <code>DeleteListener</code> reports its errors as gRPC status codes, so it is empty there. In an
+     * entry of <code>DeleteListenersResponse</code> it is the error of that entry, prefixed with the name of the gRPC
+     * status code <code>DeleteListener</code> would have answered, e.g.
+     * <code>NOT_FOUND: listener projects/.../listeners/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

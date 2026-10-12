@@ -17,13 +17,13 @@ use Google\Protobuf\RepeatedField;
 class ServiceStatus extends \Google\Protobuf\Internal\Message
 {
     /**
-     * health status
+     * Whether the service answered its health check
      *
      * Generated from protobuf field <code>bool healthy = 1;</code>
      */
     protected $healthy = false;
     /**
-     * error messages if you have any so if it's unhealthy
+     * Why the service is unhealthy; empty when <code>healthy</code> is true
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -36,9 +36,9 @@ class ServiceStatus extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $healthy
-     *           health status
+     *           Whether the service answered its health check
      *     @type string $error_message
-     *           error messages if you have any so if it's unhealthy
+     *           Why the service is unhealthy; empty when <code>healthy</code> is true
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +47,7 @@ class ServiceStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * health status
+     * Whether the service answered its health check
      *
      * Generated from protobuf field <code>bool healthy = 1;</code>
      * @return bool
@@ -58,7 +58,7 @@ class ServiceStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * health status
+     * Whether the service answered its health check
      *
      * Generated from protobuf field <code>bool healthy = 1;</code>
      * @param bool $var
@@ -73,7 +73,7 @@ class ServiceStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error messages if you have any so if it's unhealthy
+     * Why the service is unhealthy; empty when <code>healthy</code> is true
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +84,7 @@ class ServiceStatus extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error messages if you have any so if it's unhealthy
+     * Why the service is unhealthy; empty when <code>healthy</code> is true
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

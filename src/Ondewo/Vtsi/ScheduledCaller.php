@@ -46,8 +46,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      */
     protected $common_services_config = null;
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC (see
+     * <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
+     * while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 5;</code>
      */
@@ -103,6 +104,24 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string campaign_name = 12;</code>
      */
     protected $campaign_name = '';
+    /**
+     * Output only. Set on a scheduled caller that <code>RetryScheduledCaller</code> created: the FAILED scheduled
+     * caller it retries, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Empty for a scheduled caller created by <code>StartScheduledCaller(s)</code> or
+     * <code>AddScheduledCallersToCampaign</code>. Kept when the retried scheduled caller is deleted.
+     *
+     * Generated from protobuf field <code>string retry_of_scheduled_caller_name = 13;</code>
+     */
+    protected $retry_of_scheduled_caller_name = '';
+    /**
+     * Output only. Set on a FAILED scheduled caller once <code>RetryScheduledCaller</code> retried it: the
+     * scheduled caller the retry created. A FAILED scheduled caller is retried at most once; retry the newest one of
+     * a chain. Empty otherwise.
+     *
+     * Generated from protobuf field <code>string retried_by_scheduled_caller_name = 14;</code>
+     */
+    protected $retried_by_scheduled_caller_name = '';
 
     /**
      * Constructor.
@@ -124,8 +143,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
      *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
      *     @type \Google\Protobuf\Timestamp $scheduled_time
-     *           Time the call is scheduled
-     *           TODO to be refactored with a more complex scheduling object
+     *           Time at or after which the call is started, in UTC (see
+     *           <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
+     *           while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
      *     @type \Ondewo\Vtsi\SipCallerConfig $sip_caller_config
      *           Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
      *           that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
@@ -149,6 +169,16 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      *           <code>FAILED</code> / <code>CANCELLED</code> when the call is completed / failed / cancelled;
      *           <code>call_name</code> and <code>error_message</code> are those of the latest attempt. Its
      *           own retry settings are not used; the campaign&apos;s apply.
+     *     @type string $retry_of_scheduled_caller_name
+     *           Output only. Set on a scheduled caller that <code>RetryScheduledCaller</code> created: the FAILED scheduled
+     *           caller it retries, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     *           Empty for a scheduled caller created by <code>StartScheduledCaller(s)</code> or
+     *           <code>AddScheduledCallersToCampaign</code>. Kept when the retried scheduled caller is deleted.
+     *     @type string $retried_by_scheduled_caller_name
+     *           Output only. Set on a FAILED scheduled caller once <code>RetryScheduledCaller</code> retried it: the
+     *           scheduled caller the retry created. A FAILED scheduled caller is retried at most once; retry the newest one of
+     *           a chain. Empty otherwise.
      * }
      */
     public function __construct($data = NULL) {
@@ -291,8 +321,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC (see
+     * <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
+     * while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 5;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -313,8 +344,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC (see
+     * <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
+     * while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 5;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -554,6 +586,70 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->campaign_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Set on a scheduled caller that <code>RetryScheduledCaller</code> created: the FAILED scheduled
+     * caller it retries, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Empty for a scheduled caller created by <code>StartScheduledCaller(s)</code> or
+     * <code>AddScheduledCallersToCampaign</code>. Kept when the retried scheduled caller is deleted.
+     *
+     * Generated from protobuf field <code>string retry_of_scheduled_caller_name = 13;</code>
+     * @return string
+     */
+    public function getRetryOfScheduledCallerName()
+    {
+        return $this->retry_of_scheduled_caller_name;
+    }
+
+    /**
+     * Output only. Set on a scheduled caller that <code>RetryScheduledCaller</code> created: the FAILED scheduled
+     * caller it retries, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Empty for a scheduled caller created by <code>StartScheduledCaller(s)</code> or
+     * <code>AddScheduledCallersToCampaign</code>. Kept when the retried scheduled caller is deleted.
+     *
+     * Generated from protobuf field <code>string retry_of_scheduled_caller_name = 13;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setRetryOfScheduledCallerName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->retry_of_scheduled_caller_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Set on a FAILED scheduled caller once <code>RetryScheduledCaller</code> retried it: the
+     * scheduled caller the retry created. A FAILED scheduled caller is retried at most once; retry the newest one of
+     * a chain. Empty otherwise.
+     *
+     * Generated from protobuf field <code>string retried_by_scheduled_caller_name = 14;</code>
+     * @return string
+     */
+    public function getRetriedByScheduledCallerName()
+    {
+        return $this->retried_by_scheduled_caller_name;
+    }
+
+    /**
+     * Output only. Set on a FAILED scheduled caller once <code>RetryScheduledCaller</code> retried it: the
+     * scheduled caller the retry created. A FAILED scheduled caller is retried at most once; retry the newest one of
+     * a chain. Empty otherwise.
+     *
+     * Generated from protobuf field <code>string retried_by_scheduled_caller_name = 14;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setRetriedByScheduledCallerName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->retried_by_scheduled_caller_name = $var;
 
         return $this;
     }

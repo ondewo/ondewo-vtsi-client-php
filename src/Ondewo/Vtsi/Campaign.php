@@ -46,8 +46,10 @@ class Campaign extends \Google\Protobuf\Internal\Message
     protected $display_name = '';
     /**
      * Maximum number of calls of this campaign that are being started or are running at the same
-     * time. <code>0</code> on create means the server default (1); the allowed range is 1 to the
-     * server limit (1000 by default). The project&apos;s <code>max_callers</code> still bounds the
+     * time. <code>0</code> on create means the server default
+     * (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_MAX_PARALLEL_CALLS</code>, 1 by default); the allowed range is 1 to the
+     * server limit (<code>ONDEWO_VTSI_CAMPAIGN_MAX_PARALLEL_CALLS_LIMIT</code>, 1000 by default). The
+     * project&apos;s <code>max_callers</code> still bounds the
      * number of callers that exist at all. Updatable; lowering it never ends a running call.
      *
      * Generated from protobuf field <code>int32 max_parallel_calls = 5;</code>
@@ -55,18 +57,23 @@ class Campaign extends \Google\Protobuf\Internal\Message
     protected $max_parallel_calls = 0;
     /**
      * Maximum number of attempts per call, the first one included. <code>0</code> on create means
-     * the server default of 1, i.e. no retry; the allowed range is 1 to 10. Updatable. It is read
+     * the server default of 1, i.e. no retry; the allowed range is 1 to
+     * <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Updatable. It is read
      * LIVE, never snapshotted per call: every decision after an attempt fails uses the value current
      * at that moment, and a call waiting in <code>RETRY_PENDING</code> whose <code>attempts</code>
      * is no longer below a lowered value becomes <code>FAILED</code> at the next check (its last
-     * error stays). Raising it never revives a <code>FAILED</code> call.
+     * error stays). Raising it never revives a <code>FAILED</code> call; <code>RetryCampaignCalls</code>
+     * does. A call requeued by <code>RetryCampaignCalls</code> may exceed it (see
+     * <code>CampaignCall.max_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 6;</code>
      */
     protected $max_attempts = 0;
     /**
      * Time to wait after a failed attempt before the next one is started. Unset on create means the
-     * server default (60 s); allowed range 0 s to 7 days. Updatable.
+     * server default (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_RETRY_DELAY_S</code>, 60 s by default); allowed range
+     * 0 s to 7 days. Updatable. With a <code>calling_window</code>, a retry that falls due outside every slot
+     * waits for the next slot.
      *
      * Generated from protobuf field <code>.google.protobuf.Duration retry_delay = 7;</code>
      */
@@ -133,6 +140,165 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.Timestamp completed_at = 17;</code>
      */
     protected $completed_at = null;
+    /**
+     * Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
+     * NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_common_services_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>). Unset (the default)
+     * changes nothing: every call runs exactly with its own <code>StartCallerRequest</code> config, as
+     * before 9.1.0.
+     * <p>Read LIVE, never snapshotted per call: whenever a campaign call is dispatched (its first
+     * attempt and every retry) the server reads the campaign&apos;s CURRENT value. The effective
+     * <code>common_services_config</code> of that call is:</p>
+     * <pre><code>effective = copy(campaign.campaign_common_services_config)
+     * effective.MergeFrom(caller_request.common_services_config)</code></pre>
+     * <p>i.e. protobuf <code>MergeFrom</code> semantics, the call&apos;s own value WINNING:</p>
+     * <ul>
+     *   <li>a singular scalar, enum or string the call sets to a non-default value (or, for an
+     *       <code>optional</code> field, sets at all) replaces the campaign&apos;s value; one the call
+     *       leaves at its default keeps the campaign&apos;s value. A plain (non-<code>optional</code>)
+     *       scalar therefore cannot be reset to its zero value by the call;</li>
+     *   <li>a message field is merged recursively by the same rules;</li>
+     *   <li>a repeated field is CONCATENATED, the campaign&apos;s entries first (e.g.
+     *       <code>nlu_vtsi_config.contexts</code>, the lists of the <code>csi_vtsi_config</code>
+     *       callbacks, <code>voice_interaction_config.response_timing_config.soft_timeout_config.messages</code>);</li>
+     *   <li>a map field is merged by key, the call&apos;s entry winning on a shared key;</li>
+     *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
+     *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
+     * </ul>
+     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
+     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
+     * out what the campaign supplies. Because the default is read live, an update that makes the effective
+     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
+     * cannot succeed by repetition (it is not retried).</p>
+     * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
+     * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
+     * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>; read
+     * it with <code>GetCampaign</code>.</p>
+     * <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
+     * message broker and object store settings, callbacks, transcribe and synthesize request configs)
+     * are stored like the <code>common_services_config</code> of a started caller; the server never logs
+     * them. They are RETURNED only to a caller whose role on the project was resolved with authorization
+     * enforced and who may see the whole project (<code>SERVER_ADMIN</code>, <code>PROJECT_ADMIN</code>,
+     * <code>PROJECT_DEVELOPER</code>). Every other caller receives only the identity and routing fields
+     * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
+     * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
+     * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
+     * out by default. A client that reads such a campaign and writes the whole config back with
+     * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
+     * credentials with the withheld (empty) ones; update a sub-path instead.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig campaign_common_services_config = 18;</code>
+     */
+    protected $campaign_common_services_config = null;
+    /**
+     * Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
+     * callee and SIP headers). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_sip_caller_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_sip_caller_config.sip_headers</code>). Unset (the default) changes nothing.
+     * <p>Read LIVE at every dispatch and merged exactly like
+     * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
+     * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
+     * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
+     * key with the call&apos;s header winning on a shared name.</p>
+     * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
+     * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
+     * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
+     * and is the <code>callee_id</code> of every attempt of that call, retries included. A later update of
+     * <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
+     * only of calls added after it, never of calls already in the campaign, so the number a campaign call
+     * reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
+     * it dials. An <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request of
+     * which an entry takes the default callee is refused with <code>ABORTED</code> (nothing is added; retry
+     * it) when an update of the default callee commits while the request runs, so no call added after an
+     * update dials the previous default.</p>
+     * <p>Returned by the same RPCs as <code>campaign_common_services_config</code> and left unset in the
+     * same responses.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig campaign_sip_caller_config = 19;</code>
+     */
+    protected $campaign_sip_caller_config = null;
+    /**
+     * Output only. Resource names
+     * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
+     * campaign: the callers that placed at least one attempt of one of its campaign calls
+     * (<code>CampaignCallAttempt.caller_name</code>), whichever way the call was added. A scheduled campaign
+     * call is placed by a caller too and counts; its <code>ScheduledCaller</code> is not a
+     * <code>Caller</code> and is in <code>CampaignCall.scheduled_caller_name</code> instead. A caller that was
+     * deleted is not listed (its name stays in the attempt history), and a caller that placed attempts of
+     * several campaigns (a pooled caller can) is listed in each of them. Exactly the set
+     * <code>Calls.ListCallers</code> returns with <code>ListCallersRequest.campaign_name</code>.
+     * <p>Order: by the start of the first attempt each caller placed for the campaign, oldest first, each name
+     * once. Bounded: at most the first 1000 names; <code>campaign_callers_truncated</code> says whether there are
+     * more. Bounded in work too: the server reads only the campaign&apos;s earliest 10000 attempts, by start, to
+     * compute it, so a campaign with 10000 or more attempts reports <code>campaign_callers_truncated</code>, also
+     * with fewer than 1000 names. The complete, paginated list is <code>Calls.ListCallers</code> with the
+     * campaign selector, and the calls they placed are <code>Calls.ListCalls</code> with
+     * <code>CallFilter.campaign_name</code>.</p>
+     * <p>On <code>UpdateCampaign</code> and the four lifecycle RPCs the change has already been applied when the
+     * callers are read; when that read fails, the RPC still succeeds and returns the campaign with
+     * <code>campaign_callers</code> empty and <code>campaign_callers_truncated</code> true (read them with
+     * <code>GetCampaign</code>).</p>
+     * <p>Populated by <code>CreateCampaign</code> (always empty: a new campaign has placed no call),
+     * <code>GetCampaign</code>, <code>UpdateCampaign</code>, <code>StartCampaign</code>,
+     * <code>StopCampaign</code>, <code>HardStopCampaign</code> and <code>ResumeCampaign</code>; subject to their
+     * <code>field_mask</code> like any other path (path <code>campaign_callers</code>; a path below it is
+     * rejected). <code>ListCampaigns</code> populates it ONLY when its <code>field_mask</code> names it
+     * explicitly, and an unset or empty mask, which returns every other field, leaves it empty: at up to 1000
+     * names (~90 bytes each) per campaign, a default page would otherwise exceed gRPC&apos;s default 4 MiB
+     * message limit. Left empty in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>. Setting it
+     * on create is an output-only field set (<code>INVALID_ARGUMENT</code>), naming it in an
+     * <code>update_mask</code> is rejected as output only.</p>
+     *
+     * Generated from protobuf field <code>repeated string campaign_callers = 20;</code>
+     */
+    private $campaign_callers;
+    /**
+     * Output only. True when <code>campaign_callers</code> may be incomplete: it was cut at its bound of 1000
+     * names and the campaign has more callers, the campaign has 10000 or more attempts (the most the server
+     * reads for it), or (on <code>UpdateCampaign</code> and the lifecycle RPCs only) the callers could not be
+     * read after the change was applied. Read them all with <code>Calls.ListCallers</code> and the campaign
+     * selector. Populated
+     * and left unset by the same RPCs as <code>campaign_callers</code>, and in <code>ListCampaigns</code> also
+     * only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
+     * other path (name both to read the names and whether they are complete).
+     *
+     * Generated from protobuf field <code>bool campaign_callers_truncated = 21;</code>
+     */
+    protected $campaign_callers_truncated = false;
+    /**
+     * Optional. When calls of the campaign may be started: weekly slots in an IANA time zone, see
+     * <a href="index.html#ondewo.vtsi.CampaignCallingWindow">CampaignCallingWindow</a>. Unset (the default)
+     * means at any time, as before this field existed. Settable on <code>CreateCampaign</code>,
+     * <code>CampaignAssignment.new_campaign</code> and copied by <code>CloneCampaign</code>; updatable with the
+     * <code>update_mask</code> path <code>calling_window</code> (replaces the whole window; unset removes it)
+     * or the sub-paths <code>calling_window.time_zone</code> and <code>calling_window.slots</code> (the
+     * repeated field is replaced whole). Its output-only fields must be unset on create and are rejected in
+     * an <code>update_mask</code>. An invalid window is rejected with <code>INVALID_ARGUMENT</code> naming the
+     * problem (see <code>CampaignCallingWindow</code>). Returned by every RPC that returns a
+     * <code>Campaign</code>, <code>StreamCampaignStatusResponse.campaigns</code> and the <code>campaign</code>
+     * of the <code>Add*ToCampaign</code> responses included.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallingWindow calling_window = 22;</code>
+     */
+    protected $calling_window = null;
+    /**
+     * Output only. True while the campaign is <code>RUNNING</code>, has a <code>calling_window</code> and the
+     * current time is outside every slot of it, i.e. it starts no call until
+     * <code>calling_window.next_window_start</code>. False in every other case (no window, inside a slot, or
+     * another state). Evaluated when the campaign is read, so it is exact for the moment of the response;
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED</code> / <code>..._CLOSED</code> report the edges of a
+     * running campaign. Returned like <code>calling_window</code>.
+     *
+     * Generated from protobuf field <code>bool outside_calling_window = 23;</code>
+     */
+    protected $outside_calling_window = false;
 
     /**
      * Constructor.
@@ -154,19 +320,26 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *           <code>campaign-&lt;campaign_uuid&gt;</code>. Updatable.
      *     @type int $max_parallel_calls
      *           Maximum number of calls of this campaign that are being started or are running at the same
-     *           time. <code>0</code> on create means the server default (1); the allowed range is 1 to the
-     *           server limit (1000 by default). The project&apos;s <code>max_callers</code> still bounds the
+     *           time. <code>0</code> on create means the server default
+     *           (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_MAX_PARALLEL_CALLS</code>, 1 by default); the allowed range is 1 to the
+     *           server limit (<code>ONDEWO_VTSI_CAMPAIGN_MAX_PARALLEL_CALLS_LIMIT</code>, 1000 by default). The
+     *           project&apos;s <code>max_callers</code> still bounds the
      *           number of callers that exist at all. Updatable; lowering it never ends a running call.
      *     @type int $max_attempts
      *           Maximum number of attempts per call, the first one included. <code>0</code> on create means
-     *           the server default of 1, i.e. no retry; the allowed range is 1 to 10. Updatable. It is read
+     *           the server default of 1, i.e. no retry; the allowed range is 1 to
+     *           <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Updatable. It is read
      *           LIVE, never snapshotted per call: every decision after an attempt fails uses the value current
      *           at that moment, and a call waiting in <code>RETRY_PENDING</code> whose <code>attempts</code>
      *           is no longer below a lowered value becomes <code>FAILED</code> at the next check (its last
-     *           error stays). Raising it never revives a <code>FAILED</code> call.
+     *           error stays). Raising it never revives a <code>FAILED</code> call; <code>RetryCampaignCalls</code>
+     *           does. A call requeued by <code>RetryCampaignCalls</code> may exceed it (see
+     *           <code>CampaignCall.max_attempts</code>).
      *     @type \Google\Protobuf\Duration $retry_delay
      *           Time to wait after a failed attempt before the next one is started. Unset on create means the
-     *           server default (60 s); allowed range 0 s to 7 days. Updatable.
+     *           server default (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_RETRY_DELAY_S</code>, 60 s by default); allowed range
+     *           0 s to 7 days. Updatable. With a <code>calling_window</code>, a retry that falls due outside every slot
+     *           waits for the next slot.
      *     @type int $state
      *           Output only. Lifecycle state.
      *     @type string $state_reason
@@ -189,6 +362,141 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *           Output only. When the campaign last reached <code>STOPPED</code> or <code>HARD_STOPPED</code>.
      *     @type \Google\Protobuf\Timestamp $completed_at
      *           Output only. When the campaign reached <code>COMPLETED</code>.
+     *     @type \Ondewo\Vtsi\CommonServicesConfig $campaign_common_services_config
+     *           Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
+     *           NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
+     *           <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     *           <code>campaign_common_services_config</code> or a nested sub-path of it (e.g.
+     *           <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>). Unset (the default)
+     *           changes nothing: every call runs exactly with its own <code>StartCallerRequest</code> config, as
+     *           before 9.1.0.
+     *           <p>Read LIVE, never snapshotted per call: whenever a campaign call is dispatched (its first
+     *           attempt and every retry) the server reads the campaign&apos;s CURRENT value. The effective
+     *           <code>common_services_config</code> of that call is:</p>
+     *           <pre><code>effective = copy(campaign.campaign_common_services_config)
+     *           effective.MergeFrom(caller_request.common_services_config)</code></pre>
+     *           <p>i.e. protobuf <code>MergeFrom</code> semantics, the call&apos;s own value WINNING:</p>
+     *           <ul>
+     *             <li>a singular scalar, enum or string the call sets to a non-default value (or, for an
+     *                 <code>optional</code> field, sets at all) replaces the campaign&apos;s value; one the call
+     *                 leaves at its default keeps the campaign&apos;s value. A plain (non-<code>optional</code>)
+     *                 scalar therefore cannot be reset to its zero value by the call;</li>
+     *             <li>a message field is merged recursively by the same rules;</li>
+     *             <li>a repeated field is CONCATENATED, the campaign&apos;s entries first (e.g.
+     *                 <code>nlu_vtsi_config.contexts</code>, the lists of the <code>csi_vtsi_config</code>
+     *                 callbacks, <code>voice_interaction_config.response_timing_config.soft_timeout_config.messages</code>);</li>
+     *             <li>a map field is merged by key, the call&apos;s entry winning on a shared key;</li>
+     *             <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
+     *                 <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
+     *           </ul>
+     *           <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
+     *           so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
+     *           out what the campaign supplies. Because the default is read live, an update that makes the effective
+     *           configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
+     *           cannot succeed by repetition (it is not retried).</p>
+     *           <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
+     *           <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
+     *           <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
+     *           <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     *           <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>; read
+     *           it with <code>GetCampaign</code>.</p>
+     *           <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
+     *           message broker and object store settings, callbacks, transcribe and synthesize request configs)
+     *           are stored like the <code>common_services_config</code> of a started caller; the server never logs
+     *           them. They are RETURNED only to a caller whose role on the project was resolved with authorization
+     *           enforced and who may see the whole project (<code>SERVER_ADMIN</code>, <code>PROJECT_ADMIN</code>,
+     *           <code>PROJECT_DEVELOPER</code>). Every other caller receives only the identity and routing fields
+     *           (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
+     *           interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
+     *           disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
+     *           out by default. A client that reads such a campaign and writes the whole config back with
+     *           <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
+     *           credentials with the withheld (empty) ones; update a sub-path instead.</p>
+     *     @type \Ondewo\Vtsi\SipCallerConfig $campaign_sip_caller_config
+     *           Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
+     *           callee and SIP headers). Settable on <code>CreateCampaign</code> and on
+     *           <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     *           <code>campaign_sip_caller_config</code> or a nested sub-path of it (e.g.
+     *           <code>campaign_sip_caller_config.sip_headers</code>). Unset (the default) changes nothing.
+     *           <p>Read LIVE at every dispatch and merged exactly like
+     *           <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
+     *           is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
+     *           merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
+     *           key with the call&apos;s header winning on a shared name.</p>
+     *           <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
+     *           call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
+     *           <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
+     *           and is the <code>callee_id</code> of every attempt of that call, retries included. A later update of
+     *           <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
+     *           only of calls added after it, never of calls already in the campaign, so the number a campaign call
+     *           reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
+     *           it dials. An <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request of
+     *           which an entry takes the default callee is refused with <code>ABORTED</code> (nothing is added; retry
+     *           it) when an update of the default callee commits while the request runs, so no call added after an
+     *           update dials the previous default.</p>
+     *           <p>Returned by the same RPCs as <code>campaign_common_services_config</code> and left unset in the
+     *           same responses.</p>
+     *     @type string[] $campaign_callers
+     *           Output only. Resource names
+     *           (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
+     *           campaign: the callers that placed at least one attempt of one of its campaign calls
+     *           (<code>CampaignCallAttempt.caller_name</code>), whichever way the call was added. A scheduled campaign
+     *           call is placed by a caller too and counts; its <code>ScheduledCaller</code> is not a
+     *           <code>Caller</code> and is in <code>CampaignCall.scheduled_caller_name</code> instead. A caller that was
+     *           deleted is not listed (its name stays in the attempt history), and a caller that placed attempts of
+     *           several campaigns (a pooled caller can) is listed in each of them. Exactly the set
+     *           <code>Calls.ListCallers</code> returns with <code>ListCallersRequest.campaign_name</code>.
+     *           <p>Order: by the start of the first attempt each caller placed for the campaign, oldest first, each name
+     *           once. Bounded: at most the first 1000 names; <code>campaign_callers_truncated</code> says whether there are
+     *           more. Bounded in work too: the server reads only the campaign&apos;s earliest 10000 attempts, by start, to
+     *           compute it, so a campaign with 10000 or more attempts reports <code>campaign_callers_truncated</code>, also
+     *           with fewer than 1000 names. The complete, paginated list is <code>Calls.ListCallers</code> with the
+     *           campaign selector, and the calls they placed are <code>Calls.ListCalls</code> with
+     *           <code>CallFilter.campaign_name</code>.</p>
+     *           <p>On <code>UpdateCampaign</code> and the four lifecycle RPCs the change has already been applied when the
+     *           callers are read; when that read fails, the RPC still succeeds and returns the campaign with
+     *           <code>campaign_callers</code> empty and <code>campaign_callers_truncated</code> true (read them with
+     *           <code>GetCampaign</code>).</p>
+     *           <p>Populated by <code>CreateCampaign</code> (always empty: a new campaign has placed no call),
+     *           <code>GetCampaign</code>, <code>UpdateCampaign</code>, <code>StartCampaign</code>,
+     *           <code>StopCampaign</code>, <code>HardStopCampaign</code> and <code>ResumeCampaign</code>; subject to their
+     *           <code>field_mask</code> like any other path (path <code>campaign_callers</code>; a path below it is
+     *           rejected). <code>ListCampaigns</code> populates it ONLY when its <code>field_mask</code> names it
+     *           explicitly, and an unset or empty mask, which returns every other field, leaves it empty: at up to 1000
+     *           names (~90 bytes each) per campaign, a default page would otherwise exceed gRPC&apos;s default 4 MiB
+     *           message limit. Left empty in
+     *           <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     *           <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>. Setting it
+     *           on create is an output-only field set (<code>INVALID_ARGUMENT</code>), naming it in an
+     *           <code>update_mask</code> is rejected as output only.</p>
+     *     @type bool $campaign_callers_truncated
+     *           Output only. True when <code>campaign_callers</code> may be incomplete: it was cut at its bound of 1000
+     *           names and the campaign has more callers, the campaign has 10000 or more attempts (the most the server
+     *           reads for it), or (on <code>UpdateCampaign</code> and the lifecycle RPCs only) the callers could not be
+     *           read after the change was applied. Read them all with <code>Calls.ListCallers</code> and the campaign
+     *           selector. Populated
+     *           and left unset by the same RPCs as <code>campaign_callers</code>, and in <code>ListCampaigns</code> also
+     *           only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
+     *           other path (name both to read the names and whether they are complete).
+     *     @type \Ondewo\Vtsi\CampaignCallingWindow $calling_window
+     *           Optional. When calls of the campaign may be started: weekly slots in an IANA time zone, see
+     *           <a href="index.html#ondewo.vtsi.CampaignCallingWindow">CampaignCallingWindow</a>. Unset (the default)
+     *           means at any time, as before this field existed. Settable on <code>CreateCampaign</code>,
+     *           <code>CampaignAssignment.new_campaign</code> and copied by <code>CloneCampaign</code>; updatable with the
+     *           <code>update_mask</code> path <code>calling_window</code> (replaces the whole window; unset removes it)
+     *           or the sub-paths <code>calling_window.time_zone</code> and <code>calling_window.slots</code> (the
+     *           repeated field is replaced whole). Its output-only fields must be unset on create and are rejected in
+     *           an <code>update_mask</code>. An invalid window is rejected with <code>INVALID_ARGUMENT</code> naming the
+     *           problem (see <code>CampaignCallingWindow</code>). Returned by every RPC that returns a
+     *           <code>Campaign</code>, <code>StreamCampaignStatusResponse.campaigns</code> and the <code>campaign</code>
+     *           of the <code>Add*ToCampaign</code> responses included.
+     *     @type bool $outside_calling_window
+     *           Output only. True while the campaign is <code>RUNNING</code>, has a <code>calling_window</code> and the
+     *           current time is outside every slot of it, i.e. it starts no call until
+     *           <code>calling_window.next_window_start</code>. False in every other case (no window, inside a slot, or
+     *           another state). Evaluated when the campaign is read, so it is exact for the moment of the response;
+     *           <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED</code> / <code>..._CLOSED</code> report the edges of a
+     *           running campaign. Returned like <code>calling_window</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -310,8 +618,10 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Maximum number of calls of this campaign that are being started or are running at the same
-     * time. <code>0</code> on create means the server default (1); the allowed range is 1 to the
-     * server limit (1000 by default). The project&apos;s <code>max_callers</code> still bounds the
+     * time. <code>0</code> on create means the server default
+     * (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_MAX_PARALLEL_CALLS</code>, 1 by default); the allowed range is 1 to the
+     * server limit (<code>ONDEWO_VTSI_CAMPAIGN_MAX_PARALLEL_CALLS_LIMIT</code>, 1000 by default). The
+     * project&apos;s <code>max_callers</code> still bounds the
      * number of callers that exist at all. Updatable; lowering it never ends a running call.
      *
      * Generated from protobuf field <code>int32 max_parallel_calls = 5;</code>
@@ -324,8 +634,10 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Maximum number of calls of this campaign that are being started or are running at the same
-     * time. <code>0</code> on create means the server default (1); the allowed range is 1 to the
-     * server limit (1000 by default). The project&apos;s <code>max_callers</code> still bounds the
+     * time. <code>0</code> on create means the server default
+     * (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_MAX_PARALLEL_CALLS</code>, 1 by default); the allowed range is 1 to the
+     * server limit (<code>ONDEWO_VTSI_CAMPAIGN_MAX_PARALLEL_CALLS_LIMIT</code>, 1000 by default). The
+     * project&apos;s <code>max_callers</code> still bounds the
      * number of callers that exist at all. Updatable; lowering it never ends a running call.
      *
      * Generated from protobuf field <code>int32 max_parallel_calls = 5;</code>
@@ -342,11 +654,14 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Maximum number of attempts per call, the first one included. <code>0</code> on create means
-     * the server default of 1, i.e. no retry; the allowed range is 1 to 10. Updatable. It is read
+     * the server default of 1, i.e. no retry; the allowed range is 1 to
+     * <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Updatable. It is read
      * LIVE, never snapshotted per call: every decision after an attempt fails uses the value current
      * at that moment, and a call waiting in <code>RETRY_PENDING</code> whose <code>attempts</code>
      * is no longer below a lowered value becomes <code>FAILED</code> at the next check (its last
-     * error stays). Raising it never revives a <code>FAILED</code> call.
+     * error stays). Raising it never revives a <code>FAILED</code> call; <code>RetryCampaignCalls</code>
+     * does. A call requeued by <code>RetryCampaignCalls</code> may exceed it (see
+     * <code>CampaignCall.max_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 6;</code>
      * @return int
@@ -358,11 +673,14 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Maximum number of attempts per call, the first one included. <code>0</code> on create means
-     * the server default of 1, i.e. no retry; the allowed range is 1 to 10. Updatable. It is read
+     * the server default of 1, i.e. no retry; the allowed range is 1 to
+     * <code>ONDEWO_VTSI_CAMPAIGN_MAX_ATTEMPTS_LIMIT</code> (10 by default). Updatable. It is read
      * LIVE, never snapshotted per call: every decision after an attempt fails uses the value current
      * at that moment, and a call waiting in <code>RETRY_PENDING</code> whose <code>attempts</code>
      * is no longer below a lowered value becomes <code>FAILED</code> at the next check (its last
-     * error stays). Raising it never revives a <code>FAILED</code> call.
+     * error stays). Raising it never revives a <code>FAILED</code> call; <code>RetryCampaignCalls</code>
+     * does. A call requeued by <code>RetryCampaignCalls</code> may exceed it (see
+     * <code>CampaignCall.max_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 6;</code>
      * @param int $var
@@ -378,7 +696,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Time to wait after a failed attempt before the next one is started. Unset on create means the
-     * server default (60 s); allowed range 0 s to 7 days. Updatable.
+     * server default (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_RETRY_DELAY_S</code>, 60 s by default); allowed range
+     * 0 s to 7 days. Updatable. With a <code>calling_window</code>, a retry that falls due outside every slot
+     * waits for the next slot.
      *
      * Generated from protobuf field <code>.google.protobuf.Duration retry_delay = 7;</code>
      * @return \Google\Protobuf\Duration|null
@@ -400,7 +720,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
 
     /**
      * Time to wait after a failed attempt before the next one is started. Unset on create means the
-     * server default (60 s); allowed range 0 s to 7 days. Updatable.
+     * server default (<code>ONDEWO_VTSI_CAMPAIGN_DEFAULT_RETRY_DELAY_S</code>, 60 s by default); allowed range
+     * 0 s to 7 days. Updatable. With a <code>calling_window</code>, a retry that falls due outside every slot
+     * waits for the next slot.
      *
      * Generated from protobuf field <code>.google.protobuf.Duration retry_delay = 7;</code>
      * @param \Google\Protobuf\Duration $var
@@ -734,6 +1056,438 @@ class Campaign extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->completed_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
+     * NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_common_services_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>). Unset (the default)
+     * changes nothing: every call runs exactly with its own <code>StartCallerRequest</code> config, as
+     * before 9.1.0.
+     * <p>Read LIVE, never snapshotted per call: whenever a campaign call is dispatched (its first
+     * attempt and every retry) the server reads the campaign&apos;s CURRENT value. The effective
+     * <code>common_services_config</code> of that call is:</p>
+     * <pre><code>effective = copy(campaign.campaign_common_services_config)
+     * effective.MergeFrom(caller_request.common_services_config)</code></pre>
+     * <p>i.e. protobuf <code>MergeFrom</code> semantics, the call&apos;s own value WINNING:</p>
+     * <ul>
+     *   <li>a singular scalar, enum or string the call sets to a non-default value (or, for an
+     *       <code>optional</code> field, sets at all) replaces the campaign&apos;s value; one the call
+     *       leaves at its default keeps the campaign&apos;s value. A plain (non-<code>optional</code>)
+     *       scalar therefore cannot be reset to its zero value by the call;</li>
+     *   <li>a message field is merged recursively by the same rules;</li>
+     *   <li>a repeated field is CONCATENATED, the campaign&apos;s entries first (e.g.
+     *       <code>nlu_vtsi_config.contexts</code>, the lists of the <code>csi_vtsi_config</code>
+     *       callbacks, <code>voice_interaction_config.response_timing_config.soft_timeout_config.messages</code>);</li>
+     *   <li>a map field is merged by key, the call&apos;s entry winning on a shared key;</li>
+     *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
+     *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
+     * </ul>
+     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
+     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
+     * out what the campaign supplies. Because the default is read live, an update that makes the effective
+     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
+     * cannot succeed by repetition (it is not retried).</p>
+     * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
+     * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
+     * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>; read
+     * it with <code>GetCampaign</code>.</p>
+     * <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
+     * message broker and object store settings, callbacks, transcribe and synthesize request configs)
+     * are stored like the <code>common_services_config</code> of a started caller; the server never logs
+     * them. They are RETURNED only to a caller whose role on the project was resolved with authorization
+     * enforced and who may see the whole project (<code>SERVER_ADMIN</code>, <code>PROJECT_ADMIN</code>,
+     * <code>PROJECT_DEVELOPER</code>). Every other caller receives only the identity and routing fields
+     * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
+     * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
+     * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
+     * out by default. A client that reads such a campaign and writes the whole config back with
+     * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
+     * credentials with the withheld (empty) ones; update a sub-path instead.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig campaign_common_services_config = 18;</code>
+     * @return \Ondewo\Vtsi\CommonServicesConfig|null
+     */
+    public function getCampaignCommonServicesConfig()
+    {
+        return $this->campaign_common_services_config;
+    }
+
+    public function hasCampaignCommonServicesConfig()
+    {
+        return isset($this->campaign_common_services_config);
+    }
+
+    public function clearCampaignCommonServicesConfig()
+    {
+        unset($this->campaign_common_services_config);
+    }
+
+    /**
+     * Optional. Default <code>CommonServicesConfig</code> of EVERY call of the campaign (speech-to-text,
+     * NLU, text-to-speech, CSI and voice interaction). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_common_services_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>). Unset (the default)
+     * changes nothing: every call runs exactly with its own <code>StartCallerRequest</code> config, as
+     * before 9.1.0.
+     * <p>Read LIVE, never snapshotted per call: whenever a campaign call is dispatched (its first
+     * attempt and every retry) the server reads the campaign&apos;s CURRENT value. The effective
+     * <code>common_services_config</code> of that call is:</p>
+     * <pre><code>effective = copy(campaign.campaign_common_services_config)
+     * effective.MergeFrom(caller_request.common_services_config)</code></pre>
+     * <p>i.e. protobuf <code>MergeFrom</code> semantics, the call&apos;s own value WINNING:</p>
+     * <ul>
+     *   <li>a singular scalar, enum or string the call sets to a non-default value (or, for an
+     *       <code>optional</code> field, sets at all) replaces the campaign&apos;s value; one the call
+     *       leaves at its default keeps the campaign&apos;s value. A plain (non-<code>optional</code>)
+     *       scalar therefore cannot be reset to its zero value by the call;</li>
+     *   <li>a message field is merged recursively by the same rules;</li>
+     *   <li>a repeated field is CONCATENATED, the campaign&apos;s entries first (e.g.
+     *       <code>nlu_vtsi_config.contexts</code>, the lists of the <code>csi_vtsi_config</code>
+     *       callbacks, <code>voice_interaction_config.response_timing_config.soft_timeout_config.messages</code>);</li>
+     *   <li>a map field is merged by key, the call&apos;s entry winning on a shared key;</li>
+     *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
+     *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
+     * </ul>
+     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
+     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
+     * out what the campaign supplies. Because the default is read live, an update that makes the effective
+     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
+     * cannot succeed by repetition (it is not retried).</p>
+     * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
+     * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
+     * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>; read
+     * it with <code>GetCampaign</code>.</p>
+     * <p>Credentials: the credential-bearing fields (NLU credentials and tokens, gRPC certificates,
+     * message broker and object store settings, callbacks, transcribe and synthesize request configs)
+     * are stored like the <code>common_services_config</code> of a started caller; the server never logs
+     * them. They are RETURNED only to a caller whose role on the project was resolved with authorization
+     * enforced and who may see the whole project (<code>SERVER_ADMIN</code>, <code>PROJECT_ADMIN</code>,
+     * <code>PROJECT_DEVELOPER</code>). Every other caller receives only the identity and routing fields
+     * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
+     * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
+     * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
+     * out by default. A client that reads such a campaign and writes the whole config back with
+     * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
+     * credentials with the withheld (empty) ones; update a sub-path instead.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig campaign_common_services_config = 18;</code>
+     * @param \Ondewo\Vtsi\CommonServicesConfig $var
+     * @return $this
+     */
+    public function setCampaignCommonServicesConfig($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
+        $this->campaign_common_services_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
+     * callee and SIP headers). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_sip_caller_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_sip_caller_config.sip_headers</code>). Unset (the default) changes nothing.
+     * <p>Read LIVE at every dispatch and merged exactly like
+     * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
+     * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
+     * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
+     * key with the call&apos;s header winning on a shared name.</p>
+     * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
+     * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
+     * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
+     * and is the <code>callee_id</code> of every attempt of that call, retries included. A later update of
+     * <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
+     * only of calls added after it, never of calls already in the campaign, so the number a campaign call
+     * reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
+     * it dials. An <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request of
+     * which an entry takes the default callee is refused with <code>ABORTED</code> (nothing is added; retry
+     * it) when an update of the default callee commits while the request runs, so no call added after an
+     * update dials the previous default.</p>
+     * <p>Returned by the same RPCs as <code>campaign_common_services_config</code> and left unset in the
+     * same responses.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig campaign_sip_caller_config = 19;</code>
+     * @return \Ondewo\Vtsi\SipCallerConfig|null
+     */
+    public function getCampaignSipCallerConfig()
+    {
+        return $this->campaign_sip_caller_config;
+    }
+
+    public function hasCampaignSipCallerConfig()
+    {
+        return isset($this->campaign_sip_caller_config);
+    }
+
+    public function clearCampaignSipCallerConfig()
+    {
+        unset($this->campaign_sip_caller_config);
+    }
+
+    /**
+     * Optional. Default <code>SipCallerConfig</code> of EVERY call of the campaign (SIP image version,
+     * callee and SIP headers). Settable on <code>CreateCampaign</code> and on
+     * <code>CampaignAssignment.new_campaign</code>; updatable with the <code>update_mask</code> path
+     * <code>campaign_sip_caller_config</code> or a nested sub-path of it (e.g.
+     * <code>campaign_sip_caller_config.sip_headers</code>). Unset (the default) changes nothing.
+     * <p>Read LIVE at every dispatch and merged exactly like
+     * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
+     * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
+     * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
+     * key with the call&apos;s header winning on a shared name.</p>
+     * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
+     * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
+     * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
+     * and is the <code>callee_id</code> of every attempt of that call, retries included. A later update of
+     * <code>campaign_sip_caller_config.callee_id</code> (or of the whole config) therefore changes the callee
+     * only of calls added after it, never of calls already in the campaign, so the number a campaign call
+     * reports (and that <code>ListCampaignCallsRequest.phone_number</code> filters on) is always the number
+     * it dials. An <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request of
+     * which an entry takes the default callee is refused with <code>ABORTED</code> (nothing is added; retry
+     * it) when an update of the default callee commits while the request runs, so no call added after an
+     * update dials the previous default.</p>
+     * <p>Returned by the same RPCs as <code>campaign_common_services_config</code> and left unset in the
+     * same responses.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig campaign_sip_caller_config = 19;</code>
+     * @param \Ondewo\Vtsi\SipCallerConfig $var
+     * @return $this
+     */
+    public function setCampaignSipCallerConfig($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipCallerConfig::class);
+        $this->campaign_sip_caller_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Resource names
+     * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
+     * campaign: the callers that placed at least one attempt of one of its campaign calls
+     * (<code>CampaignCallAttempt.caller_name</code>), whichever way the call was added. A scheduled campaign
+     * call is placed by a caller too and counts; its <code>ScheduledCaller</code> is not a
+     * <code>Caller</code> and is in <code>CampaignCall.scheduled_caller_name</code> instead. A caller that was
+     * deleted is not listed (its name stays in the attempt history), and a caller that placed attempts of
+     * several campaigns (a pooled caller can) is listed in each of them. Exactly the set
+     * <code>Calls.ListCallers</code> returns with <code>ListCallersRequest.campaign_name</code>.
+     * <p>Order: by the start of the first attempt each caller placed for the campaign, oldest first, each name
+     * once. Bounded: at most the first 1000 names; <code>campaign_callers_truncated</code> says whether there are
+     * more. Bounded in work too: the server reads only the campaign&apos;s earliest 10000 attempts, by start, to
+     * compute it, so a campaign with 10000 or more attempts reports <code>campaign_callers_truncated</code>, also
+     * with fewer than 1000 names. The complete, paginated list is <code>Calls.ListCallers</code> with the
+     * campaign selector, and the calls they placed are <code>Calls.ListCalls</code> with
+     * <code>CallFilter.campaign_name</code>.</p>
+     * <p>On <code>UpdateCampaign</code> and the four lifecycle RPCs the change has already been applied when the
+     * callers are read; when that read fails, the RPC still succeeds and returns the campaign with
+     * <code>campaign_callers</code> empty and <code>campaign_callers_truncated</code> true (read them with
+     * <code>GetCampaign</code>).</p>
+     * <p>Populated by <code>CreateCampaign</code> (always empty: a new campaign has placed no call),
+     * <code>GetCampaign</code>, <code>UpdateCampaign</code>, <code>StartCampaign</code>,
+     * <code>StopCampaign</code>, <code>HardStopCampaign</code> and <code>ResumeCampaign</code>; subject to their
+     * <code>field_mask</code> like any other path (path <code>campaign_callers</code>; a path below it is
+     * rejected). <code>ListCampaigns</code> populates it ONLY when its <code>field_mask</code> names it
+     * explicitly, and an unset or empty mask, which returns every other field, leaves it empty: at up to 1000
+     * names (~90 bytes each) per campaign, a default page would otherwise exceed gRPC&apos;s default 4 MiB
+     * message limit. Left empty in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>. Setting it
+     * on create is an output-only field set (<code>INVALID_ARGUMENT</code>), naming it in an
+     * <code>update_mask</code> is rejected as output only.</p>
+     *
+     * Generated from protobuf field <code>repeated string campaign_callers = 20;</code>
+     * @return RepeatedField<string>
+     */
+    public function getCampaignCallers()
+    {
+        return $this->campaign_callers;
+    }
+
+    /**
+     * Output only. Resource names
+     * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>) of the callers of the
+     * campaign: the callers that placed at least one attempt of one of its campaign calls
+     * (<code>CampaignCallAttempt.caller_name</code>), whichever way the call was added. A scheduled campaign
+     * call is placed by a caller too and counts; its <code>ScheduledCaller</code> is not a
+     * <code>Caller</code> and is in <code>CampaignCall.scheduled_caller_name</code> instead. A caller that was
+     * deleted is not listed (its name stays in the attempt history), and a caller that placed attempts of
+     * several campaigns (a pooled caller can) is listed in each of them. Exactly the set
+     * <code>Calls.ListCallers</code> returns with <code>ListCallersRequest.campaign_name</code>.
+     * <p>Order: by the start of the first attempt each caller placed for the campaign, oldest first, each name
+     * once. Bounded: at most the first 1000 names; <code>campaign_callers_truncated</code> says whether there are
+     * more. Bounded in work too: the server reads only the campaign&apos;s earliest 10000 attempts, by start, to
+     * compute it, so a campaign with 10000 or more attempts reports <code>campaign_callers_truncated</code>, also
+     * with fewer than 1000 names. The complete, paginated list is <code>Calls.ListCallers</code> with the
+     * campaign selector, and the calls they placed are <code>Calls.ListCalls</code> with
+     * <code>CallFilter.campaign_name</code>.</p>
+     * <p>On <code>UpdateCampaign</code> and the four lifecycle RPCs the change has already been applied when the
+     * callers are read; when that read fails, the RPC still succeeds and returns the campaign with
+     * <code>campaign_callers</code> empty and <code>campaign_callers_truncated</code> true (read them with
+     * <code>GetCampaign</code>).</p>
+     * <p>Populated by <code>CreateCampaign</code> (always empty: a new campaign has placed no call),
+     * <code>GetCampaign</code>, <code>UpdateCampaign</code>, <code>StartCampaign</code>,
+     * <code>StopCampaign</code>, <code>HardStopCampaign</code> and <code>ResumeCampaign</code>; subject to their
+     * <code>field_mask</code> like any other path (path <code>campaign_callers</code>; a path below it is
+     * rejected). <code>ListCampaigns</code> populates it ONLY when its <code>field_mask</code> names it
+     * explicitly, and an unset or empty mask, which returns every other field, leaves it empty: at up to 1000
+     * names (~90 bytes each) per campaign, a default page would otherwise exceed gRPC&apos;s default 4 MiB
+     * message limit. Left empty in
+     * <code>StreamCampaignStatusResponse.campaigns</code> and in the <code>campaign</code> of
+     * <code>AddCallersToCampaignResponse</code> / <code>AddScheduledCallersToCampaignResponse</code>. Setting it
+     * on create is an output-only field set (<code>INVALID_ARGUMENT</code>), naming it in an
+     * <code>update_mask</code> is rejected as output only.</p>
+     *
+     * Generated from protobuf field <code>repeated string campaign_callers = 20;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setCampaignCallers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->campaign_callers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Output only. True when <code>campaign_callers</code> may be incomplete: it was cut at its bound of 1000
+     * names and the campaign has more callers, the campaign has 10000 or more attempts (the most the server
+     * reads for it), or (on <code>UpdateCampaign</code> and the lifecycle RPCs only) the callers could not be
+     * read after the change was applied. Read them all with <code>Calls.ListCallers</code> and the campaign
+     * selector. Populated
+     * and left unset by the same RPCs as <code>campaign_callers</code>, and in <code>ListCampaigns</code> also
+     * only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
+     * other path (name both to read the names and whether they are complete).
+     *
+     * Generated from protobuf field <code>bool campaign_callers_truncated = 21;</code>
+     * @return bool
+     */
+    public function getCampaignCallersTruncated()
+    {
+        return $this->campaign_callers_truncated;
+    }
+
+    /**
+     * Output only. True when <code>campaign_callers</code> may be incomplete: it was cut at its bound of 1000
+     * names and the campaign has more callers, the campaign has 10000 or more attempts (the most the server
+     * reads for it), or (on <code>UpdateCampaign</code> and the lifecycle RPCs only) the callers could not be
+     * read after the change was applied. Read them all with <code>Calls.ListCallers</code> and the campaign
+     * selector. Populated
+     * and left unset by the same RPCs as <code>campaign_callers</code>, and in <code>ListCampaigns</code> also
+     * only when the <code>field_mask</code> names it explicitly; a <code>field_mask</code> names it like any
+     * other path (name both to read the names and whether they are complete).
+     *
+     * Generated from protobuf field <code>bool campaign_callers_truncated = 21;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setCampaignCallersTruncated($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->campaign_callers_truncated = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. When calls of the campaign may be started: weekly slots in an IANA time zone, see
+     * <a href="index.html#ondewo.vtsi.CampaignCallingWindow">CampaignCallingWindow</a>. Unset (the default)
+     * means at any time, as before this field existed. Settable on <code>CreateCampaign</code>,
+     * <code>CampaignAssignment.new_campaign</code> and copied by <code>CloneCampaign</code>; updatable with the
+     * <code>update_mask</code> path <code>calling_window</code> (replaces the whole window; unset removes it)
+     * or the sub-paths <code>calling_window.time_zone</code> and <code>calling_window.slots</code> (the
+     * repeated field is replaced whole). Its output-only fields must be unset on create and are rejected in
+     * an <code>update_mask</code>. An invalid window is rejected with <code>INVALID_ARGUMENT</code> naming the
+     * problem (see <code>CampaignCallingWindow</code>). Returned by every RPC that returns a
+     * <code>Campaign</code>, <code>StreamCampaignStatusResponse.campaigns</code> and the <code>campaign</code>
+     * of the <code>Add*ToCampaign</code> responses included.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallingWindow calling_window = 22;</code>
+     * @return \Ondewo\Vtsi\CampaignCallingWindow|null
+     */
+    public function getCallingWindow()
+    {
+        return $this->calling_window;
+    }
+
+    public function hasCallingWindow()
+    {
+        return isset($this->calling_window);
+    }
+
+    public function clearCallingWindow()
+    {
+        unset($this->calling_window);
+    }
+
+    /**
+     * Optional. When calls of the campaign may be started: weekly slots in an IANA time zone, see
+     * <a href="index.html#ondewo.vtsi.CampaignCallingWindow">CampaignCallingWindow</a>. Unset (the default)
+     * means at any time, as before this field existed. Settable on <code>CreateCampaign</code>,
+     * <code>CampaignAssignment.new_campaign</code> and copied by <code>CloneCampaign</code>; updatable with the
+     * <code>update_mask</code> path <code>calling_window</code> (replaces the whole window; unset removes it)
+     * or the sub-paths <code>calling_window.time_zone</code> and <code>calling_window.slots</code> (the
+     * repeated field is replaced whole). Its output-only fields must be unset on create and are rejected in
+     * an <code>update_mask</code>. An invalid window is rejected with <code>INVALID_ARGUMENT</code> naming the
+     * problem (see <code>CampaignCallingWindow</code>). Returned by every RPC that returns a
+     * <code>Campaign</code>, <code>StreamCampaignStatusResponse.campaigns</code> and the <code>campaign</code>
+     * of the <code>Add*ToCampaign</code> responses included.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallingWindow calling_window = 22;</code>
+     * @param \Ondewo\Vtsi\CampaignCallingWindow $var
+     * @return $this
+     */
+    public function setCallingWindow($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignCallingWindow::class);
+        $this->calling_window = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. True while the campaign is <code>RUNNING</code>, has a <code>calling_window</code> and the
+     * current time is outside every slot of it, i.e. it starts no call until
+     * <code>calling_window.next_window_start</code>. False in every other case (no window, inside a slot, or
+     * another state). Evaluated when the campaign is read, so it is exact for the moment of the response;
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED</code> / <code>..._CLOSED</code> report the edges of a
+     * running campaign. Returned like <code>calling_window</code>.
+     *
+     * Generated from protobuf field <code>bool outside_calling_window = 23;</code>
+     * @return bool
+     */
+    public function getOutsideCallingWindow()
+    {
+        return $this->outside_calling_window;
+    }
+
+    /**
+     * Output only. True while the campaign is <code>RUNNING</code>, has a <code>calling_window</code> and the
+     * current time is outside every slot of it, i.e. it starts no call until
+     * <code>calling_window.next_window_start</code>. False in every other case (no window, inside a slot, or
+     * another state). Evaluated when the campaign is read, so it is exact for the moment of the response;
+     * <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED</code> / <code>..._CLOSED</code> report the edges of a
+     * running campaign. Returned like <code>calling_window</code>.
+     *
+     * Generated from protobuf field <code>bool outside_calling_window = 23;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setOutsideCallingWindow($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->outside_calling_window = $var;
 
         return $this;
     }

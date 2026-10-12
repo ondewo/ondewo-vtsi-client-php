@@ -24,18 +24,60 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, campaign selector, <code>active_only</code> and
+     * <code>sip_status_types</code>; a token issued for another listing is
+     * rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
+     * <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      */
     protected $page_token = null;
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      */
     protected $call_view = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
+     * relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
+     * <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>call_view</code> populates. An unknown path
+     * is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code>
+     * and the server&apos;s role-based redaction of <code>common_services_config</code>, so it can only
+     * narrow the response and never populates a field that was left empty. Not part of the paging contract:
+     * a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 7;</code>
+     */
+    protected $page_size = 0;
+    /**
+     * Optional. Only callers whose current call is active (<code>Caller.active</code>), as
+     * <code>StreamCallerStatusRequest.active_only</code>. False does not filter.
+     *
+     * Generated from protobuf field <code>bool active_only = 8;</code>
+     */
+    protected $active_only = false;
+    /**
+     * Optional. Only callers whose current or last call has one of these SIP status types
+     * (<code>Caller.sip_status_type</code>). A caller that never had a call has none and matches no entry. Empty
+     * does not filter. Combined with the other filters by AND.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
+     */
+    private $sip_status_types;
+    protected $campaign;
 
     /**
      * Constructor.
@@ -47,10 +89,41 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project name for which to perform the call.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $page_token
-     *           Optional. The next_page_token value returned from a previous list request.
-     *           Example: "current_index-1--page_size-20"
+     *           Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     *           API. Valid only with the same <code>vtsi_project_name</code>, campaign selector, <code>active_only</code> and
+     *           <code>sip_status_types</code>; a token issued for another listing is
+     *           rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
+     *           <code>field_mask</code> may change between pages.
      *     @type int $call_view
-     *           you can specify the view to be shallow or full
+     *           Optional. How much of each caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
+     *           relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
+     *           <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
+     *           <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message
+     *           fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     *           populated. Unset or empty returns every field the <code>call_view</code> populates. An unknown path
+     *           is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code>
+     *           and the server&apos;s role-based redaction of <code>common_services_config</code>, so it can only
+     *           narrow the response and never populates a field that was left empty. Not part of the paging contract:
+     *           a <code>page_token</code> stays valid with another mask.
+     *     @type string $campaign_name
+     *           Resource name of the campaign. It must be a campaign of <code>vtsi_project_name</code>.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *     @type string $campaign_display_name
+     *           Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     *           <code>vtsi_project_name</code>.
+     *     @type int $page_size
+     *           Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
+     *           was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     *           negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *     @type bool $active_only
+     *           Optional. Only callers whose current call is active (<code>Caller.active</code>), as
+     *           <code>StreamCallerStatusRequest.active_only</code>. False does not filter.
+     *     @type int[] $sip_status_types
+     *           Optional. Only callers whose current or last call has one of these SIP status types
+     *           (<code>Caller.sip_status_type</code>). A caller that never had a call has none and matches no entry. Empty
+     *           does not filter. Combined with the other filters by AND.
      * }
      */
     public function __construct($data = NULL) {
@@ -87,8 +160,11 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, campaign selector, <code>active_only</code> and
+     * <code>sip_status_types</code>; a token issued for another listing is
+     * rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
+     * <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @return string
@@ -109,8 +185,11 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, campaign selector, <code>active_only</code> and
+     * <code>sip_status_types</code>; a token issued for another listing is
+     * rejected with <code>INVALID_ARGUMENT</code>. <code>page_size</code>, <code>call_view</code> and
+     * <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @param string $var
@@ -125,7 +204,7 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @return int
@@ -146,7 +225,7 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of each caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @param int $var
@@ -158,6 +237,222 @@ class ListCallersRequest extends \Google\Protobuf\Internal\Message
         $this->call_view = $var;
 
         return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
+     * relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
+     * <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>call_view</code> populates. An unknown path
+     * is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code>
+     * and the server&apos;s role-based redaction of <code>common_services_config</code>, so it can only
+     * narrow the response and never populates a field that was left empty. Not part of the paging contract:
+     * a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Caller</code>,
+     * relative to the <code>Caller</code> message (no <code>callers.</code> prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>,
+     * <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>call_view</code> populates. An unknown path
+     * is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code>
+     * and the server&apos;s role-based redaction of <code>common_services_config</code>, so it can only
+     * narrow the response and never populates a field that was left empty. Not part of the paging contract:
+     * a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Resource name of the campaign. It must be a campaign of <code>vtsi_project_name</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 5;</code>
+     * @return string
+     */
+    public function getCampaignName()
+    {
+        return $this->readOneof(5);
+    }
+
+    public function hasCampaignName()
+    {
+        return $this->hasOneof(5);
+    }
+
+    /**
+     * Resource name of the campaign. It must be a campaign of <code>vtsi_project_name</code>.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *
+     * Generated from protobuf field <code>string campaign_name = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(5, $var);
+
+        return $this;
+    }
+
+    /**
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>.
+     *
+     * Generated from protobuf field <code>string campaign_display_name = 6;</code>
+     * @return string
+     */
+    public function getCampaignDisplayName()
+    {
+        return $this->readOneof(6);
+    }
+
+    public function hasCampaignDisplayName()
+    {
+        return $this->hasOneof(6);
+    }
+
+    /**
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>.
+     *
+     * Generated from protobuf field <code>string campaign_display_name = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignDisplayName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(6, $var);
+
+        return $this;
+    }
+
+    /**
+     * Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 7;</code>
+     * @return int
+     */
+    public function getPageSize()
+    {
+        return $this->page_size;
+    }
+
+    /**
+     * Optional. Maximum number of callers per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPageSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->page_size = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only callers whose current call is active (<code>Caller.active</code>), as
+     * <code>StreamCallerStatusRequest.active_only</code>. False does not filter.
+     *
+     * Generated from protobuf field <code>bool active_only = 8;</code>
+     * @return bool
+     */
+    public function getActiveOnly()
+    {
+        return $this->active_only;
+    }
+
+    /**
+     * Optional. Only callers whose current call is active (<code>Caller.active</code>), as
+     * <code>StreamCallerStatusRequest.active_only</code>. False does not filter.
+     *
+     * Generated from protobuf field <code>bool active_only = 8;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setActiveOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->active_only = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only callers whose current or last call has one of these SIP status types
+     * (<code>Caller.sip_status_type</code>). A caller that never had a call has none and matches no entry. Empty
+     * does not filter. Combined with the other filters by AND.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
+     * @return RepeatedField<int>
+     */
+    public function getSipStatusTypes()
+    {
+        return $this->sip_status_types;
+    }
+
+    /**
+     * Optional. Only callers whose current or last call has one of these SIP status types
+     * (<code>Caller.sip_status_type</code>). A caller that never had a call has none and matches no entry. Empty
+     * does not filter. Combined with the other filters by AND.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 9;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setSipStatusTypes($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Sip\SipStatus\StatusType::class);
+        $this->sip_status_types = $arr;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCampaign()
+    {
+        return $this->whichOneof("campaign");
     }
 
 }

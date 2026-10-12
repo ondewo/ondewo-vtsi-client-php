@@ -24,6 +24,14 @@ use Google\Protobuf\RepeatedField;
  * not finished: a call waiting for its next attempt is still being worked on)</li>
  * <li>not started = <code>not_started</code></li>
  * </ul>
+ * <p>Bounds: every call counter is at most the campaign&apos;s number of calls, itself at most
+ * <code>ONDEWO_VTSI_CAMPAIGN_MAX_CALLS</code> (100000 by default); <code>total_attempts</code> and
+ * <code>answering_machine_detected</code> are at most that times the attempt limit (10 by default, plus the
+ * budgets added by <code>RetryCampaignCalls</code>), far below the <code>int32</code> range.
+ * <code>total_attempts</code>, <code>calls_retried</code> and <code>answering_machine_detected</code> never
+ * decrease; the state buckets move as calls change state (<code>RetryCampaignCalls</code> moves calls out of
+ * <code>failed</code> / <code>cancelled</code>). The statistics are computed when read, from one consistent
+ * snapshot.</p>
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignStatistics</code>
  */
@@ -101,6 +109,23 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int32 calls_retried = 12;</code>
      */
     protected $calls_retried = 0;
+    /**
+     * Mean connected time of the campaign&apos;s FINISHED attempts that were connected: from the moment the
+     * attempt&apos;s call reached <code>OUTGOING_CALL_CONNECTED</code> to the moment it ended, averaged over
+     * those attempts (a running call is not counted until it ended). Unset when no attempt has connected and
+     * ended yet. Millisecond precision.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Duration average_connected_duration = 13;</code>
+     */
+    protected $average_connected_duration = null;
+    /**
+     * Attempts whose call reported <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (answering machine
+     * detection), whatever the call did next; each attempt counts once. <code>0</code> also when answering
+     * machine detection is not configured for the campaign&apos;s calls.
+     *
+     * Generated from protobuf field <code>int32 answering_machine_detected = 14;</code>
+     */
+    protected $answering_machine_detected = 0;
 
     /**
      * Constructor.
@@ -132,6 +157,15 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      *           Of <code>not_started</code>: scheduled calls whose scheduled time has not come yet.
      *     @type int $calls_retried
      *           Calls that needed more than one attempt (<code>attempts</code> &gt; 1), whatever their state.
+     *     @type \Google\Protobuf\Duration $average_connected_duration
+     *           Mean connected time of the campaign&apos;s FINISHED attempts that were connected: from the moment the
+     *           attempt&apos;s call reached <code>OUTGOING_CALL_CONNECTED</code> to the moment it ended, averaged over
+     *           those attempts (a running call is not counted until it ended). Unset when no attempt has connected and
+     *           ended yet. Millisecond precision.
+     *     @type int $answering_machine_detected
+     *           Attempts whose call reported <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (answering machine
+     *           detection), whatever the call did next; each attempt counts once. <code>0</code> also when answering
+     *           machine detection is not configured for the campaign&apos;s calls.
      * }
      */
     public function __construct($data = NULL) {
@@ -447,6 +481,78 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->calls_retried = $var;
+
+        return $this;
+    }
+
+    /**
+     * Mean connected time of the campaign&apos;s FINISHED attempts that were connected: from the moment the
+     * attempt&apos;s call reached <code>OUTGOING_CALL_CONNECTED</code> to the moment it ended, averaged over
+     * those attempts (a running call is not counted until it ended). Unset when no attempt has connected and
+     * ended yet. Millisecond precision.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Duration average_connected_duration = 13;</code>
+     * @return \Google\Protobuf\Duration|null
+     */
+    public function getAverageConnectedDuration()
+    {
+        return $this->average_connected_duration;
+    }
+
+    public function hasAverageConnectedDuration()
+    {
+        return isset($this->average_connected_duration);
+    }
+
+    public function clearAverageConnectedDuration()
+    {
+        unset($this->average_connected_duration);
+    }
+
+    /**
+     * Mean connected time of the campaign&apos;s FINISHED attempts that were connected: from the moment the
+     * attempt&apos;s call reached <code>OUTGOING_CALL_CONNECTED</code> to the moment it ended, averaged over
+     * those attempts (a running call is not counted until it ended). Unset when no attempt has connected and
+     * ended yet. Millisecond precision.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Duration average_connected_duration = 13;</code>
+     * @param \Google\Protobuf\Duration $var
+     * @return $this
+     */
+    public function setAverageConnectedDuration($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Duration::class);
+        $this->average_connected_duration = $var;
+
+        return $this;
+    }
+
+    /**
+     * Attempts whose call reported <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (answering machine
+     * detection), whatever the call did next; each attempt counts once. <code>0</code> also when answering
+     * machine detection is not configured for the campaign&apos;s calls.
+     *
+     * Generated from protobuf field <code>int32 answering_machine_detected = 14;</code>
+     * @return int
+     */
+    public function getAnsweringMachineDetected()
+    {
+        return $this->answering_machine_detected;
+    }
+
+    /**
+     * Attempts whose call reported <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (answering machine
+     * detection), whatever the call did next; each attempt counts once. <code>0</code> also when answering
+     * machine detection is not configured for the campaign&apos;s calls.
+     *
+     * Generated from protobuf field <code>int32 answering_machine_detected = 14;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setAnsweringMachineDetected($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->answering_machine_detected = $var;
 
         return $this;
     }

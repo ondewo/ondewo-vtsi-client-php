@@ -9,6 +9,30 @@ use UnexpectedValueException;
 
 /**
  * Every event VTSI reports. Values are grouped by resource in blocks of 100; numbers are stable.
+ * <p><b>Attributes.</b> <code>VtsiEventMessage.attributes</code> carries the event-specific values listed at
+ * each value below; a key whose value is unknown is left out, and keys not listed are never sent. Formats:
+ * counts and numbers are base-10 integers without separators (<code>3</code>); booleans are
+ * <code>true</code> / <code>false</code>; times are RFC 3339 in UTC with a numeric offset
+ * (<code>2026-10-11T12:00:00+00:00</code>, fractional seconds possible); resource names are complete
+ * (<code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code>); <code>updated_fields</code> is a
+ * comma-separated list of <code>update_mask</code> paths without spaces (<code>display_name,url</code>);
+ * a campaign <code>state</code> / <code>previous_state</code> is the <code>CampaignState</code> name WITHOUT
+ * its <code>CAMPAIGN_STATE_</code> prefix (<code>RUNNING</code>). An event carries at most 20 attributes and
+ * a value at most 256 characters (longer values are cut); <code>description</code> and
+ * <code>sip_status_description</code> at most 1024 characters.</p>
+ * <p><b>Call status attributes</b>, on every event derived from a change of a call&apos;s SIP status (marked
+ * "call status attributes" below): <code>caller_name</code>, <code>listener_name</code> or
+ * <code>scheduled_caller_name</code> (the resource that owns the call, the one that applies) and
+ * <code>phone_number</code> (the callee or caller number in clear, where recorded; treat it as personal
+ * data). Such an event also sets <code>call_name</code>, <code>sip_status_type</code>,
+ * <code>previous_sip_status_type</code> (unset for a new call record), <code>sip_status_description</code>
+ * and <code>resource_sequence</code> (the call&apos;s status change number), and has a deterministic
+ * <code>event_id</code>, so replicas observing the same change report one event.</p>
+ * <p><b>Campaign call attributes</b>, on the <code>VTSI_EVENT_CAMPAIGN_CALL_*</code> events:
+ * <code>attempt_number</code> (attempts started so far), <code>phone_number</code> (the callee in clear) and
+ * <code>caller_name</code> (caller of the current or last attempt). They also set <code>call_name</code>,
+ * <code>campaign_name</code>, <code>sip_status_type</code>, <code>sip_status_description</code> and
+ * <code>resource_sequence</code>; never <code>campaign_statistics</code>.</p>
  *
  * Protobuf type <code>ondewo.vtsi.VtsiEvent</code>
  */
@@ -21,31 +45,36 @@ class VtsiEvent
      */
     const VTSI_EVENT_UNSPECIFIED = 0;
     /**
-     * A call record was created: an outbound call was placed, or a listener received a call.
+     * A call record was created: an outbound call was placed, or a listener received a call. Call status
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_CREATED = 100;</code>
      */
     const VTSI_EVENT_CALL_CREATED = 100;
     /**
-     * The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>.
+     * The call is ringing: <code>INCOMING_CALL_INITIATED</code> / <code>OUTGOING_CALL_INITIATED</code>. Call
+     * status attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_INITIATED = 101;</code>
      */
     const VTSI_EVENT_CALL_INITIATED = 101;
     /**
-     * The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>.
+     * The call was answered: <code>INCOMING_CALL_CONNECTED</code> / <code>OUTGOING_CALL_CONNECTED</code>. Call
+     * status attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_CONNECTED = 102;</code>
      */
     const VTSI_EVENT_CALL_CONNECTED = 102;
     /**
-     * The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>.
+     * The call ended normally: <code>INCOMING_CALL_FINISHED</code> / <code>OUTGOING_CALL_FINISHED</code>. Call
+     * status attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_FINISHED = 103;</code>
      */
     const VTSI_EVENT_CALL_FINISHED = 103;
     /**
-     * The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>.
+     * The call failed: <code>INCOMING_CALL_FAILED</code> / <code>OUTGOING_CALL_FAILED</code>. Call status
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_FAILED = 104;</code>
      */
@@ -53,6 +82,15 @@ class VtsiEvent
     /**
      * A transfer of the call started: <code>TRANSFER_CALL_INITIATED</code>. Emitted when a BLIND transfer was
      * accepted, or when the target of a WARM transfer starts ringing.
+     * <p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
+     * <code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
+     * <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
+     * <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+     * case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
+     * <code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
+     * <code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
+     * <code>source</code> (<code>call_monitor</code> when observed by the call monitor). Sets
+     * <code>call_name</code>.</p>
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_TRANSFER_INITIATED = 105;</code>
      */
@@ -60,6 +98,11 @@ class VtsiEvent
     /**
      * <code>TransferCall</code> transferred the call. Emitted at the call&apos;s terminal edge: a
      * <code>*_CALL_FINISHED</code> status whose description is <code>Call transferred</code>.
+     * <p>Attributes: <code>transfer_id</code> (masked as above), <code>mode</code> (<code>blind</code> /
+     * <code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
+     * <code>source</code> (<code>call_monitor</code>), and the call status attributes
+     * (<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
+     * <code>phone_number</code>). Sets the call status fields.</p>
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_TRANSFERRED = 106;</code>
      */
@@ -67,283 +110,377 @@ class VtsiEvent
     /**
      * A transfer failed and the call was KEPT with the bot: <code>TRANSFER_CALL_FAILED</code>, a refused or unanswered
      * REFER, or a WARM target that was busy or did not answer.
+     * <p>Attributes: as <code>VTSI_EVENT_CALL_TRANSFER_INITIATED</code>, with <code>outcome</code> naming the
+     * failure (<code>target_invalid</code>, <code>refer_rejected</code>, <code>timeout</code>,
+     * <code>call_ended</code>, <code>call_scope_mismatch</code>, <code>sip_unreachable</code>,
+     * <code>refused</code>, or the SIP reason in snake case), <code>error_reason</code> and, for a WARM leg,
+     * <code>participant_id</code> and <code>end_reason</code> (as on
+     * <code>VTSI_EVENT_CALL_PARTICIPANT_FAILED</code>). <code>description</code> says why.</p>
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_TRANSFER_FAILED = 107;</code>
      */
     const VTSI_EVENT_CALL_TRANSFER_FAILED = 107;
     /**
-     * A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>.
+     * A hang-up started: <code>SOFT_HANGUP_INITIATED</code> / <code>HARD_HANGUP_INITIATED</code>. Call status
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_HANGUP_INITIATED = 108;</code>
      */
     const VTSI_EVENT_CALL_HANGUP_INITIATED = 108;
     /**
-     * An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>.
+     * An answering machine was detected: <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code>. Call status
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED = 109;</code>
      */
     const VTSI_EVENT_CALL_ANSWERING_MACHINE_DETECTED = 109;
     /**
      * The call was ended by <code>StopCall</code>, <code>StopCalls</code>, <code>StopAllCalls</code>
-     * or a campaign hard stop.
+     * or a campaign hard stop. No attributes; <code>call_name</code> is not set (the call is the
+     * <code>resource_name</code>).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_STOPPED = 110;</code>
      */
     const VTSI_EVENT_CALL_STOPPED = 110;
     /**
      * The SIP status of the call changed (emitted for EVERY change, in addition to the specific
-     * events above). <code>previous_sip_status_type</code> holds the status before.
+     * events above). <code>previous_sip_status_type</code> holds the status before. Call status
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED = 111;</code>
      */
     const VTSI_EVENT_CALL_SIP_STATUS_CHANGED = 111;
     /**
-     * A participant was invited into the call (<code>InviteToCall</code>). <code>attributes</code> carry
-     * <code>participant_id</code>, <code>mode</code> and <code>actor</code> (who invited).
+     * A participant was invited into the call (<code>InviteToCall</code>).
+     * <p>Attributes (the participant attributes, also on 113 to 115): <code>participant_id</code>,
+     * <code>mode</code> (<code>CONFERENCE</code> / <code>MONITOR</code>), <code>purpose</code>
+     * (<code>invite</code> / <code>warm_transfer</code>), <code>state</code> (<code>ParticipantState</code> name,
+     * e.g. <code>PARTICIPANT_STATE_RINGING</code>), <code>softphone_account_name</code> (when a softphone
+     * account was invited), <code>end_reason</code> (on 114 and 115: <code>NOANSWER</code>, <code>BUSY</code>,
+     * <code>CHANUNAVAIL</code>, <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>,
+     * <code>HANDED_OVER</code>, <code>JOIN_FAILED</code>, <code>TIMEOUT</code>), <code>actor</code> (who caused
+     * it: the authenticated user, or <code>system:call-control</code>), <code>source</code>. Sets
+     * <code>call_name</code> and <code>description</code>.</p>
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_PARTICIPANT_INVITED = 112;</code>
      */
     const VTSI_EVENT_CALL_PARTICIPANT_INVITED = 112;
     /**
-     * An invited participant answered and joined the call. <code>attributes</code> carry <code>participant_id</code>.
+     * An invited participant answered and joined the call. The participant attributes (see 112);
+     * <code>actor</code> is who invited it.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_PARTICIPANT_JOINED = 113;</code>
      */
     const VTSI_EVENT_CALL_PARTICIPANT_JOINED = 113;
     /**
-     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...).
-     * <code>attributes</code> carry <code>participant_id</code> and <code>end_reason</code>.
+     * An invited participant never joined (busy, no answer, unavailable, the call ended, ...). The
+     * participant attributes (see 112), with <code>end_reason</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_PARTICIPANT_FAILED = 114;</code>
      */
     const VTSI_EVENT_CALL_PARTICIPANT_FAILED = 114;
     /**
-     * A joined participant left the call. <code>attributes</code> carry <code>participant_id</code> and
+     * A joined participant left the call. The participant attributes (see 112), with
      * <code>end_reason</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_PARTICIPANT_LEFT = 115;</code>
      */
     const VTSI_EVENT_CALL_PARTICIPANT_LEFT = 115;
     /**
-     * The bot of the call was muted. <code>attributes</code> carry <code>actor</code> where a person caused it.
+     * The bot of the call was muted. Attributes: <code>source</code> (<code>operator</code> for
+     * <code>SetCallMediaControl</code>, <code>call_monitor</code> when the server observed it) and
+     * <code>actor</code> (the authenticated user where a person caused it, <code>system</code> for the call
+     * monitor). Sets <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_BOT_MUTED = 116;</code>
      */
     const VTSI_EVENT_CALL_BOT_MUTED = 116;
     /**
-     * The bot of the call was unmuted. <code>attributes</code> carry <code>actor</code> where a person caused it.
+     * The bot of the call was unmuted. Attributes as <code>VTSI_EVENT_CALL_BOT_MUTED</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_BOT_UNMUTED = 117;</code>
      */
     const VTSI_EVENT_CALL_BOT_UNMUTED = 117;
     /**
-     * The bot of the call stopped listening to the caller. <code>attributes</code> carry <code>actor</code> where a
-     * person caused it.
+     * The bot of the call stopped listening to the caller. Attributes as
+     * <code>VTSI_EVENT_CALL_BOT_MUTED</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_LISTENING_PAUSED = 118;</code>
      */
     const VTSI_EVENT_CALL_LISTENING_PAUSED = 118;
     /**
-     * The bot of the call listens to the caller again. <code>attributes</code> carry <code>actor</code> where a person
-     * caused it.
+     * The bot of the call listens to the caller again. Attributes as
+     * <code>VTSI_EVENT_CALL_BOT_MUTED</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_LISTENING_RESUMED = 119;</code>
      */
     const VTSI_EVENT_CALL_LISTENING_RESUMED = 119;
     /**
      * A live call audio stream (<code>StreamCallAudio</code> / <code>ListenCallAudio</code>) connected.
-     * <code>attributes</code> carry <code>stream_id</code>, <code>mode</code> and <code>actor</code>.
+     * Attributes: <code>stream_id</code> (uuid), <code>mode</code> (<code>LISTEN</code> / <code>TALK</code>),
+     * <code>rpc</code> (<code>ListenCallAudio</code> / <code>StreamCallAudio</code>), <code>actor</code> (the
+     * authenticated user, when known). Sets <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED = 120;</code>
      */
     const VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED = 120;
     /**
-     * A live call audio stream disconnected. <code>attributes</code> carry <code>stream_id</code>, <code>mode</code>,
-     * <code>actor</code> and <code>end_reason</code>.
+     * A live call audio stream disconnected. Attributes as
+     * <code>VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED</code>, plus <code>end_reason</code> (the
+     * <code>CallAudioEndReason</code> name without prefix: <code>CLIENT_CLOSED</code>, <code>CALL_ENDED</code>,
+     * <code>CALL_TRANSFERRED</code>, <code>MAX_DURATION</code>, <code>STALLED</code>, <code>INTERNAL</code>,
+     * <code>UNSPECIFIED</code>).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED = 121;</code>
      */
     const VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED = 121;
     /**
-     * A caller started and placed its call.
+     * The stored record of the call was updated (<code>UpdateCall</code>, <code>UpdateCalls</code>); the call
+     * itself is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code> paths, e.g.
+     * <code>labels</code>). Never carries a label value. Sets <code>call_name</code>. Not emitted for an entry
+     * of a batch that failed, nor when the update changed nothing.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_UPDATED = 122;</code>
+     */
+    const VTSI_EVENT_CALL_UPDATED = 122;
+    /**
+     * A caller started and placed its call. No attributes; sets <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_STARTED = 200;</code>
      */
     const VTSI_EVENT_CALLER_STARTED = 200;
     /**
-     * A caller could not be started; <code>description</code> says why.
+     * A caller could not be started; <code>description</code> says why. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_START_FAILED = 201;</code>
      */
     const VTSI_EVENT_CALLER_START_FAILED = 201;
     /**
-     * A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>).
+     * A caller was stopped (<code>StopCaller</code>, <code>StopCallers</code>). No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_STOPPED = 202;</code>
      */
     const VTSI_EVENT_CALLER_STOPPED = 202;
     /**
-     * A caller was deleted.
+     * A caller was deleted. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_DELETED = 203;</code>
      */
     const VTSI_EVENT_CALLER_DELETED = 203;
     /**
-     * A caller&apos;s container was restarted by the server.
+     * A caller&apos;s container was restarted by the server. Attributes: <code>container_name</code>,
+     * <code>reason</code> (free text, at most 64 characters, e.g. <code>end-call-marker-expired</code>).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_RESTARTED = 204;</code>
      */
     const VTSI_EVENT_CALLER_RESTARTED = 204;
     /**
-     * A caller&apos;s container was found not running or unhealthy.
+     * A caller&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+     * <code>description</code> is <code>container not running</code> or <code>container unhealthy</code>; sets
+     * <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_UNHEALTHY = 205;</code>
      */
     const VTSI_EVENT_CALLER_UNHEALTHY = 205;
     /**
      * A caller reported unhealthy is healthy again (its container answers its health check, or its
-     * restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes; sets <code>call_name</code> where known.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALLER_HEALTHY = 206;</code>
      */
     const VTSI_EVENT_CALLER_HEALTHY = 206;
     /**
-     * A listener started and is waiting for calls.
+     * The stored configuration of a caller was updated (<code>UpdateCaller</code>, <code>UpdateCallers</code>);
+     * its running container is unchanged. Attribute <code>updated_fields</code> (the <code>update_mask</code>
+     * paths). Never carries a configuration value.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALLER_UPDATED = 207;</code>
+     */
+    const VTSI_EVENT_CALLER_UPDATED = 207;
+    /**
+     * A listener started and is waiting for calls. No attributes; sets <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_STARTED = 300;</code>
      */
     const VTSI_EVENT_LISTENER_STARTED = 300;
     /**
-     * A listener could not be started; <code>description</code> says why.
+     * A listener could not be started; <code>description</code> says why. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_START_FAILED = 301;</code>
      */
     const VTSI_EVENT_LISTENER_START_FAILED = 301;
     /**
-     * A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>).
+     * A listener was stopped (<code>StopListener</code>, <code>StopListeners</code>). No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_STOPPED = 302;</code>
      */
     const VTSI_EVENT_LISTENER_STOPPED = 302;
     /**
-     * A listener was deleted.
+     * A listener was deleted. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_DELETED = 303;</code>
      */
     const VTSI_EVENT_LISTENER_DELETED = 303;
     /**
-     * A listener&apos;s container was restarted by the server.
+     * A listener&apos;s container was restarted by the server. Attribute <code>container_name</code>; sets
+     * <code>call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_RESTARTED = 304;</code>
      */
     const VTSI_EVENT_LISTENER_RESTARTED = 304;
     /**
-     * A listener&apos;s container was found not running or unhealthy.
+     * A listener&apos;s container was found not running or unhealthy. Attribute <code>container_name</code>;
+     * <code>description</code> as for <code>VTSI_EVENT_CALLER_UNHEALTHY</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_UNHEALTHY = 305;</code>
      */
     const VTSI_EVENT_LISTENER_UNHEALTHY = 305;
     /**
      * A listener reported unhealthy is healthy again (its container answers its health check, or
-     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy.
+     * its restart succeeded). Best effort: reported by the replica that reported it unhealthy. No
+     * attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_HEALTHY = 306;</code>
      */
     const VTSI_EVENT_LISTENER_HEALTHY = 306;
     /**
-     * A scheduled caller was created.
+     * The stored configuration of a listener was updated (<code>UpdateListener</code>,
+     * <code>UpdateListeners</code>); its running container is unchanged. Attribute
+     * <code>updated_fields</code>. Never carries a configuration value.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_LISTENER_UPDATED = 307;</code>
+     */
+    const VTSI_EVENT_LISTENER_UPDATED = 307;
+    /**
+     * A scheduled caller was created. Attribute <code>scheduled_time</code> (RFC 3339). Sets
+     * <code>campaign_name</code> for a scheduled call of a campaign.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_CREATED = 400;</code>
      */
     const VTSI_EVENT_SCHEDULED_CALLER_CREATED = 400;
     /**
-     * A scheduled caller fired: its call was started (<code>call_name</code> set).
+     * A scheduled caller fired: its call was started (<code>call_name</code> set). Attributes: outside a
+     * campaign <code>attempt</code> (the attempt number); in a campaign <code>attempt_number</code> and
+     * <code>campaign_call_name</code> (and <code>campaign_name</code> is set).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_FIRED = 401;</code>
      */
     const VTSI_EVENT_SCHEDULED_CALLER_FIRED = 401;
     /**
-     * A scheduled caller failed for good; <code>description</code> says why.
+     * A scheduled caller failed for good; <code>description</code> says why. Attributes: outside a campaign
+     * <code>attempt</code> and <code>reason</code> (a classification token, e.g.
+     * <code>transient_grpc:unavailable</code>, <code>configuration_error</code>, optionally suffixed
+     * <code>:attempt_budget_exhausted</code>); in a campaign <code>attempt_number</code> and
+     * <code>campaign_call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_FAILED = 402;</code>
      */
     const VTSI_EVENT_SCHEDULED_CALLER_FAILED = 402;
     /**
-     * A scheduled caller was cancelled.
+     * A scheduled caller was cancelled. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_CANCELLED = 403;</code>
      */
     const VTSI_EVENT_SCHEDULED_CALLER_CANCELLED = 403;
     /**
-     * A scheduled caller failed and will be retried.
+     * A scheduled caller failed and will be retried. Attributes: outside a campaign <code>attempt</code>,
+     * <code>reason</code> and <code>retry_not_before</code> (RFC 3339); in a campaign
+     * <code>attempt_number</code> and <code>campaign_call_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED = 404;</code>
      */
     const VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED = 404;
     /**
-     * A campaign was created.
+     * A scheduled caller was updated: its stored configuration (an update RPC of scheduled callers, where
+     * the server offers one) or, for a scheduled call of a campaign requeued by
+     * <code>RetryCampaignCalls</code>, its status and scheduled time. Attribute <code>updated_fields</code>
+     * (e.g. <code>status,scheduled_time</code>) and, when it changed, <code>scheduled_time</code> (RFC 3339);
+     * in a campaign also <code>campaign_call_name</code> (and <code>campaign_name</code> is set). Never carries
+     * a configuration value.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_SCHEDULED_CALLER_UPDATED = 405;</code>
+     */
+    const VTSI_EVENT_SCHEDULED_CALLER_UPDATED = 405;
+    /**
+     * A campaign was created (<code>CreateCampaign</code>, a <code>CampaignAssignment.new_campaign</code>,
+     * <code>CloneCampaign</code>). No attributes, except for a clone: <code>cloned_from</code> (the source
+     * campaign&apos;s resource name) and <code>copied_call_count</code>. An idempotent replay emits nothing.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CREATED = 500;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CREATED = 500;
     /**
-     * A campaign&apos;s settings were updated.
+     * A campaign&apos;s settings were updated. Attribute <code>updated_fields</code> (the
+     * <code>update_mask</code> paths). Never carries a call-default value.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_UPDATED = 501;</code>
      */
     const VTSI_EVENT_CAMPAIGN_UPDATED = 501;
     /**
-     * A campaign was deleted.
+     * A campaign was deleted. Attributes: <code>deleted_campaign_call_count</code>,
+     * <code>cancelled_scheduled_caller_count</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_DELETED = 502;</code>
      */
     const VTSI_EVENT_CAMPAIGN_DELETED = 502;
     /**
-     * A campaign was started.
+     * A campaign was started. Attributes: <code>previous_state</code>, <code>state</code>; none when the
+     * campaign was created running by a <code>CampaignAssignment</code>. <code>description</code> is
+     * <code>calls were added</code> when adding calls started it.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_STARTED = 503;</code>
      */
     const VTSI_EVENT_CAMPAIGN_STARTED = 503;
     /**
-     * <code>StopCampaign</code> was requested; running calls continue.
+     * <code>StopCampaign</code> was requested; running calls continue. Attributes: <code>previous_state</code>,
+     * <code>state</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_STOP_REQUESTED = 504;</code>
      */
     const VTSI_EVENT_CAMPAIGN_STOP_REQUESTED = 504;
     /**
      * A campaign is stopped: it reached <code>STOPPED</code> (after a stop request or an automatic
-     * stop) once no call of it was running.
+     * stop) once no call of it was running. Attributes: <code>state</code> and <code>display_name</code>
+     * when the engine observed it; none (with <code>description</code> <code>no call of the campaign was in
+     * flight</code>) when the stop request stopped it at once.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_STOPPED = 505;</code>
      */
     const VTSI_EVENT_CAMPAIGN_STOPPED = 505;
     /**
-     * <code>HardStopCampaign</code> was requested.
+     * <code>HardStopCampaign</code> (or a forced <code>DeleteCampaign</code>) was requested. Attributes:
+     * <code>previous_state</code>, <code>state</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED = 506;</code>
      */
     const VTSI_EVENT_CAMPAIGN_HARD_STOP_REQUESTED = 506;
     /**
-     * A campaign is hard stopped.
+     * A campaign is hard stopped. Attributes as <code>VTSI_EVENT_CAMPAIGN_STOPPED</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_HARD_STOPPED = 507;</code>
      */
     const VTSI_EVENT_CAMPAIGN_HARD_STOPPED = 507;
     /**
-     * A campaign was resumed.
+     * A campaign was resumed (<code>ResumeCampaign</code>, or a <code>COMPLETED</code> campaign that got calls
+     * back from a <code>CampaignAssignment</code> or <code>RetryCampaignCalls</code>). Attributes:
+     * <code>previous_state</code>, <code>state</code>; <code>description</code> says what resumed it when it
+     * was not <code>ResumeCampaign</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_RESUMED = 508;</code>
      */
     const VTSI_EVENT_CAMPAIGN_RESUMED = 508;
     /**
-     * Every call of a campaign is finished.
+     * Every call of a campaign is finished. Attributes: <code>state</code>, <code>display_name</code>;
+     * <code>description</code> is the <code>state_reason</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_COMPLETED = 509;</code>
      */
     const VTSI_EVENT_CAMPAIGN_COMPLETED = 509;
     /**
-     * The statistics of a running campaign changed (throttled, at most every few seconds per
-     * campaign). <code>campaign_statistics</code> is set.
+     * The statistics of a running campaign changed (throttled, at most once per
+     * <code>ONDEWO_VTSI_CAMPAIGN_PROGRESS_EVENT_MIN_INTERVAL_S</code>, 5 s by default, per campaign).
+     * <code>campaign_statistics</code> is set. Attributes: <code>state</code>, <code>display_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_PROGRESS = 510;</code>
      */
@@ -356,37 +493,42 @@ class VtsiEvent
      */
     const VTSI_EVENT_CAMPAIGN_MAX_PARALLEL_CALLS_CHANGED = 511;
     /**
-     * Calls were added to a campaign; attribute <code>added_call_count</code>.
+     * Calls were added to a campaign (an <code>Add*ToCampaign</code> request, or <code>CloneCampaign</code>
+     * with <code>include_calls</code>); attribute <code>added_call_count</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALLS_ADDED = 512;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CALLS_ADDED = 512;
     /**
-     * An attempt of a campaign call was started (<code>call_name</code> set).
+     * An attempt of a campaign call was started (<code>call_name</code> set). Campaign call attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED = 513;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED = 513;
     /**
-     * A campaign call completed.
+     * A campaign call completed. Campaign call attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_COMPLETED = 514;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CALL_COMPLETED = 514;
     /**
-     * A campaign call failed after its last attempt.
+     * A campaign call failed after its last attempt. Campaign call attributes; <code>description</code> is
+     * the error.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_FAILED = 515;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CALL_FAILED = 515;
     /**
-     * An attempt of a campaign call failed and the call will be retried.
+     * An attempt of a campaign call failed and the call will be retried. Campaign call attributes;
+     * <code>description</code> is the error.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED = 516;</code>
      */
     const VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED = 516;
     /**
-     * A campaign call was cancelled.
+     * A campaign call was cancelled (hard stop, cancelled scheduled caller, or
+     * <code>CancelCampaignCalls</code>). Campaign call attributes; <code>description</code> says what cancelled
+     * it.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_CANCELLED = 517;</code>
      */
@@ -395,12 +537,40 @@ class VtsiEvent
      * The SERVER stopped a campaign (it is now <code>STOPPING</code>) after repeated failures that
      * cannot succeed by repetition, e.g. a rejected credential; <code>description</code> holds the
      * <code>state_reason</code>. <code>VTSI_EVENT_CAMPAIGN_STOPPED</code> follows once no call runs.
+     * Attributes: <code>state</code> (<code>STOPPING</code>), <code>display_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_AUTO_STOPPED = 518;</code>
      */
     const VTSI_EVENT_CAMPAIGN_AUTO_STOPPED = 518;
     /**
-     * A VTSI project was updated.
+     * A FAILED or CANCELLED campaign call was put back into the queue by <code>RetryCampaignCalls</code>.
+     * Campaign call attributes, plus <code>attempt_limit</code> (the call&apos;s new attempt limit) and, for a
+     * call now <code>RETRY_PENDING</code>, <code>next_attempt_time</code> (RFC 3339).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALL_REQUEUED = 519;</code>
+     */
+    const VTSI_EVENT_CAMPAIGN_CALL_REQUEUED = 519;
+    /**
+     * A RUNNING campaign with a <code>calling_window</code> entered a slot and may start calls again (also when
+     * it is started or resumed inside a slot after having been outside one, and when an update of the window
+     * opens it). Attributes: <code>state</code>, <code>display_name</code>, <code>window_end</code> (RFC 3339,
+     * when the current run of slots ends). Best effort, at most one per edge, reported by the replica whose
+     * engine ticked the campaign.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED = 520;</code>
+     */
+    const VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED = 520;
+    /**
+     * A RUNNING campaign with a <code>calling_window</code> left its last slot and starts no call until the next
+     * one (also when it is started, or its window updated, outside every slot). Running calls continue.
+     * Attributes: <code>state</code>, <code>display_name</code>, <code>next_window_start</code> (RFC 3339).
+     * Best effort, at most one per edge.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED = 521;</code>
+     */
+    const VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED = 521;
+    /**
+     * A VTSI project was updated. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_UPDATED = 601;</code>
      */
@@ -408,167 +578,177 @@ class VtsiEvent
     /**
      * A VTSI project was deleted. Delivered to the webhooks subscribed to it at the moment of the
      * deletion (their configuration is captured before it is deleted with the project) and to the
-     * project&apos;s open streams, which then end. It is the last event of the project.
+     * project&apos;s open streams, which then end. It is the last event of the project. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_DELETED = 602;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_DELETED = 602;
     /**
-     * A VTSI project was deployed.
+     * A VTSI project was deployed. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_DEPLOYED = 603;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_DEPLOYED = 603;
     /**
-     * Deploying a VTSI project failed; <code>description</code> says why.
+     * Deploying a VTSI project failed; <code>description</code> says why. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED = 604;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_DEPLOY_FAILED = 604;
     /**
-     * A VTSI project was undeployed.
+     * A VTSI project was undeployed. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED = 605;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_UNDEPLOYED = 605;
     /**
      * The <code>VtsiProjectStatus</code> of a project changed; attributes
-     * <code>previous_status</code> and <code>status</code>.
+     * <code>previous_status</code> and <code>status</code>, each a <code>VtsiProjectStatus</code> name
+     * (<code>DEPLOYED</code>, <code>UPDATING</code>, ...).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED = 606;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_STATUS_CHANGED = 606;
     /**
-     * Undeploying a VTSI project failed; <code>description</code> says why.
+     * Undeploying a VTSI project failed; <code>description</code> says why. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED = 607;</code>
      */
     const VTSI_EVENT_VTSI_PROJECT_UNDEPLOY_FAILED = 607;
     /**
-     * The project&apos;s Asterisk container was deployed.
+     * The project&apos;s Asterisk container was deployed. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_DEPLOYED = 700;</code>
      */
     const VTSI_EVENT_ASTERISK_DEPLOYED = 700;
     /**
-     * The project&apos;s Asterisk container was removed.
+     * The project&apos;s Asterisk container was removed. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_REMOVED = 701;</code>
      */
     const VTSI_EVENT_ASTERISK_REMOVED = 701;
     /**
-     * The project&apos;s Asterisk was restarted.
+     * The project&apos;s Asterisk was restarted. Attribute <code>restart_reason</code> (<code>plan</code> or
+     * <code>escalation</code>).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_RESTARTED = 702;</code>
      */
     const VTSI_EVENT_ASTERISK_RESTARTED = 702;
     /**
-     * The project&apos;s Asterisk configuration was reloaded in place.
+     * The project&apos;s Asterisk configuration was reloaded in place. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_CONFIG_RELOADED = 703;</code>
      */
     const VTSI_EVENT_ASTERISK_CONFIG_RELOADED = 703;
     /**
-     * The project&apos;s Asterisk container is not running or unhealthy.
+     * The project&apos;s Asterisk container is not running or unhealthy. Attribute
+     * <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_UNHEALTHY = 704;</code>
      */
     const VTSI_EVENT_ASTERISK_UNHEALTHY = 704;
     /**
-     * The project&apos;s Asterisk container is healthy again.
+     * The project&apos;s Asterisk container is healthy again. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_HEALTHY = 705;</code>
      */
     const VTSI_EVENT_ASTERISK_HEALTHY = 705;
     /**
-     * The SIP trunk registered with the carrier.
+     * The SIP trunk registered with the carrier. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_TRUNK_REGISTERED = 706;</code>
      */
     const VTSI_EVENT_ASTERISK_TRUNK_REGISTERED = 706;
     /**
-     * The SIP trunk is no longer registered (rejected, unregistered or failed); attribute
-     * <code>registration_status</code>.
+     * The SIP trunk is no longer registered (rejected, unregistered or failed); attributes
+     * <code>container_name</code> and <code>registration_status</code> (Asterisk&apos;s own token, e.g.
+     * <code>Rejected</code>, <code>Unregistered</code>, <code>Unknown</code>).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED = 707;</code>
      */
     const VTSI_EVENT_ASTERISK_TRUNK_UNREGISTERED = 707;
     /**
-     * Deploying the project&apos;s Asterisk container failed; <code>description</code> says why.
+     * Deploying the project&apos;s Asterisk container failed; <code>description</code> says why. Attribute
+     * <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_DEPLOY_FAILED = 708;</code>
      */
     const VTSI_EVENT_ASTERISK_DEPLOY_FAILED = 708;
     /**
-     * Restarting the project&apos;s Asterisk failed; <code>description</code> says why.
+     * Restarting the project&apos;s Asterisk failed; <code>description</code> says why. Attribute
+     * <code>restart_reason</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_RESTART_FAILED = 709;</code>
      */
     const VTSI_EVENT_ASTERISK_RESTART_FAILED = 709;
     /**
      * Reloading the project&apos;s Asterisk configuration in place failed; <code>description</code>
-     * says why.
+     * says why. Attribute <code>container_name</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED = 710;</code>
      */
     const VTSI_EVENT_ASTERISK_CONFIG_RELOAD_FAILED = 710;
     /**
-     * A softphone account was created.
+     * A softphone account was created. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED = 800;</code>
      */
     const VTSI_EVENT_SOFTPHONE_ACCOUNT_CREATED = 800;
     /**
-     * A softphone account was updated.
+     * A softphone account was updated. Attribute <code>updated_fields</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED = 801;</code>
      */
     const VTSI_EVENT_SOFTPHONE_ACCOUNT_UPDATED = 801;
     /**
-     * A softphone account was deleted.
+     * A softphone account was deleted. Attribute <code>revoked_certificate_count</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED = 802;</code>
      */
     const VTSI_EVENT_SOFTPHONE_ACCOUNT_DELETED = 802;
     /**
-     * The credentials of a softphone account were rotated.
+     * The credentials of a softphone account were rotated. Attribute <code>certificate_rotated</code>
+     * (boolean).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED = 803;</code>
      */
     const VTSI_EVENT_SOFTPHONE_CREDENTIALS_ROTATED = 803;
     /**
-     * A softphone certificate was revoked.
+     * A softphone certificate was revoked (resource_name: the certificate). Attribute
+     * <code>account_locked</code> (boolean).
      *
      * Generated from protobuf enum <code>VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED = 804;</code>
      */
     const VTSI_EVENT_SOFTPHONE_CERTIFICATE_REVOKED = 804;
     /**
-     * Sent by <code>TestWebhook</code> only.
+     * Sent by <code>TestWebhook</code> only (when it names no <code>sample_event</code>). No attributes;
+     * <code>description</code> is <code>webhook test</code>.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_WEBHOOK_TEST = 900;</code>
      */
     const VTSI_EVENT_WEBHOOK_TEST = 900;
     /**
-     * A webhook was created (resource_name: the webhook). Never carries a header value.
+     * A webhook was created (resource_name: the webhook). Never carries a header value or the signing
+     * secret. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_WEBHOOK_CREATED = 901;</code>
      */
     const VTSI_EVENT_WEBHOOK_CREATED = 901;
     /**
      * A webhook was updated; attribute <code>updated_fields</code> (the mask paths). Never carries
-     * a header value.
+     * a header value or the signing secret.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_WEBHOOK_UPDATED = 902;</code>
      */
     const VTSI_EVENT_WEBHOOK_UPDATED = 902;
     /**
-     * A webhook was deleted.
+     * A webhook was deleted. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_WEBHOOK_DELETED = 903;</code>
      */
     const VTSI_EVENT_WEBHOOK_DELETED = 903;
     /**
-     * An event subscription was created (resource_name: the subscription).
+     * An event subscription was created (resource_name: the subscription). No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED = 904;</code>
      */
@@ -580,7 +760,7 @@ class VtsiEvent
      */
     const VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED = 905;
     /**
-     * An event subscription was deleted.
+     * An event subscription was deleted. No attributes.
      *
      * Generated from protobuf enum <code>VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED = 906;</code>
      */
@@ -610,6 +790,7 @@ class VtsiEvent
         self::VTSI_EVENT_CALL_LISTENING_RESUMED => 'VTSI_EVENT_CALL_LISTENING_RESUMED',
         self::VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED => 'VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED',
         self::VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED => 'VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED',
+        self::VTSI_EVENT_CALL_UPDATED => 'VTSI_EVENT_CALL_UPDATED',
         self::VTSI_EVENT_CALLER_STARTED => 'VTSI_EVENT_CALLER_STARTED',
         self::VTSI_EVENT_CALLER_START_FAILED => 'VTSI_EVENT_CALLER_START_FAILED',
         self::VTSI_EVENT_CALLER_STOPPED => 'VTSI_EVENT_CALLER_STOPPED',
@@ -617,6 +798,7 @@ class VtsiEvent
         self::VTSI_EVENT_CALLER_RESTARTED => 'VTSI_EVENT_CALLER_RESTARTED',
         self::VTSI_EVENT_CALLER_UNHEALTHY => 'VTSI_EVENT_CALLER_UNHEALTHY',
         self::VTSI_EVENT_CALLER_HEALTHY => 'VTSI_EVENT_CALLER_HEALTHY',
+        self::VTSI_EVENT_CALLER_UPDATED => 'VTSI_EVENT_CALLER_UPDATED',
         self::VTSI_EVENT_LISTENER_STARTED => 'VTSI_EVENT_LISTENER_STARTED',
         self::VTSI_EVENT_LISTENER_START_FAILED => 'VTSI_EVENT_LISTENER_START_FAILED',
         self::VTSI_EVENT_LISTENER_STOPPED => 'VTSI_EVENT_LISTENER_STOPPED',
@@ -624,11 +806,13 @@ class VtsiEvent
         self::VTSI_EVENT_LISTENER_RESTARTED => 'VTSI_EVENT_LISTENER_RESTARTED',
         self::VTSI_EVENT_LISTENER_UNHEALTHY => 'VTSI_EVENT_LISTENER_UNHEALTHY',
         self::VTSI_EVENT_LISTENER_HEALTHY => 'VTSI_EVENT_LISTENER_HEALTHY',
+        self::VTSI_EVENT_LISTENER_UPDATED => 'VTSI_EVENT_LISTENER_UPDATED',
         self::VTSI_EVENT_SCHEDULED_CALLER_CREATED => 'VTSI_EVENT_SCHEDULED_CALLER_CREATED',
         self::VTSI_EVENT_SCHEDULED_CALLER_FIRED => 'VTSI_EVENT_SCHEDULED_CALLER_FIRED',
         self::VTSI_EVENT_SCHEDULED_CALLER_FAILED => 'VTSI_EVENT_SCHEDULED_CALLER_FAILED',
         self::VTSI_EVENT_SCHEDULED_CALLER_CANCELLED => 'VTSI_EVENT_SCHEDULED_CALLER_CANCELLED',
         self::VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED => 'VTSI_EVENT_SCHEDULED_CALLER_RETRY_SCHEDULED',
+        self::VTSI_EVENT_SCHEDULED_CALLER_UPDATED => 'VTSI_EVENT_SCHEDULED_CALLER_UPDATED',
         self::VTSI_EVENT_CAMPAIGN_CREATED => 'VTSI_EVENT_CAMPAIGN_CREATED',
         self::VTSI_EVENT_CAMPAIGN_UPDATED => 'VTSI_EVENT_CAMPAIGN_UPDATED',
         self::VTSI_EVENT_CAMPAIGN_DELETED => 'VTSI_EVENT_CAMPAIGN_DELETED',
@@ -648,6 +832,9 @@ class VtsiEvent
         self::VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED => 'VTSI_EVENT_CAMPAIGN_CALL_RETRY_SCHEDULED',
         self::VTSI_EVENT_CAMPAIGN_CALL_CANCELLED => 'VTSI_EVENT_CAMPAIGN_CALL_CANCELLED',
         self::VTSI_EVENT_CAMPAIGN_AUTO_STOPPED => 'VTSI_EVENT_CAMPAIGN_AUTO_STOPPED',
+        self::VTSI_EVENT_CAMPAIGN_CALL_REQUEUED => 'VTSI_EVENT_CAMPAIGN_CALL_REQUEUED',
+        self::VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED => 'VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_OPENED',
+        self::VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED => 'VTSI_EVENT_CAMPAIGN_CALLING_WINDOW_CLOSED',
         self::VTSI_EVENT_VTSI_PROJECT_UPDATED => 'VTSI_EVENT_VTSI_PROJECT_UPDATED',
         self::VTSI_EVENT_VTSI_PROJECT_DELETED => 'VTSI_EVENT_VTSI_PROJECT_DELETED',
         self::VTSI_EVENT_VTSI_PROJECT_DEPLOYED => 'VTSI_EVENT_VTSI_PROJECT_DEPLOYED',

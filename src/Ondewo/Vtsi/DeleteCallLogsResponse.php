@@ -18,13 +18,14 @@ use Google\Protobuf\RepeatedField;
 class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * How many log entries were deleted.
+     * How many log entries were deleted (with <code>validate_only</code>: would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_entry_count = 1;</code>
      */
     protected $deleted_log_entry_count = 0;
     /**
-     * How many log streams were deleted because no entries remained.
+     * How many log streams were deleted because no entries remained (with <code>validate_only</code>:
+     * would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_stream_count = 2;</code>
      */
@@ -37,9 +38,10 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int|string $deleted_log_entry_count
-     *           How many log entries were deleted.
+     *           How many log entries were deleted (with <code>validate_only</code>: would be deleted).
      *     @type int|string $deleted_log_stream_count
-     *           How many log streams were deleted because no entries remained.
+     *           How many log streams were deleted because no entries remained (with <code>validate_only</code>:
+     *           would be deleted).
      * }
      */
     public function __construct($data = NULL) {
@@ -48,7 +50,7 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How many log entries were deleted.
+     * How many log entries were deleted (with <code>validate_only</code>: would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_entry_count = 1;</code>
      * @return int|string
@@ -59,7 +61,7 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How many log entries were deleted.
+     * How many log entries were deleted (with <code>validate_only</code>: would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_entry_count = 1;</code>
      * @param int|string $var
@@ -74,7 +76,8 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How many log streams were deleted because no entries remained.
+     * How many log streams were deleted because no entries remained (with <code>validate_only</code>:
+     * would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_stream_count = 2;</code>
      * @return int|string
@@ -85,7 +88,8 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How many log streams were deleted because no entries remained.
+     * How many log streams were deleted because no entries remained (with <code>validate_only</code>:
+     * would be deleted).
      *
      * Generated from protobuf field <code>int64 deleted_log_stream_count = 2;</code>
      * @param int|string $var

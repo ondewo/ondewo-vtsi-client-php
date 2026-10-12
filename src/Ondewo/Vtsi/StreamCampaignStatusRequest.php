@@ -47,6 +47,19 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool include_calls = 3;</code>
      */
     protected $include_calls = false;
+    /**
+     * Only campaigns in one of these states. Empty means every state. Combined with
+     * <code>campaign_names</code> / <code>campaign_display_names</code> by AND. The snapshot carries the
+     * matching campaigns in a selected state. Later, a campaign that ENTERS a selected state is sent (with
+     * every field, as in a snapshot), and a campaign that LEAVES the selection is sent once more with its new
+     * state and then no longer (so a client sees why it left); a campaign deleted while selected is reported
+     * in <code>deleted_campaign_names</code>. With <code>include_calls</code>, only calls of campaigns that are
+     * selected at the moment are sent. <code>CAMPAIGN_STATE_UNSPECIFIED</code> or an unknown value is rejected
+     * with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 5;</code>
+     */
+    private $states;
 
     /**
      * Constructor.
@@ -68,6 +81,15 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      *     @type bool $include_calls
      *           Also stream every campaign call that changes after the stream opened. The snapshot never
      *           contains campaign calls; read them with <code>ListCampaignCalls</code>.
+     *     @type int[] $states
+     *           Only campaigns in one of these states. Empty means every state. Combined with
+     *           <code>campaign_names</code> / <code>campaign_display_names</code> by AND. The snapshot carries the
+     *           matching campaigns in a selected state. Later, a campaign that ENTERS a selected state is sent (with
+     *           every field, as in a snapshot), and a campaign that LEAVES the selection is sent once more with its new
+     *           state and then no longer (so a client sees why it left); a campaign deleted while selected is reported
+     *           in <code>deleted_campaign_names</code>. With <code>include_calls</code>, only calls of campaigns that are
+     *           selected at the moment are sent. <code>CAMPAIGN_STATE_UNSPECIFIED</code> or an unknown value is rejected
+     *           with <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -187,6 +209,46 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->include_calls = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only campaigns in one of these states. Empty means every state. Combined with
+     * <code>campaign_names</code> / <code>campaign_display_names</code> by AND. The snapshot carries the
+     * matching campaigns in a selected state. Later, a campaign that ENTERS a selected state is sent (with
+     * every field, as in a snapshot), and a campaign that LEAVES the selection is sent once more with its new
+     * state and then no longer (so a client sees why it left); a campaign deleted while selected is reported
+     * in <code>deleted_campaign_names</code>. With <code>include_calls</code>, only calls of campaigns that are
+     * selected at the moment are sent. <code>CAMPAIGN_STATE_UNSPECIFIED</code> or an unknown value is rejected
+     * with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 5;</code>
+     * @return RepeatedField<int>
+     */
+    public function getStates()
+    {
+        return $this->states;
+    }
+
+    /**
+     * Only campaigns in one of these states. Empty means every state. Combined with
+     * <code>campaign_names</code> / <code>campaign_display_names</code> by AND. The snapshot carries the
+     * matching campaigns in a selected state. Later, a campaign that ENTERS a selected state is sent (with
+     * every field, as in a snapshot), and a campaign that LEAVES the selection is sent once more with its new
+     * state and then no longer (so a client sees why it left); a campaign deleted while selected is reported
+     * in <code>deleted_campaign_names</code>. With <code>include_calls</code>, only calls of campaigns that are
+     * selected at the moment are sent. <code>CAMPAIGN_STATE_UNSPECIFIED</code> or an unknown value is rejected
+     * with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 5;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setStates($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignState::class);
+        $this->states = $arr;
 
         return $this;
     }

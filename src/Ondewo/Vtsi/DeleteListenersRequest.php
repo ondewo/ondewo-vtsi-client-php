@@ -17,11 +17,37 @@ use Google\Protobuf\RepeatedField;
 class DeleteListenersRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The names of the listeners to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The names of the listeners to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>repeated string names = 1;</code>
      */
     private $names;
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>DeleteListenersResponse.delete_listener_responses</code>, relative to the entry message <code>DeleteListenerResponse</code>, i.e.
+     * <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
+     * response&apos;s own fields are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is deleted. It shapes only the
+     * response: the listeners are deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. VTSI project of every listener of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
+     * deleted, and refused with <code>INVALID_ARGUMENT</code> (naming the entry index) for a malformed
+     * <code>vtsi_project_name</code>, a name given twice, or a name that is malformed or whose project segment
+     * differs from <code>vtsi_project_name</code>; with <code>NOT_FOUND</code> for an unknown project; and with
+     * authorization enforced with <code>PERMISSION_DENIED</code> for a project the caller holds no role on. Empty
+     * keeps the behaviour of 9.0.0 clients, which do not send it: each name is checked on its own (a name of
+     * another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
+     * reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 3;</code>
+     */
+    protected $vtsi_project_name = '';
 
     /**
      * Constructor.
@@ -30,7 +56,25 @@ class DeleteListenersRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string[] $names
-     *           The names of the listeners to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *           The names of the listeners to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in EVERY entry of
+     *           <code>DeleteListenersResponse.delete_listener_responses</code>, relative to the entry message <code>DeleteListenerResponse</code>, i.e.
+     *           <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
+     *           response&apos;s own fields are always populated. Unset or empty returns every field. An unknown path is
+     *           rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is deleted. It shapes only the
+     *           response: the listeners are deleted regardless.
+     *     @type string $vtsi_project_name
+     *           Optional. VTSI project of every listener of the request, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
+     *           deleted, and refused with <code>INVALID_ARGUMENT</code> (naming the entry index) for a malformed
+     *           <code>vtsi_project_name</code>, a name given twice, or a name that is malformed or whose project segment
+     *           differs from <code>vtsi_project_name</code>; with <code>NOT_FOUND</code> for an unknown project; and with
+     *           authorization enforced with <code>PERMISSION_DENIED</code> for a project the caller holds no role on. Empty
+     *           keeps the behaviour of 9.0.0 clients, which do not send it: each name is checked on its own (a name of
+     *           another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
+     *           reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -39,7 +83,7 @@ class DeleteListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The names of the listeners to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The names of the listeners to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>repeated string names = 1;</code>
      * @return RepeatedField<string>
@@ -50,7 +94,7 @@ class DeleteListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The names of the listeners to delete in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * The names of the listeners to delete, 1 to 1000 distinct names, in the form <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>repeated string names = 1;</code>
      * @param string[] $var
@@ -60,6 +104,96 @@ class DeleteListenersRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>DeleteListenersResponse.delete_listener_responses</code>, relative to the entry message <code>DeleteListenerResponse</code>, i.e.
+     * <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
+     * response&apos;s own fields are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is deleted. It shapes only the
+     * response: the listeners are deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>DeleteListenersResponse.delete_listener_responses</code>, relative to the entry message <code>DeleteListenerResponse</code>, i.e.
+     * <code>error_message</code> (the entries carry no <code>Listener</code>). <code>name</code> of each entry and the
+     * response&apos;s own fields are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is deleted. It shapes only the
+     * response: the listeners are deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. VTSI project of every listener of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
+     * deleted, and refused with <code>INVALID_ARGUMENT</code> (naming the entry index) for a malformed
+     * <code>vtsi_project_name</code>, a name given twice, or a name that is malformed or whose project segment
+     * differs from <code>vtsi_project_name</code>; with <code>NOT_FOUND</code> for an unknown project; and with
+     * authorization enforced with <code>PERMISSION_DENIED</code> for a project the caller holds no role on. Empty
+     * keeps the behaviour of 9.0.0 clients, which do not send it: each name is checked on its own (a name of
+     * another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
+     * reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 3;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * Optional. VTSI project of every listener of the request, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * When set, the request is checked as a whole like <code>UpdateListenersRequest</code> before anything is
+     * deleted, and refused with <code>INVALID_ARGUMENT</code> (naming the entry index) for a malformed
+     * <code>vtsi_project_name</code>, a name given twice, or a name that is malformed or whose project segment
+     * differs from <code>vtsi_project_name</code>; with <code>NOT_FOUND</code> for an unknown project; and with
+     * authorization enforced with <code>PERMISSION_DENIED</code> for a project the caller holds no role on. Empty
+     * keeps the behaviour of 9.0.0 clients, which do not send it: each name is checked on its own (a name of
+     * another project is that entry&apos;s <code>NOT_FOUND</code>) and a name given twice is deleted once and
+     * reported once. Either way, no entry and more than 1000 distinct names are <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 3;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
 
         return $this;
     }

@@ -24,7 +24,9 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The campaign the callers were added to.
+     * The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
+     * <code>campaign_sip_caller_config</code>) are always left unset here; read them with
+     * <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      */
@@ -46,7 +48,9 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
      *           VTSI project of the callers and the campaign.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\Campaign $campaign
-     *           The campaign the callers were added to.
+     *           The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
+     *           <code>campaign_sip_caller_config</code>) are always left unset here; read them with
+     *           <code>Campaigns.GetCampaign</code>.
      *     @type string[] $campaign_call_names
      *           The campaign calls created by this request, in request order.
      * }
@@ -85,7 +89,9 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign the callers were added to.
+     * The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
+     * <code>campaign_sip_caller_config</code>) are always left unset here; read them with
+     * <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -106,7 +112,9 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign the callers were added to.
+     * The campaign the callers were added to. Its call defaults (<code>campaign_common_services_config</code>,
+     * <code>campaign_sip_caller_config</code>) are always left unset here; read them with
+     * <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @param \Ondewo\Vtsi\Campaign $var

@@ -18,15 +18,14 @@ use Google\Protobuf\RepeatedField;
 class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest <code>capture_started_at</code> first.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
      */
     private $log_streams;
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListCallLogStreamsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      */
@@ -39,11 +38,10 @@ class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\CallLogStream[] $log_streams
-     *           The list of log streams returned in the response.
+     *           The log streams of this page, newest <code>capture_started_at</code> first.
      *     @type string $next_page_token
-     *           Token to retrieve the next page of results.
-     *           This field is a string that holds a token for fetching the next page of results.
-     *           If there are no more results in the list, this field will be empty.
+     *           Token to retrieve the next page of results. Opaque (see
+     *           <code>ListCallLogStreamsRequest.page_token</code>). Empty when there are no more results.
      * }
      */
     public function __construct($data = NULL) {
@@ -52,7 +50,7 @@ class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest <code>capture_started_at</code> first.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\CallLogStream>
@@ -63,7 +61,7 @@ class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of log streams returned in the response.
+     * The log streams of this page, newest <code>capture_started_at</code> first.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogStream log_streams = 1;</code>
      * @param \Ondewo\Vtsi\CallLogStream[] $var
@@ -78,9 +76,8 @@ class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListCallLogStreamsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @return string
@@ -91,9 +88,8 @@ class ListCallLogStreamsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListCallLogStreamsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @param string $var

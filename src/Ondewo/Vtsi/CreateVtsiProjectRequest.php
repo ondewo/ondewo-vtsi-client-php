@@ -26,11 +26,25 @@ class CreateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project = null;
     /**
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      *
-     * Generated from protobuf field <code>string error_message = 2;</code>
+     * Generated from protobuf field <code>string error_message = 2 [deprecated = true];</code>
+     * @deprecated
      */
     protected $error_message = '';
+    /**
+     * Optional. Validate only: run every check of a real create (validation, authorization) and return
+     * the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
+     * emit nothing. The fields the server assigns at creation are left empty in that answer because
+     * nothing is reserved: <code>name</code> when the request gave none, the ports when the request gave
+     * <code>0</code>, <code>vtsi_project_status</code> and the audit fields. A successful validation does
+     * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     * <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     */
+    protected $validate_only = false;
 
     /**
      * Constructor.
@@ -44,7 +58,16 @@ class CreateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      *           If no name is given a new parent name is created. The parent has the format:
      *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $error_message
-     *           error message if there are any.
+     *           Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     *           compatibility.
+     *     @type bool $validate_only
+     *           Optional. Validate only: run every check of a real create (validation, authorization) and return
+     *           the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
+     *           emit nothing. The fields the server assigns at creation are left empty in that answer because
+     *           nothing is reserved: <code>name</code> when the request gave none, the ports when the request gave
+     *           <code>0</code>, <code>vtsi_project_status</code> and the audit fields. A successful validation does
+     *           not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     *           <code>false</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -95,27 +118,73 @@ class CreateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      *
-     * Generated from protobuf field <code>string error_message = 2;</code>
+     * Generated from protobuf field <code>string error_message = 2 [deprecated = true];</code>
      * @return string
+     * @deprecated
      */
     public function getErrorMessage()
     {
+        if ($this->error_message !== '') {
+            @trigger_error('error_message is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->error_message;
     }
 
     /**
-     * error message if there are any.
+     * Deprecated: a request carries no error. Ignored by the server; leave it empty. Kept for wire
+     * compatibility.
      *
-     * Generated from protobuf field <code>string error_message = 2;</code>
+     * Generated from protobuf field <code>string error_message = 2 [deprecated = true];</code>
      * @param string $var
      * @return $this
+     * @deprecated
      */
     public function setErrorMessage($var)
     {
+        @trigger_error('error_message is deprecated.', E_USER_DEPRECATED);
         GPBUtil::checkString($var, True);
         $this->error_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Validate only: run every check of a real create (validation, authorization) and return
+     * the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
+     * emit nothing. The fields the server assigns at creation are left empty in that answer because
+     * nothing is reserved: <code>name</code> when the request gave none, the ports when the request gave
+     * <code>0</code>, <code>vtsi_project_status</code> and the audit fields. A successful validation does
+     * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     * <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     * @return bool
+     */
+    public function getValidateOnly()
+    {
+        return $this->validate_only;
+    }
+
+    /**
+     * Optional. Validate only: run every check of a real create (validation, authorization) and return
+     * the would-be project in <code>CreateVtsiProjectResponse.vtsi_project</code>, but write, reserve and
+     * emit nothing. The fields the server assigns at creation are left empty in that answer because
+     * nothing is reserved: <code>name</code> when the request gave none, the ports when the request gave
+     * <code>0</code>, <code>vtsi_project_status</code> and the audit fields. A successful validation does
+     * not guarantee that a later create succeeds (e.g. a name or port taken meanwhile). Default
+     * <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 3;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setValidateOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->validate_only = $var;
 
         return $this;
     }

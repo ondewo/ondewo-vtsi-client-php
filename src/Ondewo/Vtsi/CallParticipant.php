@@ -62,7 +62,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
     /**
      * Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
      * <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
-     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>
+     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>; empty while ringing or joined. Kept for clients built before
+     * <code>end_reason_type</code> existed; both are always set together.
      *
      * Generated from protobuf field <code>string end_reason = 8;</code>
      */
@@ -79,6 +80,15 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.BotPolicyOnJoin bot_policy = 10;</code>
      */
     protected $bot_policy = 0;
+    /**
+     * Output only. The typed form of <code>end_reason</code>: <code>PARTICIPANT_END_REASON_UNSPECIFIED</code> while
+     * ringing or joined, otherwise the value of the string in <code>end_reason</code> (e.g. <code>NOANSWER</code> is
+     * <code>PARTICIPANT_END_REASON_NO_ANSWER</code>). A 9.0.0 server leaves it unset; read <code>end_reason</code>
+     * then.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.ParticipantEndReason end_reason_type = 11;</code>
+     */
+    protected $end_reason_type = 0;
 
     /**
      * Constructor.
@@ -104,11 +114,17 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      *     @type string $end_reason
      *           Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
      *           <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
-     *           <code>JOIN_FAILED</code> or <code>TIMEOUT</code>
+     *           <code>JOIN_FAILED</code> or <code>TIMEOUT</code>; empty while ringing or joined. Kept for clients built before
+     *           <code>end_reason_type</code> existed; both are always set together.
      *     @type string $invited_by
      *           Identity of who invited the participant (audit)
      *     @type int $bot_policy
      *           Bot policy applied while this participant is ringing or joined
+     *     @type int $end_reason_type
+     *           Output only. The typed form of <code>end_reason</code>: <code>PARTICIPANT_END_REASON_UNSPECIFIED</code> while
+     *           ringing or joined, otherwise the value of the string in <code>end_reason</code> (e.g. <code>NOANSWER</code> is
+     *           <code>PARTICIPANT_END_REASON_NO_ANSWER</code>). A 9.0.0 server leaves it unset; read <code>end_reason</code>
+     *           then.
      * }
      */
     public function __construct($data = NULL) {
@@ -333,7 +349,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
     /**
      * Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
      * <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
-     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>
+     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>; empty while ringing or joined. Kept for clients built before
+     * <code>end_reason_type</code> existed; both are always set together.
      *
      * Generated from protobuf field <code>string end_reason = 8;</code>
      * @return string
@@ -346,7 +363,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
     /**
      * Why the participant failed or left: <code>NOANSWER</code>, <code>BUSY</code>, <code>CHANUNAVAIL</code>,
      * <code>CALL_ENDED</code>, <code>REMOVED</code>, <code>HANGUP</code>, <code>HANDED_OVER</code>,
-     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>
+     * <code>JOIN_FAILED</code> or <code>TIMEOUT</code>; empty while ringing or joined. Kept for clients built before
+     * <code>end_reason_type</code> existed; both are always set together.
      *
      * Generated from protobuf field <code>string end_reason = 8;</code>
      * @param string $var
@@ -408,6 +426,38 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\BotPolicyOnJoin::class);
         $this->bot_policy = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The typed form of <code>end_reason</code>: <code>PARTICIPANT_END_REASON_UNSPECIFIED</code> while
+     * ringing or joined, otherwise the value of the string in <code>end_reason</code> (e.g. <code>NOANSWER</code> is
+     * <code>PARTICIPANT_END_REASON_NO_ANSWER</code>). A 9.0.0 server leaves it unset; read <code>end_reason</code>
+     * then.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.ParticipantEndReason end_reason_type = 11;</code>
+     * @return int
+     */
+    public function getEndReasonType()
+    {
+        return $this->end_reason_type;
+    }
+
+    /**
+     * Output only. The typed form of <code>end_reason</code>: <code>PARTICIPANT_END_REASON_UNSPECIFIED</code> while
+     * ringing or joined, otherwise the value of the string in <code>end_reason</code> (e.g. <code>NOANSWER</code> is
+     * <code>PARTICIPANT_END_REASON_NO_ANSWER</code>). A 9.0.0 server leaves it unset; read <code>end_reason</code>
+     * then.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.ParticipantEndReason end_reason_type = 11;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setEndReasonType($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\ParticipantEndReason::class);
+        $this->end_reason_type = $var;
 
         return $this;
     }

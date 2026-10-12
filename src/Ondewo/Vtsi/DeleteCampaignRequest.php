@@ -17,6 +17,38 @@ use Google\Protobuf\RepeatedField;
  */
 class DeleteCampaignRequest extends \Google\Protobuf\Internal\Message
 {
+    /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 4;</code>
+     */
+    protected $vtsi_project_name = '';
+    /**
+     * Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
+     * <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
+     * shapes only the response: the campaign is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Delete also a campaign that is <code>RUNNING</code>, <code>STOPPING</code> or
+     * <code>HARD_STOPPING</code>: the server hard stops it (every running call is hung up, see
+     * <code>HardStopCampaign</code>) and deletes it once the end of each call is confirmed, waiting at most
+     * <code>ONDEWO_VTSI_CAMPAIGN_FORCE_DELETE_WAIT_S</code> (30 s by default, bounded by the client&apos;s
+     * deadline); otherwise <code>DEADLINE_EXCEEDED</code>, and the campaign stays hard stopped and undeleted
+     * (repeat the request). <code>false</code> (the default): such a campaign is refused with
+     * <code>FAILED_PRECONDITION</code>, as before. No effect on a campaign in any other state.
+     *
+     * Generated from protobuf field <code>bool force = 6;</code>
+     */
+    protected $force = false;
     protected $campaign;
 
     /**
@@ -27,8 +59,31 @@ class DeleteCampaignRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $name
      *           Resource name of the campaign.
-     *     @type \Ondewo\Vtsi\CampaignDisplayName $display_name
-     *           The campaign with this display name.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *     @type string $display_name
+     *           Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     *           <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     *           <code>CampaignDisplayName display_name = 2</code>.
+     *     @type string $vtsi_project_name
+     *           VTSI project of the campaign.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     *           <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     *           <code>name</code>: when set, it must be the project of the campaign
+     *           (<code>INVALID_ARGUMENT</code> otherwise).
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
+     *           <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
+     *           returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
+     *           shapes only the response: the campaign is deleted regardless.
+     *     @type bool $force
+     *           Optional. Delete also a campaign that is <code>RUNNING</code>, <code>STOPPING</code> or
+     *           <code>HARD_STOPPING</code>: the server hard stops it (every running call is hung up, see
+     *           <code>HardStopCampaign</code>) and deletes it once the end of each call is confirmed, waiting at most
+     *           <code>ONDEWO_VTSI_CAMPAIGN_FORCE_DELETE_WAIT_S</code> (30 s by default, bounded by the client&apos;s
+     *           deadline); otherwise <code>DEADLINE_EXCEEDED</code>, and the campaign stays hard stopped and undeleted
+     *           (repeat the request). <code>false</code> (the default): such a campaign is refused with
+     *           <code>FAILED_PRECONDITION</code>, as before. No effect on a campaign in any other state.
      * }
      */
     public function __construct($data = NULL) {
@@ -38,6 +93,7 @@ class DeleteCampaignRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -54,6 +110,7 @@ class DeleteCampaignRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -68,32 +125,152 @@ class DeleteCampaignRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign with this display name.
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     * <code>CampaignDisplayName display_name = 2</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName display_name = 2;</code>
-     * @return \Ondewo\Vtsi\CampaignDisplayName|null
+     * Generated from protobuf field <code>string display_name = 3;</code>
+     * @return string
      */
     public function getDisplayName()
     {
-        return $this->readOneof(2);
+        return $this->readOneof(3);
     }
 
     public function hasDisplayName()
     {
-        return $this->hasOneof(2);
+        return $this->hasOneof(3);
     }
 
     /**
-     * The campaign with this display name.
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     * <code>CampaignDisplayName display_name = 2</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName display_name = 2;</code>
-     * @param \Ondewo\Vtsi\CampaignDisplayName $var
+     * Generated from protobuf field <code>string display_name = 3;</code>
+     * @param string $var
      * @return $this
      */
     public function setDisplayName($var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignDisplayName::class);
-        $this->writeOneof(2, $var);
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(3, $var);
+
+        return $this;
+    }
+
+    /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 4;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 4;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
+     * <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
+     * shapes only the response: the campaign is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>DeleteCampaignResponse</code> field paths to populate, e.g.
+     * <code>deleted_campaign_call_count</code>. <code>name</code> is always populated. Unset or empty
+     * returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. It
+     * shapes only the response: the campaign is deleted regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Delete also a campaign that is <code>RUNNING</code>, <code>STOPPING</code> or
+     * <code>HARD_STOPPING</code>: the server hard stops it (every running call is hung up, see
+     * <code>HardStopCampaign</code>) and deletes it once the end of each call is confirmed, waiting at most
+     * <code>ONDEWO_VTSI_CAMPAIGN_FORCE_DELETE_WAIT_S</code> (30 s by default, bounded by the client&apos;s
+     * deadline); otherwise <code>DEADLINE_EXCEEDED</code>, and the campaign stays hard stopped and undeleted
+     * (repeat the request). <code>false</code> (the default): such a campaign is refused with
+     * <code>FAILED_PRECONDITION</code>, as before. No effect on a campaign in any other state.
+     *
+     * Generated from protobuf field <code>bool force = 6;</code>
+     * @return bool
+     */
+    public function getForce()
+    {
+        return $this->force;
+    }
+
+    /**
+     * Optional. Delete also a campaign that is <code>RUNNING</code>, <code>STOPPING</code> or
+     * <code>HARD_STOPPING</code>: the server hard stops it (every running call is hung up, see
+     * <code>HardStopCampaign</code>) and deletes it once the end of each call is confirmed, waiting at most
+     * <code>ONDEWO_VTSI_CAMPAIGN_FORCE_DELETE_WAIT_S</code> (30 s by default, bounded by the client&apos;s
+     * deadline); otherwise <code>DEADLINE_EXCEEDED</code>, and the campaign stays hard stopped and undeleted
+     * (repeat the request). <code>false</code> (the default): such a campaign is refused with
+     * <code>FAILED_PRECONDITION</code>, as before. No effect on a campaign in any other state.
+     *
+     * Generated from protobuf field <code>bool force = 6;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setForce($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->force = $var;
 
         return $this;
     }

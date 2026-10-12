@@ -23,24 +23,56 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of each call to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 2;</code>
      */
     protected $call_view = null;
     /**
-     * Optional. A filter to narrow the response down to sessions of interest.
+     * Optional. A filter to narrow the response down to calls of interest; see <code>CallFilter</code>. Unset or
+     * empty lists every call of the project.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallFilter call_filter = 3;</code>
      */
     protected $call_filter = null;
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>call_filter</code> and
+     * <code>call_sorting</code>; a token issued for another listing is rejected with <code>INVALID_ARGUMENT</code>.
+     * <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 4;</code>
      */
     protected $page_token = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
+     * to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
+     * <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     */
+    protected $page_size = 0;
+    /**
+     * Optional. Sorting of the listing. Unset keeps the default order (see <code>ListCallsResponse.calls</code>).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallSorting call_sorting = 7;</code>
+     */
+    protected $call_sorting = null;
 
     /**
      * Constructor.
@@ -51,12 +83,32 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type int $call_view
-     *           you can specify the view to be shallow or full .. see above for more info
+     *           Optional. How much of each call to populate; see <code>CallView</code>. Unset means
+     *           <code>SHALLOW</code>.
      *     @type \Ondewo\Vtsi\CallFilter $call_filter
-     *           Optional. A filter to narrow the response down to sessions of interest.
+     *           Optional. A filter to narrow the response down to calls of interest; see <code>CallFilter</code>. Unset or
+     *           empty lists every call of the project.
      *     @type string $page_token
-     *           Optional. The next_page_token value returned from a previous list request.
-     *           Example: "current_index-1--page_size-20"
+     *           Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     *           API. Valid only with the same <code>vtsi_project_name</code>, <code>call_filter</code> and
+     *           <code>call_sorting</code>; a token issued for another listing is rejected with <code>INVALID_ARGUMENT</code>.
+     *           <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
+     *           to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
+     *           <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
+     *           allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     *           empty returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     *           server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     *           response and never populates a field that was left empty. Not part of the paging contract: a
+     *           <code>page_token</code> stays valid with another mask.
+     *     @type int $page_size
+     *           Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
+     *           was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     *           negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *     @type \Ondewo\Vtsi\CallSorting $call_sorting
+     *           Optional. Sorting of the listing. Unset keeps the default order (see <code>ListCallsResponse.calls</code>).
      * }
      */
     public function __construct($data = NULL) {
@@ -91,7 +143,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of each call to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 2;</code>
      * @return int
@@ -112,7 +165,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full .. see above for more info
+     * Optional. How much of each call to populate; see <code>CallView</code>. Unset means
+     * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 2;</code>
      * @param int $var
@@ -127,7 +181,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. A filter to narrow the response down to sessions of interest.
+     * Optional. A filter to narrow the response down to calls of interest; see <code>CallFilter</code>. Unset or
+     * empty lists every call of the project.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallFilter call_filter = 3;</code>
      * @return \Ondewo\Vtsi\CallFilter|null
@@ -148,7 +203,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. A filter to narrow the response down to sessions of interest.
+     * Optional. A filter to narrow the response down to calls of interest; see <code>CallFilter</code>. Unset or
+     * empty lists every call of the project.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallFilter call_filter = 3;</code>
      * @param \Ondewo\Vtsi\CallFilter $var
@@ -163,8 +219,10 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>call_filter</code> and
+     * <code>call_sorting</code>; a token issued for another listing is rejected with <code>INVALID_ARGUMENT</code>.
+     * <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 4;</code>
      * @return string
@@ -185,8 +243,10 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. Opaque: its content is not part of the
+     * API. Valid only with the same <code>vtsi_project_name</code>, <code>call_filter</code> and
+     * <code>call_sorting</code>; a token issued for another listing is rejected with <code>INVALID_ARGUMENT</code>.
+     * <code>page_size</code>, <code>call_view</code> and <code>field_mask</code> may change between pages.
      *
      * Generated from protobuf field <code>optional string page_token = 4;</code>
      * @param string $var
@@ -196,6 +256,124 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->page_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
+     * to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
+     * <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Call</code>, relative
+     * to the <code>Call</code> message (no <code>calls.</code> prefix), e.g. <code>call_type</code>,
+     * <code>phone_number</code>, <code>start_time</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @return int
+     */
+    public function getPageSize()
+    {
+        return $this->page_size;
+    }
+
+    /**
+     * Optional. Maximum number of calls per page. <code>0</code> keeps the page size the <code>page_token</code>
+     * was issued with, and means the server default of 25 on a first page; values above 1000 are clamped to 1000;
+     * negative values are rejected with <code>INVALID_ARGUMENT</code>. May differ between the pages of one listing.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPageSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->page_size = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Sorting of the listing. Unset keeps the default order (see <code>ListCallsResponse.calls</code>).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallSorting call_sorting = 7;</code>
+     * @return \Ondewo\Vtsi\CallSorting|null
+     */
+    public function getCallSorting()
+    {
+        return $this->call_sorting;
+    }
+
+    public function hasCallSorting()
+    {
+        return isset($this->call_sorting);
+    }
+
+    public function clearCallSorting()
+    {
+        unset($this->call_sorting);
+    }
+
+    /**
+     * Optional. Sorting of the listing. Unset keeps the default order (see <code>ListCallsResponse.calls</code>).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallSorting call_sorting = 7;</code>
+     * @param \Ondewo\Vtsi\CallSorting $var
+     * @return $this
+     */
+    public function setCallSorting($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallSorting::class);
+        $this->call_sorting = $var;
 
         return $this;
     }

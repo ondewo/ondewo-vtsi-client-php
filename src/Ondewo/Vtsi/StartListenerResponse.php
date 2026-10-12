@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to start multiple listeners
+ * Response to start a listener, and one entry of <code>StartListenersResponse</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartListenerResponse</code>
  */
@@ -23,13 +23,16 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The listener that was started
+     * The listener that was started (with <code>validate_only</code>: the listener that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 2;</code>
      */
     protected $listener = null;
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartListener</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartListenersResponse</code> exists only for a listener that was started (failures are accounted for
+     * in <code>StartListenersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,9 +47,12 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\Listener $listener
-     *           The listener that was started
+     *           The listener that was started (with <code>validate_only</code>: the listener that would have been started),
+     *           shaped by the request&apos;s <code>field_mask</code>
      *     @type string $error_message
-     *           error message if you have any so if it's unhealthy
+     *           Always empty: <code>StartListener</code> reports its errors as gRPC status codes, and an entry of
+     *           <code>StartListenersResponse</code> exists only for a listener that was started (failures are accounted for
+     *           in <code>StartListenersResponse.error_message</code>)
      * }
      */
     public function __construct($data = NULL) {
@@ -81,7 +87,8 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The listener that was started
+     * The listener that was started (with <code>validate_only</code>: the listener that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 2;</code>
      * @return \Ondewo\Vtsi\Listener|null
@@ -102,7 +109,8 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The listener that was started
+     * The listener that was started (with <code>validate_only</code>: the listener that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 2;</code>
      * @param \Ondewo\Vtsi\Listener $var
@@ -117,7 +125,9 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartListener</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartListenersResponse</code> exists only for a listener that was started (failures are accounted for
+     * in <code>StartListenersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -128,7 +138,9 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartListener</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartListenersResponse</code> exists only for a listener that was started (failures are accounted for
+     * in <code>StartListenersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

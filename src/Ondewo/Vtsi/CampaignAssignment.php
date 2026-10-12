@@ -22,12 +22,22 @@ use Google\Protobuf\RepeatedField;
  * <code>CREATED</code>); <code>COMPLETED</code> accepts them and becomes <code>RUNNING</code>.</p>
  * <p>Errors, as gRPC status codes of the <code>AddCallersToCampaign</code> /
  * <code>AddScheduledCallersToCampaign</code> RPC: <code>NOT_FOUND</code> for an unknown
- * <code>campaign_name</code> / <code>campaign_display_name</code>
+ * <code>campaign_name</code> / <code>display_name</code>
  * or a campaign deleted while the request ran; <code>INVALID_ARGUMENT</code> for a campaign of
  * another project, an invalid <code>new_campaign</code> (an output-only field set, a value out of
  * range) or an invalid caller entry (the message names its index); <code>ALREADY_EXISTS</code> for a
  * <code>new_campaign.display_name</code> used in the project; <code>FAILED_PRECONDITION</code> when
  * the campaign would exceed the server&apos;s maximum number of calls per campaign.</p>
+ * <p>The project of the campaign is the project of the enclosing request:
+ * <code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+ * <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>. It is where a new campaign is
+ * created, where <code>display_name</code> is resolved, and the project a <code>campaign_name</code>
+ * must belong to.</p>
+ * <p>Every caller entry of the request is validated against its EFFECTIVE configuration, i.e. the
+ * campaign&apos;s <code>campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>
+ * with the entry&apos;s own config merged over it (see
+ * <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>), so an entry may leave out what the campaign
+ * supplies.</p>
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignAssignment</code>
  */
@@ -52,12 +62,17 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      *           Add the calls to this existing campaign.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
      *     @type \Ondewo\Vtsi\Campaign $new_campaign
-     *           Create a new campaign with these settings and add the calls to it. Only
-     *           <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code> and
-     *           <code>retry_delay</code> are read; output-only fields must be unset.
-     *     @type \Ondewo\Vtsi\CampaignDisplayName $campaign_display_name
-     *           Add the calls to the existing campaign with this display name. Its
-     *           <code>vtsi_project_name</code> must be the request&apos;s project.
+     *           Create a new campaign with these settings, in the enclosing request&apos;s project, and add the
+     *           calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
+     *           <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
+     *           <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
+     *           (<code>calling_window.next_window_start</code> included) must be unset.
+     *     @type string $display_name
+     *           Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
+     *           within the enclosing request&apos;s project
+     *           (<code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+     *           <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>). Replaces the 9.0.0
+     *           <code>CampaignDisplayName campaign_display_name = 4</code>.
      *     @type int $start_mode
      *           Whether the campaign starts dialling; see <code>CampaignStartMode</code>. The default starts a
      *           new campaign and leaves an existing one in its state.
@@ -102,9 +117,11 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Create a new campaign with these settings and add the calls to it. Only
-     * <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code> and
-     * <code>retry_delay</code> are read; output-only fields must be unset.
+     * Create a new campaign with these settings, in the enclosing request&apos;s project, and add the
+     * calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
+     * <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
+     * <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
+     * (<code>calling_window.next_window_start</code> included) must be unset.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign new_campaign = 2;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -120,9 +137,11 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Create a new campaign with these settings and add the calls to it. Only
-     * <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code> and
-     * <code>retry_delay</code> are read; output-only fields must be unset.
+     * Create a new campaign with these settings, in the enclosing request&apos;s project, and add the
+     * calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
+     * <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
+     * <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
+     * (<code>calling_window.next_window_start</code> included) must be unset.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign new_campaign = 2;</code>
      * @param \Ondewo\Vtsi\Campaign $var
@@ -137,34 +156,40 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Add the calls to the existing campaign with this display name. Its
-     * <code>vtsi_project_name</code> must be the request&apos;s project.
+     * Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
+     * within the enclosing request&apos;s project
+     * (<code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+     * <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>). Replaces the 9.0.0
+     * <code>CampaignDisplayName campaign_display_name = 4</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName campaign_display_name = 4;</code>
-     * @return \Ondewo\Vtsi\CampaignDisplayName|null
+     * Generated from protobuf field <code>string display_name = 5;</code>
+     * @return string
      */
-    public function getCampaignDisplayName()
+    public function getDisplayName()
     {
-        return $this->readOneof(4);
+        return $this->readOneof(5);
     }
 
-    public function hasCampaignDisplayName()
+    public function hasDisplayName()
     {
-        return $this->hasOneof(4);
+        return $this->hasOneof(5);
     }
 
     /**
-     * Add the calls to the existing campaign with this display name. Its
-     * <code>vtsi_project_name</code> must be the request&apos;s project.
+     * Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
+     * within the enclosing request&apos;s project
+     * (<code>AddCallersToCampaignRequest.vtsi_project_name</code> /
+     * <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>). Replaces the 9.0.0
+     * <code>CampaignDisplayName campaign_display_name = 4</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName campaign_display_name = 4;</code>
-     * @param \Ondewo\Vtsi\CampaignDisplayName $var
+     * Generated from protobuf field <code>string display_name = 5;</code>
+     * @param string $var
      * @return $this
      */
-    public function setCampaignDisplayName($var)
+    public function setDisplayName($var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignDisplayName::class);
-        $this->writeOneof(4, $var);
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(5, $var);
 
         return $this;
     }

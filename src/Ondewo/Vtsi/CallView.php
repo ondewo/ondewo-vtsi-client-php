@@ -8,7 +8,11 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Call view options
+ * How much of a <code>Call</code>, <code>Caller</code>, <code>Listener</code> or <code>ScheduledCaller</code> a read
+ * RPC populates. The <code>call_view</code> fields that take it are <code>optional</code>, so an unset view can be
+ * told apart from <code>MINIMUM</code>; each request documents what an unset view means. Quirk kept for wire
+ * compatibility: the zero value is <code>MINIMUM</code>, not an <code>*_UNSPECIFIED</code> sentinel, so a client
+ * that SETS the field to its zero value asks for the minimum view.
  *
  * Protobuf type <code>ondewo.vtsi.CallView</code>
  */

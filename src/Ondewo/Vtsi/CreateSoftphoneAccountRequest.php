@@ -31,6 +31,29 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneAccount softphone_account = 2;</code>
      */
     protected $softphone_account = null;
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
+     * replica a retry reaches.
+     * <p>A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * <code>RotateSoftphoneCredentials</code> (the SIP password always, and a new certificate for a
+     * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.</p>
+     * <p>Reusing a key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that
+     * arrives while the first attempt is still running is answered <code>ABORTED</code> and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is <code>NOT_FOUND</code>; a retry while the account is
+     * <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
+     * <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
+     *
+     * Generated from protobuf field <code>string idempotency_key = 3;</code>
+     */
+    protected $idempotency_key = '';
 
     /**
      * Constructor.
@@ -44,6 +67,25 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\SoftphoneAccount $softphone_account
      *           The account to create. <code>sip_username</code> is required. Output-only fields must be left
      *           unset and are otherwise rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type string $idempotency_key
+     *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     *           no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     *           default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
+     *           replica a retry reaches.
+     *           <p>A retry carrying the same key and the same request does NOT create a second account. Because the
+     *           server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     *           instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     *           <code>RotateSoftphoneCredentials</code> (the SIP password always, and a new certificate for a
+     *           <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account), and returns the account with
+     *           the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     *           a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     *           grants nothing a caller could not do anyway: both RPCs require the same role.</p>
+     *           <p>Reusing a key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that
+     *           arrives while the first attempt is still running is answered <code>ABORTED</code> and may be retried
+     *           later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     *           A retry after the account was deleted is <code>NOT_FOUND</code>; a retry while the account is
+     *           <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
+     *           <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -113,6 +155,66 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneAccount::class);
         $this->softphone_account = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
+     * replica a retry reaches.
+     * <p>A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * <code>RotateSoftphoneCredentials</code> (the SIP password always, and a new certificate for a
+     * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.</p>
+     * <p>Reusing a key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that
+     * arrives while the first attempt is still running is answered <code>ABORTED</code> and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is <code>NOT_FOUND</code>; a retry while the account is
+     * <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
+     * <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
+     *
+     * Generated from protobuf field <code>string idempotency_key = 3;</code>
+     * @return string
+     */
+    public function getIdempotencyKey()
+    {
+        return $this->idempotency_key;
+    }
+
+    /**
+     * Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means
+     * no deduplication. The key is scoped to the VTSI project and to this RPC and retained for 24 hours by
+     * default (the server&apos;s <code>ONDEWO_VTSI_IDEMPOTENCY_KEY_RETENTION_S</code>), whichever server
+     * replica a retry reaches.
+     * <p>A retry carrying the same key and the same request does NOT create a second account. Because the
+     * server keeps no copy of the one-time secrets it handed out, it cannot replay the first response;
+     * instead the retry ROTATES the credentials of the account the first attempt created, exactly like
+     * <code>RotateSoftphoneCredentials</code> (the SIP password always, and a new certificate for a
+     * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> account), and returns the account with
+     * the NEW one-time secrets. The secrets of the first response, if anyone received them, stop working;
+     * a lost response is therefore always recoverable and never leaves two valid sets of secrets. This
+     * grants nothing a caller could not do anyway: both RPCs require the same role.</p>
+     * <p>Reusing a key with a different request is refused with <code>INVALID_ARGUMENT</code>. A retry that
+     * arrives while the first attempt is still running is answered <code>ABORTED</code> and may be retried
+     * later. A first attempt that fails stores nothing, so a retry after a failure runs the create again.
+     * A retry after the account was deleted is <code>NOT_FOUND</code>; a retry while the account is
+     * <code>locked</code> is refused with <code>FAILED_PRECONDITION</code> (unlock it deliberately with
+     * <code>RotateSoftphoneCredentials</code>: a replayed key must not undo a revocation).</p>
+     *
+     * Generated from protobuf field <code>string idempotency_key = 3;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIdempotencyKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->idempotency_key = $var;
 
         return $this;
     }

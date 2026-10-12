@@ -23,7 +23,7 @@ class DeployVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -38,7 +38,7 @@ class DeployVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $error_message
-     *           error message if there are any.
+     *           Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      * }
      */
     public function __construct($data = NULL) {
@@ -73,7 +73,7 @@ class DeployVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +84,7 @@ class DeployVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes. Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

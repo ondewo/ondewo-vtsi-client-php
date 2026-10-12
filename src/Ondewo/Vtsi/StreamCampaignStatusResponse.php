@@ -18,7 +18,9 @@ use Google\Protobuf\RepeatedField;
 class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Campaigns that changed (every matching campaign in the snapshot), with their statistics.
+     * Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
+     * defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
+     * are always left unset here; read them with <code>GetCampaign</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      */
@@ -43,11 +45,20 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
     protected $snapshot = false;
     /**
      * Set on the last message when the server ended the stream, e.g. at the maximum stream
-     * duration. Empty otherwise.
+     * duration. Empty otherwise. Human-readable; branch on <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 5;</code>
      */
     protected $end_reason = '';
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>:
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code> or
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>. <code>STREAM_END_REASON_UNSPECIFIED</code> on every other
+     * message (and on the last message of a server that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 6;</code>
+     */
+    protected $end_reason_type = 0;
 
     /**
      * Constructor.
@@ -56,7 +67,9 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\Campaign[] $campaigns
-     *           Campaigns that changed (every matching campaign in the snapshot), with their statistics.
+     *           Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
+     *           defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
+     *           are always left unset here; read them with <code>GetCampaign</code>.
      *     @type \Ondewo\Vtsi\CampaignCall[] $campaign_calls
      *           Campaign calls that changed, when <code>include_calls</code> is set.
      *     @type string[] $deleted_campaign_names
@@ -65,7 +78,12 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      *           True on the first message, which carries every matching campaign.
      *     @type string $end_reason
      *           Set on the last message when the server ended the stream, e.g. at the maximum stream
-     *           duration. Empty otherwise.
+     *           duration. Empty otherwise. Human-readable; branch on <code>end_reason_type</code> instead.
+     *     @type int $end_reason_type
+     *           Set on the last message when the server ended the stream, next to <code>end_reason</code>:
+     *           <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code> or
+     *           <code>STREAM_END_REASON_PROJECT_DELETED</code>. <code>STREAM_END_REASON_UNSPECIFIED</code> on every other
+     *           message (and on the last message of a server that predates this field).
      * }
      */
     public function __construct($data = NULL) {
@@ -74,7 +92,9 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Campaigns that changed (every matching campaign in the snapshot), with their statistics.
+     * Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
+     * defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
+     * are always left unset here; read them with <code>GetCampaign</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\Campaign>
@@ -85,7 +105,9 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Campaigns that changed (every matching campaign in the snapshot), with their statistics.
+     * Campaigns that changed (every matching campaign in the snapshot), with their statistics. The call
+     * defaults <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code>
+     * are always left unset here; read them with <code>GetCampaign</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.Campaign campaigns = 1;</code>
      * @param \Ondewo\Vtsi\Campaign[] $var
@@ -179,7 +201,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
 
     /**
      * Set on the last message when the server ended the stream, e.g. at the maximum stream
-     * duration. Empty otherwise.
+     * duration. Empty otherwise. Human-readable; branch on <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 5;</code>
      * @return string
@@ -191,7 +213,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
 
     /**
      * Set on the last message when the server ended the stream, e.g. at the maximum stream
-     * duration. Empty otherwise.
+     * duration. Empty otherwise. Human-readable; branch on <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 5;</code>
      * @param string $var
@@ -201,6 +223,38 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->end_reason = $var;
+
+        return $this;
+    }
+
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>:
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code> or
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>. <code>STREAM_END_REASON_UNSPECIFIED</code> on every other
+     * message (and on the last message of a server that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 6;</code>
+     * @return int
+     */
+    public function getEndReasonType()
+    {
+        return $this->end_reason_type;
+    }
+
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>:
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code> or
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>. <code>STREAM_END_REASON_UNSPECIFIED</code> on every other
+     * message (and on the last message of a server that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setEndReasonType($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\StreamEndReason::class);
+        $this->end_reason_type = $var;
 
         return $this;
     }

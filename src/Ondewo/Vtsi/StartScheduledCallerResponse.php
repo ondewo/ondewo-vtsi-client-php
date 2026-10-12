@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to start multiple listeners
+ * Response to start a scheduled caller, and one entry of <code>StartScheduledCallersResponse</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartScheduledCallerResponse</code>
  */
@@ -23,13 +23,14 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The scheduled caller that was created
+     * The scheduled caller that was created, shaped by the request&apos;s <code>field_mask</code>. Unset when
+     * <code>error_message</code> is set.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCaller scheduled_caller = 2;</code>
      */
     protected $scheduled_caller = null;
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty on success, otherwise why the scheduled caller was not created (nothing was created for this entry)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,9 +45,10 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\ScheduledCaller $scheduled_caller
-     *           The scheduled caller that was created
+     *           The scheduled caller that was created, shaped by the request&apos;s <code>field_mask</code>. Unset when
+     *           <code>error_message</code> is set.
      *     @type string $error_message
-     *           error message if you have any so if it's unhealthy
+     *           Empty on success, otherwise why the scheduled caller was not created (nothing was created for this entry)
      * }
      */
     public function __construct($data = NULL) {
@@ -81,7 +83,8 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scheduled caller that was created
+     * The scheduled caller that was created, shaped by the request&apos;s <code>field_mask</code>. Unset when
+     * <code>error_message</code> is set.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCaller scheduled_caller = 2;</code>
      * @return \Ondewo\Vtsi\ScheduledCaller|null
@@ -102,7 +105,8 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The scheduled caller that was created
+     * The scheduled caller that was created, shaped by the request&apos;s <code>field_mask</code>. Unset when
+     * <code>error_message</code> is set.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCaller scheduled_caller = 2;</code>
      * @param \Ondewo\Vtsi\ScheduledCaller $var
@@ -117,7 +121,7 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty on success, otherwise why the scheduled caller was not created (nothing was created for this entry)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -128,7 +132,7 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Empty on success, otherwise why the scheduled caller was not created (nothing was created for this entry)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

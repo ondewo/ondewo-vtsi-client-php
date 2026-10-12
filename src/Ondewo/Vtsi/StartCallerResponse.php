@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to start multiple listeners
+ * Response to start a caller, and one entry of <code>StartCallersResponse</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartCallerResponse</code>
  */
@@ -23,13 +23,16 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The caller that was started
+     * The caller that was started (with <code>validate_only</code>: the caller that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 2;</code>
      */
     protected $caller = null;
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartCaller</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartCallersResponse</code> exists only for a caller that was started (failures are accounted for in
+     * <code>StartCallersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,9 +47,12 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\Caller $caller
-     *           The caller that was started
+     *           The caller that was started (with <code>validate_only</code>: the caller that would have been started),
+     *           shaped by the request&apos;s <code>field_mask</code>
      *     @type string $error_message
-     *           error message if you have any so if it's unhealthy
+     *           Always empty: <code>StartCaller</code> reports its errors as gRPC status codes, and an entry of
+     *           <code>StartCallersResponse</code> exists only for a caller that was started (failures are accounted for in
+     *           <code>StartCallersResponse.error_message</code>)
      * }
      */
     public function __construct($data = NULL) {
@@ -81,7 +87,8 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The caller that was started
+     * The caller that was started (with <code>validate_only</code>: the caller that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 2;</code>
      * @return \Ondewo\Vtsi\Caller|null
@@ -102,7 +109,8 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The caller that was started
+     * The caller that was started (with <code>validate_only</code>: the caller that would have been started),
+     * shaped by the request&apos;s <code>field_mask</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 2;</code>
      * @param \Ondewo\Vtsi\Caller $var
@@ -117,7 +125,9 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartCaller</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartCallersResponse</code> exists only for a caller that was started (failures are accounted for in
+     * <code>StartCallersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -128,7 +138,9 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Always empty: <code>StartCaller</code> reports its errors as gRPC status codes, and an entry of
+     * <code>StartCallersResponse</code> exists only for a caller that was started (failures are accounted for in
+     * <code>StartCallersResponse.error_message</code>)
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

@@ -23,7 +23,10 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * requests to start scheduled callers
+     * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
+     * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
+     * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
+     * request&apos;s; its <code>field_mask</code> must be unset.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      */
@@ -42,6 +45,19 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string idempotency_key = 4;</code>
      */
     protected $idempotency_key = '';
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>scheduled_caller</code> of EVERY entry
+     * of <code>StartScheduledCallersResponse.scheduled_caller_responses</code>, relative to the
+     * <code>ScheduledCaller</code> message (no prefix), as in <code>StartScheduledCallerRequest.field_mask</code>.
+     * <code>scheduled_caller.name</code> and every other field of the response and of its entries are always
+     * populated. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * created. The entries&apos; own <code>field_mask</code> must be unset. Not part of the
+     * <code>idempotency_key</code> comparison: a retry with the same key and another mask replays the first
+     * response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -52,7 +68,10 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartScheduledCallerRequest[] $scheduled_caller_requests
-     *           requests to start scheduled callers
+     *           The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
+     *           atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
+     *           does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
+     *           request&apos;s; its <code>field_mask</code> must be unset.
      *     @type string $idempotency_key
      *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
      *           deduplication. A retry carrying the same key returns the response of the first successful attempt instead
@@ -63,6 +82,15 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      *           that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
      *           no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
      *           make a single caller or listener idempotent, send it as a batch of one.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in the <code>scheduled_caller</code> of EVERY entry
+     *           of <code>StartScheduledCallersResponse.scheduled_caller_responses</code>, relative to the
+     *           <code>ScheduledCaller</code> message (no prefix), as in <code>StartScheduledCallerRequest.field_mask</code>.
+     *           <code>scheduled_caller.name</code> and every other field of the response and of its entries are always
+     *           populated. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     *           created. The entries&apos; own <code>field_mask</code> must be unset. Not part of the
+     *           <code>idempotency_key</code> comparison: a retry with the same key and another mask replays the first
+     *           response shaped by the retry&apos;s mask.
      * }
      */
     public function __construct($data = NULL) {
@@ -97,7 +125,10 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * requests to start scheduled callers
+     * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
+     * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
+     * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
+     * request&apos;s; its <code>field_mask</code> must be unset.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartScheduledCallerRequest>
@@ -108,7 +139,10 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * requests to start scheduled callers
+     * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
+     * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
+     * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
+     * request&apos;s; its <code>field_mask</code> must be unset.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartScheduledCallerRequest[] $var
@@ -160,6 +194,56 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->idempotency_key = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>scheduled_caller</code> of EVERY entry
+     * of <code>StartScheduledCallersResponse.scheduled_caller_responses</code>, relative to the
+     * <code>ScheduledCaller</code> message (no prefix), as in <code>StartScheduledCallerRequest.field_mask</code>.
+     * <code>scheduled_caller.name</code> and every other field of the response and of its entries are always
+     * populated. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * created. The entries&apos; own <code>field_mask</code> must be unset. Not part of the
+     * <code>idempotency_key</code> comparison: a retry with the same key and another mask replays the first
+     * response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>scheduled_caller</code> of EVERY entry
+     * of <code>StartScheduledCallersResponse.scheduled_caller_responses</code>, relative to the
+     * <code>ScheduledCaller</code> message (no prefix), as in <code>StartScheduledCallerRequest.field_mask</code>.
+     * <code>scheduled_caller.name</code> and every other field of the response and of its entries are always
+     * populated. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * created. The entries&apos; own <code>field_mask</code> must be unset. Not part of the
+     * <code>idempotency_key</code> comparison: a retry with the same key and another mask replays the first
+     * response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

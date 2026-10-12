@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to start multiple listeners
+ * Response to start multiple scheduled callers
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartScheduledCallersResponse</code>
  */
@@ -23,7 +23,8 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The call ids that were assigned to each listener
+     * One entry per entry of the request, in request order: the scheduled caller that was created, or the
+     * entry&apos;s error
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerResponse scheduled_caller_responses = 2;</code>
      */
@@ -38,7 +39,8 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartScheduledCallerResponse[] $scheduled_caller_responses
-     *           The call ids that were assigned to each listener
+     *           One entry per entry of the request, in request order: the scheduled caller that was created, or the
+     *           entry&apos;s error
      * }
      */
     public function __construct($data = NULL) {
@@ -73,7 +75,8 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The call ids that were assigned to each listener
+     * One entry per entry of the request, in request order: the scheduled caller that was created, or the
+     * entry&apos;s error
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerResponse scheduled_caller_responses = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartScheduledCallerResponse>
@@ -84,7 +87,8 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The call ids that were assigned to each listener
+     * One entry per entry of the request, in request order: the scheduled caller that was created, or the
+     * entry&apos;s error
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerResponse scheduled_caller_responses = 2;</code>
      * @param \Ondewo\Vtsi\StartScheduledCallerResponse[] $var

@@ -17,7 +17,8 @@ use Google\Protobuf\RepeatedField;
 class AsteriskConfigs extends \Google\Protobuf\Internal\Message
 {
     /**
-     * OPTIONAL: The port where Asterisk should start.
+     * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     * <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
      *
      * Generated from protobuf field <code>int32 asterisk_port = 4;</code>
      */
@@ -29,6 +30,7 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+     * The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      *
      * Generated from protobuf field <code>optional string asterisk_version = 5;</code>
@@ -49,7 +51,8 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      *     @type string $asterisk_configs_target_directory_name
      *           Configs will be mapped in from a preconfigured asterisk target directory.
      *     @type int $asterisk_port
-     *           OPTIONAL: The port where Asterisk should start.
+     *           OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     *           <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
      *     @type string $asterisk_version
      *           OPTIONAL: The Asterisk version to start, given as the docker image tag of the ONDEWO
      *           Asterisk image, e.g. <pre><code>alpine-3.18-18.20.2</code></pre>.
@@ -57,6 +60,7 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      *           <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
      *           Explicitly optional: when the field is not set, the server keeps using its configured
      *           default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+     *           The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
      *           Sending an empty string is NOT the same as leaving it unset and is rejected.
      * }
      */
@@ -159,7 +163,8 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * OPTIONAL: The port where Asterisk should start.
+     * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     * <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
      *
      * Generated from protobuf field <code>int32 asterisk_port = 4;</code>
      * @return int
@@ -170,7 +175,8 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * OPTIONAL: The port where Asterisk should start.
+     * OPTIONAL: The port where Asterisk should start. Authoritative copy of
+     * <code>VtsiProject.asterisk_port</code> (see there). <code>0</code> on create assigns a free port.
      *
      * Generated from protobuf field <code>int32 asterisk_port = 4;</code>
      * @param int $var
@@ -191,6 +197,7 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+     * The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      *
      * Generated from protobuf field <code>optional string asterisk_version = 5;</code>
@@ -218,6 +225,7 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * <pre><code>[A-Za-z0-9_][A-Za-z0-9._-]{0,127}</code></pre>.
      * Explicitly optional: when the field is not set, the server keeps using its configured
      * default (the <pre><code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code></pre> environment variable).
+     * The version a deployed project actually runs is <code>VtsiProject.asterisk_version_effective</code>.
      * Sending an empty string is NOT the same as leaving it unset and is rejected.
      *
      * Generated from protobuf field <code>optional string asterisk_version = 5;</code>

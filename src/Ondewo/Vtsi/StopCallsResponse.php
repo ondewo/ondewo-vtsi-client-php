@@ -10,20 +10,23 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+ * Response of <code>StopCalls</code> and <code>StopAllCalls</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopCallsResponse</code>
  */
 class StopCallsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * responses to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+     * One entry per stopped call: for <code>StopCalls</code> one per distinct requested name, in request order;
+     * for <code>StopAllCalls</code> one per call it stopped, ordered by <code>call_name</code>, ascending (empty when
+     * there was nothing to stop).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StopCallResponse stop_call_responses = 1;</code>
      */
     private $stop_call_responses;
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when no entry carries an <code>error_message</code>; otherwise the entries&apos; messages joined, so a
+     * client can log one string. Read the entries for the per-call outcome.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -36,9 +39,12 @@ class StopCallsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\StopCallResponse[] $stop_call_responses
-     *           responses to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+     *           One entry per stopped call: for <code>StopCalls</code> one per distinct requested name, in request order;
+     *           for <code>StopAllCalls</code> one per call it stopped, ordered by <code>call_name</code>, ascending (empty when
+     *           there was nothing to stop).
      *     @type string $error_message
-     *           overall error message if you have any so if it's unhealthy
+     *           Empty when no entry carries an <code>error_message</code>; otherwise the entries&apos; messages joined, so a
+     *           client can log one string. Read the entries for the per-call outcome.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +53,9 @@ class StopCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * responses to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+     * One entry per stopped call: for <code>StopCalls</code> one per distinct requested name, in request order;
+     * for <code>StopAllCalls</code> one per call it stopped, ordered by <code>call_name</code>, ascending (empty when
+     * there was nothing to stop).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StopCallResponse stop_call_responses = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StopCallResponse>
@@ -58,7 +66,9 @@ class StopCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * responses to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+     * One entry per stopped call: for <code>StopCalls</code> one per distinct requested name, in request order;
+     * for <code>StopAllCalls</code> one per call it stopped, ordered by <code>call_name</code>, ascending (empty when
+     * there was nothing to stop).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StopCallResponse stop_call_responses = 1;</code>
      * @param \Ondewo\Vtsi\StopCallResponse[] $var
@@ -73,7 +83,8 @@ class StopCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when no entry carries an <code>error_message</code>; otherwise the entries&apos; messages joined, so a
+     * client can log one string. Read the entries for the per-call outcome.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -84,7 +95,8 @@ class StopCallsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * overall error message if you have any so if it's unhealthy
+     * Empty when no entry carries an <code>error_message</code>; otherwise the entries&apos; messages joined, so a
+     * client can log one string. Read the entries for the per-call outcome.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

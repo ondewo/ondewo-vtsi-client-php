@@ -9,13 +9,16 @@ use UnexpectedValueException;
 
 /**
  * Status of a VtsiProject.
+ * Released with unprefixed value names, which are package scoped in proto3 (so no other enum of
+ * <code>ondewo.vtsi</code> can declare e.g. <code>UNSPECIFIED</code>); kept for wire and source
+ * compatibility.
  *
  * Protobuf type <code>ondewo.vtsi.VtsiProjectStatus</code>
  */
 class VtsiProjectStatus
 {
     /**
-     * No status specified
+     * No status specified. Never returned for a stored project.
      *
      * Generated from protobuf enum <code>UNSPECIFIED = 0;</code>
      */
@@ -57,11 +60,22 @@ class VtsiProjectStatus
      */
     const DELETING = 6;
     /**
-     * Project is deleted
+     * Project is deleted. Never returned: a deleted project no longer exists and is
+     * <code>NOT_FOUND</code>. Kept for wire compatibility.
      *
      * Generated from protobuf enum <code>DELETED = 7;</code>
      */
     const DELETED = 7;
+    /**
+     * The last deployment failed: its half-started container was removed and
+     * <code>VtsiProject.status_message</code> says why. Behaves like <code>UNDEPLOYED</code>: the project
+     * can be deployed again, updated or deleted, and undeploying it makes it <code>UNDEPLOYED</code>.
+     * Since 9.1.0; a 9.0.0 server reports a failed deployment as <code>UNDEPLOYED</code>, and a client
+     * built against 9.0.0 sees the unknown value 8.
+     *
+     * Generated from protobuf enum <code>DEPLOY_FAILED = 8;</code>
+     */
+    const DEPLOY_FAILED = 8;
 
     private static $valueToName = [
         self::UNSPECIFIED => 'UNSPECIFIED',
@@ -72,6 +86,7 @@ class VtsiProjectStatus
         self::UNDEPLOYING => 'UNDEPLOYING',
         self::DELETING => 'DELETING',
         self::DELETED => 'DELETED',
+        self::DEPLOY_FAILED => 'DEPLOY_FAILED',
     ];
 
     public static function name($value)

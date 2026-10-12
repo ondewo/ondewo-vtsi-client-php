@@ -17,23 +17,49 @@ use Google\Protobuf\RepeatedField;
 class GetCallerRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the caller, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required (empty or malformed is <code>INVALID_ARGUMENT</code>, an unknown project <code>NOT_FOUND</code>).
+     * <p>Redundant with the project segment of <code>name</code>, and the same rule holds for every single-resource
+     * request that carries both a <code>vtsi_project_name</code> and a resource name (<code>GetListener</code>,
+     * <code>GetCall</code>, <code>StopCall</code>, <code>GetScheduledCaller</code>,
+     * <code>CancelScheduledCaller</code>, <code>RetryScheduledCaller</code>, <code>TransferCall</code>,
+     * <code>InviteToCall</code>, <code>RemoveCallParticipant</code>, <code>SetCallMediaControl</code>): the
+     * resource must belong to <code>vtsi_project_name</code>, and a resource name whose project segment differs is
+     * answered <code>NOT_FOUND</code>, not <code>INVALID_ARGUMENT</code>, so that the answer never confirms that
+     * the resource exists in another project. (The batch requests, which check their entries before anything is
+     * done, answer such an entry with <code>INVALID_ARGUMENT</code> instead.)</p>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * The name of caller to retrieve.
+     * The name of the caller to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * <code>MINIMUM</code>: <code>name</code>, <code>call_name</code> and <code>vtsi_project_name</code>;
+     * <code>SHALLOW</code>: also <code>sip_caller_config</code> and the output-only state; <code>FULL</code>: also
+     * <code>common_services_config</code> (redacted by role).
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      */
     protected $call_view = null;
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Caller</code>, relative to
+     * the <code>Caller</code> message, e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -42,11 +68,33 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of the caller, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Required (empty or malformed is <code>INVALID_ARGUMENT</code>, an unknown project <code>NOT_FOUND</code>).
+     *           <p>Redundant with the project segment of <code>name</code>, and the same rule holds for every single-resource
+     *           request that carries both a <code>vtsi_project_name</code> and a resource name (<code>GetListener</code>,
+     *           <code>GetCall</code>, <code>StopCall</code>, <code>GetScheduledCaller</code>,
+     *           <code>CancelScheduledCaller</code>, <code>RetryScheduledCaller</code>, <code>TransferCall</code>,
+     *           <code>InviteToCall</code>, <code>RemoveCallParticipant</code>, <code>SetCallMediaControl</code>): the
+     *           resource must belong to <code>vtsi_project_name</code>, and a resource name whose project segment differs is
+     *           answered <code>NOT_FOUND</code>, not <code>INVALID_ARGUMENT</code>, so that the answer never confirms that
+     *           the resource exists in another project. (The batch requests, which check their entries before anything is
+     *           done, answer such an entry with <code>INVALID_ARGUMENT</code> instead.)</p>
      *     @type string $name
-     *           The name of caller to retrieve.
+     *           The name of the caller to retrieve, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
      *     @type int $call_view
-     *           you can specify the view to be shallow or full
+     *           Optional. How much of the caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     *           <code>MINIMUM</code>: <code>name</code>, <code>call_name</code> and <code>vtsi_project_name</code>;
+     *           <code>SHALLOW</code>: also <code>sip_caller_config</code> and the output-only state; <code>FULL</code>: also
+     *           <code>common_services_config</code> (redacted by role).
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in the returned <code>Caller</code>, relative to
+     *           the <code>Caller</code> message, e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed;
+     *           a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     *           returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     *           role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     *           populates a field that was left empty.
      * }
      */
     public function __construct($data = NULL) {
@@ -55,7 +103,17 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the caller, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required (empty or malformed is <code>INVALID_ARGUMENT</code>, an unknown project <code>NOT_FOUND</code>).
+     * <p>Redundant with the project segment of <code>name</code>, and the same rule holds for every single-resource
+     * request that carries both a <code>vtsi_project_name</code> and a resource name (<code>GetListener</code>,
+     * <code>GetCall</code>, <code>StopCall</code>, <code>GetScheduledCaller</code>,
+     * <code>CancelScheduledCaller</code>, <code>RetryScheduledCaller</code>, <code>TransferCall</code>,
+     * <code>InviteToCall</code>, <code>RemoveCallParticipant</code>, <code>SetCallMediaControl</code>): the
+     * resource must belong to <code>vtsi_project_name</code>, and a resource name whose project segment differs is
+     * answered <code>NOT_FOUND</code>, not <code>INVALID_ARGUMENT</code>, so that the answer never confirms that
+     * the resource exists in another project. (The batch requests, which check their entries before anything is
+     * done, answer such an entry with <code>INVALID_ARGUMENT</code> instead.)</p>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -66,7 +124,17 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the caller, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required (empty or malformed is <code>INVALID_ARGUMENT</code>, an unknown project <code>NOT_FOUND</code>).
+     * <p>Redundant with the project segment of <code>name</code>, and the same rule holds for every single-resource
+     * request that carries both a <code>vtsi_project_name</code> and a resource name (<code>GetListener</code>,
+     * <code>GetCall</code>, <code>StopCall</code>, <code>GetScheduledCaller</code>,
+     * <code>CancelScheduledCaller</code>, <code>RetryScheduledCaller</code>, <code>TransferCall</code>,
+     * <code>InviteToCall</code>, <code>RemoveCallParticipant</code>, <code>SetCallMediaControl</code>): the
+     * resource must belong to <code>vtsi_project_name</code>, and a resource name whose project segment differs is
+     * answered <code>NOT_FOUND</code>, not <code>INVALID_ARGUMENT</code>, so that the answer never confirms that
+     * the resource exists in another project. (The batch requests, which check their entries before anything is
+     * done, answer such an entry with <code>INVALID_ARGUMENT</code> instead.)</p>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -81,7 +149,8 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of caller to retrieve.
+     * The name of the caller to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @return string
@@ -92,7 +161,8 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of caller to retrieve.
+     * The name of the caller to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var
@@ -107,7 +177,10 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * <code>MINIMUM</code>: <code>name</code>, <code>call_name</code> and <code>vtsi_project_name</code>;
+     * <code>SHALLOW</code>: also <code>sip_caller_config</code> and the output-only state; <code>FULL</code>: also
+     * <code>common_services_config</code> (redacted by role).
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @return int
@@ -128,7 +201,10 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the caller to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * <code>MINIMUM</code>: <code>name</code>, <code>call_name</code> and <code>vtsi_project_name</code>;
+     * <code>SHALLOW</code>: also <code>sip_caller_config</code> and the output-only state; <code>FULL</code>: also
+     * <code>common_services_config</code> (redacted by role).
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @param int $var
@@ -138,6 +214,54 @@ class GetCallerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Caller</code>, relative to
+     * the <code>Caller</code> message, e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Caller</code>, relative to
+     * the <code>Caller</code> message, e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

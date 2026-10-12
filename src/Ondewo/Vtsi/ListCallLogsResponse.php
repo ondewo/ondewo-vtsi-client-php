@@ -69,6 +69,25 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogFilterField scope_limited_filters = 8;</code>
      */
     private $scope_limited_filters;
+    /**
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when <code>include_counts</code> was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when <code>scope_limited_filters</code> is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     *
+     * Generated from protobuf field <code>optional int64 total_matching_count = 9;</code>
+     */
+    protected $total_matching_count = null;
+    /**
+     * The matching entries counted per severity, keyed by the <code>ondewo.nlu.LogSeverity</code> value
+     * NAME (e.g. <code>LOG_SEVERITY_ERROR</code>; entries without a recognised severity under
+     * <code>LOG_SEVERITY_UNSPECIFIED</code>). Severities with no entry are omitted; the values sum to
+     * <code>total_matching_count</code>. Filled only with <code>include_counts</code>; approximate (upper
+     * bounds) under the same condition as <code>total_matching_count</code>.
+     *
+     * Generated from protobuf field <code>map<string, int64> count_by_level = 10;</code>
+     */
+    private $count_by_level;
 
     /**
      * Constructor.
@@ -96,6 +115,17 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      *           Filters that could only be applied WITHIN the returned window rather than across the whole
      *           history, because they are not indexed. A client displaying a match count must qualify it when
      *           this is non-empty.
+     *     @type int|string $total_matching_count
+     *           The number of entries matching the filter over the whole stored history, regardless of the window
+     *           and the cursors. Set only when <code>include_counts</code> was requested (unset otherwise, and by a
+     *           9.0.0 server). APPROXIMATE when <code>scope_limited_filters</code> is non-empty: the filters listed
+     *           there are not applied to the count, so it is then an UPPER BOUND.
+     *     @type array|\Google\Protobuf\Internal\MapField $count_by_level
+     *           The matching entries counted per severity, keyed by the <code>ondewo.nlu.LogSeverity</code> value
+     *           NAME (e.g. <code>LOG_SEVERITY_ERROR</code>; entries without a recognised severity under
+     *           <code>LOG_SEVERITY_UNSPECIFIED</code>). Severities with no entry are omitted; the values sum to
+     *           <code>total_matching_count</code>. Filled only with <code>include_counts</code>; approximate (upper
+     *           bounds) under the same condition as <code>total_matching_count</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -315,6 +345,82 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CallLogFilterField::class);
         $this->scope_limited_filters = $arr;
+
+        return $this;
+    }
+
+    /**
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when <code>include_counts</code> was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when <code>scope_limited_filters</code> is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     *
+     * Generated from protobuf field <code>optional int64 total_matching_count = 9;</code>
+     * @return int|string
+     */
+    public function getTotalMatchingCount()
+    {
+        return isset($this->total_matching_count) ? $this->total_matching_count : 0;
+    }
+
+    public function hasTotalMatchingCount()
+    {
+        return isset($this->total_matching_count);
+    }
+
+    public function clearTotalMatchingCount()
+    {
+        unset($this->total_matching_count);
+    }
+
+    /**
+     * The number of entries matching the filter over the whole stored history, regardless of the window
+     * and the cursors. Set only when <code>include_counts</code> was requested (unset otherwise, and by a
+     * 9.0.0 server). APPROXIMATE when <code>scope_limited_filters</code> is non-empty: the filters listed
+     * there are not applied to the count, so it is then an UPPER BOUND.
+     *
+     * Generated from protobuf field <code>optional int64 total_matching_count = 9;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setTotalMatchingCount($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->total_matching_count = $var;
+
+        return $this;
+    }
+
+    /**
+     * The matching entries counted per severity, keyed by the <code>ondewo.nlu.LogSeverity</code> value
+     * NAME (e.g. <code>LOG_SEVERITY_ERROR</code>; entries without a recognised severity under
+     * <code>LOG_SEVERITY_UNSPECIFIED</code>). Severities with no entry are omitted; the values sum to
+     * <code>total_matching_count</code>. Filled only with <code>include_counts</code>; approximate (upper
+     * bounds) under the same condition as <code>total_matching_count</code>.
+     *
+     * Generated from protobuf field <code>map<string, int64> count_by_level = 10;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getCountByLevel()
+    {
+        return $this->count_by_level;
+    }
+
+    /**
+     * The matching entries counted per severity, keyed by the <code>ondewo.nlu.LogSeverity</code> value
+     * NAME (e.g. <code>LOG_SEVERITY_ERROR</code>; entries without a recognised severity under
+     * <code>LOG_SEVERITY_UNSPECIFIED</code>). Severities with no entry are omitted; the values sum to
+     * <code>total_matching_count</code>. Filled only with <code>include_counts</code>; approximate (upper
+     * bounds) under the same condition as <code>total_matching_count</code>.
+     *
+     * Generated from protobuf field <code>map<string, int64> count_by_level = 10;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setCountByLevel($var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::INT64);
+        $this->count_by_level = $arr;
 
         return $this;
     }

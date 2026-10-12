@@ -25,12 +25,14 @@ class Webhook extends \Google\Protobuf\Internal\Message
     protected $name = '';
     /**
      * Output only. VTSI project of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      */
@@ -103,6 +105,36 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.Timestamp modified_at = 13;</code>
      */
     protected $modified_at = null;
+    /**
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * <code>INVALID_ARGUMENT</code>. Empty (the default) means requests are not signed.
+     * <p>Signature: each request carries the header</p>
+     * <pre><code>X-Ondewo-Vtsi-Signature: t=&lt;unix seconds&gt;,v1=&lt;signature&gt;</code></pre>
+     * <p>where <code>t</code> is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&apos;s
+     * bytes, of the ASCII string <code>&lt;t&gt;.</code> followed by the exact bytes of the request body:</p>
+     * <pre><code>v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))</code></pre>
+     * <p>To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each <code>v1</code> value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when <code>t</code> is more than 5 minutes away from the receiver&apos;s
+     * clock (replay protection; de-duplicate by <code>event_id</code> as well). Further signature schemes may
+     * be added later as additional comma-separated <code>v&lt;n&gt;=</code> entries: ignore entries you do not
+     * know.</p>
+     * <p>Rotation: <code>UpdateWebhook</code> with <code>update_mask</code> path <code>signing_secret</code>
+     * and the new value. For <code>ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S</code> (24 h by default) after
+     * a rotation every request carries two signatures, <code>t=...,v1=&lt;new&gt;,v1=&lt;previous&gt;</code>,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing <code>********</code> keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
+     * a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
+     *
+     * Generated from protobuf field <code>string signing_secret = 14;</code>
+     */
+    protected $signing_secret = '';
 
     /**
      * Constructor.
@@ -115,8 +147,10 @@ class Webhook extends \Google\Protobuf\Internal\Message
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
      *     @type string $vtsi_project_name
      *           Output only. VTSI project of the webhook.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $display_name
-     *           Human-readable name, at most 128 characters. Updatable.
+     *           Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     *           empty display name stays empty (no default is generated). Updatable.
      *     @type string $url
      *           Required. http:// or https:// URL, at most 2048 characters, without user information. Any
      *           host is allowed. Updatable.
@@ -145,6 +179,32 @@ class Webhook extends \Google\Protobuf\Internal\Message
      *           Output only. The user who last modified the webhook.
      *     @type \Google\Protobuf\Timestamp $modified_at
      *           Output only. Last modification time.
+     *     @type string $signing_secret
+     *           Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     *           that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     *           <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
+     *           never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     *           32 random characters); anything else, and the mask value itself on create, is rejected with
+     *           <code>INVALID_ARGUMENT</code>. Empty (the default) means requests are not signed.
+     *           <p>Signature: each request carries the header</p>
+     *           <pre><code>X-Ondewo-Vtsi-Signature: t=&lt;unix seconds&gt;,v1=&lt;signature&gt;</code></pre>
+     *           <p>where <code>t</code> is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     *           value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&apos;s
+     *           bytes, of the ASCII string <code>&lt;t&gt;.</code> followed by the exact bytes of the request body:</p>
+     *           <pre><code>v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))</code></pre>
+     *           <p>To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     *           time with each <code>v1</code> value of the header (there can be two, see rotation), and reject the
+     *           request when none matches or when <code>t</code> is more than 5 minutes away from the receiver&apos;s
+     *           clock (replay protection; de-duplicate by <code>event_id</code> as well). Further signature schemes may
+     *           be added later as additional comma-separated <code>v&lt;n&gt;=</code> entries: ignore entries you do not
+     *           know.</p>
+     *           <p>Rotation: <code>UpdateWebhook</code> with <code>update_mask</code> path <code>signing_secret</code>
+     *           and the new value. For <code>ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S</code> (24 h by default) after
+     *           a rotation every request carries two signatures, <code>t=...,v1=&lt;new&gt;,v1=&lt;previous&gt;</code>,
+     *           so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     *           one. Writing an empty string removes signing at once (no grace); writing <code>********</code> keeps the
+     *           stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
+     *           a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -182,6 +242,7 @@ class Webhook extends \Google\Protobuf\Internal\Message
 
     /**
      * Output only. VTSI project of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      * @return string
@@ -193,6 +254,7 @@ class Webhook extends \Google\Protobuf\Internal\Message
 
     /**
      * Output only. VTSI project of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      * @param string $var
@@ -207,7 +269,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      * @return string
@@ -218,7 +281,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      * @param string $var
@@ -544,6 +608,80 @@ class Webhook extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * <code>INVALID_ARGUMENT</code>. Empty (the default) means requests are not signed.
+     * <p>Signature: each request carries the header</p>
+     * <pre><code>X-Ondewo-Vtsi-Signature: t=&lt;unix seconds&gt;,v1=&lt;signature&gt;</code></pre>
+     * <p>where <code>t</code> is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&apos;s
+     * bytes, of the ASCII string <code>&lt;t&gt;.</code> followed by the exact bytes of the request body:</p>
+     * <pre><code>v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))</code></pre>
+     * <p>To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each <code>v1</code> value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when <code>t</code> is more than 5 minutes away from the receiver&apos;s
+     * clock (replay protection; de-duplicate by <code>event_id</code> as well). Further signature schemes may
+     * be added later as additional comma-separated <code>v&lt;n&gt;=</code> entries: ignore entries you do not
+     * know.</p>
+     * <p>Rotation: <code>UpdateWebhook</code> with <code>update_mask</code> path <code>signing_secret</code>
+     * and the new value. For <code>ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S</code> (24 h by default) after
+     * a rotation every request carries two signatures, <code>t=...,v1=&lt;new&gt;,v1=&lt;previous&gt;</code>,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing <code>********</code> keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
+     * a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
+     *
+     * Generated from protobuf field <code>string signing_secret = 14;</code>
+     * @return string
+     */
+    public function getSigningSecret()
+    {
+        return $this->signing_secret;
+    }
+
+    /**
+     * Optional. Secret with which the server SIGNS every request to this webhook, so the receiver can verify
+     * that a request comes from this VTSI server and was not changed. WRITE-ONLY: every RPC returns
+     * <code>********</code> when a secret is stored and an empty string when none is; it is never logged and
+     * never put on an event. 32 to 256 printable ASCII characters without whitespace (generate at least
+     * 32 random characters); anything else, and the mask value itself on create, is rejected with
+     * <code>INVALID_ARGUMENT</code>. Empty (the default) means requests are not signed.
+     * <p>Signature: each request carries the header</p>
+     * <pre><code>X-Ondewo-Vtsi-Signature: t=&lt;unix seconds&gt;,v1=&lt;signature&gt;</code></pre>
+     * <p>where <code>t</code> is the time the request was sent (base-10 seconds since the Unix epoch, a new
+     * value for every attempt) and the signature is the lowercase hex HMAC-SHA256, keyed with the secret&apos;s
+     * bytes, of the ASCII string <code>&lt;t&gt;.</code> followed by the exact bytes of the request body:</p>
+     * <pre><code>v1 = hex(HMAC_SHA256(key = signing_secret, message = t + "." + body))</code></pre>
+     * <p>To verify: recompute it over the raw body as received (before any JSON parsing), compare in constant
+     * time with each <code>v1</code> value of the header (there can be two, see rotation), and reject the
+     * request when none matches or when <code>t</code> is more than 5 minutes away from the receiver&apos;s
+     * clock (replay protection; de-duplicate by <code>event_id</code> as well). Further signature schemes may
+     * be added later as additional comma-separated <code>v&lt;n&gt;=</code> entries: ignore entries you do not
+     * know.</p>
+     * <p>Rotation: <code>UpdateWebhook</code> with <code>update_mask</code> path <code>signing_secret</code>
+     * and the new value. For <code>ONDEWO_VTSI_WEBHOOK_SIGNING_ROTATION_GRACE_S</code> (24 h by default) after
+     * a rotation every request carries two signatures, <code>t=...,v1=&lt;new&gt;,v1=&lt;previous&gt;</code>,
+     * so the receiver can switch to the new secret at any time within that window; afterwards only the new
+     * one. Writing an empty string removes signing at once (no grace); writing <code>********</code> keeps the
+     * stored secret, so a Get-modify-Update round trip does not change it. <code>TestWebhook</code> signs like
+     * a real delivery and is the way to check a receiver&apos;s verification before relying on it.</p>
+     *
+     * Generated from protobuf field <code>string signing_secret = 14;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setSigningSecret($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->signing_secret = $var;
 
         return $this;
     }

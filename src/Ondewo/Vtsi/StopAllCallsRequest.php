@@ -10,18 +10,44 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to stop all calls of a VTSI project, so all listeners and callers
+ * Request to stop all calls of a VTSI project (hang them up and release their listeners and callers), or, with
+ * <code>call_filter</code>, those of them the filter matches.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopAllCallsRequest</code>
  */
 class StopAllCallsRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project whose calls are stopped, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Narrows the calls that are stopped: of the calls <code>StopAllCalls</code> stops without a filter
+     * (the project&apos;s current calls, each with the listener or caller that serves it), only those this filter
+     * matches, with the semantics, validation and errors of <code>ListCallsRequest.call_filter</code> (the
+     * campaign selector included). An invalid filter is <code>INVALID_ARGUMENT</code> and nothing is stopped.
+     * Unset or empty stops every call, as before 9.1.0. The filter is evaluated once, when the request arrives: a
+     * call that starts while the request runs is not stopped.
+     * <p>Rolling updates: a 9.0.0 server ignores this field and stops EVERY call of the project. A client that must
+     * not stop more than the filter selects checks that the server is 9.1.0 or newer first.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallFilter call_filter = 3;</code>
+     */
+    protected $call_filter = null;
 
     /**
      * Constructor.
@@ -30,7 +56,24 @@ class StopAllCallsRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project whose calls are stopped, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in EVERY entry of
+     *           <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     *           <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     *           entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     *           <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     *           unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     *           shapes only the response: the calls are stopped regardless.
+     *     @type \Ondewo\Vtsi\CallFilter $call_filter
+     *           Optional. Narrows the calls that are stopped: of the calls <code>StopAllCalls</code> stops without a filter
+     *           (the project&apos;s current calls, each with the listener or caller that serves it), only those this filter
+     *           matches, with the semantics, validation and errors of <code>ListCallsRequest.call_filter</code> (the
+     *           campaign selector included). An invalid filter is <code>INVALID_ARGUMENT</code> and nothing is stopped.
+     *           Unset or empty stops every call, as before 9.1.0. The filter is evaluated once, when the request arrives: a
+     *           call that starts while the request runs is not stopped.
+     *           <p>Rolling updates: a 9.0.0 server ignores this field and stops EVERY call of the project. A client that must
+     *           not stop more than the filter selects checks that the server is 9.1.0 or newer first.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -39,7 +82,7 @@ class StopAllCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project whose calls are stopped, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -50,7 +93,7 @@ class StopAllCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project whose calls are stopped, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -60,6 +103,104 @@ class StopAllCallsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->vtsi_project_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in EVERY entry of
+     * <code>StopCallsResponse.stop_call_responses</code>, relative to the entry message
+     * <code>StopCallResponse</code>, i.e. <code>vtsi_project_name</code> and <code>error_message</code> (the
+     * entries carry no <code>Call</code>). <code>call_name</code> of each entry and
+     * <code>StopCallsResponse.error_message</code> are always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is stopped. It
+     * shapes only the response: the calls are stopped regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 2;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Narrows the calls that are stopped: of the calls <code>StopAllCalls</code> stops without a filter
+     * (the project&apos;s current calls, each with the listener or caller that serves it), only those this filter
+     * matches, with the semantics, validation and errors of <code>ListCallsRequest.call_filter</code> (the
+     * campaign selector included). An invalid filter is <code>INVALID_ARGUMENT</code> and nothing is stopped.
+     * Unset or empty stops every call, as before 9.1.0. The filter is evaluated once, when the request arrives: a
+     * call that starts while the request runs is not stopped.
+     * <p>Rolling updates: a 9.0.0 server ignores this field and stops EVERY call of the project. A client that must
+     * not stop more than the filter selects checks that the server is 9.1.0 or newer first.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallFilter call_filter = 3;</code>
+     * @return \Ondewo\Vtsi\CallFilter|null
+     */
+    public function getCallFilter()
+    {
+        return $this->call_filter;
+    }
+
+    public function hasCallFilter()
+    {
+        return isset($this->call_filter);
+    }
+
+    public function clearCallFilter()
+    {
+        unset($this->call_filter);
+    }
+
+    /**
+     * Optional. Narrows the calls that are stopped: of the calls <code>StopAllCalls</code> stops without a filter
+     * (the project&apos;s current calls, each with the listener or caller that serves it), only those this filter
+     * matches, with the semantics, validation and errors of <code>ListCallsRequest.call_filter</code> (the
+     * campaign selector included). An invalid filter is <code>INVALID_ARGUMENT</code> and nothing is stopped.
+     * Unset or empty stops every call, as before 9.1.0. The filter is evaluated once, when the request arrives: a
+     * call that starts while the request runs is not stopped.
+     * <p>Rolling updates: a 9.0.0 server ignores this field and stops EVERY call of the project. A client that must
+     * not stop more than the filter selects checks that the server is 9.1.0 or newer first.</p>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CallFilter call_filter = 3;</code>
+     * @param \Ondewo\Vtsi\CallFilter $var
+     * @return $this
+     */
+    public function setCallFilter($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallFilter::class);
+        $this->call_filter = $var;
 
         return $this;
     }

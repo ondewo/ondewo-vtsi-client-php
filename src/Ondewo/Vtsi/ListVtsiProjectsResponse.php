@@ -17,16 +17,14 @@ use Google\Protobuf\RepeatedField;
 class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The list of VTSI projects returned in the response.
-     * Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
      */
     private $vtsi_projects;
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      */
@@ -39,12 +37,10 @@ class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\VtsiProject[] $vtsi_projects
-     *           The list of VTSI projects returned in the response.
-     *           Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     *           The VTSI projects of this page.
      *     @type string $next_page_token
-     *           Token to retrieve the next page of results.
-     *           This field is a string that holds a token for fetching the next page of results.
-     *           If there are no more results in the list, this field will be empty.
+     *           Token to retrieve the next page of results. Opaque (see
+     *           <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
      * }
      */
     public function __construct($data = NULL) {
@@ -53,8 +49,7 @@ class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of VTSI projects returned in the response.
-     * Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\VtsiProject>
@@ -65,8 +60,7 @@ class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The list of VTSI projects returned in the response.
-     * Use the &apos;repeated&apos; keyword to indicate that this field can contain multiple instances of VtsiProject.
+     * The VTSI projects of this page.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProject vtsi_projects = 1;</code>
      * @param \Ondewo\Vtsi\VtsiProject[] $var
@@ -81,9 +75,8 @@ class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @return string
@@ -94,9 +87,8 @@ class ListVtsiProjectsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Token to retrieve the next page of results.
-     * This field is a string that holds a token for fetching the next page of results.
-     * If there are no more results in the list, this field will be empty.
+     * Token to retrieve the next page of results. Opaque (see
+     * <code>ListVtsiProjectsRequest.page_token</code>). Empty when there are no more results.
      *
      * Generated from protobuf field <code>string next_page_token = 2;</code>
      * @param string $var

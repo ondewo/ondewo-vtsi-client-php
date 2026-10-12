@@ -23,7 +23,14 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      */
     protected $sip_trunk_username = '';
     /**
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
+     * description for who that is). Server logs and <code>status_message</code> redact it.
+     * On <code>UpdateVtsiProject</code> WITHOUT an <code>update_mask</code> an empty value KEEPS the stored
+     * password (an empty string cannot be told from &quot;not sent&quot;); WITH an
+     * <code>update_mask</code> naming this field, or a parent of it such as
+     * <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
+     * value CLEARS it.
      *
      * Generated from protobuf field <code>string sip_trunk_password = 2;</code>
      */
@@ -134,7 +141,14 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      *     @type string $sip_trunk_username
      *           SIP trunk username.
      *     @type string $sip_trunk_password
-     *           SIP trunk password.
+     *           SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     *           to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
+     *           description for who that is). Server logs and <code>status_message</code> redact it.
+     *           On <code>UpdateVtsiProject</code> WITHOUT an <code>update_mask</code> an empty value KEEPS the stored
+     *           password (an empty string cannot be told from &quot;not sent&quot;); WITH an
+     *           <code>update_mask</code> naming this field, or a parent of it such as
+     *           <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
+     *           value CLEARS it.
      *     @type string $sip_trunk_host
      *           SIP trunk host.
      *     @type string $transfer_number
@@ -229,7 +243,14 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
+     * description for who that is). Server logs and <code>status_message</code> redact it.
+     * On <code>UpdateVtsiProject</code> WITHOUT an <code>update_mask</code> an empty value KEEPS the stored
+     * password (an empty string cannot be told from &quot;not sent&quot;); WITH an
+     * <code>update_mask</code> naming this field, or a parent of it such as
+     * <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
+     * value CLEARS it.
      *
      * Generated from protobuf field <code>string sip_trunk_password = 2;</code>
      * @return string
@@ -240,7 +261,14 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP trunk password.
+     * SIP trunk password. A credential, but NOT write-only: it is stored as sent and returned in clear
+     * to every caller allowed to read <code>asterisk_configs</code> (see the <code>Projects</code> service
+     * description for who that is). Server logs and <code>status_message</code> redact it.
+     * On <code>UpdateVtsiProject</code> WITHOUT an <code>update_mask</code> an empty value KEEPS the stored
+     * password (an empty string cannot be told from &quot;not sent&quot;); WITH an
+     * <code>update_mask</code> naming this field, or a parent of it such as
+     * <code>asterisk_configs</code> or <code>asterisk_configs.asterisk_configs_variables</code>, an empty
+     * value CLEARS it.
      *
      * Generated from protobuf field <code>string sip_trunk_password = 2;</code>
      * @param string $var

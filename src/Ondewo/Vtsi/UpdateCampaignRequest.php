@@ -27,14 +27,55 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
-     * <code>retry_delay</code>. An empty mask, or an unknown, output-only or immutable path, is
-     * rejected with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset
-     * value writes the create default (<code>display_name</code> empty writes
+     * <code>retry_delay</code>, <code>campaign_common_services_config</code> and
+     * <code>campaign_sip_caller_config</code>, the last two also as any nested sub-path (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>,
+     * <code>campaign_sip_caller_config.sip_headers</code>). An empty mask, or an unknown, output-only
+     * or immutable path (a nested path is checked against the message type it names), is rejected
+     * with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset value
+     * writes the create default (<code>display_name</code> empty writes
      * <code>campaign-&lt;campaign_uuid&gt;</code>).
+     * <p>The two call-default configs follow <code>FieldMask</code> semantics:</p>
+     * <ul>
+     *   <li>a path naming a message field (<code>campaign_common_services_config</code>, or a
+     *       submessage below it such as <code>campaign_common_services_config.nlu_vtsi_config</code>)
+     *       REPLACES that whole message with the one sent; an unset one clears it (clearing
+     *       <code>campaign_common_services_config</code> or <code>campaign_sip_caller_config</code>
+     *       removes the campaign default);</li>
+     *   <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
+     *       repeated or map field is replaced as a whole, never appended to;</li>
+     *   <li>a field below them that no path names is left untouched, and is not validated either: only
+     *       what the paths write must be valid;</li>
+     *   <li>clearing, by sub-paths, every field of a stored default removes the default (it then reads
+     *       back unset, exactly as after clearing the whole config);</li>
+     *   <li>a path naming a member of a <code>oneof</code> (e.g.
+     *       <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
+     *       <code>authentication</code> oneof) SETS that member, clearing the other members, when the
+     *       request&apos;s <code>campaign</code> has that member set; when it does not, the path CLEARS the
+     *       member if it is the stored active one and changes nothing otherwise (another active member
+     *       is kept);</li>
+     *   <li>a path BELOW a repeated or map field (e.g.
+     *       <code>campaign_sip_caller_config.sip_headers.X-Foo</code>) is rejected with
+     *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
+     *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
+     * </ul>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     protected $update_mask = null;
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -48,10 +89,47 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      *     @type \Google\Protobuf\FieldMask $update_mask
      *           Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
      *           <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
-     *           <code>retry_delay</code>. An empty mask, or an unknown, output-only or immutable path, is
-     *           rejected with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset
-     *           value writes the create default (<code>display_name</code> empty writes
+     *           <code>retry_delay</code>, <code>campaign_common_services_config</code> and
+     *           <code>campaign_sip_caller_config</code>, the last two also as any nested sub-path (e.g.
+     *           <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>,
+     *           <code>campaign_sip_caller_config.sip_headers</code>). An empty mask, or an unknown, output-only
+     *           or immutable path (a nested path is checked against the message type it names), is rejected
+     *           with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset value
+     *           writes the create default (<code>display_name</code> empty writes
      *           <code>campaign-&lt;campaign_uuid&gt;</code>).
+     *           <p>The two call-default configs follow <code>FieldMask</code> semantics:</p>
+     *           <ul>
+     *             <li>a path naming a message field (<code>campaign_common_services_config</code>, or a
+     *                 submessage below it such as <code>campaign_common_services_config.nlu_vtsi_config</code>)
+     *                 REPLACES that whole message with the one sent; an unset one clears it (clearing
+     *                 <code>campaign_common_services_config</code> or <code>campaign_sip_caller_config</code>
+     *                 removes the campaign default);</li>
+     *             <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
+     *                 repeated or map field is replaced as a whole, never appended to;</li>
+     *             <li>a field below them that no path names is left untouched, and is not validated either: only
+     *                 what the paths write must be valid;</li>
+     *             <li>clearing, by sub-paths, every field of a stored default removes the default (it then reads
+     *                 back unset, exactly as after clearing the whole config);</li>
+     *             <li>a path naming a member of a <code>oneof</code> (e.g.
+     *                 <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
+     *                 <code>authentication</code> oneof) SETS that member, clearing the other members, when the
+     *                 request&apos;s <code>campaign</code> has that member set; when it does not, the path CLEARS the
+     *                 member if it is the stored active one and changes nothing otherwise (another active member
+     *                 is kept);</li>
+     *             <li>a path BELOW a repeated or map field (e.g.
+     *                 <code>campaign_sip_caller_config.sip_headers.X-Foo</code>) is rejected with
+     *                 <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
+     *             <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
+     *           </ul>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     *           returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     *           <code>statistics.completed</code>,
+     *           <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     *           singular message fields are allowed; a path below a repeated or map field is not.
+     *           <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     *           rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     *           role-based redaction, so it never reveals a redacted value.
      * }
      */
     public function __construct($data = NULL) {
@@ -100,10 +178,38 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
-     * <code>retry_delay</code>. An empty mask, or an unknown, output-only or immutable path, is
-     * rejected with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset
-     * value writes the create default (<code>display_name</code> empty writes
+     * <code>retry_delay</code>, <code>campaign_common_services_config</code> and
+     * <code>campaign_sip_caller_config</code>, the last two also as any nested sub-path (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>,
+     * <code>campaign_sip_caller_config.sip_headers</code>). An empty mask, or an unknown, output-only
+     * or immutable path (a nested path is checked against the message type it names), is rejected
+     * with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset value
+     * writes the create default (<code>display_name</code> empty writes
      * <code>campaign-&lt;campaign_uuid&gt;</code>).
+     * <p>The two call-default configs follow <code>FieldMask</code> semantics:</p>
+     * <ul>
+     *   <li>a path naming a message field (<code>campaign_common_services_config</code>, or a
+     *       submessage below it such as <code>campaign_common_services_config.nlu_vtsi_config</code>)
+     *       REPLACES that whole message with the one sent; an unset one clears it (clearing
+     *       <code>campaign_common_services_config</code> or <code>campaign_sip_caller_config</code>
+     *       removes the campaign default);</li>
+     *   <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
+     *       repeated or map field is replaced as a whole, never appended to;</li>
+     *   <li>a field below them that no path names is left untouched, and is not validated either: only
+     *       what the paths write must be valid;</li>
+     *   <li>clearing, by sub-paths, every field of a stored default removes the default (it then reads
+     *       back unset, exactly as after clearing the whole config);</li>
+     *   <li>a path naming a member of a <code>oneof</code> (e.g.
+     *       <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
+     *       <code>authentication</code> oneof) SETS that member, clearing the other members, when the
+     *       request&apos;s <code>campaign</code> has that member set; when it does not, the path CLEARS the
+     *       member if it is the stored active one and changes nothing otherwise (another active member
+     *       is kept);</li>
+     *   <li>a path BELOW a repeated or map field (e.g.
+     *       <code>campaign_sip_caller_config.sip_headers.X-Foo</code>) is rejected with
+     *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
+     *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
+     * </ul>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @return \Google\Protobuf\FieldMask|null
@@ -126,10 +232,38 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * Required. Paths WITHOUT a <code>campaign.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>max_parallel_calls</code>, <code>max_attempts</code>,
-     * <code>retry_delay</code>. An empty mask, or an unknown, output-only or immutable path, is
-     * rejected with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset
-     * value writes the create default (<code>display_name</code> empty writes
+     * <code>retry_delay</code>, <code>campaign_common_services_config</code> and
+     * <code>campaign_sip_caller_config</code>, the last two also as any nested sub-path (e.g.
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>,
+     * <code>campaign_sip_caller_config.sip_headers</code>). An empty mask, or an unknown, output-only
+     * or immutable path (a nested path is checked against the message type it names), is rejected
+     * with <code>INVALID_ARGUMENT</code> naming the path. A path in the mask with an unset value
+     * writes the create default (<code>display_name</code> empty writes
      * <code>campaign-&lt;campaign_uuid&gt;</code>).
+     * <p>The two call-default configs follow <code>FieldMask</code> semantics:</p>
+     * <ul>
+     *   <li>a path naming a message field (<code>campaign_common_services_config</code>, or a
+     *       submessage below it such as <code>campaign_common_services_config.nlu_vtsi_config</code>)
+     *       REPLACES that whole message with the one sent; an unset one clears it (clearing
+     *       <code>campaign_common_services_config</code> or <code>campaign_sip_caller_config</code>
+     *       removes the campaign default);</li>
+     *   <li>a path naming a scalar, repeated or map field below them replaces exactly that field; a
+     *       repeated or map field is replaced as a whole, never appended to;</li>
+     *   <li>a field below them that no path names is left untouched, and is not validated either: only
+     *       what the paths write must be valid;</li>
+     *   <li>clearing, by sub-paths, every field of a stored default removes the default (it then reads
+     *       back unset, exactly as after clearing the whole config);</li>
+     *   <li>a path naming a member of a <code>oneof</code> (e.g.
+     *       <code>campaign_common_services_config.nlu_vtsi_config.auth_token</code> in the
+     *       <code>authentication</code> oneof) SETS that member, clearing the other members, when the
+     *       request&apos;s <code>campaign</code> has that member set; when it does not, the path CLEARS the
+     *       member if it is the stored active one and changes nothing otherwise (another active member
+     *       is kept);</li>
+     *   <li>a path BELOW a repeated or map field (e.g.
+     *       <code>campaign_sip_caller_config.sip_headers.X-Foo</code>) is rejected with
+     *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
+     *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
+     * </ul>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @param \Google\Protobuf\FieldMask $var
@@ -139,6 +273,56 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to cancelling a scheduled caller.
+ * Response to cancelling a scheduled caller, and one entry of <code>CancelScheduledCallersResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CancelScheduledCallerResponse</code>
  */
@@ -19,6 +19,7 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * The name of the scheduled caller of the form
      * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Always populated, also for a failed entry of <code>CancelScheduledCallers</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
@@ -33,13 +34,21 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
      * False means the scheduled caller was already in a state it cannot be cancelled from -
-     * read status to find out which one, this is not an error
+     * read status to find out which one, this is not an error. Cancelling an already cancelled scheduled caller
+     * is therefore idempotent: <code>cancelled = false</code>, <code>status = SCHEDULED_CALLER_STATUS_CANCELLED</code>.
      *
      * Generated from protobuf field <code>bool cancelled = 3;</code>
      */
     protected $cancelled = false;
     /**
-     * error message if you have any so if it's unhealthy
+     * Why the scheduled caller was not cancelled, where there is more to say than <code>status</code>: set (with
+     * <code>cancelled = false</code>) for a scheduled caller of a campaign whose attempt is dispatching or in
+     * progress; empty otherwise, also for a scheduled caller that was simply no longer PENDING.
+     * <code>CancelScheduledCaller</code> reports every other error as a gRPC status code. In an entry of
+     * <code>CancelScheduledCallersResponse</code> it is, in addition, the error of an entry that failed, prefixed
+     * with the name of the gRPC status code <code>CancelScheduledCaller</code> would have answered, e.g.
+     * <code>NOT_FOUND: scheduled caller projects/.../scheduled_callers/... does not exist</code>; <code>status</code>
+     * and <code>cancelled</code> are then left at their zero values.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      */
@@ -54,15 +63,24 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           The name of the scheduled caller of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     *           Always populated, also for a failed entry of <code>CancelScheduledCallers</code>.
      *     @type int $status
      *           The state of the scheduled caller AFTER this request. A scheduled caller that was already
      *           firing, done, failed or cancelled keeps the state it had
      *     @type bool $cancelled
      *           True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
      *           False means the scheduled caller was already in a state it cannot be cancelled from -
-     *           read status to find out which one, this is not an error
+     *           read status to find out which one, this is not an error. Cancelling an already cancelled scheduled caller
+     *           is therefore idempotent: <code>cancelled = false</code>, <code>status = SCHEDULED_CALLER_STATUS_CANCELLED</code>.
      *     @type string $error_message
-     *           error message if you have any so if it's unhealthy
+     *           Why the scheduled caller was not cancelled, where there is more to say than <code>status</code>: set (with
+     *           <code>cancelled = false</code>) for a scheduled caller of a campaign whose attempt is dispatching or in
+     *           progress; empty otherwise, also for a scheduled caller that was simply no longer PENDING.
+     *           <code>CancelScheduledCaller</code> reports every other error as a gRPC status code. In an entry of
+     *           <code>CancelScheduledCallersResponse</code> it is, in addition, the error of an entry that failed, prefixed
+     *           with the name of the gRPC status code <code>CancelScheduledCaller</code> would have answered, e.g.
+     *           <code>NOT_FOUND: scheduled caller projects/.../scheduled_callers/... does not exist</code>; <code>status</code>
+     *           and <code>cancelled</code> are then left at their zero values.
      * }
      */
     public function __construct($data = NULL) {
@@ -73,6 +91,7 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * The name of the scheduled caller of the form
      * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Always populated, also for a failed entry of <code>CancelScheduledCallers</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -85,6 +104,7 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * The name of the scheduled caller of the form
      * <pre><code>projects/&lt;project_uuid&gt;/scheduled_callers/&lt;scheduled_caller_uuid&gt;</code></pre>
+     * Always populated, also for a failed entry of <code>CancelScheduledCallers</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -129,7 +149,8 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
      * False means the scheduled caller was already in a state it cannot be cancelled from -
-     * read status to find out which one, this is not an error
+     * read status to find out which one, this is not an error. Cancelling an already cancelled scheduled caller
+     * is therefore idempotent: <code>cancelled = false</code>, <code>status = SCHEDULED_CALLER_STATUS_CANCELLED</code>.
      *
      * Generated from protobuf field <code>bool cancelled = 3;</code>
      * @return bool
@@ -142,7 +163,8 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     /**
      * True when this request performed the transition to SCHEDULED_CALLER_STATUS_CANCELLED.
      * False means the scheduled caller was already in a state it cannot be cancelled from -
-     * read status to find out which one, this is not an error
+     * read status to find out which one, this is not an error. Cancelling an already cancelled scheduled caller
+     * is therefore idempotent: <code>cancelled = false</code>, <code>status = SCHEDULED_CALLER_STATUS_CANCELLED</code>.
      *
      * Generated from protobuf field <code>bool cancelled = 3;</code>
      * @param bool $var
@@ -157,7 +179,14 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Why the scheduled caller was not cancelled, where there is more to say than <code>status</code>: set (with
+     * <code>cancelled = false</code>) for a scheduled caller of a campaign whose attempt is dispatching or in
+     * progress; empty otherwise, also for a scheduled caller that was simply no longer PENDING.
+     * <code>CancelScheduledCaller</code> reports every other error as a gRPC status code. In an entry of
+     * <code>CancelScheduledCallersResponse</code> it is, in addition, the error of an entry that failed, prefixed
+     * with the name of the gRPC status code <code>CancelScheduledCaller</code> would have answered, e.g.
+     * <code>NOT_FOUND: scheduled caller projects/.../scheduled_callers/... does not exist</code>; <code>status</code>
+     * and <code>cancelled</code> are then left at their zero values.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @return string
@@ -168,7 +197,14 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any so if it's unhealthy
+     * Why the scheduled caller was not cancelled, where there is more to say than <code>status</code>: set (with
+     * <code>cancelled = false</code>) for a scheduled caller of a campaign whose attempt is dispatching or in
+     * progress; empty otherwise, also for a scheduled caller that was simply no longer PENDING.
+     * <code>CancelScheduledCaller</code> reports every other error as a gRPC status code. In an entry of
+     * <code>CancelScheduledCallersResponse</code> it is, in addition, the error of an entry that failed, prefixed
+     * with the name of the gRPC status code <code>CancelScheduledCaller</code> would have answered, e.g.
+     * <code>NOT_FOUND: scheduled caller projects/.../scheduled_callers/... does not exist</code>; <code>status</code>
+     * and <code>cancelled</code> are then left at their zero values.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @param string $var

@@ -8,26 +8,27 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Call view options
+ * Whether a call is active (set up or connected) or not, as a filter value of <code>CallFilter.call_status</code>.
  *
  * Protobuf type <code>ondewo.vtsi.CallStatus</code>
  */
 class CallStatus
 {
     /**
-     * Unspecified call status
+     * Unspecified call status: does not filter
      *
      * Generated from protobuf enum <code>CALL_STATUS_UNSPECIFIED = 0;</code>
      */
     const CALL_STATUS_UNSPECIFIED = 0;
     /**
-     * Call is active
+     * Call is active (<code>Call.active</code> is true)
      *
      * Generated from protobuf enum <code>CALL_STATUS_ACTIVE = 1;</code>
      */
     const CALL_STATUS_ACTIVE = 1;
     /**
-     * Call is inactive
+     * Call is inactive (<code>Call.active</code> is false): ended, or the waiting call of a persistent listener or
+     * pooled caller
      *
      * Generated from protobuf enum <code>CALL_STATUS_INACTIVE = 2;</code>
      */

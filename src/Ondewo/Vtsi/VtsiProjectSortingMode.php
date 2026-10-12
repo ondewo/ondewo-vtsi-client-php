@@ -8,7 +8,11 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Sorting mode
+ * Sorting mode.
+ * Note: unlike most enums of this API the zero value is a real mode, <code>ASCENDING</code>, not an
+ * <code>..._UNSPECIFIED</code> placeholder, so an unset mode means ascending. Released this way and kept
+ * for wire and source compatibility (it is also reused by
+ * <a href="index.html#ondewo.vtsi.SoftphoneAccountSorting">SoftphoneAccountSorting</a>).
  *
  * Protobuf type <code>ondewo.vtsi.VtsiProjectSortingMode</code>
  */

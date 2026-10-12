@@ -25,11 +25,45 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The campaign to create. Output-only fields must be unset.
+     * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
+     * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      */
     protected $campaign = null;
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value. It shapes only the response: the
+     * whole campaign is created regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional client idempotency key, with the semantics of
+     * <code>AddCallersToCampaignRequest.idempotency_key</code>: at most 255 printable ASCII characters, no
+     * whitespace; empty means no deduplication. A retry carrying the same key returns the response of the
+     * first successful attempt (the same campaign, as it was returned then) instead of creating a second
+     * campaign, whichever server replica it reaches, for as long as the server retains the key (24 hours by
+     * default). The key is scoped to the VTSI project and to this RPC. Reusing a key with a different request
+     * is refused with <code>INVALID_ARGUMENT</code>; <code>field_mask</code> is not part of that comparison (a
+     * retry with another mask is the same request and its response is shaped by the retry&apos;s mask). A
+     * retry that arrives while the first attempt is still running is answered <code>ABORTED</code> and may be
+     * retried later. A first attempt that fails stores nothing, so a retry after a failure runs the request
+     * again. A replayed response carries no <code>campaign_common_services_config</code> and no
+     * <code>campaign_sip_caller_config</code>: the server keeps no second copy of the credentials it holds;
+     * read them with <code>GetCampaign</code>.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     */
+    protected $idempotency_key = '';
 
     /**
      * Constructor.
@@ -41,7 +75,33 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project in which to create the campaign.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\Campaign $campaign
-     *           The campaign to create. Output-only fields must be unset.
+     *           The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
+     *           and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
+     *           the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     *           returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     *           <code>statistics.completed</code>,
+     *           <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     *           singular message fields are allowed; a path below a repeated or map field is not.
+     *           <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     *           rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     *           role-based redaction, so it never reveals a redacted value. It shapes only the response: the
+     *           whole campaign is created regardless.
+     *     @type string $idempotency_key
+     *           Optional client idempotency key, with the semantics of
+     *           <code>AddCallersToCampaignRequest.idempotency_key</code>: at most 255 printable ASCII characters, no
+     *           whitespace; empty means no deduplication. A retry carrying the same key returns the response of the
+     *           first successful attempt (the same campaign, as it was returned then) instead of creating a second
+     *           campaign, whichever server replica it reaches, for as long as the server retains the key (24 hours by
+     *           default). The key is scoped to the VTSI project and to this RPC. Reusing a key with a different request
+     *           is refused with <code>INVALID_ARGUMENT</code>; <code>field_mask</code> is not part of that comparison (a
+     *           retry with another mask is the same request and its response is shaped by the retry&apos;s mask). A
+     *           retry that arrives while the first attempt is still running is answered <code>ABORTED</code> and may be
+     *           retried later. A first attempt that fails stores nothing, so a retry after a failure runs the request
+     *           again. A replayed response carries no <code>campaign_common_services_config</code> and no
+     *           <code>campaign_sip_caller_config</code>: the server keeps no second copy of the credentials it holds;
+     *           read them with <code>GetCampaign</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -78,7 +138,9 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign to create. Output-only fields must be unset.
+     * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
+     * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -99,7 +161,9 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign to create. Output-only fields must be unset.
+     * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
+     * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @param \Ondewo\Vtsi\Campaign $var
@@ -109,6 +173,108 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->campaign = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value. It shapes only the response: the
+     * whole campaign is created regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
+     * returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
+     * <code>statistics.completed</code>,
+     * <code>campaign_common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through
+     * singular message fields are allowed; a path below a repeated or map field is not.
+     * <code>name</code> is always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it. The mask is applied after the server&apos;s
+     * role-based redaction, so it never reveals a redacted value. It shapes only the response: the
+     * whole campaign is created regardless.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional client idempotency key, with the semantics of
+     * <code>AddCallersToCampaignRequest.idempotency_key</code>: at most 255 printable ASCII characters, no
+     * whitespace; empty means no deduplication. A retry carrying the same key returns the response of the
+     * first successful attempt (the same campaign, as it was returned then) instead of creating a second
+     * campaign, whichever server replica it reaches, for as long as the server retains the key (24 hours by
+     * default). The key is scoped to the VTSI project and to this RPC. Reusing a key with a different request
+     * is refused with <code>INVALID_ARGUMENT</code>; <code>field_mask</code> is not part of that comparison (a
+     * retry with another mask is the same request and its response is shaped by the retry&apos;s mask). A
+     * retry that arrives while the first attempt is still running is answered <code>ABORTED</code> and may be
+     * retried later. A first attempt that fails stores nothing, so a retry after a failure runs the request
+     * again. A replayed response carries no <code>campaign_common_services_config</code> and no
+     * <code>campaign_sip_caller_config</code>: the server keeps no second copy of the credentials it holds;
+     * read them with <code>GetCampaign</code>.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     * @return string
+     */
+    public function getIdempotencyKey()
+    {
+        return $this->idempotency_key;
+    }
+
+    /**
+     * Optional client idempotency key, with the semantics of
+     * <code>AddCallersToCampaignRequest.idempotency_key</code>: at most 255 printable ASCII characters, no
+     * whitespace; empty means no deduplication. A retry carrying the same key returns the response of the
+     * first successful attempt (the same campaign, as it was returned then) instead of creating a second
+     * campaign, whichever server replica it reaches, for as long as the server retains the key (24 hours by
+     * default). The key is scoped to the VTSI project and to this RPC. Reusing a key with a different request
+     * is refused with <code>INVALID_ARGUMENT</code>; <code>field_mask</code> is not part of that comparison (a
+     * retry with another mask is the same request and its response is shaped by the retry&apos;s mask). A
+     * retry that arrives while the first attempt is still running is answered <code>ABORTED</code> and may be
+     * retried later. A first attempt that fails stores nothing, so a retry after a failure runs the request
+     * again. A replayed response carries no <code>campaign_common_services_config</code> and no
+     * <code>campaign_sip_caller_config</code>: the server keeps no second copy of the credentials it holds;
+     * read them with <code>GetCampaign</code>.
+     *
+     * Generated from protobuf field <code>string idempotency_key = 4;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIdempotencyKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->idempotency_key = $var;
 
         return $this;
     }

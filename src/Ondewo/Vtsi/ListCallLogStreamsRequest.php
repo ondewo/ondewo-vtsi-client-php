@@ -26,18 +26,51 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
     protected $vtsi_project_name = '';
     /**
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
      */
     protected $filter = null;
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 3;</code>
      */
     protected $page_token = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogStream</code>,
+     * relative to the <code>CallLogStream</code> message (no <code>log_streams.</code> prefix), e.g.
+     * <code>container_name</code>, <code>capture_state</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     * Applied after the server&apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Maximum number of log streams per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 page_size = 5;</code>
+     */
+    protected $page_size = 0;
+    /**
+     * Optional. Only log streams in one of these capture states, e.g.
+     * <code>LOG_CAPTURE_STATE_CAPTURING</code> for the containers being captured now. Empty matches every
+     * state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     */
+    private $capture_states;
 
     /**
      * Constructor.
@@ -50,10 +83,31 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\CallLogFilter $filter
      *           Optional. A filter to narrow the response down to the log streams of interest. Only the
-     *           identity fields of the filter apply here; content fields are ignored.
+     *           identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     *           on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     *           them, and an empty list when none does.
      *     @type string $page_token
-     *           Optional. The next_page_token value returned from a previous list request.
-     *           Example: "current_index-1--page_size-20"
+     *           Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     *           it (its format is internal and may change). Keep every other request field unchanged while paging:
+     *           a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     *           the other listing.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>CallLogStream</code>,
+     *           relative to the <code>CallLogStream</code> message (no <code>log_streams.</code> prefix), e.g.
+     *           <code>container_name</code>, <code>capture_state</code>. Nested paths through singular message fields are
+     *           allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     *           empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *           Applied after the server&apos;s redaction, so it can only narrow the response and never populates a
+     *           field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     *           with another mask.
+     *     @type int $page_size
+     *           Optional. Maximum number of log streams per page. <code>0</code> means the server default of 25;
+     *           values above 1000 are clamped to 1000; negative values are rejected with
+     *           <code>INVALID_ARGUMENT</code>.
+     *     @type int[] $capture_states
+     *           Optional. Only log streams in one of these capture states, e.g.
+     *           <code>LOG_CAPTURE_STATE_CAPTURING</code> for the containers being captured now. Empty matches every
+     *           state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -91,7 +145,9 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
      * @return \Ondewo\Vtsi\CallLogFilter|null
@@ -113,7 +169,9 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. A filter to narrow the response down to the log streams of interest. Only the
-     * identity fields of the filter apply here; content fields are ignored.
+     * identity fields of the filter apply here; content fields and the time window are ignored. A filter
+     * on calls, NLU sessions or other per-call identities lists the streams holding at least one entry of
+     * them, and an empty list when none does.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallLogFilter filter = 2;</code>
      * @param \Ondewo\Vtsi\CallLogFilter $var
@@ -128,8 +186,10 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 3;</code>
      * @return string
@@ -150,8 +210,10 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field unchanged while paging:
+     * a token sent with another filter is not guaranteed to be rejected and then returns that position of
+     * the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 3;</code>
      * @param string $var
@@ -161,6 +223,116 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->page_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogStream</code>,
+     * relative to the <code>CallLogStream</code> message (no <code>log_streams.</code> prefix), e.g.
+     * <code>container_name</code>, <code>capture_state</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     * Applied after the server&apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>CallLogStream</code>,
+     * relative to the <code>CallLogStream</code> message (no <code>log_streams.</code> prefix), e.g.
+     * <code>container_name</code>, <code>capture_state</code>. Nested paths through singular message fields are
+     * allowed; a path below a repeated or map field is not. <code>name</code> is always populated. Unset or
+     * empty returns every field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     * Applied after the server&apos;s redaction, so it can only narrow the response and never populates a
+     * field that was left empty. Not part of the paging contract: a <code>page_token</code> stays valid
+     * with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Maximum number of log streams per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 page_size = 5;</code>
+     * @return int
+     */
+    public function getPageSize()
+    {
+        return $this->page_size;
+    }
+
+    /**
+     * Optional. Maximum number of log streams per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 page_size = 5;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPageSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->page_size = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only log streams in one of these capture states, e.g.
+     * <code>LOG_CAPTURE_STATE_CAPTURING</code> for the containers being captured now. Empty matches every
+     * state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @return RepeatedField<int>
+     */
+    public function getCaptureStates()
+    {
+        return $this->capture_states;
+    }
+
+    /**
+     * Optional. Only log streams in one of these capture states, e.g.
+     * <code>LOG_CAPTURE_STATE_CAPTURING</code> for the containers being captured now. Empty matches every
+     * state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setCaptureStates($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\LogCaptureState::class);
+        $this->capture_states = $arr;
 
         return $this;
     }

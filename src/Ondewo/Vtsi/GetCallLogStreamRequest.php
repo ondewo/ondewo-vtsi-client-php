@@ -26,10 +26,22 @@ class GetCallLogStreamRequest extends \Google\Protobuf\Internal\Message
     /**
      * The name of the log stream to retrieve of the form
      * <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
+     * Its project must be the one of <code>vtsi_project_name</code>: a log stream of another project is
+     * refused with <code>INVALID_ARGUMENT</code>, also when it exists.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
+    /**
+     * Optional. Partial response: the <code>CallLogStream</code> field paths to populate, e.g.
+     * <code>capture_state</code>, <code>line_count</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest">ListCallLogStreamsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field, an unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -42,6 +54,14 @@ class GetCallLogStreamRequest extends \Google\Protobuf\Internal\Message
      *     @type string $name
      *           The name of the log stream to retrieve of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
+     *           Its project must be the one of <code>vtsi_project_name</code>: a log stream of another project is
+     *           refused with <code>INVALID_ARGUMENT</code>, also when it exists.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>CallLogStream</code> field paths to populate, e.g.
+     *           <code>capture_state</code>, <code>line_count</code>. Same convention as
+     *           <a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest">ListCallLogStreamsRequest.field_mask</a>:
+     *           <code>name</code> is always populated, unset or empty returns every field, an unknown path is
+     *           rejected with <code>INVALID_ARGUMENT</code> naming it.
      * }
      */
     public function __construct($data = NULL) {
@@ -78,6 +98,8 @@ class GetCallLogStreamRequest extends \Google\Protobuf\Internal\Message
     /**
      * The name of the log stream to retrieve of the form
      * <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
+     * Its project must be the one of <code>vtsi_project_name</code>: a log stream of another project is
+     * refused with <code>INVALID_ARGUMENT</code>, also when it exists.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @return string
@@ -90,6 +112,8 @@ class GetCallLogStreamRequest extends \Google\Protobuf\Internal\Message
     /**
      * The name of the log stream to retrieve of the form
      * <pre><code>projects/&lt;project_uuid&gt;/logStreams/&lt;log_stream_uuid&gt;</code></pre>
+     * Its project must be the one of <code>vtsi_project_name</code>: a log stream of another project is
+     * refused with <code>INVALID_ARGUMENT</code>, also when it exists.
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var
@@ -99,6 +123,50 @@ class GetCallLogStreamRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>CallLogStream</code> field paths to populate, e.g.
+     * <code>capture_state</code>, <code>line_count</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest">ListCallLogStreamsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field, an unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>CallLogStream</code> field paths to populate, e.g.
+     * <code>capture_state</code>, <code>line_count</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListCallLogStreamsRequest">ListCallLogStreamsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field, an unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

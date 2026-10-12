@@ -23,7 +23,10 @@ class TransferCallsRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Responses to transfer multiple calls to a phone number or voip number
+     * The transfers, 1 to 1000, applied one by one and each like <code>TransferCall</code> (not atomic: a failed
+     * entry does not stop the others). An entry with an empty <code>vtsi_project_name</code> takes this
+     * request&apos;s; an entry naming another project, or a call of another project, fails on its own (its
+     * <code>error_message</code>). Each entry may carry its own <code>request_id</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallRequest transfer_call_requests = 2;</code>
      */
@@ -38,7 +41,10 @@ class TransferCallsRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\TransferCallRequest[] $transfer_call_requests
-     *           Responses to transfer multiple calls to a phone number or voip number
+     *           The transfers, 1 to 1000, applied one by one and each like <code>TransferCall</code> (not atomic: a failed
+     *           entry does not stop the others). An entry with an empty <code>vtsi_project_name</code> takes this
+     *           request&apos;s; an entry naming another project, or a call of another project, fails on its own (its
+     *           <code>error_message</code>). Each entry may carry its own <code>request_id</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -73,7 +79,10 @@ class TransferCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Responses to transfer multiple calls to a phone number or voip number
+     * The transfers, 1 to 1000, applied one by one and each like <code>TransferCall</code> (not atomic: a failed
+     * entry does not stop the others). An entry with an empty <code>vtsi_project_name</code> takes this
+     * request&apos;s; an entry naming another project, or a call of another project, fails on its own (its
+     * <code>error_message</code>). Each entry may carry its own <code>request_id</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallRequest transfer_call_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\TransferCallRequest>
@@ -84,7 +93,10 @@ class TransferCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Responses to transfer multiple calls to a phone number or voip number
+     * The transfers, 1 to 1000, applied one by one and each like <code>TransferCall</code> (not atomic: a failed
+     * entry does not stop the others). An entry with an empty <code>vtsi_project_name</code> takes this
+     * request&apos;s; an entry naming another project, or a call of another project, fails on its own (its
+     * <code>error_message</code>). Each entry may carry its own <code>request_id</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TransferCallRequest transfer_call_requests = 2;</code>
      * @param \Ondewo\Vtsi\TransferCallRequest[] $var

@@ -38,11 +38,23 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      */
     protected $dropped_event_count = 0;
     /**
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 4;</code>
      */
     protected $end_reason = '';
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
+     * <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code>.
+     * <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
+     * that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     */
+    protected $end_reason_type = 0;
 
     /**
      * Constructor.
@@ -60,7 +72,15 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      *     @type int|string $dropped_event_count
      *           Events this stream skipped because the client read too slowly (the server buffer was full).
      *     @type string $end_reason
-     *           Set on the last message when the server ended the stream. Empty otherwise.
+     *           Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     *           <code>end_reason_type</code> instead.
+     *     @type int $end_reason_type
+     *           Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
+     *           <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
+     *           <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
+     *           <code>STREAM_END_REASON_PROJECT_DELETED</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code>.
+     *           <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
+     *           that predates this field).
      * }
      */
     public function __construct($data = NULL) {
@@ -153,7 +173,8 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 4;</code>
      * @return string
@@ -164,7 +185,8 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Set on the last message when the server ended the stream. Empty otherwise.
+     * Set on the last message when the server ended the stream. Empty otherwise. Human-readable; branch on
+     * <code>end_reason_type</code> instead.
      *
      * Generated from protobuf field <code>string end_reason = 4;</code>
      * @param string $var
@@ -174,6 +196,42 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->end_reason = $var;
+
+        return $this;
+    }
+
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
+     * <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code>.
+     * <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
+     * that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @return int
+     */
+    public function getEndReasonType()
+    {
+        return $this->end_reason_type;
+    }
+
+    /**
+     * Set on the last message when the server ended the stream, next to <code>end_reason</code>: one of
+     * <code>STREAM_END_REASON_MAX_DURATION</code>, <code>STREAM_END_REASON_CLIENT_TOO_SLOW</code>,
+     * <code>STREAM_END_REASON_SUBSCRIPTION_DELETED</code>, <code>STREAM_END_REASON_SUBSCRIPTION_DISABLED</code>,
+     * <code>STREAM_END_REASON_PROJECT_DELETED</code>, <code>STREAM_END_REASON_SERVER_SHUTDOWN</code>.
+     * <code>STREAM_END_REASON_UNSPECIFIED</code> on every other message (and on the last message of a server
+     * that predates this field).
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setEndReasonType($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\StreamEndReason::class);
+        $this->end_reason_type = $var;
 
         return $this;
     }

@@ -106,7 +106,10 @@ class CallLogEntry extends \Google\Protobuf\Internal\Message
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * The format is the <code>Call.name</code> of the call, for a listener&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * and for a caller&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string call = 13;</code>
      */
@@ -172,7 +175,10 @@ class CallLogEntry extends \Google\Protobuf\Internal\Message
      *           Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      *           call, which is normal and useful: a persistent listener&apos;s container start-up and its idle
      *           time between calls belong to no call.
-     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     *           The format is the <code>Call.name</code> of the call, for a listener&apos;s call
+     *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     *           and for a caller&apos;s call
+     *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type string $nlu_session_name
      *           The NLU session the entry was attributed to.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/agent/sessions/&lt;session_uuid&gt;</code></pre>
@@ -536,7 +542,10 @@ class CallLogEntry extends \Google\Protobuf\Internal\Message
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * The format is the <code>Call.name</code> of the call, for a listener&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * and for a caller&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string call = 13;</code>
      * @return string
@@ -550,7 +559,10 @@ class CallLogEntry extends \Google\Protobuf\Internal\Message
      * Resource name of the call this entry was attributed to. Empty when the entry falls outside any
      * call, which is normal and useful: a persistent listener&apos;s container start-up and its idle
      * time between calls belong to no call.
-     * The format is: <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * The format is the <code>Call.name</code> of the call, for a listener&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * and for a caller&apos;s call
+     * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string call = 13;</code>
      * @param string $var

@@ -42,7 +42,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
      */
     protected $state = 0;
     /**
-     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request.
+     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
+     * leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
+     * Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
+     * the campaign&apos;s <code>campaign_sip_caller_config</code> say.
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      */
@@ -72,8 +75,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
      */
     protected $attempts = 0;
     /**
-     * The campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
-     * <code>Campaign.max_attempts</code>); repeated here so a page of calls is readable alone.
+     * The attempt limit of this call: the campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
+     * <code>Campaign.max_attempts</code>), repeated here so a page of calls is readable alone. For a call
+     * requeued by <code>RetryCampaignCalls</code> it is the larger of that value and the call&apos;s own
+     * limit set by the requeue (its attempts at the time plus <code>additional_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 10;</code>
      */
@@ -168,7 +173,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
      *     @type int $state
      *           State of the call.
      *     @type string $phone_number
-     *           The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request.
+     *           The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
+     *           leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
+     *           Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
+     *           the campaign&apos;s <code>campaign_sip_caller_config</code> say.
      *     @type int $source
      *           How the call was added.
      *     @type string $scheduled_caller_name
@@ -178,8 +186,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
      *     @type int $attempts
      *           Attempts started so far.
      *     @type int $max_attempts
-     *           The campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
-     *           <code>Campaign.max_attempts</code>); repeated here so a page of calls is readable alone.
+     *           The attempt limit of this call: the campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
+     *           <code>Campaign.max_attempts</code>), repeated here so a page of calls is readable alone. For a call
+     *           requeued by <code>RetryCampaignCalls</code> it is the larger of that value and the call&apos;s own
+     *           limit set by the requeue (its attempts at the time plus <code>additional_attempts</code>).
      *     @type string $caller_name
      *           Caller of the current or last attempt.
      *     @type string $call_name
@@ -319,7 +329,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request.
+     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
+     * leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
+     * Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
+     * the campaign&apos;s <code>campaign_sip_caller_config</code> say.
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      * @return string
@@ -330,7 +343,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request.
+     * The callee: <code>SipCallerConfig.callee_id</code> of the call&apos;s request or, when the request
+     * leaves it empty, of <code>Campaign.campaign_sip_caller_config</code> at the time the call was added.
+     * Fixed from then on: every attempt of the call dials exactly this number, whatever later updates of
+     * the campaign&apos;s <code>campaign_sip_caller_config</code> say.
      *
      * Generated from protobuf field <code>string phone_number = 5;</code>
      * @param string $var
@@ -459,8 +475,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
-     * <code>Campaign.max_attempts</code>); repeated here so a page of calls is readable alone.
+     * The attempt limit of this call: the campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
+     * <code>Campaign.max_attempts</code>), repeated here so a page of calls is readable alone. For a call
+     * requeued by <code>RetryCampaignCalls</code> it is the larger of that value and the call&apos;s own
+     * limit set by the requeue (its attempts at the time plus <code>additional_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 10;</code>
      * @return int
@@ -471,8 +489,10 @@ class CampaignCall extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
-     * <code>Campaign.max_attempts</code>); repeated here so a page of calls is readable alone.
+     * The attempt limit of this call: the campaign&apos;s CURRENT <code>max_attempts</code> (read live, see
+     * <code>Campaign.max_attempts</code>), repeated here so a page of calls is readable alone. For a call
+     * requeued by <code>RetryCampaignCalls</code> it is the larger of that value and the call&apos;s own
+     * limit set by the requeue (its attempts at the time plus <code>additional_attempts</code>).
      *
      * Generated from protobuf field <code>int32 max_attempts = 10;</code>
      * @param int $var

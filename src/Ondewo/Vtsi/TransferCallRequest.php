@@ -66,6 +66,20 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
      */
     protected $ring_timeout_s = 0;
+    /**
+     * Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
+     * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
+     * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
+     * transferring again, for as long as the call record exists; the same key with a different target, mode,
+     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
+     * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
+     * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
+     * <code>TransferCallsRequest</code> each entry carries its own key.
+     *
+     * Generated from protobuf field <code>string request_id = 8;</code>
+     */
+    protected $request_id = '';
 
     /**
      * Constructor.
@@ -95,6 +109,16 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      *     @type int $ring_timeout_s
      *           WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
      *           <code>30</code>
+     *     @type string $request_id
+     *           Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
+     *           ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
+     *           and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
+     *           transferring again, for as long as the call record exists; the same key with a different target, mode,
+     *           headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     *           A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
+     *           that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
+     *           A replay writes no second audit record and emits no event. Empty means no deduplication. In a
+     *           <code>TransferCallsRequest</code> each entry carries its own key.
      * }
      */
     public function __construct($data = NULL) {
@@ -306,6 +330,48 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->ring_timeout_s = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
+     * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
+     * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
+     * transferring again, for as long as the call record exists; the same key with a different target, mode,
+     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
+     * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
+     * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
+     * <code>TransferCallsRequest</code> each entry carries its own key.
+     *
+     * Generated from protobuf field <code>string request_id = 8;</code>
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->request_id;
+    }
+
+    /**
+     * Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
+     * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
+     * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
+     * transferring again, for as long as the call record exists; the same key with a different target, mode,
+     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
+     * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
+     * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
+     * <code>TransferCallsRequest</code> each entry carries its own key.
+     *
+     * Generated from protobuf field <code>string request_id = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setRequestId($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->request_id = $var;
 
         return $this;
     }

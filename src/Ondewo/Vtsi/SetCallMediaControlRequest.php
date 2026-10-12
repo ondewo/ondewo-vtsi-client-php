@@ -29,13 +29,21 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again
+     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
+     * <p>Both <code>bot_voice</code> and <code>bot_listening</code> <code>UNCHANGED</code> is a valid READ of the
+     * call&apos;s current media control state: nothing is sent to the call, the response carries the effective
+     * <code>state</code> with <code>changed = false</code>, and no audit record and no event are written. The
+     * call must still be connected and controllable (the same refusals as a change apply). A 9.0.0 server refuses
+     * it with <code>INVALID_ARGUMENT</code>; <code>Call.media_control</code> (<code>GetCall</code>) reads the same
+     * state from any server.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_voice = 3;</code>
      */
     protected $bot_voice = 0;
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it
+     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_listening = 4;</code>
      */
@@ -52,9 +60,17 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      *     @type string $call_name
      *           Name of the connected call
      *     @type int $bot_voice
-     *           <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again
+     *           <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again,
+     *           <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
+     *           <p>Both <code>bot_voice</code> and <code>bot_listening</code> <code>UNCHANGED</code> is a valid READ of the
+     *           call&apos;s current media control state: nothing is sent to the call, the response carries the effective
+     *           <code>state</code> with <code>changed = false</code>, and no audit record and no event are written. The
+     *           call must still be connected and controllable (the same refusals as a change apply). A 9.0.0 server refuses
+     *           it with <code>INVALID_ARGUMENT</code>; <code>Call.media_control</code> (<code>GetCall</code>) reads the same
+     *           state from any server.</p>
      *     @type int $bot_listening
-     *           <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it
+     *           <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it,
+     *           <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      * }
      */
     public function __construct($data = NULL) {
@@ -115,7 +131,14 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again
+     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
+     * <p>Both <code>bot_voice</code> and <code>bot_listening</code> <code>UNCHANGED</code> is a valid READ of the
+     * call&apos;s current media control state: nothing is sent to the call, the response carries the effective
+     * <code>state</code> with <code>changed = false</code>, and no audit record and no event are written. The
+     * call must still be connected and controllable (the same refusals as a change apply). A 9.0.0 server refuses
+     * it with <code>INVALID_ARGUMENT</code>; <code>Call.media_control</code> (<code>GetCall</code>) reads the same
+     * state from any server.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_voice = 3;</code>
      * @return int
@@ -126,7 +149,14 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again
+     * <code>CALL_MEDIA_SETTING_OFF</code> mutes the bot, <code>CALL_MEDIA_SETTING_ON</code> lets it speak again,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
+     * <p>Both <code>bot_voice</code> and <code>bot_listening</code> <code>UNCHANGED</code> is a valid READ of the
+     * call&apos;s current media control state: nothing is sent to the call, the response carries the effective
+     * <code>state</code> with <code>changed = false</code>, and no audit record and no event are written. The
+     * call must still be connected and controllable (the same refusals as a change apply). A 9.0.0 server refuses
+     * it with <code>INVALID_ARGUMENT</code>; <code>Call.media_control</code> (<code>GetCall</code>) reads the same
+     * state from any server.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_voice = 3;</code>
      * @param int $var
@@ -141,7 +171,8 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it
+     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_listening = 4;</code>
      * @return int
@@ -152,7 +183,8 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it
+     * <code>CALL_MEDIA_SETTING_OFF</code> stops the bot listening, <code>CALL_MEDIA_SETTING_ON</code> resumes it,
+     * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_listening = 4;</code>
      * @param int $var

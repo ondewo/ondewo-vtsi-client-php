@@ -20,7 +20,9 @@ use Google\Protobuf\RepeatedField;
 class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * <code>end_reason</code>. (No keep-alive messages are sent; see
+     * <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.)
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
      */
@@ -55,11 +57,19 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
     protected $resume_token = '';
     /**
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on <code>end_reason_code</code>.
      *
      * Generated from protobuf field <code>string end_reason = 6;</code>
      */
     protected $end_reason = '';
+    /**
+     * Set on the final message when the stream was ended by the server, together with
+     * <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     */
+    protected $end_reason_code = 0;
 
     /**
      * Constructor.
@@ -68,7 +78,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\CallLogEntry[] $log_entries
-     *           The entries in this batch, oldest first. May be empty on a keep-alive message.
+     *           The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     *           <code>end_reason</code>. (No keep-alive messages are sent; see
+     *           <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.)
      *     @type int $capture_state
      *           The capture state of the log streams being followed, aggregated: <code>FAILED</code> if any
      *           has failed, else <code>DETACHED</code> if any is detached, else <code>CAPTURING</code> if any
@@ -83,7 +95,11 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      *           <code>StreamCallLogsRequest.resume_token</code> after a disconnect.
      *     @type string $end_reason
      *           Set on the final message when the stream was ended by the server rather than by the client,
-     *           for example because the maximum stream duration was reached. Empty otherwise.
+     *           for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     *           text, not a contract: match on <code>end_reason_code</code>.
+     *     @type int $end_reason_code
+     *           Set on the final message when the stream was ended by the server, together with
+     *           <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
      * }
      */
     public function __construct($data = NULL) {
@@ -92,7 +108,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * <code>end_reason</code>. (No keep-alive messages are sent; see
+     * <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.)
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\CallLogEntry>
@@ -103,7 +121,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The entries in this batch, oldest first. May be empty on a keep-alive message.
+     * The entries in this batch, oldest first. May be empty, e.g. on the final message that carries
+     * <code>end_reason</code>. (No keep-alive messages are sent; see
+     * <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>.)
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogEntry log_entries = 1;</code>
      * @param \Ondewo\Vtsi\CallLogEntry[] $var
@@ -231,7 +251,8 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
 
     /**
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on <code>end_reason_code</code>.
      *
      * Generated from protobuf field <code>string end_reason = 6;</code>
      * @return string
@@ -243,7 +264,8 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
 
     /**
      * Set on the final message when the stream was ended by the server rather than by the client,
-     * for example because the maximum stream duration was reached. Empty otherwise.
+     * for example because the maximum stream duration was reached. Empty otherwise. Human-readable
+     * text, not a contract: match on <code>end_reason_code</code>.
      *
      * Generated from protobuf field <code>string end_reason = 6;</code>
      * @param string $var
@@ -253,6 +275,34 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->end_reason = $var;
+
+        return $this;
+    }
+
+    /**
+     * Set on the final message when the stream was ended by the server, together with
+     * <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @return int
+     */
+    public function getEndReasonCode()
+    {
+        return $this->end_reason_code;
+    }
+
+    /**
+     * Set on the final message when the stream was ended by the server, together with
+     * <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setEndReasonCode($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\LogStreamEndReason::class);
+        $this->end_reason_code = $var;
 
         return $this;
     }

@@ -10,7 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to get the list of agents
+ * Request to list VTSI projects. The filters are combined with AND; the values within one repeated
+ * field are combined with OR; an unset field or an empty repeated field does not filter.
  *
  * Generated from protobuf message <code>ondewo.vtsi.ListVtsiProjectsRequest</code>
  */
@@ -23,26 +24,80 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_view = 0;
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      */
     protected $page_token = null;
     /**
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
+     * project&apos;s internal id), which is a stable order.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
      */
     protected $vtsi_project_sorting = null;
     /**
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>repeated string nlu_agent_names = 4;</code>
      */
     private $nlu_agent_names;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+     * relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>,
+     * <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+     * <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
+     * the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     */
+    protected $page_size = 0;
+    /**
+     * Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     */
+    private $statuses;
+    /**
+     * Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
+     * filter. At most 256 characters.
+     *
+     * Generated from protobuf field <code>string display_name_contains = 8;</code>
+     */
+    protected $display_name_contains = '';
+    /**
+     * Optional. Only projects created at or after this instant.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 9;</code>
+     */
+    protected $created_after = null;
+    /**
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 10;</code>
+     */
+    protected $created_before = null;
 
     /**
      * Constructor.
@@ -53,14 +108,44 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      *     @type int $vtsi_project_view
      *           Optional. Specify the view of the returned VtsiProject (full view by default)
      *     @type string $page_token
-     *           Optional. The next_page_token value returned from a previous list request.
-     *           Example: "current_index-1--page_size-20"
+     *           Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     *           it (its format is internal and may change). Keep every other request field (filters, sorting,
+     *           <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
+     *           guaranteed to be rejected and then returns that position of the other listing.
      *     @type \Ondewo\Vtsi\VtsiProjectSorting $vtsi_project_sorting
      *           Optional. Field to define the sorting of the list of VTSI projects in the response.
-     *           If not specified, the default behavior is to have no sorting.
+     *           Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
+     *           project&apos;s internal id), which is a stable order.
      *     @type string[] $nlu_agent_names
-     *           Optional. Filter based on associated NLU agents.
+     *           Optional. Only projects associated with at least one of these NLU agents.
      *           Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+     *           relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+     *           <code>display_name</code>, <code>vtsi_project_status</code>,
+     *           <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+     *           fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     *           populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+     *           unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+     *           <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+     *           response and never populates a field that was left empty. Not part of the paging contract: a
+     *           <code>page_token</code> stays valid with another mask.
+     *     @type int $page_size
+     *           Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
+     *           values above 1000 are clamped to 1000; negative values are rejected with
+     *           <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
+     *           the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
+     *     @type int[] $statuses
+     *           Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
+     *           <code>INVALID_ARGUMENT</code>.
+     *     @type string $display_name_contains
+     *           Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
+     *           filter. At most 256 characters.
+     *     @type \Google\Protobuf\Timestamp $created_after
+     *           Optional. Only projects created at or after this instant.
+     *     @type \Google\Protobuf\Timestamp $created_before
+     *           Optional. Only projects created strictly before this instant. A window whose start
+     *           (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -95,8 +180,10 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @return string
@@ -117,8 +204,10 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. The next_page_token value returned from a previous list request.
-     * Example: "current_index-1--page_size-20"
+     * Optional. The <code>next_page_token</code> of a previous response. OPAQUE: never construct or parse
+     * it (its format is internal and may change). Keep every other request field (filters, sorting,
+     * <code>page_size</code>) unchanged while paging: a token sent with other filters or sorting is not
+     * guaranteed to be rejected and then returns that position of the other listing.
      *
      * Generated from protobuf field <code>optional string page_token = 2;</code>
      * @param string $var
@@ -134,7 +223,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
+     * project&apos;s internal id), which is a stable order.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
      * @return \Ondewo\Vtsi\VtsiProjectSorting|null
@@ -156,7 +246,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. Field to define the sorting of the list of VTSI projects in the response.
-     * If not specified, the default behavior is to have no sorting.
+     * Unset or <code>NO_VTSI_PROJECT_SORTING</code>: by <code>display_name</code>, ascending (ties by the
+     * project&apos;s internal id), which is a stable order.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.VtsiProjectSorting vtsi_project_sorting = 3;</code>
      * @param \Ondewo\Vtsi\VtsiProjectSorting $var
@@ -171,7 +262,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>repeated string nlu_agent_names = 4;</code>
@@ -183,7 +274,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. Filter based on associated NLU agents.
+     * Optional. Only projects associated with at least one of these NLU agents.
      * Format: <pre><code>projects/&lt;Project ID&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>repeated string nlu_agent_names = 4;</code>
@@ -194,6 +285,222 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_agent_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+     * relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>,
+     * <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+     * <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>VtsiProject</code>,
+     * relative to the <code>VtsiProject</code> message (no <code>vtsi_projects.</code> prefix), e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>,
+     * <code>asterisk_configs.asterisk_configs_variables</code>. Nested paths through singular message
+     * fields are allowed; a path below a repeated or map field is not. <code>name</code> is always
+     * populated. Unset or empty returns every field the <code>vtsi_project_view</code> populates. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it. Applied after the
+     * <code>vtsi_project_view</code> and the server&apos;s role-based redaction, so it can only narrow the
+     * response and never populates a field that was left empty. Not part of the paging contract: a
+     * <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
+     * the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @return int
+     */
+    public function getPageSize()
+    {
+        return $this->page_size;
+    }
+
+    /**
+     * Optional. Maximum number of projects per page. <code>0</code> means the server default of 25;
+     * values above 1000 are clamped to 1000; negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>. Fewer projects than <code>page_size</code> may be returned (e.g. after
+     * the authorization filter), and only an empty <code>next_page_token</code> means the end of the list.
+     *
+     * Generated from protobuf field <code>int32 page_size = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPageSize($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->page_size = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @return RepeatedField<int>
+     */
+    public function getStatuses()
+    {
+        return $this->statuses;
+    }
+
+    /**
+     * Optional. Only projects in one of these statuses. <code>UNSPECIFIED</code> is rejected with
+     * <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setStatuses($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiProjectStatus::class);
+        $this->statuses = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
+     * filter. At most 256 characters.
+     *
+     * Generated from protobuf field <code>string display_name_contains = 8;</code>
+     * @return string
+     */
+    public function getDisplayNameContains()
+    {
+        return $this->display_name_contains;
+    }
+
+    /**
+     * Optional. Case-insensitive substring match against <code>display_name</code>. Empty does not
+     * filter. At most 256 characters.
+     *
+     * Generated from protobuf field <code>string display_name_contains = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setDisplayNameContains($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->display_name_contains = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only projects created at or after this instant.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedAfter()
+    {
+        return $this->created_after;
+    }
+
+    public function hasCreatedAfter()
+    {
+        return isset($this->created_after);
+    }
+
+    public function clearCreatedAfter()
+    {
+        unset($this->created_after);
+    }
+
+    /**
+     * Optional. Only projects created at or after this instant.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 9;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedAfter($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_after = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedBefore()
+    {
+        return $this->created_before;
+    }
+
+    public function hasCreatedBefore()
+    {
+        return isset($this->created_before);
+    }
+
+    public function clearCreatedBefore()
+    {
+        unset($this->created_before);
+    }
+
+    /**
+     * Optional. Only projects created strictly before this instant. A window whose start
+     * (<code>created_after</code>) is not before its end is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 10;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedBefore($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_before = $var;
 
         return $this;
     }

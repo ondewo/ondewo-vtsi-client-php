@@ -34,7 +34,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
     protected $filter = null;
     /**
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * <code>0</code> (the default) starts the follow with no historical replay. Applied to the
+     * <code>0</code> (the default) starts the follow with no historical replay; a negative value is
+     * treated as <code>0</code>; values above the server hard cap
+     * (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it. Applied to the
      * FILTERED result, so <code>tail_lines = 100</code> with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      *
@@ -74,7 +76,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      *           with <code>INVALID_ARGUMENT</code> rather than silently ignored.
      *     @type int $tail_lines
      *           Replay at most this many of the most recent stored entries before switching to live follow.
-     *           <code>0</code> (the default) starts the follow with no historical replay. Applied to the
+     *           <code>0</code> (the default) starts the follow with no historical replay; a negative value is
+     *           treated as <code>0</code>; values above the server hard cap
+     *           (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it. Applied to the
      *           FILTERED result, so <code>tail_lines = 100</code> with a severity floor returns up to 100
      *           matching entries rather than the matches within the last 100 entries.
      *     @type string $resume_token
@@ -163,7 +167,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * <code>0</code> (the default) starts the follow with no historical replay. Applied to the
+     * <code>0</code> (the default) starts the follow with no historical replay; a negative value is
+     * treated as <code>0</code>; values above the server hard cap
+     * (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it. Applied to the
      * FILTERED result, so <code>tail_lines = 100</code> with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      *
@@ -187,7 +193,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Replay at most this many of the most recent stored entries before switching to live follow.
-     * <code>0</code> (the default) starts the follow with no historical replay. Applied to the
+     * <code>0</code> (the default) starts the follow with no historical replay; a negative value is
+     * treated as <code>0</code>; values above the server hard cap
+     * (<code>ONDEWO_VTSI_LOG_HARD_MAX_LINES</code>, default 50000) are clamped to it. Applied to the
      * FILTERED result, so <code>tail_lines = 100</code> with a severity floor returns up to 100
      * matching entries rather than the matches within the last 100 entries.
      *

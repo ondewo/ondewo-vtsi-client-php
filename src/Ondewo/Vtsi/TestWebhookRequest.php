@@ -18,10 +18,31 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
 {
     /**
      * Resource name of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
     protected $name = '';
+    /**
+     * Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
+     * a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
+     * <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
+     * <code>vtsi_project_name</code> the webhook&apos;s project, <code>event_time</code> now, and every field and
+     * attribute key the event carries (see its <code>VtsiEvent</code> value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * <code>00000000-0000-0000-0000-000000000000</code> (e.g.
+     * <code>projects/&lt;project_uuid&gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000</code>),
+     * a phone number is <code>+10000000000</code>, counts are <code>0</code>, times are now. It always carries
+     * the attribute <code>test</code> = <code>true</code>, <code>description</code> <code>webhook test</code>
+     * and the header <code>X-Ondewo-Vtsi-Test: true</code>, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. <code>VTSI_EVENT_UNSPECIFIED</code> (the default)
+     * sends <code>VTSI_EVENT_WEBHOOK_TEST</code> as before; a reserved value or one the server does not know is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     */
+    protected $sample_event = 0;
 
     /**
      * Constructor.
@@ -31,6 +52,23 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $name
      *           Resource name of the webhook.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+     *           Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type int $sample_event
+     *           Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
+     *           a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
+     *           <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
+     *           <code>vtsi_project_name</code> the webhook&apos;s project, <code>event_time</code> now, and every field and
+     *           attribute key the event carries (see its <code>VtsiEvent</code> value) is filled with a placeholder of the
+     *           documented format: resource names use the all-zero uuid
+     *           <code>00000000-0000-0000-0000-000000000000</code> (e.g.
+     *           <code>projects/&lt;project_uuid&gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000</code>),
+     *           a phone number is <code>+10000000000</code>, counts are <code>0</code>, times are now. It always carries
+     *           the attribute <code>test</code> = <code>true</code>, <code>description</code> <code>webhook test</code>
+     *           and the header <code>X-Ondewo-Vtsi-Test: true</code>, so a receiver can tell it from a real event and
+     *           must not act on it. No resource is read or changed. <code>VTSI_EVENT_UNSPECIFIED</code> (the default)
+     *           sends <code>VTSI_EVENT_WEBHOOK_TEST</code> as before; a reserved value or one the server does not know is
+     *           rejected with <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,6 +78,8 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -51,6 +91,8 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the webhook.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -60,6 +102,58 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
+     * a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
+     * <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
+     * <code>vtsi_project_name</code> the webhook&apos;s project, <code>event_time</code> now, and every field and
+     * attribute key the event carries (see its <code>VtsiEvent</code> value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * <code>00000000-0000-0000-0000-000000000000</code> (e.g.
+     * <code>projects/&lt;project_uuid&gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000</code>),
+     * a phone number is <code>+10000000000</code>, counts are <code>0</code>, times are now. It always carries
+     * the attribute <code>test</code> = <code>true</code>, <code>description</code> <code>webhook test</code>
+     * and the header <code>X-Ondewo-Vtsi-Test: true</code>, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. <code>VTSI_EVENT_UNSPECIFIED</code> (the default)
+     * sends <code>VTSI_EVENT_WEBHOOK_TEST</code> as before; a reserved value or one the server does not know is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @return int
+     */
+    public function getSampleEvent()
+    {
+        return $this->sample_event;
+    }
+
+    /**
+     * Optional. Send an event shaped like this real event instead of <code>VTSI_EVENT_WEBHOOK_TEST</code>, so
+     * a receiver can be tested against the payload it will get: <code>event</code> is this value, the header
+     * <code>X-Ondewo-Vtsi-Event</code> its name, <code>event_id</code> a fresh uuid,
+     * <code>vtsi_project_name</code> the webhook&apos;s project, <code>event_time</code> now, and every field and
+     * attribute key the event carries (see its <code>VtsiEvent</code> value) is filled with a placeholder of the
+     * documented format: resource names use the all-zero uuid
+     * <code>00000000-0000-0000-0000-000000000000</code> (e.g.
+     * <code>projects/&lt;project_uuid&gt;/callers/00000000-0000-0000-0000-000000000000/calls/00000000-0000-0000-0000-000000000000</code>),
+     * a phone number is <code>+10000000000</code>, counts are <code>0</code>, times are now. It always carries
+     * the attribute <code>test</code> = <code>true</code>, <code>description</code> <code>webhook test</code>
+     * and the header <code>X-Ondewo-Vtsi-Test: true</code>, so a receiver can tell it from a real event and
+     * must not act on it. No resource is read or changed. <code>VTSI_EVENT_UNSPECIFIED</code> (the default)
+     * sends <code>VTSI_EVENT_WEBHOOK_TEST</code> as before; a reserved value or one the server does not know is
+     * rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSampleEvent($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiEvent::class);
+        $this->sample_event = $var;
 
         return $this;
     }

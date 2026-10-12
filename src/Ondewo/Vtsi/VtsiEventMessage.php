@@ -90,7 +90,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
     /**
      * Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
      * <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
-     * <code>previous_status</code>. Keys are documented per event in the VTSI documentation.
+     * <code>previous_status</code>. The keys and value formats of each event are documented at its
+     * <a href="index.html#ondewo.vtsi.VtsiEvent">VtsiEvent</a> value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      *
      * Generated from protobuf field <code>map<string, string> attributes = 12;</code>
      */
@@ -147,7 +149,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      *     @type array|\Google\Protobuf\Internal\MapField $attributes
      *           Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
      *           <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
-     *           <code>previous_status</code>. Keys are documented per event in the VTSI documentation.
+     *           <code>previous_status</code>. The keys and value formats of each event are documented at its
+     *           <a href="index.html#ondewo.vtsi.VtsiEvent">VtsiEvent</a> value; at most 20 entries, each value at most
+     *           256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      *     @type \Ondewo\Vtsi\CampaignStatistics $campaign_statistics
      *           Statistics of the campaign, on campaign events.
      *     @type int|string $resource_sequence
@@ -490,7 +494,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
     /**
      * Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
      * <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
-     * <code>previous_status</code>. Keys are documented per event in the VTSI documentation.
+     * <code>previous_status</code>. The keys and value formats of each event are documented at its
+     * <a href="index.html#ondewo.vtsi.VtsiEvent">VtsiEvent</a> value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      *
      * Generated from protobuf field <code>map<string, string> attributes = 12;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -503,7 +509,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
     /**
      * Further event-specific values, e.g. <code>caller_name</code>, <code>listener_name</code>,
      * <code>phone_number</code>, <code>container_name</code>, <code>attempt_number</code>,
-     * <code>previous_status</code>. Keys are documented per event in the VTSI documentation.
+     * <code>previous_status</code>. The keys and value formats of each event are documented at its
+     * <a href="index.html#ondewo.vtsi.VtsiEvent">VtsiEvent</a> value; at most 20 entries, each value at most
+     * 256 characters. Receivers must ignore keys they do not know: later versions may add keys.
      *
      * Generated from protobuf field <code>map<string, string> attributes = 12;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var

@@ -10,20 +10,20 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to stop/kill a ondewo-sip listener or caller instance for a specific vtsi-project.
+ * Response to stop a call, and one entry of <code>StopCallsResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopCallResponse</code>
  */
 class StopCallResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name with which to stop the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * call name to stop
+     * The call the request named
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -31,7 +31,12 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * error messages if you have any so if it's unhealthy
+     * Empty when the call&apos;s listener or caller was released. <code>Call ... was not released</code> when there
+     * was nothing left to release (e.g. it had already been stopped); the RPC still succeeds. Errors that are not
+     * about this outcome are gRPC status codes for <code>StopCall</code>; in an entry of
+     * <code>StopCallsResponse</code> / the response of <code>StopAllCalls</code> they are the error of that entry,
+     * prefixed with the name of the gRPC status code <code>StopCall</code> would have answered, e.g.
+     * <code>NOT_FOUND: call projects/.../calls/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      */
@@ -44,13 +49,18 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name with which to stop the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $call_name
-     *           call name to stop
+     *           The call the request named
      *           For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *     @type string $error_message
-     *           error messages if you have any so if it's unhealthy
+     *           Empty when the call&apos;s listener or caller was released. <code>Call ... was not released</code> when there
+     *           was nothing left to release (e.g. it had already been stopped); the RPC still succeeds. Errors that are not
+     *           about this outcome are gRPC status codes for <code>StopCall</code>; in an entry of
+     *           <code>StopCallsResponse</code> / the response of <code>StopAllCalls</code> they are the error of that entry,
+     *           prefixed with the name of the gRPC status code <code>StopCall</code> would have answered, e.g.
+     *           <code>NOT_FOUND: call projects/.../calls/... does not exist</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -59,7 +69,7 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to stop the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -70,7 +80,7 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to stop the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the call, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -85,7 +95,7 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * call name to stop
+     * The call the request named
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -98,7 +108,7 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * call name to stop
+     * The call the request named
      * For listener this is <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      * For callers this is <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *
@@ -115,7 +125,12 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error messages if you have any so if it's unhealthy
+     * Empty when the call&apos;s listener or caller was released. <code>Call ... was not released</code> when there
+     * was nothing left to release (e.g. it had already been stopped); the RPC still succeeds. Errors that are not
+     * about this outcome are gRPC status codes for <code>StopCall</code>; in an entry of
+     * <code>StopCallsResponse</code> / the response of <code>StopAllCalls</code> they are the error of that entry,
+     * prefixed with the name of the gRPC status code <code>StopCall</code> would have answered, e.g.
+     * <code>NOT_FOUND: call projects/.../calls/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @return string
@@ -126,7 +141,12 @@ class StopCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error messages if you have any so if it's unhealthy
+     * Empty when the call&apos;s listener or caller was released. <code>Call ... was not released</code> when there
+     * was nothing left to release (e.g. it had already been stopped); the RPC still succeeds. Errors that are not
+     * about this outcome are gRPC status codes for <code>StopCall</code>; in an entry of
+     * <code>StopCallsResponse</code> / the response of <code>StopAllCalls</code> they are the error of that entry,
+     * prefixed with the name of the gRPC status code <code>StopCall</code> would have answered, e.g.
+     * <code>NOT_FOUND: call projects/.../calls/... does not exist</code>.
      *
      * Generated from protobuf field <code>string error_message = 3;</code>
      * @param string $var

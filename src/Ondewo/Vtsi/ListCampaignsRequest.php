@@ -32,7 +32,9 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
     protected $filter = null;
     /**
      * Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
-     * to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
+     * to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
+     * <code>campaign_callers_truncated</code>); negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 page_size = 3;</code>
      */
@@ -44,6 +46,31 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional string page_token = 4;</code>
      */
     protected $page_token = null;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
+     * relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
+     * <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
+     * <code>name</code> is always populated. Unset or empty returns every field EXCEPT
+     * <code>campaign_callers</code> and <code>campaign_callers_truncated</code>, which are populated only when
+     * the mask names them explicitly (a page of full caller lists could exceed gRPC&apos;s default 4 MiB message
+     * limit). When the mask names either of them, the page holds at most 20 campaigns: a larger
+     * <code>page_size</code> is clamped to 20 (not rejected). For the complete, paginated callers of one
+     * campaign use <code>Calls.ListCallers</code> with the campaign selector. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a <code>page_token</code> stays
+     * valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Order of the listing; unset means newest first (<code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>),
+     * as before this field existed. Part of the paging contract: a <code>page_token</code> is valid only with
+     * the <code>order_by</code> it was issued for (<code>INVALID_ARGUMENT</code> otherwise). An unknown value
+     * is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignOrderBy order_by = 6;</code>
+     */
+    protected $order_by = 0;
 
     /**
      * Constructor.
@@ -58,10 +85,29 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      *           Optional. Narrows the listing.
      *     @type int $page_size
      *           Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
-     *           to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
+     *           to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
+     *           <code>campaign_callers_truncated</code>); negative values are rejected with
+     *           <code>INVALID_ARGUMENT</code>.
      *     @type string $page_token
      *           Optional. The <code>next_page_token</code> of a previous response; valid only with the same
      *           project and filter.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
+     *           relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
+     *           <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
+     *           <code>name</code> is always populated. Unset or empty returns every field EXCEPT
+     *           <code>campaign_callers</code> and <code>campaign_callers_truncated</code>, which are populated only when
+     *           the mask names them explicitly (a page of full caller lists could exceed gRPC&apos;s default 4 MiB message
+     *           limit). When the mask names either of them, the page holds at most 20 campaigns: a larger
+     *           <code>page_size</code> is clamped to 20 (not rejected). For the complete, paginated callers of one
+     *           campaign use <code>Calls.ListCallers</code> with the campaign selector. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a <code>page_token</code> stays
+     *           valid with another mask.
+     *     @type int $order_by
+     *           Optional. Order of the listing; unset means newest first (<code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>),
+     *           as before this field existed. Part of the paging contract: a <code>page_token</code> is valid only with
+     *           the <code>order_by</code> it was issued for (<code>INVALID_ARGUMENT</code> otherwise). An unknown value
+     *           is rejected with <code>INVALID_ARGUMENT</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -135,7 +181,9 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
-     * to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
+     * to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
+     * <code>campaign_callers_truncated</code>); negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 page_size = 3;</code>
      * @return int
@@ -147,7 +195,9 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. Maximum campaigns per page. <code>0</code> means 20; values above 1000 are clamped
-     * to 1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
+     * to 1000 (to 20 when <code>field_mask</code> names <code>campaign_callers</code> or
+     * <code>campaign_callers_truncated</code>); negative values are rejected with
+     * <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 page_size = 3;</code>
      * @param int $var
@@ -195,6 +245,94 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->page_token = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
+     * relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
+     * <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
+     * <code>name</code> is always populated. Unset or empty returns every field EXCEPT
+     * <code>campaign_callers</code> and <code>campaign_callers_truncated</code>, which are populated only when
+     * the mask names them explicitly (a page of full caller lists could exceed gRPC&apos;s default 4 MiB message
+     * limit). When the mask names either of them, the page holds at most 20 campaigns: a larger
+     * <code>page_size</code> is clamped to 20 (not rejected). For the complete, paginated callers of one
+     * campaign use <code>Calls.ListCallers</code> with the campaign selector. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a <code>page_token</code> stays
+     * valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned <code>Campaign</code>,
+     * relative to the <code>Campaign</code> message (no <code>campaigns.</code> prefix), as in
+     * <a href="index.html#ondewo.vtsi.GetCampaignRequest">GetCampaignRequest.field_mask</a>.
+     * <code>name</code> is always populated. Unset or empty returns every field EXCEPT
+     * <code>campaign_callers</code> and <code>campaign_callers_truncated</code>, which are populated only when
+     * the mask names them explicitly (a page of full caller lists could exceed gRPC&apos;s default 4 MiB message
+     * limit). When the mask names either of them, the page holds at most 20 campaigns: a larger
+     * <code>page_size</code> is clamped to 20 (not rejected). For the complete, paginated callers of one
+     * campaign use <code>Calls.ListCallers</code> with the campaign selector. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Not part of the paging contract: a <code>page_token</code> stays
+     * valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Order of the listing; unset means newest first (<code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>),
+     * as before this field existed. Part of the paging contract: a <code>page_token</code> is valid only with
+     * the <code>order_by</code> it was issued for (<code>INVALID_ARGUMENT</code> otherwise). An unknown value
+     * is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignOrderBy order_by = 6;</code>
+     * @return int
+     */
+    public function getOrderBy()
+    {
+        return $this->order_by;
+    }
+
+    /**
+     * Optional. Order of the listing; unset means newest first (<code>CAMPAIGN_ORDER_BY_CREATED_AT_DESC</code>),
+     * as before this field existed. Part of the paging contract: a <code>page_token</code> is valid only with
+     * the <code>order_by</code> it was issued for (<code>INVALID_ARGUMENT</code> otherwise). An unknown value
+     * is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CampaignOrderBy order_by = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setOrderBy($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignOrderBy::class);
+        $this->order_by = $var;
 
         return $this;
     }

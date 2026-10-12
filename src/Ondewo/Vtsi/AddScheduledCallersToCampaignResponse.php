@@ -31,7 +31,9 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      */
     private $scheduled_caller_responses;
     /**
-     * The campaign the scheduled callers were added to.
+     * The campaign the scheduled callers were added to. Its call defaults
+     * (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
+     * left unset here; read them with <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 3;</code>
      */
@@ -55,7 +57,9 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      *     @type \Ondewo\Vtsi\StartScheduledCallerResponse[] $scheduled_caller_responses
      *           The scheduled callers created, in request order.
      *     @type \Ondewo\Vtsi\Campaign $campaign
-     *           The campaign the scheduled callers were added to.
+     *           The campaign the scheduled callers were added to. Its call defaults
+     *           (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
+     *           left unset here; read them with <code>Campaigns.GetCampaign</code>.
      *     @type string[] $campaign_call_names
      *           The campaign calls created by this request, in request order.
      * }
@@ -120,7 +124,9 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * The campaign the scheduled callers were added to.
+     * The campaign the scheduled callers were added to. Its call defaults
+     * (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
+     * left unset here; read them with <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 3;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -141,7 +147,9 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * The campaign the scheduled callers were added to.
+     * The campaign the scheduled callers were added to. Its call defaults
+     * (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) are always
+     * left unset here; read them with <code>Campaigns.GetCampaign</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 3;</code>
      * @param \Ondewo\Vtsi\Campaign $var

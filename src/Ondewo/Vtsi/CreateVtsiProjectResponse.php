@@ -17,13 +17,15 @@ use Google\Protobuf\RepeatedField;
 class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Vtsi project
+     * The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
+     * <code>validate_only</code>: the would-be project).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      */
     protected $vtsi_project = null;
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      */
@@ -36,9 +38,11 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\VtsiProject $vtsi_project
-     *           Vtsi project
+     *           The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
+     *           <code>validate_only</code>: the would-be project).
      *     @type string $error_message
-     *           error message if there are any.
+     *           Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     *           description). Kept for wire compatibility.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +51,8 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Vtsi project
+     * The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
+     * <code>validate_only</code>: the would-be project).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      * @return \Ondewo\Vtsi\VtsiProject|null
@@ -68,7 +73,8 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Vtsi project
+     * The created project, <code>UNDEPLOYED</code>, with its assigned name and port (with
+     * <code>validate_only</code>: the would-be project).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      * @param \Ondewo\Vtsi\VtsiProject $var
@@ -83,7 +89,8 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @return string
@@ -94,7 +101,8 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if there are any.
+     * Never set: errors are reported as gRPC status codes (see the <code>Projects</code> service
+     * description). Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 2;</code>
      * @param string $var

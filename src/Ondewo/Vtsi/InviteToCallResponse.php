@@ -35,7 +35,8 @@ class InviteToCallResponse extends \Google\Protobuf\Internal\Message
      */
     protected $participant = null;
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      */
@@ -54,7 +55,8 @@ class InviteToCallResponse extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\CallParticipant $participant
      *           The invited participant
      *     @type string $error_message
-     *           error message if you have any
+     *           Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     *           Kept for wire compatibility.
      * }
      */
     public function __construct($data = NULL) {
@@ -151,7 +153,8 @@ class InviteToCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @return string
@@ -162,7 +165,8 @@ class InviteToCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 4;</code>
      * @param string $var

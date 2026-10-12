@@ -17,7 +17,9 @@ use Google\Protobuf\RepeatedField;
 class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The webhook, identified by <code>webhook.name</code>.
+     * The webhook, identified by <code>webhook.name</code>
+     * (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
+     * <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Webhook webhook = 1;</code>
      */
@@ -30,11 +32,22 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
      * <code>false</code>; an unset <code>timeout</code> writes the server default. When
      * <code>url</code> moves to another origin and the webhook has stored headers,
      * <code>custom_headers</code> must be in the mask with real values (see
-     * <code>UpdateWebhook</code>).
+     * <code>UpdateWebhook</code>). <code>signing_secret</code> is updatable too: a new value rotates it, an
+     * empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     protected $update_mask = null;
+    /**
+     * Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+     * <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -43,7 +56,9 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\Webhook $webhook
-     *           The webhook, identified by <code>webhook.name</code>.
+     *           The webhook, identified by <code>webhook.name</code>
+     *           (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
+     *           <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
      *     @type \Google\Protobuf\FieldMask $update_mask
      *           Required. Paths without prefix: <code>display_name</code>, <code>url</code>,
      *           <code>http_method</code>, <code>custom_headers</code>, <code>disabled</code>,
@@ -52,7 +67,14 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
      *           <code>false</code>; an unset <code>timeout</code> writes the server default. When
      *           <code>url</code> moves to another origin and the webhook has stored headers,
      *           <code>custom_headers</code> must be in the mask with real values (see
-     *           <code>UpdateWebhook</code>).
+     *           <code>UpdateWebhook</code>). <code>signing_secret</code> is updatable too: a new value rotates it, an
+     *           empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+     *           <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
+     *           below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     *           field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     *           written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
      * }
      */
     public function __construct($data = NULL) {
@@ -61,7 +83,9 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The webhook, identified by <code>webhook.name</code>.
+     * The webhook, identified by <code>webhook.name</code>
+     * (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
+     * <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Webhook webhook = 1;</code>
      * @return \Ondewo\Vtsi\Webhook|null
@@ -82,7 +106,9 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The webhook, identified by <code>webhook.name</code>.
+     * The webhook, identified by <code>webhook.name</code>
+     * (<code>projects/&lt;project_uuid&gt;/webhooks/&lt;webhook_uuid&gt;</code>; malformed is
+     * <code>INVALID_ARGUMENT</code>), carrying the new values of the fields named in <code>update_mask</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Webhook webhook = 1;</code>
      * @param \Ondewo\Vtsi\Webhook $var
@@ -104,7 +130,8 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
      * <code>false</code>; an unset <code>timeout</code> writes the server default. When
      * <code>url</code> moves to another origin and the webhook has stored headers,
      * <code>custom_headers</code> must be in the mask with real values (see
-     * <code>UpdateWebhook</code>).
+     * <code>UpdateWebhook</code>). <code>signing_secret</code> is updatable too: a new value rotates it, an
+     * empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @return \Google\Protobuf\FieldMask|null
@@ -132,7 +159,8 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
      * <code>false</code>; an unset <code>timeout</code> writes the server default. When
      * <code>url</code> moves to another origin and the webhook has stored headers,
      * <code>custom_headers</code> must be in the mask with real values (see
-     * <code>UpdateWebhook</code>).
+     * <code>UpdateWebhook</code>). <code>signing_secret</code> is updatable too: a new value rotates it, an
+     * empty one removes it, <code>********</code> keeps it (see <code>Webhook.signing_secret</code>).
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @param \Google\Protobuf\FieldMask $var
@@ -142,6 +170,50 @@ class UpdateWebhookRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+     * <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>Webhook</code> field paths to populate, relative to the returned
+     * <code>Webhook</code> (no prefix). Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

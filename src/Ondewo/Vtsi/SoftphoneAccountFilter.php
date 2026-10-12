@@ -67,6 +67,13 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.Timestamp certificate_expires_after = 7;</code>
      */
     protected $certificate_expires_after = null;
+    /**
+     * Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
+     * <code>SoftphoneAccount.locked</code>. Unset matches both.
+     *
+     * Generated from protobuf field <code>optional bool locked = 8;</code>
+     */
+    protected $locked = null;
 
     /**
      * Constructor.
@@ -95,6 +102,9 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      *           Only accounts whose ACTIVE certificate expires at or after this instant. Accounts without an ACTIVE
      *           certificate never match. A window whose start is not before its end is rejected with
      *           <code>INVALID_ARGUMENT</code>.
+     *     @type bool $locked
+     *           Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
+     *           <code>SoftphoneAccount.locked</code>. Unset matches both.
      * }
      */
     public function __construct($data = NULL) {
@@ -324,6 +334,44 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->certificate_expires_after = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
+     * <code>SoftphoneAccount.locked</code>. Unset matches both.
+     *
+     * Generated from protobuf field <code>optional bool locked = 8;</code>
+     * @return bool
+     */
+    public function getLocked()
+    {
+        return isset($this->locked) ? $this->locked : false;
+    }
+
+    public function hasLocked()
+    {
+        return isset($this->locked);
+    }
+
+    public function clearLocked()
+    {
+        unset($this->locked);
+    }
+
+    /**
+     * Only locked (<code>true</code>) or only unlocked (<code>false</code>) accounts, see
+     * <code>SoftphoneAccount.locked</code>. Unset matches both.
+     *
+     * Generated from protobuf field <code>optional bool locked = 8;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setLocked($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->locked = $var;
 
         return $this;
     }

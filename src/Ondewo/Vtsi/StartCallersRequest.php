@@ -42,6 +42,34 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string idempotency_key = 4;</code>
      */
     protected $idempotency_key = '';
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
+     * <code>StartCallersResponse.caller_responses</code>, relative to the <code>Caller</code> message (no prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
+     * field is not. <code>caller.name</code> and every other field of the response and of its entries are
+     * always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It
+     * shapes only the response: the callers are started regardless. The entries&apos; own
+     * <code>field_mask</code> must be unset. Not part of the <code>idempotency_key</code> comparison: a retry
+     * with the same key and another mask replays the first response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Dry run of the whole batch: every entry is validated like <code>StartCaller</code> with
+     * <code>validate_only</code> (see <code>StartCallerRequest.validate_only</code>), the project&apos;s caller limit
+     * is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted. The
+     * The response is shaped like a real one: one entry per caller that would have been started, and the entries
+     * that would have failed accounted for in <code>error_message</code>. The <code>idempotency_key</code> is
+     * neither read nor stored by a dry run. The entries&apos; own
+     * <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     *
+     * Generated from protobuf field <code>bool validate_only = 6;</code>
+     */
+    protected $validate_only = false;
 
     /**
      * Constructor.
@@ -63,6 +91,26 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      *           that fails stores nothing, so a retry after a failure runs the request again. A replayed response carries
      *           no <code>common_services_config</code>: the server keeps no second copy of the credentials it holds. To
      *           make a single caller or listener idempotent, send it as a batch of one.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
+     *           <code>StartCallersResponse.caller_responses</code>, relative to the <code>Caller</code> message (no prefix), e.g.
+     *           <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
+     *           field is not. <code>caller.name</code> and every other field of the response and of its entries are
+     *           always populated. Unset or empty returns every field. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the server&apos;s
+     *           role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It
+     *           shapes only the response: the callers are started regardless. The entries&apos; own
+     *           <code>field_mask</code> must be unset. Not part of the <code>idempotency_key</code> comparison: a retry
+     *           with the same key and another mask replays the first response shaped by the retry&apos;s mask.
+     *     @type bool $validate_only
+     *           Optional. Dry run of the whole batch: every entry is validated like <code>StartCaller</code> with
+     *           <code>validate_only</code> (see <code>StartCallerRequest.validate_only</code>), the project&apos;s caller limit
+     *           is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted. The
+     *           The response is shaped like a real one: one entry per caller that would have been started, and the entries
+     *           that would have failed accounted for in <code>error_message</code>. The <code>idempotency_key</code> is
+     *           neither read nor stored by a dry run. The entries&apos; own
+     *           <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     *           the server version before relying on it.
      * }
      */
     public function __construct($data = NULL) {
@@ -160,6 +208,100 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->idempotency_key = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
+     * <code>StartCallersResponse.caller_responses</code>, relative to the <code>Caller</code> message (no prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
+     * field is not. <code>caller.name</code> and every other field of the response and of its entries are
+     * always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It
+     * shapes only the response: the callers are started regardless. The entries&apos; own
+     * <code>field_mask</code> must be unset. Not part of the <code>idempotency_key</code> comparison: a retry
+     * with the same key and another mask replays the first response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
+     * <code>StartCallersResponse.caller_responses</code>, relative to the <code>Caller</code> message (no prefix), e.g.
+     * <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path below a repeated or map
+     * field is not. <code>caller.name</code> and every other field of the response and of its entries are
+     * always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It
+     * shapes only the response: the callers are started regardless. The entries&apos; own
+     * <code>field_mask</code> must be unset. Not part of the <code>idempotency_key</code> comparison: a retry
+     * with the same key and another mask replays the first response shaped by the retry&apos;s mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 5;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Dry run of the whole batch: every entry is validated like <code>StartCaller</code> with
+     * <code>validate_only</code> (see <code>StartCallerRequest.validate_only</code>), the project&apos;s caller limit
+     * is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted. The
+     * The response is shaped like a real one: one entry per caller that would have been started, and the entries
+     * that would have failed accounted for in <code>error_message</code>. The <code>idempotency_key</code> is
+     * neither read nor stored by a dry run. The entries&apos; own
+     * <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     *
+     * Generated from protobuf field <code>bool validate_only = 6;</code>
+     * @return bool
+     */
+    public function getValidateOnly()
+    {
+        return $this->validate_only;
+    }
+
+    /**
+     * Optional. Dry run of the whole batch: every entry is validated like <code>StartCaller</code> with
+     * <code>validate_only</code> (see <code>StartCallerRequest.validate_only</code>), the project&apos;s caller limit
+     * is checked for the batch as a whole, nothing is started, deployed or stored and no event is emitted. The
+     * The response is shaped like a real one: one entry per caller that would have been started, and the entries
+     * that would have failed accounted for in <code>error_message</code>. The <code>idempotency_key</code> is
+     * neither read nor stored by a dry run. The entries&apos; own
+     * <code>validate_only</code> must be unset. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     *
+     * Generated from protobuf field <code>bool validate_only = 6;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setValidateOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->validate_only = $var;
 
         return $this;
     }

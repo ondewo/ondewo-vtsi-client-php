@@ -35,13 +35,15 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      */
     protected $state = null;
     /**
-     * <code>true</code> if the effective state changed
+     * <code>true</code> if the effective state changed; <code>false</code> for a repeat of the current level and for
+     * a read (both settings <code>UNCHANGED</code>)
      *
      * Generated from protobuf field <code>bool changed = 4;</code>
      */
     protected $changed = false;
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 5;</code>
      */
@@ -60,9 +62,11 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\CallMediaControlState $state
      *           Effective media control state after the request
      *     @type bool $changed
-     *           <code>true</code> if the effective state changed
+     *           <code>true</code> if the effective state changed; <code>false</code> for a repeat of the current level and for
+     *           a read (both settings <code>UNCHANGED</code>)
      *     @type string $error_message
-     *           error message if you have any
+     *           Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     *           Kept for wire compatibility.
      * }
      */
     public function __construct($data = NULL) {
@@ -159,7 +163,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>true</code> if the effective state changed
+     * <code>true</code> if the effective state changed; <code>false</code> for a repeat of the current level and for
+     * a read (both settings <code>UNCHANGED</code>)
      *
      * Generated from protobuf field <code>bool changed = 4;</code>
      * @return bool
@@ -170,7 +175,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <code>true</code> if the effective state changed
+     * <code>true</code> if the effective state changed; <code>false</code> for a repeat of the current level and for
+     * a read (both settings <code>UNCHANGED</code>)
      *
      * Generated from protobuf field <code>bool changed = 4;</code>
      * @param bool $var
@@ -185,7 +191,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 5;</code>
      * @return string
@@ -196,7 +203,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * error message if you have any
+     * Always empty: errors are reported as gRPC status codes with <code>reason=&lt;token&gt;</code> in the details.
+     * Kept for wire compatibility.
      *
      * Generated from protobuf field <code>string error_message = 5;</code>
      * @param string $var

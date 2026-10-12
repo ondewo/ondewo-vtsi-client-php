@@ -64,8 +64,12 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      */
     protected $caller_id_display_name = '';
     /**
-     * Optional idempotency key: a repeated request with the same <code>call_name</code> and <code>request_id</code>
-     * returns the participant of the first request instead of inviting again
+     * Optional idempotency key: 1 to 255 visible ASCII characters, scoped to <code>call_name</code>. A repeated
+     * request with the same <code>call_name</code> and <code>request_id</code> returns the participant of the first
+     * request (in its CURRENT state) instead of inviting again, for as long as the call record exists. The same key
+     * with a different <code>softphone_account_name</code> or <code>mode</code> is refused with
+     * <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>. Empty means no deduplication (the
+     * server generates a key of its own).
      *
      * Generated from protobuf field <code>string request_id = 8;</code>
      */
@@ -97,8 +101,12 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      *           Caller-ID display name shown on the softphone. Sanitized by the server; default
      *           <code>ONDEWO &lt;listener or caller name&gt;</code>
      *     @type string $request_id
-     *           Optional idempotency key: a repeated request with the same <code>call_name</code> and <code>request_id</code>
-     *           returns the participant of the first request instead of inviting again
+     *           Optional idempotency key: 1 to 255 visible ASCII characters, scoped to <code>call_name</code>. A repeated
+     *           request with the same <code>call_name</code> and <code>request_id</code> returns the participant of the first
+     *           request (in its CURRENT state) instead of inviting again, for as long as the call record exists. The same key
+     *           with a different <code>softphone_account_name</code> or <code>mode</code> is refused with
+     *           <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>. Empty means no deduplication (the
+     *           server generates a key of its own).
      * }
      */
     public function __construct($data = NULL) {
@@ -299,8 +307,12 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional idempotency key: a repeated request with the same <code>call_name</code> and <code>request_id</code>
-     * returns the participant of the first request instead of inviting again
+     * Optional idempotency key: 1 to 255 visible ASCII characters, scoped to <code>call_name</code>. A repeated
+     * request with the same <code>call_name</code> and <code>request_id</code> returns the participant of the first
+     * request (in its CURRENT state) instead of inviting again, for as long as the call record exists. The same key
+     * with a different <code>softphone_account_name</code> or <code>mode</code> is refused with
+     * <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>. Empty means no deduplication (the
+     * server generates a key of its own).
      *
      * Generated from protobuf field <code>string request_id = 8;</code>
      * @return string
@@ -311,8 +323,12 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional idempotency key: a repeated request with the same <code>call_name</code> and <code>request_id</code>
-     * returns the participant of the first request instead of inviting again
+     * Optional idempotency key: 1 to 255 visible ASCII characters, scoped to <code>call_name</code>. A repeated
+     * request with the same <code>call_name</code> and <code>request_id</code> returns the participant of the first
+     * request (in its CURRENT state) instead of inviting again, for as long as the call record exists. The same key
+     * with a different <code>softphone_account_name</code> or <code>mode</code> is refused with
+     * <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>. Empty means no deduplication (the
+     * server generates a key of its own).
      *
      * Generated from protobuf field <code>string request_id = 8;</code>
      * @param string $var

@@ -9,6 +9,10 @@ use UnexpectedValueException;
 
 /**
  * HTTP method of a webhook request.
+ * <p>Note: the zero value <code>WEBHOOK_HTTP_METHOD_UNSPECIFIED</code> is not "no method" but means
+ * <code>POST</code>, the default. It keeps its released name for wire and source compatibility; a webhook
+ * written with it is stored and sent as POST, and <code>Webhook.http_method</code> then reads back
+ * <code>WEBHOOK_HTTP_METHOD_POST</code>.</p>
  *
  * Protobuf type <code>ondewo.vtsi.WebhookHttpMethod</code>
  */

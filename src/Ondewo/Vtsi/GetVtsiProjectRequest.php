@@ -28,6 +28,18 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectView vtsi_project_view = 2;</code>
      */
     protected $vtsi_project_view = 0;
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
+     * <code>asterisk_configs.asterisk_version</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest">ListVtsiProjectsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field the
+     * <code>vtsi_project_view</code> populates, an unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, and the mask is applied after the view and any redaction.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -39,6 +51,14 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project name with which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type int $vtsi_project_view
      *           Optional. Specify the view of the returned VtsiProject (full view by default)
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
+     *           <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
+     *           <code>asterisk_configs.asterisk_version</code>. Same convention as
+     *           <a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest">ListVtsiProjectsRequest.field_mask</a>:
+     *           <code>name</code> is always populated, unset or empty returns every field the
+     *           <code>vtsi_project_view</code> populates, an unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it, and the mask is applied after the view and any redaction.
      * }
      */
     public function __construct($data = NULL) {
@@ -94,6 +114,54 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectView::class);
         $this->vtsi_project_view = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
+     * <code>asterisk_configs.asterisk_version</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest">ListVtsiProjectsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field the
+     * <code>vtsi_project_view</code> populates, an unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, and the mask is applied after the view and any redaction.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate, e.g.
+     * <code>display_name</code>, <code>vtsi_project_status</code>, <code>status_message</code>,
+     * <code>asterisk_configs.asterisk_version</code>. Same convention as
+     * <a href="index.html#ondewo.vtsi.ListVtsiProjectsRequest">ListVtsiProjectsRequest.field_mask</a>:
+     * <code>name</code> is always populated, unset or empty returns every field the
+     * <code>vtsi_project_view</code> populates, an unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, and the mask is applied after the view and any redaction.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

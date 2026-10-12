@@ -18,6 +18,17 @@ use Google\Protobuf\RepeatedField;
 class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
 {
     /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>campaign_name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 9;</code>
+     */
+    protected $vtsi_project_name = '';
+    /**
      * Only calls in one of these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState states = 2;</code>
@@ -38,7 +49,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
     protected $page_size = 0;
     /**
      * Optional. The <code>next_page_token</code> of a previous response; valid only with the same
-     * campaign and filter.
+     * campaign and filter (every filter field above and below, the 9.1.0 ones included).
      *
      * Generated from protobuf field <code>optional string page_token = 5;</code>
      */
@@ -49,6 +60,75 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool include_attempts = 6;</code>
      */
     protected $include_attempts = false;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
+     * <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
+     * <code>attempt_history</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field (e.g. <code>attempt_history.outcome</code>) is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. <code>attempt_history</code> is still populated only with
+     * <code>include_attempts</code>: a mask naming it without <code>include_attempts</code> returns it
+     * empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Only calls to one of these callees (exact match on <code>phone_number</code>), at most 1000 entries.
+     * Combined with <code>phone_number</code> by OR (a call matches when its number is
+     * <code>phone_number</code> or one of these); both empty means every callee.
+     *
+     * Generated from protobuf field <code>repeated string phone_numbers = 11;</code>
+     */
+    private $phone_numbers;
+    /**
+     * Only calls added in one of these ways. Empty means every source. An unknown value or
+     * <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallSource sources = 12;</code>
+     */
+    private $sources;
+    /**
+     * Only calls that finished (<code>finish_time</code> set: <code>COMPLETED</code>, <code>FAILED</code>,
+     * <code>CANCELLED</code>) at or after this time. A call without <code>finish_time</code> never matches
+     * when this or <code>finish_time_max</code> is set. Unset means no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_min = 13;</code>
+     */
+    protected $finish_time_min = null;
+    /**
+     * Only calls that finished strictly before this time. Unset means no upper bound. When both are set,
+     * <code>finish_time_min</code> must be before <code>finish_time_max</code> (<code>INVALID_ARGUMENT</code>
+     * otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_max = 14;</code>
+     */
+    protected $finish_time_max = null;
+    /**
+     * Only calls whose <code>modified_at</code> is at or after this time, i.e. that changed since then
+     * (incremental reads). Unset means no constraint.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 15;</code>
+     */
+    protected $modified_since = null;
+    /**
+     * Only calls with at least this many attempts started (<code>attempts &gt;= min_attempts</code>).
+     * <code>0</code> means no constraint; negative is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 min_attempts = 16;</code>
+     */
+    protected $min_attempts = 0;
+    /**
+     * Only these calls, by resource name
+     * (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
+     * at most 1000. Each must be a call name of the request&apos;s campaign: a malformed name or one of
+     * another campaign is rejected with <code>INVALID_ARGUMENT</code>; a well-formed name of the campaign
+     * that names no call matches nothing. Empty means no constraint.
+     *
+     * Generated from protobuf field <code>repeated string campaign_call_names = 17;</code>
+     */
+    private $campaign_call_names;
     protected $campaign;
 
     /**
@@ -59,8 +139,18 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      *
      *     @type string $campaign_name
      *           Resource name of the campaign.
-     *     @type \Ondewo\Vtsi\CampaignDisplayName $campaign_display_name
-     *           The campaign with this display name.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *     @type string $display_name
+     *           Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     *           <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     *           <code>CampaignDisplayName campaign_display_name = 7</code>.
+     *     @type string $vtsi_project_name
+     *           VTSI project of the campaign.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     *           <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     *           <code>campaign_name</code>: when set, it must be the project of the campaign
+     *           (<code>INVALID_ARGUMENT</code> otherwise).
      *     @type int[] $states
      *           Only calls in one of these states. Empty means every state.
      *     @type string $phone_number
@@ -70,9 +160,46 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      *           1000; negative values are rejected with <code>INVALID_ARGUMENT</code>.
      *     @type string $page_token
      *           Optional. The <code>next_page_token</code> of a previous response; valid only with the same
-     *           campaign and filter.
+     *           campaign and filter (every filter field above and below, the 9.1.0 ones included).
      *     @type bool $include_attempts
      *           Populate <code>CampaignCall.attempt_history</code>.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned
+     *           <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
+     *           <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
+     *           <code>attempt_history</code>. Nested paths through singular message fields are allowed; a path
+     *           below a repeated or map field (e.g. <code>attempt_history.outcome</code>) is not. <code>name</code>
+     *           is always populated. Unset or empty returns every field. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. <code>attempt_history</code> is still populated only with
+     *           <code>include_attempts</code>: a mask naming it without <code>include_attempts</code> returns it
+     *           empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
+     *     @type string[] $phone_numbers
+     *           Only calls to one of these callees (exact match on <code>phone_number</code>), at most 1000 entries.
+     *           Combined with <code>phone_number</code> by OR (a call matches when its number is
+     *           <code>phone_number</code> or one of these); both empty means every callee.
+     *     @type int[] $sources
+     *           Only calls added in one of these ways. Empty means every source. An unknown value or
+     *           <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type \Google\Protobuf\Timestamp $finish_time_min
+     *           Only calls that finished (<code>finish_time</code> set: <code>COMPLETED</code>, <code>FAILED</code>,
+     *           <code>CANCELLED</code>) at or after this time. A call without <code>finish_time</code> never matches
+     *           when this or <code>finish_time_max</code> is set. Unset means no lower bound.
+     *     @type \Google\Protobuf\Timestamp $finish_time_max
+     *           Only calls that finished strictly before this time. Unset means no upper bound. When both are set,
+     *           <code>finish_time_min</code> must be before <code>finish_time_max</code> (<code>INVALID_ARGUMENT</code>
+     *           otherwise).
+     *     @type \Google\Protobuf\Timestamp $modified_since
+     *           Only calls whose <code>modified_at</code> is at or after this time, i.e. that changed since then
+     *           (incremental reads). Unset means no constraint.
+     *     @type int $min_attempts
+     *           Only calls with at least this many attempts started (<code>attempts &gt;= min_attempts</code>).
+     *           <code>0</code> means no constraint; negative is rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type string[] $campaign_call_names
+     *           Only these calls, by resource name
+     *           (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
+     *           at most 1000. Each must be a call name of the request&apos;s campaign: a malformed name or one of
+     *           another campaign is rejected with <code>INVALID_ARGUMENT</code>; a well-formed name of the campaign
+     *           that names no call matches nothing. Empty means no constraint.
      * }
      */
     public function __construct($data = NULL) {
@@ -82,6 +209,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string campaign_name = 1;</code>
      * @return string
@@ -98,6 +226,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Resource name of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string campaign_name = 1;</code>
      * @param string $var
@@ -112,32 +241,72 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The campaign with this display name.
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     * <code>CampaignDisplayName campaign_display_name = 7</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName campaign_display_name = 7;</code>
-     * @return \Ondewo\Vtsi\CampaignDisplayName|null
+     * Generated from protobuf field <code>string display_name = 8;</code>
+     * @return string
      */
-    public function getCampaignDisplayName()
+    public function getDisplayName()
     {
-        return $this->readOneof(7);
+        return $this->readOneof(8);
     }
 
-    public function hasCampaignDisplayName()
+    public function hasDisplayName()
     {
-        return $this->hasOneof(7);
+        return $this->hasOneof(8);
     }
 
     /**
-     * The campaign with this display name.
+     * Exact, case-sensitive <code>display_name</code> of the campaign, resolved within
+     * <code>vtsi_project_name</code>, which is then required. Replaces the 9.0.0
+     * <code>CampaignDisplayName campaign_display_name = 7</code>.
      *
-     * Generated from protobuf field <code>.ondewo.vtsi.CampaignDisplayName campaign_display_name = 7;</code>
-     * @param \Ondewo\Vtsi\CampaignDisplayName $var
+     * Generated from protobuf field <code>string display_name = 8;</code>
+     * @param string $var
      * @return $this
      */
-    public function setCampaignDisplayName($var)
+    public function setDisplayName($var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignDisplayName::class);
-        $this->writeOneof(7, $var);
+        GPBUtil::checkString($var, True);
+        $this->writeOneof(8, $var);
+
+        return $this;
+    }
+
+    /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>campaign_name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 9;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * VTSI project of the campaign.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * REQUIRED with <code>display_name</code>: empty or malformed is rejected with
+     * <code>INVALID_ARGUMENT</code>, an unknown project with <code>NOT_FOUND</code>. Optional with
+     * <code>campaign_name</code>: when set, it must be the project of the campaign
+     * (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 9;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
 
         return $this;
     }
@@ -224,7 +393,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. The <code>next_page_token</code> of a previous response; valid only with the same
-     * campaign and filter.
+     * campaign and filter (every filter field above and below, the 9.1.0 ones included).
      *
      * Generated from protobuf field <code>optional string page_token = 5;</code>
      * @return string
@@ -246,7 +415,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional. The <code>next_page_token</code> of a previous response; valid only with the same
-     * campaign and filter.
+     * campaign and filter (every filter field above and below, the 9.1.0 ones included).
      *
      * Generated from protobuf field <code>optional string page_token = 5;</code>
      * @param string $var
@@ -282,6 +451,296 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->include_attempts = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
+     * <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
+     * <code>attempt_history</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field (e.g. <code>attempt_history.outcome</code>) is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. <code>attempt_history</code> is still populated only with
+     * <code>include_attempts</code>: a mask naming it without <code>include_attempts</code> returns it
+     * empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>CampaignCall</code>, relative to the <code>CampaignCall</code> message (no
+     * <code>campaign_calls.</code> prefix), e.g. <code>state</code>, <code>phone_number</code>,
+     * <code>attempt_history</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field (e.g. <code>attempt_history.outcome</code>) is not. <code>name</code>
+     * is always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. <code>attempt_history</code> is still populated only with
+     * <code>include_attempts</code>: a mask naming it without <code>include_attempts</code> returns it
+     * empty. Not part of the paging contract: a <code>page_token</code> stays valid with another mask.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only calls to one of these callees (exact match on <code>phone_number</code>), at most 1000 entries.
+     * Combined with <code>phone_number</code> by OR (a call matches when its number is
+     * <code>phone_number</code> or one of these); both empty means every callee.
+     *
+     * Generated from protobuf field <code>repeated string phone_numbers = 11;</code>
+     * @return RepeatedField<string>
+     */
+    public function getPhoneNumbers()
+    {
+        return $this->phone_numbers;
+    }
+
+    /**
+     * Only calls to one of these callees (exact match on <code>phone_number</code>), at most 1000 entries.
+     * Combined with <code>phone_number</code> by OR (a call matches when its number is
+     * <code>phone_number</code> or one of these); both empty means every callee.
+     *
+     * Generated from protobuf field <code>repeated string phone_numbers = 11;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setPhoneNumbers($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->phone_numbers = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Only calls added in one of these ways. Empty means every source. An unknown value or
+     * <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallSource sources = 12;</code>
+     * @return RepeatedField<int>
+     */
+    public function getSources()
+    {
+        return $this->sources;
+    }
+
+    /**
+     * Only calls added in one of these ways. Empty means every source. An unknown value or
+     * <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallSource sources = 12;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setSources($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignCallSource::class);
+        $this->sources = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Only calls that finished (<code>finish_time</code> set: <code>COMPLETED</code>, <code>FAILED</code>,
+     * <code>CANCELLED</code>) at or after this time. A call without <code>finish_time</code> never matches
+     * when this or <code>finish_time_max</code> is set. Unset means no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_min = 13;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getFinishTimeMin()
+    {
+        return $this->finish_time_min;
+    }
+
+    public function hasFinishTimeMin()
+    {
+        return isset($this->finish_time_min);
+    }
+
+    public function clearFinishTimeMin()
+    {
+        unset($this->finish_time_min);
+    }
+
+    /**
+     * Only calls that finished (<code>finish_time</code> set: <code>COMPLETED</code>, <code>FAILED</code>,
+     * <code>CANCELLED</code>) at or after this time. A call without <code>finish_time</code> never matches
+     * when this or <code>finish_time_max</code> is set. Unset means no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_min = 13;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setFinishTimeMin($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->finish_time_min = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only calls that finished strictly before this time. Unset means no upper bound. When both are set,
+     * <code>finish_time_min</code> must be before <code>finish_time_max</code> (<code>INVALID_ARGUMENT</code>
+     * otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_max = 14;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getFinishTimeMax()
+    {
+        return $this->finish_time_max;
+    }
+
+    public function hasFinishTimeMax()
+    {
+        return isset($this->finish_time_max);
+    }
+
+    public function clearFinishTimeMax()
+    {
+        unset($this->finish_time_max);
+    }
+
+    /**
+     * Only calls that finished strictly before this time. Unset means no upper bound. When both are set,
+     * <code>finish_time_min</code> must be before <code>finish_time_max</code> (<code>INVALID_ARGUMENT</code>
+     * otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp finish_time_max = 14;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setFinishTimeMax($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->finish_time_max = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only calls whose <code>modified_at</code> is at or after this time, i.e. that changed since then
+     * (incremental reads). Unset means no constraint.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 15;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getModifiedSince()
+    {
+        return $this->modified_since;
+    }
+
+    public function hasModifiedSince()
+    {
+        return isset($this->modified_since);
+    }
+
+    public function clearModifiedSince()
+    {
+        unset($this->modified_since);
+    }
+
+    /**
+     * Only calls whose <code>modified_at</code> is at or after this time, i.e. that changed since then
+     * (incremental reads). Unset means no constraint.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 15;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setModifiedSince($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->modified_since = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only calls with at least this many attempts started (<code>attempts &gt;= min_attempts</code>).
+     * <code>0</code> means no constraint; negative is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 min_attempts = 16;</code>
+     * @return int
+     */
+    public function getMinAttempts()
+    {
+        return $this->min_attempts;
+    }
+
+    /**
+     * Only calls with at least this many attempts started (<code>attempts &gt;= min_attempts</code>).
+     * <code>0</code> means no constraint; negative is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>int32 min_attempts = 16;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setMinAttempts($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->min_attempts = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only these calls, by resource name
+     * (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
+     * at most 1000. Each must be a call name of the request&apos;s campaign: a malformed name or one of
+     * another campaign is rejected with <code>INVALID_ARGUMENT</code>; a well-formed name of the campaign
+     * that names no call matches nothing. Empty means no constraint.
+     *
+     * Generated from protobuf field <code>repeated string campaign_call_names = 17;</code>
+     * @return RepeatedField<string>
+     */
+    public function getCampaignCallNames()
+    {
+        return $this->campaign_call_names;
+    }
+
+    /**
+     * Only these calls, by resource name
+     * (<pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;/campaign_calls/&lt;campaign_call_uuid&gt;</code></pre>),
+     * at most 1000. Each must be a call name of the request&apos;s campaign: a malformed name or one of
+     * another campaign is rejected with <code>INVALID_ARGUMENT</code>; a well-formed name of the campaign
+     * that names no call matches nothing. Empty means no constraint.
+     *
+     * Generated from protobuf field <code>repeated string campaign_call_names = 17;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setCampaignCallNames($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->campaign_call_names = $arr;
 
         return $this;
     }

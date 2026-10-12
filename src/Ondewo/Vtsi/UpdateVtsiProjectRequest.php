@@ -10,14 +10,17 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to updated VTSI project
+ * Request to update a VTSI project
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateVtsiProjectRequest</code>
  */
 class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Project Configs.
+     * The project to update, identified by <code>vtsi_project.name</code>
+     * (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
+     * output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
+     * ignored.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      */
@@ -56,6 +59,28 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
     protected $update_mask = null;
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
+     * <code>vtsi_project.</code> prefix). Same convention as
+     * <a href="index.html#ondewo.vtsi.GetVtsiProjectRequest">GetVtsiProjectRequest.field_mask</a>; the
+     * <code>name</code> of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> before anything is written. A mask never
+     * changes what is updated (that is <code>update_mask</code>).
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Validate only: merge the update over the stored project and run every check of a real
+     * update (validation, authorization, the configuration render), and return the would-be project in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
+     * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     * (the project may change meanwhile). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 4;</code>
+     */
+    protected $validate_only = false;
 
     /**
      * Constructor.
@@ -64,7 +89,10 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\VtsiProject $vtsi_project
-     *           Project Configs.
+     *           The project to update, identified by <code>vtsi_project.name</code>
+     *           (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
+     *           output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
+     *           ignored.
      *     @type \Google\Protobuf\FieldMask $update_mask
      *           OPTIONAL: The mask to control which fields get updated.
      *           Paths are field paths within <pre><code>vtsi_project</code></pre> and carry no leading
@@ -95,6 +123,20 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      *                 field exists to remove - so an unrecognised path fails loudly at the first request
      *                 instead.</li>
      *           </ul>
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
+     *           <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
+     *           <code>vtsi_project.</code> prefix). Same convention as
+     *           <a href="index.html#ondewo.vtsi.GetVtsiProjectRequest">GetVtsiProjectRequest.field_mask</a>; the
+     *           <code>name</code> of the response is always populated. Unset or empty returns every field. An
+     *           unknown path is rejected with <code>INVALID_ARGUMENT</code> before anything is written. A mask never
+     *           changes what is updated (that is <code>update_mask</code>).
+     *     @type bool $validate_only
+     *           Optional. Validate only: merge the update over the stored project and run every check of a real
+     *           update (validation, authorization, the configuration render), and return the would-be project in
+     *           <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
+     *           call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     *           (the project may change meanwhile). Default <code>false</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -103,7 +145,10 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Project Configs.
+     * The project to update, identified by <code>vtsi_project.name</code>
+     * (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
+     * output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
+     * ignored.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      * @return \Ondewo\Vtsi\VtsiProject|null
@@ -124,7 +169,10 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Project Configs.
+     * The project to update, identified by <code>vtsi_project.name</code>
+     * (<pre><code>projects/&lt;project_uuid&gt;/project</code></pre>), carrying the new values. The
+     * output-only fields (<code>vtsi_project_status</code>, the audit, counter and status fields) are
+     * ignored.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProject vtsi_project = 1;</code>
      * @param \Ondewo\Vtsi\VtsiProject $var
@@ -226,6 +274,88 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
+     * <code>vtsi_project.</code> prefix). Same convention as
+     * <a href="index.html#ondewo.vtsi.GetVtsiProjectRequest">GetVtsiProjectRequest.field_mask</a>; the
+     * <code>name</code> of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> before anything is written. A mask never
+     * changes what is updated (that is <code>update_mask</code>).
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiProject</code> field paths to populate in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, relative to the <code>VtsiProject</code> (no
+     * <code>vtsi_project.</code> prefix). Same convention as
+     * <a href="index.html#ondewo.vtsi.GetVtsiProjectRequest">GetVtsiProjectRequest.field_mask</a>; the
+     * <code>name</code> of the response is always populated. Unset or empty returns every field. An
+     * unknown path is rejected with <code>INVALID_ARGUMENT</code> before anything is written. A mask never
+     * changes what is updated (that is <code>update_mask</code>).
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Validate only: merge the update over the stored project and run every check of a real
+     * update (validation, authorization, the configuration render), and return the would-be project in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
+     * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     * (the project may change meanwhile). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 4;</code>
+     * @return bool
+     */
+    public function getValidateOnly()
+    {
+        return $this->validate_only;
+    }
+
+    /**
+     * Optional. Validate only: merge the update over the stored project and run every check of a real
+     * update (validation, authorization, the configuration render), and return the would-be project in
+     * <code>UpdateVtsiProjectResponse.vtsi_project</code>, but write nothing, touch no Asterisk, end no
+     * call and emit nothing. A successful validation does not guarantee that a later update succeeds
+     * (the project may change meanwhile). Default <code>false</code>.
+     *
+     * Generated from protobuf field <code>bool validate_only = 4;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setValidateOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->validate_only = $var;
 
         return $this;
     }

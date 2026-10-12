@@ -34,6 +34,39 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      */
     protected $common_services_config = null;
+    /**
+     * Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
+     * <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>caller.name</code> and the
+     * other fields of the response are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response. It shapes only the response: the caller is started regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartCallersRequest.caller_requests</code>, <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request is rejected with <code>INVALID_ARGUMENT</code>
+     * naming the entry and nothing is started; use the enclosing request&apos;s own <code>field_mask</code>
+     * where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. Dry run: when true, the request runs every validation <code>StartCaller</code> runs, including the live
+     * validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
+     * project&apos;s caller limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
+     * same error a real request would answer, or with the response a real request would return, except that the
+     * returned <code>caller</code> was never created: its <code>name</code>, <code>call_name</code> and every other
+     * output-only field are empty. A request that passes a dry run can still fail for real, e.g. when the project
+     * reached its limit in between. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     * <p>Where this message is an entry of another request (<code>StartCallersRequest.caller_requests</code>,
+     * <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request
+     * is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
+     * <code>validate_only</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>bool validate_only = 5;</code>
+     */
+    protected $validate_only = false;
 
     /**
      * Constructor.
@@ -47,6 +80,31 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
      *           SIP service configuration
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
      *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
+     *           <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
+     *           message fields are allowed; a path below a repeated or map field is not. <code>caller.name</code> and the
+     *           other fields of the response are always populated. Unset or empty returns every field. An unknown path is
+     *           rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the
+     *           server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     *           response. It shapes only the response: the caller is started regardless.
+     *           <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     *           (<code>StartCallersRequest.caller_requests</code>, <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request is rejected with <code>INVALID_ARGUMENT</code>
+     *           naming the entry and nothing is started; use the enclosing request&apos;s own <code>field_mask</code>
+     *           where it has one.</p>
+     *     @type bool $validate_only
+     *           Optional. Dry run: when true, the request runs every validation <code>StartCaller</code> runs, including the live
+     *           validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
+     *           project&apos;s caller limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
+     *           same error a real request would answer, or with the response a real request would return, except that the
+     *           returned <code>caller</code> was never created: its <code>name</code>, <code>call_name</code> and every other
+     *           output-only field are empty. A request that passes a dry run can still fail for real, e.g. when the project
+     *           reached its limit in between. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     *           the server version before relying on it.
+     *           <p>Where this message is an entry of another request (<code>StartCallersRequest.caller_requests</code>,
+     *           <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request
+     *           is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
+     *           <code>validate_only</code> where it has one.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -148,6 +206,110 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
+     * <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>caller.name</code> and the
+     * other fields of the response are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response. It shapes only the response: the caller is started regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartCallersRequest.caller_requests</code>, <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request is rejected with <code>INVALID_ARGUMENT</code>
+     * naming the entry and nothing is started; use the enclosing request&apos;s own <code>field_mask</code>
+     * where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
+     * <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
+     * message fields are allowed; a path below a repeated or map field is not. <code>caller.name</code> and the
+     * other fields of the response are always populated. Unset or empty returns every field. An unknown path is
+     * rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is started. Applied after the
+     * server&apos;s role-based redaction of <code>common_services_config</code>, so it can only narrow the
+     * response. It shapes only the response: the caller is started regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartCallersRequest.caller_requests</code>, <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request is rejected with <code>INVALID_ARGUMENT</code>
+     * naming the entry and nothing is started; use the enclosing request&apos;s own <code>field_mask</code>
+     * where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Dry run: when true, the request runs every validation <code>StartCaller</code> runs, including the live
+     * validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
+     * project&apos;s caller limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
+     * same error a real request would answer, or with the response a real request would return, except that the
+     * returned <code>caller</code> was never created: its <code>name</code>, <code>call_name</code> and every other
+     * output-only field are empty. A request that passes a dry run can still fail for real, e.g. when the project
+     * reached its limit in between. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     * <p>Where this message is an entry of another request (<code>StartCallersRequest.caller_requests</code>,
+     * <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request
+     * is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
+     * <code>validate_only</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>bool validate_only = 5;</code>
+     * @return bool
+     */
+    public function getValidateOnly()
+    {
+        return $this->validate_only;
+    }
+
+    /**
+     * Optional. Dry run: when true, the request runs every validation <code>StartCaller</code> runs, including the live
+     * validation of the configuration against the upstream services (NLU, S2T, T2S, RabbitMQ) and the
+     * project&apos;s caller limit, but starts, deploys and stores NOTHING and emits no event. It answers with the
+     * same error a real request would answer, or with the response a real request would return, except that the
+     * returned <code>caller</code> was never created: its <code>name</code>, <code>call_name</code> and every other
+     * output-only field are empty. A request that passes a dry run can still fail for real, e.g. when the project
+     * reached its limit in between. Default false. A server older than 9.1.0 ignores this field and runs the request for real; check
+     * the server version before relying on it.
+     * <p>Where this message is an entry of another request (<code>StartCallersRequest.caller_requests</code>,
+     * <code>StartScheduledCallerRequest.request</code>, <code>AddCallersToCampaignRequest.caller_requests</code>) it must be unset, otherwise that whole request
+     * is rejected with <code>INVALID_ARGUMENT</code> naming the entry; use the enclosing request&apos;s own
+     * <code>validate_only</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>bool validate_only = 5;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setValidateOnly($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->validate_only = $var;
 
         return $this;
     }

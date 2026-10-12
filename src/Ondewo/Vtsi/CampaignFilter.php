@@ -35,6 +35,36 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string display_name = 3;</code>
      */
     protected $display_name = '';
+    /**
+     * Only campaigns created at or after this time (<code>created_at &gt;= created_after</code>). Unset means
+     * no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 4;</code>
+     */
+    protected $created_after = null;
+    /**
+     * Only campaigns created strictly before this time (<code>created_at &lt; created_before</code>). Unset
+     * means no upper bound. When both are set, <code>created_after</code> must be before
+     * <code>created_before</code> (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 5;</code>
+     */
+    protected $created_before = null;
+    /**
+     * Only campaigns whose <code>created_by</code> is exactly this user (case-sensitive, the value the server
+     * returns in <code>Campaign.created_by</code>). Empty means no constraint.
+     *
+     * Generated from protobuf field <code>string created_by = 6;</code>
+     */
+    protected $created_by = '';
+    /**
+     * Only campaigns modified at or after this time (<code>modified_at &gt;= modified_since</code>; state
+     * changes made by the server count as modifications). Unset means no constraint. Useful for incremental
+     * polling with <code>CAMPAIGN_ORDER_BY_MODIFIED_AT_DESC</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 7;</code>
+     */
+    protected $modified_since = null;
 
     /**
      * Constructor.
@@ -49,6 +79,20 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      *     @type string $display_name
      *           Only the campaign whose <code>display_name</code> is exactly this (case-sensitive). Empty
      *           means no constraint. Combined with the other fields by AND.
+     *     @type \Google\Protobuf\Timestamp $created_after
+     *           Only campaigns created at or after this time (<code>created_at &gt;= created_after</code>). Unset means
+     *           no lower bound.
+     *     @type \Google\Protobuf\Timestamp $created_before
+     *           Only campaigns created strictly before this time (<code>created_at &lt; created_before</code>). Unset
+     *           means no upper bound. When both are set, <code>created_after</code> must be before
+     *           <code>created_before</code> (<code>INVALID_ARGUMENT</code> otherwise).
+     *     @type string $created_by
+     *           Only campaigns whose <code>created_by</code> is exactly this user (case-sensitive, the value the server
+     *           returns in <code>Campaign.created_by</code>). Empty means no constraint.
+     *     @type \Google\Protobuf\Timestamp $modified_since
+     *           Only campaigns modified at or after this time (<code>modified_at &gt;= modified_since</code>; state
+     *           changes made by the server count as modifications). Unset means no constraint. Useful for incremental
+     *           polling with <code>CAMPAIGN_ORDER_BY_MODIFIED_AT_DESC</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -132,6 +176,152 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->display_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only campaigns created at or after this time (<code>created_at &gt;= created_after</code>). Unset means
+     * no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 4;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedAfter()
+    {
+        return $this->created_after;
+    }
+
+    public function hasCreatedAfter()
+    {
+        return isset($this->created_after);
+    }
+
+    public function clearCreatedAfter()
+    {
+        unset($this->created_after);
+    }
+
+    /**
+     * Only campaigns created at or after this time (<code>created_at &gt;= created_after</code>). Unset means
+     * no lower bound.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_after = 4;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedAfter($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_after = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only campaigns created strictly before this time (<code>created_at &lt; created_before</code>). Unset
+     * means no upper bound. When both are set, <code>created_after</code> must be before
+     * <code>created_before</code> (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 5;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedBefore()
+    {
+        return $this->created_before;
+    }
+
+    public function hasCreatedBefore()
+    {
+        return isset($this->created_before);
+    }
+
+    public function clearCreatedBefore()
+    {
+        unset($this->created_before);
+    }
+
+    /**
+     * Only campaigns created strictly before this time (<code>created_at &lt; created_before</code>). Unset
+     * means no upper bound. When both are set, <code>created_after</code> must be before
+     * <code>created_before</code> (<code>INVALID_ARGUMENT</code> otherwise).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_before = 5;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedBefore($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_before = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only campaigns whose <code>created_by</code> is exactly this user (case-sensitive, the value the server
+     * returns in <code>Campaign.created_by</code>). Empty means no constraint.
+     *
+     * Generated from protobuf field <code>string created_by = 6;</code>
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->created_by;
+    }
+
+    /**
+     * Only campaigns whose <code>created_by</code> is exactly this user (case-sensitive, the value the server
+     * returns in <code>Campaign.created_by</code>). Empty means no constraint.
+     *
+     * Generated from protobuf field <code>string created_by = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCreatedBy($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->created_by = $var;
+
+        return $this;
+    }
+
+    /**
+     * Only campaigns modified at or after this time (<code>modified_at &gt;= modified_since</code>; state
+     * changes made by the server count as modifications). Unset means no constraint. Useful for incremental
+     * polling with <code>CAMPAIGN_ORDER_BY_MODIFIED_AT_DESC</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 7;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getModifiedSince()
+    {
+        return $this->modified_since;
+    }
+
+    public function hasModifiedSince()
+    {
+        return isset($this->modified_since);
+    }
+
+    public function clearModifiedSince()
+    {
+        unset($this->modified_since);
+    }
+
+    /**
+     * Only campaigns modified at or after this time (<code>modified_at &gt;= modified_since</code>; state
+     * changes made by the server count as modifications). Unset means no constraint. Useful for incremental
+     * polling with <code>CAMPAIGN_ORDER_BY_MODIFIED_AT_DESC</code>.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp modified_since = 7;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setModifiedSince($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->modified_since = $var;
 
         return $this;
     }

@@ -17,8 +17,9 @@ use Google\Protobuf\RepeatedField;
 class Caller extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Caller name with which to perform the call of the form
+     * Resource name of the caller, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
+     * Output only. Identifies the caller on <code>UpdateCaller</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
@@ -26,22 +27,77 @@ class Caller extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      */
     protected $call_name = '';
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      */
     protected $sip_caller_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      */
     protected $common_services_config = null;
+    /**
+     * Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     */
+    protected $vtsi_project_name = '';
+    /**
+     * Output only. Whether the caller&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false for an idle pooled caller and for a caller whose
+     * call ended. The same value as <code>CallResourceStatus.active</code> of the status streams. Set in the
+     * SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     */
+    protected $active = false;
+    /**
+     * Output only. SIP status type of the caller&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     */
+    protected $sip_status_type = 0;
+    /**
+     * Output only. When the caller was created (<code>StartCaller</code>, the dispatch of a campaign attempt or of
+     * a scheduled caller, or a recycle by the server that recreated a pooled caller). Set in the SHALLOW and FULL
+     * views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     */
+    protected $created_at = null;
+    /**
+     * Output only. Whether the caller is a POOLED (persistent) caller, which the server keeps warm between calls
+     * and reuses for later <code>StartCaller</code> requests with the same configuration, rather than a one-shot
+     * caller that is one call. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool pooled = 9;</code>
+     */
+    protected $pooled = false;
+    /**
+     * Output only. The campaign of the caller&apos;s current or last campaign attempt
+     * (<code>CampaignCallAttempt.caller_name</code> names this caller), of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     * Empty when the caller never placed a campaign attempt. A pooled caller can place attempts of several
+     * campaigns one after the other; this field names only the latest one (<code>ListCallers</code> with a campaign
+     * selector finds every caller of a campaign). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>string campaign_name = 10;</code>
+     */
+    protected $campaign_name = '';
 
     /**
      * Constructor.
@@ -50,15 +106,47 @@ class Caller extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
-     *           Caller name with which to perform the call of the form
+     *           Resource name of the caller, of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
+     *           Output only. Identifies the caller on <code>UpdateCaller</code>.
      *     @type string $call_name
      *           The call name that was assigned to the call
      *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     *           Output only.
      *     @type \Ondewo\Vtsi\SipCallerConfig $sip_caller_config
-     *           SIP service configuration
+     *           SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
+     *           there).
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
+     *           (stored configuration only, see there).
+     *     @type string $vtsi_project_name
+     *           Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Set in every view. A 9.0.0 server leaves it empty.
+     *     @type bool $active
+     *           Output only. Whether the caller&apos;s current call is active (set up or connected), i.e.
+     *           <code>Call.active</code> of <code>call_name</code>; false for an idle pooled caller and for a caller whose
+     *           call ended. The same value as <code>CallResourceStatus.active</code> of the status streams. Set in the
+     *           SHALLOW and FULL views.
+     *     @type int $sip_status_type
+     *           Output only. SIP status type of the caller&apos;s current or last call (<code>Call.sip_status_type</code> of
+     *           <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     *           value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *     @type \Google\Protobuf\Timestamp $created_at
+     *           Output only. When the caller was created (<code>StartCaller</code>, the dispatch of a campaign attempt or of
+     *           a scheduled caller, or a recycle by the server that recreated a pooled caller). Set in the SHALLOW and FULL
+     *           views.
+     *     @type bool $pooled
+     *           Output only. Whether the caller is a POOLED (persistent) caller, which the server keeps warm between calls
+     *           and reuses for later <code>StartCaller</code> requests with the same configuration, rather than a one-shot
+     *           caller that is one call. Set in the SHALLOW and FULL views.
+     *     @type string $campaign_name
+     *           Output only. The campaign of the caller&apos;s current or last campaign attempt
+     *           (<code>CampaignCallAttempt.caller_name</code> names this caller), of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     *           Empty when the caller never placed a campaign attempt. A pooled caller can place attempts of several
+     *           campaigns one after the other; this field names only the latest one (<code>ListCallers</code> with a campaign
+     *           selector finds every caller of a campaign). Set in the SHALLOW and FULL views.
      * }
      */
     public function __construct($data = NULL) {
@@ -67,8 +155,9 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Caller name with which to perform the call of the form
+     * Resource name of the caller, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
+     * Output only. Identifies the caller on <code>UpdateCaller</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -79,8 +168,9 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Caller name with which to perform the call of the form
+     * Resource name of the caller, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>
+     * Output only. Identifies the caller on <code>UpdateCaller</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -97,6 +187,7 @@ class Caller extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      * @return string
@@ -109,6 +200,7 @@ class Caller extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      * @param string $var
@@ -123,7 +215,8 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      * @return \Ondewo\Vtsi\SipCallerConfig|null
@@ -144,7 +237,8 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      * @param \Ondewo\Vtsi\SipCallerConfig $var
@@ -159,7 +253,8 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -180,7 +275,8 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
@@ -190,6 +286,204 @@ class Caller extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Whether the caller&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false for an idle pooled caller and for a caller whose
+     * call ended. The same value as <code>CallResourceStatus.active</code> of the status streams. Set in the
+     * SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Output only. Whether the caller&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false for an idle pooled caller and for a caller whose
+     * call ended. The same value as <code>CallResourceStatus.active</code> of the status streams. Set in the
+     * SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setActive($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->active = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. SIP status type of the caller&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     * @return int
+     */
+    public function getSipStatusType()
+    {
+        return $this->sip_status_type;
+    }
+
+    /**
+     * Output only. SIP status type of the caller&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSipStatusType($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
+        $this->sip_status_type = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. When the caller was created (<code>StartCaller</code>, the dispatch of a campaign attempt or of
+     * a scheduled caller, or a recycle by the server that recreated a pooled caller). Set in the SHALLOW and FULL
+     * views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    public function hasCreatedAt()
+    {
+        return isset($this->created_at);
+    }
+
+    public function clearCreatedAt()
+    {
+        unset($this->created_at);
+    }
+
+    /**
+     * Output only. When the caller was created (<code>StartCaller</code>, the dispatch of a campaign attempt or of
+     * a scheduled caller, or a recycle by the server that recreated a pooled caller). Set in the SHALLOW and FULL
+     * views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedAt($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Whether the caller is a POOLED (persistent) caller, which the server keeps warm between calls
+     * and reuses for later <code>StartCaller</code> requests with the same configuration, rather than a one-shot
+     * caller that is one call. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool pooled = 9;</code>
+     * @return bool
+     */
+    public function getPooled()
+    {
+        return $this->pooled;
+    }
+
+    /**
+     * Output only. Whether the caller is a POOLED (persistent) caller, which the server keeps warm between calls
+     * and reuses for later <code>StartCaller</code> requests with the same configuration, rather than a one-shot
+     * caller that is one call. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool pooled = 9;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setPooled($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->pooled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The campaign of the caller&apos;s current or last campaign attempt
+     * (<code>CampaignCallAttempt.caller_name</code> names this caller), of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     * Empty when the caller never placed a campaign attempt. A pooled caller can place attempts of several
+     * campaigns one after the other; this field names only the latest one (<code>ListCallers</code> with a campaign
+     * selector finds every caller of a campaign). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>string campaign_name = 10;</code>
+     * @return string
+     */
+    public function getCampaignName()
+    {
+        return $this->campaign_name;
+    }
+
+    /**
+     * Output only. The campaign of the caller&apos;s current or last campaign attempt
+     * (<code>CampaignCallAttempt.caller_name</code> names this caller), of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/campaigns/&lt;campaign_uuid&gt;</code></pre>
+     * Empty when the caller never placed a campaign attempt. A pooled caller can place attempts of several
+     * campaigns one after the other; this field names only the latest one (<code>ListCallers</code> with a campaign
+     * selector finds every caller of a campaign). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>string campaign_name = 10;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCampaignName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->campaign_name = $var;
 
         return $this;
     }

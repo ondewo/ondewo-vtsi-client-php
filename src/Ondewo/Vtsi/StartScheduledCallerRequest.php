@@ -23,18 +23,41 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Normal start caller request
+     * The caller to start at <code>scheduled_time</code>, validated like a <code>StartCallerRequest</code> of
+     * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
+     * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
+     * request is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      */
     protected $request = null;
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
+     * periodically, so the call starts at the first check at or after this time (typically within a few seconds),
+     * never before it. A time in the past is due at once.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 3;</code>
      */
     protected $scheduled_time = null;
+    /**
+     * Optional. Partial response: the field paths to populate in
+     * <code>StartScheduledCallerResponse.scheduled_caller</code>, relative to the <code>ScheduledCaller</code>
+     * message (no <code>scheduled_caller.</code> prefix), e.g. <code>status</code>, <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>scheduled_caller.name</code> and the other fields of the response
+     * are always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is created. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It shapes
+     * only the response: the scheduled caller is created regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartScheduledCallersRequest.scheduled_caller_requests</code>,
+     * <code>AddScheduledCallersToCampaignRequest.scheduled_caller_requests</code>) it must be unset, otherwise that
+     * whole request is rejected with <code>INVALID_ARGUMENT</code> naming the entry and nothing is created; use the
+     * enclosing request&apos;s own <code>field_mask</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -45,10 +68,29 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartCallerRequest $request
-     *           Normal start caller request
+     *           The caller to start at <code>scheduled_time</code>, validated like a <code>StartCallerRequest</code> of
+     *           <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
+     *           is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
+     *           request is refused with <code>INVALID_ARGUMENT</code>.
      *     @type \Google\Protobuf\Timestamp $scheduled_time
-     *           Time the call is scheduled
-     *           TODO to be refactored with a more complex scheduling object
+     *           Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
+     *           periodically, so the call starts at the first check at or after this time (typically within a few seconds),
+     *           never before it. A time in the past is due at once.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in
+     *           <code>StartScheduledCallerResponse.scheduled_caller</code>, relative to the <code>ScheduledCaller</code>
+     *           message (no <code>scheduled_caller.</code> prefix), e.g. <code>status</code>, <code>scheduled_time</code>,
+     *           <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path
+     *           below a repeated or map field is not. <code>scheduled_caller.name</code> and the other fields of the response
+     *           are always populated. Unset or empty returns every field. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it, before anything is created. Applied after the server&apos;s
+     *           role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It shapes
+     *           only the response: the scheduled caller is created regardless.
+     *           <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     *           (<code>StartScheduledCallersRequest.scheduled_caller_requests</code>,
+     *           <code>AddScheduledCallersToCampaignRequest.scheduled_caller_requests</code>) it must be unset, otherwise that
+     *           whole request is rejected with <code>INVALID_ARGUMENT</code> naming the entry and nothing is created; use the
+     *           enclosing request&apos;s own <code>field_mask</code> where it has one.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -83,7 +125,10 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Normal start caller request
+     * The caller to start at <code>scheduled_time</code>, validated like a <code>StartCallerRequest</code> of
+     * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
+     * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
+     * request is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      * @return \Ondewo\Vtsi\StartCallerRequest|null
@@ -104,7 +149,10 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Normal start caller request
+     * The caller to start at <code>scheduled_time</code>, validated like a <code>StartCallerRequest</code> of
+     * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
+     * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
+     * request is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      * @param \Ondewo\Vtsi\StartCallerRequest $var
@@ -119,8 +167,9 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
+     * periodically, so the call starts at the first check at or after this time (typically within a few seconds),
+     * never before it. A time in the past is due at once.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 3;</code>
      * @return \Google\Protobuf\Timestamp|null
@@ -141,8 +190,9 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Time the call is scheduled
-     * TODO to be refactored with a more complex scheduling object
+     * Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
+     * periodically, so the call starts at the first check at or after this time (typically within a few seconds),
+     * never before it. A time in the past is due at once.
      *
      * Generated from protobuf field <code>.google.protobuf.Timestamp scheduled_time = 3;</code>
      * @param \Google\Protobuf\Timestamp $var
@@ -152,6 +202,68 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->scheduled_time = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in
+     * <code>StartScheduledCallerResponse.scheduled_caller</code>, relative to the <code>ScheduledCaller</code>
+     * message (no <code>scheduled_caller.</code> prefix), e.g. <code>status</code>, <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>scheduled_caller.name</code> and the other fields of the response
+     * are always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is created. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It shapes
+     * only the response: the scheduled caller is created regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartScheduledCallersRequest.scheduled_caller_requests</code>,
+     * <code>AddScheduledCallersToCampaignRequest.scheduled_caller_requests</code>) it must be unset, otherwise that
+     * whole request is rejected with <code>INVALID_ARGUMENT</code> naming the entry and nothing is created; use the
+     * enclosing request&apos;s own <code>field_mask</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in
+     * <code>StartScheduledCallerResponse.scheduled_caller</code>, relative to the <code>ScheduledCaller</code>
+     * message (no <code>scheduled_caller.</code> prefix), e.g. <code>status</code>, <code>scheduled_time</code>,
+     * <code>sip_caller_config.callee_id</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>scheduled_caller.name</code> and the other fields of the response
+     * are always populated. Unset or empty returns every field. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it, before anything is created. Applied after the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response. It shapes
+     * only the response: the scheduled caller is created regardless.
+     * <p>Read only by the RPC this message is the request of. Where it is an entry of another request
+     * (<code>StartScheduledCallersRequest.scheduled_caller_requests</code>,
+     * <code>AddScheduledCallersToCampaignRequest.scheduled_caller_requests</code>) it must be unset, otherwise that
+     * whole request is rejected with <code>INVALID_ARGUMENT</code> naming the entry and nothing is created; use the
+     * enclosing request&apos;s own <code>field_mask</code> where it has one.</p>
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

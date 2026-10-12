@@ -25,25 +25,28 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     protected $name = '';
     /**
      * Output only. VTSI project of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      */
     protected $display_name = '';
     /**
      * The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
      */
     private $events;
     /**
-     * Deliver every event, including events added in later versions. Updatable.
+     * Deliver every event, including events added in later versions, except
+     * <code>excluded_events</code>. Updatable.
      *
      * Generated from protobuf field <code>bool all_events = 5;</code>
      */
@@ -109,6 +112,17 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated string campaign_names = 13;</code>
      */
     private $campaign_names;
+    /**
+     * Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
+     * e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
+     * <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
+     * <code>VTSI_EVENT_UNSPECIFIED</code>, a reserved value, or a value that is also in <code>events</code>
+     * is rejected with <code>INVALID_ARGUMENT</code>. At most 100 entries. Updatable (path
+     * <code>excluded_events</code>, replaced whole).
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     */
+    private $excluded_events;
 
     /**
      * Constructor.
@@ -121,13 +135,16 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/event_subscriptions/&lt;subscription_uuid&gt;</code></pre>
      *     @type string $vtsi_project_name
      *           Output only. VTSI project of the subscription.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $display_name
-     *           Human-readable name, at most 128 characters. Updatable.
+     *           Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     *           empty display name stays empty (no default is generated). Updatable.
      *     @type int[] $events
      *           The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
-     *           is. Updatable.
+     *           is. At most one entry per value (duplicates are ignored). Updatable.
      *     @type bool $all_events
-     *           Deliver every event, including events added in later versions. Updatable.
+     *           Deliver every event, including events added in later versions, except
+     *           <code>excluded_events</code>. Updatable.
      *     @type string[] $resource_name_prefixes
      *           Deliver only events whose <code>resource_name</code> starts with one of these prefixes, e.g.
      *           a caller name (<code>projects/&lt;p&gt;/callers/&lt;c&gt;</code> also selects that
@@ -157,6 +174,13 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      *           then not matched; <code>VTSI_EVENT_CAMPAIGN_CALL_DISPATCHED</code> always carries both
      *           <code>campaign_name</code> and <code>call_name</code>. Empty means no constraint. Combined with
      *           <code>resource_name_prefixes</code> by AND. At most 50. Updatable.
+     *     @type int[] $excluded_events
+     *           Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
+     *           e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
+     *           <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
+     *           <code>VTSI_EVENT_UNSPECIFIED</code>, a reserved value, or a value that is also in <code>events</code>
+     *           is rejected with <code>INVALID_ARGUMENT</code>. At most 100 entries. Updatable (path
+     *           <code>excluded_events</code>, replaced whole).
      * }
      */
     public function __construct($data = NULL) {
@@ -194,6 +218,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
 
     /**
      * Output only. VTSI project of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      * @return string
@@ -205,6 +230,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
 
     /**
      * Output only. VTSI project of the subscription.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *
      * Generated from protobuf field <code>string vtsi_project_name = 2;</code>
      * @param string $var
@@ -219,7 +245,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      * @return string
@@ -230,7 +257,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Human-readable name, at most 128 characters. Updatable.
+     * Human-readable name, at most 128 characters. NOT unique within the project; may be empty, and an
+     * empty display name stays empty (no default is generated). Updatable.
      *
      * Generated from protobuf field <code>string display_name = 3;</code>
      * @param string $var
@@ -246,7 +274,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
 
     /**
      * The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
      * @return RepeatedField<int>
@@ -258,7 +286,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
 
     /**
      * The events to deliver. Required unless <code>all_events</code> is set; must be empty when it
-     * is. Updatable.
+     * is. At most one entry per value (duplicates are ignored). Updatable.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
      * @param int[] $var
@@ -273,7 +301,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Deliver every event, including events added in later versions. Updatable.
+     * Deliver every event, including events added in later versions, except
+     * <code>excluded_events</code>. Updatable.
      *
      * Generated from protobuf field <code>bool all_events = 5;</code>
      * @return bool
@@ -284,7 +313,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Deliver every event, including events added in later versions. Updatable.
+     * Deliver every event, including events added in later versions, except
+     * <code>excluded_events</code>. Updatable.
      *
      * Generated from protobuf field <code>bool all_events = 5;</code>
      * @param bool $var
@@ -548,6 +578,42 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_names = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
+     * e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
+     * <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
+     * <code>VTSI_EVENT_UNSPECIFIED</code>, a reserved value, or a value that is also in <code>events</code>
+     * is rejected with <code>INVALID_ARGUMENT</code>. At most 100 entries. Updatable (path
+     * <code>excluded_events</code>, replaced whole).
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @return RepeatedField<int>
+     */
+    public function getExcludedEvents()
+    {
+        return $this->excluded_events;
+    }
+
+    /**
+     * Events NOT to deliver, subtracted from the selection of <code>events</code> / <code>all_events</code>,
+     * e.g. <code>all_events</code> with <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code> and
+     * <code>VTSI_EVENT_CAMPAIGN_PROGRESS</code> excluded. Empty means nothing is excluded.
+     * <code>VTSI_EVENT_UNSPECIFIED</code>, a reserved value, or a value that is also in <code>events</code>
+     * is rejected with <code>INVALID_ARGUMENT</code>. At most 100 entries. Updatable (path
+     * <code>excluded_events</code>, replaced whole).
+     *
+     * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
+     * @param int[] $var
+     * @return $this
+     */
+    public function setExcludedEvents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
+        $this->excluded_events = $arr;
 
         return $this;
     }

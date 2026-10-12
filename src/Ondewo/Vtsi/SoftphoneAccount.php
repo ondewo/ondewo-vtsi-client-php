@@ -82,6 +82,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
      * 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * <code>INVALID_ARGUMENT</code>); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      *
      * Generated from protobuf field <code>map<string, string> labels = 9;</code>
      */
@@ -146,6 +150,30 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.Timestamp modified_at = 18;</code>
      */
     protected $modified_at = null;
+    /**
+     * Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
+     * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     * <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
+     * is usable only when it is enabled AND not locked.
+     *
+     * Generated from protobuf field <code>bool locked = 19;</code>
+     */
+    protected $locked = false;
+    /**
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     */
+    protected $locked_at = null;
+    /**
+     * Output only. Why the account was locked: the <code>reason</code> given to the
+     * <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
+     * not locked).
+     *
+     * Generated from protobuf field <code>string locked_reason = 21;</code>
+     */
+    protected $locked_reason = '';
 
     /**
      * Constructor.
@@ -186,6 +214,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      *           Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
      *           63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
      *           characters; at most 64 entries. Updatable (the whole map is replaced).
+     *           Control characters: a KEY cannot contain one (the key pattern refuses it with
+     *           <code>INVALID_ARGUMENT</code>); a VALUE is checked for its length only, so control characters
+     *           (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     *           label values must escape them.
      *     @type string[] $allowed_destinations
      *           Asterisk dialplan extensions or patterns this softphone may dial, e.g. <code>100</code> or
      *           <code>_1XX</code>. Empty means the project default: the project&apos;s own listener extensions,
@@ -210,6 +242,18 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      *           Output only. The user who last modified the account, including credential rotation.
      *     @type \Google\Protobuf\Timestamp $modified_at
      *           Output only. Last modification time of the account, including credential rotation.
+     *     @type bool $locked
+     *           Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
+     *           ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     *           <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
+     *           is usable only when it is enabled AND not locked.
+     *     @type \Google\Protobuf\Timestamp $locked_at
+     *           Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     *           by a server older than 9.1.0 whose lock time is not known).
+     *     @type string $locked_reason
+     *           Output only. Why the account was locked: the <code>reason</code> given to the
+     *           <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
+     *           not locked).
      * }
      */
     public function __construct($data = NULL) {
@@ -465,6 +509,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
      * 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * <code>INVALID_ARGUMENT</code>); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      *
      * Generated from protobuf field <code>map<string, string> labels = 9;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -478,6 +526,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * Free-form labels for organising and filtering accounts, e.g. <code>team: support</code>. Keys: 1 to
      * 63 characters of <pre><code>[a-z0-9_.-]</code></pre>, starting with a letter; values: at most 256
      * characters; at most 64 entries. Updatable (the whole map is replaced).
+     * Control characters: a KEY cannot contain one (the key pattern refuses it with
+     * <code>INVALID_ARGUMENT</code>); a VALUE is checked for its length only, so control characters
+     * (including line breaks) are accepted and stored and returned verbatim. Clients that display or log
+     * label values must escape them.
      *
      * Generated from protobuf field <code>map<string, string> labels = 9;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
@@ -773,6 +825,106 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
+     * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     * <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
+     * is usable only when it is enabled AND not locked.
+     *
+     * Generated from protobuf field <code>bool locked = 19;</code>
+     * @return bool
+     */
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    /**
+     * Output only. Whether the account is LOCKED: <code>RevokeSoftphoneCertificate</code> revoked its
+     * ACTIVE certificate, so the account is removed from the Asterisk and cannot register or call until
+     * <code>RotateSoftphoneCredentials</code> unlocks it. Independent of <code>enabled</code>: an account
+     * is usable only when it is enabled AND not locked.
+     *
+     * Generated from protobuf field <code>bool locked = 19;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setLocked($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->locked = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getLockedAt()
+    {
+        return $this->locked_at;
+    }
+
+    public function hasLockedAt()
+    {
+        return isset($this->locked_at);
+    }
+
+    public function clearLockedAt()
+    {
+        unset($this->locked_at);
+    }
+
+    /**
+     * Output only. When the account was locked. Unset when it is not locked (also for an account locked
+     * by a server older than 9.1.0 whose lock time is not known).
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp locked_at = 20;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setLockedAt($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->locked_at = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Why the account was locked: the <code>reason</code> given to the
+     * <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
+     * not locked).
+     *
+     * Generated from protobuf field <code>string locked_reason = 21;</code>
+     * @return string
+     */
+    public function getLockedReason()
+    {
+        return $this->locked_reason;
+    }
+
+    /**
+     * Output only. Why the account was locked: the <code>reason</code> given to the
+     * <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
+     * not locked).
+     *
+     * Generated from protobuf field <code>string locked_reason = 21;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setLockedReason($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->locked_reason = $var;
 
         return $this;
     }

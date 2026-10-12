@@ -17,23 +17,40 @@ use Google\Protobuf\RepeatedField;
 class GetListenerRequest extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the listener, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * The name of listener to retrieve.
+     * The name of the listener to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * The views populate the fields as <code>GetCallerRequest.call_view</code> does, with
+     * <code>sip_base_config</code> in place of <code>sip_caller_config</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      */
     protected $call_view = null;
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Listener</code>, relative to
+     * the <code>Listener</code> message, e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -42,11 +59,24 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $vtsi_project_name
-     *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           VTSI project of the listener, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Required. Redundant with the project segment of <code>name</code>, by the rule of
+     *           <code>GetCallerRequest.vtsi_project_name</code>.
      *     @type string $name
-     *           The name of listener to retrieve.
+     *           The name of the listener to retrieve, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *     @type int $call_view
-     *           you can specify the view to be shallow or full
+     *           Optional. How much of the listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     *           The views populate the fields as <code>GetCallerRequest.call_view</code> does, with
+     *           <code>sip_base_config</code> in place of <code>sip_caller_config</code>.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in the returned <code>Listener</code>, relative to
+     *           the <code>Listener</code> message, e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message fields are allowed;
+     *           a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     *           returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     *           <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     *           role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     *           populates a field that was left empty.
      * }
      */
     public function __construct($data = NULL) {
@@ -55,7 +85,9 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the listener, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -66,7 +98,9 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * VTSI project of the listener, of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Required. Redundant with the project segment of <code>name</code>, by the rule of
+     * <code>GetCallerRequest.vtsi_project_name</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -81,7 +115,8 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of listener to retrieve.
+     * The name of the listener to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @return string
@@ -92,7 +127,8 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The name of listener to retrieve.
+     * The name of the listener to retrieve, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
      *
      * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var
@@ -107,7 +143,9 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * The views populate the fields as <code>GetCallerRequest.call_view</code> does, with
+     * <code>sip_base_config</code> in place of <code>sip_caller_config</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @return int
@@ -128,7 +166,9 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * you can specify the view to be shallow or full
+     * Optional. How much of the listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
+     * The views populate the fields as <code>GetCallerRequest.call_view</code> does, with
+     * <code>sip_base_config</code> in place of <code>sip_caller_config</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
      * @param int $var
@@ -138,6 +178,54 @@ class GetListenerRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Listener</code>, relative to
+     * the <code>Listener</code> message, e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in the returned <code>Listener</code>, relative to
+     * the <code>Listener</code> message, e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular message fields are allowed;
+     * a path below a repeated or map field is not. <code>name</code> is always populated. Unset or empty
+     * returns every field the <code>call_view</code> populates. An unknown path is rejected with
+     * <code>INVALID_ARGUMENT</code> naming it. Applied after the <code>call_view</code> and the server&apos;s
+     * role-based redaction of <code>common_services_config</code>, so it can only narrow the response and never
+     * populates a field that was left empty.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 4;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }

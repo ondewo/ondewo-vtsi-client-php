@@ -10,15 +10,19 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Listener represents a listener instance that waits for incoming calls
+ * Listener represents a listener instance that waits for incoming calls.
+ * <p>A listener is persistent: its container takes one call after the other, and <code>call_name</code> names
+ * the current call (or the record that waits for the next one). Listeners are never pooled, so a
+ * <code>Listener</code> has no <code>pooled</code> field.</p>
  *
  * Generated from protobuf message <code>ondewo.vtsi.Listener</code>
  */
 class Listener extends \Google\Protobuf\Internal\Message
 {
     /**
-     * VTSI project name with which to perform the call of the form
+     * Resource name of the listener, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * Output only. Identifies the listener on <code>UpdateListener</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      */
@@ -26,22 +30,56 @@ class Listener extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      */
     protected $call_name = '';
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      */
     protected $sip_base_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      */
     protected $common_services_config = null;
+    /**
+     * Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     */
+    protected $vtsi_project_name = '';
+    /**
+     * Output only. Whether the listener&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false while the listener waits for a call. The same value
+     * as <code>CallResourceStatus.active</code> of the status streams. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     */
+    protected $active = false;
+    /**
+     * Output only. SIP status type of the listener&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     */
+    protected $sip_status_type = 0;
+    /**
+     * Output only. When the listener was created (<code>StartListener</code> or a recycle by the server that
+     * recreated it). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     */
+    protected $created_at = null;
 
     /**
      * Constructor.
@@ -50,15 +88,34 @@ class Listener extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
-     *           VTSI project name with which to perform the call of the form
+     *           Resource name of the listener, of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     *           Output only. Identifies the listener on <code>UpdateListener</code>.
      *     @type string $call_name
      *           The call name that was assigned to the call
      *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     *           Output only.
      *     @type \Ondewo\Vtsi\SipBaseConfig $sip_base_config
-     *           SIP service configuration
+     *           SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
+     *           there).
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
+     *           (stored configuration only, see there).
+     *     @type string $vtsi_project_name
+     *           Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
+     *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Set in every view. A 9.0.0 server leaves it empty.
+     *     @type bool $active
+     *           Output only. Whether the listener&apos;s current call is active (set up or connected), i.e.
+     *           <code>Call.active</code> of <code>call_name</code>; false while the listener waits for a call. The same value
+     *           as <code>CallResourceStatus.active</code> of the status streams. Set in the SHALLOW and FULL views.
+     *     @type int $sip_status_type
+     *           Output only. SIP status type of the listener&apos;s current or last call (<code>Call.sip_status_type</code> of
+     *           <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     *           value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *     @type \Google\Protobuf\Timestamp $created_at
+     *           Output only. When the listener was created (<code>StartListener</code> or a recycle by the server that
+     *           recreated it). Set in the SHALLOW and FULL views.
      * }
      */
     public function __construct($data = NULL) {
@@ -67,8 +124,9 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form
+     * Resource name of the listener, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * Output only. Identifies the listener on <code>UpdateListener</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @return string
@@ -79,8 +137,9 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * VTSI project name with which to perform the call of the form
+     * Resource name of the listener, of the form
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>
+     * Output only. Identifies the listener on <code>UpdateListener</code>.
      *
      * Generated from protobuf field <code>string name = 1;</code>
      * @param string $var
@@ -97,6 +156,7 @@ class Listener extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      * @return string
@@ -109,6 +169,7 @@ class Listener extends \Google\Protobuf\Internal\Message
     /**
      * The call name that was assigned to the call
      * <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
+     * Output only.
      *
      * Generated from protobuf field <code>string call_name = 2;</code>
      * @param string $var
@@ -123,7 +184,8 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      * @return \Ondewo\Vtsi\SipBaseConfig|null
@@ -144,7 +206,8 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
+     * there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      * @param \Ondewo\Vtsi\SipBaseConfig $var
@@ -159,7 +222,8 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -180,7 +244,8 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
+     * (stored configuration only, see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
@@ -190,6 +255,134 @@ class Listener extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     * @return string
+     */
+    public function getVtsiProjectName()
+    {
+        return $this->vtsi_project_name;
+    }
+
+    /**
+     * Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
+     * <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Set in every view. A 9.0.0 server leaves it empty.
+     *
+     * Generated from protobuf field <code>string vtsi_project_name = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setVtsiProjectName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->vtsi_project_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Whether the listener&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false while the listener waits for a call. The same value
+     * as <code>CallResourceStatus.active</code> of the status streams. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Output only. Whether the listener&apos;s current call is active (set up or connected), i.e.
+     * <code>Call.active</code> of <code>call_name</code>; false while the listener waits for a call. The same value
+     * as <code>CallResourceStatus.active</code> of the status streams. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>bool active = 6;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setActive($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->active = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. SIP status type of the listener&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     * @return int
+     */
+    public function getSipStatusType()
+    {
+        return $this->sip_status_type;
+    }
+
+    /**
+     * Output only. SIP status type of the listener&apos;s current or last call (<code>Call.sip_status_type</code> of
+     * <code>call_name</code>), as <code>CallResourceStatus.sip_status_type</code>. <code>NO_SESSION</code> (the zero
+     * value) when it never had a call record. Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSipStatusType($var)
+    {
+        GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
+        $this->sip_status_type = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. When the listener was created (<code>StartListener</code> or a recycle by the server that
+     * recreated it). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     * @return \Google\Protobuf\Timestamp|null
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    public function hasCreatedAt()
+    {
+        return isset($this->created_at);
+    }
+
+    public function clearCreatedAt()
+    {
+        unset($this->created_at);
+    }
+
+    /**
+     * Output only. When the listener was created (<code>StartListener</code> or a recycle by the server that
+     * recreated it). Set in the SHALLOW and FULL views.
+     *
+     * Generated from protobuf field <code>.google.protobuf.Timestamp created_at = 8;</code>
+     * @param \Google\Protobuf\Timestamp $var
+     * @return $this
+     */
+    public function setCreatedAt($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
+        $this->created_at = $var;
 
         return $this;
     }

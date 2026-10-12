@@ -18,16 +18,29 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 {
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      */
     protected $vtsi_project_name = '';
     /**
-     * The subscription to create.
+     * The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+     * <code>created_*</code>, <code>modified_*</code>) must be unset.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
      */
     protected $event_subscription = null;
+    /**
+     * Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+     * <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     */
+    protected $field_mask = null;
 
     /**
      * Constructor.
@@ -37,8 +50,17 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
      *
      *     @type string $vtsi_project_name
      *           VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     *           Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     *           <code>NOT_FOUND</code>.
      *     @type \Ondewo\Vtsi\VtsiEventSubscription $event_subscription
-     *           The subscription to create.
+     *           The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+     *           <code>created_*</code>, <code>modified_*</code>) must be unset.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+     *           <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
+     *           below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     *           field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     *           written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
      * }
      */
     public function __construct($data = NULL) {
@@ -48,6 +70,8 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @return string
@@ -59,6 +83,8 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
 
     /**
      * VTSI project. The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
+     * Empty or malformed is rejected with <code>INVALID_ARGUMENT</code>, an unknown project with
+     * <code>NOT_FOUND</code>.
      *
      * Generated from protobuf field <code>string vtsi_project_name = 1;</code>
      * @param string $var
@@ -73,7 +99,8 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
     }
 
     /**
-     * The subscription to create.
+     * The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+     * <code>created_*</code>, <code>modified_*</code>) must be unset.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
      * @return \Ondewo\Vtsi\VtsiEventSubscription|null
@@ -94,7 +121,8 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
     }
 
     /**
-     * The subscription to create.
+     * The subscription to create. Output-only fields (<code>name</code>, <code>vtsi_project_name</code>,
+     * <code>created_*</code>, <code>modified_*</code>) must be unset.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEventSubscription event_subscription = 2;</code>
      * @param \Ondewo\Vtsi\VtsiEventSubscription $var
@@ -104,6 +132,50 @@ class CreateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
     {
         GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiEventSubscription::class);
         $this->event_subscription = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+     * <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the <code>VtsiEventSubscription</code> field paths to populate, relative to the returned
+     * <code>VtsiEventSubscription</code> (no prefix), e.g. <code>name</code>, <code>events</code>. Nested paths through singular message fields are allowed; a path
+     * below a repeated or map field is not. <code>name</code> is always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it, before anything is
+     * written. Applied after the masking of secrets, so it never reveals one. It shapes only the response.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 3;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask($var)
+    {
+        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
+        $this->field_mask = $var;
 
         return $this;
     }
