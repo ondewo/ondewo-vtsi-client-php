@@ -86,6 +86,23 @@ COVERAGE_MIN=100
 # directive is PHP_INI_SYSTEM, so phpunit.xml.dist's <ini> cannot set it; it has to be passed on
 # the interpreter's command line. Harmless when the driver is xdebug (unknown directive, ignored).
 PHP_COVERAGE_FLAGS=-d pcov.enabled=1 -d pcov.directory=${COVERAGE_SOURCE_DIR}
+# The negative TLS tests fail handshakes ON PURPOSE, and ext-grpc logs every failed handshake at
+# INFO - preceded by absl's "WARNING: All log messages before absl::InitializeLog() ..." - into
+# the build log. ERROR keeps real gRPC errors visible and the expected noise out.
+GRPC_VERBOSITY=ERROR
+
+# php and composer come from the host when it has them (CI: setup-php), and otherwise from
+# PHP_TOOLCHAIN_IMAGE, built from tools/php.Dockerfile with every version pinned. The release
+# validates, tests and publishes from a developer machine, where php is not otherwise required.
+# The container runs as the invoking user on the same path, so everything it writes is theirs.
+PHP_TOOLCHAIN_IMAGE=ondewo-vtsi-client-php-tools:local
+PHP_IN_DOCKER=docker run --rm --user $$(id -u):$$(id -g) -e HOME=/tmp -e GRPC_VERBOSITY \
+	-v "$(CURDIR)":"$(CURDIR)" -w "$(CURDIR)" ${PHP_TOOLCHAIN_IMAGE}
+HOST_HAS_PHP:=$(shell command -v php >/dev/null 2>&1 && command -v composer >/dev/null 2>&1 && echo yes)
+# NOT named COMPOSER: this Makefile exports every variable, and composer reads $COMPOSER as the
+# name of the manifest it should load.
+PHP_CMD=$(if ${HOST_HAS_PHP},php,${PHP_IN_DOCKER} php)
+COMPOSER_CMD=$(if ${HOST_HAS_PHP},composer,${PHP_IN_DOCKER} composer)
 
 # You need to setup an access token at https://github.com/settings/tokens - permissions are important
 GITHUB_GH_TOKEN?=ENTER_YOUR_TOKEN_HERE
@@ -215,19 +232,25 @@ update_composer_version: ## Set ONDEWO_VTSI_VERSION as the `version` field of co
 	@perl -i -pe 's/^(\s*"version":\s*")[0-9]+\.[0-9]+\.[0-9]+(")/$${1}${ONDEWO_VTSI_VERSION}$${2}/' composer.json
 	@echo "$(GREEN)[SUCCESS]$(NC) composer.json version set to ${ONDEWO_VTSI_VERSION}"
 
-install_dependencies: ## Resolve and install the composer dependencies of the package (needs network)
+php_toolchain: ## Build the pinned php/composer image - a no-op when the host has php and composer
+ifneq (${HOST_HAS_PHP},yes)
+	@docker build --quiet -f ${TOOLS_DIR}/php.Dockerfile -t ${PHP_TOOLCHAIN_IMAGE} ${TOOLS_DIR} > /dev/null
+	@echo "$(BLUE)[INFO]$(NC) no php/composer on this host - running them from ${PHP_TOOLCHAIN_IMAGE}"
+endif
+
+install_dependencies: php_toolchain ## Resolve and install the composer dependencies of the package (needs network)
 # composer.json declares autoload.classmap ["src/"], and `composer update` aborts with
 #	'Could not scan for classes inside "src/" which does not appear to be a file nor a folder'
 #	when the stubs have not been generated yet. An empty src/ is harmless - it is compiler-owned
 #	and wiped on the next generation run, and git does not track empty directories.
 	@mkdir -p src
-	composer update --prefer-dist --no-interaction --no-progress
+	${COMPOSER_CMD} update --prefer-dist --no-interaction --no-progress
 
-install_dev_tools: ## Resolve and install PHPUnit + the coverage gate into tools/vendor (needs network)
+install_dev_tools: php_toolchain ## Resolve and install PHPUnit + the coverage gate into tools/vendor (needs network)
 # No lock file is committed for tools/: it would pin ONE phpunit major, and this repository is
 #	tested on php 8.1 (phpunit 10) through 8.4 (phpunit 11) - the constraint has to be re-resolved
 #	per interpreter, which is what `update` does and `install` cannot.
-	composer update --working-dir=${TOOLS_DIR} --prefer-dist --no-interaction --no-progress
+	${COMPOSER_CMD} update --working-dir=${TOOLS_DIR} --prefer-dist --no-interaction --no-progress
 
 clean: ## Remove the composer artifacts, the dev tools and the generated stubs
 	rm -rf vendor composer.lock src ${TOOLS_DIR}/vendor ${TOOLS_DIR}/composer.lock build .phpunit.cache
@@ -246,18 +269,22 @@ test: composer_validate packagist_dry_run lint_php check_build coverage ## Valid
 ci: composer_validate packagist_dry_run lint_php coverage ## Run the CI gate locally (no submodules, no docker)
 	@echo "$(GREEN)[SUCCESS]$(NC) CI gate passed"
 
-composer_validate: ## Validate composer.json
+composer_validate: php_toolchain ## Validate composer.json
 # Deliberately NOT --strict: the `version` field the release targets bump is a strict-mode
 # warning that --strict turns into a failure (rc 1), exactly as in the compiler image.
 # `composer_validate_strict` below runs --strict anyway, with the deliberate warnings enumerated,
-# so a NEW warning still fails the build.
-	composer validate --no-check-publish --no-interaction
+# so a NEW warning still fails the build. Its output is printed only when it FAILS: on success it
+# is the three deliberate warnings, which would otherwise read as warnings in every build log.
+	@mkdir -p build
+	@${COMPOSER_CMD} validate --no-check-publish --no-ansi --no-interaction > build/composer-validate.log 2>&1 \
+		|| { cat build/composer-validate.log; echo "$(RED)[ERROR]$(NC) composer validate failed"; exit 1; }
+	@echo "$(GREEN)[SUCCESS]$(NC) composer.json is valid (full output: build/composer-validate.log)"
 
-lint_php: ## Syntax-check every hand-written PHP file with `php -l` (src/ is generated and skipped)
+lint_php: php_toolchain ## Syntax-check every hand-written PHP file with `php -l` (src/ is generated and skipped)
 	@for dir in auth tests; do \
 		[ -d "$$dir" ] || continue; \
 		find "$$dir" -type f -name '*.php' | while IFS= read -r f; do \
-			php -l "$$f" > /dev/null || { echo "$(RED)[ERROR]$(NC) php -l failed: $$f"; exit 1; }; \
+			${PHP_CMD} -l "$$f" > /dev/null || { echo "$(RED)[ERROR]$(NC) php -l failed: $$f"; exit 1; }; \
 		done || exit 1; \
 	done
 	@echo "$(GREEN)[SUCCESS]$(NC) hand-written PHP sources are syntactically valid"
@@ -281,25 +308,25 @@ check_build: ## Fails if any .proto of the API submodule has no generated PHP co
 # NOTE: no `[ -x ... ] || skip` guard. A missing tool chain or a missing test suite is a RED
 #	build, not a green one - that guard is exactly what let this repository's CI pass while it
 #	held no code at all.
-phpunit: ## Run the PHPUnit suite
+phpunit: php_toolchain ## Run the PHPUnit suite
 	@test -x ${PHPUNIT} \
 		|| { echo "$(RED)[ERROR]$(NC) '${PHPUNIT}' is missing - run 'make install_dev_tools'"; exit 1; }
 	@test -f vendor/autoload.php \
 		|| { echo "$(RED)[ERROR]$(NC) 'vendor/autoload.php' is missing - run 'make install_dependencies'"; exit 1; }
-	${PHPUNIT} --colors=never
+	${PHP_CMD} ${PHPUNIT} --colors=never
 
-coverage: ## Run the PHPUnit suite with coverage and fail below COVERAGE_MIN% of the hand-written code
+coverage: php_toolchain ## Run the PHPUnit suite with coverage and fail below COVERAGE_MIN% of the hand-written code
 	@test -x ${PHPUNIT} \
 		|| { echo "$(RED)[ERROR]$(NC) '${PHPUNIT}' is missing - run 'make install_dev_tools'"; exit 1; }
 	@test -f vendor/autoload.php \
 		|| { echo "$(RED)[ERROR]$(NC) 'vendor/autoload.php' is missing - run 'make install_dependencies'"; exit 1; }
 # --fail-on-skipped/--fail-on-incomplete: a test that quietly skips itself is the green-by-omission
 #	failure mode this suite exists to rule out.
-	php ${PHP_COVERAGE_FLAGS} ${PHPUNIT} --colors=never --fail-on-skipped --fail-on-incomplete \
+	${PHP_CMD} ${PHP_COVERAGE_FLAGS} ${PHPUNIT} --colors=never --fail-on-skipped --fail-on-incomplete \
 		--coverage-clover ${CLOVER_REPORT} --coverage-text
 	@test -f ${CLOVER_REPORT} \
 		|| { echo "$(RED)[ERROR]$(NC) no coverage report at '${CLOVER_REPORT}' - is a coverage driver (pcov/xdebug) enabled?"; exit 1; }
-	${COVERAGE_CHECK} ${CLOVER_REPORT} ${COVERAGE_MIN}
+	${PHP_CMD} ${COVERAGE_CHECK} ${CLOVER_REPORT} ${COVERAGE_MIN}
 
 ########################################################
 #		Submodules
@@ -335,7 +362,10 @@ release: ## Automate the entire release process
 	make check_release_notes
 	make build
 	-make precommit_hooks_run_all_files
-	make check_build
+# The whole suite (manifest, packaging dry run, php -l, stub inventory, PHPUnit with the coverage
+# gate) runs against the freshly generated tree BEFORE anything is committed, branched, tagged or
+# published - release.yml tests the tag again, but by then the tag can no longer be taken back.
+	make install_dependencies install_dev_tools test
 	git status
 	git add src
 	git add composer.json
@@ -392,8 +422,16 @@ check_gh_credentials: ## Fail unless GITHUB_GH_TOKEN is set
 # Prefixed with @ so the token never reaches the build log. Read as $${GITHUB_GH_TOKEN}, which the
 # shell expands from the exported environment: make would expand $(GITHUB_GH_TOKEN) into the
 # `sh -c` command line, and /proc/<pid>/cmdline is world-readable. printf is a shell builtin.
+# gh REFUSES `gh auth login` while GH_TOKEN or GITHUB_TOKEN is in the environment ("The value of the
+# GH_TOKEN environment variable is being used for authentication", exit 1) and authenticates every
+# later call with that variable instead - and this runs after the tag has been pushed. So the login
+# is skipped when gh already has a token, the way ondewo-vtsi-client-go does it.
 login_to_gh: check_gh_credentials ## Login to Github CLI with Access Token
-	@printf '%s\n' "$${GITHUB_GH_TOKEN}" | gh auth login -p ssh --with-token
+	@if [ -n "$${GH_TOKEN}" ] || [ -n "$${GITHUB_TOKEN}" ]; then \
+		echo "$(BLUE)[INFO]$(NC) gh already authenticates through GH_TOKEN/GITHUB_TOKEN from the environment - skipping gh auth login"; \
+	else \
+		printf '%s\n' "$${GITHUB_GH_TOKEN}" | gh auth login -p ssh --with-token; \
+	fi
 
 # `gh release create -n ""` succeeds and publishes an EMPTY release, so a forgotten RELEASE.md
 # entry - or a heading whose wording drifted away from what the CURRENT_RELEASE_NOTES flip-flop
@@ -447,12 +485,11 @@ packagist_dry_run: composer_validate composer_validate_strict check_version_agre
 # library, and the compiler image writes a --no-dev lock of its own). CI validates before it ever
 # installs, so there is no lock to check; a developer who runs this after `make install_dependencies`
 # would otherwise fail on a purely local artifact that is never published.
-composer_validate_strict: ## Run `composer validate --strict` and fail on any warning beyond the three deliberate ones
+composer_validate_strict: php_toolchain ## Run `composer validate --strict` and fail on any warning beyond the three deliberate ones
 	@mkdir -p build
-	@composer validate --strict --no-check-lock --no-ansi --no-interaction > build/composer-validate-strict.log 2>&1 || true
-	@cat build/composer-validate-strict.log
+	@${COMPOSER_CMD} validate --strict --no-check-lock --no-ansi --no-interaction > build/composer-validate-strict.log 2>&1 || true
 	@grep -q "is valid" build/composer-validate-strict.log \
-		|| { echo "$(RED)[ERROR]$(NC) composer.json is INVALID - see the output above"; exit 1; }
+		|| { cat build/composer-validate-strict.log; echo "$(RED)[ERROR]$(NC) composer.json is INVALID - see the output above"; exit 1; }
 	@grep '^- ' build/composer-validate-strict.log \
 		| grep -v -e "The version field is present" \
 		          -e "require.google/protobuf : exact version constraints" \
@@ -471,9 +508,9 @@ composer_validate_strict: ## Run `composer validate --strict` and fail on any wa
 # fleet requires, and it also refuses a version with no RELEASE.md entry, because
 # CURRENT_RELEASE_NOTES would then slice out nothing and `gh release create` would ship empty
 # notes without complaining.
-check_version_agreement: ## Fail unless ONDEWO_VTSI_VERSION, composer.json, RELEASE.md and (when HEAD is a tag) the git tag all agree
-	@name=`php -r 'echo json_decode(file_get_contents("composer.json"), true)["name"] ?? "";'`; \
-	version=`php -r 'echo json_decode(file_get_contents("composer.json"), true)["version"] ?? "";'`; \
+check_version_agreement: php_toolchain ## Fail unless ONDEWO_VTSI_VERSION, composer.json, RELEASE.md and (when HEAD is a tag) the git tag all agree
+	@name=`${PHP_CMD} -r 'echo json_decode(file_get_contents("composer.json"), true)["name"] ?? "";'`; \
+	version=`${PHP_CMD} -r 'echo json_decode(file_get_contents("composer.json"), true)["version"] ?? "";'`; \
 	if [ "$$name" != "${PACKAGIST_PACKAGE}" ]; then \
 		echo "$(RED)[ERROR]$(NC) composer.json name is '$$name' but the Packagist package is '${PACKAGIST_PACKAGE}'"; exit 1; fi; \
 	if [ "$$version" != "${ONDEWO_VTSI_VERSION}" ]; then \
@@ -494,11 +531,11 @@ check_version_agreement: ## Fail unless ONDEWO_VTSI_VERSION, composer.json, RELE
 # The update API identifies the package by its VCS url, NOT by its composer name: ping the wrong
 # url with valid credentials and Packagist answers 200 for a package that is not this one. So the
 # payload is checked against composer.json's own support.source, which is what was submitted.
-check_packagist_payload: ## Fail unless the Packagist update payload is well-formed JSON pointing at this repository
+check_packagist_payload: php_toolchain ## Fail unless the Packagist update payload is well-formed JSON pointing at this repository
 	@mkdir -p build
 	@printf '%s\n' '$(PACKAGIST_UPDATE_PAYLOAD)' > build/packagist-update-payload.json
-	@url=`php -r 'echo json_decode(file_get_contents("build/packagist-update-payload.json"), true)["repository"]["url"] ?? "";'`; \
-	source=`php -r 'echo json_decode(file_get_contents("composer.json"), true)["support"]["source"] ?? "";'`; \
+	@url=`${PHP_CMD} -r 'echo json_decode(file_get_contents("build/packagist-update-payload.json"), true)["repository"]["url"] ?? "";'`; \
+	source=`${PHP_CMD} -r 'echo json_decode(file_get_contents("composer.json"), true)["support"]["source"] ?? "";'`; \
 	if [ -z "$$url" ]; then \
 		echo "$(RED)[ERROR]$(NC) the update payload is not valid JSON or carries no repository.url:"; \
 		cat build/packagist-update-payload.json; exit 1; fi; \
@@ -563,7 +600,10 @@ packagist_update: ## Ping the Packagist update API so it crawls the tags of this
 ########################################################
 #		DEVOPS-ACCOUNTS
 
-ondewo_release: spc clone_devops_accounts run_release_with_devops ## Release with credentials from devops-accounts repo
+# update_composer_version BEFORE spc: release_client in ondewo-vtsi-api bumps ONDEWO_VTSI_VERSION
+# in this Makefile only, and composer.json used to follow inside `release` -> `build`, i.e. after
+# spc's Test 3 had already refused the release for the stale field.
+ondewo_release: update_composer_version spc clone_devops_accounts run_release_with_devops ## Release with credentials from devops-accounts repo
 	@rm -rf ${DEVOPS_ACCOUNT_GIT}
 
 clone_devops_accounts: ## Clones devops-accounts repo
