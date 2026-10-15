@@ -141,6 +141,18 @@ DEVOPS_ACCOUNT_REPO=git@bitbucket.org:ondewo/${DEVOPS_ACCOUNT_GIT}.git
 # (ondewo-vtsi-api's release driver does, to its single clone) and that directory is used as is:
 # never cloned, never deleted - its owner cleans it up.
 DEVOPS_ACCOUNT_DIR?=
+# ondewo-vtsi-api's release driver also runs release_preflight and release_verify STANDALONE, with
+# nothing but DEVOPS_ACCOUNT_DIR set. Those two therefore load what they need from that directory -
+# each credential only when the environment does not already carry it (inside `make release` it
+# does) - into their own recipe shell: anchored grep, `set -a` + eval, so no value reaches an argv or
+# the log. A no-op when DEVOPS_ACCOUNT_DIR is unset or not a directory.
+LOAD_DEVOPS_CREDENTIALS=if [ -n "${DEVOPS_ACCOUNT_DIR}" ] && [ -d "${DEVOPS_ACCOUNT_DIR}" ]; then \
+		set -a; \
+		[ -n "$${GITHUB_GH_TOKEN:-}" ] || eval "$$(grep -h -E '^GITHUB_GH_TOKEN=' "${DEVOPS_ACCOUNT_DIR}/account_github.env" 2> /dev/null)"; \
+		[ -n "$${PACKAGIST_USERNAME:-}" ] && [ -n "$${PACKAGIST_API_TOKEN:-}" ] \
+			|| eval "$$(grep -h -E '^(PACKAGIST_USERNAME|PACKAGIST_API_TOKEN)=' "${DEVOPS_ACCOUNT_DIR}/account_packagist.env" 2> /dev/null)"; \
+		set +a; \
+	fi
 
 # Every step of `release` that needs no credential runs under this prefix, so composer, phpunit, the
 # pre-commit hooks, the compiler image and git never see one. Only the gh calls and the Packagist
@@ -489,7 +501,11 @@ create_release_tag: ## Create Release Tag and push it to origin
 ########################################################
 #		PREFLIGHT AND VERIFY (read-only)
 
-release_preflight: check_host_tools check_no_devops_clone_in_repo spc check_release_notes check_gh_credentials check_gh_push_permission check_packagist_credentials check_packagist_auth ## Read-only: fail unless the release can finish (tools, version free, notes, valid GitHub + Packagist credentials)
+release_preflight: ## Read-only: fail unless the release can finish (tools, version free, notes, valid GitHub + Packagist credentials)
+	@$(LOAD_DEVOPS_CREDENTIALS); \
+	$(MAKE) --no-print-directory release_preflight_checks
+
+release_preflight_checks: check_host_tools check_no_devops_clone_in_repo spc check_release_notes check_gh_credentials check_gh_push_permission check_packagist_credentials check_packagist_auth ## The checks of release_preflight (credentials from the environment only)
 	@echo "$(GREEN)[SUCCESS]$(NC) preflight passed - ${PACKAGIST_PACKAGE} ${ONDEWO_VTSI_VERSION} can be released"
 
 # Only what the release itself runs on the host. php/composer, gh and pre-commit are not required:
@@ -546,13 +562,17 @@ check_packagist_auth: check_packagist_credentials ## Read-only: fail unless Pack
 		|| { echo "$(RED)[ERROR]$(NC) the PACKAGIST_USERNAME account is not a maintainer of ${PACKAGIST_PACKAGE} - its ping would be refused"; exit 1; }
 	@echo "$(GREEN)[SUCCESS]$(NC) Packagist accepts the credentials and the account maintains ${PACKAGIST_PACKAGE}"
 
-release_verify: check_gh_credentials release_tools ## Read-only, after a release: fail unless the tag is on origin, the GitHub release has notes, the tag's release.yml run succeeded and Packagist serves the version
+release_verify: ## Read-only, after a release: fail unless the tag is on origin, the GitHub release has notes, the tag's release.yml run succeeded and Packagist serves the version
+	@$(LOAD_DEVOPS_CREDENTIALS); \
+	$(MAKE) --no-print-directory release_verify_checks
+
+release_verify_checks: check_gh_credentials release_tools ## The checks of release_verify (credentials from the environment only)
 	@rc=0; git ls-remote --exit-code --tags origin "refs/tags/${ONDEWO_VTSI_VERSION}" > /dev/null || rc=$$?; \
 	if [ $$rc -eq 2 ]; then echo "$(RED)[ERROR]$(NC) tag ${ONDEWO_VTSI_VERSION} is not on origin"; exit 1; fi; \
 	if [ $$rc -ne 0 ]; then echo "$(RED)[ERROR]$(NC) git ls-remote origin failed (exit $$rc)"; exit 1; fi
 	@echo "$(GREEN)[SUCCESS]$(NC) tag ${ONDEWO_VTSI_VERSION} is on origin"
 	@body=`GH_TOKEN="$${GITHUB_GH_TOKEN}" ${GH_CMD} release view "${ONDEWO_VTSI_VERSION}" --repo ${GH_REPO_SLUG} --json body --jq .body` \
-		|| { echo "$(RED)[ERROR]$(NC) there is no GitHub release ${ONDEWO_VTSI_VERSION}"; exit 1; }; \
+		|| { echo "$(RED)[ERROR]$(NC) gh release view ${ONDEWO_VTSI_VERSION} failed - no such GitHub release, or GitHub rejected GITHUB_GH_TOKEN (see gh's message above)"; exit 1; }; \
 	if [ -z "`printf '%s' "$$body" | tr -d '[:space:]'`" ]; then \
 		echo "$(RED)[ERROR]$(NC) the GitHub release ${ONDEWO_VTSI_VERSION} has an EMPTY body"; exit 1; fi
 	@echo "$(GREEN)[SUCCESS]$(NC) the GitHub release ${ONDEWO_VTSI_VERSION} has release notes"

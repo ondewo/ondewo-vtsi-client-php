@@ -422,7 +422,10 @@ make ondewo_release
 | 11 | `release_verify` | none — the tag is on origin, the GitHub release has a non-empty body, the tag's `release.yml` run succeeded, and `https://repo.packagist.org/p2/ondewo/vtsi-client-php.json` lists `<V>`; polled `VERIFY_ATTEMPTS` (20) × `VERIFY_INTERVAL_S` (30 s) |
 
 `make -n ondewo_release` and `make -n release` print this plan without cloning or pushing anything.
-`release_preflight` and `release_verify` can be run on their own at any time; both only read.
+`release_preflight` and `release_verify` can be run on their own at any time; both only read. Run standalone
+with `DEVOPS_ACCOUNT_DIR=<absolute path of a devops-accounts clone>` (as ondewo-vtsi-api's driver does), they
+load each credential they need from that directory when the environment does not already carry it — into
+their own shell only, never onto a command line or into the log.
 
 **Credentials reach only the steps that use them.** There is no bare `export` in the `Makefile`: the credentials
 travel in the environment `ondewo_release` hands to `make release`, every step that needs none of them (build,

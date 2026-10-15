@@ -66,20 +66,20 @@ final class ReleaseProcessTest extends TestCase
 
     public function testNoReleaseStepIgnoresItsOwnFailure(): void
     {
-        foreach (['release', 'ondewo_release', 'release_preflight', 'release_verify', 'publish', 'spc'] as $target) {
+        foreach (['release', 'ondewo_release', 'release_preflight', 'release_preflight_checks', 'release_verify', 'release_verify_checks', 'publish', 'spc'] as $target) {
             self::assertSame([], preg_grep('/^-/', self::commands(self::recipe($target))), $target . ' swallows a failing step with a leading `-`');
         }
     }
 
     public function testThePreflightIsReadOnlyAndChecksWhatTheContractNames(): void
     {
-        $prerequisites = self::prerequisites('release_preflight');
+        $prerequisites = self::prerequisites('release_preflight_checks');
         foreach (['check_host_tools', 'spc', 'check_release_notes', 'check_gh_push_permission', 'check_packagist_auth'] as $check) {
             self::assertContains($check, $prerequisites, 'release_preflight does not run ' . $check);
         }
 
         $writes = '/\bgit (?:add|commit|push|tag|checkout)\b|\brelease create\b|' . preg_quote('$(PACKAGIST_UPDATE_PAYLOAD)', '/') . '/';
-        foreach (array_merge(['release_preflight', 'release_verify'], $prerequisites) as $target) {
+        foreach (array_merge(['release_preflight', 'release_preflight_checks', 'release_verify', 'release_verify_checks'], $prerequisites) as $target) {
             if (!str_contains(self::read('Makefile'), "\n" . $target . ':')) {
                 continue;
             }
@@ -111,7 +111,7 @@ final class ReleaseProcessTest extends TestCase
 
     public function testReleaseVerifyChecksTagNotesRunAndRegistry(): void
     {
-        $verify = self::recipe('release_verify');
+        $verify = self::recipe('release_verify_checks');
 
         self::assertStringContainsString('git ls-remote --exit-code --tags origin "refs/tags/${ONDEWO_VTSI_VERSION}"', $verify);
         self::assertStringContainsString('release view "${ONDEWO_VTSI_VERSION}"', $verify);
@@ -144,6 +144,32 @@ final class ReleaseProcessTest extends TestCase
         // A clone handed over by the driver is used and left alone: only $$tmp is ever deleted.
         self::assertStringContainsString('if [ -n "${DEVOPS_ACCOUNT_DIR}" ]; then', $recipe);
         self::assertMatchesRegularExpression('/^DEVOPS_ACCOUNT_DIR\?=\s*$/m', self::read('Makefile'));
+    }
+
+    /**
+     * ondewo-vtsi-api's driver runs both standalone with only DEVOPS_ACCOUNT_DIR set.
+     */
+    public function testPreflightAndVerifyLoadMissingCredentialsFromTheDevopsDirectory(): void
+    {
+        foreach (['release_preflight', 'release_verify'] as $target) {
+            self::assertSame(
+                ['$(LOAD_DEVOPS_CREDENTIALS); $(MAKE) --no-print-directory ' . $target . '_checks'],
+                self::commands(self::recipe($target)),
+                $target . ' must load the credentials, then run its checks in the same shell',
+            );
+            self::assertSame([], self::prerequisites($target), $target . ' must not run checks before loading the credentials');
+        }
+
+        preg_match('/^LOAD_DEVOPS_CREDENTIALS=(.*?)\n\tfi$/ms', self::read('Makefile'), $load);
+        self::assertNotEmpty($load, 'LOAD_DEVOPS_CREDENTIALS is missing');
+        $snippet = $load[1];
+        // Only from an existing directory, each value only when the environment lacks it, anchored,
+        // through `set -a` + eval - never on a command line.
+        self::assertStringContainsString('[ -d "${DEVOPS_ACCOUNT_DIR}" ]', $snippet);
+        self::assertStringContainsString('set -a', $snippet);
+        self::assertStringContainsString('[ -n "$${GITHUB_GH_TOKEN:-}" ] || eval "$$(grep -h -E \'^GITHUB_GH_TOKEN=\'', $snippet);
+        self::assertStringContainsString("grep -h -E '^(PACKAGIST_USERNAME|PACKAGIST_API_TOKEN)='", $snippet);
+        self::assertStringNotContainsString('echo', $snippet);
     }
 
     public function testMakeDryRunOfTheDevopsReleaseCannotCloneAnything(): void
