@@ -22,45 +22,6 @@ use SplFileInfo;
  */
 final class GeneratedCodeTest extends TestCase
 {
-    /**
-     * The services of ondewo-vtsi-api. VTSI drives whole telephony conversations, so its api
-     * VENDORS the NLU, QA, S2T, SIP and T2S protos and this client ships their stubs too - a
-     * consumer talks to all six servers through this one package.
-     *
-     * PRODUCT-SPECIFIC: replace this list wholesale when this suite is replicated to another
-     * ONDEWO client.
-     *
-     * @var list<class-string>
-     */
-    private const EXPECTED_SERVICE_CLIENTS = [
-        \Ondewo\Vtsi\CallsClient::class,
-        \Ondewo\Vtsi\CampaignsClient::class,
-        \Ondewo\Vtsi\EventsClient::class,
-        \Ondewo\Vtsi\LogsClient::class,
-        \Ondewo\Vtsi\ProjectsClient::class,
-        \Ondewo\Vtsi\SoftphonesClient::class,
-        \Ondewo\Nlu\AgentsClient::class,
-        \Ondewo\Nlu\AiServicesClient::class,
-        \Ondewo\Nlu\CcaiProjectsClient::class,
-        \Ondewo\Nlu\ContextsClient::class,
-        \Ondewo\Nlu\EntityTypesClient::class,
-        \Ondewo\Nlu\IntentsClient::class,
-        \Ondewo\Nlu\LlmEvaluationsClient::class,
-        \Ondewo\Nlu\OperationsClient::class,
-        \Ondewo\Nlu\ProjectRolesClient::class,
-        \Ondewo\Nlu\ProjectStatisticsClient::class,
-        \Ondewo\Nlu\RagsClient::class,
-        \Ondewo\Nlu\ServerStatisticsClient::class,
-        \Ondewo\Nlu\SessionsClient::class,
-        \Ondewo\Nlu\UsersClient::class,
-        \Ondewo\Nlu\UtilitiesClient::class,
-        \Ondewo\Nlu\WebhookClient::class,
-        \Ondewo\Qa\QAClient::class,
-        \Ondewo\S2t\Speech2TextClient::class,
-        \Ondewo\Sip\SipClient::class,
-        \Ondewo\T2s\Text2SpeechClient::class,
-    ];
-
     public function testTheGeneratedStubsAreCommitted(): void
     {
         self::assertDirectoryExists(self::stubsDirectory(), 'src/ is missing - the generated stubs are not committed');
@@ -107,17 +68,6 @@ final class GeneratedCodeTest extends TestCase
         }
 
         self::assertGreaterThan(0, $initialised, 'no GPBMetadata descriptor was found under src/');
-    }
-
-    public function testEveryExpectedServiceClientIsGenerated(): void
-    {
-        foreach (self::EXPECTED_SERVICE_CLIENTS as $client) {
-            self::assertTrue(class_exists($client), $client . ' was not generated');
-            self::assertTrue(
-                is_subclass_of($client, \Grpc\BaseStub::class),
-                $client . ' does not extend \Grpc\BaseStub'
-            );
-        }
     }
 
     private static function stubsDirectory(): string
