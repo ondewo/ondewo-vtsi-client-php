@@ -702,6 +702,9 @@ composer_validate_strict: php_toolchain ## Run `composer validate --strict` and 
 # fleet requires, and it also refuses a version with no RELEASE.md entry, because
 # CURRENT_RELEASE_NOTES would then slice out nothing and `gh release create` would ship empty
 # notes without complaining.
+# Without RELEASE_TAG the tag is read off HEAD, and only from a CLEAN tree: HEAD's tag describes HEAD's tree, and
+# once the release driver has rewritten the version the tag on HEAD is the PREVIOUS release, which refused every
+# next release (csi-client-php 5.7.0: "git tag '5.6.2' does not match ONDEWO_CSI_VERSION '5.7.0'").
 check_version_agreement: php_toolchain ## Fail unless ONDEWO_VTSI_VERSION, composer.json, RELEASE.md and (when HEAD is a tag) the git tag all agree
 	@name=`${PHP_CMD} -r 'echo json_decode(file_get_contents("composer.json"), true)["name"] ?? "";'`; \
 	version=`${PHP_CMD} -r 'echo json_decode(file_get_contents("composer.json"), true)["version"] ?? "";'`; \
@@ -712,7 +715,7 @@ check_version_agreement: php_toolchain ## Fail unless ONDEWO_VTSI_VERSION, compo
 	grep -qE '^#+ Release ONDEWO VTSI PHP Client $(subst .,\.,${ONDEWO_VTSI_VERSION})$$' RELEASE.md \
 		|| { echo "$(RED)[ERROR]$(NC) RELEASE.md has no '## Release ONDEWO VTSI PHP Client ${ONDEWO_VTSI_VERSION}' entry - the GitHub release would ship empty notes"; exit 1; }; \
 	tag="${RELEASE_TAG}"; \
-	[ -n "$$tag" ] || tag=`git describe --exact-match --tags HEAD 2>/dev/null || true`; \
+	[ -n "$$tag" ] || ! git diff --quiet HEAD -- 2>/dev/null || tag=`git describe --exact-match --tags HEAD 2>/dev/null || true`; \
 	if [ -z "$$tag" ]; then \
 		echo "$(BLUE)[INFO]$(NC) HEAD is not a release tag - tag agreement not applicable (set RELEASE_TAG to force the check)"; \
 	elif [ "$$tag" != "${ONDEWO_VTSI_VERSION}" ]; then \
