@@ -110,6 +110,14 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceProvider llm_ccai_service_provider_filter = 15;</code>
      */
     private $llm_ccai_service_provider_filter;
+    /**
+     * Optional. Restrict LLM-typed reports to calls made through specific base URLs (the
+     * <code>LlmTelemetry.base_url</code> values, as reported in <code>LlmTelemetryReport.base_urls_used</code>).
+     * An empty string selects calls whose model configuration states no base URL. Empty list = all.
+     *
+     * Generated from protobuf field <code>repeated string llm_base_url_filter = 16;</code>
+     */
+    private $llm_base_url_filter;
 
     /**
      * Constructor.
@@ -151,6 +159,10 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      *           Optional. Restrict LLM-typed reports to specific tool names. Empty = all.
      *     @type int[] $llm_ccai_service_provider_filter
      *           Optional. Restrict LLM-typed reports to specific CCAI service providers. Empty = all.
+     *     @type string[] $llm_base_url_filter
+     *           Optional. Restrict LLM-typed reports to calls made through specific base URLs (the
+     *           <code>LlmTelemetry.base_url</code> values, as reported in <code>LlmTelemetryReport.base_urls_used</code>).
+     *           An empty string selects calls whose model configuration states no base URL. Empty list = all.
      * }
      */
     public function __construct($data = NULL) {
@@ -572,6 +584,36 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->llm_ccai_service_provider_filter = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Restrict LLM-typed reports to calls made through specific base URLs (the
+     * <code>LlmTelemetry.base_url</code> values, as reported in <code>LlmTelemetryReport.base_urls_used</code>).
+     * An empty string selects calls whose model configuration states no base URL. Empty list = all.
+     *
+     * Generated from protobuf field <code>repeated string llm_base_url_filter = 16;</code>
+     * @return RepeatedField<string>
+     */
+    public function getLlmBaseUrlFilter()
+    {
+        return $this->llm_base_url_filter;
+    }
+
+    /**
+     * Optional. Restrict LLM-typed reports to calls made through specific base URLs (the
+     * <code>LlmTelemetry.base_url</code> values, as reported in <code>LlmTelemetryReport.base_urls_used</code>).
+     * An empty string selects calls whose model configuration states no base URL. Empty list = all.
+     *
+     * Generated from protobuf field <code>repeated string llm_base_url_filter = 16;</code>
+     * @param string[] $var
+     * @return $this
+     */
+    public function setLlmBaseUrlFilter($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
+        $this->llm_base_url_filter = $arr;
 
         return $this;
     }

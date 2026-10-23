@@ -99,6 +99,12 @@ class OperationType
      * Generated from protobuf enum <code>CHANGE_DATASET_EMBEDDING_MODEL = 13;</code>
      */
     const CHANGE_DATASET_EMBEDDING_MODEL = 13;
+    /**
+     * re-parse of all documents in a dataset
+     *
+     * Generated from protobuf enum <code>REPARSE_DATASET = 14;</code>
+     */
+    const REPARSE_DATASET = 14;
 
     private static $valueToName = [
         self::OPERATION_TYPE_UNSPECIFIED => 'OPERATION_TYPE_UNSPECIFIED',
@@ -115,6 +121,7 @@ class OperationType
         self::ADD_RAG_CRAWLER_RESULT_TO_DATASET => 'ADD_RAG_CRAWLER_RESULT_TO_DATASET',
         self::REMOVE_RAG_CRAWLER_RESULT_FROM_DATASET => 'REMOVE_RAG_CRAWLER_RESULT_FROM_DATASET',
         self::CHANGE_DATASET_EMBEDDING_MODEL => 'CHANGE_DATASET_EMBEDDING_MODEL',
+        self::REPARSE_DATASET => 'REPARSE_DATASET',
     ];
 
     public static function name($value)

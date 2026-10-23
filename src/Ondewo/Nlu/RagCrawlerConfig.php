@@ -25,7 +25,7 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      */
     protected $concurrency_config = null;
     /**
-     * Optional. Deep crawler behavior (enable + depth/pages/scoring/filter chain).
+     * Optional. Deep crawler behavior (enable + depth/scoring/filter chain).
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerDeepCrawlerConfig deep_crawler_config = 2;</code>
      */
@@ -48,6 +48,12 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerIncrementalConfig incremental_config = 5;</code>
      */
     protected $incremental_config = null;
+    /**
+     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     *
+     * Generated from protobuf field <code>optional int32 max_pages = 6;</code>
+     */
+    protected $max_pages = null;
 
     /**
      * Constructor.
@@ -58,13 +64,15 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Nlu\RagCrawlerConcurrencyConfig $concurrency_config
      *           Optional. Concurrency and pacing controls for crawler requests.
      *     @type \Ondewo\Nlu\RagCrawlerDeepCrawlerConfig $deep_crawler_config
-     *           Optional. Deep crawler behavior (enable + depth/pages/scoring/filter chain).
+     *           Optional. Deep crawler behavior (enable + depth/scoring/filter chain).
      *     @type \Ondewo\Nlu\RagCrawlerResultsConfig $output_config
      *           Optional. Structured output configuration (format + metadata policy).
      *     @type \Ondewo\Nlu\RagCrawlerStatusFilter $status_filter
      *           Optional. HTTP status filtering: which fetched pages become result documents.
      *     @type \Ondewo\Nlu\RagCrawlerIncrementalConfig $incremental_config
      *           Optional. Incremental crawling: reuse unchanged pages from the previous run instead of re-fetching them.
+     *     @type int $max_pages
+     *           Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
      * }
      */
     public function __construct($data = NULL) {
@@ -109,7 +117,7 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. Deep crawler behavior (enable + depth/pages/scoring/filter chain).
+     * Optional. Deep crawler behavior (enable + depth/scoring/filter chain).
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerDeepCrawlerConfig deep_crawler_config = 2;</code>
      * @return \Ondewo\Nlu\RagCrawlerDeepCrawlerConfig|null
@@ -130,7 +138,7 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. Deep crawler behavior (enable + depth/pages/scoring/filter chain).
+     * Optional. Deep crawler behavior (enable + depth/scoring/filter chain).
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerDeepCrawlerConfig deep_crawler_config = 2;</code>
      * @param \Ondewo\Nlu\RagCrawlerDeepCrawlerConfig $var
@@ -248,6 +256,42 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerIncrementalConfig::class);
         $this->incremental_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     *
+     * Generated from protobuf field <code>optional int32 max_pages = 6;</code>
+     * @return int
+     */
+    public function getMaxPages()
+    {
+        return isset($this->max_pages) ? $this->max_pages : 0;
+    }
+
+    public function hasMaxPages()
+    {
+        return isset($this->max_pages);
+    }
+
+    public function clearMaxPages()
+    {
+        unset($this->max_pages);
+    }
+
+    /**
+     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     *
+     * Generated from protobuf field <code>optional int32 max_pages = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setMaxPages($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->max_pages = $var;
 
         return $this;
     }

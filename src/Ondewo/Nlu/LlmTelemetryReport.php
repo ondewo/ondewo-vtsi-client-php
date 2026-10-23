@@ -140,6 +140,14 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.nlu.LlmSafetyStats safety_stats = 20;</code>
      */
     protected $safety_stats = null;
+    /**
+     * Per-base-URL usage rollup. Populated for *_LLM_TOTAL_STATISTICS. Unlike
+     * <code>LlmModelUsage.base_url</code>, which carries one base URL per model, this lists every
+     * distinct base URL in scope.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.nlu.LlmBaseUrlUsage base_urls_used = 21;</code>
+     */
+    private $base_urls_used;
 
     /**
      * Constructor.
@@ -188,6 +196,10 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Nlu\LlmSafetyStats $safety_stats
      *           Native safety aggregate (counts / rates / mean score). Populated for
      *           *_LLM_SAFETY and *_LLM_TOTAL_STATISTICS reports.
+     *     @type \Ondewo\Nlu\LlmBaseUrlUsage[] $base_urls_used
+     *           Per-base-URL usage rollup. Populated for *_LLM_TOTAL_STATISTICS. Unlike
+     *           <code>LlmModelUsage.base_url</code>, which carries one base URL per model, this lists every
+     *           distinct base URL in scope.
      * }
      */
     public function __construct($data = NULL) {
@@ -763,6 +775,36 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmSafetyStats::class);
         $this->safety_stats = $var;
+
+        return $this;
+    }
+
+    /**
+     * Per-base-URL usage rollup. Populated for *_LLM_TOTAL_STATISTICS. Unlike
+     * <code>LlmModelUsage.base_url</code>, which carries one base URL per model, this lists every
+     * distinct base URL in scope.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.nlu.LlmBaseUrlUsage base_urls_used = 21;</code>
+     * @return RepeatedField<\Ondewo\Nlu\LlmBaseUrlUsage>
+     */
+    public function getBaseUrlsUsed()
+    {
+        return $this->base_urls_used;
+    }
+
+    /**
+     * Per-base-URL usage rollup. Populated for *_LLM_TOTAL_STATISTICS. Unlike
+     * <code>LlmModelUsage.base_url</code>, which carries one base URL per model, this lists every
+     * distinct base URL in scope.
+     *
+     * Generated from protobuf field <code>repeated .ondewo.nlu.LlmBaseUrlUsage base_urls_used = 21;</code>
+     * @param \Ondewo\Nlu\LlmBaseUrlUsage[] $var
+     * @return $this
+     */
+    public function setBaseUrlsUsed($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmBaseUrlUsage::class);
+        $this->base_urls_used = $arr;
 
         return $this;
     }

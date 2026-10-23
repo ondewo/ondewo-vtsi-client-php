@@ -73,6 +73,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      *           Emitted for an incremental LLM thinking (reasoning) update.
      *     @type \Ondewo\Nlu\LlmTokenUsageUpdateEvent $llm_token_usage_update
      *           Emitted when the running LLM token-usage totals are updated.
+     *     @type \Ondewo\Nlu\LlmAgentNodeEvent $llm_agent_node_event
+     *           Emitted when a node of an AI Team graph starts, completes or fails.
      * }
      */
     public function __construct($data = NULL) {
@@ -398,6 +400,37 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsageUpdateEvent::class);
         $this->writeOneof(10, $var);
+
+        return $this;
+    }
+
+    /**
+     * Emitted when a node of an AI Team graph starts, completes or fails.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.LlmAgentNodeEvent llm_agent_node_event = 11;</code>
+     * @return \Ondewo\Nlu\LlmAgentNodeEvent|null
+     */
+    public function getLlmAgentNodeEvent()
+    {
+        return $this->readOneof(11);
+    }
+
+    public function hasLlmAgentNodeEvent()
+    {
+        return $this->hasOneof(11);
+    }
+
+    /**
+     * Emitted when a node of an AI Team graph starts, completes or fails.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.LlmAgentNodeEvent llm_agent_node_event = 11;</code>
+     * @param \Ondewo\Nlu\LlmAgentNodeEvent $var
+     * @return $this
+     */
+    public function setLlmAgentNodeEvent($var)
+    {
+        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmAgentNodeEvent::class);
+        $this->writeOneof(11, $var);
 
         return $this;
     }

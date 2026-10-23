@@ -36,9 +36,10 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      */
     protected $max_depth = null;
     /**
-     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     * Deprecated. Use <code>RagCrawlerConfig.max_pages</code> instead
      *
-     * Generated from protobuf field <code>int32 max_pages = 4;</code>
+     * Generated from protobuf field <code>int32 max_pages = 4 [deprecated = true];</code>
+     * @deprecated
      */
     protected $max_pages = 0;
     /**
@@ -68,7 +69,7 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      *     @type int $max_depth
      *           Optional. Maximum link depth from seed URLs, counted from the nearest seed. <code>0</code> means unlimited depth.
      *     @type int $max_pages
-     *           Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     *           Deprecated. Use <code>RagCrawlerConfig.max_pages</code> instead
      *     @type \Ondewo\Nlu\RagCrawlerFilters $deep_crawler_filters
      *           Optional. URL and domain restrictions.
      *     @type bool $normalize_url_case
@@ -171,25 +172,31 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     * Deprecated. Use <code>RagCrawlerConfig.max_pages</code> instead
      *
-     * Generated from protobuf field <code>int32 max_pages = 4;</code>
+     * Generated from protobuf field <code>int32 max_pages = 4 [deprecated = true];</code>
      * @return int
+     * @deprecated
      */
     public function getMaxPages()
     {
+        if ($this->max_pages !== 0) {
+            @trigger_error('max_pages is deprecated.', E_USER_DEPRECATED);
+        }
         return $this->max_pages;
     }
 
     /**
-     * Optional. Hard cap on pages fetched successfully in this run; <code>0</code> means unlimited.
+     * Deprecated. Use <code>RagCrawlerConfig.max_pages</code> instead
      *
-     * Generated from protobuf field <code>int32 max_pages = 4;</code>
+     * Generated from protobuf field <code>int32 max_pages = 4 [deprecated = true];</code>
      * @param int $var
      * @return $this
+     * @deprecated
      */
     public function setMaxPages($var)
     {
+        @trigger_error('max_pages is deprecated.', E_USER_DEPRECATED);
         GPBUtil::checkInt32($var);
         $this->max_pages = $var;
 
