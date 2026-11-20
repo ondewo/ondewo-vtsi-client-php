@@ -86,9 +86,9 @@ class RankingMatchOptimizationConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -112,7 +112,7 @@ class RankingMatchOptimizationConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNSplits($var)
+    public function setNSplits(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_splits = $var;
@@ -138,7 +138,7 @@ class RankingMatchOptimizationConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRandomSeed($var)
+    public function setRandomSeed(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->random_seed = $var;
@@ -180,9 +180,8 @@ class RankingMatchOptimizationConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setInitialThresholds($var)
+    public function setInitialThresholds(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->initial_thresholds = $var;
 
         return $this;

@@ -69,7 +69,7 @@ class RagCrawlerSources extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setUrls($var)
+    public function setUrls(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->urls = $arr;
@@ -97,7 +97,7 @@ class RagCrawlerSources extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSitemaps($var)
+    public function setSitemaps(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->sitemaps = $arr;

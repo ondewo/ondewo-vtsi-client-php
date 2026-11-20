@@ -70,7 +70,7 @@ class ListUserInfosResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\UserInfo[] $var
      * @return $this
      */
-    public function setUsers($var)
+    public function setUsers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\UserInfo::class);
         $this->users = $arr;
@@ -98,9 +98,9 @@ class ListUserInfosResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

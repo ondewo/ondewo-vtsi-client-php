@@ -88,9 +88,9 @@ class BasicCard extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTitle($var)
+    public function setTitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->title = $var;
 
         return $this;
@@ -114,9 +114,9 @@ class BasicCard extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSubtitle($var)
+    public function setSubtitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->subtitle = $var;
 
         return $this;
@@ -140,9 +140,9 @@ class BasicCard extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFormattedText($var)
+    public function setFormattedText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->formatted_text = $var;
 
         return $this;
@@ -176,9 +176,8 @@ class BasicCard extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Image $var
      * @return $this
      */
-    public function setImage($var)
+    public function setImage(\Ondewo\Nlu\Intent\Message\Image|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Image::class);
         $this->image = $var;
 
         return $this;
@@ -202,7 +201,7 @@ class BasicCard extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\BasicCard\Button[] $var
      * @return $this
      */
-    public function setButtons($var)
+    public function setButtons(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message\BasicCard\Button::class);
         $this->buttons = $arr;

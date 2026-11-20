@@ -152,9 +152,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -178,9 +178,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -204,9 +204,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTextAsEntityTypes($var)
+    public function setTextAsEntityTypes(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text_as_entity_types = $var;
 
         return $this;
@@ -230,9 +230,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTextAsEntityValues($var)
+    public function setTextAsEntityValues(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text_as_entity_values = $var;
 
         return $this;
@@ -256,9 +256,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setType($var)
+    public function setType(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->type = $var;
 
         return $this;
@@ -282,9 +282,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -308,9 +308,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentDisplayName($var)
+    public function setIntentDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_display_name = $var;
 
         return $this;
@@ -334,7 +334,7 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -360,9 +360,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguage($var)
+    public function setLanguage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language = $var;
 
         return $this;
@@ -396,9 +396,8 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -432,9 +431,8 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -458,9 +456,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -484,9 +482,9 @@ class IntentUsersaysSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

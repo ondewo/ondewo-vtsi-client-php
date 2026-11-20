@@ -56,7 +56,7 @@ class Suggestions extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Suggestion[] $var
      * @return $this
      */
-    public function setSuggestions($var)
+    public function setSuggestions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message\Suggestion::class);
         $this->suggestions = $arr;

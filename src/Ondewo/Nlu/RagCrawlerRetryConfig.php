@@ -92,7 +92,7 @@ class RagCrawlerRetryConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageLoadTimeoutSeconds($var)
+    public function setPageLoadTimeoutSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_load_timeout_seconds = $var;
@@ -128,7 +128,7 @@ class RagCrawlerRetryConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRetryMaxAttempts($var)
+    public function setRetryMaxAttempts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->retry_max_attempts = $var;
@@ -164,9 +164,8 @@ class RagCrawlerRetryConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRetryBackoffSeconds($var)
+    public function setRetryBackoffSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->retry_backoff_seconds = $var;
 
         return $this;
@@ -202,7 +201,7 @@ class RagCrawlerRetryConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxStallSeconds($var)
+    public function setMaxStallSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_stall_seconds = $var;

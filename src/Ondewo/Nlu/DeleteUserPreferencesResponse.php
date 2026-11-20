@@ -76,9 +76,9 @@ class DeleteUserPreferencesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserName($var)
+    public function setUserName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_name = $var;
 
         return $this;
@@ -102,7 +102,7 @@ class DeleteUserPreferencesResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setKeys($var)
+    public function setKeys(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->keys = $arr;
@@ -128,9 +128,9 @@ class DeleteUserPreferencesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

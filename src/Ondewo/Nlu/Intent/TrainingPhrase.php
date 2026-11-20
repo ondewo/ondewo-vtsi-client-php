@@ -136,9 +136,9 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -148,7 +148,7 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * Required. The type of the training phrase.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.TrainingPhrase.Type type = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\TrainingPhrase\Type}
      */
     public function getType()
     {
@@ -159,10 +159,10 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * Required. The type of the training phrase.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.TrainingPhrase.Type type = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\TrainingPhrase\Type}
      * @return $this
      */
-    public function setType($var)
+    public function setType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\TrainingPhrase\Type::class);
         $this->type = $var;
@@ -188,9 +188,9 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -214,7 +214,7 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase\Entity[] $var
      * @return $this
      */
-    public function setEntities($var)
+    public function setEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\TrainingPhrase\Entity::class);
         $this->entities = $arr;
@@ -244,7 +244,7 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTimesAddedCount($var)
+    public function setTimesAddedCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->times_added_count = $var;
@@ -270,9 +270,9 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -306,9 +306,8 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -342,9 +341,8 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -368,9 +366,9 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -394,9 +392,9 @@ class TrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

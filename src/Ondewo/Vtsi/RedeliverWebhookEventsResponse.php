@@ -92,7 +92,7 @@ class RedeliverWebhookEventsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEnqueuedCount($var)
+    public function setEnqueuedCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->enqueued_count = $var;
@@ -120,7 +120,7 @@ class RedeliverWebhookEventsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNotInJournalCount($var)
+    public function setNotInJournalCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->not_in_journal_count = $var;
@@ -150,7 +150,7 @@ class RedeliverWebhookEventsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNotEnqueuedCount($var)
+    public function setNotEnqueuedCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->not_enqueued_count = $var;
@@ -192,9 +192,8 @@ class RedeliverWebhookEventsResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNextStartTime($var)
+    public function setNextStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->next_start_time = $var;
 
         return $this;

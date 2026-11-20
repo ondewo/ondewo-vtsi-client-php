@@ -80,9 +80,8 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiProject $var
      * @return $this
      */
-    public function setVtsiProject($var)
+    public function setVtsiProject(\Ondewo\Vtsi\VtsiProject|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiProject::class);
         $this->vtsi_project = $var;
 
         return $this;
@@ -108,9 +107,9 @@ class CreateVtsiProjectResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

@@ -56,7 +56,7 @@ class DeleteNotificationsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNotificationNames($var)
+    public function setNotificationNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->notification_names = $arr;

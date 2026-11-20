@@ -84,7 +84,7 @@ class InputAudioConfig extends \Google\Protobuf\Internal\Message
      * Required. Audio encoding of the audio content to process.
      *
      * Generated from protobuf field <code>.ondewo.nlu.AudioEncoding audio_encoding = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\AudioEncoding}
      */
     public function getAudioEncoding()
     {
@@ -95,10 +95,10 @@ class InputAudioConfig extends \Google\Protobuf\Internal\Message
      * Required. Audio encoding of the audio content to process.
      *
      * Generated from protobuf field <code>.ondewo.nlu.AudioEncoding audio_encoding = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\AudioEncoding}
      * @return $this
      */
-    public function setAudioEncoding($var)
+    public function setAudioEncoding(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\AudioEncoding::class);
         $this->audio_encoding = $var;
@@ -128,7 +128,7 @@ class InputAudioConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSampleRateHertz($var)
+    public function setSampleRateHertz(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sample_rate_hertz = $var;
@@ -162,9 +162,9 @@ class InputAudioConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -194,7 +194,7 @@ class InputAudioConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPhraseHints($var)
+    public function setPhraseHints(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->phrase_hints = $arr;

@@ -162,9 +162,9 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFulfillmentText($var)
+    public function setFulfillmentText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->fulfillment_text = $var;
 
         return $this;
@@ -190,7 +190,7 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setFulfillmentMessages($var)
+    public function setFulfillmentMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->fulfillment_messages = $arr;
@@ -216,9 +216,9 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSource($var)
+    public function setSource(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source = $var;
 
         return $this;
@@ -294,9 +294,8 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setPayload($var)
+    public function setPayload(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->payload = $var;
 
         return $this;
@@ -322,7 +321,7 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setOutputContexts($var)
+    public function setOutputContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->output_contexts = $arr;
@@ -360,9 +359,8 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EventInput $var
      * @return $this
      */
-    public function setFollowupEventInput($var)
+    public function setFollowupEventInput(\Ondewo\Nlu\EventInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EventInput::class);
         $this->followup_event_input = $var;
 
         return $this;
@@ -392,7 +390,7 @@ class WebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionEntityType[] $var
      * @return $this
      */
-    public function setSessionEntityTypes($var)
+    public function setSessionEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\SessionEntityType::class);
         $this->session_entity_types = $arr;

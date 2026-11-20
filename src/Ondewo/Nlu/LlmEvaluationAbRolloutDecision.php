@@ -174,9 +174,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -202,9 +202,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationAbExperimentName($var)
+    public function setLlmEvaluationAbExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_ab_experiment_name = $var;
 
         return $this;
@@ -228,9 +228,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAppliedVariantId($var)
+    public function setAppliedVariantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->applied_variant_id = $var;
 
         return $this;
@@ -240,7 +240,7 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * The metric the rollout was decided on (recorded for the audit trail).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      */
     public function getOptimizeMetric()
     {
@@ -251,10 +251,10 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * The metric the rollout was decided on (recorded for the audit trail).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      * @return $this
      */
-    public function setOptimizeMetric($var)
+    public function setOptimizeMetric(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric::class);
         $this->optimize_metric = $var;
@@ -280,9 +280,8 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setPValue($var)
+    public function setPValue(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p_value = $var;
 
         return $this;
@@ -306,9 +305,8 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setEffectSize($var)
+    public function setEffectSize(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->effect_size = $var;
 
         return $this;
@@ -342,9 +340,8 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setAppliedAt($var)
+    public function setAppliedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->applied_at = $var;
 
         return $this;
@@ -368,9 +365,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAppliedBy($var)
+    public function setAppliedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->applied_by = $var;
 
         return $this;
@@ -404,9 +401,8 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -440,9 +436,8 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -466,9 +461,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -492,9 +487,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -520,9 +515,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -546,9 +541,9 @@ class LlmEvaluationAbRolloutDecision extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

@@ -104,7 +104,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CreateVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CreateVtsiProjectResponse>
      */
     public function CreateVtsiProject(\Ondewo\Vtsi\CreateVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -123,7 +123,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\VtsiProject>
      */
     public function GetVtsiProject(\Ondewo\Vtsi\GetVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -139,7 +139,9 @@ class ProjectsClient extends \Grpc\BaseStub {
      * <p>An update of an <code>UNDEPLOYED</code> project only writes it. An update of a
      * <code>DEPLOYED</code> project is applied to the running Asterisk by the cheapest path that applies
      * every change, chosen by the server: <code>display_name</code>, <code>nlu_agent_names</code> and
-     * <code>transfer_phone_number_allowlist</code> touch no Asterisk; a configuration change that Asterisk
+     * <code>transfer_phone_number_allowlist</code>, <code>warm_transfer_defaults</code> and
+     * <code>transfer_target_directory</code> touch no Asterisk; <code>ivr_menus_enabled</code> only rewrites the
+     * inbound routes in the running Asterisk&apos;s database and keeps every call; a configuration change that Asterisk
      * measurably applies on a reload is reloaded in place and keeps every call; every other change is a
      * RESTART of the Asterisk container or a REDEPLOY of the project (a changed <code>max_callers</code>,
      * <code>max_listeners</code>, Asterisk port, <code>asterisk_version</code> or managed account), and
@@ -164,7 +166,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateVtsiProjectResponse>
      */
     public function UpdateVtsiProject(\Ondewo\Vtsi\UpdateVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -192,7 +194,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteVtsiProjectResponse>
      */
     public function DeleteVtsiProject(\Ondewo\Vtsi\DeleteVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -230,7 +232,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeployVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeployVtsiProjectResponse>
      */
     public function DeployVtsiProject(\Ondewo\Vtsi\DeployVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -263,7 +265,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UndeployVtsiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UndeployVtsiProjectResponse>
      */
     public function UndeployVtsiProject(\Ondewo\Vtsi\UndeployVtsiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -288,7 +290,7 @@ class ProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListVtsiProjectsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListVtsiProjectsResponse>
      */
     public function ListVtsiProjects(\Ondewo\Vtsi\ListVtsiProjectsRequest $argument,
       $metadata = [], $options = []) {

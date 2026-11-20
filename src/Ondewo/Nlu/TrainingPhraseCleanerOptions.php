@@ -72,9 +72,8 @@ class TrainingPhraseCleanerOptions extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDeleteRepeatedWhitespaces($var)
+    public function setDeleteRepeatedWhitespaces(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->delete_repeated_whitespaces = $var;
 
         return $this;
@@ -98,9 +97,8 @@ class TrainingPhraseCleanerOptions extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDeleteLeadingSpecialCharacters($var)
+    public function setDeleteLeadingSpecialCharacters(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->delete_leading_special_characters = $var;
 
         return $this;
@@ -124,9 +122,8 @@ class TrainingPhraseCleanerOptions extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDeleteTrailingSpecialCharacters($var)
+    public function setDeleteTrailingSpecialCharacters(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->delete_trailing_special_characters = $var;
 
         return $this;

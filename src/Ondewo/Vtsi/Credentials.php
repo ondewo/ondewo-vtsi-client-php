@@ -64,9 +64,9 @@ class Credentials extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAccountName($var)
+    public function setAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->account_name = $var;
 
         return $this;
@@ -90,9 +90,9 @@ class Credentials extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPassword($var)
+    public function setPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->password = $var;
 
         return $this;

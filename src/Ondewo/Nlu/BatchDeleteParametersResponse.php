@@ -64,7 +64,7 @@ class BatchDeleteParametersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\BatchDeleteParametersResponse\DeleteParameterStatus[] $var
      * @return $this
      */
-    public function setDeleteStatuses($var)
+    public function setDeleteStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchDeleteParametersResponse\DeleteParameterStatus::class);
         $this->delete_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchDeleteParametersResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

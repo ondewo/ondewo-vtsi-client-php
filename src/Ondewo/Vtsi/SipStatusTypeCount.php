@@ -50,7 +50,7 @@ class SipStatusTypeCount extends \Google\Protobuf\Internal\Message
      * The SIP status type (<code>Call.sip_status_type</code>, the call&apos;s current or last status).
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -61,10 +61,10 @@ class SipStatusTypeCount extends \Google\Protobuf\Internal\Message
      * The SIP status type (<code>Call.sip_status_type</code>, the call&apos;s current or last status).
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -90,7 +90,7 @@ class SipStatusTypeCount extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->count = $var;

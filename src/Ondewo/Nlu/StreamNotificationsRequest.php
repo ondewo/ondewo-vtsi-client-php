@@ -87,9 +87,8 @@ class StreamNotificationsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\NotificationFilter $var
      * @return $this
      */
-    public function setNotificationFilter($var)
+    public function setNotificationFilter(\Ondewo\Nlu\NotificationFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\NotificationFilter::class);
         $this->notification_filter = $var;
 
         return $this;
@@ -117,9 +116,8 @@ class StreamNotificationsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeExisting($var)
+    public function setIncludeExisting(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_existing = $var;
 
         return $this;

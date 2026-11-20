@@ -234,9 +234,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkUsername($var)
+    public function setSipTrunkUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_username = $var;
 
         return $this;
@@ -274,9 +274,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkPassword($var)
+    public function setSipTrunkPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_password = $var;
 
         return $this;
@@ -300,9 +300,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkHost($var)
+    public function setSipTrunkHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_host = $var;
 
         return $this;
@@ -326,9 +326,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTransferNumber($var)
+    public function setTransferNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->transfer_number = $var;
 
         return $this;
@@ -352,9 +352,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTransferNumberHost($var)
+    public function setTransferNumberHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->transfer_number_host = $var;
 
         return $this;
@@ -378,9 +378,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkPhoneNumber($var)
+    public function setSipTrunkPhoneNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_phone_number = $var;
 
         return $this;
@@ -392,7 +392,7 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * nothing gets an encrypted trunk.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SipTrunkTransport}
      */
     public function getSipTrunkTransport()
     {
@@ -405,10 +405,10 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * nothing gets an encrypted trunk.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipTrunkTransport sip_trunk_transport = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SipTrunkTransport}
      * @return $this
      */
-    public function setSipTrunkTransport($var)
+    public function setSipTrunkTransport(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SipTrunkTransport::class);
         $this->sip_trunk_transport = $var;
@@ -458,9 +458,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkSourceCidr($var)
+    public function setSipTrunkSourceCidr(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_source_cidr = $var;
 
         return $this;
@@ -516,9 +516,9 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTrunkCaCertificatesPem($var)
+    public function setSipTrunkCaCertificatesPem(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_trunk_ca_certificates_pem = $var;
 
         return $this;
@@ -570,9 +570,8 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSipTrunkVerifyServer($var)
+    public function setSipTrunkVerifyServer(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->sip_trunk_verify_server = $var;
 
         return $this;
@@ -622,7 +621,7 @@ class AsteriskConfigsVariables extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSoftphonePermitCidrs($var)
+    public function setSoftphonePermitCidrs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->softphone_permit_cidrs = $arr;

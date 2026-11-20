@@ -112,7 +112,7 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setFlaggedCategories($var)
+    public function setFlaggedCategories(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->flagged_categories = $arr;
@@ -140,9 +140,8 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasPii($var)
+    public function setHasPii(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_pii = $var;
 
         return $this;
@@ -166,9 +165,8 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasInjectionAttempt($var)
+    public function setHasInjectionAttempt(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_injection_attempt = $var;
 
         return $this;
@@ -192,9 +190,8 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasJailbreakAttempt($var)
+    public function setHasJailbreakAttempt(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_jailbreak_attempt = $var;
 
         return $this;
@@ -220,9 +217,8 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSafetyScore($var)
+    public function setSafetyScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->safety_score = $var;
 
         return $this;
@@ -246,7 +242,7 @@ class LlmSafetyAssessment extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmSafetyFinding[] $var
      * @return $this
      */
-    public function setFindings($var)
+    public function setFindings(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmSafetyFinding::class);
         $this->findings = $arr;

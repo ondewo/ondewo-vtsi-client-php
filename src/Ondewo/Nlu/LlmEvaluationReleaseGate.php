@@ -217,9 +217,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -243,9 +243,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -269,9 +269,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -297,7 +297,7 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRevision($var)
+    public function setRevision(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->revision = $var;
@@ -325,9 +325,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -353,9 +353,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationBaselineExperimentName($var)
+    public function setLlmEvaluationBaselineExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_baseline_experiment_name = $var;
 
         return $this;
@@ -379,7 +379,7 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorNames($var)
+    public function setLlmEvaluationEvaluatorNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_evaluation_evaluator_names = $arr;
@@ -415,9 +415,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationReleaseGateThresholds $var
      * @return $this
      */
-    public function setThresholds($var)
+    public function setThresholds(\Ondewo\Nlu\LlmEvaluationReleaseGateThresholds|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationReleaseGateThresholds::class);
         $this->thresholds = $var;
 
         return $this;
@@ -451,9 +450,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationReleaseGateSafetyConfig $var
      * @return $this
      */
-    public function setSafety($var)
+    public function setSafety(\Ondewo\Nlu\LlmEvaluationReleaseGateSafetyConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationReleaseGateSafetyConfig::class);
         $this->safety = $var;
 
         return $this;
@@ -489,9 +487,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setWeights($var)
+    public function setWeights(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->weights = $var;
 
         return $this;
@@ -515,9 +512,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setPassCutoffScore($var)
+    public function setPassCutoffScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->pass_cutoff_score = $var;
 
         return $this;
@@ -541,7 +537,7 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setStalenessWindowDays($var)
+    public function setStalenessWindowDays(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->staleness_window_days = $var;
@@ -569,7 +565,7 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCcaiServiceNames($var)
+    public function setCcaiServiceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->ccai_service_names = $arr;
@@ -605,9 +601,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -631,9 +626,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -667,9 +662,8 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -693,9 +687,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -721,9 +715,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -747,9 +741,9 @@ class LlmEvaluationReleaseGate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

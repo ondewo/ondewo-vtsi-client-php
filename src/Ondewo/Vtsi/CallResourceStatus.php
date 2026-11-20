@@ -152,9 +152,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResourceName($var)
+    public function setResourceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resource_name = $var;
 
         return $this;
@@ -164,7 +164,7 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * CALLER, LISTENER or SCHEDULED_CALLER.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallType}
      */
     public function getCallType()
     {
@@ -175,10 +175,10 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * CALLER, LISTENER or SCHEDULED_CALLER.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallType}
      * @return $this
      */
-    public function setCallType($var)
+    public function setCallType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallType::class);
         $this->call_type = $var;
@@ -204,9 +204,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -230,9 +230,8 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActive($var)
+    public function setActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active = $var;
 
         return $this;
@@ -242,7 +241,7 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * SIP status of its current or last call.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -253,10 +252,10 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * SIP status of its current or last call.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -282,9 +281,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipStatusDescription($var)
+    public function setSipStatusDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_status_description = $var;
 
         return $this;
@@ -318,9 +317,8 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -354,9 +352,8 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -380,9 +377,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhoneNumber($var)
+    public function setPhoneNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->phone_number = $var;
 
         return $this;
@@ -392,7 +389,7 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * For SCHEDULED_CALLER: its lifecycle state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus scheduled_caller_status = 10;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      */
     public function getScheduledCallerStatus()
     {
@@ -403,10 +400,10 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * For SCHEDULED_CALLER: its lifecycle state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus scheduled_caller_status = 10;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      * @return $this
      */
-    public function setScheduledCallerStatus($var)
+    public function setScheduledCallerStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ScheduledCallerStatus::class);
         $this->scheduled_caller_status = $var;
@@ -442,9 +439,8 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setScheduledTime($var)
+    public function setScheduledTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->scheduled_time = $var;
 
         return $this;
@@ -468,9 +464,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -494,9 +490,9 @@ class CallResourceStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

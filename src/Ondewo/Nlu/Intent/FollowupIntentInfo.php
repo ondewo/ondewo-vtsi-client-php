@@ -70,9 +70,9 @@ class FollowupIntentInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFollowupIntentName($var)
+    public function setFollowupIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->followup_intent_name = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class FollowupIntentInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParentFollowupIntentName($var)
+    public function setParentFollowupIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent_followup_intent_name = $var;
 
         return $this;

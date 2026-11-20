@@ -142,9 +142,9 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -178,9 +178,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DetectIntentRequest $var
      * @return $this
      */
-    public function setDetectIntentRequest($var)
+    public function setDetectIntentRequest(\Ondewo\Nlu\DetectIntentRequest|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DetectIntentRequest::class);
         $this->detect_intent_request = $var;
 
         return $this;
@@ -214,9 +213,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DetectIntentResponse $var
      * @return $this
      */
-    public function setDetectIntentResponse($var)
+    public function setDetectIntentResponse(\Ondewo\Nlu\DetectIntentResponse|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DetectIntentResponse::class);
         $this->detect_intent_response = $var;
 
         return $this;
@@ -240,7 +238,7 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setContexts($var)
+    public function setContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->contexts = $arr;
@@ -276,9 +274,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setTimestamp($var)
+    public function setTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->timestamp = $var;
 
         return $this;
@@ -312,9 +309,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -348,9 +344,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -374,9 +369,9 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -400,9 +395,9 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -426,7 +421,7 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AudioFileResource[] $var
      * @return $this
      */
-    public function setAudioFileResources($var)
+    public function setAudioFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AudioFileResource::class);
         $this->audio_file_resources = $arr;
@@ -464,9 +459,8 @@ class SessionStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetryReport $var
      * @return $this
      */
-    public function setLlmTelemetryReport($var)
+    public function setLlmTelemetryReport(\Ondewo\Nlu\LlmTelemetryReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTelemetryReport::class);
         $this->llm_telemetry_report = $var;
 
         return $this;

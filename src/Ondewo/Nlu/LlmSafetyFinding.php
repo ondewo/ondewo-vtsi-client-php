@@ -84,9 +84,9 @@ class LlmSafetyFinding extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCategory($var)
+    public function setCategory(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->category = $var;
 
         return $this;
@@ -110,9 +110,9 @@ class LlmSafetyFinding extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSeverity($var)
+    public function setSeverity(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->severity = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class LlmSafetyFinding extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setMatchedPattern($var)
+    public function setMatchedPattern(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->matched_pattern = $var;
 
         return $this;
@@ -148,7 +148,7 @@ class LlmSafetyFinding extends \Google\Protobuf\Internal\Message
      * Whether the finding was located in the input or the output.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmSafetyLocation location = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmSafetyLocation}
      */
     public function getLocation()
     {
@@ -159,10 +159,10 @@ class LlmSafetyFinding extends \Google\Protobuf\Internal\Message
      * Whether the finding was located in the input or the output.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmSafetyLocation location = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmSafetyLocation}
      * @return $this
      */
-    public function setLocation($var)
+    public function setLocation(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmSafetyLocation::class);
         $this->location = $var;

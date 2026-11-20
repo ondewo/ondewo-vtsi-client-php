@@ -108,9 +108,8 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerConcurrencyConfig $var
      * @return $this
      */
-    public function setConcurrencyConfig($var)
+    public function setConcurrencyConfig(\Ondewo\Nlu\RagCrawlerConcurrencyConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerConcurrencyConfig::class);
         $this->concurrency_config = $var;
 
         return $this;
@@ -144,9 +143,8 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerDeepCrawlerConfig $var
      * @return $this
      */
-    public function setDeepCrawlerConfig($var)
+    public function setDeepCrawlerConfig(\Ondewo\Nlu\RagCrawlerDeepCrawlerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerDeepCrawlerConfig::class);
         $this->deep_crawler_config = $var;
 
         return $this;
@@ -180,9 +178,8 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerResultsConfig $var
      * @return $this
      */
-    public function setOutputConfig($var)
+    public function setOutputConfig(\Ondewo\Nlu\RagCrawlerResultsConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerResultsConfig::class);
         $this->output_config = $var;
 
         return $this;
@@ -216,9 +213,8 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerStatusFilter $var
      * @return $this
      */
-    public function setStatusFilter($var)
+    public function setStatusFilter(\Ondewo\Nlu\RagCrawlerStatusFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerStatusFilter::class);
         $this->status_filter = $var;
 
         return $this;
@@ -252,9 +248,8 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerIncrementalConfig $var
      * @return $this
      */
-    public function setIncrementalConfig($var)
+    public function setIncrementalConfig(\Ondewo\Nlu\RagCrawlerIncrementalConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerIncrementalConfig::class);
         $this->incremental_config = $var;
 
         return $this;
@@ -288,7 +283,7 @@ class RagCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxPages($var)
+    public function setMaxPages(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_pages = $var;

@@ -50,7 +50,7 @@ class IntentSorting extends \Google\Protobuf\Internal\Message
      * The field to sort the intents by
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentSorting.IntentSortingField sorting_field = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\IntentSorting\IntentSortingField}
      */
     public function getSortingField()
     {
@@ -61,10 +61,10 @@ class IntentSorting extends \Google\Protobuf\Internal\Message
      * The field to sort the intents by
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentSorting.IntentSortingField sorting_field = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\IntentSorting\IntentSortingField}
      * @return $this
      */
-    public function setSortingField($var)
+    public function setSortingField(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\IntentSorting\IntentSortingField::class);
         $this->sorting_field = $var;
@@ -76,7 +76,7 @@ class IntentSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode: ascending or descending
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -87,10 +87,10 @@ class IntentSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode: ascending or descending
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;

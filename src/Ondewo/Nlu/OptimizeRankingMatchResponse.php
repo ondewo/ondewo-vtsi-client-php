@@ -80,9 +80,8 @@ class OptimizeRankingMatchResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setOptimizationInfo($var)
+    public function setOptimizationInfo(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->optimization_info = $var;
 
         return $this;
@@ -118,9 +117,8 @@ class OptimizeRankingMatchResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setOptimizedOndewoConfig($var)
+    public function setOptimizedOndewoConfig(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->optimized_ondewo_config = $var;
 
         return $this;

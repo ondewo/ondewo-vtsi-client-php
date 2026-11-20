@@ -113,9 +113,9 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -151,9 +151,8 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SoftphoneAccount $var
      * @return $this
      */
-    public function setSoftphoneAccount($var)
+    public function setSoftphoneAccount(\Ondewo\Vtsi\SoftphoneAccount|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneAccount::class);
         $this->softphone_account = $var;
 
         return $this;
@@ -211,9 +210,9 @@ class CreateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdempotencyKey($var)
+    public function setIdempotencyKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->idempotency_key = $var;
 
         return $this;

@@ -78,7 +78,7 @@ class ListAudioFilesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AudioFileResource[] $var
      * @return $this
      */
-    public function setAudioFiles($var)
+    public function setAudioFiles(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AudioFileResource::class);
         $this->audio_files = $arr;
@@ -106,9 +106,9 @@ class ListAudioFilesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -132,9 +132,9 @@ class ListAudioFilesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

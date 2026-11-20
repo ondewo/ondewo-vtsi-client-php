@@ -87,9 +87,8 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTimeoutSeconds($var)
+    public function setTimeoutSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->timeout_seconds = $var;
 
         return $this;
@@ -113,7 +112,7 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setMessages($var)
+    public function setMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->messages = $arr;
@@ -149,7 +148,7 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxPerGeneration($var)
+    public function setMaxPerGeneration(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_per_generation = $var;

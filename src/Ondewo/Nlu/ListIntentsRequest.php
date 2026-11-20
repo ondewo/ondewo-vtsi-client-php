@@ -164,9 +164,9 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -198,9 +198,9 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -210,7 +210,7 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned intent.
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentView intent_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\IntentView}
      */
     public function getIntentView()
     {
@@ -221,10 +221,10 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned intent.
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentView intent_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\IntentView}
      * @return $this
      */
-    public function setIntentView($var)
+    public function setIntentView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\IntentView::class);
         $this->intent_view = $var;
@@ -298,9 +298,9 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -310,7 +310,7 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentCategory filter_by_category = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\IntentCategory}
      */
     public function getFilterByCategory()
     {
@@ -321,10 +321,10 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.IntentCategory filter_by_category = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\IntentCategory}
      * @return $this
      */
-    public function setFilterByCategory($var)
+    public function setFilterByCategory(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\IntentCategory::class);
         $this->filter_by_category = $var;
@@ -360,9 +360,8 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\IntentSorting $var
      * @return $this
      */
-    public function setSortByField($var)
+    public function setSortByField(\Ondewo\Nlu\IntentSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\IntentSorting::class);
         $this->sort_by_field = $var;
 
         return $this;
@@ -386,7 +385,7 @@ class ListIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setFilterByTags($var)
+    public function setFilterByTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->filter_by_tags = $arr;

@@ -92,9 +92,8 @@ class UpdateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiProject $var
      * @return $this
      */
-    public function setCcaiProject($var)
+    public function setCcaiProject(\Ondewo\Nlu\CcaiProject|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\CcaiProject::class);
         $this->ccai_project = $var;
 
         return $this;
@@ -128,9 +127,8 @@ class UpdateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiServiceFilter $var
      * @return $this
      */
-    public function setCcaiServiceFilter($var)
+    public function setCcaiServiceFilter(\Ondewo\Nlu\CcaiServiceFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\CcaiServiceFilter::class);
         $this->ccai_service_filter = $var;
 
         return $this;
@@ -164,9 +162,8 @@ class UpdateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -192,9 +189,9 @@ class UpdateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNluProjectName($var)
+    public function setNluProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->nlu_project_name = $var;
 
         return $this;

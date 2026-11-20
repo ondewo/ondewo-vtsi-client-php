@@ -252,9 +252,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -278,9 +278,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerName($var)
+    public function setContainerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_name = $var;
 
         return $this;
@@ -304,9 +304,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
 
         return $this;
@@ -316,7 +316,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * The docker channel this stream captures.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogStreamChannel channel = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\LogStreamChannel}
      */
     public function getChannel()
     {
@@ -327,10 +327,10 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * The docker channel this stream captures.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogStreamChannel channel = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\LogStreamChannel}
      * @return $this
      */
-    public function setChannel($var)
+    public function setChannel(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\LogStreamChannel::class);
         $this->channel = $var;
@@ -356,9 +356,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProjectId($var)
+    public function setProjectId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->project_id = $var;
 
         return $this;
@@ -390,9 +390,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVoipCallName($var)
+    public function setVoipCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->voip_call_name = $var;
 
         return $this;
@@ -402,7 +402,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * Whether the container serves a caller or a listener.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallType}
      */
     public function getCallType()
     {
@@ -413,10 +413,10 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * Whether the container serves a caller or a listener.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallType}
      * @return $this
      */
-    public function setCallType($var)
+    public function setCallType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallType::class);
         $this->call_type = $var;
@@ -442,9 +442,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipAccount($var)
+    public function setSipAccount(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_account = $var;
 
         return $this;
@@ -468,7 +468,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSipPort($var)
+    public function setSipPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sip_port = $var;
@@ -494,7 +494,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCsiPort($var)
+    public function setCsiPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->csi_port = $var;
@@ -520,7 +520,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAsteriskPort($var)
+    public function setAsteriskPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->asterisk_port = $var;
@@ -546,9 +546,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setImage($var)
+    public function setImage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->image = $var;
 
         return $this;
@@ -558,7 +558,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * State of VTSI&apos;s capture of this stream.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogCaptureState capture_state = 13;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      */
     public function getCaptureState()
     {
@@ -569,10 +569,10 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * State of VTSI&apos;s capture of this stream.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogCaptureState capture_state = 13;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      * @return $this
      */
-    public function setCaptureState($var)
+    public function setCaptureState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\LogCaptureState::class);
         $this->capture_state = $var;
@@ -598,9 +598,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCaptureError($var)
+    public function setCaptureError(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->capture_error = $var;
 
         return $this;
@@ -638,9 +638,8 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCaptureStartedAt($var)
+    public function setCaptureStartedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->capture_started_at = $var;
 
         return $this;
@@ -674,9 +673,8 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCaptureFinishedAt($var)
+    public function setCaptureFinishedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->capture_finished_at = $var;
 
         return $this;
@@ -702,9 +700,8 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPartialCapture($var)
+    public function setPartialCapture(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->partial_capture = $var;
 
         return $this;
@@ -728,7 +725,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setMinAvailableSeq($var)
+    public function setMinAvailableSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->min_available_seq = $var;
@@ -754,7 +751,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setMaxAvailableSeq($var)
+    public function setMaxAvailableSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->max_available_seq = $var;
@@ -780,7 +777,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setLineCount($var)
+    public function setLineCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->line_count = $var;
@@ -810,7 +807,7 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDroppedLineCount($var)
+    public function setDroppedLineCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->dropped_line_count = $var;
@@ -840,9 +837,9 @@ class CallLogStream extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;

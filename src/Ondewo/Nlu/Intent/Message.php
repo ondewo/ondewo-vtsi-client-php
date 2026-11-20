@@ -147,9 +147,9 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -173,9 +173,9 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -204,9 +204,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Text $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(\Ondewo\Nlu\Intent\Message\Text|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Text::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -235,9 +234,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Image $var
      * @return $this
      */
-    public function setImage($var)
+    public function setImage(\Ondewo\Nlu\Intent\Message\Image|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Image::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -266,9 +264,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\QuickReplies $var
      * @return $this
      */
-    public function setQuickReplies($var)
+    public function setQuickReplies(\Ondewo\Nlu\Intent\Message\QuickReplies|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\QuickReplies::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -297,9 +294,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Card $var
      * @return $this
      */
-    public function setCard($var)
+    public function setCard(\Ondewo\Nlu\Intent\Message\Card|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Card::class);
         $this->writeOneof(4, $var);
 
         return $this;
@@ -332,9 +328,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setPayload($var)
+    public function setPayload(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -363,9 +358,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\SimpleResponses $var
      * @return $this
      */
-    public function setSimpleResponses($var)
+    public function setSimpleResponses(\Ondewo\Nlu\Intent\Message\SimpleResponses|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\SimpleResponses::class);
         $this->writeOneof(7, $var);
 
         return $this;
@@ -394,9 +388,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\BasicCard $var
      * @return $this
      */
-    public function setBasicCard($var)
+    public function setBasicCard(\Ondewo\Nlu\Intent\Message\BasicCard|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\BasicCard::class);
         $this->writeOneof(8, $var);
 
         return $this;
@@ -425,9 +418,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Suggestions $var
      * @return $this
      */
-    public function setSuggestions($var)
+    public function setSuggestions(\Ondewo\Nlu\Intent\Message\Suggestions|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Suggestions::class);
         $this->writeOneof(9, $var);
 
         return $this;
@@ -456,9 +448,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\LinkOutSuggestion $var
      * @return $this
      */
-    public function setLinkOutSuggestion($var)
+    public function setLinkOutSuggestion(\Ondewo\Nlu\Intent\Message\LinkOutSuggestion|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\LinkOutSuggestion::class);
         $this->writeOneof(10, $var);
 
         return $this;
@@ -487,9 +478,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\ListSelect $var
      * @return $this
      */
-    public function setListSelect($var)
+    public function setListSelect(\Ondewo\Nlu\Intent\Message\ListSelect|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\ListSelect::class);
         $this->writeOneof(11, $var);
 
         return $this;
@@ -518,9 +508,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\CarouselSelect $var
      * @return $this
      */
-    public function setCarouselSelect($var)
+    public function setCarouselSelect(\Ondewo\Nlu\Intent\Message\CarouselSelect|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\CarouselSelect::class);
         $this->writeOneof(12, $var);
 
         return $this;
@@ -549,9 +538,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\HTMLText $var
      * @return $this
      */
-    public function setHtmlText($var)
+    public function setHtmlText(\Ondewo\Nlu\Intent\Message\HTMLText|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\HTMLText::class);
         $this->writeOneof(13, $var);
 
         return $this;
@@ -580,9 +568,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Video $var
      * @return $this
      */
-    public function setVideo($var)
+    public function setVideo(\Ondewo\Nlu\Intent\Message\Video|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Video::class);
         $this->writeOneof(14, $var);
 
         return $this;
@@ -611,9 +598,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Audio $var
      * @return $this
      */
-    public function setAudio($var)
+    public function setAudio(\Ondewo\Nlu\Intent\Message\Audio|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Audio::class);
         $this->writeOneof(15, $var);
 
         return $this;
@@ -623,7 +609,7 @@ class Message extends \Google\Protobuf\Internal\Message
      * Optional. The platform that this message is intended for.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.Message.Platform platform = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatform()
     {
@@ -634,10 +620,10 @@ class Message extends \Google\Protobuf\Internal\Message
      * Optional. The platform that this message is intended for.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.Message.Platform platform = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatform($var)
+    public function setPlatform(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platform = $var;
@@ -663,9 +649,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsPrompt($var)
+    public function setIsPrompt(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_prompt = $var;
 
         return $this;
@@ -699,9 +684,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -735,9 +719,8 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -761,9 +744,9 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -787,9 +770,9 @@ class Message extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

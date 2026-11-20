@@ -100,9 +100,9 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentId($var)
+    public function setDocumentId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_id = $var;
 
         return $this;
@@ -126,9 +126,9 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setChunkId($var)
+    public function setChunkId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->chunk_id = $var;
 
         return $this;
@@ -152,9 +152,8 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->score = $var;
 
         return $this;
@@ -178,9 +177,9 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -204,9 +203,9 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceUri($var)
+    public function setSourceUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source_uri = $var;
 
         return $this;
@@ -232,7 +231,7 @@ class LlmRetrievedChunk extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRank($var)
+    public function setRank(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->rank = $var;

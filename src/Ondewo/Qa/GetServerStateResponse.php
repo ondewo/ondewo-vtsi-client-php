@@ -56,9 +56,8 @@ class GetServerStateResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setServerIsReady($var)
+    public function setServerIsReady(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->server_is_ready = $var;
 
         return $this;

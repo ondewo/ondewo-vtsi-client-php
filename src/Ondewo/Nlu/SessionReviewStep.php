@@ -168,9 +168,9 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -208,9 +208,8 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase $var
      * @return $this
      */
-    public function setAnnotatedUsersays($var)
+    public function setAnnotatedUsersays(\Ondewo\Nlu\Intent\TrainingPhrase|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->annotated_usersays = $var;
 
         return $this;
@@ -234,9 +233,9 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -260,7 +259,7 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DetectedIntent[] $var
      * @return $this
      */
-    public function setDetectedIntents($var)
+    public function setDetectedIntents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\DetectedIntent::class);
         $this->detected_intents = $arr;
@@ -286,7 +285,7 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setContexts($var)
+    public function setContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->contexts = $arr;
@@ -312,7 +311,7 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setContextsOut($var)
+    public function setContextsOut(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->contexts_out = $arr;
@@ -338,9 +337,9 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setQueryTextOriginal($var)
+    public function setQueryTextOriginal(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->query_text_original = $var;
 
         return $this;
@@ -350,7 +349,7 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 8;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatforms()
     {
@@ -361,10 +360,10 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 8;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatforms($var)
+    public function setPlatforms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platforms = $arr;
@@ -400,9 +399,8 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setTimestamp($var)
+    public function setTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->timestamp = $var;
 
         return $this;
@@ -436,9 +434,8 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -472,9 +469,8 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -498,9 +494,9 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -524,9 +520,9 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -550,7 +546,7 @@ class SessionReviewStep extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AudioFileResource[] $var
      * @return $this
      */
-    public function setAudioFileResources($var)
+    public function setAudioFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AudioFileResource::class);
         $this->audio_file_resources = $arr;

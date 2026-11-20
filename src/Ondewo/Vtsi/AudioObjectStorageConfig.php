@@ -74,9 +74,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActivateAudioObjectStorage($var)
+    public function setActivateAudioObjectStorage(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_audio_object_storage = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig $var
      * @return $this
      */
-    public function setAudioObjectStorageServicesActivationConfig($var)
+    public function setAudioObjectStorageServicesActivationConfig(\Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig::class);
         $this->audio_object_storage_services_activation_config = $var;
 
         return $this;

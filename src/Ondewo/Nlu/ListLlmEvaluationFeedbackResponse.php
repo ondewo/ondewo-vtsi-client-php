@@ -64,7 +64,7 @@ class ListLlmEvaluationFeedbackResponse extends \Google\Protobuf\Internal\Messag
      * @param \Ondewo\Nlu\LlmEvaluationFeedback[] $var
      * @return $this
      */
-    public function setLlmEvaluationFeedbacks($var)
+    public function setLlmEvaluationFeedbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationFeedback::class);
         $this->llm_evaluation_feedbacks = $arr;
@@ -90,9 +90,9 @@ class ListLlmEvaluationFeedbackResponse extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

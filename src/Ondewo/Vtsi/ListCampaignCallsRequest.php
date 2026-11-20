@@ -232,9 +232,9 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -267,9 +267,9 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(8, $var);
 
         return $this;
@@ -303,9 +303,9 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -315,7 +315,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * Only calls in one of these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState states = 2;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      */
     public function getStates()
     {
@@ -326,10 +326,10 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * Only calls in one of these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState states = 2;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      * @return $this
      */
-    public function setStates($var)
+    public function setStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignCallState::class);
         $this->states = $arr;
@@ -355,9 +355,9 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhoneNumber($var)
+    public function setPhoneNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->phone_number = $var;
 
         return $this;
@@ -383,7 +383,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -421,9 +421,9 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -447,9 +447,8 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeAttempts($var)
+    public function setIncludeAttempts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_attempts = $var;
 
         return $this;
@@ -499,9 +498,8 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -529,7 +527,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPhoneNumbers($var)
+    public function setPhoneNumbers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->phone_numbers = $arr;
@@ -542,7 +540,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallSource sources = 12;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignCallSource}
      */
     public function getSources()
     {
@@ -554,10 +552,10 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * <code>CAMPAIGN_CALL_SOURCE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallSource sources = 12;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignCallSource}
      * @return $this
      */
-    public function setSources($var)
+    public function setSources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignCallSource::class);
         $this->sources = $arr;
@@ -597,9 +595,8 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setFinishTimeMin($var)
+    public function setFinishTimeMin(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->finish_time_min = $var;
 
         return $this;
@@ -637,9 +634,8 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setFinishTimeMax($var)
+    public function setFinishTimeMax(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->finish_time_max = $var;
 
         return $this;
@@ -675,9 +671,8 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedSince($var)
+    public function setModifiedSince(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_since = $var;
 
         return $this;
@@ -703,7 +698,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMinAttempts($var)
+    public function setMinAttempts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->min_attempts = $var;
@@ -737,7 +732,7 @@ class ListCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignCallNames($var)
+    public function setCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_call_names = $arr;

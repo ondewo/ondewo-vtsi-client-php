@@ -102,9 +102,9 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -128,9 +128,9 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -154,9 +154,9 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -180,7 +180,7 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param \Ondewo\Nlu\LlmEvaluationExample[] $var
      * @return $this
      */
-    public function setLlmEvaluationExamples($var)
+    public function setLlmEvaluationExamples(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationExample::class);
         $this->llm_evaluation_examples = $arr;
@@ -206,7 +206,7 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -234,9 +234,9 @@ class CreateLlmEvaluationDatasetRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

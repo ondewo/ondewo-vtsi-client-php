@@ -74,9 +74,8 @@ class UpdateSessionEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionEntityType $var
      * @return $this
      */
-    public function setSessionEntityType($var)
+    public function setSessionEntityType(\Ondewo\Nlu\SessionEntityType|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionEntityType::class);
         $this->session_entity_type = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class UpdateSessionEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

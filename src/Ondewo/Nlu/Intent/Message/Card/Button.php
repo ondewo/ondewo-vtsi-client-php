@@ -68,9 +68,9 @@ class Button extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -94,9 +94,9 @@ class Button extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPostback($var)
+    public function setPostback(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->postback = $var;
 
         return $this;

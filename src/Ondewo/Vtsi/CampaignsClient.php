@@ -144,7 +144,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CreateCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function CreateCampaign(\Ondewo\Vtsi\CreateCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -163,7 +163,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function GetCampaign(\Ondewo\Vtsi\GetCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -195,7 +195,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function UpdateCampaign(\Ondewo\Vtsi\UpdateCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -231,7 +231,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteCampaignResponse>
      */
     public function DeleteCampaign(\Ondewo\Vtsi\DeleteCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -255,7 +255,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCampaignsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCampaignsResponse>
      */
     public function ListCampaigns(\Ondewo\Vtsi\ListCampaignsRequest $argument,
       $metadata = [], $options = []) {
@@ -273,7 +273,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCampaignStatisticsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CampaignStatistics>
      */
     public function GetCampaignStatistics(\Ondewo\Vtsi\GetCampaignStatisticsRequest $argument,
       $metadata = [], $options = []) {
@@ -298,7 +298,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCampaignCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCampaignCallsResponse>
      */
     public function ListCampaignCalls(\Ondewo\Vtsi\ListCampaignCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -321,7 +321,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function StartCampaign(\Ondewo\Vtsi\StartCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -344,7 +344,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function StopCampaign(\Ondewo\Vtsi\StopCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -373,7 +373,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\HardStopCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function HardStopCampaign(\Ondewo\Vtsi\HardStopCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -395,7 +395,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ResumeCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function ResumeCampaign(\Ondewo\Vtsi\ResumeCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -455,7 +455,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCampaignCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CampaignCall>
      */
     public function GetCampaignCall(\Ondewo\Vtsi\GetCampaignCallRequest $argument,
       $metadata = [], $options = []) {
@@ -496,7 +496,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CancelCampaignCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CancelCampaignCallsResponse>
      */
     public function CancelCampaignCalls(\Ondewo\Vtsi\CancelCampaignCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -542,7 +542,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RetryCampaignCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\RetryCampaignCallsResponse>
      */
     public function RetryCampaignCalls(\Ondewo\Vtsi\RetryCampaignCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -585,7 +585,7 @@ class CampaignsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CloneCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Campaign>
      */
     public function CloneCampaign(\Ondewo\Vtsi\CloneCampaignRequest $argument,
       $metadata = [], $options = []) {

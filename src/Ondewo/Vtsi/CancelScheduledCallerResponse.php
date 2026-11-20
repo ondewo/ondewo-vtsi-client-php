@@ -110,9 +110,9 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -123,7 +123,7 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * firing, done, failed or cancelled keeps the state it had
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus status = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      */
     public function getStatus()
     {
@@ -135,10 +135,10 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * firing, done, failed or cancelled keeps the state it had
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus status = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ScheduledCallerStatus::class);
         $this->status = $var;
@@ -170,9 +170,8 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setCancelled($var)
+    public function setCancelled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->cancelled = $var;
 
         return $this;
@@ -210,9 +209,9 @@ class CancelScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

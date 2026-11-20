@@ -286,9 +286,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -312,9 +312,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -340,9 +340,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -366,9 +366,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setGrpcHost($var)
+    public function setGrpcHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->grpc_host = $var;
 
         return $this;
@@ -392,7 +392,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setGrpcPort($var)
+    public function setGrpcPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->grpc_port = $var;
@@ -418,9 +418,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setWebgrpcHost($var)
+    public function setWebgrpcHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->webgrpc_host = $var;
 
         return $this;
@@ -444,7 +444,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setWebgrpcPort($var)
+    public function setWebgrpcPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->webgrpc_port = $var;
@@ -470,9 +470,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setGrpcCert($var)
+    public function setGrpcCert(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->grpc_cert = $var;
 
         return $this;
@@ -496,9 +496,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHost($var)
+    public function setHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->host = $var;
 
         return $this;
@@ -522,7 +522,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPort($var)
+    public function setPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->port = $var;
@@ -548,7 +548,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPort2($var)
+    public function setPort2(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->port2 = $var;
@@ -574,9 +574,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHttpBasicAuthToken($var)
+    public function setHttpBasicAuthToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->http_basic_auth_token = $var;
 
         return $this;
@@ -600,9 +600,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAccountName($var)
+    public function setAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->account_name = $var;
 
         return $this;
@@ -626,9 +626,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAccountPassword($var)
+    public function setAccountPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->account_password = $var;
 
         return $this;
@@ -652,9 +652,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setApiKey($var)
+    public function setApiKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->api_key = $var;
 
         return $this;
@@ -664,7 +664,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * Type of CCAI service service (e.g., TEXT_TO_SPEECH, SPEECH_TO_TEXT).
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceType ccai_service_type = 16;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiServiceType}
      */
     public function getCcaiServiceType()
     {
@@ -675,10 +675,10 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * Type of CCAI service service (e.g., TEXT_TO_SPEECH, SPEECH_TO_TEXT).
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceType ccai_service_type = 16;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiServiceType}
      * @return $this
      */
-    public function setCcaiServiceType($var)
+    public function setCcaiServiceType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiServiceType::class);
         $this->ccai_service_type = $var;
@@ -704,9 +704,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCcaiProjectName($var)
+    public function setCcaiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ccai_project_name = $var;
 
         return $this;
@@ -740,9 +740,8 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setCcaiServiceConfig($var)
+    public function setCcaiServiceConfig(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->ccai_service_config = $var;
 
         return $this;
@@ -776,9 +775,8 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -812,9 +810,8 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -838,9 +835,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -864,9 +861,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -900,9 +897,8 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setHeaders($var)
+    public function setHeaders(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->headers = $var;
 
         return $this;
@@ -912,7 +908,7 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * Provider of the ccai service
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 24;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getCcaiServiceProvider()
     {
@@ -923,10 +919,10 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * Provider of the ccai service
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 24;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setCcaiServiceProvider($var)
+    public function setCcaiServiceProvider(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->ccai_service_provider = $var;
@@ -988,9 +984,9 @@ class CcaiService extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setServiceHierarchy($var)
+    public function setServiceHierarchy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->service_hierarchy = $var;
 
         return $this;

@@ -92,9 +92,8 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AsteriskConfigsVariables $var
      * @return $this
      */
-    public function setAsteriskConfigsVariables($var)
+    public function setAsteriskConfigsVariables(\Ondewo\Vtsi\AsteriskConfigsVariables|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AsteriskConfigsVariables::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -123,9 +122,8 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AsteriskConfigsFiles $var
      * @return $this
      */
-    public function setAsteriskConfigsFiles($var)
+    public function setAsteriskConfigsFiles(\Ondewo\Vtsi\AsteriskConfigsFiles|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AsteriskConfigsFiles::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -154,9 +152,9 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAsteriskConfigsTargetDirectoryName($var)
+    public function setAsteriskConfigsTargetDirectoryName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -182,7 +180,7 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAsteriskPort($var)
+    public function setAsteriskPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->asterisk_port = $var;
@@ -232,9 +230,9 @@ class AsteriskConfigs extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAsteriskVersion($var)
+    public function setAsteriskVersion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->asterisk_version = $var;
 
         return $this;

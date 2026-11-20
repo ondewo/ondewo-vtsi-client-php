@@ -74,9 +74,8 @@ class EntityUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\StringUpdate $var
      * @return $this
      */
-    public function setEntityValueUpdate($var)
+    public function setEntityValueUpdate(\Ondewo\Nlu\StringUpdate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\StringUpdate::class);
         $this->entity_value_update = $var;
 
         return $this;
@@ -100,7 +99,7 @@ class EntityUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\StringUpdate[] $var
      * @return $this
      */
-    public function setEntitySynonymUpdates($var)
+    public function setEntitySynonymUpdates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\StringUpdate::class);
         $this->entity_synonym_updates = $arr;

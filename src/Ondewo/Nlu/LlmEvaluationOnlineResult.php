@@ -166,9 +166,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -194,9 +194,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationOnlineConfigName($var)
+    public function setLlmEvaluationOnlineConfigName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_online_config_name = $var;
 
         return $this;
@@ -222,9 +222,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionName($var)
+    public function setSessionName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_name = $var;
 
         return $this;
@@ -250,9 +250,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepName($var)
+    public function setSessionStepName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_name = $var;
 
         return $this;
@@ -280,7 +280,7 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationFeedback[] $var
      * @return $this
      */
-    public function setLlmEvaluationFeedbacks($var)
+    public function setLlmEvaluationFeedbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationFeedback::class);
         $this->llm_evaluation_feedbacks = $arr;
@@ -308,9 +308,8 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPassed($var)
+    public function setPassed(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->passed = $var;
 
         return $this;
@@ -334,9 +333,8 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setAggregateScore($var)
+    public function setAggregateScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->aggregate_score = $var;
 
         return $this;
@@ -370,9 +368,8 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEvaluatedAt($var)
+    public function setEvaluatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->evaluated_at = $var;
 
         return $this;
@@ -406,9 +403,8 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -432,9 +428,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -460,9 +456,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -486,9 +482,9 @@ class LlmEvaluationOnlineResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

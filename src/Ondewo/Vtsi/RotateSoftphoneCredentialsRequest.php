@@ -81,9 +81,9 @@ class RotateSoftphoneCredentialsRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -107,9 +107,8 @@ class RotateSoftphoneCredentialsRequest extends \Google\Protobuf\Internal\Messag
      * @param bool $var
      * @return $this
      */
-    public function setRotateSipPassword($var)
+    public function setRotateSipPassword(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->rotate_sip_password = $var;
 
         return $this;
@@ -135,9 +134,8 @@ class RotateSoftphoneCredentialsRequest extends \Google\Protobuf\Internal\Messag
      * @param bool $var
      * @return $this
      */
-    public function setRotateCertificate($var)
+    public function setRotateCertificate(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->rotate_certificate = $var;
 
         return $this;

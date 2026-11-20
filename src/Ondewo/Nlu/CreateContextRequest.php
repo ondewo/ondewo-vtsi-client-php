@@ -68,9 +68,9 @@ class CreateContextRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -104,9 +104,8 @@ class CreateContextRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context $var
      * @return $this
      */
-    public function setContext($var)
+    public function setContext(\Ondewo\Nlu\Context|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Context::class);
         $this->context = $var;
 
         return $this;

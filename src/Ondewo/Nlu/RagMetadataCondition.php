@@ -75,9 +75,9 @@ class RagMetadataCondition extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -87,7 +87,7 @@ class RagMetadataCondition extends \Google\Protobuf\Internal\Message
      * Required. Comparison operator.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagComparisonOperator comparison_operator = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagComparisonOperator}
      */
     public function getComparisonOperator()
     {
@@ -98,10 +98,10 @@ class RagMetadataCondition extends \Google\Protobuf\Internal\Message
      * Required. Comparison operator.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagComparisonOperator comparison_operator = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagComparisonOperator}
      * @return $this
      */
-    public function setComparisonOperator($var)
+    public function setComparisonOperator(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagComparisonOperator::class);
         $this->comparison_operator = $var;
@@ -129,9 +129,9 @@ class RagMetadataCondition extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setValue($var)
+    public function setValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->value = $var;
 
         return $this;

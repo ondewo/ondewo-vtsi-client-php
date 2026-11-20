@@ -72,7 +72,7 @@ class CcaiServiceFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -84,7 +84,7 @@ class CcaiServiceFilter extends \Google\Protobuf\Internal\Message
      * Type of CCAI service service
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceType ccai_service_types = 2;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\CcaiServiceType}
      */
     public function getCcaiServiceTypes()
     {
@@ -95,10 +95,10 @@ class CcaiServiceFilter extends \Google\Protobuf\Internal\Message
      * Type of CCAI service service
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceType ccai_service_types = 2;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\CcaiServiceType}
      * @return $this
      */
-    public function setCcaiServiceTypes($var)
+    public function setCcaiServiceTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\CcaiServiceType::class);
         $this->ccai_service_types = $arr;
@@ -110,7 +110,7 @@ class CcaiServiceFilter extends \Google\Protobuf\Internal\Message
      * Type of CCAI service providers
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceProvider ccai_service_providers = 3;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getCcaiServiceProviders()
     {
@@ -121,10 +121,10 @@ class CcaiServiceFilter extends \Google\Protobuf\Internal\Message
      * Type of CCAI service providers
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceProvider ccai_service_providers = 3;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setCcaiServiceProviders($var)
+    public function setCcaiServiceProviders(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->ccai_service_providers = $arr;

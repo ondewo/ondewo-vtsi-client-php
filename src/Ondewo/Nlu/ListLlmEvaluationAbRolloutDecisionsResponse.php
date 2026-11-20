@@ -64,7 +64,7 @@ class ListLlmEvaluationAbRolloutDecisionsResponse extends \Google\Protobuf\Inter
      * @param \Ondewo\Nlu\LlmEvaluationAbRolloutDecision[] $var
      * @return $this
      */
-    public function setLlmEvaluationAbRolloutDecisions($var)
+    public function setLlmEvaluationAbRolloutDecisions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationAbRolloutDecision::class);
         $this->llm_evaluation_ab_rollout_decisions = $arr;
@@ -90,9 +90,9 @@ class ListLlmEvaluationAbRolloutDecisionsResponse extends \Google\Protobuf\Inter
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

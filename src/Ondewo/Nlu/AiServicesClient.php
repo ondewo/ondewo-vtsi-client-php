@@ -37,7 +37,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ExtractEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ExtractEntitiesResponse>
      */
     public function ExtractEntities(\Ondewo\Nlu\ExtractEntitiesRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GenerateUserSaysRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GenerateUserSaysResponse>
      */
     public function GenerateUserSays(\Ondewo\Nlu\GenerateUserSaysRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GenerateResponsesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GenerateResponsesResponse>
      */
     public function GenerateResponses(\Ondewo\Nlu\GenerateResponsesRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetAlternativeSentencesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetAlternativeSentencesResponse>
      */
     public function GetAlternativeSentences(\Ondewo\Nlu\GetAlternativeSentencesRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetAlternativeTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetAlternativeTrainingPhrasesResponse>
      */
     public function GetAlternativeTrainingPhrases(\Ondewo\Nlu\GetAlternativeTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetSynonymsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetSynonymsResponse>
      */
     public function GetSynonyms(\Ondewo\Nlu\GetSynonymsRequest $argument,
       $metadata = [], $options = []) {
@@ -127,7 +127,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ClassifyIntentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ClassifyIntentsResponse>
      */
     public function ClassifyIntents(\Ondewo\Nlu\ClassifyIntentsRequest $argument,
       $metadata = [], $options = []) {
@@ -142,7 +142,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ExtractEntitiesFuzzyRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ExtractEntitiesResponse>
      */
     public function ExtractEntitiesFuzzy(\Ondewo\Nlu\ExtractEntitiesFuzzyRequest $argument,
       $metadata = [], $options = []) {
@@ -159,7 +159,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\LlmGenerateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmGenerateResponse>
      */
     public function LlmGenerate(\Ondewo\Nlu\LlmGenerateRequest $argument,
       $metadata = [], $options = []) {
@@ -193,7 +193,7 @@ class AiServicesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmModelsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmModelsResponse>
      */
     public function ListLlmModels(\Ondewo\Nlu\ListLlmModelsRequest $argument,
       $metadata = [], $options = []) {

@@ -138,9 +138,9 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -180,9 +180,9 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -192,7 +192,7 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * Optional. How much of each listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallView}
      */
     public function getCallView()
     {
@@ -213,10 +213,10 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * Optional. How much of each listener to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallView}
      * @return $this
      */
-    public function setCallView($var)
+    public function setCallView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
@@ -270,9 +270,8 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -298,7 +297,7 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -326,9 +325,8 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActiveOnly($var)
+    public function setActiveOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active_only = $var;
 
         return $this;
@@ -339,7 +337,7 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * (<code>Listener.sip_status_type</code>), with the rules of <code>ListCallersRequest.sip_status_types</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 7;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusTypes()
     {
@@ -351,10 +349,10 @@ class ListListenersRequest extends \Google\Protobuf\Internal\Message
      * (<code>Listener.sip_status_type</code>), with the rules of <code>ListCallersRequest.sip_status_types</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.sip.SipStatus.StatusType sip_status_types = 7;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusTypes($var)
+    public function setSipStatusTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_types = $arr;

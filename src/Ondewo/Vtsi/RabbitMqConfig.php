@@ -94,9 +94,9 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHost($var)
+    public function setHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->host = $var;
 
         return $this;
@@ -122,7 +122,7 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPort($var)
+    public function setPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->port = $var;
@@ -152,7 +152,7 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPort2($var)
+    public function setPort2(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->port_2 = $var;
@@ -178,9 +178,9 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUser($var)
+    public function setUser(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user = $var;
 
         return $this;
@@ -204,9 +204,9 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPassword($var)
+    public function setPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->password = $var;
 
         return $this;

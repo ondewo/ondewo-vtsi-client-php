@@ -129,7 +129,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedDomains($var)
+    public function setAllowedDomains(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_domains = $arr;
@@ -155,7 +155,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDisallowedDomains($var)
+    public function setDisallowedDomains(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->disallowed_domains = $arr;
@@ -186,10 +186,9 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setAllowInternalLinks($var)
+    public function setAllowInternalLinks(bool $var)
     {
         @trigger_error('allow_internal_links is deprecated.', E_USER_DEPRECATED);
-        GPBUtil::checkBool($var);
         $this->allow_internal_links = $var;
 
         return $this;
@@ -213,9 +212,8 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllowExternalLinks($var)
+    public function setAllowExternalLinks(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->allow_external_links = $var;
 
         return $this;
@@ -244,10 +242,9 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setAllowSocialMediaLinks($var)
+    public function setAllowSocialMediaLinks(bool $var)
     {
         @trigger_error('allow_social_media_links is deprecated.', E_USER_DEPRECATED);
-        GPBUtil::checkBool($var);
         $this->allow_social_media_links = $var;
 
         return $this;
@@ -271,7 +268,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedRegex($var)
+    public function setAllowedRegex(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_regex = $arr;
@@ -297,7 +294,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDisallowedRegex($var)
+    public function setDisallowedRegex(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->disallowed_regex = $arr;
@@ -328,7 +325,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setAllowedPaths($var)
+    public function setAllowedPaths(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         if (count($arr) !== 0) {
@@ -362,7 +359,7 @@ class RagCrawlerFilters extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setDisallowedPaths($var)
+    public function setDisallowedPaths(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         if (count($arr) !== 0) {

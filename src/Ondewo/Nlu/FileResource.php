@@ -62,9 +62,8 @@ class FileResource extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DocumentFileResource $var
      * @return $this
      */
-    public function setDocumentFileResource($var)
+    public function setDocumentFileResource(\Ondewo\Nlu\DocumentFileResource|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DocumentFileResource::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -93,9 +92,8 @@ class FileResource extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AudioFileResource $var
      * @return $this
      */
-    public function setAudioFileResource($var)
+    public function setAudioFileResource(\Ondewo\Nlu\AudioFileResource|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\AudioFileResource::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -124,9 +122,8 @@ class FileResource extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ImageFileResource $var
      * @return $this
      */
-    public function setImageFileResource($var)
+    public function setImageFileResource(\Ondewo\Nlu\ImageFileResource|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\ImageFileResource::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -155,9 +152,8 @@ class FileResource extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\VideoFileResource $var
      * @return $this
      */
-    public function setVideoFileResource($var)
+    public function setVideoFileResource(\Ondewo\Nlu\VideoFileResource|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\VideoFileResource::class);
         $this->writeOneof(4, $var);
 
         return $this;

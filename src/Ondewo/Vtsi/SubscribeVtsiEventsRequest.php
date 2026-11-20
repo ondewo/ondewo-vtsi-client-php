@@ -112,9 +112,9 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -157,9 +157,9 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEventSubscriptionName($var)
+    public function setEventSubscriptionName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -188,9 +188,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiEventFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\VtsiEventFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiEventFilter::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -228,9 +227,9 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResumeToken($var)
+    public function setResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resume_token = $var;
 
         return $this;
@@ -280,9 +279,8 @@ class SubscribeVtsiEventsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;

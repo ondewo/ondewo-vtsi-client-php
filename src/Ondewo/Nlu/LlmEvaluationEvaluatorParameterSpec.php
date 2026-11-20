@@ -96,9 +96,9 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -122,9 +122,9 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -148,9 +148,9 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -174,9 +174,9 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setValueType($var)
+    public function setValueType(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->value_type = $var;
 
         return $this;
@@ -200,9 +200,9 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setDefaultValue($var)
+    public function setDefaultValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->default_value = $var;
 
         return $this;
@@ -226,9 +226,8 @@ class LlmEvaluationEvaluatorParameterSpec extends \Google\Protobuf\Internal\Mess
      * @param bool $var
      * @return $this
      */
-    public function setRequired($var)
+    public function setRequired(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->required = $var;
 
         return $this;

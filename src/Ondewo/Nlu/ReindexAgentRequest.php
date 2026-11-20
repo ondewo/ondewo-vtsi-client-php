@@ -76,9 +76,9 @@ class ReindexAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -102,9 +102,9 @@ class ReindexAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBranchName($var)
+    public function setBranchName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->branch_name = $var;
 
         return $this;
@@ -114,7 +114,7 @@ class ReindexAgentRequest extends \Google\Protobuf\Internal\Message
      * Optional, useful for reindexing specific indices in the future
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FullTextSearchRequest.QueryType index_types = 3;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\FullTextSearchRequest\QueryType}
      */
     public function getIndexTypes()
     {
@@ -125,10 +125,10 @@ class ReindexAgentRequest extends \Google\Protobuf\Internal\Message
      * Optional, useful for reindexing specific indices in the future
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FullTextSearchRequest.QueryType index_types = 3;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\FullTextSearchRequest\QueryType}
      * @return $this
      */
-    public function setIndexTypes($var)
+    public function setIndexTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\FullTextSearchRequest\QueryType::class);
         $this->index_types = $arr;

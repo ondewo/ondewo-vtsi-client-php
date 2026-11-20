@@ -80,9 +80,9 @@ class LlmCallFinishedEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmCallId($var)
+    public function setLlmCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_call_id = $var;
 
         return $this;
@@ -116,9 +116,8 @@ class LlmCallFinishedEvent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -142,9 +141,8 @@ class LlmCallFinishedEvent extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -178,9 +176,8 @@ class LlmCallFinishedEvent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;

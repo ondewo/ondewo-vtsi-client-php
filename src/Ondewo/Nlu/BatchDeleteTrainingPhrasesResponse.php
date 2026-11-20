@@ -64,7 +64,7 @@ class BatchDeleteTrainingPhrasesResponse extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\BatchDeleteTrainingPhrasesResponse\DeleteTrainingPhraseStatus[] $var
      * @return $this
      */
-    public function setDeleteStatuses($var)
+    public function setDeleteStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchDeleteTrainingPhrasesResponse\DeleteTrainingPhraseStatus::class);
         $this->delete_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchDeleteTrainingPhrasesResponse extends \Google\Protobuf\Internal\Messa
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

@@ -94,7 +94,7 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setProjectParents($var)
+    public function setProjectParents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->project_parents = $arr;
@@ -106,7 +106,7 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * Match operation which had any of the following operation statuses.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.OperationMetadata.Status statuses = 2;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      */
     public function getStatuses()
     {
@@ -117,10 +117,10 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * Match operation which had any of the following operation statuses.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.OperationMetadata.Status statuses = 2;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      * @return $this
      */
-    public function setStatuses($var)
+    public function setStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\OperationMetadata\Status::class);
         $this->statuses = $arr;
@@ -132,7 +132,7 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * Match operation which had any of the following operation types.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.OperationMetadata.OperationType types = 3;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\OperationMetadata\OperationType}
      */
     public function getTypes()
     {
@@ -143,10 +143,10 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * Match operation which had any of the following operation types.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.OperationMetadata.OperationType types = 3;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\OperationType}
      * @return $this
      */
-    public function setTypes($var)
+    public function setTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\OperationMetadata\OperationType::class);
         $this->types = $arr;
@@ -177,9 +177,8 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->writeOneof(4, $var);
 
         return $this;
@@ -208,9 +207,8 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -234,7 +232,7 @@ class OperationFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setUserIds($var)
+    public function setUserIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->user_ids = $arr;

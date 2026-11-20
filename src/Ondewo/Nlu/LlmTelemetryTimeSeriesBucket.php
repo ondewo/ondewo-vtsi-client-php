@@ -82,9 +82,8 @@ class LlmTelemetryTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setBucketStart($var)
+    public function setBucketStart(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->bucket_start = $var;
 
         return $this;
@@ -118,9 +117,8 @@ class LlmTelemetryTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setBucketEnd($var)
+    public function setBucketEnd(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->bucket_end = $var;
 
         return $this;
@@ -154,9 +152,8 @@ class LlmTelemetryTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetryReport $var
      * @return $this
      */
-    public function setLlmTelemetryReport($var)
+    public function setLlmTelemetryReport(\Ondewo\Nlu\LlmTelemetryReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTelemetryReport::class);
         $this->llm_telemetry_report = $var;
 
         return $this;

@@ -72,7 +72,7 @@ class RagDatasetList extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagDataset[] $var
      * @return $this
      */
-    public function setDatasets($var)
+    public function setDatasets(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagDataset::class);
         $this->datasets = $arr;
@@ -98,7 +98,7 @@ class RagDatasetList extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;
@@ -124,9 +124,9 @@ class RagDatasetList extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

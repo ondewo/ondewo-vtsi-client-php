@@ -64,7 +64,7 @@ class AddNotificationsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Notification[] $var
      * @return $this
      */
-    public function setNotifications($var)
+    public function setNotifications(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Notification::class);
         $this->notifications = $arr;
@@ -100,9 +100,8 @@ class AddNotificationsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

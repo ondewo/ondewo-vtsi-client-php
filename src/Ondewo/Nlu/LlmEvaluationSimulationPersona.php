@@ -82,9 +82,9 @@ class LlmEvaluationSimulationPersona extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPersona($var)
+    public function setPersona(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->persona = $var;
 
         return $this;
@@ -108,9 +108,9 @@ class LlmEvaluationSimulationPersona extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setScenario($var)
+    public function setScenario(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->scenario = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class LlmEvaluationSimulationPersona extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setExpectedOutcome($var)
+    public function setExpectedOutcome(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->expected_outcome = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class LlmEvaluationSimulationPersona extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserDescription($var)
+    public function setUserDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_description = $var;
 
         return $this;

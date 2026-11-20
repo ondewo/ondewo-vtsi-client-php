@@ -72,9 +72,9 @@ class RagCrawlerCookie extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCookieName($var)
+    public function setCookieName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cookie_name = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class RagCrawlerCookie extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCookieValue($var)
+    public function setCookieValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cookie_value = $var;
 
         return $this;
@@ -124,9 +124,9 @@ class RagCrawlerCookie extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCookieDomain($var)
+    public function setCookieDomain(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cookie_domain = $var;
 
         return $this;

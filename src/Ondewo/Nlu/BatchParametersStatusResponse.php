@@ -64,7 +64,7 @@ class BatchParametersStatusResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\BatchParametersStatusResponse\ParameterStatus[] $var
      * @return $this
      */
-    public function setParameterStatuses($var)
+    public function setParameterStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchParametersStatusResponse\ParameterStatus::class);
         $this->parameter_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchParametersStatusResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

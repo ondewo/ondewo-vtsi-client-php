@@ -62,6 +62,12 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional bool activate_control_messages = 6;</code>
      */
     protected $activate_control_messages = null;
+    /**
+     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
+     */
+    protected $preemptive_generation_config = null;
 
     /**
      * Constructor.
@@ -91,6 +97,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      *           presence-less bool cannot tell the two apart, so an unset field arrived as
      *           <pre><code>false</code></pre> and silently disabled control messages for callers that never
      *           mentioned them.
+     *     @type \Ondewo\Vtsi\CsiPreemptiveGenerationConfig $preemptive_generation_config
+     *           Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
      * }
      */
     public function __construct($data = NULL) {
@@ -126,9 +134,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\S2tVtsiCallbacks $var
      * @return $this
      */
-    public function setS2TVtsiCallbacks($var)
+    public function setS2TVtsiCallbacks(\Ondewo\Vtsi\S2tVtsiCallbacks|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\S2tVtsiCallbacks::class);
         $this->s2t_vtsi_callbacks = $var;
 
         return $this;
@@ -162,9 +169,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\NluVtsiCallbacks $var
      * @return $this
      */
-    public function setNluVtsiCallbacks($var)
+    public function setNluVtsiCallbacks(\Ondewo\Vtsi\NluVtsiCallbacks|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\NluVtsiCallbacks::class);
         $this->nlu_vtsi_callbacks = $var;
 
         return $this;
@@ -198,9 +204,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\T2sVtsiCallbacks $var
      * @return $this
      */
-    public function setT2SVtsiCallbacks($var)
+    public function setT2SVtsiCallbacks(\Ondewo\Vtsi\T2sVtsiCallbacks|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\T2sVtsiCallbacks::class);
         $this->t2s_vtsi_callbacks = $var;
 
         return $this;
@@ -234,9 +239,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AudioObjectStorageConfig $var
      * @return $this
      */
-    public function setAudioObjectStoreConfig($var)
+    public function setAudioObjectStoreConfig(\Ondewo\Vtsi\AudioObjectStorageConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AudioObjectStorageConfig::class);
         $this->audio_object_store_config = $var;
 
         return $this;
@@ -270,9 +274,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\MessageBrokerConfig $var
      * @return $this
      */
-    public function setMessageBrokerConfig($var)
+    public function setMessageBrokerConfig(\Ondewo\Vtsi\MessageBrokerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\MessageBrokerConfig::class);
         $this->message_broker_config = $var;
 
         return $this;
@@ -326,10 +329,44 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActivateControlMessages($var)
+    public function setActivateControlMessages(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_control_messages = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
+     * @return \Ondewo\Vtsi\CsiPreemptiveGenerationConfig|null
+     */
+    public function getPreemptiveGenerationConfig()
+    {
+        return $this->preemptive_generation_config;
+    }
+
+    public function hasPreemptiveGenerationConfig()
+    {
+        return isset($this->preemptive_generation_config);
+    }
+
+    public function clearPreemptiveGenerationConfig()
+    {
+        unset($this->preemptive_generation_config);
+    }
+
+    /**
+     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
+     * @param \Ondewo\Vtsi\CsiPreemptiveGenerationConfig $var
+     * @return $this
+     */
+    public function setPreemptiveGenerationConfig(\Ondewo\Vtsi\CsiPreemptiveGenerationConfig|null $var)
+    {
+        $this->preemptive_generation_config = $var;
 
         return $this;
     }

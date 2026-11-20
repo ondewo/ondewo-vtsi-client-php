@@ -58,9 +58,8 @@ class DeleteResponseMessageStatus extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\GPBEmpty $var
      * @return $this
      */
-    public function setSuccessfullyDeleted($var)
+    public function setSuccessfullyDeleted(\Google\Protobuf\GPBEmpty|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\GPBEmpty::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -89,9 +88,9 @@ class DeleteResponseMessageStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;

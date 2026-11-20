@@ -158,9 +158,9 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -192,9 +192,9 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -268,9 +268,9 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -280,7 +280,7 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned entity type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeView entity_type_view = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityTypeView}
      */
     public function getEntityTypeView()
     {
@@ -291,10 +291,10 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned entity type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeView entity_type_view = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityTypeView}
      * @return $this
      */
-    public function setEntityTypeView($var)
+    public function setEntityTypeView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityTypeView::class);
         $this->entity_type_view = $var;
@@ -306,7 +306,7 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeCategory filter_by_category = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityTypeCategory}
      */
     public function getFilterByCategory()
     {
@@ -317,10 +317,10 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeCategory filter_by_category = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityTypeCategory}
      * @return $this
      */
-    public function setFilterByCategory($var)
+    public function setFilterByCategory(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityTypeCategory::class);
         $this->filter_by_category = $var;
@@ -356,9 +356,8 @@ class ListEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeSorting $var
      * @return $this
      */
-    public function setSortByField($var)
+    public function setSortByField(\Ondewo\Nlu\EntityTypeSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityTypeSorting::class);
         $this->sort_by_field = $var;
 
         return $this;

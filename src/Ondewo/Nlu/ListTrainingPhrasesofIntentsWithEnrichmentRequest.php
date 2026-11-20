@@ -136,9 +136,9 @@ class ListTrainingPhrasesofIntentsWithEnrichmentRequest extends \Google\Protobuf
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class ListTrainingPhrasesofIntentsWithEnrichmentRequest extends \Google\Protobuf
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -192,7 +192,7 @@ class ListTrainingPhrasesofIntentsWithEnrichmentRequest extends \Google\Protobuf
      * @param string[] $var
      * @return $this
      */
-    public function setIntentIds($var)
+    public function setIntentIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->intent_ids = $arr;
@@ -266,9 +266,9 @@ class ListTrainingPhrasesofIntentsWithEnrichmentRequest extends \Google\Protobuf
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;

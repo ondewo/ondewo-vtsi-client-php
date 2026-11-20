@@ -106,9 +106,8 @@ class UpdateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Vtsi\VtsiEventSubscription $var
      * @return $this
      */
-    public function setEventSubscription($var)
+    public function setEventSubscription(\Ondewo\Vtsi\VtsiEventSubscription|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiEventSubscription::class);
         $this->event_subscription = $var;
 
         return $this;
@@ -150,9 +149,8 @@ class UpdateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -194,9 +192,8 @@ class UpdateVtsiEventSubscriptionRequest extends \Google\Protobuf\Internal\Messa
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

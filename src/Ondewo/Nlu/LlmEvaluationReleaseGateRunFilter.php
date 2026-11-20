@@ -69,9 +69,9 @@ class LlmEvaluationReleaseGateRunFilter extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationReleaseGateName($var)
+    public function setLlmEvaluationReleaseGateName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_release_gate_name = $var;
 
         return $this;
@@ -81,7 +81,7 @@ class LlmEvaluationReleaseGateRunFilter extends \Google\Protobuf\Internal\Messag
      * Optional. Match only runs with this verdict.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationReleaseGateVerdict llm_evaluation_release_gate_verdict = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationReleaseGateVerdict}
      */
     public function getLlmEvaluationReleaseGateVerdict()
     {
@@ -92,10 +92,10 @@ class LlmEvaluationReleaseGateRunFilter extends \Google\Protobuf\Internal\Messag
      * Optional. Match only runs with this verdict.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationReleaseGateVerdict llm_evaluation_release_gate_verdict = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationReleaseGateVerdict}
      * @return $this
      */
-    public function setLlmEvaluationReleaseGateVerdict($var)
+    public function setLlmEvaluationReleaseGateVerdict(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationReleaseGateVerdict::class);
         $this->llm_evaluation_release_gate_verdict = $var;

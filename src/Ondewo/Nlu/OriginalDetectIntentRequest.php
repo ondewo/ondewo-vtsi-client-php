@@ -84,9 +84,9 @@ class OriginalDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSource($var)
+    public function setSource(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source = $var;
 
         return $this;
@@ -136,9 +136,8 @@ class OriginalDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setPayload($var)
+    public function setPayload(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->payload = $var;
 
         return $this;

@@ -191,9 +191,9 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -217,7 +217,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;
@@ -243,7 +243,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNotStarted($var)
+    public function setNotStarted(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->not_started = $var;
@@ -269,7 +269,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setInProgress($var)
+    public function setInProgress(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->in_progress = $var;
@@ -295,7 +295,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRetryPending($var)
+    public function setRetryPending(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->retry_pending = $var;
@@ -321,7 +321,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCompleted($var)
+    public function setCompleted(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->completed = $var;
@@ -347,7 +347,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setFailed($var)
+    public function setFailed(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->failed = $var;
@@ -373,7 +373,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCancelled($var)
+    public function setCancelled(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cancelled = $var;
@@ -399,7 +399,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotalAttempts($var)
+    public function setTotalAttempts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total_attempts = $var;
@@ -425,9 +425,8 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setProgressPercent($var)
+    public function setProgressPercent(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->progress_percent = $var;
 
         return $this;
@@ -451,7 +450,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setScheduledNotDue($var)
+    public function setScheduledNotDue(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->scheduled_not_due = $var;
@@ -477,7 +476,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCallsRetried($var)
+    public function setCallsRetried(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->calls_retried = $var;
@@ -519,9 +518,8 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Duration $var
      * @return $this
      */
-    public function setAverageConnectedDuration($var)
+    public function setAverageConnectedDuration(\Google\Protobuf\Duration|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Duration::class);
         $this->average_connected_duration = $var;
 
         return $this;
@@ -549,7 +547,7 @@ class CampaignStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAnsweringMachineDetected($var)
+    public function setAnsweringMachineDetected(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->answering_machine_detected = $var;

@@ -176,7 +176,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotalFeedback($var)
+    public function setTotalFeedback(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total_feedback = $var;
@@ -202,7 +202,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsUpCount($var)
+    public function setThumbsUpCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_up_count = $var;
@@ -228,7 +228,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsDownCount($var)
+    public function setThumbsDownCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_down_count = $var;
@@ -254,7 +254,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSessionLevelCount($var)
+    public function setSessionLevelCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->session_level_count = $var;
@@ -280,7 +280,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSessionStepLevelCount($var)
+    public function setSessionStepLevelCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->session_step_level_count = $var;
@@ -306,7 +306,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCommentCount($var)
+    public function setCommentCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->comment_count = $var;
@@ -332,7 +332,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSessionReviewCount($var)
+    public function setSessionReviewCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->session_review_count = $var;
@@ -358,7 +358,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSessionCommentCount($var)
+    public function setSessionCommentCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->session_comment_count = $var;
@@ -384,7 +384,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackBreakdownBucket[] $var
      * @return $this
      */
-    public function setByLanguage($var)
+    public function setByLanguage(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackBreakdownBucket::class);
         $this->by_language = $arr;
@@ -410,7 +410,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackBreakdownBucket[] $var
      * @return $this
      */
-    public function setByIntent($var)
+    public function setByIntent(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackBreakdownBucket::class);
         $this->by_intent = $arr;
@@ -436,7 +436,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackBreakdownBucket[] $var
      * @return $this
      */
-    public function setByAuthorType($var)
+    public function setByAuthorType(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackBreakdownBucket::class);
         $this->by_author_type = $arr;
@@ -462,7 +462,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setUnspecifiedRatingCount($var)
+    public function setUnspecifiedRatingCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->unspecified_rating_count = $var;
@@ -488,7 +488,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setScoredCount($var)
+    public function setScoredCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->scored_count = $var;
@@ -514,9 +514,8 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setAverageScore($var)
+    public function setAverageScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->average_score = $var;
 
         return $this;
@@ -540,7 +539,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackBreakdownBucket[] $var
      * @return $this
      */
-    public function setByOrigin($var)
+    public function setByOrigin(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackBreakdownBucket::class);
         $this->by_origin = $arr;
@@ -566,7 +565,7 @@ class FeedbackStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackBreakdownBucket[] $var
      * @return $this
      */
-    public function setByCriterion($var)
+    public function setByCriterion(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackBreakdownBucket::class);
         $this->by_criterion = $arr;

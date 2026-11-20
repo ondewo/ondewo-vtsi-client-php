@@ -92,9 +92,9 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -118,9 +118,9 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -154,9 +154,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallMediaControlState $var
      * @return $this
      */
-    public function setState($var)
+    public function setState(\Ondewo\Vtsi\CallMediaControlState|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallMediaControlState::class);
         $this->state = $var;
 
         return $this;
@@ -182,9 +181,8 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setChanged($var)
+    public function setChanged(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->changed = $var;
 
         return $this;
@@ -210,9 +208,9 @@ class SetCallMediaControlResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

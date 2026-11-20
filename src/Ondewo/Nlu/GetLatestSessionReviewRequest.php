@@ -76,9 +76,9 @@ class GetLatestSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -88,7 +88,7 @@ class GetLatestSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned for the desired session review
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      */
     public function getSessionReviewView()
     {
@@ -99,10 +99,10 @@ class GetLatestSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned for the desired session review
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      * @return $this
      */
-    public function setSessionReviewView($var)
+    public function setSessionReviewView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SessionReview\View::class);
         $this->session_review_view = $var;
@@ -138,9 +138,8 @@ class GetLatestSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

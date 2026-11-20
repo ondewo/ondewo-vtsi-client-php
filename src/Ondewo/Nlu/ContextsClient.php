@@ -55,7 +55,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListContextsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListContextsResponse>
      */
     public function ListContexts(\Ondewo\Nlu\ListContextsRequest $argument,
       $metadata = [], $options = []) {
@@ -70,7 +70,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetContextRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Context>
      */
     public function GetContext(\Ondewo\Nlu\GetContextRequest $argument,
       $metadata = [], $options = []) {
@@ -85,7 +85,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateContextRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Context>
      */
     public function CreateContext(\Ondewo\Nlu\CreateContextRequest $argument,
       $metadata = [], $options = []) {
@@ -100,7 +100,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateContextRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Context>
      */
     public function UpdateContext(\Ondewo\Nlu\UpdateContextRequest $argument,
       $metadata = [], $options = []) {
@@ -115,7 +115,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteContextRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteContext(\Ondewo\Nlu\DeleteContextRequest $argument,
       $metadata = [], $options = []) {
@@ -130,7 +130,7 @@ class ContextsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteAllContextsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteAllContexts(\Ondewo\Nlu\DeleteAllContextsRequest $argument,
       $metadata = [], $options = []) {

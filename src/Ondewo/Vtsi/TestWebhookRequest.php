@@ -98,9 +98,9 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -123,7 +123,7 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
      * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getSampleEvent()
     {
@@ -147,10 +147,10 @@ class TestWebhookRequest extends \Google\Protobuf\Internal\Message
      * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent sample_event = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setSampleEvent($var)
+    public function setSampleEvent(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiEvent::class);
         $this->sample_event = $var;

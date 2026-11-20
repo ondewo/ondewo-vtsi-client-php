@@ -64,9 +64,9 @@ class AltSentence extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSentence($var)
+    public function setSentence(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sentence = $var;
 
         return $this;
@@ -90,9 +90,8 @@ class AltSentence extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;

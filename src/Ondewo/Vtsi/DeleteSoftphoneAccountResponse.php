@@ -65,9 +65,9 @@ class DeleteSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -91,7 +91,7 @@ class DeleteSoftphoneAccountResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRevokedCertificateCount($var)
+    public function setRevokedCertificateCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->revoked_certificate_count = $var;

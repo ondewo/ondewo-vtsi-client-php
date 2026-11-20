@@ -78,9 +78,8 @@ class StreamingLlmGenerateResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setLlmGenerationStreamResponse($var)
+    public function setLlmGenerationStreamResponse(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->llm_generation_stream_response = $var;
 
         return $this;

@@ -74,9 +74,8 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
      * @param bool $var
      * @return $this
      */
-    public function setActivateS2T($var)
+    public function setActivateS2T(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_s2t = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
      * @param bool $var
      * @return $this
      */
-    public function setActivateT2S($var)
+    public function setActivateT2S(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_t2s = $var;
 
         return $this;

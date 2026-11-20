@@ -208,9 +208,9 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -236,9 +236,9 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -264,9 +264,9 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -277,7 +277,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * is. At most one entry per value (duplicates are ignored). Updatable.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getEvents()
     {
@@ -289,10 +289,10 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * is. At most one entry per value (duplicates are ignored). Updatable.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 4;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setEvents($var)
+    public function setEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
         $this->events = $arr;
@@ -320,9 +320,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllEvents($var)
+    public function setAllEvents(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->all_events = $var;
 
         return $this;
@@ -356,7 +355,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setResourceNamePrefixes($var)
+    public function setResourceNamePrefixes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->resource_name_prefixes = $arr;
@@ -384,7 +383,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setWebhookNames($var)
+    public function setWebhookNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->webhook_names = $arr;
@@ -412,9 +411,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDisabled($var)
+    public function setDisabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->disabled = $var;
 
         return $this;
@@ -438,9 +436,9 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -474,9 +472,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -500,9 +497,9 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -536,9 +533,8 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -574,7 +570,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignNames($var)
+    public function setCampaignNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_names = $arr;
@@ -591,7 +587,7 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * <code>excluded_events</code>, replaced whole).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getExcludedEvents()
     {
@@ -607,10 +603,10 @@ class VtsiEventSubscription extends \Google\Protobuf\Internal\Message
      * <code>excluded_events</code>, replaced whole).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 14;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setExcludedEvents($var)
+    public function setExcludedEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
         $this->excluded_events = $arr;

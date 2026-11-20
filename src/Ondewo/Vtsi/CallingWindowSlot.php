@@ -63,7 +63,7 @@ class CallingWindowSlot extends \Google\Protobuf\Internal\Message
      * Required. The day, in the window&apos;s time zone.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallingWindowDayOfWeek day_of_week = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallingWindowDayOfWeek}
      */
     public function getDayOfWeek()
     {
@@ -74,10 +74,10 @@ class CallingWindowSlot extends \Google\Protobuf\Internal\Message
      * Required. The day, in the window&apos;s time zone.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallingWindowDayOfWeek day_of_week = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallingWindowDayOfWeek}
      * @return $this
      */
-    public function setDayOfWeek($var)
+    public function setDayOfWeek(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallingWindowDayOfWeek::class);
         $this->day_of_week = $var;
@@ -103,7 +103,7 @@ class CallingWindowSlot extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setStartMinute($var)
+    public function setStartMinute(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->start_minute = $var;
@@ -131,7 +131,7 @@ class CallingWindowSlot extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEndMinute($var)
+    public function setEndMinute(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->end_minute = $var;

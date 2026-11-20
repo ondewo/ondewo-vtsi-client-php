@@ -66,9 +66,8 @@ class UpdateEntityRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity $var
      * @return $this
      */
-    public function setEntity($var)
+    public function setEntity(\Ondewo\Nlu\EntityType\Entity|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entity = $var;
 
         return $this;

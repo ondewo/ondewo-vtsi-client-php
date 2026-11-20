@@ -55,7 +55,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartCallerResponse>
      */
     public function StartCaller(\Ondewo\Vtsi\StartCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -75,7 +75,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartCallersResponse>
      */
     public function StartCallers(\Ondewo\Vtsi\StartCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -101,7 +101,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCallersResponse>
      */
     public function ListCallers(\Ondewo\Vtsi\ListCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -120,7 +120,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Caller>
      */
     public function GetCaller(\Ondewo\Vtsi\GetCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -178,7 +178,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateCallerResponse>
      */
     public function UpdateCaller(\Ondewo\Vtsi\UpdateCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -197,7 +197,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateCallersResponse>
      */
     public function UpdateCallers(\Ondewo\Vtsi\UpdateCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -221,7 +221,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteCallerResponse>
      */
     public function DeleteCaller(\Ondewo\Vtsi\DeleteCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -241,7 +241,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteCallersResponse>
      */
     public function DeleteCallers(\Ondewo\Vtsi\DeleteCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -265,7 +265,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopCallerResponse>
      */
     public function StopCaller(\Ondewo\Vtsi\StopCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -282,7 +282,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopCallersResponse>
      */
     public function StopCallers(\Ondewo\Vtsi\StopCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -303,7 +303,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartListenerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartListenerResponse>
      */
     public function StartListener(\Ondewo\Vtsi\StartListenerRequest $argument,
       $metadata = [], $options = []) {
@@ -321,7 +321,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartListenersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartListenersResponse>
      */
     public function StartListeners(\Ondewo\Vtsi\StartListenersRequest $argument,
       $metadata = [], $options = []) {
@@ -341,7 +341,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopListenerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopListenerResponse>
      */
     public function StopListener(\Ondewo\Vtsi\StopListenerRequest $argument,
       $metadata = [], $options = []) {
@@ -358,7 +358,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopListenersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopListenersResponse>
      */
     public function StopListeners(\Ondewo\Vtsi\StopListenersRequest $argument,
       $metadata = [], $options = []) {
@@ -376,7 +376,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListListenersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListListenersResponse>
      */
     public function ListListeners(\Ondewo\Vtsi\ListListenersRequest $argument,
       $metadata = [], $options = []) {
@@ -393,7 +393,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetListenerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Listener>
      */
     public function GetListener(\Ondewo\Vtsi\GetListenerRequest $argument,
       $metadata = [], $options = []) {
@@ -431,7 +431,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateListenerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateListenerResponse>
      */
     public function UpdateListener(\Ondewo\Vtsi\UpdateListenerRequest $argument,
       $metadata = [], $options = []) {
@@ -448,7 +448,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateListenersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateListenersResponse>
      */
     public function UpdateListeners(\Ondewo\Vtsi\UpdateListenersRequest $argument,
       $metadata = [], $options = []) {
@@ -468,7 +468,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteListenerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteListenerResponse>
      */
     public function DeleteListener(\Ondewo\Vtsi\DeleteListenerRequest $argument,
       $metadata = [], $options = []) {
@@ -485,7 +485,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteListenersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteListenersResponse>
      */
     public function DeleteListeners(\Ondewo\Vtsi\DeleteListenersRequest $argument,
       $metadata = [], $options = []) {
@@ -513,7 +513,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartScheduledCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartScheduledCallerResponse>
      */
     public function StartScheduledCaller(\Ondewo\Vtsi\StartScheduledCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -531,7 +531,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StartScheduledCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StartScheduledCallersResponse>
      */
     public function StartScheduledCallers(\Ondewo\Vtsi\StartScheduledCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -550,7 +550,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\AddCallersToCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\AddCallersToCampaignResponse>
      */
     public function AddCallersToCampaign(\Ondewo\Vtsi\AddCallersToCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -567,7 +567,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\AddScheduledCallersToCampaignRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\AddScheduledCallersToCampaignResponse>
      */
     public function AddScheduledCallersToCampaign(\Ondewo\Vtsi\AddScheduledCallersToCampaignRequest $argument,
       $metadata = [], $options = []) {
@@ -586,7 +586,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetScheduledCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ScheduledCaller>
      */
     public function GetScheduledCaller(\Ondewo\Vtsi\GetScheduledCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -604,7 +604,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListScheduledCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListScheduledCallersResponse>
      */
     public function ListScheduledCallers(\Ondewo\Vtsi\ListScheduledCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -635,7 +635,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateScheduledCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ScheduledCaller>
      */
     public function UpdateScheduledCaller(\Ondewo\Vtsi\UpdateScheduledCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -664,7 +664,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CancelScheduledCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CancelScheduledCallerResponse>
      */
     public function CancelScheduledCaller(\Ondewo\Vtsi\CancelScheduledCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -686,7 +686,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CancelScheduledCallersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CancelScheduledCallersResponse>
      */
     public function CancelScheduledCallers(\Ondewo\Vtsi\CancelScheduledCallersRequest $argument,
       $metadata = [], $options = []) {
@@ -720,7 +720,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RetryScheduledCallerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ScheduledCaller>
      */
     public function RetryScheduledCaller(\Ondewo\Vtsi\RetryScheduledCallerRequest $argument,
       $metadata = [], $options = []) {
@@ -745,7 +745,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopCallResponse>
      */
     public function StopCall(\Ondewo\Vtsi\StopCallRequest $argument,
       $metadata = [], $options = []) {
@@ -766,7 +766,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopCallsResponse>
      */
     public function StopCalls(\Ondewo\Vtsi\StopCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -788,7 +788,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\StopAllCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\StopCallsResponse>
      */
     public function StopAllCalls(\Ondewo\Vtsi\StopAllCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -799,13 +799,21 @@ class CallsClient extends \Grpc\BaseStub {
     }
 
     /**
-     * <p>Transfer a call to a phone number, a softphone account, another listener or the listener queue.</p>
+     * <p>Transfer a call to a phone number, a softphone account, another listener, the listener queue or a published
+     * IVR menu.</p>
      * <p>The target is either the typed <code>target</code> or the legacy raw <code>transfer_id</code>, never both. It is
      * resolved and validated before anything is sent; an invalid target is answered with
      * <code>TRANSFER_OUTCOME_TARGET_INVALID</code> and an <code>error_reason</code>, and the call is untouched.</p>
      * <p><code>TRANSFER_MODE_BLIND</code> (default) sends a SIP REFER and reports its outcome: a refused REFER keeps the
      * call with the bot. <code>TRANSFER_MODE_WARM</code> rings the target into the call first, and the bot leaves only
      * after the target joined (Asterisk 22 only).</p>
+     * <p>A WARM transfer whose effective <code>WarmTransferConfig</code> is enabled runs a WARM INTRO: once the human
+     * target answers, an ONDEWO bot asks whether a person is on the line, briefs them and asks whether they accept;
+     * only an accepting target is joined. It answers <code>TRANSFER_OUTCOME_PENDING</code>, and the final outcome
+     * (<code>TRANSFER_OUTCOME_ACCEPTED</code>, <code>_DECLINED</code>, <code>_NO_DECISION</code>,
+     * <code>_TARGET_UNAVAILABLE</code>, <code>_INTRO_UNAVAILABLE</code>, or a busy / unanswered target&apos;s
+     * usual outcome) arrives in <code>Call.last_transfer</code> and the events. See
+     * <code>TransferCallRequest.warm_transfer_config</code> for its refusals.</p>
      * <p>Telephony outcomes (busy, no answer, REFER rejected) are successful RPCs carrying an <code>outcome</code>.
      * Refusals before any side effect also return a gRPC status with <code>reason=&lt;token&gt;</code> in its details:
      * <code>INVALID_ARGUMENT</code> (both targets set, malformed target), <code>NOT_FOUND</code> (call or target not
@@ -820,7 +828,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\TransferCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\TransferCallResponse>
      */
     public function TransferCall(\Ondewo\Vtsi\TransferCallRequest $argument,
       $metadata = [], $options = []) {
@@ -842,7 +850,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\TransferCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\TransferCallsResponse>
      */
     public function TransferCalls(\Ondewo\Vtsi\TransferCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -863,7 +871,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Call>
      */
     public function GetCall(\Ondewo\Vtsi\GetCallRequest $argument,
       $metadata = [], $options = []) {
@@ -887,7 +895,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCallsResponse>
      */
     public function ListCalls(\Ondewo\Vtsi\ListCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -907,7 +915,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCallStatisticsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CallStatistics>
      */
     public function GetCallStatistics(\Ondewo\Vtsi\GetCallStatisticsRequest $argument,
       $metadata = [], $options = []) {
@@ -938,7 +946,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateCallResponse>
      */
     public function UpdateCall(\Ondewo\Vtsi\UpdateCallRequest $argument,
       $metadata = [], $options = []) {
@@ -955,7 +963,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateCallsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\UpdateCallsResponse>
      */
     public function UpdateCalls(\Ondewo\Vtsi\UpdateCallsRequest $argument,
       $metadata = [], $options = []) {
@@ -1048,7 +1056,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\InviteToCallRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\InviteToCallResponse>
      */
     public function InviteToCall(\Ondewo\Vtsi\InviteToCallRequest $argument,
       $metadata = [], $options = []) {
@@ -1076,7 +1084,7 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RemoveCallParticipantRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\RemoveCallParticipantResponse>
      */
     public function RemoveCallParticipant(\Ondewo\Vtsi\RemoveCallParticipantRequest $argument,
       $metadata = [], $options = []) {
@@ -1107,13 +1115,44 @@ class CallsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\SetCallMediaControlRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SetCallMediaControlResponse>
      */
     public function SetCallMediaControl(\Ondewo\Vtsi\SetCallMediaControlRequest $argument,
       $metadata = [], $options = []) {
         return $this->_simpleRequest('/ondewo.vtsi.Calls/SetCallMediaControl',
         $argument,
         ['\Ondewo\Vtsi\SetCallMediaControlResponse', 'decode'],
+        $metadata, $options);
+    }
+
+    /**
+     * <p>Press DTMF keys on a connected call, e.g. to navigate the IVR an outbound call reached or to enter a code on
+     * the caller&apos;s behalf. The keys go out as RFC 4733 telephone events from the bot&apos;s leg, one every
+     * 250 ms, in order; a later request for the same call follows the earlier one and never interleaves with it.
+     * No tone is played into the call audio, so the bot does not hear the keys. The response means the keys were
+     * queued: if the call ends meanwhile, the remaining keys are dropped. A peer that did not negotiate
+     * <code>telephone-event</code> receives no key.</p>
+     * <p>Events: <code>VTSI_EVENT_CALL_DTMF_SENT</code>. The keys are never written to a log, an event or an audit
+     * record: only their number is.</p>
+     * <p>Errors: <code>INVALID_ARGUMENT</code> (<code>reason=invalid-digits</code>: <code>digits</code> empty, longer
+     * than 64 or outside <code>0-9 * # A-D</code>), <code>NOT_FOUND</code> (<code>reason=call-not-found</code>),
+     * <code>FAILED_PRECONDITION</code> (<code>call-not-connected</code>, <code>amd-in-progress</code>,
+     * <code>call-not-yet-identified</code>, <code>sip-image-too-old</code>, <code>no-audio-stream</code>),
+     * <code>ABORTED</code> (<code>call-control-busy</code>), <code>UNAVAILABLE</code> (<code>sip-unreachable</code>).</p>
+     * <p>Authorization: requires the role <code>PROJECT_DEVELOPER</code> or higher on the project, and the server&apos;s
+     * Keycloak auth mode <code>ENFORCE</code>; otherwise <code>PERMISSION_DENIED</code>, or
+     * <code>FAILED_PRECONDITION</code> with <code>reason=call-supervision-requires-auth</code> when auth is not enforced.
+     * Every action writes an audit record (who, call, when, number of keys). No announcement is played to the caller.</p>
+     * @param \Ondewo\Vtsi\SendCallDtmfRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SendCallDtmfResponse>
+     */
+    public function SendCallDtmf(\Ondewo\Vtsi\SendCallDtmfRequest $argument,
+      $metadata = [], $options = []) {
+        return $this->_simpleRequest('/ondewo.vtsi.Calls/SendCallDtmf',
+        $argument,
+        ['\Ondewo\Vtsi\SendCallDtmfResponse', 'decode'],
         $metadata, $options);
     }
 

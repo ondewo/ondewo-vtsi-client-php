@@ -196,9 +196,8 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Caller $var
      * @return $this
      */
-    public function setCaller($var)
+    public function setCaller(\Ondewo\Vtsi\Caller|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Caller::class);
         $this->caller = $var;
 
         return $this;
@@ -298,9 +297,8 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -352,9 +350,8 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -392,9 +389,8 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setValidateOnly($var)
+    public function setValidateOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->validate_only = $var;
 
         return $this;

@@ -80,9 +80,8 @@ class CallMediaControlState extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setBotMuted($var)
+    public function setBotMuted(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->bot_muted = $var;
 
         return $this;
@@ -106,9 +105,8 @@ class CallMediaControlState extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setListeningPaused($var)
+    public function setListeningPaused(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->listening_paused = $var;
 
         return $this;
@@ -132,7 +130,7 @@ class CallMediaControlState extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setConnectedAudioStreams($var)
+    public function setConnectedAudioStreams(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->connected_audio_streams = $var;
@@ -158,7 +156,7 @@ class CallMediaControlState extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setJoinedParticipants($var)
+    public function setJoinedParticipants(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->joined_participants = $var;

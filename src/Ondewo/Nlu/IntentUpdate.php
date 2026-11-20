@@ -72,9 +72,9 @@ class IntentUpdate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentDisplayName($var)
+    public function setIntentDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_display_name = $var;
 
         return $this;
@@ -98,7 +98,7 @@ class IntentUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\IntentUpdate\TrainingPhraseUpdate[] $var
      * @return $this
      */
-    public function setTrainingPhraseUpdateList($var)
+    public function setTrainingPhraseUpdateList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\IntentUpdate\TrainingPhraseUpdate::class);
         $this->training_phrase_update_list = $arr;
@@ -124,7 +124,7 @@ class IntentUpdate extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDeletedParameters($var)
+    public function setDeletedParameters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->deleted_parameters = $arr;

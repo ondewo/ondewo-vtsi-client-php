@@ -66,9 +66,9 @@ class CreateEntityRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeName($var)
+    public function setEntityTypeName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_name = $var;
 
         return $this;
@@ -102,9 +102,8 @@ class CreateEntityRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity $var
      * @return $this
      */
-    public function setEntity($var)
+    public function setEntity(\Ondewo\Nlu\EntityType\Entity|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entity = $var;
 
         return $this;

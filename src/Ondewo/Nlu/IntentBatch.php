@@ -56,7 +56,7 @@ class IntentBatch extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent[] $var
      * @return $this
      */
-    public function setIntents($var)
+    public function setIntents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent::class);
         $this->intents = $arr;

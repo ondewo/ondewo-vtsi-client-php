@@ -56,9 +56,9 @@ class PingRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSession($var)
+    public function setSession(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session = $var;
 
         return $this;

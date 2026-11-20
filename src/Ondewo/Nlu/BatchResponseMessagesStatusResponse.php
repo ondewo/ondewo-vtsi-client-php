@@ -64,7 +64,7 @@ class BatchResponseMessagesStatusResponse extends \Google\Protobuf\Internal\Mess
      * @param \Ondewo\Nlu\BatchResponseMessagesStatusResponse\ResponseMessageStatus[] $var
      * @return $this
      */
-    public function setResponseMessageStatuses($var)
+    public function setResponseMessageStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchResponseMessagesStatusResponse\ResponseMessageStatus::class);
         $this->response_message_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchResponseMessagesStatusResponse extends \Google\Protobuf\Internal\Mess
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

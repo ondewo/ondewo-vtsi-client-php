@@ -72,9 +72,9 @@ class LlmFinishReasonStat extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFinishReason($var)
+    public function setFinishReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->finish_reason = $var;
 
         return $this;
@@ -98,7 +98,7 @@ class LlmFinishReasonStat extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->count = $var;
@@ -124,9 +124,8 @@ class LlmFinishReasonStat extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRate($var)
+    public function setRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->rate = $var;
 
         return $this;

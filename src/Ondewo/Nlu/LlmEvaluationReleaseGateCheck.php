@@ -114,9 +114,9 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -140,9 +140,8 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThreshold($var)
+    public function setThreshold(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->threshold = $var;
 
         return $this;
@@ -166,9 +165,8 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setActual($var)
+    public function setActual(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->actual = $var;
 
         return $this;
@@ -194,9 +192,8 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActualAvailable($var)
+    public function setActualAvailable(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->actual_available = $var;
 
         return $this;
@@ -220,9 +217,8 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPassed($var)
+    public function setPassed(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->passed = $var;
 
         return $this;
@@ -246,9 +242,8 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPartial($var)
+    public function setPartial(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->partial = $var;
 
         return $this;
@@ -272,9 +267,9 @@ class LlmEvaluationReleaseGateCheck extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProvenance($var)
+    public function setProvenance(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->provenance = $var;
 
         return $this;

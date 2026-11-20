@@ -146,9 +146,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -182,9 +182,8 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationJudgeConfig $var
      * @return $this
      */
-    public function setLlmEvaluationJudgeConfig($var)
+    public function setLlmEvaluationJudgeConfig(\Ondewo\Nlu\LlmEvaluationJudgeConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationJudgeConfig::class);
         $this->llm_evaluation_judge_config = $var;
 
         return $this;
@@ -220,9 +219,8 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setDefaultWeights($var)
+    public function setDefaultWeights(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->default_weights = $var;
 
         return $this;
@@ -246,9 +244,8 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDefaultPassCutoffScore($var)
+    public function setDefaultPassCutoffScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->default_pass_cutoff_score = $var;
 
         return $this;
@@ -274,9 +271,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDefaultScorecardName($var)
+    public function setDefaultScorecardName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->default_scorecard_name = $var;
 
         return $this;
@@ -310,9 +307,8 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -336,9 +332,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -372,9 +368,8 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -398,9 +393,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -426,9 +421,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -452,9 +447,9 @@ class LlmEvaluationProjectSettings extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

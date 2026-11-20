@@ -100,9 +100,9 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPjsipConfFileString($var)
+    public function setPjsipConfFileString(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->pjsip_conf_file_string = $var;
 
         return $this;
@@ -126,9 +126,9 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setExtensionsConfFileString($var)
+    public function setExtensionsConfFileString(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->extensions_conf_file_string = $var;
 
         return $this;
@@ -152,9 +152,9 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setQueuesConfFileString($var)
+    public function setQueuesConfFileString(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->queues_conf_file_string = $var;
 
         return $this;
@@ -178,9 +178,9 @@ class AsteriskConfigsFiles extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModulesConfFileString($var)
+    public function setModulesConfFileString(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modules_conf_file_string = $var;
 
         return $this;

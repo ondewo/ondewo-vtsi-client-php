@@ -168,9 +168,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -194,9 +194,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -222,9 +222,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOperationName($var)
+    public function setOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->operation_name = $var;
 
         return $this;
@@ -248,9 +248,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -274,7 +274,7 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -286,7 +286,7 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Filter by one or more log levels.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.LogSeverity level_filters = 6;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getLevelFilters()
     {
@@ -297,10 +297,10 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Filter by one or more log levels.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.LogSeverity level_filters = 6;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setLevelFilters($var)
+    public function setLevelFilters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\LogSeverity::class);
         $this->level_filters = $arr;
@@ -326,9 +326,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhaseFilter($var)
+    public function setPhaseFilter(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->phase_filter = $var;
 
         return $this;
@@ -352,9 +352,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSearchQuery($var)
+    public function setSearchQuery(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->search_query = $var;
 
         return $this;
@@ -388,9 +388,8 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -424,9 +423,8 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -450,9 +448,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceUrlFilter($var)
+    public function setSourceUrlFilter(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source_url_filter = $var;
 
         return $this;
@@ -478,9 +476,9 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOrderby($var)
+    public function setOrderby(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->orderby = $var;
 
         return $this;
@@ -490,7 +488,7 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Sort descending.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 13;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -511,10 +509,10 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Sort descending.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 13;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;
@@ -550,9 +548,8 @@ class RagGetCrawlerRunLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

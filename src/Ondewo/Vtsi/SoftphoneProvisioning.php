@@ -257,9 +257,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountName($var)
+    public function setSoftphoneAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->softphone_account_name = $var;
 
         return $this;
@@ -270,7 +270,7 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * client certificate must be imported.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneTransportSecurity transport_security = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      */
     public function getTransportSecurity()
     {
@@ -282,10 +282,10 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * client certificate must be imported.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneTransportSecurity transport_security = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      * @return $this
      */
-    public function setTransportSecurity($var)
+    public function setTransportSecurity(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneTransportSecurity::class);
         $this->transport_security = $var;
@@ -311,9 +311,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipDomain($var)
+    public function setSipDomain(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_domain = $var;
 
         return $this;
@@ -337,9 +337,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipAddress($var)
+    public function setSipAddress(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_address = $var;
 
         return $this;
@@ -365,9 +365,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipServerHost($var)
+    public function setSipServerHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_server_host = $var;
 
         return $this;
@@ -395,7 +395,7 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSipServerPort($var)
+    public function setSipServerPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sip_server_port = $var;
@@ -421,9 +421,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipTransport($var)
+    public function setSipTransport(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_transport = $var;
 
         return $this;
@@ -449,9 +449,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOutboundProxy($var)
+    public function setOutboundProxy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->outbound_proxy = $var;
 
         return $this;
@@ -475,9 +475,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUsername($var)
+    public function setUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->username = $var;
 
         return $this;
@@ -501,9 +501,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAuthUsername($var)
+    public function setAuthUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->auth_username = $var;
 
         return $this;
@@ -527,9 +527,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRealm($var)
+    public function setRealm(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->realm = $var;
 
         return $this;
@@ -539,7 +539,7 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * Media encryption the softphone must use.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneSrtpMode srtp_mode = 12;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneSrtpMode}
      */
     public function getSrtpMode()
     {
@@ -550,10 +550,10 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * Media encryption the softphone must use.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneSrtpMode srtp_mode = 12;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneSrtpMode}
      * @return $this
      */
-    public function setSrtpMode($var)
+    public function setSrtpMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneSrtpMode::class);
         $this->srtp_mode = $var;
@@ -583,7 +583,7 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCodecs($var)
+    public function setCodecs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->codecs = $arr;
@@ -617,9 +617,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setServerCaCertificatePem($var)
+    public function setServerCaCertificatePem(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->server_ca_certificate_pem = $var;
 
         return $this;
@@ -645,9 +645,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setServerCertificateSha256Fingerprint($var)
+    public function setServerCertificateSha256Fingerprint(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->server_certificate_sha256_fingerprint = $var;
 
         return $this;
@@ -673,9 +673,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setClientCertificateName($var)
+    public function setClientCertificateName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->client_certificate_name = $var;
 
         return $this;
@@ -703,9 +703,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setClientCertificateSha256Fingerprint($var)
+    public function setClientCertificateSha256Fingerprint(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->client_certificate_sha256_fingerprint = $var;
 
         return $this;
@@ -741,9 +741,8 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setClientCertificateExpireTime($var)
+    public function setClientCertificateExpireTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->client_certificate_expire_time = $var;
 
         return $this;
@@ -775,9 +774,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setZoiperInstructions($var)
+    public function setZoiperInstructions(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->zoiper_instructions = $var;
 
         return $this;
@@ -805,9 +804,9 @@ class SoftphoneProvisioning extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setClientCertificateSupportNote($var)
+    public function setClientCertificateSupportNote(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->client_certificate_support_note = $var;
 
         return $this;

@@ -274,9 +274,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setQueryText($var)
+    public function setQueryText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->query_text = $var;
 
         return $this;
@@ -314,9 +314,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSpeechRecognitionConfidence($var)
+    public function setSpeechRecognitionConfidence(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->speech_recognition_confidence = $var;
 
         return $this;
@@ -340,9 +339,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAction($var)
+    public function setAction(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->action = $var;
 
         return $this;
@@ -376,9 +375,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setParameters($var)
+    public function setParameters(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->parameters = $var;
 
         return $this;
@@ -414,9 +412,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllRequiredParamsPresent($var)
+    public function setAllRequiredParamsPresent(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->all_required_params_present = $var;
 
         return $this;
@@ -440,9 +437,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFulfillmentText($var)
+    public function setFulfillmentText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->fulfillment_text = $var;
 
         return $this;
@@ -466,7 +463,7 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setFulfillmentMessages($var)
+    public function setFulfillmentMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->fulfillment_messages = $arr;
@@ -494,9 +491,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setWebhookSource($var)
+    public function setWebhookSource(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->webhook_source = $var;
 
         return $this;
@@ -532,9 +529,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setWebhookPayload($var)
+    public function setWebhookPayload(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->webhook_payload = $var;
 
         return $this;
@@ -564,7 +560,7 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setOutputContexts($var)
+    public function setOutputContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->output_contexts = $arr;
@@ -604,9 +600,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent $var
      * @return $this
      */
-    public function setIntent($var)
+    public function setIntent(\Ondewo\Nlu\Intent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent::class);
         $this->intent = $var;
 
         return $this;
@@ -632,9 +627,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setIntentDetectionConfidence($var)
+    public function setIntentDetectionConfidence(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->intent_detection_confidence = $var;
 
         return $this;
@@ -660,9 +654,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setQueryTextOriginal($var)
+    public function setQueryTextOriginal(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->query_text_original = $var;
 
         return $this;
@@ -698,9 +692,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setDiagnosticInfo($var)
+    public function setDiagnosticInfo(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->diagnostic_info = $var;
 
         return $this;
@@ -728,9 +721,9 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -754,7 +747,7 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FileResource[] $var
      * @return $this
      */
-    public function setFileResources($var)
+    public function setFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FileResource::class);
         $this->file_resources = $arr;
@@ -790,9 +783,8 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetryReport $var
      * @return $this
      */
-    public function setLlmTelemetryReport($var)
+    public function setLlmTelemetryReport(\Ondewo\Nlu\LlmTelemetryReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTelemetryReport::class);
         $this->llm_telemetry_report = $var;
 
         return $this;
@@ -816,7 +808,7 @@ class QueryResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ReferencedChunk[] $var
      * @return $this
      */
-    public function setReferencedChunks($var)
+    public function setReferencedChunks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ReferencedChunk::class);
         $this->referenced_chunks = $arr;

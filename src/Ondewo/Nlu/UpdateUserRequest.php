@@ -86,9 +86,8 @@ class UpdateUserRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\User $var
      * @return $this
      */
-    public function setUser($var)
+    public function setUser(\Ondewo\Nlu\User|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\User::class);
         $this->user = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class UpdateUserRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPassword($var)
+    public function setPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->password = $var;
 
         return $this;
@@ -148,9 +147,8 @@ class UpdateUserRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

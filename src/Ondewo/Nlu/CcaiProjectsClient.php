@@ -37,7 +37,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetCcaiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CcaiProject>
      */
     public function GetCcaiProject(\Ondewo\Nlu\GetCcaiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateCcaiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CreateCcaiProjectResponse>
      */
     public function CreateCcaiProject(\Ondewo\Nlu\CreateCcaiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteCcaiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\DeleteCcaiProjectResponse>
      */
     public function DeleteCcaiProject(\Ondewo\Nlu\DeleteCcaiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListCcaiProjectsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListCcaiProjectsResponse>
      */
     public function ListCcaiProjects(\Ondewo\Nlu\ListCcaiProjectsRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateCcaiProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\UpdateCcaiProjectResponse>
      */
     public function UpdateCcaiProject(\Ondewo\Nlu\UpdateCcaiProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class CcaiProjectsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetCcaiServiceRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CcaiService>
      */
     public function GetCcaiService(\Ondewo\Nlu\GetCcaiServiceRequest $argument,
       $metadata = [], $options = []) {

@@ -62,6 +62,97 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional string turn_detection_user_prompt = 6;</code>
      */
     protected $turn_detection_user_prompt = null;
+    /**
+     * Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
+     * utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
+     * service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
+     * the speech-to-text service serves a turn detection model trained with conversation context. Used only by an
+     * end-of-utterance model; a chat model ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or
+     * unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
+     * the range, is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 conversation_context_turns = 7;</code>
+     */
+    protected $conversation_context_turns = null;
+    /**
+     * Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
+     * the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
+     * configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
+     * mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional string semantic_model_name = 8;</code>
+     */
+    protected $semantic_model_name = null;
+    /**
+     * Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
+     * have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
+     * for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float end_of_turn_probability_threshold = 9;</code>
+     */
+    protected $end_of_turn_probability_threshold = null;
+    /**
+     * Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
+     * probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
+     * bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
+     * configured bands for the language of the call. At most 10 bands, with the ranges of
+     * <code>EndOfTurnHoldBand</code>. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBands hold_bands = 10;</code>
+     */
+    protected $hold_bands = null;
+    /**
+     * Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
+     * is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
+     * ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
+     * <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
+     * <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 uncertain_min_words = 11;</code>
+     */
+    protected $uncertain_min_words = null;
+    /**
+     * Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
+     * finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
+     * range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
+     * the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float incomplete_max_silence_seconds = 12;</code>
+     */
+    protected $incomplete_max_silence_seconds = null;
+    /**
+     * Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
+     * log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
+     * <code>prompt_logprobs</code>); on any other deployment every turn waits for
+     * <code>incomplete_max_silence_seconds</code>. Used only by an end-of-utterance model; a chat model ignores it.
+     * Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional bool exact_probability = 13;</code>
+     */
+    protected $exact_probability = null;
+    /**
+     * Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
+     * caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
+     * outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float final_merge_window_seconds = 14;</code>
+     */
+    protected $final_merge_window_seconds = null;
+    /**
+     * Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
+     * number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
+     * Valid with every mode. Unset fields keep the defaults
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DictationConfig dictation_config = 15;</code>
+     */
+    protected $dictation_config = null;
 
     /**
      * Constructor.
@@ -91,6 +182,61 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      *     @type string $turn_detection_user_prompt
      *           Optional: User prompt for the semantic (LLM) turn detection model of the speech-to-text service, with the
      *           rules of <code>turn_detection_system_prompt</code>
+     *     @type int $conversation_context_turns
+     *           Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
+     *           utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
+     *           service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
+     *           the speech-to-text service serves a turn detection model trained with conversation context. Used only by an
+     *           end-of-utterance model; a chat model ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or
+     *           unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
+     *           the range, is refused with <code>INVALID_ARGUMENT</code>
+     *     @type string $semantic_model_name
+     *           Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
+     *           the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
+     *           configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
+     *           mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     *           <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *     @type float $end_of_turn_probability_threshold
+     *           Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
+     *           have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
+     *           for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     *           with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     *           <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *     @type \Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBands $hold_bands
+     *           Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
+     *           probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
+     *           bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
+     *           configured bands for the language of the call. At most 10 bands, with the ranges of
+     *           <code>EndOfTurnHoldBand</code>. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     *           with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     *           <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *     @type int $uncertain_min_words
+     *           Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
+     *           is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
+     *           ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
+     *           <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
+     *           <code>INVALID_ARGUMENT</code>
+     *     @type float $incomplete_max_silence_seconds
+     *           Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
+     *           finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
+     *           range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
+     *           the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     *           <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *     @type bool $exact_probability
+     *           Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
+     *           log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
+     *           <code>prompt_logprobs</code>); on any other deployment every turn waits for
+     *           <code>incomplete_max_silence_seconds</code>. Used only by an end-of-utterance model; a chat model ignores it.
+     *           Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     *           <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
+     *     @type float $final_merge_window_seconds
+     *           Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
+     *           caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
+     *           outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *     @type \Ondewo\Vtsi\DictationConfig $dictation_config
+     *           Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
+     *           number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
+     *           Valid with every mode. Unset fields keep the defaults
      * }
      */
     public function __construct($data = NULL) {
@@ -102,7 +248,7 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.TurnDetectionMode mode = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TurnDetectionConfig\TurnDetectionMode}
      */
     public function getMode()
     {
@@ -113,10 +259,10 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * Mode of the turn detection. Defaults to SEMANTIC_MODEL if unspecified
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.TurnDetectionMode mode = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TurnDetectionConfig\TurnDetectionMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TurnDetectionConfig\TurnDetectionMode::class);
         $this->mode = $var;
@@ -158,9 +304,8 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinEndpointingDelaySeconds($var)
+    public function setMinEndpointingDelaySeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->min_endpointing_delay_seconds = $var;
 
         return $this;
@@ -198,9 +343,8 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMaxEndpointingDelaySeconds($var)
+    public function setMaxEndpointingDelaySeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->max_endpointing_delay_seconds = $var;
 
         return $this;
@@ -210,7 +354,7 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.TurnEagerness turn_eagerness = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TurnDetectionConfig\TurnEagerness}
      */
     public function getTurnEagerness()
     {
@@ -221,10 +365,10 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * Eagerness of the turn detection: scales both endpointing delays. Defaults to NORMAL if unspecified
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.TurnEagerness turn_eagerness = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TurnDetectionConfig\TurnEagerness}
      * @return $this
      */
-    public function setTurnEagerness($var)
+    public function setTurnEagerness(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TurnDetectionConfig\TurnEagerness::class);
         $this->turn_eagerness = $var;
@@ -268,9 +412,9 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTurnDetectionSystemPrompt($var)
+    public function setTurnDetectionSystemPrompt(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->turn_detection_system_prompt = $var;
 
         return $this;
@@ -306,10 +450,402 @@ class TurnDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTurnDetectionUserPrompt($var)
+    public function setTurnDetectionUserPrompt(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->turn_detection_user_prompt = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
+     * utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
+     * service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
+     * the speech-to-text service serves a turn detection model trained with conversation context. Used only by an
+     * end-of-utterance model; a chat model ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or
+     * unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
+     * the range, is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 conversation_context_turns = 7;</code>
+     * @return int
+     */
+    public function getConversationContextTurns()
+    {
+        return isset($this->conversation_context_turns) ? $this->conversation_context_turns : 0;
+    }
+
+    public function hasConversationContextTurns()
+    {
+        return isset($this->conversation_context_turns);
+    }
+
+    public function clearConversationContextTurns()
+    {
+        unset($this->conversation_context_turns);
+    }
+
+    /**
+     * Optional: Number of the latest conversation turns (the caller&apos;s committed turns and the bot&apos;s
+     * utterances as the caller heard them) handed to the semantic turn detection model of the speech-to-text
+     * service together with the utterance it judges (default: 0 = off, valid range: 0 - 10). Use it only where
+     * the speech-to-text service serves a turn detection model trained with conversation context. Used only by an
+     * end-of-utterance model; a chat model ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or
+     * unspecified): a value above 0 together with <code>VAD</code> or <code>AUDIO_MODEL</code>, or a value outside
+     * the range, is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 conversation_context_turns = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setConversationContextTurns(int $var)
+    {
+        GPBUtil::checkUint32($var);
+        $this->conversation_context_turns = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
+     * the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
+     * configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
+     * mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional string semantic_model_name = 8;</code>
+     * @return string
+     */
+    public function getSemanticModelName()
+    {
+        return isset($this->semantic_model_name) ? $this->semantic_model_name : '';
+    }
+
+    public function hasSemanticModelName()
+    {
+        return isset($this->semantic_model_name);
+    }
+
+    public function clearSemanticModelName()
+    {
+        unset($this->semantic_model_name);
+    }
+
+    /**
+     * Optional: Name of the semantic turn detection model the speech-to-text service asks for this call. Unset uses
+     * the model configured in the speech-to-text pipeline. The model&apos;s endpoint is deliberately not
+     * configurable per call. Valid: 1 - 256 characters, no whitespace or control characters. Only valid with the
+     * mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional string semantic_model_name = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setSemanticModelName(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->semantic_model_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
+     * have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
+     * for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float end_of_turn_probability_threshold = 9;</code>
+     * @return float
+     */
+    public function getEndOfTurnProbabilityThreshold()
+    {
+        return isset($this->end_of_turn_probability_threshold) ? $this->end_of_turn_probability_threshold : 0.0;
+    }
+
+    public function hasEndOfTurnProbabilityThreshold()
+    {
+        return isset($this->end_of_turn_probability_threshold);
+    }
+
+    public function clearEndOfTurnProbabilityThreshold()
+    {
+        unset($this->end_of_turn_probability_threshold);
+    }
+
+    /**
+     * Optional: End-of-turn probability at or above which the semantic turn detection model takes the caller to
+     * have finished the turn (valid range: 0 - 1). Unset uses the speech-to-text service&apos;s configured threshold
+     * for the language of the call. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float end_of_turn_probability_threshold = 9;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setEndOfTurnProbabilityThreshold(float $var)
+    {
+        $this->end_of_turn_probability_threshold = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
+     * probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
+     * bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
+     * configured bands for the language of the call. At most 10 bands, with the ranges of
+     * <code>EndOfTurnHoldBand</code>. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBands hold_bands = 10;</code>
+     * @return \Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBands|null
+     */
+    public function getHoldBands()
+    {
+        return $this->hold_bands;
+    }
+
+    public function hasHoldBands()
+    {
+        return isset($this->hold_bands);
+    }
+
+    public function clearHoldBands()
+    {
+        unset($this->hold_bands);
+    }
+
+    /**
+     * Optional: Hold bands of the semantic turn detection model: how long a turn judged finished, but only with a
+     * probability below a band&apos;s upper bound, waits for further silence before it is committed. Set with no
+     * bands, a turn at or above the threshold is committed at once; unset uses the speech-to-text service&apos;s
+     * configured bands for the language of the call. At most 10 bands, with the ranges of
+     * <code>EndOfTurnHoldBand</code>. Used only by an end-of-utterance model; a chat model ignores it. Only valid
+     * with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or invalid, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBands hold_bands = 10;</code>
+     * @param \Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBands $var
+     * @return $this
+     */
+    public function setHoldBands(\Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBands|null $var)
+    {
+        $this->hold_bands = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
+     * is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
+     * ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
+     * <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
+     * <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 uncertain_min_words = 11;</code>
+     * @return int
+     */
+    public function getUncertainMinWords()
+    {
+        return isset($this->uncertain_min_words) ? $this->uncertain_min_words : 0;
+    }
+
+    public function hasUncertainMinWords()
+    {
+        return isset($this->uncertain_min_words);
+    }
+
+    public function clearUncertainMinWords()
+    {
+        unset($this->uncertain_min_words);
+    }
+
+    /**
+     * Optional: Minimum number of words a turn needs before a hold band may hold it; a shorter turn judged finished
+     * is committed at once (default: 3, valid range: 0 - 20). Used only by an end-of-utterance model; a chat model
+     * ignores it. Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with
+     * <code>VAD</code> or <code>AUDIO_MODEL</code>, or outside the range, it is refused with
+     * <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional uint32 uncertain_min_words = 11;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setUncertainMinWords(int $var)
+    {
+        GPBUtil::checkUint32($var);
+        $this->uncertain_min_words = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
+     * finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
+     * range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
+     * the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float incomplete_max_silence_seconds = 12;</code>
+     * @return float
+     */
+    public function getIncompleteMaxSilenceSeconds()
+    {
+        return isset($this->incomplete_max_silence_seconds) ? $this->incomplete_max_silence_seconds : 0.0;
+    }
+
+    public function hasIncompleteMaxSilenceSeconds()
+    {
+        return isset($this->incomplete_max_silence_seconds);
+    }
+
+    public function clearIncompleteMaxSilenceSeconds()
+    {
+        unset($this->incomplete_max_silence_seconds);
+    }
+
+    /**
+     * Optional: Seconds of silence after a turn the semantic turn detection model (of either kind) judged NOT
+     * finished before it is committed anyway (default: the voice activity detection&apos;s minimum silence, valid
+     * range: 0 - 4; the speech-to-text service raises a value below that minimum silence to it). Only valid with
+     * the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code>, or outside the range, it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float incomplete_max_silence_seconds = 12;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setIncompleteMaxSilenceSeconds(float $var)
+    {
+        $this->incomplete_max_silence_seconds = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
+     * log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
+     * <code>prompt_logprobs</code>); on any other deployment every turn waits for
+     * <code>incomplete_max_silence_seconds</code>. Used only by an end-of-utterance model; a chat model ignores it.
+     * Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional bool exact_probability = 13;</code>
+     * @return bool
+     */
+    public function getExactProbability()
+    {
+        return isset($this->exact_probability) ? $this->exact_probability : false;
+    }
+
+    public function hasExactProbability()
+    {
+        return isset($this->exact_probability);
+    }
+
+    public function clearExactProbability()
+    {
+        unset($this->exact_probability);
+    }
+
+    /**
+     * Optional: Compute the exact end-of-turn probability instead of reading it from the model&apos;s returned top
+     * log probabilities (default: false). Requires a deployment that returns prompt log probabilities (vLLM
+     * <code>prompt_logprobs</code>); on any other deployment every turn waits for
+     * <code>incomplete_max_silence_seconds</code>. Used only by an end-of-utterance model; a chat model ignores it.
+     * Only valid with the mode <code>SEMANTIC_MODEL</code> (or unspecified): set together with <code>VAD</code> or
+     * <code>AUDIO_MODEL</code> it is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional bool exact_probability = 13;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setExactProbability(bool $var)
+    {
+        $this->exact_probability = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
+     * caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
+     * outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float final_merge_window_seconds = 14;</code>
+     * @return float
+     */
+    public function getFinalMergeWindowSeconds()
+    {
+        return isset($this->final_merge_window_seconds) ? $this->final_merge_window_seconds : 0.0;
+    }
+
+    public function hasFinalMergeWindowSeconds()
+    {
+        return isset($this->final_merge_window_seconds);
+    }
+
+    public function clearFinalMergeWindowSeconds()
+    {
+        unset($this->final_merge_window_seconds);
+    }
+
+    /**
+     * Optional: Seconds a speech-to-text final that looks like half a sentence is held, to be merged with the
+     * caller&apos;s continuation into ONE turn (default: 0 = off, valid range: 0 - 2). Valid with every mode. A value
+     * outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional float final_merge_window_seconds = 14;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setFinalMergeWindowSeconds(float $var)
+    {
+        $this->final_merge_window_seconds = $var;
+
+        return $this;
+    }
+
+    /**
+     * Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
+     * number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
+     * Valid with every mode. Unset fields keep the defaults
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DictationConfig dictation_config = 15;</code>
+     * @return \Ondewo\Vtsi\DictationConfig|null
+     */
+    public function getDictationConfig()
+    {
+        return $this->dictation_config;
+    }
+
+    public function hasDictationConfig()
+    {
+        return isset($this->dictation_config);
+    }
+
+    public function clearDictationConfig()
+    {
+        unset($this->dictation_config);
+    }
+
+    /**
+     * Configuration of the dictation hold, i.e. waiting for the rest of a dictated value (digits, phone or card
+     * number, IBAN, address, date, ...) instead of ending the turn at the caller&apos;s pause between its groups.
+     * Valid with every mode. Unset fields keep the defaults
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DictationConfig dictation_config = 15;</code>
+     * @param \Ondewo\Vtsi\DictationConfig $var
+     * @return $this
+     */
+    public function setDictationConfig(\Ondewo\Vtsi\DictationConfig|null $var)
+    {
+        $this->dictation_config = $var;
 
         return $this;
     }

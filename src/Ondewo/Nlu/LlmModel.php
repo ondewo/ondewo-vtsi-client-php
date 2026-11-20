@@ -108,9 +108,9 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -138,9 +138,9 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -166,9 +166,9 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -196,9 +196,9 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCcaiServiceName($var)
+    public function setCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ccai_service_name = $var;
 
         return $this;
@@ -209,7 +209,7 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * Specifies the LLM provider (e.g., Ollama, OpenAI, Google, etc.), indicating the origin or vendor of the model.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getCcaiServiceProvider()
     {
@@ -221,10 +221,10 @@ class LlmModel extends \Google\Protobuf\Internal\Message
      * Specifies the LLM provider (e.g., Ollama, OpenAI, Google, etc.), indicating the origin or vendor of the model.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setCcaiServiceProvider($var)
+    public function setCcaiServiceProvider(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->ccai_service_provider = $var;

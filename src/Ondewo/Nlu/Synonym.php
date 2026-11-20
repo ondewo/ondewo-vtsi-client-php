@@ -64,9 +64,9 @@ class Synonym extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSynonym($var)
+    public function setSynonym(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->synonym = $var;
 
         return $this;
@@ -90,7 +90,7 @@ class Synonym extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->score = $var;

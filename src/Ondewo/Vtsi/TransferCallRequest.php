@@ -71,7 +71,8 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
      * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
      * transferring again, for as long as the call record exists; the same key with a different target, mode,
-     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * headers, ring timeout or <code>warm_transfer_config</code> is refused with <code>INVALID_ARGUMENT</code> and
+     * <code>reason=request-id-conflict</code>.
      * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
      * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
      * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
@@ -80,6 +81,27 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string request_id = 8;</code>
      */
     protected $request_id = '';
+    /**
+     * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
+     * enables the intro, the target must be a human (<code>phone_number</code> or
+     * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
+     * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
+     * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
+     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
+     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
+     * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
+     * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
+     * <code>TRANSFER_OUTCOME_PENDING</code>; the outcome arrives in <code>Call.last_transfer</code> and the events
+     * <code>VTSI_EVENT_CALL_WARM_INTRO_*</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 9;</code>
+     */
+    protected $warm_transfer_config = null;
 
     /**
      * Constructor.
@@ -114,11 +136,29 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      *           ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
      *           and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
      *           transferring again, for as long as the call record exists; the same key with a different target, mode,
-     *           headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     *           headers, ring timeout or <code>warm_transfer_config</code> is refused with <code>INVALID_ARGUMENT</code> and
+     *           <code>reason=request-id-conflict</code>.
      *           A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
      *           that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
      *           A replay writes no second audit record and emits no event. Empty means no deduplication. In a
      *           <code>TransferCallsRequest</code> each entry carries its own key.
+     *     @type \Ondewo\Vtsi\WarmTransferConfig $warm_transfer_config
+     *           WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
+     *           <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
+     *           <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     *           <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
+     *           enables the intro, the target must be a human (<code>phone_number</code> or
+     *           <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
+     *           <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
+     *           checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
+     *           <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
+     *           <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
+     *           project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     *           <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
+     *           <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
+     *           caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
+     *           <code>TRANSFER_OUTCOME_PENDING</code>; the outcome arrives in <code>Call.last_transfer</code> and the events
+     *           <code>VTSI_EVENT_CALL_WARM_INTRO_*</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -144,9 +184,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -174,9 +214,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -204,9 +244,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTransferId($var)
+    public function setTransferId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->transfer_id = $var;
 
         return $this;
@@ -240,9 +280,8 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallTarget $var
      * @return $this
      */
-    public function setTarget($var)
+    public function setTarget(\Ondewo\Vtsi\CallTarget|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallTarget::class);
         $this->target = $var;
 
         return $this;
@@ -252,7 +291,7 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TransferMode}
      */
     public function getMode()
     {
@@ -263,10 +302,10 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferMode::class);
         $this->mode = $var;
@@ -298,7 +337,7 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setHeaders($var)
+    public function setHeaders(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->headers = $arr;
@@ -326,7 +365,7 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRingTimeoutS($var)
+    public function setRingTimeoutS(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->ring_timeout_s = $var;
@@ -339,7 +378,8 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
      * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
      * transferring again, for as long as the call record exists; the same key with a different target, mode,
-     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * headers, ring timeout or <code>warm_transfer_config</code> is refused with <code>INVALID_ARGUMENT</code> and
+     * <code>reason=request-id-conflict</code>.
      * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
      * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
      * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
@@ -358,7 +398,8 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
      * and <code>request_id</code> returns the <code>TransferCallResponse</code> of the first request instead of
      * transferring again, for as long as the call record exists; the same key with a different target, mode,
-     * headers or ring timeout is refused with <code>INVALID_ARGUMENT</code> and <code>reason=request-id-conflict</code>.
+     * headers, ring timeout or <code>warm_transfer_config</code> is refused with <code>INVALID_ARGUMENT</code> and
+     * <code>reason=request-id-conflict</code>.
      * A first request that was refused with a gRPC status stored nothing, so its retry runs again; a first request
      * that answered an outcome (also a telephony failure such as <code>TRANSFER_OUTCOME_TIMEOUT</code>) is replayed.
      * A replay writes no second audit record and emits no event. Empty means no deduplication. In a
@@ -368,10 +409,75 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRequestId($var)
+    public function setRequestId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->request_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
+     * enables the intro, the target must be a human (<code>phone_number</code> or
+     * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
+     * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
+     * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
+     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
+     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
+     * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
+     * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
+     * <code>TRANSFER_OUTCOME_PENDING</code>; the outcome arrives in <code>Call.last_transfer</code> and the events
+     * <code>VTSI_EVENT_CALL_WARM_INTRO_*</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 9;</code>
+     * @return \Ondewo\Vtsi\WarmTransferConfig|null
+     */
+    public function getWarmTransferConfig()
+    {
+        return $this->warm_transfer_config;
+    }
+
+    public function hasWarmTransferConfig()
+    {
+        return isset($this->warm_transfer_config);
+    }
+
+    public function clearWarmTransferConfig()
+    {
+        unset($this->warm_transfer_config);
+    }
+
+    /**
+     * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
+     * enables the intro, the target must be a human (<code>phone_number</code> or
+     * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
+     * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
+     * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
+     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
+     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
+     * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
+     * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
+     * <code>TRANSFER_OUTCOME_PENDING</code>; the outcome arrives in <code>Call.last_transfer</code> and the events
+     * <code>VTSI_EVENT_CALL_WARM_INTRO_*</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 9;</code>
+     * @param \Ondewo\Vtsi\WarmTransferConfig $var
+     * @return $this
+     */
+    public function setWarmTransferConfig(\Ondewo\Vtsi\WarmTransferConfig|null $var)
+    {
+        $this->warm_transfer_config = $var;
 
         return $this;
     }

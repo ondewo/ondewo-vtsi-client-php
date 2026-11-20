@@ -235,9 +235,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -261,7 +260,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setToolCallCountTotal($var)
+    public function setToolCallCountTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->tool_call_count_total = $var;
@@ -287,7 +286,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setLlmCallCount($var)
+    public function setLlmCallCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->llm_call_count = $var;
@@ -313,7 +312,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetry[] $var
      * @return $this
      */
-    public function setLlmTelemetries($var)
+    public function setLlmTelemetries(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmTelemetry::class);
         $this->llm_telemetries = $arr;
@@ -339,9 +338,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationSecondsTotal($var)
+    public function setDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_seconds_total = $var;
 
         return $this;
@@ -365,7 +363,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmModelUsage[] $var
      * @return $this
      */
-    public function setModelsUsed($var)
+    public function setModelsUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmModelUsage::class);
         $this->models_used = $arr;
@@ -391,7 +389,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmProviderUsage[] $var
      * @return $this
      */
-    public function setProvidersUsed($var)
+    public function setProvidersUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmProviderUsage::class);
         $this->providers_used = $arr;
@@ -417,7 +415,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmCcaiServiceUsage[] $var
      * @return $this
      */
-    public function setCcaiServicesUsed($var)
+    public function setCcaiServicesUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmCcaiServiceUsage::class);
         $this->ccai_services_used = $arr;
@@ -443,7 +441,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmAgentUsage[] $var
      * @return $this
      */
-    public function setAgentsUsed($var)
+    public function setAgentsUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmAgentUsage::class);
         $this->agents_used = $arr;
@@ -469,7 +467,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmToolUsage[] $var
      * @return $this
      */
-    public function setToolsUsed($var)
+    public function setToolsUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmToolUsage::class);
         $this->tools_used = $arr;
@@ -505,9 +503,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmLatencyStats $var
      * @return $this
      */
-    public function setLatencyStats($var)
+    public function setLatencyStats(\Ondewo\Nlu\LlmLatencyStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmLatencyStats::class);
         $this->latency_stats = $var;
 
         return $this;
@@ -541,9 +538,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmCacheStats $var
      * @return $this
      */
-    public function setCacheStats($var)
+    public function setCacheStats(\Ondewo\Nlu\LlmCacheStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmCacheStats::class);
         $this->cache_stats = $var;
 
         return $this;
@@ -577,9 +573,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmErrorStats $var
      * @return $this
      */
-    public function setErrorStats($var)
+    public function setErrorStats(\Ondewo\Nlu\LlmErrorStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmErrorStats::class);
         $this->error_stats = $var;
 
         return $this;
@@ -603,7 +598,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmFinishReasonStat[] $var
      * @return $this
      */
-    public function setFinishReasonDistribution($var)
+    public function setFinishReasonDistribution(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmFinishReasonStat::class);
         $this->finish_reason_distribution = $arr;
@@ -629,7 +624,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmReasoningEffortStat[] $var
      * @return $this
      */
-    public function setReasoningEffortDistribution($var)
+    public function setReasoningEffortDistribution(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmReasoningEffortStat::class);
         $this->reasoning_effort_distribution = $arr;
@@ -655,7 +650,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setThinkingTokensTotal($var)
+    public function setThinkingTokensTotal(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->thinking_tokens_total = $var;
@@ -681,9 +676,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThinkingDurationSecondsTotal($var)
+    public function setThinkingDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->thinking_duration_seconds_total = $var;
 
         return $this;
@@ -707,7 +701,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setToolCallTokensTotal($var)
+    public function setToolCallTokensTotal(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->tool_call_tokens_total = $var;
@@ -733,9 +727,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setToolCallDurationSecondsTotal($var)
+    public function setToolCallDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->tool_call_duration_seconds_total = $var;
 
         return $this;
@@ -771,9 +764,8 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmSafetyStats $var
      * @return $this
      */
-    public function setSafetyStats($var)
+    public function setSafetyStats(\Ondewo\Nlu\LlmSafetyStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmSafetyStats::class);
         $this->safety_stats = $var;
 
         return $this;
@@ -801,7 +793,7 @@ class LlmTelemetryReport extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmBaseUrlUsage[] $var
      * @return $this
      */
-    public function setBaseUrlsUsed($var)
+    public function setBaseUrlsUsed(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmBaseUrlUsage::class);
         $this->base_urls_used = $arr;

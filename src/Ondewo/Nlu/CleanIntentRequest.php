@@ -128,9 +128,9 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -156,9 +156,9 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -186,9 +186,9 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -214,9 +214,9 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSpecialCharacters($var)
+    public function setSpecialCharacters(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->special_characters = $var;
 
         return $this;
@@ -244,7 +244,7 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSubstringWhiteList($var)
+    public function setSubstringWhiteList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->substring_white_list = $arr;
@@ -270,9 +270,8 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDryRun($var)
+    public function setDryRun(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->dry_run = $var;
 
         return $this;
@@ -306,9 +305,8 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\TrainingPhraseCleanerOptions $var
      * @return $this
      */
-    public function setTrainingPhraseCleanerOptions($var)
+    public function setTrainingPhraseCleanerOptions(\Ondewo\Nlu\TrainingPhraseCleanerOptions|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\TrainingPhraseCleanerOptions::class);
         $this->training_phrase_cleaner_options = $var;
 
         return $this;
@@ -318,7 +316,7 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * Optional. Options for re-annotation of entities (default = REANNOTATE_NEVER)
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReannotateEntitiesOptions reannotate_entities_options = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReannotateEntitiesOptions}
      */
     public function getReannotateEntitiesOptions()
     {
@@ -329,10 +327,10 @@ class CleanIntentRequest extends \Google\Protobuf\Internal\Message
      * Optional. Options for re-annotation of entities (default = REANNOTATE_NEVER)
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReannotateEntitiesOptions reannotate_entities_options = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReannotateEntitiesOptions}
      * @return $this
      */
-    public function setReannotateEntitiesOptions($var)
+    public function setReannotateEntitiesOptions(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReannotateEntitiesOptions::class);
         $this->reannotate_entities_options = $var;

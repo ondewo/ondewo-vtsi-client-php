@@ -69,9 +69,9 @@ class LlmEvaluationAbExperimentFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -81,7 +81,7 @@ class LlmEvaluationAbExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments with this status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbExperimentStatus status = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbExperimentStatus}
      */
     public function getStatus()
     {
@@ -92,10 +92,10 @@ class LlmEvaluationAbExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments with this status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbExperimentStatus status = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbExperimentStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationAbExperimentStatus::class);
         $this->status = $var;

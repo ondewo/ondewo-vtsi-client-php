@@ -101,9 +101,9 @@ class LlmEvaluationFeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationExperimentName($var)
+    public function setLlmEvaluationExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_experiment_name = $var;
 
         return $this;
@@ -129,9 +129,9 @@ class LlmEvaluationFeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationExampleName($var)
+    public function setLlmEvaluationExampleName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_example_name = $var;
 
         return $this;
@@ -157,9 +157,9 @@ class LlmEvaluationFeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorRunName($var)
+    public function setLlmEvaluationEvaluatorRunName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_evaluator_run_name = $var;
 
         return $this;
@@ -185,9 +185,9 @@ class LlmEvaluationFeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCriterion($var)
+    public function setCriterion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->criterion = $var;
 
         return $this;
@@ -213,9 +213,9 @@ class LlmEvaluationFeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCategoricalValue($var)
+    public function setCategoricalValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->categorical_value = $var;
 
         return $this;

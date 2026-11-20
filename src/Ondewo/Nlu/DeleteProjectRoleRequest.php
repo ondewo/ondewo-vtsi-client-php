@@ -68,9 +68,9 @@ class DeleteProjectRoleRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class DeleteProjectRoleRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRoleId($var)
+    public function setRoleId(int $var)
     {
         GPBUtil::checkUint32($var);
         $this->role_id = $var;

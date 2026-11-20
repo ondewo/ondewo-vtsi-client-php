@@ -129,9 +129,9 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -169,9 +169,8 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign $var
      * @return $this
      */
-    public function setCampaign($var)
+    public function setCampaign(\Ondewo\Vtsi\Campaign|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->campaign = $var;
 
         return $this;
@@ -221,9 +220,8 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -271,9 +269,9 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdempotencyKey($var)
+    public function setIdempotencyKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->idempotency_key = $var;
 
         return $this;

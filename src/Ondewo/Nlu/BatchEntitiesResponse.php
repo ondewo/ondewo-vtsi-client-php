@@ -64,7 +64,7 @@ class BatchEntitiesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityStatus[] $var
      * @return $this
      */
-    public function setEntityStatuses($var)
+    public function setEntityStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityStatus::class);
         $this->entity_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchEntitiesResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

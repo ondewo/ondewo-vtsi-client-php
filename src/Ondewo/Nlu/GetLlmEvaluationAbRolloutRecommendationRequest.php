@@ -123,9 +123,9 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -135,7 +135,7 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * Required. The metric to optimize when picking the winner.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      */
     public function getOptimizeMetric()
     {
@@ -146,10 +146,10 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * Required. The metric to optimize when picking the winner.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      * @return $this
      */
-    public function setOptimizeMetric($var)
+    public function setOptimizeMetric(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric::class);
         $this->optimize_metric = $var;
@@ -177,9 +177,8 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param float $var
      * @return $this
      */
-    public function setConfidenceLevel($var)
+    public function setConfidenceLevel(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->confidence_level = $var;
 
         return $this;
@@ -207,7 +206,7 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param int $var
      * @return $this
      */
-    public function setMinSessionsPerVariant($var)
+    public function setMinSessionsPerVariant(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->min_sessions_per_variant = $var;
@@ -237,9 +236,8 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param float $var
      * @return $this
      */
-    public function setMinEffectSize($var)
+    public function setMinEffectSize(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->min_effect_size = $var;
 
         return $this;
@@ -265,9 +263,9 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -291,9 +289,9 @@ class GetLlmEvaluationAbRolloutRecommendationRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

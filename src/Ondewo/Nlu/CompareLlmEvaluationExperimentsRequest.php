@@ -88,7 +88,7 @@ class CompareLlmEvaluationExperimentsRequest extends \Google\Protobuf\Internal\M
      * @param string[] $var
      * @return $this
      */
-    public function setLlmEvaluationExperimentNames($var)
+    public function setLlmEvaluationExperimentNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_evaluation_experiment_names = $arr;
@@ -116,9 +116,9 @@ class CompareLlmEvaluationExperimentsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationBaselineExperimentName($var)
+    public function setLlmEvaluationBaselineExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_baseline_experiment_name = $var;
 
         return $this;
@@ -144,9 +144,9 @@ class CompareLlmEvaluationExperimentsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -170,9 +170,9 @@ class CompareLlmEvaluationExperimentsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

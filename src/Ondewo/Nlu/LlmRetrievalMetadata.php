@@ -58,7 +58,7 @@ class LlmRetrievalMetadata extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmRetrievedChunk[] $var
      * @return $this
      */
-    public function setChunks($var)
+    public function setChunks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmRetrievedChunk::class);
         $this->chunks = $arr;

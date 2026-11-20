@@ -50,7 +50,7 @@ class RagMetadataConditions extends \Google\Protobuf\Internal\Message
      * Optional. Whether to apply the conditions with a logical <em>and</em> or logical <em>or</em>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagLogic logic = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagLogic}
      */
     public function getLogic()
     {
@@ -61,10 +61,10 @@ class RagMetadataConditions extends \Google\Protobuf\Internal\Message
      * Optional. Whether to apply the conditions with a logical <em>and</em> or logical <em>or</em>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagLogic logic = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagLogic}
      * @return $this
      */
-    public function setLogic($var)
+    public function setLogic(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagLogic::class);
         $this->logic = $var;
@@ -90,7 +90,7 @@ class RagMetadataConditions extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagMetadataCondition[] $var
      * @return $this
      */
-    public function setConditions($var)
+    public function setConditions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagMetadataCondition::class);
         $this->conditions = $arr;

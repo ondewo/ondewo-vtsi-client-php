@@ -72,9 +72,8 @@ class Word2VecEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsActive($var)
+    public function setIsActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_active = $var;
 
         return $this;
@@ -98,7 +97,7 @@ class Word2VecEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEnrichmentFactor($var)
+    public function setEnrichmentFactor(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->enrichment_factor = $var;
@@ -124,7 +123,7 @@ class Word2VecEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setExecutionOrder($var)
+    public function setExecutionOrder(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->execution_order = $var;

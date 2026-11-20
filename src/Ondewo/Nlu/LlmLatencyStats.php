@@ -112,7 +112,7 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -138,9 +138,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMeanDurationSeconds($var)
+    public function setMeanDurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->mean_duration_seconds = $var;
 
         return $this;
@@ -164,9 +163,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setP50DurationSeconds($var)
+    public function setP50DurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p50_duration_seconds = $var;
 
         return $this;
@@ -190,9 +188,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setP95DurationSeconds($var)
+    public function setP95DurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p95_duration_seconds = $var;
 
         return $this;
@@ -216,9 +213,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setP99DurationSeconds($var)
+    public function setP99DurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p99_duration_seconds = $var;
 
         return $this;
@@ -242,9 +238,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMaxDurationSeconds($var)
+    public function setMaxDurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->max_duration_seconds = $var;
 
         return $this;
@@ -268,9 +263,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMeanFirstTokenLatencySeconds($var)
+    public function setMeanFirstTokenLatencySeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->mean_first_token_latency_seconds = $var;
 
         return $this;
@@ -294,9 +288,8 @@ class LlmLatencyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setP95FirstTokenLatencySeconds($var)
+    public function setP95FirstTokenLatencySeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p95_first_token_latency_seconds = $var;
 
         return $this;

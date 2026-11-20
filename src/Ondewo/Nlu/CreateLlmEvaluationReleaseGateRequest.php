@@ -84,9 +84,8 @@ class CreateLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Me
      * @param \Ondewo\Nlu\LlmEvaluationReleaseGate $var
      * @return $this
      */
-    public function setLlmEvaluationReleaseGate($var)
+    public function setLlmEvaluationReleaseGate(\Ondewo\Nlu\LlmEvaluationReleaseGate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationReleaseGate::class);
         $this->llm_evaluation_release_gate = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class CreateLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Me
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class CreateLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Me
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

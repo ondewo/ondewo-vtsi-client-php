@@ -78,9 +78,9 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -116,9 +116,8 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Listener $var
      * @return $this
      */
-    public function setListener($var)
+    public function setListener(\Ondewo\Vtsi\Listener|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Listener::class);
         $this->listener = $var;
 
         return $this;
@@ -146,9 +145,9 @@ class StartListenerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

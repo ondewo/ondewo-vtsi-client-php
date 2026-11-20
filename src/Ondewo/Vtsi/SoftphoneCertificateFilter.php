@@ -64,7 +64,7 @@ class SoftphoneCertificateFilter extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_CERTIFICATE_STATUS_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.SoftphoneCertificateStatus statuses = 1;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\SoftphoneCertificateStatus}
      */
     public function getStatuses()
     {
@@ -76,10 +76,10 @@ class SoftphoneCertificateFilter extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_CERTIFICATE_STATUS_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.SoftphoneCertificateStatus statuses = 1;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\SoftphoneCertificateStatus}
      * @return $this
      */
-    public function setStatuses($var)
+    public function setStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\SoftphoneCertificateStatus::class);
         $this->statuses = $arr;
@@ -115,9 +115,8 @@ class SoftphoneCertificateFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setExpiresBefore($var)
+    public function setExpiresBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->expires_before = $var;
 
         return $this;
@@ -153,9 +152,8 @@ class SoftphoneCertificateFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setExpiresAfter($var)
+    public function setExpiresAfter(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->expires_after = $var;
 
         return $this;

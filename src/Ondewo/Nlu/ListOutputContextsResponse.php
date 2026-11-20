@@ -56,7 +56,7 @@ class ListOutputContextsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setOutputContexts($var)
+    public function setOutputContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->output_contexts = $arr;

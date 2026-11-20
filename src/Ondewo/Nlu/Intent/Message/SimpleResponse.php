@@ -80,9 +80,9 @@ class SimpleResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTextToSpeech($var)
+    public function setTextToSpeech(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text_to_speech = $var;
 
         return $this;
@@ -110,9 +110,9 @@ class SimpleResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSsml($var)
+    public function setSsml(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ssml = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class SimpleResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayText($var)
+    public function setDisplayText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_text = $var;
 
         return $this;

@@ -70,7 +70,7 @@ class StopListenersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\StopListenerResponse[] $var
      * @return $this
      */
-    public function setStopListenerResponses($var)
+    public function setStopListenerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\StopListenerResponse::class);
         $this->stop_listener_responses = $arr;
@@ -98,9 +98,9 @@ class StopListenersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

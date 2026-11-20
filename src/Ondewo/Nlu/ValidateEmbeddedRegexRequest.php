@@ -66,9 +66,8 @@ class ValidateEmbeddedRegexRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity $var
      * @return $this
      */
-    public function setEntityType($var)
+    public function setEntityType(\Ondewo\Nlu\EntityType\Entity|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entity_type = $var;
 
         return $this;

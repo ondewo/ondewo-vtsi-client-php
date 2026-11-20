@@ -78,9 +78,9 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -116,9 +116,8 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Caller $var
      * @return $this
      */
-    public function setCaller($var)
+    public function setCaller(\Ondewo\Vtsi\Caller|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Caller::class);
         $this->caller = $var;
 
         return $this;
@@ -146,9 +145,9 @@ class StartCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

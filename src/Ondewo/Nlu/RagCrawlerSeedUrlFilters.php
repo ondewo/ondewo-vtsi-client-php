@@ -78,7 +78,7 @@ class RagCrawlerSeedUrlFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedRegex($var)
+    public function setAllowedRegex(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_regex = $arr;
@@ -104,7 +104,7 @@ class RagCrawlerSeedUrlFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDisallowedRegex($var)
+    public function setDisallowedRegex(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->disallowed_regex = $arr;
@@ -130,7 +130,7 @@ class RagCrawlerSeedUrlFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedDomains($var)
+    public function setAllowedDomains(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_domains = $arr;
@@ -156,7 +156,7 @@ class RagCrawlerSeedUrlFilters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDisallowedDomains($var)
+    public function setDisallowedDomains(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->disallowed_domains = $arr;

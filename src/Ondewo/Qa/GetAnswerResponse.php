@@ -66,9 +66,8 @@ class GetAnswerResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DetectIntentResponse $var
      * @return $this
      */
-    public function setQueryResult($var)
+    public function setQueryResult(\Ondewo\Nlu\DetectIntentResponse|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DetectIntentResponse::class);
         $this->query_result = $var;
 
         return $this;

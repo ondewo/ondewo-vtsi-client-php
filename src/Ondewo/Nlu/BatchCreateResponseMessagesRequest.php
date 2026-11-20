@@ -56,7 +56,7 @@ class BatchCreateResponseMessagesRequest extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\BatchCreateResponseMessagesRequest\CreateResponseMessageRequest[] $var
      * @return $this
      */
-    public function setResponseMessageRequests($var)
+    public function setResponseMessageRequests(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchCreateResponseMessagesRequest\CreateResponseMessageRequest::class);
         $this->response_message_requests = $arr;

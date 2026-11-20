@@ -102,9 +102,9 @@ class Operation extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -144,9 +144,8 @@ class Operation extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\OperationMetadata $var
      * @return $this
      */
-    public function setMetadata($var)
+    public function setMetadata(\Ondewo\Nlu\OperationMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\OperationMetadata::class);
         $this->metadata = $var;
 
         return $this;
@@ -174,9 +173,8 @@ class Operation extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDone($var)
+    public function setDone(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->done = $var;
 
         return $this;
@@ -205,9 +203,8 @@ class Operation extends \Google\Protobuf\Internal\Message
      * @param \Google\Rpc\Status $var
      * @return $this
      */
-    public function setError($var)
+    public function setError(\Google\Rpc\Status|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Rpc\Status::class);
         $this->writeOneof(4, $var);
 
         return $this;
@@ -250,9 +247,8 @@ class Operation extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Any $var
      * @return $this
      */
-    public function setResponse($var)
+    public function setResponse(\Google\Protobuf\Any|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Any::class);
         $this->writeOneof(5, $var);
 
         return $this;

@@ -68,9 +68,9 @@ class PlatformMapping extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class PlatformMapping extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CustomPlatformInfo[] $var
      * @return $this
      */
-    public function setPlatformInfo($var)
+    public function setPlatformInfo(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\CustomPlatformInfo::class);
         $this->platform_info = $arr;

@@ -54,7 +54,7 @@ class CallSorting extends \Google\Protobuf\Internal\Message
      * The sorting field. Unset means <code>NO_CALL_SORTING</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallSorting.CallSortingField sorting_field = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallSorting\CallSortingField}
      */
     public function getSortingField()
     {
@@ -65,10 +65,10 @@ class CallSorting extends \Google\Protobuf\Internal\Message
      * The sorting field. Unset means <code>NO_CALL_SORTING</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallSorting.CallSortingField sorting_field = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallSorting\CallSortingField}
      * @return $this
      */
-    public function setSortingField($var)
+    public function setSortingField(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallSorting\CallSortingField::class);
         $this->sorting_field = $var;
@@ -82,7 +82,7 @@ class CallSorting extends \Google\Protobuf\Internal\Message
      * ascending, in either mode, so the order is stable across pages.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectSortingMode sorting_mode = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiProjectSortingMode}
      */
     public function getSortingMode()
     {
@@ -95,10 +95,10 @@ class CallSorting extends \Google\Protobuf\Internal\Message
      * ascending, in either mode, so the order is stable across pages.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectSortingMode sorting_mode = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectSortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectSortingMode::class);
         $this->sorting_mode = $var;

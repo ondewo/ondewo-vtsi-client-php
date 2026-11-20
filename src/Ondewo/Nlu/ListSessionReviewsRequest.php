@@ -124,9 +124,9 @@ class ListSessionReviewsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -136,7 +136,7 @@ class ListSessionReviewsRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned per session review
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      */
     public function getSessionReviewView()
     {
@@ -147,10 +147,10 @@ class ListSessionReviewsRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned per session review
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      * @return $this
      */
-    public function setSessionReviewView($var)
+    public function setSessionReviewView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SessionReview\View::class);
         $this->session_review_view = $var;
@@ -224,9 +224,9 @@ class ListSessionReviewsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;

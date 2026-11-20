@@ -84,9 +84,8 @@ class CreateLlmEvaluationReportRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationReport $var
      * @return $this
      */
-    public function setLlmEvaluationReport($var)
+    public function setLlmEvaluationReport(\Ondewo\Nlu\LlmEvaluationReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationReport::class);
         $this->llm_evaluation_report = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class CreateLlmEvaluationReportRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class CreateLlmEvaluationReportRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

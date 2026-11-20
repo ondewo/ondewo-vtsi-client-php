@@ -66,9 +66,9 @@ class ListRemoteOperationContainersRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -94,9 +94,8 @@ class ListRemoteOperationContainersRequest extends \Google\Protobuf\Internal\Mes
      * @param bool $var
      * @return $this
      */
-    public function setIncludeSubOperations($var)
+    public function setIncludeSubOperations(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_sub_operations = $var;
 
         return $this;

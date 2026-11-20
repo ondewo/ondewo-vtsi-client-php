@@ -68,7 +68,7 @@ class RagCrawlerConcurrencyConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxConcurrentRequests($var)
+    public function setMaxConcurrentRequests(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_concurrent_requests = $var;
@@ -94,9 +94,8 @@ class RagCrawlerConcurrencyConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSlowCrawl($var)
+    public function setSlowCrawl(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->slow_crawl = $var;
 
         return $this;

@@ -86,9 +86,9 @@ class LlmEvaluationPairwiseResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationExampleName($var)
+    public function setLlmEvaluationExampleName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_example_name = $var;
 
         return $this;
@@ -114,9 +114,9 @@ class LlmEvaluationPairwiseResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationWinnerExperimentName($var)
+    public function setLlmEvaluationWinnerExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_winner_experiment_name = $var;
 
         return $this;
@@ -140,9 +140,8 @@ class LlmEvaluationPairwiseResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScoreDelta($var)
+    public function setScoreDelta(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->score_delta = $var;
 
         return $this;
@@ -166,9 +165,9 @@ class LlmEvaluationPairwiseResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setReason($var)
+    public function setReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->reason = $var;
 
         return $this;

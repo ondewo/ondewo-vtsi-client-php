@@ -110,9 +110,9 @@ class DetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSession($var)
+    public function setSession(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session = $var;
 
         return $this;
@@ -146,9 +146,8 @@ class DetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryParameters $var
      * @return $this
      */
-    public function setQueryParams($var)
+    public function setQueryParams(\Ondewo\Nlu\QueryParameters|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryParameters::class);
         $this->query_params = $var;
 
         return $this;
@@ -192,9 +191,8 @@ class DetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryInput $var
      * @return $this
      */
-    public function setQueryInput($var)
+    public function setQueryInput(\Ondewo\Nlu\QueryInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryInput::class);
         $this->query_input = $var;
 
         return $this;
@@ -222,9 +220,9 @@ class DetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setInputAudio($var)
+    public function setInputAudio(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->input_audio = $var;
 
         return $this;

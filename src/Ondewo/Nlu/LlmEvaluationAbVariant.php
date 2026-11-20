@@ -154,9 +154,9 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVariantId($var)
+    public function setVariantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->variant_id = $var;
 
         return $this;
@@ -180,9 +180,9 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -210,7 +210,7 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCcaiServiceNames($var)
+    public function setCcaiServiceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->ccai_service_names = $arr;
@@ -240,9 +240,8 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTrafficWeight($var)
+    public function setTrafficWeight(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->traffic_weight = $var;
 
         return $this;
@@ -266,9 +265,8 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsControl($var)
+    public function setIsControl(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_control = $var;
 
         return $this;
@@ -292,9 +290,9 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -318,9 +316,9 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPromptVersion($var)
+    public function setPromptVersion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->prompt_version = $var;
 
         return $this;
@@ -356,9 +354,8 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->config = $var;
 
         return $this;
@@ -400,9 +397,8 @@ class LlmEvaluationAbVariant extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagVariantConfig $var
      * @return $this
      */
-    public function setRagVariantConfig($var)
+    public function setRagVariantConfig(\Ondewo\Nlu\RagVariantConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagVariantConfig::class);
         $this->rag_variant_config = $var;
 
         return $this;

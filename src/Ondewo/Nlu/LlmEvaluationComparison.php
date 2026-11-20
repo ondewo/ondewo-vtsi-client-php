@@ -136,9 +136,9 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -190,7 +190,7 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmEvaluationExperimentNames($var)
+    public function setLlmEvaluationExperimentNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_evaluation_experiment_names = $arr;
@@ -218,9 +218,9 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationBaselineExperimentName($var)
+    public function setLlmEvaluationBaselineExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_baseline_experiment_name = $var;
 
         return $this;
@@ -244,7 +244,7 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationPairwiseResult[] $var
      * @return $this
      */
-    public function setLlmEvaluationPairwiseResults($var)
+    public function setLlmEvaluationPairwiseResults(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationPairwiseResult::class);
         $this->llm_evaluation_pairwise_results = $arr;
@@ -280,9 +280,8 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setAggregate($var)
+    public function setAggregate(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->aggregate = $var;
 
         return $this;
@@ -316,9 +315,8 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -352,9 +350,8 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -378,9 +375,9 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -404,9 +401,9 @@ class LlmEvaluationComparison extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

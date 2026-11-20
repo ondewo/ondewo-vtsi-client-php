@@ -57,9 +57,9 @@ class SipBaseConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipSimVersion($var)
+    public function setSipSimVersion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_sim_version = $var;
 
         return $this;

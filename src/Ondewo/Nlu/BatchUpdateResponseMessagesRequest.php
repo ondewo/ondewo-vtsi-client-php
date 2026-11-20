@@ -56,7 +56,7 @@ class BatchUpdateResponseMessagesRequest extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setResponseMessages($var)
+    public function setResponseMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->response_messages = $arr;

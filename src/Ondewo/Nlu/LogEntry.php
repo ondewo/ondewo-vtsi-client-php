@@ -132,9 +132,9 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -158,7 +158,7 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setLogEntrySequenceIndex($var)
+    public function setLogEntrySequenceIndex(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->log_entry_sequence_index = $var;
@@ -184,9 +184,9 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -220,9 +220,8 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLogEntryTimestamp($var)
+    public function setLogEntryTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->log_entry_timestamp = $var;
 
         return $this;
@@ -256,9 +255,8 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLogEntryReceiveTimestamp($var)
+    public function setLogEntryReceiveTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->log_entry_receive_timestamp = $var;
 
         return $this;
@@ -268,7 +266,7 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * Severity of the log.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity log_entry_severity = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getLogEntrySeverity()
     {
@@ -279,10 +277,10 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * Severity of the log.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity log_entry_severity = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setLogEntrySeverity($var)
+    public function setLogEntrySeverity(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LogSeverity::class);
         $this->log_entry_severity = $var;
@@ -308,9 +306,9 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLogEntryPhase($var)
+    public function setLogEntryPhase(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->log_entry_phase = $var;
 
         return $this;
@@ -334,9 +332,9 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLogEntryOperationName($var)
+    public function setLogEntryOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->log_entry_operation_name = $var;
 
         return $this;
@@ -370,9 +368,8 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setLogEntryDetails($var)
+    public function setLogEntryDetails(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->log_entry_details = $var;
 
         return $this;
@@ -406,9 +403,8 @@ class LogEntry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setLogEntryContext($var)
+    public function setLogEntryContext(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->log_entry_context = $var;
 
         return $this;

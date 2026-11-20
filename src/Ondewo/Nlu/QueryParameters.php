@@ -154,6 +154,16 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .ondewo.nlu.S2tTranscription transcriptions = 14;</code>
      */
     private $transcriptions;
+    /**
+     * Optional. Marks the request as a preemptive draft: a turn the client (e.g. ondewo-csi) starts speculatively,
+     * e.g. on a partial transcript, and may later discard with <code>TurnControl.discard_draft</code>. The server
+     * records the mark on the session step of this request. A <code>DiscardDraft</code> deletes only a session step
+     * of the same session whose request carried this mark. A server that does not know this field ignores it and
+     * keeps the step.
+     *
+     * Generated from protobuf field <code>bool preemptive_draft = 15;</code>
+     */
+    protected $preemptive_draft = false;
 
     /**
      * Constructor.
@@ -247,6 +257,12 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      *           This field can also be used for a customized tracking id or tag id
      *     @type \Ondewo\Nlu\S2tTranscription[] $transcriptions
      *           transcriptions of the user input sorted by score
+     *     @type bool $preemptive_draft
+     *           Optional. Marks the request as a preemptive draft: a turn the client (e.g. ondewo-csi) starts speculatively,
+     *           e.g. on a partial transcript, and may later discard with <code>TurnControl.discard_draft</code>. The server
+     *           records the mark on the session step of this request. A <code>DiscardDraft</code> deletes only a session step
+     *           of the same session whose request carried this mark. A server that does not know this field ignores it and
+     *           keeps the step.
      * }
      */
     public function __construct($data = NULL) {
@@ -278,9 +294,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTimeZone($var)
+    public function setTimeZone(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->time_zone = $var;
 
         return $this;
@@ -314,9 +330,8 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param \Google\Type\LatLng $var
      * @return $this
      */
-    public function setGeoLocation($var)
+    public function setGeoLocation(\Google\Type\LatLng|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Type\LatLng::class);
         $this->geo_location = $var;
 
         return $this;
@@ -342,7 +357,7 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setContexts($var)
+    public function setContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->contexts = $arr;
@@ -370,9 +385,8 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setResetContexts($var)
+    public function setResetContexts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->reset_contexts = $var;
 
         return $this;
@@ -500,9 +514,8 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setPayload($var)
+    public function setPayload(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->payload = $var;
 
         return $this;
@@ -526,7 +539,7 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
@@ -539,7 +552,7 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * <code>DetectIntentResponse</code>
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 8;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatforms()
     {
@@ -551,10 +564,10 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * <code>DetectIntentResponse</code>
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 8;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatforms($var)
+    public function setPlatforms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platforms = $arr;
@@ -580,9 +593,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAccountId($var)
+    public function setAccountId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->account_id = $var;
 
         return $this;
@@ -608,9 +621,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPropertyId($var)
+    public function setPropertyId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->property_id = $var;
 
         return $this;
@@ -636,9 +649,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatastreamId($var)
+    public function setDatastreamId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->datastream_id = $var;
 
         return $this;
@@ -670,9 +683,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOriginId($var)
+    public function setOriginId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->origin_id = $var;
 
         return $this;
@@ -698,9 +711,9 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdentifiedUserId($var)
+    public function setIdentifiedUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->identified_user_id = $var;
 
         return $this;
@@ -724,10 +737,43 @@ class QueryParameters extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\S2tTranscription[] $var
      * @return $this
      */
-    public function setTranscriptions($var)
+    public function setTranscriptions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\S2tTranscription::class);
         $this->transcriptions = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Marks the request as a preemptive draft: a turn the client (e.g. ondewo-csi) starts speculatively,
+     * e.g. on a partial transcript, and may later discard with <code>TurnControl.discard_draft</code>. The server
+     * records the mark on the session step of this request. A <code>DiscardDraft</code> deletes only a session step
+     * of the same session whose request carried this mark. A server that does not know this field ignores it and
+     * keeps the step.
+     *
+     * Generated from protobuf field <code>bool preemptive_draft = 15;</code>
+     * @return bool
+     */
+    public function getPreemptiveDraft()
+    {
+        return $this->preemptive_draft;
+    }
+
+    /**
+     * Optional. Marks the request as a preemptive draft: a turn the client (e.g. ondewo-csi) starts speculatively,
+     * e.g. on a partial transcript, and may later discard with <code>TurnControl.discard_draft</code>. The server
+     * records the mark on the session step of this request. A <code>DiscardDraft</code> deletes only a session step
+     * of the same session whose request carried this mark. A server that does not know this field ignores it and
+     * keeps the step.
+     *
+     * Generated from protobuf field <code>bool preemptive_draft = 15;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setPreemptiveDraft(bool $var)
+    {
+        $this->preemptive_draft = $var;
 
         return $this;
     }

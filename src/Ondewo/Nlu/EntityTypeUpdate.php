@@ -64,9 +64,9 @@ class EntityTypeUpdate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeName($var)
+    public function setEntityTypeName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_name = $var;
 
         return $this;
@@ -90,7 +90,7 @@ class EntityTypeUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeUpdate\EntityUpdate[] $var
      * @return $this
      */
-    public function setValuesUpdateList($var)
+    public function setValuesUpdateList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityTypeUpdate\EntityUpdate::class);
         $this->values_update_list = $arr;

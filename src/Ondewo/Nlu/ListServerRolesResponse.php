@@ -70,7 +70,7 @@ class ListServerRolesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ServerRole[] $var
      * @return $this
      */
-    public function setServerRoles($var)
+    public function setServerRoles(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ServerRole::class);
         $this->server_roles = $arr;
@@ -98,9 +98,9 @@ class ListServerRolesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

@@ -65,7 +65,7 @@ class ListSoftphoneCertificatesResponse extends \Google\Protobuf\Internal\Messag
      * @param \Ondewo\Vtsi\SoftphoneCertificate[] $var
      * @return $this
      */
-    public function setSoftphoneCertificates($var)
+    public function setSoftphoneCertificates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\SoftphoneCertificate::class);
         $this->softphone_certificates = $arr;
@@ -91,9 +91,9 @@ class ListSoftphoneCertificatesResponse extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

@@ -56,7 +56,7 @@ class RunScraperResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Qa\RunScraperResponse\ScraperContainer[] $var
      * @return $this
      */
-    public function setScraperContainers($var)
+    public function setScraperContainers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Qa\RunScraperResponse\ScraperContainer::class);
         $this->scraper_containers = $arr;

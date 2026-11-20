@@ -98,9 +98,9 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -126,9 +126,9 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -152,7 +152,7 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNRepeatSynonym($var)
+    public function setNRepeatSynonym(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_repeat_synonym = $var;
@@ -178,9 +178,9 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBranch($var)
+    public function setBranch(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->branch = $var;
 
         return $this;
@@ -204,9 +204,8 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDropUnknownParameters($var)
+    public function setDropUnknownParameters(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->drop_unknown_parameters = $var;
 
         return $this;
@@ -240,9 +239,8 @@ class GenerateResponsesRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

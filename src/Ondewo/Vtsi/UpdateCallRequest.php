@@ -120,9 +120,8 @@ class UpdateCallRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Call $var
      * @return $this
      */
-    public function setCall($var)
+    public function setCall(\Ondewo\Vtsi\Call|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Call::class);
         $this->call = $var;
 
         return $this;
@@ -166,9 +165,8 @@ class UpdateCallRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -218,9 +216,8 @@ class UpdateCallRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

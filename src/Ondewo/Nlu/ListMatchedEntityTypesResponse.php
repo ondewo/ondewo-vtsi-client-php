@@ -56,7 +56,7 @@ class ListMatchedEntityTypesResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setMatchedEntityTypes($var)
+    public function setMatchedEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->matched_entity_types = $arr;

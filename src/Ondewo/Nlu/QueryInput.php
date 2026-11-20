@@ -71,9 +71,8 @@ class QueryInput extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\InputAudioConfig $var
      * @return $this
      */
-    public function setAudioConfig($var)
+    public function setAudioConfig(\Ondewo\Nlu\InputAudioConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\InputAudioConfig::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -102,9 +101,8 @@ class QueryInput extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\TextInput $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(\Ondewo\Nlu\TextInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\TextInput::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -133,9 +131,8 @@ class QueryInput extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EventInput $var
      * @return $this
      */
-    public function setEvent($var)
+    public function setEvent(\Ondewo\Nlu\EventInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EventInput::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -159,7 +156,7 @@ class QueryInput extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FileResource[] $var
      * @return $this
      */
-    public function setFileResources($var)
+    public function setFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FileResource::class);
         $this->file_resources = $arr;

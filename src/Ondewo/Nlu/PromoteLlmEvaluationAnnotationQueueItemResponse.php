@@ -64,7 +64,7 @@ class PromoteLlmEvaluationAnnotationQueueItemResponse extends \Google\Protobuf\I
      * @param \Ondewo\Nlu\LlmEvaluationExample[] $var
      * @return $this
      */
-    public function setLlmEvaluationExamples($var)
+    public function setLlmEvaluationExamples(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationExample::class);
         $this->llm_evaluation_examples = $arr;
@@ -100,9 +100,8 @@ class PromoteLlmEvaluationAnnotationQueueItemResponse extends \Google\Protobuf\I
      * @param \Ondewo\Nlu\LlmEvaluationAnnotationQueueItem $var
      * @return $this
      */
-    public function setLlmEvaluationAnnotationQueueItem($var)
+    public function setLlmEvaluationAnnotationQueueItem(\Ondewo\Nlu\LlmEvaluationAnnotationQueueItem|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationAnnotationQueueItem::class);
         $this->llm_evaluation_annotation_queue_item = $var;
 
         return $this;

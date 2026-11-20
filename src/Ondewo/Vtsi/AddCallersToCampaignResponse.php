@@ -80,9 +80,9 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -120,9 +120,8 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign $var
      * @return $this
      */
-    public function setCampaign($var)
+    public function setCampaign(\Ondewo\Vtsi\Campaign|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->campaign = $var;
 
         return $this;
@@ -146,7 +145,7 @@ class AddCallersToCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignCallNames($var)
+    public function setCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_call_names = $arr;

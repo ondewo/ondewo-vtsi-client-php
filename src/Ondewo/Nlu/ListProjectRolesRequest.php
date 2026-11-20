@@ -132,9 +132,9 @@ class ListProjectRolesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -206,9 +206,9 @@ class ListProjectRolesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -218,7 +218,7 @@ class ListProjectRolesRequest extends \Google\Protobuf\Internal\Message
      * Optional. specify the view of the project roles, PROJECT_ROLE_VIEW_FULL by default
      *
      * Generated from protobuf field <code>.ondewo.nlu.ProjectRoleView project_role_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ProjectRoleView}
      */
     public function getProjectRoleView()
     {
@@ -229,10 +229,10 @@ class ListProjectRolesRequest extends \Google\Protobuf\Internal\Message
      * Optional. specify the view of the project roles, PROJECT_ROLE_VIEW_FULL by default
      *
      * Generated from protobuf field <code>.ondewo.nlu.ProjectRoleView project_role_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ProjectRoleView}
      * @return $this
      */
-    public function setProjectRoleView($var)
+    public function setProjectRoleView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ProjectRoleView::class);
         $this->project_role_view = $var;
@@ -268,9 +268,8 @@ class ListProjectRolesRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

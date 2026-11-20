@@ -90,9 +90,8 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
      * @param bool $var
      * @return $this
      */
-    public function setActivateS2T($var)
+    public function setActivateS2T(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_s2t = $var;
 
         return $this;
@@ -126,9 +125,8 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
      * @param bool $var
      * @return $this
      */
-    public function setActivateNlu($var)
+    public function setActivateNlu(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_nlu = $var;
 
         return $this;
@@ -162,9 +160,8 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
      * @param bool $var
      * @return $this
      */
-    public function setActivateT2S($var)
+    public function setActivateT2S(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_t2s = $var;
 
         return $this;
@@ -198,9 +195,8 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
      * @param bool $var
      * @return $this
      */
-    public function setActivateSip($var)
+    public function setActivateSip(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_sip = $var;
 
         return $this;

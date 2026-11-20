@@ -103,7 +103,7 @@ class StreamingRecognitionResult extends \Google\Protobuf\Internal\Message
      * Type of the result message.
      *
      * Generated from protobuf field <code>.ondewo.nlu.StreamingRecognitionResult.MessageType message_type = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\StreamingRecognitionResult\MessageType}
      */
     public function getMessageType()
     {
@@ -114,10 +114,10 @@ class StreamingRecognitionResult extends \Google\Protobuf\Internal\Message
      * Type of the result message.
      *
      * Generated from protobuf field <code>.ondewo.nlu.StreamingRecognitionResult.MessageType message_type = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\StreamingRecognitionResult\MessageType}
      * @return $this
      */
-    public function setMessageType($var)
+    public function setMessageType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\StreamingRecognitionResult\MessageType::class);
         $this->message_type = $var;
@@ -145,9 +145,9 @@ class StreamingRecognitionResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTranscript($var)
+    public function setTranscript(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->transcript = $var;
 
         return $this;
@@ -179,9 +179,8 @@ class StreamingRecognitionResult extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsFinal($var)
+    public function setIsFinal(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_final = $var;
 
         return $this;
@@ -215,9 +214,8 @@ class StreamingRecognitionResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setConfidence($var)
+    public function setConfidence(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->confidence = $var;
 
         return $this;

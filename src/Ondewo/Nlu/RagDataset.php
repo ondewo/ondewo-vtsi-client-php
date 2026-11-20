@@ -160,9 +160,9 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -186,9 +186,9 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAvatar($var)
+    public function setAvatar(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->avatar = $var;
 
         return $this;
@@ -212,9 +212,9 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -238,9 +238,9 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -274,7 +274,7 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDocumentCount($var)
+    public function setDocumentCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->document_count = $var;
@@ -310,7 +310,7 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTokenNum($var)
+    public function setTokenNum(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->token_num = $var;
@@ -346,7 +346,7 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setChunkCount($var)
+    public function setChunkCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->chunk_count = $var;
@@ -358,7 +358,7 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * Default chunking method for documents in this dataset.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      */
     public function getChunkMethod()
     {
@@ -369,10 +369,10 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * Default chunking method for documents in this dataset.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      * @return $this
      */
-    public function setChunkMethod($var)
+    public function setChunkMethod(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagChunkMethod::class);
         $this->chunk_method = $var;
@@ -408,9 +408,8 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagParserConfig $var
      * @return $this
      */
-    public function setParserConfig($var)
+    public function setParserConfig(\Ondewo\Nlu\RagParserConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagParserConfig::class);
         $this->parser_config = $var;
 
         return $this;
@@ -444,7 +443,7 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPagerank($var)
+    public function setPagerank(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->pagerank = $var;
@@ -480,9 +479,8 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagDatasetParsingStatus $var
      * @return $this
      */
-    public function setParsingStatus($var)
+    public function setParsingStatus(\Ondewo\Nlu\RagDatasetParsingStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagDatasetParsingStatus::class);
         $this->parsing_status = $var;
 
         return $this;
@@ -516,9 +514,8 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTime($var)
+    public function setCreateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time = $var;
 
         return $this;
@@ -552,9 +549,8 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setUpdateTime($var)
+    public function setUpdateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->update_time = $var;
 
         return $this;
@@ -578,9 +574,9 @@ class RagDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEmbeddingModelCcaiServiceName($var)
+    public function setEmbeddingModelCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->embedding_model_ccai_service_name = $var;
 
         return $this;

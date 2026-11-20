@@ -86,9 +86,9 @@ class OptimizeRankingMatchRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -112,7 +112,7 @@ class OptimizeRankingMatchRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -138,7 +138,7 @@ class OptimizeRankingMatchRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RankingMatchOptimizationConfig[] $var
      * @return $this
      */
-    public function setOptimizationConfigs($var)
+    public function setOptimizationConfigs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RankingMatchOptimizationConfig::class);
         $this->optimization_configs = $arr;
@@ -166,9 +166,8 @@ class OptimizeRankingMatchRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setInPlace($var)
+    public function setInPlace(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->in_place = $var;
 
         return $this;

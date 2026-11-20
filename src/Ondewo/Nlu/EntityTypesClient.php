@@ -65,7 +65,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListEntityTypesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListEntityTypesResponse>
      */
     public function ListEntityTypes(\Ondewo\Nlu\ListEntityTypesRequest $argument,
       $metadata = [], $options = []) {
@@ -80,7 +80,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType>
      */
     public function GetEntityType(\Ondewo\Nlu\GetEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -95,7 +95,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType>
      */
     public function CreateEntityType(\Ondewo\Nlu\CreateEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -110,7 +110,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType>
      */
     public function UpdateEntityType(\Ondewo\Nlu\UpdateEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -125,7 +125,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteEntityType(\Ondewo\Nlu\DeleteEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -143,7 +143,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateEntityTypesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function BatchUpdateEntityTypes(\Ondewo\Nlu\BatchUpdateEntityTypesRequest $argument,
       $metadata = [], $options = []) {
@@ -161,7 +161,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteEntityTypesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function BatchDeleteEntityTypes(\Ondewo\Nlu\BatchDeleteEntityTypesRequest $argument,
       $metadata = [], $options = []) {
@@ -176,7 +176,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetEntityRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType\Entity>
      */
     public function GetEntity(\Ondewo\Nlu\GetEntityRequest $argument,
       $metadata = [], $options = []) {
@@ -191,7 +191,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateEntityRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType\Entity>
      */
     public function CreateEntity(\Ondewo\Nlu\CreateEntityRequest $argument,
       $metadata = [], $options = []) {
@@ -206,7 +206,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateEntityRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\EntityType\Entity>
      */
     public function UpdateEntity(\Ondewo\Nlu\UpdateEntityRequest $argument,
       $metadata = [], $options = []) {
@@ -221,7 +221,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteEntityRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\DeleteEntityStatus>
      */
     public function DeleteEntity(\Ondewo\Nlu\DeleteEntityRequest $argument,
       $metadata = [], $options = []) {
@@ -236,7 +236,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchCreateEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchEntitiesResponse>
      */
     public function BatchCreateEntities(\Ondewo\Nlu\BatchCreateEntitiesRequest $argument,
       $metadata = [], $options = []) {
@@ -251,7 +251,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchEntitiesResponse>
      */
     public function BatchUpdateEntities(\Ondewo\Nlu\BatchUpdateEntitiesRequest $argument,
       $metadata = [], $options = []) {
@@ -266,7 +266,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchGetEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchEntitiesResponse>
      */
     public function BatchGetEntities(\Ondewo\Nlu\BatchGetEntitiesRequest $argument,
       $metadata = [], $options = []) {
@@ -281,7 +281,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchDeleteEntitiesResponse>
      */
     public function BatchDeleteEntities(\Ondewo\Nlu\BatchDeleteEntitiesRequest $argument,
       $metadata = [], $options = []) {
@@ -296,7 +296,7 @@ class EntityTypesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListEntitiesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListEntitiesResponse>
      */
     public function ListEntities(\Ondewo\Nlu\ListEntitiesRequest $argument,
       $metadata = [], $options = []) {

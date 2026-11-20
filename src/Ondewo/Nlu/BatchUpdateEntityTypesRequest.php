@@ -92,9 +92,9 @@ class BatchUpdateEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -129,9 +129,9 @@ class BatchUpdateEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeBatchUri($var)
+    public function setEntityTypeBatchUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -160,9 +160,8 @@ class BatchUpdateEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeBatch $var
      * @return $this
      */
-    public function setEntityTypeBatchInline($var)
+    public function setEntityTypeBatchInline(\Ondewo\Nlu\EntityTypeBatch|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityTypeBatch::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -194,9 +193,9 @@ class BatchUpdateEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -230,9 +229,8 @@ class BatchUpdateEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

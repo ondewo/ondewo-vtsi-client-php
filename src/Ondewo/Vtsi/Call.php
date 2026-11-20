@@ -211,6 +211,31 @@ class Call extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>map<string, string> labels = 26;</code>
      */
     private $labels;
+    /**
+     * Output only. The display name of the IVR menu the caller came through before the bot took the call (from
+     * <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
+     * views
+     *
+     * Generated from protobuf field <code>string ivr_menu_display_name = 27;</code>
+     */
+    protected $ivr_menu_display_name = '';
+    /**
+     * Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
+     * (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_path = 28;</code>
+     */
+    protected $ivr_path = '';
+    /**
+     * Output only. Resource name of the IVR menu that handled the call&apos;s IVR leg, i.e. the menu
+     * <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
+     * Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_menu_name = 29;</code>
+     */
+    protected $ivr_menu_name = '';
 
     /**
      * Constructor.
@@ -307,6 +332,19 @@ class Call extends \Google\Protobuf\Internal\Message
      *           active) cannot be labelled: <code>FAILED_PRECONDITION</code> with <code>reason=call-not-started</code>.
      *           This is the only mutable field of a <code>Call</code>: it exists so that a call can be annotated without
      *           anything about the live call being changed. Set in the SHALLOW and FULL views.
+     *     @type string $ivr_menu_display_name
+     *           Output only. The display name of the IVR menu the caller came through before the bot took the call (from
+     *           <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
+     *           views
+     *     @type string $ivr_path
+     *           Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
+     *           (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
+     *           Set in the SHALLOW and FULL views
+     *     @type string $ivr_menu_name
+     *           Output only. Resource name of the IVR menu that handled the call&apos;s IVR leg, i.e. the menu
+     *           <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
+     *           The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
+     *           Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
      * }
      */
     public function __construct($data = NULL) {
@@ -336,9 +374,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -364,9 +402,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipAccount($var)
+    public function setSipAccount(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_account = $var;
 
         return $this;
@@ -390,9 +428,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerName($var)
+    public function setContainerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_name = $var;
 
         return $this;
@@ -403,7 +441,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * <code>CallType</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallType}
      */
     public function getCallType()
     {
@@ -415,10 +453,10 @@ class Call extends \Google\Protobuf\Internal\Message
      * <code>CallType</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallType}
      * @return $this
      */
-    public function setCallType($var)
+    public function setCallType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallType::class);
         $this->call_type = $var;
@@ -446,9 +484,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhoneNumber($var)
+    public function setPhoneNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->phone_number = $var;
 
         return $this;
@@ -484,9 +522,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -520,9 +557,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -532,7 +568,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * The call&apos;s current SIP status type, or its last one once the call ended
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -543,10 +579,10 @@ class Call extends \Google\Protobuf\Internal\Message
      * The call&apos;s current SIP status type, or its last one once the call ended
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -582,9 +618,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Sip\SipStatus $var
      * @return $this
      */
-    public function setSipStatus($var)
+    public function setSipStatus(\Ondewo\Sip\SipStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Sip\SipStatus::class);
         $this->sip_status = $var;
 
         return $this;
@@ -618,9 +653,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Sip\SipStatusHistoryResponse $var
      * @return $this
      */
-    public function setSipStatusHistory($var)
+    public function setSipStatusHistory(\Ondewo\Sip\SipStatusHistoryResponse|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Sip\SipStatusHistoryResponse::class);
         $this->sip_status_history = $var;
 
         return $this;
@@ -654,9 +688,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AllServicesStatuses $var
      * @return $this
      */
-    public function setServicesStatuses($var)
+    public function setServicesStatuses(\Ondewo\Vtsi\AllServicesStatuses|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AllServicesStatuses::class);
         $this->services_statuses = $var;
 
         return $this;
@@ -680,9 +713,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActive($var)
+    public function setActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active = $var;
 
         return $this;
@@ -706,9 +738,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -742,9 +774,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
      * @return $this
      */
-    public function setCommonServicesConfig($var)
+    public function setCommonServicesConfig(\Ondewo\Vtsi\CommonServicesConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
 
         return $this;
@@ -778,7 +809,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSipPort($var)
+    public function setSipPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sip_port = $var;
@@ -814,7 +845,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCsiPort($var)
+    public function setCsiPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->csi_port = $var;
@@ -850,9 +881,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNluSessionName($var)
+    public function setNluSessionName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->nlu_session_name = $var;
 
         return $this;
@@ -862,7 +893,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platforms = 18;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatforms()
     {
@@ -883,10 +914,10 @@ class Call extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platforms = 18;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatforms($var)
+    public function setPlatforms(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platforms = $var;
@@ -932,9 +963,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setRedialRecommended($var)
+    public function setRedialRecommended(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->redial_recommended = $var;
 
         return $this;
@@ -970,9 +1000,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRedialReason($var)
+    public function setRedialReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->redial_reason = $var;
 
         return $this;
@@ -1018,9 +1048,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAnsweringMachineDetectionEndDescription($var)
+    public function setAnsweringMachineDetectionEndDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->answering_machine_detection_end_description = $var;
 
         return $this;
@@ -1056,9 +1086,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallMediaControlState $var
      * @return $this
      */
-    public function setMediaControl($var)
+    public function setMediaControl(\Ondewo\Vtsi\CallMediaControlState|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallMediaControlState::class);
         $this->media_control = $var;
 
         return $this;
@@ -1090,7 +1119,7 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallParticipant[] $var
      * @return $this
      */
-    public function setParticipants($var)
+    public function setParticipants(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallParticipant::class);
         $this->participants = $arr;
@@ -1126,9 +1155,8 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallTransferRecord $var
      * @return $this
      */
-    public function setLastTransfer($var)
+    public function setLastTransfer(\Ondewo\Vtsi\CallTransferRecord|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallTransferRecord::class);
         $this->last_transfer = $var;
 
         return $this;
@@ -1156,9 +1184,9 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipCallId($var)
+    public function setSipCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_call_id = $var;
 
         return $this;
@@ -1206,10 +1234,102 @@ class Call extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The display name of the IVR menu the caller came through before the bot took the call (from
+     * <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
+     * views
+     *
+     * Generated from protobuf field <code>string ivr_menu_display_name = 27;</code>
+     * @return string
+     */
+    public function getIvrMenuDisplayName()
+    {
+        return $this->ivr_menu_display_name;
+    }
+
+    /**
+     * Output only. The display name of the IVR menu the caller came through before the bot took the call (from
+     * <code>X-ondewo-ivr-menu</code>); empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL
+     * views
+     *
+     * Generated from protobuf field <code>string ivr_menu_display_name = 27;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIvrMenuDisplayName(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->ivr_menu_display_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
+     * (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_path = 28;</code>
+     * @return string
+     */
+    public function getIvrPath()
+    {
+        return $this->ivr_path;
+    }
+
+    /**
+     * Output only. The option labels the caller took through the IVR menus, e.g. <code>main:1&gt;billing:2</code>
+     * (from <code>X-ondewo-ivr-path</code>, at most 256 characters); empty when the call did not pass an IVR menu.
+     * Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_path = 28;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIvrPath(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->ivr_path = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Resource name of the IVR menu that handled the call&apos;s IVR leg, i.e. the menu
+     * <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
+     * Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_menu_name = 29;</code>
+     * @return string
+     */
+    public function getIvrMenuName()
+    {
+        return $this->ivr_menu_name;
+    }
+
+    /**
+     * Output only. Resource name of the IVR menu that handled the call&apos;s IVR leg, i.e. the menu
+     * <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
+     * The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
+     * Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string ivr_menu_name = 29;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIvrMenuName(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->ivr_menu_name = $var;
 
         return $this;
     }

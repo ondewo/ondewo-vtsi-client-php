@@ -124,9 +124,9 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -150,9 +150,9 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCrawlerName($var)
+    public function setCrawlerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->crawler_name = $var;
 
         return $this;
@@ -176,9 +176,9 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOperationName($var)
+    public function setOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->operation_name = $var;
 
         return $this;
@@ -202,9 +202,9 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceUrl($var)
+    public function setSourceUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source_url = $var;
 
         return $this;
@@ -242,9 +242,8 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FileResource $var
      * @return $this
      */
-    public function setFileResource($var)
+    public function setFileResource(\Ondewo\Nlu\FileResource|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\FileResource::class);
         $this->file_resource = $var;
 
         return $this;
@@ -278,9 +277,8 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLastCrawledDate($var)
+    public function setLastCrawledDate(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->last_crawled_date = $var;
 
         return $this;
@@ -314,9 +312,8 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerContentResult $var
      * @return $this
      */
-    public function setContentResult($var)
+    public function setContentResult(\Ondewo\Nlu\RagCrawlerContentResult|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerContentResult::class);
         $this->content_result = $var;
 
         return $this;
@@ -352,9 +349,8 @@ class RagCrawlerResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setPageLastUpdatedDate($var)
+    public function setPageLastUpdatedDate(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->page_last_updated_date = $var;
 
         return $this;

@@ -96,9 +96,9 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOperationName($var)
+    public function setOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->operation_name = $var;
 
         return $this;
@@ -122,9 +122,9 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCrawlerName($var)
+    public function setCrawlerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->crawler_name = $var;
 
         return $this;
@@ -134,7 +134,7 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * Operation status of the run.
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      */
     public function getStatus()
     {
@@ -145,10 +145,10 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * Operation status of the run.
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\OperationMetadata\Status::class);
         $this->status = $var;
@@ -174,7 +174,7 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LogEntry[] $var
      * @return $this
      */
-    public function setEntries($var)
+    public function setEntries(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LogEntry::class);
         $this->entries = $arr;
@@ -200,9 +200,9 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -226,7 +226,7 @@ class RagGetCrawlerRunLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotalLogEntries($var)
+    public function setTotalLogEntries(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total_log_entries = $var;

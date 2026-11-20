@@ -132,9 +132,9 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -190,9 +190,9 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountName($var)
+    public function setSoftphoneAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->softphone_account_name = $var;
 
         return $this;
@@ -202,7 +202,7 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * How the participant takes part. Unspecified means <code>PARTICIPANT_MODE_CONFERENCE</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantMode mode = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ParticipantMode}
      */
     public function getMode()
     {
@@ -213,10 +213,10 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * How the participant takes part. Unspecified means <code>PARTICIPANT_MODE_CONFERENCE</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantMode mode = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ParticipantMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ParticipantMode::class);
         $this->mode = $var;
@@ -242,7 +242,7 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRingTimeoutS($var)
+    public function setRingTimeoutS(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->ring_timeout_s = $var;
@@ -255,7 +255,7 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * (the bot keeps talking)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BotPolicyOnJoin bot_policy = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\BotPolicyOnJoin}
      */
     public function getBotPolicy()
     {
@@ -267,10 +267,10 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * (the bot keeps talking)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BotPolicyOnJoin bot_policy = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\BotPolicyOnJoin}
      * @return $this
      */
-    public function setBotPolicy($var)
+    public function setBotPolicy(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\BotPolicyOnJoin::class);
         $this->bot_policy = $var;
@@ -298,9 +298,9 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallerIdDisplayName($var)
+    public function setCallerIdDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->caller_id_display_name = $var;
 
         return $this;
@@ -334,9 +334,9 @@ class InviteToCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRequestId($var)
+    public function setRequestId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->request_id = $var;
 
         return $this;

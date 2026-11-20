@@ -82,9 +82,8 @@ class RagCrawlerExecutionInfo extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setSslCertificate($var)
+    public function setSslCertificate(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->ssl_certificate = $var;
 
         return $this;
@@ -118,9 +117,8 @@ class RagCrawlerExecutionInfo extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSuccess($var)
+    public function setSuccess(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->success = $var;
 
         return $this;
@@ -154,9 +152,9 @@ class RagCrawlerExecutionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

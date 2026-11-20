@@ -117,9 +117,9 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -147,7 +147,7 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignNames($var)
+    public function setCampaignNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_names = $arr;
@@ -177,7 +177,7 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignDisplayNames($var)
+    public function setCampaignDisplayNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_display_names = $arr;
@@ -205,9 +205,8 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeCalls($var)
+    public function setIncludeCalls(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_calls = $var;
 
         return $this;
@@ -224,7 +223,7 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 5;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignState}
      */
     public function getStates()
     {
@@ -242,10 +241,10 @@ class StreamCampaignStatusRequest extends \Google\Protobuf\Internal\Message
      * with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 5;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignState}
      * @return $this
      */
-    public function setStates($var)
+    public function setStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignState::class);
         $this->states = $arr;

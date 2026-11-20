@@ -86,9 +86,9 @@ class AddLlmEvaluationExamplesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -112,7 +112,7 @@ class AddLlmEvaluationExamplesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationExample[] $var
      * @return $this
      */
-    public function setLlmEvaluationExamples($var)
+    public function setLlmEvaluationExamples(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationExample::class);
         $this->llm_evaluation_examples = $arr;
@@ -140,9 +140,9 @@ class AddLlmEvaluationExamplesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -166,9 +166,9 @@ class AddLlmEvaluationExamplesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

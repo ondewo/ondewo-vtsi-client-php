@@ -149,9 +149,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -175,9 +175,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -201,9 +201,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -227,9 +227,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -263,9 +263,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -299,9 +299,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAvatar($var)
+    public function setAvatar(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->avatar = $var;
 
         return $this;
@@ -311,7 +311,7 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * Optional. New chunk method.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      */
     public function getChunkMethod()
     {
@@ -322,10 +322,10 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * Optional. New chunk method.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      * @return $this
      */
-    public function setChunkMethod($var)
+    public function setChunkMethod(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagChunkMethod::class);
         $this->chunk_method = $var;
@@ -361,9 +361,8 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagParserConfig $var
      * @return $this
      */
-    public function setParserConfig($var)
+    public function setParserConfig(\Ondewo\Nlu\RagParserConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagParserConfig::class);
         $this->parser_config = $var;
 
         return $this;
@@ -397,7 +396,7 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPagerank($var)
+    public function setPagerank(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->pagerank = $var;
@@ -433,9 +432,8 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -469,9 +467,8 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -495,9 +492,9 @@ class RagUpdateDatasetRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEmbeddingModelCcaiServiceName($var)
+    public function setEmbeddingModelCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->embedding_model_ccai_service_name = $var;
 
         return $this;

@@ -56,7 +56,7 @@ class AddLlmEvaluationExamplesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationExample[] $var
      * @return $this
      */
-    public function setLlmEvaluationExamples($var)
+    public function setLlmEvaluationExamples(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationExample::class);
         $this->llm_evaluation_examples = $arr;

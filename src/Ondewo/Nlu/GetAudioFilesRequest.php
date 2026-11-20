@@ -150,9 +150,9 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -178,7 +178,7 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNames($var)
+    public function setNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->names = $arr;
@@ -190,7 +190,7 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * Represents the options for views of resources
      *
      * Generated from protobuf field <code>.ondewo.nlu.ResourceView resource_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ResourceView}
      */
     public function getResourceView()
     {
@@ -201,10 +201,10 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * Represents the options for views of resources
      *
      * Generated from protobuf field <code>.ondewo.nlu.ResourceView resource_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ResourceView}
      * @return $this
      */
-    public function setResourceView($var)
+    public function setResourceView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ResourceView::class);
         $this->resource_view = $var;
@@ -278,9 +278,9 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -290,7 +290,7 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * sorting mode
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -301,10 +301,10 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * sorting mode
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;
@@ -340,9 +340,8 @@ class GetAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

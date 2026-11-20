@@ -56,7 +56,7 @@ class CcaiServiceList extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiService[] $var
      * @return $this
      */
-    public function setCcaiServices($var)
+    public function setCcaiServices(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\CcaiService::class);
         $this->ccai_services = $arr;

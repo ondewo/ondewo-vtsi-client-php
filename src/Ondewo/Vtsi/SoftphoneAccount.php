@@ -174,6 +174,14 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string locked_reason = 21;</code>
      */
     protected $locked_reason = '';
+    /**
+     * The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
+     * intro&apos;s briefing gives the target when the call is transferred to this account (see
+     * <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
+     *
+     * Generated from protobuf field <code>string description = 22;</code>
+     */
+    protected $description = '';
 
     /**
      * Constructor.
@@ -254,6 +262,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      *           Output only. Why the account was locked: the <code>reason</code> given to the
      *           <code>RevokeSoftphoneCertificate</code> that locked it (empty when none was given or the account is
      *           not locked).
+     *     @type string $description
+     *           The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
+     *           intro&apos;s briefing gives the target when the call is transferred to this account (see
+     *           <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
      * }
      */
     public function __construct($data = NULL) {
@@ -283,9 +295,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -309,9 +321,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountId($var)
+    public function setSoftphoneAccountId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->softphone_account_id = $var;
 
         return $this;
@@ -337,9 +349,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -365,9 +377,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -399,9 +411,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipUsername($var)
+    public function setSipUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_username = $var;
 
         return $this;
@@ -413,7 +425,7 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> requires an ACTIVE certificate.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneTransportSecurity transport_security = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      */
     public function getTransportSecurity()
     {
@@ -426,10 +438,10 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_TRANSPORT_SECURITY_CLIENT_CERTIFICATE</code> requires an ACTIVE certificate.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneTransportSecurity transport_security = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      * @return $this
      */
-    public function setTransportSecurity($var)
+    public function setTransportSecurity(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneTransportSecurity::class);
         $this->transport_security = $var;
@@ -469,9 +481,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -497,7 +508,7 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxContacts($var)
+    public function setMaxContacts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_contacts = $var;
@@ -535,7 +546,7 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
@@ -567,7 +578,7 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedDestinations($var)
+    public function setAllowedDestinations(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_destinations = $arr;
@@ -595,9 +606,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCurrentCertificateName($var)
+    public function setCurrentCertificateName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->current_certificate_name = $var;
 
         return $this;
@@ -625,9 +636,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCurrentCertificateSha256Fingerprint($var)
+    public function setCurrentCertificateSha256Fingerprint(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->current_certificate_sha256_fingerprint = $var;
 
         return $this;
@@ -661,9 +672,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCurrentCertificateExpireTime($var)
+    public function setCurrentCertificateExpireTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->current_certificate_expire_time = $var;
 
         return $this;
@@ -697,9 +707,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setSipPasswordSetAt($var)
+    public function setSipPasswordSetAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->sip_password_set_at = $var;
 
         return $this;
@@ -723,9 +732,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -759,9 +768,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -785,9 +793,9 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -821,9 +829,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -853,9 +860,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setLocked($var)
+    public function setLocked(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->locked = $var;
 
         return $this;
@@ -891,9 +897,8 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLockedAt($var)
+    public function setLockedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->locked_at = $var;
 
         return $this;
@@ -921,10 +926,40 @@ class SoftphoneAccount extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLockedReason($var)
+    public function setLockedReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->locked_reason = $var;
+
+        return $this;
+    }
+
+    /**
+     * The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
+     * intro&apos;s briefing gives the target when the call is transferred to this account (see
+     * <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
+     *
+     * Generated from protobuf field <code>string description = 22;</code>
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * The person or role behind the account, e.g. <code>Buchhaltung, Rechnungsfragen</code>: the context a warm
+     * intro&apos;s briefing gives the target when the call is transferred to this account (see
+     * <code>WarmTransferConfig.callee_description</code>). At most 512 characters. Updatable.
+     *
+     * Generated from protobuf field <code>string description = 22;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setDescription(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->description = $var;
 
         return $this;
     }

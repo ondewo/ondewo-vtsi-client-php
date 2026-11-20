@@ -64,9 +64,9 @@ class StringUpdate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNew($var)
+    public function setNew(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->new = $var;
 
         return $this;
@@ -90,9 +90,9 @@ class StringUpdate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOld($var)
+    public function setOld(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->old = $var;
 
         return $this;

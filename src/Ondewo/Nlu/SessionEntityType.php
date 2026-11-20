@@ -109,9 +109,9 @@ class SessionEntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -122,7 +122,7 @@ class SessionEntityType extends \Google\Protobuf\Internal\Message
      * supplement the custom entity type definition.
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionEntityType.EntityOverrideMode entity_override_mode = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SessionEntityType\EntityOverrideMode}
      */
     public function getEntityOverrideMode()
     {
@@ -134,10 +134,10 @@ class SessionEntityType extends \Google\Protobuf\Internal\Message
      * supplement the custom entity type definition.
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionEntityType.EntityOverrideMode entity_override_mode = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SessionEntityType\EntityOverrideMode}
      * @return $this
      */
-    public function setEntityOverrideMode($var)
+    public function setEntityOverrideMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SessionEntityType\EntityOverrideMode::class);
         $this->entity_override_mode = $var;
@@ -165,7 +165,7 @@ class SessionEntityType extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity[] $var
      * @return $this
      */
-    public function setEntities($var)
+    public function setEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entities = $arr;

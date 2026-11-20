@@ -78,9 +78,9 @@ class FeedbackBreakdownBucket extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setKey($var)
+    public function setKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->key = $var;
 
         return $this;
@@ -104,7 +104,7 @@ class FeedbackBreakdownBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsUpCount($var)
+    public function setThumbsUpCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_up_count = $var;
@@ -130,7 +130,7 @@ class FeedbackBreakdownBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsDownCount($var)
+    public function setThumbsDownCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_down_count = $var;
@@ -156,7 +156,7 @@ class FeedbackBreakdownBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;

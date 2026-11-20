@@ -86,9 +86,9 @@ class LlmBaseUrlUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBaseUrl($var)
+    public function setBaseUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->base_url = $var;
 
         return $this;
@@ -112,7 +112,7 @@ class LlmBaseUrlUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -148,9 +148,8 @@ class LlmBaseUrlUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -174,7 +173,7 @@ class LlmBaseUrlUsage extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setModelNames($var)
+    public function setModelNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->model_names = $arr;

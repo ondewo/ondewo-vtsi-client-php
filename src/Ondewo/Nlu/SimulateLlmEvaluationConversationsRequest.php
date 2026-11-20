@@ -138,9 +138,9 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -166,9 +166,9 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -192,7 +192,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param \Ondewo\Nlu\LlmEvaluationSimulationPersona[] $var
      * @return $this
      */
-    public function setLlmEvaluationSimulationPersonas($var)
+    public function setLlmEvaluationSimulationPersonas(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationSimulationPersona::class);
         $this->llm_evaluation_simulation_personas = $arr;
@@ -218,7 +218,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param int $var
      * @return $this
      */
-    public function setNumConversations($var)
+    public function setNumConversations(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->num_conversations = $var;
@@ -244,7 +244,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param int $var
      * @return $this
      */
-    public function setMaxTurns($var)
+    public function setMaxTurns(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_turns = $var;
@@ -272,7 +272,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param string[] $var
      * @return $this
      */
-    public function setCcaiServiceNames($var)
+    public function setCcaiServiceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->ccai_service_names = $arr;
@@ -298,9 +298,9 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -334,9 +334,8 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->config = $var;
 
         return $this;
@@ -346,7 +345,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * Kind of simulation (standard persona-driven vs adversarial red-teaming).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationSimulationKind llm_evaluation_simulation_kind = 9;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationSimulationKind}
      */
     public function getLlmEvaluationSimulationKind()
     {
@@ -357,10 +356,10 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * Kind of simulation (standard persona-driven vs adversarial red-teaming).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationSimulationKind llm_evaluation_simulation_kind = 9;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationSimulationKind}
      * @return $this
      */
-    public function setLlmEvaluationSimulationKind($var)
+    public function setLlmEvaluationSimulationKind(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationSimulationKind::class);
         $this->llm_evaluation_simulation_kind = $var;
@@ -388,7 +387,7 @@ class SimulateLlmEvaluationConversationsRequest extends \Google\Protobuf\Interna
      * @param string[] $var
      * @return $this
      */
-    public function setAttackTypes($var)
+    public function setAttackTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->attack_types = $arr;

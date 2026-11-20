@@ -118,9 +118,9 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -146,9 +146,9 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setTargetDatasetName($var)
+    public function setTargetDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->target_dataset_name = $var;
 
         return $this;
@@ -158,7 +158,7 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * How the item's session steps are turned into examples (reused mode enum).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExampleExtractionMode llm_evaluation_example_extraction_mode = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExampleExtractionMode}
      */
     public function getLlmEvaluationExampleExtractionMode()
     {
@@ -169,10 +169,10 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * How the item's session steps are turned into examples (reused mode enum).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExampleExtractionMode llm_evaluation_example_extraction_mode = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExampleExtractionMode}
      * @return $this
      */
-    public function setLlmEvaluationExampleExtractionMode($var)
+    public function setLlmEvaluationExampleExtractionMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExampleExtractionMode::class);
         $this->llm_evaluation_example_extraction_mode = $var;
@@ -200,9 +200,8 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param bool $var
      * @return $this
      */
-    public function setIncludeToolCalls($var)
+    public function setIncludeToolCalls(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_tool_calls = $var;
 
         return $this;
@@ -228,9 +227,8 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param bool $var
      * @return $this
      */
-    public function setIncludeRetrievalContext($var)
+    public function setIncludeRetrievalContext(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_retrieval_context = $var;
 
         return $this;
@@ -256,9 +254,9 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -282,9 +280,9 @@ class PromoteLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\In
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

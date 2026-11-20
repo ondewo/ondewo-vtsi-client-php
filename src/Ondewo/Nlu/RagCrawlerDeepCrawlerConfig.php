@@ -101,9 +101,8 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsActive($var)
+    public function setIsActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_active = $var;
 
         return $this;
@@ -113,7 +112,7 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * Optional. Crawl traversal strategy. Default <code>RAG_CRAWLER_CRAWL_STRATEGY_BEST_FIRST</code>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerCrawlStrategy crawl_strategy = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerCrawlStrategy}
      */
     public function getCrawlStrategy()
     {
@@ -124,10 +123,10 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * Optional. Crawl traversal strategy. Default <code>RAG_CRAWLER_CRAWL_STRATEGY_BEST_FIRST</code>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerCrawlStrategy crawl_strategy = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerCrawlStrategy}
      * @return $this
      */
-    public function setCrawlStrategy($var)
+    public function setCrawlStrategy(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerCrawlStrategy::class);
         $this->crawl_strategy = $var;
@@ -163,7 +162,7 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxDepth($var)
+    public function setMaxDepth(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_depth = $var;
@@ -194,7 +193,7 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setMaxPages($var)
+    public function setMaxPages(int $var)
     {
         @trigger_error('max_pages is deprecated.', E_USER_DEPRECATED);
         GPBUtil::checkInt32($var);
@@ -231,9 +230,8 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerFilters $var
      * @return $this
      */
-    public function setDeepCrawlerFilters($var)
+    public function setDeepCrawlerFilters(\Ondewo\Nlu\RagCrawlerFilters|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerFilters::class);
         $this->deep_crawler_filters = $var;
 
         return $this;
@@ -267,9 +265,8 @@ class RagCrawlerDeepCrawlerConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setNormalizeUrlCase($var)
+    public function setNormalizeUrlCase(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->normalize_url_case = $var;
 
         return $this;

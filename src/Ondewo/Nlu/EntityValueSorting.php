@@ -50,7 +50,7 @@ class EntityValueSorting extends \Google\Protobuf\Internal\Message
      * The field to sort the entity values by
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityValueSorting.EntityValueSortingField sorting_field = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityValueSorting\EntityValueSortingField}
      */
     public function getSortingField()
     {
@@ -61,10 +61,10 @@ class EntityValueSorting extends \Google\Protobuf\Internal\Message
      * The field to sort the entity values by
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityValueSorting.EntityValueSortingField sorting_field = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityValueSorting\EntityValueSortingField}
      * @return $this
      */
-    public function setSortingField($var)
+    public function setSortingField(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityValueSorting\EntityValueSortingField::class);
         $this->sorting_field = $var;
@@ -76,7 +76,7 @@ class EntityValueSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode: ascending or descending
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -87,10 +87,10 @@ class EntityValueSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode: ascending or descending
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;

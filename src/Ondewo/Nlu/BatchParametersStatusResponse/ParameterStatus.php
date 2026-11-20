@@ -58,9 +58,8 @@ class ParameterStatus extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Parameter $var
      * @return $this
      */
-    public function setParameter($var)
+    public function setParameter(\Ondewo\Nlu\Intent\Parameter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Parameter::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -89,9 +88,9 @@ class ParameterStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;

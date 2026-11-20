@@ -80,7 +80,7 @@ class ClassifyIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\IntentClassified[] $var
      * @return $this
      */
-    public function setIntentsClassified($var)
+    public function setIntentsClassified(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\IntentClassified::class);
         $this->intents_classified = $arr;
@@ -106,9 +106,9 @@ class ClassifyIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -132,9 +132,8 @@ class ClassifyIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActiveContexts($var)
+    public function setActiveContexts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active_contexts = $var;
 
         return $this;
@@ -158,7 +157,7 @@ class ClassifyIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setContextNames($var)
+    public function setContextNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->context_names = $arr;

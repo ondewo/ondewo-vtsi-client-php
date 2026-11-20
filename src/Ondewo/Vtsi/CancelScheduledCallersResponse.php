@@ -87,9 +87,9 @@ class CancelScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -117,7 +117,7 @@ class CancelScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CancelScheduledCallerResponse[] $var
      * @return $this
      */
-    public function setCancelScheduledCallerResponses($var)
+    public function setCancelScheduledCallerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CancelScheduledCallerResponse::class);
         $this->cancel_scheduled_caller_responses = $arr;
@@ -149,9 +149,9 @@ class CancelScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

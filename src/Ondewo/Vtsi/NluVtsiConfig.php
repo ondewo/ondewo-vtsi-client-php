@@ -63,6 +63,14 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
      */
     protected $platform = null;
+    /**
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
+     * values. Whether preemptive generation runs at all is set with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
+     */
+    protected $preemptive_generation_config = null;
     protected $authentication;
 
     /**
@@ -94,6 +102,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      *           http basic auth token
      *     @type int $platform
      *           Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
+     *     @type \Ondewo\Vtsi\NluPreemptiveGenerationConfig $preemptive_generation_config
+     *           Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
+     *           values. Whether preemptive generation runs at all is set with
+     *           <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -131,9 +143,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
      * @return $this
      */
-    public function setNluBaseConfig($var)
+    public function setNluBaseConfig(\Ondewo\Vtsi\BaseServiceConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\BaseServiceConfig::class);
         $this->nlu_base_config = $var;
 
         return $this;
@@ -162,9 +173,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Credentials $var
      * @return $this
      */
-    public function setCredentials($var)
+    public function setCredentials(\Ondewo\Vtsi\Credentials|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Credentials::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -193,9 +203,9 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAuthToken($var)
+    public function setAuthToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -221,9 +231,9 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentName($var)
+    public function setAgentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_name = $var;
 
         return $this;
@@ -253,9 +263,9 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -279,9 +289,9 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setInitialIntent($var)
+    public function setInitialIntent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->initial_intent = $var;
 
         return $this;
@@ -305,7 +315,7 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setContexts($var)
+    public function setContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->contexts = $arr;
@@ -331,9 +341,9 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHttpBasicAuthToken($var)
+    public function setHttpBasicAuthToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->http_basic_auth_token = $var;
 
         return $this;
@@ -343,7 +353,7 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatform()
     {
@@ -364,13 +374,52 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      * Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatform($var)
+    public function setPlatform(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platform = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
+     * values. Whether preemptive generation runs at all is set with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
+     * @return \Ondewo\Vtsi\NluPreemptiveGenerationConfig|null
+     */
+    public function getPreemptiveGenerationConfig()
+    {
+        return $this->preemptive_generation_config;
+    }
+
+    public function hasPreemptiveGenerationConfig()
+    {
+        return isset($this->preemptive_generation_config);
+    }
+
+    public function clearPreemptiveGenerationConfig()
+    {
+        unset($this->preemptive_generation_config);
+    }
+
+    /**
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
+     * values. Whether preemptive generation runs at all is set with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
+     * @param \Ondewo\Vtsi\NluPreemptiveGenerationConfig $var
+     * @return $this
+     */
+    public function setPreemptiveGenerationConfig(\Ondewo\Vtsi\NluPreemptiveGenerationConfig|null $var)
+    {
+        $this->preemptive_generation_config = $var;
 
         return $this;
     }

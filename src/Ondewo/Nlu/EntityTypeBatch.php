@@ -56,7 +56,7 @@ class EntityTypeBatch extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType[] $var
      * @return $this
      */
-    public function setEntityTypes($var)
+    public function setEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType::class);
         $this->entity_types = $arr;

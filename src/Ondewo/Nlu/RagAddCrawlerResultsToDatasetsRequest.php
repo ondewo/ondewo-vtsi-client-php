@@ -99,9 +99,9 @@ class RagAddCrawlerResultsToDatasetsRequest extends \Google\Protobuf\Internal\Me
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -125,9 +125,9 @@ class RagAddCrawlerResultsToDatasetsRequest extends \Google\Protobuf\Internal\Me
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -155,7 +155,7 @@ class RagAddCrawlerResultsToDatasetsRequest extends \Google\Protobuf\Internal\Me
      * @param string[] $var
      * @return $this
      */
-    public function setCrawlerNames($var)
+    public function setCrawlerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->crawler_names = $arr;
@@ -183,7 +183,7 @@ class RagAddCrawlerResultsToDatasetsRequest extends \Google\Protobuf\Internal\Me
      * @param string[] $var
      * @return $this
      */
-    public function setCrawlerResultNames($var)
+    public function setCrawlerResultNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->crawler_result_names = $arr;
@@ -209,7 +209,7 @@ class RagAddCrawlerResultsToDatasetsRequest extends \Google\Protobuf\Internal\Me
      * @param string[] $var
      * @return $this
      */
-    public function setDatasetIds($var)
+    public function setDatasetIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->dataset_ids = $arr;

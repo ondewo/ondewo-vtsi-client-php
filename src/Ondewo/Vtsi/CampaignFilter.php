@@ -104,7 +104,7 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * Only campaigns in one of these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 1;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignState}
      */
     public function getStates()
     {
@@ -115,10 +115,10 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * Only campaigns in one of these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignState states = 1;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignState}
      * @return $this
      */
-    public function setStates($var)
+    public function setStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignState::class);
         $this->states = $arr;
@@ -144,9 +144,9 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayNameContains($var)
+    public function setDisplayNameContains(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name_contains = $var;
 
         return $this;
@@ -172,9 +172,9 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -210,9 +210,8 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAfter($var)
+    public function setCreatedAfter(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_after = $var;
 
         return $this;
@@ -250,9 +249,8 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedBefore($var)
+    public function setCreatedBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_before = $var;
 
         return $this;
@@ -278,9 +276,9 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -318,9 +316,8 @@ class CampaignFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedSince($var)
+    public function setModifiedSince(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_since = $var;
 
         return $this;

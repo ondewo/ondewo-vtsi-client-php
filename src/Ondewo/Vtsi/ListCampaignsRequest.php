@@ -135,9 +135,9 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -171,9 +171,8 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\CampaignFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignFilter::class);
         $this->filter = $var;
 
         return $this;
@@ -203,7 +202,7 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -241,9 +240,9 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -297,9 +296,8 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -312,7 +310,7 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignOrderBy order_by = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignOrderBy}
      */
     public function getOrderBy()
     {
@@ -326,10 +324,10 @@ class ListCampaignsRequest extends \Google\Protobuf\Internal\Message
      * is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignOrderBy order_by = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignOrderBy}
      * @return $this
      */
-    public function setOrderBy($var)
+    public function setOrderBy(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignOrderBy::class);
         $this->order_by = $var;

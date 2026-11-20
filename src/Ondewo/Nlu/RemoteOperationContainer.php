@@ -221,9 +221,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
 
         return $this;
@@ -247,9 +247,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerName($var)
+    public function setContainerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_name = $var;
 
         return $this;
@@ -273,9 +273,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHostName($var)
+    public function setHostName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->host_name = $var;
 
         return $this;
@@ -285,7 +285,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * The last-known lifecycle state of the container.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RemoteOperationContainerLifecycleState lifecycle_state = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RemoteOperationContainerLifecycleState}
      */
     public function getLifecycleState()
     {
@@ -296,10 +296,10 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * The last-known lifecycle state of the container.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RemoteOperationContainerLifecycleState lifecycle_state = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RemoteOperationContainerLifecycleState}
      * @return $this
      */
-    public function setLifecycleState($var)
+    public function setLifecycleState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RemoteOperationContainerLifecycleState::class);
         $this->lifecycle_state = $var;
@@ -327,9 +327,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOperationName($var)
+    public function setOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->operation_name = $var;
 
         return $this;
@@ -353,9 +353,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setImage($var)
+    public function setImage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->image = $var;
 
         return $this;
@@ -381,9 +381,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhase($var)
+    public function setPhase(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->phase = $var;
 
         return $this;
@@ -407,7 +407,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setExitCode($var)
+    public function setExitCode(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->exit_code = $var;
@@ -433,9 +433,8 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setOomKilled($var)
+    public function setOomKilled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->oom_killed = $var;
 
         return $this;
@@ -469,9 +468,8 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartedAt($var)
+    public function setStartedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->started_at = $var;
 
         return $this;
@@ -505,9 +503,8 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setFinishedAt($var)
+    public function setFinishedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->finished_at = $var;
 
         return $this;
@@ -533,9 +530,8 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setLogsAvailable($var)
+    public function setLogsAvailable(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->logs_available = $var;
 
         return $this;
@@ -565,7 +561,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setEnvironmentVariables($var)
+    public function setEnvironmentVariables(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->environment_variables = $arr;
@@ -591,7 +587,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCommand($var)
+    public function setCommand(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->command = $arr;
@@ -619,7 +615,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setMemoryLimitBytes($var)
+    public function setMemoryLimitBytes(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->memory_limit_bytes = $var;
@@ -647,7 +643,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setNanoCpus($var)
+    public function setNanoCpus(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->nano_cpus = $var;
@@ -673,9 +669,9 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCpusetCpus($var)
+    public function setCpusetCpus(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cpuset_cpus = $var;
 
         return $this;
@@ -701,7 +697,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCpuQuota($var)
+    public function setCpuQuota(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->cpu_quota = $var;
@@ -727,7 +723,7 @@ class RemoteOperationContainer extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCpuPeriod($var)
+    public function setCpuPeriod(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->cpu_period = $var;

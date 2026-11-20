@@ -64,7 +64,7 @@ class CleanAllIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent[] $var
      * @return $this
      */
-    public function setCleanedIntents($var)
+    public function setCleanedIntents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent::class);
         $this->cleaned_intents = $arr;
@@ -90,7 +90,7 @@ class CleanAllIntentsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\IntentUpdate[] $var
      * @return $this
      */
-    public function setIntentUpdateList($var)
+    public function setIntentUpdateList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\IntentUpdate::class);
         $this->intent_update_list = $arr;

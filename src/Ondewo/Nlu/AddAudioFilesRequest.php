@@ -88,9 +88,9 @@ class AddAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -116,9 +116,9 @@ class AddAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -142,7 +142,7 @@ class AddAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AudioFileResource[] $var
      * @return $this
      */
-    public function setAudioFileResources($var)
+    public function setAudioFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AudioFileResource::class);
         $this->audio_file_resources = $arr;
@@ -170,9 +170,9 @@ class AddAudioFilesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepId($var)
+    public function setSessionStepId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_id = $var;
 
         return $this;

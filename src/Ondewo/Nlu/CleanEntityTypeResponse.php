@@ -74,9 +74,8 @@ class CleanEntityTypeResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType $var
      * @return $this
      */
-    public function setCleanedEntityType($var)
+    public function setCleanedEntityType(\Ondewo\Nlu\EntityType|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType::class);
         $this->cleaned_entity_type = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class CleanEntityTypeResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeUpdate $var
      * @return $this
      */
-    public function setEntityTypeUpdate($var)
+    public function setEntityTypeUpdate(\Ondewo\Nlu\EntityTypeUpdate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityTypeUpdate::class);
         $this->entity_type_update = $var;
 
         return $this;

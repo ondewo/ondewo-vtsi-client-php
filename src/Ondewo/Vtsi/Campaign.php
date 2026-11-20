@@ -526,9 +526,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -552,9 +552,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignId($var)
+    public function setCampaignId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_id = $var;
 
         return $this;
@@ -580,9 +580,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -608,9 +608,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -644,7 +644,7 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxParallelCalls($var)
+    public function setMaxParallelCalls(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_parallel_calls = $var;
@@ -686,7 +686,7 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxAttempts($var)
+    public function setMaxAttempts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_attempts = $var;
@@ -728,9 +728,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Duration $var
      * @return $this
      */
-    public function setRetryDelay($var)
+    public function setRetryDelay(\Google\Protobuf\Duration|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Duration::class);
         $this->retry_delay = $var;
 
         return $this;
@@ -740,7 +739,7 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * Output only. Lifecycle state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignState state = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignState}
      */
     public function getState()
     {
@@ -751,10 +750,10 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * Output only. Lifecycle state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignState state = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignState}
      * @return $this
      */
-    public function setState($var)
+    public function setState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignState::class);
         $this->state = $var;
@@ -784,9 +783,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStateReason($var)
+    public function setStateReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->state_reason = $var;
 
         return $this;
@@ -820,9 +819,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignStatistics $var
      * @return $this
      */
-    public function setStatistics($var)
+    public function setStatistics(\Ondewo\Vtsi\CampaignStatistics|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignStatistics::class);
         $this->statistics = $var;
 
         return $this;
@@ -846,9 +844,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -882,9 +880,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -908,9 +905,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -944,9 +941,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -980,9 +976,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartedAt($var)
+    public function setStartedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->started_at = $var;
 
         return $this;
@@ -1016,9 +1011,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStoppedAt($var)
+    public function setStoppedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->stopped_at = $var;
 
         return $this;
@@ -1052,9 +1046,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCompletedAt($var)
+    public function setCompletedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->completed_at = $var;
 
         return $this;
@@ -1184,9 +1177,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
      * @return $this
      */
-    public function setCampaignCommonServicesConfig($var)
+    public function setCampaignCommonServicesConfig(\Ondewo\Vtsi\CommonServicesConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->campaign_common_services_config = $var;
 
         return $this;
@@ -1264,9 +1256,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipCallerConfig $var
      * @return $this
      */
-    public function setCampaignSipCallerConfig($var)
+    public function setCampaignSipCallerConfig(\Ondewo\Vtsi\SipCallerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipCallerConfig::class);
         $this->campaign_sip_caller_config = $var;
 
         return $this;
@@ -1352,7 +1343,7 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignCallers($var)
+    public function setCampaignCallers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_callers = $arr;
@@ -1392,9 +1383,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setCampaignCallersTruncated($var)
+    public function setCampaignCallersTruncated(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->campaign_callers_truncated = $var;
 
         return $this;
@@ -1448,9 +1438,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignCallingWindow $var
      * @return $this
      */
-    public function setCallingWindow($var)
+    public function setCallingWindow(\Ondewo\Vtsi\CampaignCallingWindow|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignCallingWindow::class);
         $this->calling_window = $var;
 
         return $this;
@@ -1484,9 +1473,8 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setOutsideCallingWindow($var)
+    public function setOutsideCallingWindow(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->outside_calling_window = $var;
 
         return $this;

@@ -128,7 +128,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -140,7 +140,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Origins of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationOrigin notification_origins = 2;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\NotificationOrigin}
      */
     public function getNotificationOrigins()
     {
@@ -151,10 +151,10 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Origins of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationOrigin notification_origins = 2;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\NotificationOrigin}
      * @return $this
      */
-    public function setNotificationOrigins($var)
+    public function setNotificationOrigins(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\NotificationOrigin::class);
         $this->notification_origins = $arr;
@@ -166,7 +166,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Visibilities of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationVisibility notification_visibilities = 3;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\NotificationVisibility}
      */
     public function getNotificationVisibilities()
     {
@@ -177,10 +177,10 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Visibilities of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationVisibility notification_visibilities = 3;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\NotificationVisibility}
      * @return $this
      */
-    public function setNotificationVisibilities($var)
+    public function setNotificationVisibilities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\NotificationVisibility::class);
         $this->notification_visibilities = $arr;
@@ -192,7 +192,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Flagged status of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationFlaggedStatus notification_flagged_status = 4;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\NotificationFlaggedStatus}
      */
     public function getNotificationFlaggedStatus()
     {
@@ -203,10 +203,10 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Flagged status of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationFlaggedStatus notification_flagged_status = 4;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\NotificationFlaggedStatus}
      * @return $this
      */
-    public function setNotificationFlaggedStatus($var)
+    public function setNotificationFlaggedStatus(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\NotificationFlaggedStatus::class);
         $this->notification_flagged_status = $arr;
@@ -218,7 +218,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Read status of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationReadStatus notification_read_status = 5;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\NotificationReadStatus}
      */
     public function getNotificationReadStatus()
     {
@@ -229,10 +229,10 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Read status of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationReadStatus notification_read_status = 5;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\NotificationReadStatus}
      * @return $this
      */
-    public function setNotificationReadStatus($var)
+    public function setNotificationReadStatus(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\NotificationReadStatus::class);
         $this->notification_read_status = $arr;
@@ -268,9 +268,8 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEarliest($var)
+    public function setEarliest(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->earliest = $var;
 
         return $this;
@@ -304,9 +303,8 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLatest($var)
+    public function setLatest(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->latest = $var;
 
         return $this;
@@ -330,7 +328,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setUserNames($var)
+    public function setUserNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->user_names = $arr;
@@ -356,7 +354,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setOriginNames($var)
+    public function setOriginNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->origin_names = $arr;
@@ -368,7 +366,7 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Types of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationType notification_types = 10;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\NotificationType}
      */
     public function getNotificationTypes()
     {
@@ -379,10 +377,10 @@ class NotificationFilter extends \Google\Protobuf\Internal\Message
      * Types of the notifications to filter.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.NotificationType notification_types = 10;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\NotificationType}
      * @return $this
      */
-    public function setNotificationTypes($var)
+    public function setNotificationTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\NotificationType::class);
         $this->notification_types = $arr;

@@ -116,9 +116,8 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DataEnrichmentConfig $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Ondewo\Nlu\DataEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DataEnrichmentConfig::class);
         $this->config = $var;
 
         return $this;
@@ -142,9 +141,9 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSentence($var)
+    public function setSentence(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sentence = $var;
 
         return $this;
@@ -168,9 +167,9 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -196,9 +195,9 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -222,7 +221,7 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setProtectedWords($var)
+    public function setProtectedWords(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->protected_words = $arr;
@@ -248,7 +247,7 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setWordsToChange($var)
+    public function setWordsToChange(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->words_to_change = $arr;
@@ -284,9 +283,8 @@ class GetAlternativeSentencesRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

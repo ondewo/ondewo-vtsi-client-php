@@ -132,9 +132,9 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -190,9 +190,9 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSpecialCharacters($var)
+    public function setSpecialCharacters(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->special_characters = $var;
 
         return $this;
@@ -218,7 +218,7 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSubstringWhiteList($var)
+    public function setSubstringWhiteList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->substring_white_list = $arr;
@@ -248,7 +248,7 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxEntityCountUpdate($var)
+    public function setMaxEntityCountUpdate(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_entity_count_update = $var;
@@ -278,7 +278,7 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setForbiddenEntityTypePatterns($var)
+    public function setForbiddenEntityTypePatterns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->forbidden_entity_type_patterns = $arr;
@@ -304,9 +304,8 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDryRun($var)
+    public function setDryRun(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->dry_run = $var;
 
         return $this;
@@ -330,7 +329,7 @@ class CleanAllEntityTypesRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNumberOfWorkers($var)
+    public function setNumberOfWorkers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->number_of_workers = $var;

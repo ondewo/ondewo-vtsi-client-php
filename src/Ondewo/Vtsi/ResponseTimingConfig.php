@@ -37,7 +37,11 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      */
     protected $soft_timeout_config = null;
     /**
-     * Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
+     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
+     * setting, which is true unless changed). Still honoured when it is set alone; set together with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
+     * with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      */
@@ -64,7 +68,11 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\SoftTimeoutConfig $soft_timeout_config
      *           Configuration of the soft timeout filler messages
      *     @type bool $preemptive_generation_enabled
-     *           Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)
+     *           Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
+     *           Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
+     *           setting, which is true unless changed). Still honoured when it is set alone; set together with
+     *           <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
+     *           with <code>INVALID_ARGUMENT</code>
      *     @type bool $t2s_chunked_streaming_enabled
      *           Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)
      * }
@@ -104,9 +112,8 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTurnTimeoutSeconds($var)
+    public function setTurnTimeoutSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->turn_timeout_seconds = $var;
 
         return $this;
@@ -142,9 +149,8 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSilenceEndCallTimeoutSeconds($var)
+    public function setSilenceEndCallTimeoutSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->silence_end_call_timeout_seconds = $var;
 
         return $this;
@@ -178,16 +184,19 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SoftTimeoutConfig $var
      * @return $this
      */
-    public function setSoftTimeoutConfig($var)
+    public function setSoftTimeoutConfig(\Ondewo\Vtsi\SoftTimeoutConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftTimeoutConfig::class);
         $this->soft_timeout_config = $var;
 
         return $this;
     }
 
     /**
-     * Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
+     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
+     * setting, which is true unless changed). Still honoured when it is set alone; set together with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
+     * with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      * @return bool
@@ -208,15 +217,18 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable preemptive response generation on an eagerly detected end of turn (default: false)
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
+     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
+     * setting, which is true unless changed). Still honoured when it is set alone; set together with
+     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
+     * with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      * @param bool $var
      * @return $this
      */
-    public function setPreemptiveGenerationEnabled($var)
+    public function setPreemptiveGenerationEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->preemptive_generation_enabled = $var;
 
         return $this;
@@ -250,9 +262,8 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setT2SChunkedStreamingEnabled($var)
+    public function setT2SChunkedStreamingEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->t2s_chunked_streaming_enabled = $var;
 
         return $this;

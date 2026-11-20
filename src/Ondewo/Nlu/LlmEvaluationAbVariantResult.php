@@ -96,9 +96,9 @@ class LlmEvaluationAbVariantResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVariantId($var)
+    public function setVariantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->variant_id = $var;
 
         return $this;
@@ -122,7 +122,7 @@ class LlmEvaluationAbVariantResult extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setSessionCount($var)
+    public function setSessionCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->session_count = $var;
@@ -172,9 +172,8 @@ class LlmEvaluationAbVariantResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setTelemetry($var)
+    public function setTelemetry(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->telemetry = $var;
 
         return $this;
@@ -210,9 +209,8 @@ class LlmEvaluationAbVariantResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setDerivedMetrics($var)
+    public function setDerivedMetrics(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->derived_metrics = $var;
 
         return $this;

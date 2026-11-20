@@ -80,7 +80,7 @@ class RagRetrievalResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagChunk[] $var
      * @return $this
      */
-    public function setChunks($var)
+    public function setChunks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagChunk::class);
         $this->chunks = $arr;
@@ -106,7 +106,7 @@ class RagRetrievalResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagDocAgg[] $var
      * @return $this
      */
-    public function setDocAggs($var)
+    public function setDocAggs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagDocAgg::class);
         $this->doc_aggs = $arr;
@@ -132,7 +132,7 @@ class RagRetrievalResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;
@@ -158,9 +158,9 @@ class RagRetrievalResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

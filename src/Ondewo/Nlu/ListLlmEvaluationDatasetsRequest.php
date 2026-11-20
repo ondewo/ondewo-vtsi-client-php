@@ -112,9 +112,9 @@ class ListLlmEvaluationDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -156,9 +156,9 @@ class ListLlmEvaluationDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -194,9 +194,8 @@ class ListLlmEvaluationDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -220,9 +219,9 @@ class ListLlmEvaluationDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -256,9 +255,8 @@ class ListLlmEvaluationDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationDatasetFilter $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetFilter($var)
+    public function setLlmEvaluationDatasetFilter(\Ondewo\Nlu\LlmEvaluationDatasetFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationDatasetFilter::class);
         $this->llm_evaluation_dataset_filter = $var;
 
         return $this;

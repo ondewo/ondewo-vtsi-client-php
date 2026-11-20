@@ -74,9 +74,8 @@ class AltTrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase $var
      * @return $this
      */
-    public function setTrainingPhrase($var)
+    public function setTrainingPhrase(\Ondewo\Nlu\Intent\TrainingPhrase|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->training_phrase = $var;
 
         return $this;
@@ -100,9 +99,8 @@ class AltTrainingPhrase extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;

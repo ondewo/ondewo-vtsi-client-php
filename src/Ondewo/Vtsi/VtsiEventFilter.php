@@ -97,7 +97,7 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getEvents()
     {
@@ -111,10 +111,10 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent events = 1;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setEvents($var)
+    public function setEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
         $this->events = $arr;
@@ -144,7 +144,7 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setResourceNamePrefixes($var)
+    public function setResourceNamePrefixes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->resource_name_prefixes = $arr;
@@ -172,7 +172,7 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignNames($var)
+    public function setCampaignNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_names = $arr;
@@ -202,9 +202,8 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllEvents($var)
+    public function setAllEvents(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->all_events = $var;
 
         return $this;
@@ -215,7 +214,7 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getExcludedEvents()
     {
@@ -227,10 +226,10 @@ class VtsiEventFilter extends \Google\Protobuf\Internal\Message
      * Same semantics and limits as <code>VtsiEventSubscription.excluded_events</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiEvent excluded_events = 5;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setExcludedEvents($var)
+    public function setExcludedEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiEvent::class);
         $this->excluded_events = $arr;

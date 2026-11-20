@@ -134,7 +134,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CreateVtsiEventSubscriptionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\VtsiEventSubscription>
      */
     public function CreateVtsiEventSubscription(\Ondewo\Vtsi\CreateVtsiEventSubscriptionRequest $argument,
       $metadata = [], $options = []) {
@@ -151,7 +151,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetVtsiEventSubscriptionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\VtsiEventSubscription>
      */
     public function GetVtsiEventSubscription(\Ondewo\Vtsi\GetVtsiEventSubscriptionRequest $argument,
       $metadata = [], $options = []) {
@@ -176,7 +176,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateVtsiEventSubscriptionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\VtsiEventSubscription>
      */
     public function UpdateVtsiEventSubscription(\Ondewo\Vtsi\UpdateVtsiEventSubscriptionRequest $argument,
       $metadata = [], $options = []) {
@@ -196,7 +196,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteVtsiEventSubscriptionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteVtsiEventSubscriptionResponse>
      */
     public function DeleteVtsiEventSubscription(\Ondewo\Vtsi\DeleteVtsiEventSubscriptionRequest $argument,
       $metadata = [], $options = []) {
@@ -214,7 +214,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListVtsiEventSubscriptionsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListVtsiEventSubscriptionsResponse>
      */
     public function ListVtsiEventSubscriptions(\Ondewo\Vtsi\ListVtsiEventSubscriptionsRequest $argument,
       $metadata = [], $options = []) {
@@ -243,7 +243,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CreateWebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Webhook>
      */
     public function CreateWebhook(\Ondewo\Vtsi\CreateWebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -260,7 +260,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetWebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Webhook>
      */
     public function GetWebhook(\Ondewo\Vtsi\GetWebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -293,7 +293,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateWebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\Webhook>
      */
     public function UpdateWebhook(\Ondewo\Vtsi\UpdateWebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -312,7 +312,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteWebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteWebhookResponse>
      */
     public function DeleteWebhook(\Ondewo\Vtsi\DeleteWebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -331,7 +331,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListWebhooksRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListWebhooksResponse>
      */
     public function ListWebhooks(\Ondewo\Vtsi\ListWebhooksRequest $argument,
       $metadata = [], $options = []) {
@@ -354,7 +354,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\TestWebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\TestWebhookResponse>
      */
     public function TestWebhook(\Ondewo\Vtsi\TestWebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -390,7 +390,7 @@ class EventsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RedeliverWebhookEventsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\RedeliverWebhookEventsResponse>
      */
     public function RedeliverWebhookEvents(\Ondewo\Vtsi\RedeliverWebhookEventsRequest $argument,
       $metadata = [], $options = []) {

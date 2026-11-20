@@ -28,6 +28,12 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.t2s.RequestConfig t2s_request_config = 2;</code>
      */
     protected $t2s_request_config = null;
+    /**
+     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
+     */
+    protected $preemptive_synthesis_config = null;
 
     /**
      * Constructor.
@@ -39,6 +45,8 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
      *           Host, Port, and [Optional] GRPC cert
      *     @type \Ondewo\T2s\RequestConfig $t2s_request_config
      *           Configuration of Text-2-Speech
+     *     @type \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig $preemptive_synthesis_config
+     *           Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
      * }
      */
     public function __construct($data = NULL) {
@@ -74,9 +82,8 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
      * @return $this
      */
-    public function setT2SBaseConfig($var)
+    public function setT2SBaseConfig(\Ondewo\Vtsi\BaseServiceConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\BaseServiceConfig::class);
         $this->t2s_base_config = $var;
 
         return $this;
@@ -110,10 +117,44 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\T2s\RequestConfig $var
      * @return $this
      */
-    public function setT2SRequestConfig($var)
+    public function setT2SRequestConfig(\Ondewo\T2s\RequestConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\T2s\RequestConfig::class);
         $this->t2s_request_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
+     * @return \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig|null
+     */
+    public function getPreemptiveSynthesisConfig()
+    {
+        return $this->preemptive_synthesis_config;
+    }
+
+    public function hasPreemptiveSynthesisConfig()
+    {
+        return isset($this->preemptive_synthesis_config);
+    }
+
+    public function clearPreemptiveSynthesisConfig()
+    {
+        unset($this->preemptive_synthesis_config);
+    }
+
+    /**
+     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
+     * @param \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig $var
+     * @return $this
+     */
+    public function setPreemptiveSynthesisConfig(\Ondewo\Vtsi\T2sPreemptiveSynthesisConfig|null $var)
+    {
+        $this->preemptive_synthesis_config = $var;
 
         return $this;
     }

@@ -40,7 +40,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
     protected $vtsi_project_name = '';
     /**
      * The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
-     * call, project, softphone account).
+     * call, project, softphone account, IVR menu).
      *
      * Generated from protobuf field <code>string resource_name = 4;</code>
      */
@@ -131,7 +131,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type string $resource_name
      *           The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
-     *           call, project, softphone account).
+     *           call, project, softphone account, IVR menu).
      *     @type \Google\Protobuf\Timestamp $event_time
      *           When the event happened.
      *     @type int $sip_status_type
@@ -189,9 +189,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEventId($var)
+    public function setEventId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->event_id = $var;
 
         return $this;
@@ -201,7 +201,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * The event.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent event = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      */
     public function getEvent()
     {
@@ -212,10 +212,10 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * The event.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiEvent event = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiEvent}
      * @return $this
      */
-    public function setEvent($var)
+    public function setEvent(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiEvent::class);
         $this->event = $var;
@@ -243,9 +243,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -253,7 +253,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
 
     /**
      * The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
-     * call, project, softphone account).
+     * call, project, softphone account, IVR menu).
      *
      * Generated from protobuf field <code>string resource_name = 4;</code>
      * @return string
@@ -265,15 +265,15 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
 
     /**
      * The resource the event is about (call, caller, listener, scheduled caller, campaign, campaign
-     * call, project, softphone account).
+     * call, project, softphone account, IVR menu).
      *
      * Generated from protobuf field <code>string resource_name = 4;</code>
      * @param string $var
      * @return $this
      */
-    public function setResourceName($var)
+    public function setResourceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resource_name = $var;
 
         return $this;
@@ -307,9 +307,8 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEventTime($var)
+    public function setEventTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->event_time = $var;
 
         return $this;
@@ -319,7 +318,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * SIP status after the change, for call and campaign call events.
      *
      * Generated from protobuf field <code>optional .ondewo.sip.SipStatus.StatusType sip_status_type = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -340,10 +339,10 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * SIP status after the change, for call and campaign call events.
      *
      * Generated from protobuf field <code>optional .ondewo.sip.SipStatus.StatusType sip_status_type = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -369,9 +368,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipStatusDescription($var)
+    public function setSipStatusDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_status_description = $var;
 
         return $this;
@@ -381,7 +380,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * SIP status before the change, for <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.sip.SipStatus.StatusType previous_sip_status_type = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getPreviousSipStatusType()
     {
@@ -402,10 +401,10 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * SIP status before the change, for <code>VTSI_EVENT_CALL_SIP_STATUS_CHANGED</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.sip.SipStatus.StatusType previous_sip_status_type = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setPreviousSipStatusType($var)
+    public function setPreviousSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->previous_sip_status_type = $var;
@@ -431,9 +430,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -457,9 +456,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -483,9 +482,9 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -517,7 +516,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setAttributes($var)
+    public function setAttributes(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->attributes = $arr;
@@ -553,9 +552,8 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignStatistics $var
      * @return $this
      */
-    public function setCampaignStatistics($var)
+    public function setCampaignStatistics(\Ondewo\Vtsi\CampaignStatistics|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignStatistics::class);
         $this->campaign_statistics = $var;
 
         return $this;
@@ -587,7 +585,7 @@ class VtsiEventMessage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setResourceSequence($var)
+    public function setResourceSequence(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->resource_sequence = $var;

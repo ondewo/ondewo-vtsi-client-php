@@ -124,9 +124,9 @@ class RagVariantConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setChatAssistantLlmCcaiServiceName($var)
+    public function setChatAssistantLlmCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->chat_assistant_llm_ccai_service_name = $var;
 
         return $this;
@@ -152,7 +152,7 @@ class RagVariantConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTopK($var)
+    public function setTopK(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->top_k = $var;
@@ -182,9 +182,8 @@ class RagVariantConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSimilarityThreshold($var)
+    public function setSimilarityThreshold(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->similarity_threshold = $var;
 
         return $this;
@@ -212,9 +211,8 @@ class RagVariantConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setVectorSimilarityWeight($var)
+    public function setVectorSimilarityWeight(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->vector_similarity_weight = $var;
 
         return $this;
@@ -246,9 +244,9 @@ class RagVariantConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRerankModelCcaiServiceName($var)
+    public function setRerankModelCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->rerank_model_ccai_service_name = $var;
 
         return $this;

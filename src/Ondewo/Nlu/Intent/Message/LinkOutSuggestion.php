@@ -66,9 +66,9 @@ class LinkOutSuggestion extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDestinationName($var)
+    public function setDestinationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->destination_name = $var;
 
         return $this;
@@ -94,9 +94,9 @@ class LinkOutSuggestion extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUri($var)
+    public function setUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->uri = $var;
 
         return $this;

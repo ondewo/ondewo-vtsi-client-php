@@ -148,9 +148,9 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -174,9 +174,9 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -202,9 +202,9 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setCrawlerName($var)
+    public function setCrawlerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->crawler_name = $var;
 
         return $this;
@@ -230,7 +230,7 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -284,9 +284,9 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -320,9 +320,8 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -346,9 +345,9 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setOrderby($var)
+    public function setOrderby(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->orderby = $var;
 
         return $this;
@@ -358,7 +357,7 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * Optional. Sort descending (default: <code>SORTING_MODE_DESCENDING</code>).
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -379,10 +378,10 @@ class RagGetCrawlerAttachedDatasetsRequest extends \Google\Protobuf\Internal\Mes
      * Optional. Sort descending (default: <code>SORTING_MODE_DESCENDING</code>).
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;

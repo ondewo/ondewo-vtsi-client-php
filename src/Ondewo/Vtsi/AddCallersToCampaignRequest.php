@@ -100,9 +100,9 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -126,7 +126,7 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\StartCallerRequest[] $var
      * @return $this
      */
-    public function setCallerRequests($var)
+    public function setCallerRequests(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\StartCallerRequest::class);
         $this->caller_requests = $arr;
@@ -162,9 +162,8 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignAssignment $var
      * @return $this
      */
-    public function setCampaignAssignment($var)
+    public function setCampaignAssignment(\Ondewo\Vtsi\CampaignAssignment|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CampaignAssignment::class);
         $this->campaign_assignment = $var;
 
         return $this;
@@ -204,9 +203,9 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdempotencyKey($var)
+    public function setIdempotencyKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->idempotency_key = $var;
 
         return $this;

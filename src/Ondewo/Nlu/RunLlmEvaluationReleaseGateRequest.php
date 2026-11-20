@@ -104,9 +104,9 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -132,9 +132,9 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -158,9 +158,9 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -186,7 +186,7 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string[] $var
      * @return $this
      */
-    public function setCcaiServiceNames($var)
+    public function setCcaiServiceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->ccai_service_names = $arr;
@@ -212,9 +212,9 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setGitSha($var)
+    public function setGitSha(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->git_sha = $var;
 
         return $this;
@@ -238,9 +238,9 @@ class RunLlmEvaluationReleaseGateRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setPromptVersion($var)
+    public function setPromptVersion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->prompt_version = $var;
 
         return $this;

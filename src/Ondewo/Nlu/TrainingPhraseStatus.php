@@ -58,9 +58,8 @@ class TrainingPhraseStatus extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase $var
      * @return $this
      */
-    public function setTrainingPhrase($var)
+    public function setTrainingPhrase(\Ondewo\Nlu\Intent\TrainingPhrase|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -89,9 +88,9 @@ class TrainingPhraseStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;

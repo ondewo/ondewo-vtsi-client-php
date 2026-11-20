@@ -44,6 +44,27 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.rpc.Status webhook_status = 4;</code>
      */
     protected $webhook_status = null;
+    /**
+     * Set on the response that acknowledges a <code>CancelTurn</code> or a <code>DiscardDraft</code> sent as
+     * <code>StreamingDetectIntentRequest.turn_control</code>; a <code>HeardReport</code> is not acknowledged on the
+     * stream. A response that carries it carries no query result and is never an answer. The acknowledgement of a
+     * <code>CancelTurn</code> is sent after every other response of the cancelled turn, so no response of that turn
+     * follows it. The acknowledgement of a <code>DiscardDraft</code> is sent once the discard is decided, between
+     * turns, with the draft's <code>response_id</code> and no <code>client_turn_id</code>:
+     * <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code> when the draft's session step was deleted,
+     * <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code> when no step was deleted. Not part of
+     * <code>telemetry_event</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControlAck turn_control_ack = 12;</code>
+     */
+    protected $turn_control_ack = null;
+    /**
+     * Echo of <code>StreamingDetectIntentRequest.client_turn_id</code> of the turn this response belongs to; empty
+     * when the client sent none.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 13;</code>
+     */
+    protected $client_turn_id = '';
     protected $telemetry_event;
 
     /**
@@ -75,6 +96,19 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      *           Emitted when the running LLM token-usage totals are updated.
      *     @type \Ondewo\Nlu\LlmAgentNodeEvent $llm_agent_node_event
      *           Emitted when a node of an AI Team graph starts, completes or fails.
+     *     @type \Ondewo\Nlu\TurnControlAck $turn_control_ack
+     *           Set on the response that acknowledges a <code>CancelTurn</code> or a <code>DiscardDraft</code> sent as
+     *           <code>StreamingDetectIntentRequest.turn_control</code>; a <code>HeardReport</code> is not acknowledged on the
+     *           stream. A response that carries it carries no query result and is never an answer. The acknowledgement of a
+     *           <code>CancelTurn</code> is sent after every other response of the cancelled turn, so no response of that turn
+     *           follows it. The acknowledgement of a <code>DiscardDraft</code> is sent once the discard is decided, between
+     *           turns, with the draft's <code>response_id</code> and no <code>client_turn_id</code>:
+     *           <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code> when the draft's session step was deleted,
+     *           <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code> when no step was deleted. Not part of
+     *           <code>telemetry_event</code>.
+     *     @type string $client_turn_id
+     *           Echo of <code>StreamingDetectIntentRequest.client_turn_id</code> of the turn this response belongs to; empty
+     *           when the client sent none.
      * }
      */
     public function __construct($data = NULL) {
@@ -102,9 +136,9 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResponseId($var)
+    public function setResponseId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->response_id = $var;
 
         return $this;
@@ -138,9 +172,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\StreamingRecognitionResult $var
      * @return $this
      */
-    public function setRecognitionResult($var)
+    public function setRecognitionResult(\Ondewo\Nlu\StreamingRecognitionResult|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\StreamingRecognitionResult::class);
         $this->recognition_result = $var;
 
         return $this;
@@ -174,9 +207,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryResult $var
      * @return $this
      */
-    public function setQueryResult($var)
+    public function setQueryResult(\Ondewo\Nlu\QueryResult|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryResult::class);
         $this->query_result = $var;
 
         return $this;
@@ -210,9 +242,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Rpc\Status $var
      * @return $this
      */
-    public function setWebhookStatus($var)
+    public function setWebhookStatus(\Google\Rpc\Status|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Rpc\Status::class);
         $this->webhook_status = $var;
 
         return $this;
@@ -241,9 +272,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmCallStartedEvent $var
      * @return $this
      */
-    public function setLlmCallStarted($var)
+    public function setLlmCallStarted(\Ondewo\Nlu\LlmCallStartedEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmCallStartedEvent::class);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -272,9 +302,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmCallFinishedEvent $var
      * @return $this
      */
-    public function setLlmCallFinished($var)
+    public function setLlmCallFinished(\Ondewo\Nlu\LlmCallFinishedEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmCallFinishedEvent::class);
         $this->writeOneof(6, $var);
 
         return $this;
@@ -303,9 +332,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmToolCallStartedEvent $var
      * @return $this
      */
-    public function setLlmToolCallStarted($var)
+    public function setLlmToolCallStarted(\Ondewo\Nlu\LlmToolCallStartedEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmToolCallStartedEvent::class);
         $this->writeOneof(7, $var);
 
         return $this;
@@ -334,9 +362,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmToolCallFinishedEvent $var
      * @return $this
      */
-    public function setLlmToolCallFinished($var)
+    public function setLlmToolCallFinished(\Ondewo\Nlu\LlmToolCallFinishedEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmToolCallFinishedEvent::class);
         $this->writeOneof(8, $var);
 
         return $this;
@@ -365,9 +392,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmThinkingDeltaEvent $var
      * @return $this
      */
-    public function setLlmThinkingDelta($var)
+    public function setLlmThinkingDelta(\Ondewo\Nlu\LlmThinkingDeltaEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmThinkingDeltaEvent::class);
         $this->writeOneof(9, $var);
 
         return $this;
@@ -396,9 +422,8 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsageUpdateEvent $var
      * @return $this
      */
-    public function setLlmTokenUsageUpdate($var)
+    public function setLlmTokenUsageUpdate(\Ondewo\Nlu\LlmTokenUsageUpdateEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsageUpdateEvent::class);
         $this->writeOneof(10, $var);
 
         return $this;
@@ -427,10 +452,88 @@ class StreamingDetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmAgentNodeEvent $var
      * @return $this
      */
-    public function setLlmAgentNodeEvent($var)
+    public function setLlmAgentNodeEvent(\Ondewo\Nlu\LlmAgentNodeEvent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmAgentNodeEvent::class);
         $this->writeOneof(11, $var);
+
+        return $this;
+    }
+
+    /**
+     * Set on the response that acknowledges a <code>CancelTurn</code> or a <code>DiscardDraft</code> sent as
+     * <code>StreamingDetectIntentRequest.turn_control</code>; a <code>HeardReport</code> is not acknowledged on the
+     * stream. A response that carries it carries no query result and is never an answer. The acknowledgement of a
+     * <code>CancelTurn</code> is sent after every other response of the cancelled turn, so no response of that turn
+     * follows it. The acknowledgement of a <code>DiscardDraft</code> is sent once the discard is decided, between
+     * turns, with the draft's <code>response_id</code> and no <code>client_turn_id</code>:
+     * <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code> when the draft's session step was deleted,
+     * <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code> when no step was deleted. Not part of
+     * <code>telemetry_event</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControlAck turn_control_ack = 12;</code>
+     * @return \Ondewo\Nlu\TurnControlAck|null
+     */
+    public function getTurnControlAck()
+    {
+        return $this->turn_control_ack;
+    }
+
+    public function hasTurnControlAck()
+    {
+        return isset($this->turn_control_ack);
+    }
+
+    public function clearTurnControlAck()
+    {
+        unset($this->turn_control_ack);
+    }
+
+    /**
+     * Set on the response that acknowledges a <code>CancelTurn</code> or a <code>DiscardDraft</code> sent as
+     * <code>StreamingDetectIntentRequest.turn_control</code>; a <code>HeardReport</code> is not acknowledged on the
+     * stream. A response that carries it carries no query result and is never an answer. The acknowledgement of a
+     * <code>CancelTurn</code> is sent after every other response of the cancelled turn, so no response of that turn
+     * follows it. The acknowledgement of a <code>DiscardDraft</code> is sent once the discard is decided, between
+     * turns, with the draft's <code>response_id</code> and no <code>client_turn_id</code>:
+     * <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code> when the draft's session step was deleted,
+     * <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code> when no step was deleted. Not part of
+     * <code>telemetry_event</code>.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControlAck turn_control_ack = 12;</code>
+     * @param \Ondewo\Nlu\TurnControlAck $var
+     * @return $this
+     */
+    public function setTurnControlAck(\Ondewo\Nlu\TurnControlAck|null $var)
+    {
+        $this->turn_control_ack = $var;
+
+        return $this;
+    }
+
+    /**
+     * Echo of <code>StreamingDetectIntentRequest.client_turn_id</code> of the turn this response belongs to; empty
+     * when the client sent none.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 13;</code>
+     * @return string
+     */
+    public function getClientTurnId()
+    {
+        return $this->client_turn_id;
+    }
+
+    /**
+     * Echo of <code>StreamingDetectIntentRequest.client_turn_id</code> of the turn this response belongs to; empty
+     * when the client sent none.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 13;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setClientTurnId(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->client_turn_id = $var;
 
         return $this;
     }

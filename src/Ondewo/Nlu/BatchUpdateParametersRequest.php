@@ -56,7 +56,7 @@ class BatchUpdateParametersRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Parameter[] $var
      * @return $this
      */
-    public function setParameters($var)
+    public function setParameters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Parameter::class);
         $this->parameters = $arr;

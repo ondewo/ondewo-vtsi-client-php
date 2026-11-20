@@ -98,9 +98,8 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType $var
      * @return $this
      */
-    public function setEntityType($var)
+    public function setEntityType(\Ondewo\Nlu\EntityType|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType::class);
         $this->entity_type = $var;
 
         return $this;
@@ -124,9 +123,8 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinimalScore($var)
+    public function setMinimalScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->minimal_score = $var;
 
         return $this;
@@ -150,7 +148,7 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEntityValues($var)
+    public function setEntityValues(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->entity_values = $arr;
@@ -162,7 +160,7 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * Optional. Specify the Fuzzy Ner algorithm
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeFuzzyNerConfig.FuzzyNerAlgorithm algorithm = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityTypeFuzzyNerConfig\FuzzyNerAlgorithm}
      */
     public function getAlgorithm()
     {
@@ -173,10 +171,10 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * Optional. Specify the Fuzzy Ner algorithm
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeFuzzyNerConfig.FuzzyNerAlgorithm algorithm = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityTypeFuzzyNerConfig\FuzzyNerAlgorithm}
      * @return $this
      */
-    public function setAlgorithm($var)
+    public function setAlgorithm(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityTypeFuzzyNerConfig\FuzzyNerAlgorithm::class);
         $this->algorithm = $var;
@@ -202,9 +200,8 @@ class EntityTypeFuzzyNerConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllowOverlaps($var)
+    public function setAllowOverlaps(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->allow_overlaps = $var;
 
         return $this;

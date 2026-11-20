@@ -98,9 +98,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\S2tVtsiConfig $var
      * @return $this
      */
-    public function setS2TVtsiConfig($var)
+    public function setS2TVtsiConfig(\Ondewo\Vtsi\S2tVtsiConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\S2tVtsiConfig::class);
         $this->s2t_vtsi_config = $var;
 
         return $this;
@@ -134,9 +133,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\NluVtsiConfig $var
      * @return $this
      */
-    public function setNluVtsiConfig($var)
+    public function setNluVtsiConfig(\Ondewo\Vtsi\NluVtsiConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\NluVtsiConfig::class);
         $this->nlu_vtsi_config = $var;
 
         return $this;
@@ -170,9 +168,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\T2sVtsiConfig $var
      * @return $this
      */
-    public function setT2SVtsiConfig($var)
+    public function setT2SVtsiConfig(\Ondewo\Vtsi\T2sVtsiConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\T2sVtsiConfig::class);
         $this->t2s_vtsi_config = $var;
 
         return $this;
@@ -206,9 +203,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CsiVtsiConfig $var
      * @return $this
      */
-    public function setCsiVtsiConfig($var)
+    public function setCsiVtsiConfig(\Ondewo\Vtsi\CsiVtsiConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CsiVtsiConfig::class);
         $this->csi_vtsi_config = $var;
 
         return $this;
@@ -242,9 +238,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VoiceInteractionConfig $var
      * @return $this
      */
-    public function setVoiceInteractionConfig($var)
+    public function setVoiceInteractionConfig(\Ondewo\Vtsi\VoiceInteractionConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VoiceInteractionConfig::class);
         $this->voice_interaction_config = $var;
 
         return $this;

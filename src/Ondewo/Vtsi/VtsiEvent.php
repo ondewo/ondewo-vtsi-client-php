@@ -84,8 +84,8 @@ class VtsiEvent
      * accepted, or when the target of a WARM transfer starts ringing.
      * <p>Attributes: <code>transfer_id</code> (the target, a phone number masked to its last 3 digits, e.g.
      * <code>***678</code>, or an extension), <code>target_type</code> (<code>phone_number</code>,
-     * <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>legacy</code>,
-     * <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
+     * <code>softphone</code>, <code>listener</code>, <code>listener_queue</code>, <code>ivr_menu</code>,
+     * <code>legacy</code>, <code>unknown</code>), <code>mode</code> (<code>blind</code> / <code>warm</code>; <code>WARM</code>, upper
      * case, when reported for the ringing WARM leg), <code>outcome</code> (<code>accepted</code>,
      * <code>pending</code>, ...), <code>sip_response_code</code> (SIP code, <code>0</code> when unknown),
      * <code>error_reason</code> (kebab-case token, may be empty), <code>participant_id</code> (WARM leg),
@@ -102,7 +102,10 @@ class VtsiEvent
      * <code>warm</code>), <code>outcome</code> (<code>accepted</code>), <code>sip_response_code</code>,
      * <code>source</code> (<code>call_monitor</code>), and the call status attributes
      * (<code>caller_name</code> / <code>listener_name</code> / <code>scheduled_caller_name</code>,
-     * <code>phone_number</code>). Sets the call status fields.</p>
+     * <code>phone_number</code>). Sets the call status fields. A WARM transfer whose warm intro was enabled but
+     * skipped (<code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>) also carries
+     * <code>intro_skipped_reason</code> (a kebab-case token such as <code>no-free-listener</code> or
+     * <code>prepare-failed</code>).</p>
      *
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_TRANSFERRED = 106;</code>
      */
@@ -243,6 +246,67 @@ class VtsiEvent
      * Generated from protobuf enum <code>VTSI_EVENT_CALL_UPDATED = 122;</code>
      */
     const VTSI_EVENT_CALL_UPDATED = 122;
+    /**
+     * DTMF keys were queued on the call (<code>SendCallDtmf</code>). Attributes: <code>keys</code> (the NUMBER of
+     * keys, never the keys) and <code>actor</code> (the authenticated user, when known). Sets
+     * <code>call_name</code>.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_DTMF_SENT = 123;</code>
+     */
+    const VTSI_EVENT_CALL_DTMF_SENT = 123;
+    /**
+     * The warm intro of a WARM transfer started: the target answered and an intro bot greets it.
+     * <p>Attributes (the warm intro attributes, also on 125 to 128): <code>intro_id</code> (the participant id of the
+     * target&apos;s leg), <code>target_kind</code> (<code>phone_number</code> / <code>softphone</code>),
+     * <code>text_source</code> (<code>template</code> / <code>llm_summary</code>), <code>decided_by</code>
+     * (<code>dtmf</code> / <code>speech</code> / <code>timeout</code>, on 125 to 127), <code>reason_present</code>
+     * (<code>true</code> / <code>false</code>, on 126), <code>intro_ms</code> (milliseconds from the target&apos;s
+     * answer, on 125 to 128) and <code>cause</code> (kebab-case token). Never carries an intro text, a decline reason
+     * or a full phone number. Sets <code>call_name</code>.</p>
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_INTRO_STARTED = 124;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_INTRO_STARTED = 124;
+    /**
+     * The target of a warm intro accepted. <code>VTSI_EVENT_CALL_TRANSFERRED</code> follows once the target joined.
+     * The warm intro attributes (see 124).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED = 125;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED = 125;
+    /**
+     * The target of a warm intro declined; the call stays with the bot, which tells the caller. The warm intro
+     * attributes (see 124).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_INTRO_DECLINED = 126;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_INTRO_DECLINED = 126;
+    /**
+     * The target of a warm intro gave no decision in time; the call stays with the bot. The warm intro attributes
+     * (see 124).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION = 127;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION = 127;
+    /**
+     * The target of a warm intro answered but is gone, or the intro could not run with
+     * <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the call stays with the bot. The warm intro
+     * attributes (see 124), <code>cause</code> being <code>voicemail-suspected</code>, <code>target-hung-up</code>
+     * or <code>intro-unavailable</code>.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE = 128;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE = 128;
+    /**
+     * WARNING: the outcome of a warm intro (a decline, no decision, an unreachable target) could not be handed to
+     * the call&apos;s bot, so the caller may not be told; <code>CallTransferRecord.warm_intro.notice_delivered</code>
+     * is <code>false</code>. Attributes: <code>intro_id</code> and <code>reason</code> (kebab-case token: the
+     * bot&apos;s refusal, e.g. <code>disabled</code>, <code>invalid</code>, <code>pending</code>, or
+     * <code>sip-unreachable</code>). Sets <code>call_name</code>.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED = 129;</code>
+     */
+    const VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED = 129;
     /**
      * A caller started and placed its call. No attributes; sets <code>call_name</code>.
      *
@@ -765,6 +829,44 @@ class VtsiEvent
      * Generated from protobuf enum <code>VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED = 906;</code>
      */
     const VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED = 906;
+    /**
+     * An IVR menu was created (<code>CreateIvrMenu</code>, <code>CloneIvrMenu</code>).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_CREATED = 1001;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_CREATED = 1001;
+    /**
+     * An IVR menu was updated; attribute <code>updated_fields</code> (the mask paths).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_UPDATED = 1002;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_UPDATED = 1002;
+    /**
+     * An IVR menu was deleted.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_DELETED = 1003;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_DELETED = 1003;
+    /**
+     * A revision of an IVR menu was published and its phone numbers route to it.
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_PUBLISHED = 1004;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_PUBLISHED = 1004;
+    /**
+     * A publish of an IVR menu failed; the previous published revision stays live. <code>description</code> says
+     * why (no personal data).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_PUBLISH_FAILED = 1005;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_PUBLISH_FAILED = 1005;
+    /**
+     * A test call of an IVR menu finished; attributes <code>test_id</code>, <code>state</code>
+     * (<code>IvrMenuTestState</code> name without prefix) and <code>steps</code> (the number of nodes entered).
+     *
+     * Generated from protobuf enum <code>VTSI_EVENT_IVR_MENU_TESTED = 1006;</code>
+     */
+    const VTSI_EVENT_IVR_MENU_TESTED = 1006;
 
     private static $valueToName = [
         self::VTSI_EVENT_UNSPECIFIED => 'VTSI_EVENT_UNSPECIFIED',
@@ -791,6 +893,13 @@ class VtsiEvent
         self::VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED => 'VTSI_EVENT_CALL_AUDIO_STREAM_CONNECTED',
         self::VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED => 'VTSI_EVENT_CALL_AUDIO_STREAM_DISCONNECTED',
         self::VTSI_EVENT_CALL_UPDATED => 'VTSI_EVENT_CALL_UPDATED',
+        self::VTSI_EVENT_CALL_DTMF_SENT => 'VTSI_EVENT_CALL_DTMF_SENT',
+        self::VTSI_EVENT_CALL_WARM_INTRO_STARTED => 'VTSI_EVENT_CALL_WARM_INTRO_STARTED',
+        self::VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED => 'VTSI_EVENT_CALL_WARM_INTRO_ACCEPTED',
+        self::VTSI_EVENT_CALL_WARM_INTRO_DECLINED => 'VTSI_EVENT_CALL_WARM_INTRO_DECLINED',
+        self::VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION => 'VTSI_EVENT_CALL_WARM_INTRO_NO_DECISION',
+        self::VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE => 'VTSI_EVENT_CALL_WARM_INTRO_TARGET_UNAVAILABLE',
+        self::VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED => 'VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED',
         self::VTSI_EVENT_CALLER_STARTED => 'VTSI_EVENT_CALLER_STARTED',
         self::VTSI_EVENT_CALLER_START_FAILED => 'VTSI_EVENT_CALLER_START_FAILED',
         self::VTSI_EVENT_CALLER_STOPPED => 'VTSI_EVENT_CALLER_STOPPED',
@@ -865,6 +974,12 @@ class VtsiEvent
         self::VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED => 'VTSI_EVENT_EVENT_SUBSCRIPTION_CREATED',
         self::VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED => 'VTSI_EVENT_EVENT_SUBSCRIPTION_UPDATED',
         self::VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED => 'VTSI_EVENT_EVENT_SUBSCRIPTION_DELETED',
+        self::VTSI_EVENT_IVR_MENU_CREATED => 'VTSI_EVENT_IVR_MENU_CREATED',
+        self::VTSI_EVENT_IVR_MENU_UPDATED => 'VTSI_EVENT_IVR_MENU_UPDATED',
+        self::VTSI_EVENT_IVR_MENU_DELETED => 'VTSI_EVENT_IVR_MENU_DELETED',
+        self::VTSI_EVENT_IVR_MENU_PUBLISHED => 'VTSI_EVENT_IVR_MENU_PUBLISHED',
+        self::VTSI_EVENT_IVR_MENU_PUBLISH_FAILED => 'VTSI_EVENT_IVR_MENU_PUBLISH_FAILED',
+        self::VTSI_EVENT_IVR_MENU_TESTED => 'VTSI_EVENT_IVR_MENU_TESTED',
     ];
 
     public static function name($value)

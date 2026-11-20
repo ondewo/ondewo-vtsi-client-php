@@ -198,9 +198,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -226,9 +226,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountName($var)
+    public function setSoftphoneAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->softphone_account_name = $var;
 
         return $this;
@@ -239,7 +239,7 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * status and is recognised by <code>not_after</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneCertificateStatus status = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneCertificateStatus}
      */
     public function getStatus()
     {
@@ -251,10 +251,10 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * status and is recognised by <code>not_after</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneCertificateStatus status = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneCertificateStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneCertificateStatus::class);
         $this->status = $var;
@@ -280,9 +280,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCertificatePem($var)
+    public function setCertificatePem(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->certificate_pem = $var;
 
         return $this;
@@ -308,9 +308,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIssuerCaCertificatePem($var)
+    public function setIssuerCaCertificatePem(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->issuer_ca_certificate_pem = $var;
 
         return $this;
@@ -336,9 +336,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSha256Fingerprint($var)
+    public function setSha256Fingerprint(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sha256_fingerprint = $var;
 
         return $this;
@@ -362,9 +362,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSerialNumber($var)
+    public function setSerialNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->serial_number = $var;
 
         return $this;
@@ -388,9 +388,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSubject($var)
+    public function setSubject(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->subject = $var;
 
         return $this;
@@ -424,9 +424,8 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNotBefore($var)
+    public function setNotBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->not_before = $var;
 
         return $this;
@@ -460,9 +459,8 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNotAfter($var)
+    public function setNotAfter(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->not_after = $var;
 
         return $this;
@@ -486,9 +484,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -522,9 +520,8 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -558,9 +555,8 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setSupersededAt($var)
+    public function setSupersededAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->superseded_at = $var;
 
         return $this;
@@ -584,9 +580,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSupersededByCertificateName($var)
+    public function setSupersededByCertificateName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->superseded_by_certificate_name = $var;
 
         return $this;
@@ -620,9 +616,8 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setRevokedAt($var)
+    public function setRevokedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->revoked_at = $var;
 
         return $this;
@@ -646,9 +641,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRevokedBy($var)
+    public function setRevokedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->revoked_by = $var;
 
         return $this;
@@ -672,9 +667,9 @@ class SoftphoneCertificate extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRevocationReason($var)
+    public function setRevocationReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->revocation_reason = $var;
 
         return $this;

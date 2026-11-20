@@ -102,9 +102,8 @@ class UpdateLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\Int
      * @param \Ondewo\Nlu\LlmEvaluationAnnotationQueueItem $var
      * @return $this
      */
-    public function setLlmEvaluationAnnotationQueueItem($var)
+    public function setLlmEvaluationAnnotationQueueItem(\Ondewo\Nlu\LlmEvaluationAnnotationQueueItem|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationAnnotationQueueItem::class);
         $this->llm_evaluation_annotation_queue_item = $var;
 
         return $this;
@@ -138,9 +137,8 @@ class UpdateLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\Int
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -176,9 +174,8 @@ class UpdateLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\Int
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -204,9 +201,9 @@ class UpdateLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -230,9 +227,9 @@ class UpdateLlmEvaluationAnnotationQueueItemRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

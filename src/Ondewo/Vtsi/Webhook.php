@@ -232,9 +232,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -260,9 +260,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -288,9 +288,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -316,9 +316,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUrl($var)
+    public function setUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->url = $var;
 
         return $this;
@@ -328,7 +328,7 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * HTTP method. Unset means POST. Updatable.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WebhookHttpMethod http_method = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\WebhookHttpMethod}
      */
     public function getHttpMethod()
     {
@@ -339,10 +339,10 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * HTTP method. Unset means POST. Updatable.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WebhookHttpMethod http_method = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\WebhookHttpMethod}
      * @return $this
      */
-    public function setHttpMethod($var)
+    public function setHttpMethod(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\WebhookHttpMethod::class);
         $this->http_method = $var;
@@ -380,7 +380,7 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setCustomHeaders($var)
+    public function setCustomHeaders(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->custom_headers = $arr;
@@ -408,9 +408,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDisabled($var)
+    public function setDisabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->disabled = $var;
 
         return $this;
@@ -444,9 +443,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Duration $var
      * @return $this
      */
-    public function setTimeout($var)
+    public function setTimeout(\Google\Protobuf\Duration|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Duration::class);
         $this->timeout = $var;
 
         return $this;
@@ -480,9 +478,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\WebhookDeliveryStatistics $var
      * @return $this
      */
-    public function setDeliveryStatistics($var)
+    public function setDeliveryStatistics(\Ondewo\Vtsi\WebhookDeliveryStatistics|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\WebhookDeliveryStatistics::class);
         $this->delivery_statistics = $var;
 
         return $this;
@@ -506,9 +503,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -542,9 +539,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -568,9 +564,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -604,9 +600,8 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -678,9 +673,9 @@ class Webhook extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSigningSecret($var)
+    public function setSigningSecret(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->signing_secret = $var;
 
         return $this;

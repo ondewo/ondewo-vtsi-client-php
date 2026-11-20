@@ -114,9 +114,9 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHtmlAuthBaseUrl($var)
+    public function setHtmlAuthBaseUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->html_auth_base_url = $var;
 
         return $this;
@@ -126,7 +126,7 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Username field selector type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerSelectorType html_auth_username_selector_type = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerSelectorType}
      */
     public function getHtmlAuthUsernameSelectorType()
     {
@@ -137,10 +137,10 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Username field selector type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerSelectorType html_auth_username_selector_type = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerSelectorType}
      * @return $this
      */
-    public function setHtmlAuthUsernameSelectorType($var)
+    public function setHtmlAuthUsernameSelectorType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerSelectorType::class);
         $this->html_auth_username_selector_type = $var;
@@ -166,9 +166,9 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHtmlAuthUsernameSelector($var)
+    public function setHtmlAuthUsernameSelector(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->html_auth_username_selector = $var;
 
         return $this;
@@ -192,9 +192,9 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHtmlAuthUsername($var)
+    public function setHtmlAuthUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->html_auth_username = $var;
 
         return $this;
@@ -204,7 +204,7 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Password field selector type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerSelectorType html_auth_password_selector_type = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerSelectorType}
      */
     public function getHtmlAuthPasswordSelectorType()
     {
@@ -215,10 +215,10 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Password field selector type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerSelectorType html_auth_password_selector_type = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerSelectorType}
      * @return $this
      */
-    public function setHtmlAuthPasswordSelectorType($var)
+    public function setHtmlAuthPasswordSelectorType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerSelectorType::class);
         $this->html_auth_password_selector_type = $var;
@@ -244,9 +244,9 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHtmlAuthPasswordSelector($var)
+    public function setHtmlAuthPasswordSelector(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->html_auth_password_selector = $var;
 
         return $this;
@@ -270,9 +270,9 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHtmlAuthPassword($var)
+    public function setHtmlAuthPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->html_auth_password = $var;
 
         return $this;
@@ -282,7 +282,7 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Authentication execution type
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerAuthenticationExecutionType authentication_execution_type = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerAuthenticationExecutionType}
      */
     public function getAuthenticationExecutionType()
     {
@@ -293,10 +293,10 @@ class RagCrawlerHtmlAuth extends \Google\Protobuf\Internal\Message
      * Optional. Authentication execution type
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerAuthenticationExecutionType authentication_execution_type = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerAuthenticationExecutionType}
      * @return $this
      */
-    public function setAuthenticationExecutionType($var)
+    public function setAuthenticationExecutionType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerAuthenticationExecutionType::class);
         $this->authentication_execution_type = $var;

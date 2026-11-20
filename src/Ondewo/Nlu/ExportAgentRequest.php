@@ -84,9 +84,9 @@ class ExportAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -114,9 +114,9 @@ class ExportAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentUri($var)
+    public function setAgentUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_uri = $var;
 
         return $this;
@@ -144,7 +144,7 @@ class ExportAgentRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCompressionLevel($var)
+    public function setCompressionLevel(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->compression_level = $var;

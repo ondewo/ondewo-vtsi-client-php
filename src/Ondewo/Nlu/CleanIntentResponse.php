@@ -74,9 +74,8 @@ class CleanIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent $var
      * @return $this
      */
-    public function setCleanedIntent($var)
+    public function setCleanedIntent(\Ondewo\Nlu\Intent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent::class);
         $this->cleaned_intent = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class CleanIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\IntentUpdate $var
      * @return $this
      */
-    public function setIntentUpdate($var)
+    public function setIntentUpdate(\Ondewo\Nlu\IntentUpdate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\IntentUpdate::class);
         $this->intent_update = $var;
 
         return $this;

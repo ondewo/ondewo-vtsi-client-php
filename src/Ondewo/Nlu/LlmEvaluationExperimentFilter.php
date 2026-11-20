@@ -105,9 +105,9 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -117,7 +117,7 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments with this lifecycle status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus llm_evaluation_experiment_status = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      */
     public function getLlmEvaluationExperimentStatus()
     {
@@ -128,10 +128,10 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments with this lifecycle status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus llm_evaluation_experiment_status = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      * @return $this
      */
-    public function setLlmEvaluationExperimentStatus($var)
+    public function setLlmEvaluationExperimentStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExperimentStatus::class);
         $this->llm_evaluation_experiment_status = $var;
@@ -159,9 +159,9 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -185,9 +185,9 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -213,9 +213,9 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationScheduleName($var)
+    public function setLlmEvaluationScheduleName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_schedule_name = $var;
 
         return $this;
@@ -225,7 +225,7 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments of this kind.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentKind llm_evaluation_experiment_kind = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentKind}
      */
     public function getLlmEvaluationExperimentKind()
     {
@@ -236,10 +236,10 @@ class LlmEvaluationExperimentFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only experiments of this kind.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentKind llm_evaluation_experiment_kind = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentKind}
      * @return $this
      */
-    public function setLlmEvaluationExperimentKind($var)
+    public function setLlmEvaluationExperimentKind(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExperimentKind::class);
         $this->llm_evaluation_experiment_kind = $var;

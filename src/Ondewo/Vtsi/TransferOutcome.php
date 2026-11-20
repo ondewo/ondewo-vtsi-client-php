@@ -28,8 +28,9 @@ class TransferOutcome
      */
     const TRANSFER_OUTCOME_ACCEPTED = 1;
     /**
-     * WARM: the target is ringing. Follow <code>VTSI_EVENT_CALL_TRANSFERRED</code> /
-     * <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> or <code>Call.last_transfer</code>
+     * WARM: the target is ringing (with a warm intro: the target is ringing or being briefed). Follow
+     * <code>VTSI_EVENT_CALL_TRANSFERRED</code> / <code>VTSI_EVENT_CALL_TRANSFER_FAILED</code> (and the
+     * <code>VTSI_EVENT_CALL_WARM_INTRO_*</code> events) or <code>Call.last_transfer</code>
      *
      * Generated from protobuf enum <code>TRANSFER_OUTCOME_PENDING = 2;</code>
      */
@@ -72,6 +73,33 @@ class TransferOutcome
      * Generated from protobuf enum <code>TRANSFER_OUTCOME_SIP_UNREACHABLE = 8;</code>
      */
     const TRANSFER_OUTCOME_SIP_UNREACHABLE = 8;
+    /**
+     * Warm intro: the target declined; the call stays with the bot, which tells the caller
+     *
+     * Generated from protobuf enum <code>TRANSFER_OUTCOME_DECLINED = 9;</code>
+     */
+    const TRANSFER_OUTCOME_DECLINED = 9;
+    /**
+     * Warm intro: the target answered but gave no decision in time; the call stays with the bot
+     *
+     * Generated from protobuf enum <code>TRANSFER_OUTCOME_NO_DECISION = 10;</code>
+     */
+    const TRANSFER_OUTCOME_NO_DECISION = 10;
+    /**
+     * Warm intro: the target answered but is gone (hung up during the intro, a mailbox is suspected); the call
+     * stays with the bot. <code>CallTransferRecord.warm_intro.cause</code> says which
+     *
+     * Generated from protobuf enum <code>TRANSFER_OUTCOME_TARGET_UNAVAILABLE = 11;</code>
+     */
+    const TRANSFER_OUTCOME_TARGET_UNAVAILABLE = 11;
+    /**
+     * Warm intro: the intro could not run and <code>WarmTransferConfig.on_intro_unavailable</code> is
+     * <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>; the target was hung up and the call stays with
+     * the bot
+     *
+     * Generated from protobuf enum <code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE = 12;</code>
+     */
+    const TRANSFER_OUTCOME_INTRO_UNAVAILABLE = 12;
 
     private static $valueToName = [
         self::TRANSFER_OUTCOME_UNSPECIFIED => 'TRANSFER_OUTCOME_UNSPECIFIED',
@@ -83,6 +111,10 @@ class TransferOutcome
         self::TRANSFER_OUTCOME_CALL_ENDED => 'TRANSFER_OUTCOME_CALL_ENDED',
         self::TRANSFER_OUTCOME_CALL_SCOPE_MISMATCH => 'TRANSFER_OUTCOME_CALL_SCOPE_MISMATCH',
         self::TRANSFER_OUTCOME_SIP_UNREACHABLE => 'TRANSFER_OUTCOME_SIP_UNREACHABLE',
+        self::TRANSFER_OUTCOME_DECLINED => 'TRANSFER_OUTCOME_DECLINED',
+        self::TRANSFER_OUTCOME_NO_DECISION => 'TRANSFER_OUTCOME_NO_DECISION',
+        self::TRANSFER_OUTCOME_TARGET_UNAVAILABLE => 'TRANSFER_OUTCOME_TARGET_UNAVAILABLE',
+        self::TRANSFER_OUTCOME_INTRO_UNAVAILABLE => 'TRANSFER_OUTCOME_INTRO_UNAVAILABLE',
     ];
 
     public static function name($value)

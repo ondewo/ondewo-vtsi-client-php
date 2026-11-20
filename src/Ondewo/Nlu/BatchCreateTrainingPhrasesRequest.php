@@ -56,7 +56,7 @@ class BatchCreateTrainingPhrasesRequest extends \Google\Protobuf\Internal\Messag
      * @param \Ondewo\Nlu\BatchCreateTrainingPhrasesRequest\CreateTrainingPhraseRequest[] $var
      * @return $this
      */
-    public function setTrainingPhraseRequests($var)
+    public function setTrainingPhraseRequests(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchCreateTrainingPhrasesRequest\CreateTrainingPhraseRequest::class);
         $this->training_phrase_requests = $arr;

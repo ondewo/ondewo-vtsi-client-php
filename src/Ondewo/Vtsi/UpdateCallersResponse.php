@@ -78,9 +78,9 @@ class UpdateCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -104,7 +104,7 @@ class UpdateCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\UpdateCallerResponse[] $var
      * @return $this
      */
-    public function setUpdateCallerResponses($var)
+    public function setUpdateCallerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\UpdateCallerResponse::class);
         $this->update_caller_responses = $arr;
@@ -132,9 +132,9 @@ class UpdateCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

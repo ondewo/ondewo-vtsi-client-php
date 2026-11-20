@@ -348,7 +348,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -374,7 +374,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent[] $var
      * @return $this
      */
-    public function setMatchedIntents($var)
+    public function setMatchedIntents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent::class);
         $this->matched_intents = $arr;
@@ -400,7 +400,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType[] $var
      * @return $this
      */
-    public function setMatchedEntityTypes($var)
+    public function setMatchedEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType::class);
         $this->matched_entity_types = $arr;
@@ -426,9 +426,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinIntentsConfidence($var)
+    public function setMinIntentsConfidence(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->min_intents_confidence = $var;
 
         return $this;
@@ -452,9 +451,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinEntityTypesConfidence($var)
+    public function setMinEntityTypesConfidence(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->min_entity_types_confidence = $var;
 
         return $this;
@@ -480,9 +478,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setEarliest($var)
+    public function setEarliest(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->earliest = $var;
 
         return $this;
@@ -508,9 +505,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setLatest($var)
+    public function setLatest(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->latest = $var;
 
         return $this;
@@ -534,7 +530,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNumberTurns($var)
+    public function setNumberTurns(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->number_turns = $var;
@@ -560,7 +556,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
@@ -586,7 +582,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setUserIds($var)
+    public function setUserIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->user_ids = $arr;
@@ -612,7 +608,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setIntentTags($var)
+    public function setIntentTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->intent_tags = $arr;
@@ -640,7 +636,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionInfo\ContextSteps[] $var
      * @return $this
      */
-    public function setInputContextSteps($var)
+    public function setInputContextSteps(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\SessionInfo\ContextSteps::class);
         $this->input_context_steps = $arr;
@@ -668,7 +664,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionInfo\ContextSteps[] $var
      * @return $this
      */
-    public function setOutputContextSteps($var)
+    public function setOutputContextSteps(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\SessionInfo\ContextSteps::class);
         $this->output_context_steps = $arr;
@@ -694,9 +690,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -720,9 +715,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInM($var)
+    public function setDurationInM(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_m = $var;
 
         return $this;
@@ -746,9 +740,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInMRounded($var)
+    public function setDurationInMRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_m_rounded = $var;
 
         return $this;
@@ -772,9 +765,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInterval15SRounded($var)
+    public function setDurationInterval15SRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_interval_15s_rounded = $var;
 
         return $this;
@@ -798,9 +790,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInterval30SRounded($var)
+    public function setDurationInterval30SRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_interval_30s_rounded = $var;
 
         return $this;
@@ -824,9 +815,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInterval45SRounded($var)
+    public function setDurationInterval45SRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_interval_45s_rounded = $var;
 
         return $this;
@@ -850,9 +840,9 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStartedTimeSlotPerHour($var)
+    public function setStartedTimeSlotPerHour(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->started_time_slot_per_hour = $var;
 
         return $this;
@@ -876,9 +866,9 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStartedTimeSlotPerQuarterHour($var)
+    public function setStartedTimeSlotPerQuarterHour(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->started_time_slot_per_quarter_hour = $var;
 
         return $this;
@@ -902,9 +892,9 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStartedTimeSlotPerHalfHour($var)
+    public function setStartedTimeSlotPerHalfHour(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->started_time_slot_per_half_hour = $var;
 
         return $this;
@@ -928,9 +918,9 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStartedTimeSlotPerDayPhase($var)
+    public function setStartedTimeSlotPerDayPhase(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->started_time_slot_per_day_phase = $var;
 
         return $this;
@@ -954,9 +944,9 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStartedTimeSlotPerMinute($var)
+    public function setStartedTimeSlotPerMinute(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->started_time_slot_per_minute = $var;
 
         return $this;
@@ -980,9 +970,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInSRounded($var)
+    public function setDurationInSRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_s_rounded = $var;
 
         return $this;
@@ -992,7 +981,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 26;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getPlatforms()
     {
@@ -1003,10 +992,10 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * Messages for each of the Intent.Message.Platform were sent to the user
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform platforms = 26;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setPlatforms($var)
+    public function setPlatforms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->platforms = $arr;
@@ -1034,7 +1023,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAccountIds($var)
+    public function setAccountIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->account_ids = $arr;
@@ -1062,7 +1051,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPropertyIds($var)
+    public function setPropertyIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->property_ids = $arr;
@@ -1090,7 +1079,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDatastreamIds($var)
+    public function setDatastreamIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->datastream_ids = $arr;
@@ -1122,7 +1111,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setOriginIds($var)
+    public function setOriginIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->origin_ids = $arr;
@@ -1148,7 +1137,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setIdentifiedUserIds($var)
+    public function setIdentifiedUserIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->identified_user_ids = $arr;
@@ -1174,9 +1163,8 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInterval60SRounded($var)
+    public function setDurationInterval60SRounded(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_interval_60s_rounded = $var;
 
         return $this;
@@ -1200,7 +1188,7 @@ class SessionInfo extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Comment[] $var
      * @return $this
      */
-    public function setParentComment($var)
+    public function setParentComment(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Comment::class);
         $this->parent_comment = $arr;

@@ -51,7 +51,7 @@ class AmdVerdictCount extends \Google\Protobuf\Internal\Message
      * The verdict, read from <code>Call.sip_status.amd_result.verdict</code>.
      *
      * Generated from protobuf field <code>.ondewo.sip.AnsweringMachineDetectionResult.Verdict verdict = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\AnsweringMachineDetectionResult\Verdict}
      */
     public function getVerdict()
     {
@@ -62,10 +62,10 @@ class AmdVerdictCount extends \Google\Protobuf\Internal\Message
      * The verdict, read from <code>Call.sip_status.amd_result.verdict</code>.
      *
      * Generated from protobuf field <code>.ondewo.sip.AnsweringMachineDetectionResult.Verdict verdict = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\AnsweringMachineDetectionResult\Verdict}
      * @return $this
      */
-    public function setVerdict($var)
+    public function setVerdict(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\AnsweringMachineDetectionResult\Verdict::class);
         $this->verdict = $var;
@@ -91,7 +91,7 @@ class AmdVerdictCount extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->count = $var;

@@ -72,9 +72,9 @@ class RagFileMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setFileName($var)
+    public function setFileName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->file_name = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class RagFileMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContentType($var)
+    public function setContentType(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->content_type = $var;
 
         return $this;
@@ -124,7 +124,7 @@ class RagFileMetadata extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setSize($var)
+    public function setSize(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->size = $var;

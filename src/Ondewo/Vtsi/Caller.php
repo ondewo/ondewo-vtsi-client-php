@@ -176,9 +176,9 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -206,9 +206,9 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -244,9 +244,8 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipCallerConfig $var
      * @return $this
      */
-    public function setSipCallerConfig($var)
+    public function setSipCallerConfig(\Ondewo\Vtsi\SipCallerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipCallerConfig::class);
         $this->sip_caller_config = $var;
 
         return $this;
@@ -282,9 +281,8 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
      * @return $this
      */
-    public function setCommonServicesConfig($var)
+    public function setCommonServicesConfig(\Ondewo\Vtsi\CommonServicesConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
 
         return $this;
@@ -312,9 +310,9 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -344,9 +342,8 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActive($var)
+    public function setActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active = $var;
 
         return $this;
@@ -358,7 +355,7 @@ class Caller extends \Google\Protobuf\Internal\Message
      * value) when it never had a call record. Set in the SHALLOW and FULL views.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -371,10 +368,10 @@ class Caller extends \Google\Protobuf\Internal\Message
      * value) when it never had a call record. Set in the SHALLOW and FULL views.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -414,9 +411,8 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -444,9 +440,8 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPooled($var)
+    public function setPooled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->pooled = $var;
 
         return $this;
@@ -480,9 +475,9 @@ class Caller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;

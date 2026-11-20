@@ -43,7 +43,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListOperationsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListOperationsResponse>
      */
     public function ListOperations(\Ondewo\Nlu\ListOperationsRequest $argument,
       $metadata = [], $options = []) {
@@ -60,7 +60,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetOperationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function GetOperation(\Ondewo\Nlu\GetOperationRequest $argument,
       $metadata = [], $options = []) {
@@ -78,7 +78,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteOperationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteOperation(\Ondewo\Nlu\DeleteOperationRequest $argument,
       $metadata = [], $options = []) {
@@ -102,7 +102,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CancelOperationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function CancelOperation(\Ondewo\Nlu\CancelOperationRequest $argument,
       $metadata = [], $options = []) {
@@ -138,7 +138,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetRemoteOperationContainerLogsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetRemoteOperationContainerLogsResponse>
      */
     public function GetRemoteOperationContainerLogs(\Ondewo\Nlu\GetRemoteOperationContainerLogsRequest $argument,
       $metadata = [], $options = []) {
@@ -154,7 +154,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetRemoteOperationContainerStatusRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RemoteOperationContainerStatus>
      */
     public function GetRemoteOperationContainerStatus(\Ondewo\Nlu\GetRemoteOperationContainerStatusRequest $argument,
       $metadata = [], $options = []) {
@@ -173,7 +173,7 @@ class OperationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListRemoteOperationContainersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListRemoteOperationContainersResponse>
      */
     public function ListRemoteOperationContainers(\Ondewo\Nlu\ListRemoteOperationContainersRequest $argument,
       $metadata = [], $options = []) {

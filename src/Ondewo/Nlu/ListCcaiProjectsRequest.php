@@ -138,7 +138,7 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned CcaiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectView ccai_project_view = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiProjectView}
      */
     public function getCcaiProjectView()
     {
@@ -149,10 +149,10 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned CcaiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectView ccai_project_view = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiProjectView}
      * @return $this
      */
-    public function setCcaiProjectView($var)
+    public function setCcaiProjectView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiProjectView::class);
         $this->ccai_project_view = $var;
@@ -188,9 +188,8 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiServiceFilter $var
      * @return $this
      */
-    public function setCcaiServiceFilter($var)
+    public function setCcaiServiceFilter(\Ondewo\Nlu\CcaiServiceFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\CcaiServiceFilter::class);
         $this->ccai_service_filter = $var;
 
         return $this;
@@ -226,9 +225,8 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiProjectSorting $var
      * @return $this
      */
-    public function setCcaiProjectSorting($var)
+    public function setCcaiProjectSorting(\Ondewo\Nlu\CcaiProjectSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\CcaiProjectSorting::class);
         $this->ccai_project_sorting = $var;
 
         return $this;
@@ -304,9 +302,9 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -332,9 +330,9 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNluProjectName($var)
+    public function setNluProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->nlu_project_name = $var;
 
         return $this;
@@ -368,9 +366,8 @@ class ListCcaiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

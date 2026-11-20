@@ -178,9 +178,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -206,9 +206,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionName($var)
+    public function setSessionName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_name = $var;
 
         return $this;
@@ -234,9 +234,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepName($var)
+    public function setSessionStepName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_name = $var;
 
         return $this;
@@ -262,9 +262,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationOnlineResultName($var)
+    public function setLlmEvaluationOnlineResultName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_online_result_name = $var;
 
         return $this;
@@ -274,7 +274,7 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * Current lifecycle status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAnnotationStatus status = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationAnnotationStatus}
      */
     public function getStatus()
     {
@@ -285,10 +285,10 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * Current lifecycle status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAnnotationStatus status = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationAnnotationStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationAnnotationStatus::class);
         $this->status = $var;
@@ -314,9 +314,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAssignedTo($var)
+    public function setAssignedTo(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->assigned_to = $var;
 
         return $this;
@@ -340,9 +340,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setReason($var)
+    public function setReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->reason = $var;
 
         return $this;
@@ -370,9 +370,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -406,9 +406,8 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -432,9 +431,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -468,9 +467,8 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -494,9 +492,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -522,9 +520,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -548,9 +546,9 @@ class LlmEvaluationAnnotationQueueItem extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

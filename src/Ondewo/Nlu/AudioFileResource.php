@@ -150,9 +150,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -176,9 +176,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBytes($var)
+    public function setBytes(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->bytes = $var;
 
         return $this;
@@ -202,9 +202,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguage($var)
+    public function setLanguage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language = $var;
 
         return $this;
@@ -228,9 +228,8 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -254,7 +253,7 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSampleRate($var)
+    public function setSampleRate(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sample_rate = $var;
@@ -266,7 +265,7 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * File type of an audio resource
      *
      * Generated from protobuf field <code>.ondewo.nlu.AudioFileResourceType audio_file_resource_type = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\AudioFileResourceType}
      */
     public function getAudioFileResourceType()
     {
@@ -277,10 +276,10 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * File type of an audio resource
      *
      * Generated from protobuf field <code>.ondewo.nlu.AudioFileResourceType audio_file_resource_type = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\AudioFileResourceType}
      * @return $this
      */
-    public function setAudioFileResourceType($var)
+    public function setAudioFileResourceType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\AudioFileResourceType::class);
         $this->audio_file_resource_type = $var;
@@ -308,7 +307,7 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\S2tTranscription[] $var
      * @return $this
      */
-    public function setTranscriptions($var)
+    public function setTranscriptions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\S2tTranscription::class);
         $this->transcriptions = $arr;
@@ -344,9 +343,8 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -380,9 +378,8 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -406,9 +403,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -432,9 +429,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -458,9 +455,9 @@ class AudioFileResource extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;

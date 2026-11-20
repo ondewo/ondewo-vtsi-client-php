@@ -98,9 +98,8 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setUseGraphrag($var)
+    public function setUseGraphrag(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->use_graphrag = $var;
 
         return $this;
@@ -124,7 +123,7 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEntityTypes($var)
+    public function setEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->entity_types = $arr;
@@ -136,7 +135,7 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * Optional. Default <code>light</code>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagGraphRagMethod method = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagGraphRagMethod}
      */
     public function getMethod()
     {
@@ -147,10 +146,10 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * Optional. Default <code>light</code>.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagGraphRagMethod method = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagGraphRagMethod}
      * @return $this
      */
-    public function setMethod($var)
+    public function setMethod(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagGraphRagMethod::class);
         $this->method = $var;
@@ -186,9 +185,8 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setCommunity($var)
+    public function setCommunity(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->community = $var;
 
         return $this;
@@ -222,9 +220,8 @@ class RagGraphRagConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setResolution($var)
+    public function setResolution(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->resolution = $var;
 
         return $this;

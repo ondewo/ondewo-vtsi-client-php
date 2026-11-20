@@ -74,7 +74,7 @@ class ListTrainingPhrasesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase[] $var
      * @return $this
      */
-    public function setTrainingPhrases($var)
+    public function setTrainingPhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->training_phrases = $arr;
@@ -106,9 +106,9 @@ class ListTrainingPhrasesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

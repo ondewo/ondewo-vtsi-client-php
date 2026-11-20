@@ -80,9 +80,9 @@ class StreamScheduledCallerStatusRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -106,7 +106,7 @@ class StreamScheduledCallerStatusRequest extends \Google\Protobuf\Internal\Messa
      * @param string[] $var
      * @return $this
      */
-    public function setScheduledCallerNames($var)
+    public function setScheduledCallerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->scheduled_caller_names = $arr;
@@ -118,7 +118,7 @@ class StreamScheduledCallerStatusRequest extends \Google\Protobuf\Internal\Messa
      * Only scheduled callers in these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.ScheduledCallerStatus statuses = 3;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      */
     public function getStatuses()
     {
@@ -129,10 +129,10 @@ class StreamScheduledCallerStatusRequest extends \Google\Protobuf\Internal\Messa
      * Only scheduled callers in these states. Empty means every state.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.ScheduledCallerStatus statuses = 3;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      * @return $this
      */
-    public function setStatuses($var)
+    public function setStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\ScheduledCallerStatus::class);
         $this->statuses = $arr;
@@ -158,9 +158,9 @@ class StreamScheduledCallerStatusRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;

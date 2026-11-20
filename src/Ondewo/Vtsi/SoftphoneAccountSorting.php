@@ -50,7 +50,7 @@ class SoftphoneAccountSorting extends \Google\Protobuf\Internal\Message
      * The sorting field. Unset means <code>NO_SOFTPHONE_ACCOUNT_SORTING</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.SoftphoneAccountSorting.SoftphoneAccountSortingField sorting_field = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneAccountSorting\SoftphoneAccountSortingField}
      */
     public function getSortingField()
     {
@@ -71,10 +71,10 @@ class SoftphoneAccountSorting extends \Google\Protobuf\Internal\Message
      * The sorting field. Unset means <code>NO_SOFTPHONE_ACCOUNT_SORTING</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.SoftphoneAccountSorting.SoftphoneAccountSortingField sorting_field = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneAccountSorting\SoftphoneAccountSortingField}
      * @return $this
      */
-    public function setSortingField($var)
+    public function setSortingField(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneAccountSorting\SoftphoneAccountSortingField::class);
         $this->sorting_field = $var;
@@ -86,7 +86,7 @@ class SoftphoneAccountSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode. Unset means <code>ASCENDING</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.VtsiProjectSortingMode sorting_mode = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiProjectSortingMode}
      */
     public function getSortingMode()
     {
@@ -107,10 +107,10 @@ class SoftphoneAccountSorting extends \Google\Protobuf\Internal\Message
      * The sorting mode. Unset means <code>ASCENDING</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.VtsiProjectSortingMode sorting_mode = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectSortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectSortingMode::class);
         $this->sorting_mode = $var;

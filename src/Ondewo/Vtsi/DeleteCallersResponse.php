@@ -70,7 +70,7 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\DeleteCallerResponse[] $var
      * @return $this
      */
-    public function setDeleteCallerResponses($var)
+    public function setDeleteCallerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\DeleteCallerResponse::class);
         $this->delete_caller_responses = $arr;
@@ -98,9 +98,9 @@ class DeleteCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

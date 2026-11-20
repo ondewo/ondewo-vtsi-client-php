@@ -76,9 +76,9 @@ class GetAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -88,7 +88,7 @@ class GetAgentRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned agent (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentView agent_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\AgentView}
      */
     public function getAgentView()
     {
@@ -99,10 +99,10 @@ class GetAgentRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned agent (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentView agent_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\AgentView}
      * @return $this
      */
-    public function setAgentView($var)
+    public function setAgentView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\AgentView::class);
         $this->agent_view = $var;
@@ -138,9 +138,8 @@ class GetAgentRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

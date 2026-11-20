@@ -64,7 +64,7 @@ class ListLlmEvaluationScorecardsResponse extends \Google\Protobuf\Internal\Mess
      * @param \Ondewo\Nlu\LlmEvaluationScorecard[] $var
      * @return $this
      */
-    public function setLlmEvaluationScorecards($var)
+    public function setLlmEvaluationScorecards(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationScorecard::class);
         $this->llm_evaluation_scorecards = $arr;
@@ -90,9 +90,9 @@ class ListLlmEvaluationScorecardsResponse extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

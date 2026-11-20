@@ -88,7 +88,7 @@ class LlmCacheStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCachedInputTokens($var)
+    public function setCachedInputTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->cached_input_tokens = $var;
@@ -114,7 +114,7 @@ class LlmCacheStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCacheCreationInputTokens($var)
+    public function setCacheCreationInputTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->cache_creation_input_tokens = $var;
@@ -140,7 +140,7 @@ class LlmCacheStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setUncachedInputTokens($var)
+    public function setUncachedInputTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->uncached_input_tokens = $var;
@@ -166,9 +166,8 @@ class LlmCacheStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setCacheHitRate($var)
+    public function setCacheHitRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->cache_hit_rate = $var;
 
         return $this;
@@ -192,7 +191,7 @@ class LlmCacheStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setTokenSavings($var)
+    public function setTokenSavings(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->token_savings = $var;

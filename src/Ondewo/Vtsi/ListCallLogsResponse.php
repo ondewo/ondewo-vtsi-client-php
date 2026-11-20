@@ -151,7 +151,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogEntry[] $var
      * @return $this
      */
-    public function setLogEntries($var)
+    public function setLogEntries(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallLogEntry::class);
         $this->log_entries = $arr;
@@ -177,9 +177,8 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setTruncated($var)
+    public function setTruncated(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->truncated = $var;
 
         return $this;
@@ -207,7 +206,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setMinAvailableSeq($var)
+    public function setMinAvailableSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->min_available_seq = $var;
@@ -233,7 +232,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setMaxAvailableSeq($var)
+    public function setMaxAvailableSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->max_available_seq = $var;
@@ -259,9 +258,8 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasMoreOlder($var)
+    public function setHasMoreOlder(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_more_older = $var;
 
         return $this;
@@ -285,9 +283,8 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasMoreNewer($var)
+    public function setHasMoreNewer(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_more_newer = $var;
 
         return $this;
@@ -311,9 +308,9 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextResumeToken($var)
+    public function setNextResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_resume_token = $var;
 
         return $this;
@@ -325,7 +322,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * this is non-empty.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogFilterField scope_limited_filters = 8;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CallLogFilterField}
      */
     public function getScopeLimitedFilters()
     {
@@ -338,10 +335,10 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * this is non-empty.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallLogFilterField scope_limited_filters = 8;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CallLogFilterField}
      * @return $this
      */
-    public function setScopeLimitedFilters($var)
+    public function setScopeLimitedFilters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CallLogFilterField::class);
         $this->scope_limited_filters = $arr;
@@ -360,7 +357,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      */
     public function getTotalMatchingCount()
     {
-        return isset($this->total_matching_count) ? $this->total_matching_count : 0;
+        return isset($this->total_matching_count) ? $this->total_matching_count : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasTotalMatchingCount()
@@ -383,7 +380,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setTotalMatchingCount($var)
+    public function setTotalMatchingCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->total_matching_count = $var;
@@ -417,7 +414,7 @@ class ListCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setCountByLevel($var)
+    public function setCountByLevel(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::INT64);
         $this->count_by_level = $arr;

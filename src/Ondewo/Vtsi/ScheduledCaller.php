@@ -206,9 +206,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -236,9 +236,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -276,9 +276,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipBaseConfig $var
      * @return $this
      */
-    public function setSipConfig($var)
+    public function setSipConfig(\Ondewo\Vtsi\SipBaseConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipBaseConfig::class);
         $this->sip_config = $var;
 
         return $this;
@@ -312,9 +311,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
      * @return $this
      */
-    public function setCommonServicesConfig($var)
+    public function setCommonServicesConfig(\Ondewo\Vtsi\CommonServicesConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CommonServicesConfig::class);
         $this->common_services_config = $var;
 
         return $this;
@@ -352,9 +350,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setScheduledTime($var)
+    public function setScheduledTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->scheduled_time = $var;
 
         return $this;
@@ -390,9 +387,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipCallerConfig $var
      * @return $this
      */
-    public function setSipCallerConfig($var)
+    public function setSipCallerConfig(\Ondewo\Vtsi\SipCallerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipCallerConfig::class);
         $this->sip_caller_config = $var;
 
         return $this;
@@ -402,7 +398,7 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * Lifecycle state of this scheduled caller
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus status = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      */
     public function getStatus()
     {
@@ -413,10 +409,10 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * Lifecycle state of this scheduled caller
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ScheduledCallerStatus status = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ScheduledCallerStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ScheduledCallerStatus::class);
         $this->status = $var;
@@ -442,9 +438,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -478,9 +474,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -518,9 +513,8 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setFiredAt($var)
+    public function setFiredAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->fired_at = $var;
 
         return $this;
@@ -544,9 +538,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;
@@ -582,9 +576,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -616,9 +610,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRetryOfScheduledCallerName($var)
+    public function setRetryOfScheduledCallerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->retry_of_scheduled_caller_name = $var;
 
         return $this;
@@ -646,9 +640,9 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRetriedByScheduledCallerName($var)
+    public function setRetriedByScheduledCallerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->retried_by_scheduled_caller_name = $var;
 
         return $this;

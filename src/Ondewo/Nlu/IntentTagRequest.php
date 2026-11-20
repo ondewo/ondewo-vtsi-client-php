@@ -68,9 +68,9 @@ class IntentTagRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class IntentTagRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;

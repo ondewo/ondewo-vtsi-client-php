@@ -74,9 +74,8 @@ class UpdateSessionFeedbackRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionFeedback $var
      * @return $this
      */
-    public function setFeedback($var)
+    public function setFeedback(\Ondewo\Nlu\SessionFeedback|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFeedback::class);
         $this->feedback = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class UpdateSessionFeedbackRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

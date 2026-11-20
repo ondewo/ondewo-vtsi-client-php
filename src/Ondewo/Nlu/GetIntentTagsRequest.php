@@ -60,9 +60,9 @@ class GetIntentTagsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;

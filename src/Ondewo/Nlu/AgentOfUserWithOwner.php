@@ -74,9 +74,8 @@ class AgentOfUserWithOwner extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AgentWithOwner $var
      * @return $this
      */
-    public function setAgentWithOwner($var)
+    public function setAgentWithOwner(\Ondewo\Nlu\AgentWithOwner|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\AgentWithOwner::class);
         $this->agent_with_owner = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class AgentOfUserWithOwner extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ProjectRole $var
      * @return $this
      */
-    public function setProjectRole($var)
+    public function setProjectRole(\Ondewo\Nlu\ProjectRole|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\ProjectRole::class);
         $this->project_role = $var;
 
         return $this;

@@ -37,7 +37,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetIntentCountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetIntentCount(\Ondewo\Nlu\GetIntentCountRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetEntityTypeCountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetEntityTypeCount(\Ondewo\Nlu\GetEntityTypeCountRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetUserCount(\Ondewo\Nlu\GetProjectStatRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetSessionCount(\Ondewo\Nlu\GetProjectStatRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectElementStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetTrainingPhraseCount(\Ondewo\Nlu\GetProjectElementStatRequest $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectElementStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetResponseCount(\Ondewo\Nlu\GetProjectElementStatRequest $argument,
       $metadata = [], $options = []) {
@@ -127,7 +127,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectElementStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetEntityValueCount(\Ondewo\Nlu\GetProjectElementStatRequest $argument,
       $metadata = [], $options = []) {
@@ -142,7 +142,7 @@ class ProjectStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectElementStatRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetEntitySynonymCount(\Ondewo\Nlu\GetProjectElementStatRequest $argument,
       $metadata = [], $options = []) {

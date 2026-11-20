@@ -51,7 +51,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ValidateRegexRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ValidateRegexResponse>
      */
     public function ValidateRegex(\Ondewo\Nlu\ValidateRegexRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ValidateEmbeddedRegexRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ValidateEmbeddedRegexResponse>
      */
     public function ValidateEmbeddedRegex(\Ondewo\Nlu\ValidateEmbeddedRegexRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CleanAllIntentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CleanAllIntentsResponse>
      */
     public function CleanAllIntents(\Ondewo\Nlu\CleanAllIntentsRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CleanIntentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CleanIntentResponse>
      */
     public function CleanIntent(\Ondewo\Nlu\CleanIntentRequest $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CleanAllEntityTypesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CleanAllEntityTypesResponse>
      */
     public function CleanAllEntityTypes(\Ondewo\Nlu\CleanAllEntityTypesRequest $argument,
       $metadata = [], $options = []) {
@@ -127,7 +127,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CleanEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CleanEntityTypeResponse>
      */
     public function CleanEntityType(\Ondewo\Nlu\CleanEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -142,7 +142,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\AddTrainingPhrasesResponse>
      */
     public function AddTrainingPhrases(\Ondewo\Nlu\AddTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -157,7 +157,7 @@ class UtilitiesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddTrainingPhrasesFromCSVRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\AddTrainingPhrasesResponse>
      */
     public function AddTrainingPhrasesFromCSV(\Ondewo\Nlu\AddTrainingPhrasesFromCSVRequest $argument,
       $metadata = [], $options = []) {

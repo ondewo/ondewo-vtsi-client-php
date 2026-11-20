@@ -70,7 +70,7 @@ class DeleteListenersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\DeleteListenerResponse[] $var
      * @return $this
      */
-    public function setDeleteListenerResponses($var)
+    public function setDeleteListenerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\DeleteListenerResponse::class);
         $this->delete_listener_responses = $arr;
@@ -98,9 +98,9 @@ class DeleteListenersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

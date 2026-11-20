@@ -180,6 +180,52 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string asterisk_version_effective = 21;</code>
      */
     protected $asterisk_version_effective = '';
+    /**
+     * OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
+     * <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and a
+     * <code>TransferCallRequest.warm_transfer_config</code>. <code>enabled=true</code> while the deployment switch
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off, or a phase-B field while phase B is off, is refused
+     * with <code>FAILED_PRECONDITION</code> (<code>reason=warm-intro-disabled</code> /
+     * <code>reason=phase-b-not-enabled</code>); an invalid field with <code>INVALID_ARGUMENT</code> naming it.
+     * Updatable with the update mask path <code>warm_transfer_defaults</code> or its leaf paths, e.g.
+     * <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_defaults = 22;</code>
+     */
+    protected $warm_transfer_defaults = null;
+    /**
+     * Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
+     * has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
+     * Read it instead of learning from a refusal. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectFeatureAvailability feature_availability = 23;</code>
+     */
+    protected $feature_availability = null;
+    /**
+     * OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
+     * <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
+     * listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
+     * restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
+     * ends no call.
+     *
+     * Generated from protobuf field <code>optional bool ivr_menus_enabled = 24;</code>
+     */
+    protected $ivr_menus_enabled = null;
+    /**
+     * OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
+     * (<code>^\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
+     * <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
+     * (<code>{callee_name}</code>) and describes it, below a transfer&apos;s own
+     * <code>WarmTransferConfig.callee_display_name</code> / <code>callee_description</code> and the softphone
+     * account&apos;s <code>display_name</code> / <code>description</code>. That is how the bot&apos;s own handover to
+     * a target names the right person. At most 200 entries; an invalid key or entry is refused with
+     * <code>INVALID_ARGUMENT</code> naming it. Updatable with the update mask path
+     * <code>transfer_target_directory</code> (the whole map is replaced). Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>map<string, .ondewo.vtsi.TransferTargetDirectoryItem> transfer_target_directory = 25;</code>
+     */
+    private $transfer_target_directory;
 
     /**
      * Constructor.
@@ -267,6 +313,36 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      *           pinned, otherwise the server default (<code>ONDEWO_VTSI_ASTERISK_IMAGE_TAG</code>) at the moment
      *           of the deployment. Empty when the project is not deployed. It can differ from what a new deployment
      *           would start, e.g. after the server default changed. Ignored on create and update.
+     *     @type \Ondewo\Vtsi\WarmTransferConfig $warm_transfer_defaults
+     *           OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
+     *           <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
+     *           <code>VoiceInteractionConfig.warm_transfer_config</code> and a
+     *           <code>TransferCallRequest.warm_transfer_config</code>. <code>enabled=true</code> while the deployment switch
+     *           <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off, or a phase-B field while phase B is off, is refused
+     *           with <code>FAILED_PRECONDITION</code> (<code>reason=warm-intro-disabled</code> /
+     *           <code>reason=phase-b-not-enabled</code>); an invalid field with <code>INVALID_ARGUMENT</code> naming it.
+     *           Updatable with the update mask path <code>warm_transfer_defaults</code> or its leaf paths, e.g.
+     *           <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
+     *     @type \Ondewo\Vtsi\VtsiProjectFeatureAvailability $feature_availability
+     *           Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
+     *           has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
+     *           Read it instead of learning from a refusal. Ignored on create and update.
+     *     @type bool $ivr_menus_enabled
+     *           OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
+     *           <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
+     *           listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
+     *           restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
+     *           ends no call.
+     *     @type array|\Google\Protobuf\Internal\MapField $transfer_target_directory
+     *           OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
+     *           (<code>^\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
+     *           <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
+     *           (<code>{callee_name}</code>) and describes it, below a transfer&apos;s own
+     *           <code>WarmTransferConfig.callee_display_name</code> / <code>callee_description</code> and the softphone
+     *           account&apos;s <code>display_name</code> / <code>description</code>. That is how the bot&apos;s own handover to
+     *           a target names the right person. At most 200 entries; an invalid key or entry is refused with
+     *           <code>INVALID_ARGUMENT</code> naming it. Updatable with the update mask path
+     *           <code>transfer_target_directory</code> (the whole map is replaced). Touches no Asterisk.
      * }
      */
     public function __construct($data = NULL) {
@@ -296,9 +372,9 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -322,9 +398,9 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -360,7 +436,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxCallers($var)
+    public function setMaxCallers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_callers = $var;
@@ -394,7 +470,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxListeners($var)
+    public function setMaxListeners(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_listeners = $var;
@@ -430,9 +506,8 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AsteriskConfigs $var
      * @return $this
      */
-    public function setAsteriskConfigs($var)
+    public function setAsteriskConfigs(\Ondewo\Vtsi\AsteriskConfigs|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AsteriskConfigs::class);
         $this->asterisk_configs = $var;
 
         return $this;
@@ -442,7 +517,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * The status of the VTSI project.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectStatus vtsi_project_status = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiProjectStatus}
      */
     public function getVtsiProjectStatus()
     {
@@ -453,10 +528,10 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * The status of the VTSI project.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectStatus vtsi_project_status = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectStatus}
      * @return $this
      */
-    public function setVtsiProjectStatus($var)
+    public function setVtsiProjectStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectStatus::class);
         $this->vtsi_project_status = $var;
@@ -482,9 +557,9 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -518,9 +593,8 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -544,9 +618,9 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -580,9 +654,8 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -606,7 +679,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setActiveCallers($var)
+    public function setActiveCallers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->active_callers = $var;
@@ -632,7 +705,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setActiveListeners($var)
+    public function setActiveListeners(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->active_listeners = $var;
@@ -670,7 +743,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAsteriskPort($var)
+    public function setAsteriskPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->asterisk_port = $var;
@@ -698,7 +771,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNluAgentNames($var)
+    public function setNluAgentNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_agent_names = $arr;
@@ -724,7 +797,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDeployedCallers($var)
+    public function setDeployedCallers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->deployed_callers = $var;
@@ -750,7 +823,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDeployedListeners($var)
+    public function setDeployedListeners(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->deployed_listeners = $var;
@@ -788,7 +861,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTransferPhoneNumberAllowlist($var)
+    public function setTransferPhoneNumberAllowlist(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->transfer_phone_number_allowlist = $arr;
@@ -822,9 +895,9 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStatusMessage($var)
+    public function setStatusMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->status_message = $var;
 
         return $this;
@@ -860,9 +933,8 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStatusChangedAt($var)
+    public function setStatusChangedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->status_changed_at = $var;
 
         return $this;
@@ -876,7 +948,7 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TrunkRegistrationState}
      */
     public function getTrunkRegistrationState()
     {
@@ -891,10 +963,10 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * <code>DEPLOYED</code> or has not been observed yet. Ignored on create and update.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TrunkRegistrationState trunk_registration_state = 20;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TrunkRegistrationState}
      * @return $this
      */
-    public function setTrunkRegistrationState($var)
+    public function setTrunkRegistrationState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TrunkRegistrationState::class);
         $this->trunk_registration_state = $var;
@@ -928,10 +1000,185 @@ class VtsiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAsteriskVersionEffective($var)
+    public function setAsteriskVersionEffective(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->asterisk_version_effective = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
+     * <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and a
+     * <code>TransferCallRequest.warm_transfer_config</code>. <code>enabled=true</code> while the deployment switch
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off, or a phase-B field while phase B is off, is refused
+     * with <code>FAILED_PRECONDITION</code> (<code>reason=warm-intro-disabled</code> /
+     * <code>reason=phase-b-not-enabled</code>); an invalid field with <code>INVALID_ARGUMENT</code> naming it.
+     * Updatable with the update mask path <code>warm_transfer_defaults</code> or its leaf paths, e.g.
+     * <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_defaults = 22;</code>
+     * @return \Ondewo\Vtsi\WarmTransferConfig|null
+     */
+    public function getWarmTransferDefaults()
+    {
+        return $this->warm_transfer_defaults;
+    }
+
+    public function hasWarmTransferDefaults()
+    {
+        return isset($this->warm_transfer_defaults);
+    }
+
+    public function clearWarmTransferDefaults()
+    {
+        unset($this->warm_transfer_defaults);
+    }
+
+    /**
+     * OPTIONAL: The project&apos;s default warm intro of a WARM transfer (see
+     * <a href="index.html#ondewo.vtsi.WarmTransferConfig">WarmTransferConfig</a>): the level below a call&apos;s
+     * <code>VoiceInteractionConfig.warm_transfer_config</code> and a
+     * <code>TransferCallRequest.warm_transfer_config</code>. <code>enabled=true</code> while the deployment switch
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off, or a phase-B field while phase B is off, is refused
+     * with <code>FAILED_PRECONDITION</code> (<code>reason=warm-intro-disabled</code> /
+     * <code>reason=phase-b-not-enabled</code>); an invalid field with <code>INVALID_ARGUMENT</code> naming it.
+     * Updatable with the update mask path <code>warm_transfer_defaults</code> or its leaf paths, e.g.
+     * <code>warm_transfer_defaults.enabled</code>. Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_defaults = 22;</code>
+     * @param \Ondewo\Vtsi\WarmTransferConfig $var
+     * @return $this
+     */
+    public function setWarmTransferDefaults(\Ondewo\Vtsi\WarmTransferConfig|null $var)
+    {
+        $this->warm_transfer_defaults = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
+     * has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
+     * Read it instead of learning from a refusal. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectFeatureAvailability feature_availability = 23;</code>
+     * @return \Ondewo\Vtsi\VtsiProjectFeatureAvailability|null
+     */
+    public function getFeatureAvailability()
+    {
+        return $this->feature_availability;
+    }
+
+    public function hasFeatureAvailability()
+    {
+        return isset($this->feature_availability);
+    }
+
+    public function clearFeatureAvailability()
+    {
+        unset($this->feature_availability);
+    }
+
+    /**
+     * Output only. Which features can run in this project with the deployment, the Asterisk and the listeners it
+     * has now, computed on every <code>GetVtsiProject</code> / <code>ListVtsiProjects</code> (it costs no RPC).
+     * Read it instead of learning from a refusal. Ignored on create and update.
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectFeatureAvailability feature_availability = 23;</code>
+     * @param \Ondewo\Vtsi\VtsiProjectFeatureAvailability $var
+     * @return $this
+     */
+    public function setFeatureAvailability(\Ondewo\Vtsi\VtsiProjectFeatureAvailability|null $var)
+    {
+        $this->feature_availability = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
+     * <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
+     * listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
+     * restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
+     * ends no call.
+     *
+     * Generated from protobuf field <code>optional bool ivr_menus_enabled = 24;</code>
+     * @return bool
+     */
+    public function getIvrMenusEnabled()
+    {
+        return isset($this->ivr_menus_enabled) ? $this->ivr_menus_enabled : false;
+    }
+
+    public function hasIvrMenusEnabled()
+    {
+        return isset($this->ivr_menus_enabled);
+    }
+
+    public function clearIvrMenusEnabled()
+    {
+        unset($this->ivr_menus_enabled);
+    }
+
+    /**
+     * OPTIONAL: Whether the project&apos;s published IVR menus route its inbound phone numbers. Unset means
+     * <code>true</code>. <code>false</code> switches every route off at once (every inbound number reaches the
+     * listener queue as without a menu) and keeps the menus and their phone number bindings, so <code>true</code>
+     * restores them. Updatable with the update mask path <code>ivr_menus_enabled</code>; it reloads no Asterisk and
+     * ends no call.
+     *
+     * Generated from protobuf field <code>optional bool ivr_menus_enabled = 24;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setIvrMenusEnabled(bool $var)
+    {
+        $this->ivr_menus_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
+     * (<code>^\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
+     * <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
+     * (<code>{callee_name}</code>) and describes it, below a transfer&apos;s own
+     * <code>WarmTransferConfig.callee_display_name</code> / <code>callee_description</code> and the softphone
+     * account&apos;s <code>display_name</code> / <code>description</code>. That is how the bot&apos;s own handover to
+     * a target names the right person. At most 200 entries; an invalid key or entry is refused with
+     * <code>INVALID_ARGUMENT</code> naming it. Updatable with the update mask path
+     * <code>transfer_target_directory</code> (the whole map is replaced). Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>map<string, .ondewo.vtsi.TransferTargetDirectoryItem> transfer_target_directory = 25;</code>
+     * @return \Google\Protobuf\Internal\MapField
+     */
+    public function getTransferTargetDirectory()
+    {
+        return $this->transfer_target_directory;
+    }
+
+    /**
+     * OPTIONAL: Directory of the project&apos;s human transfer targets, keyed by the target: an E.164 phone number
+     * (<code>^\+[1-9][0-9]{6,14}$</code>, which must pass <code>transfer_phone_number_allowlist</code>) or the
+     * <code>sip_username</code> of a softphone account of the project. It names a target in a warm intro
+     * (<code>{callee_name}</code>) and describes it, below a transfer&apos;s own
+     * <code>WarmTransferConfig.callee_display_name</code> / <code>callee_description</code> and the softphone
+     * account&apos;s <code>display_name</code> / <code>description</code>. That is how the bot&apos;s own handover to
+     * a target names the right person. At most 200 entries; an invalid key or entry is refused with
+     * <code>INVALID_ARGUMENT</code> naming it. Updatable with the update mask path
+     * <code>transfer_target_directory</code> (the whole map is replaced). Touches no Asterisk.
+     *
+     * Generated from protobuf field <code>map<string, .ondewo.vtsi.TransferTargetDirectoryItem> transfer_target_directory = 25;</code>
+     * @param array|\Google\Protobuf\Internal\MapField $var
+     * @return $this
+     */
+    public function setTransferTargetDirectory(array|\Google\Protobuf\Internal\MapField $var)
+    {
+        $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\TransferTargetDirectoryItem::class);
+        $this->transfer_target_directory = $arr;
 
         return $this;
     }

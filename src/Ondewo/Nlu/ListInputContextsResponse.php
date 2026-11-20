@@ -56,7 +56,7 @@ class ListInputContextsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setInputContexts($var)
+    public function setInputContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->input_contexts = $arr;

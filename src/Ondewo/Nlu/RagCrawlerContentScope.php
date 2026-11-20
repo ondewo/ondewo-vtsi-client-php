@@ -69,7 +69,7 @@ class RagCrawlerContentScope extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setIncludeSelectors($var)
+    public function setIncludeSelectors(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->include_selectors = $arr;
@@ -95,7 +95,7 @@ class RagCrawlerContentScope extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setExcludeSelectors($var)
+    public function setExcludeSelectors(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->exclude_selectors = $arr;

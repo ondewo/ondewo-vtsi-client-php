@@ -77,9 +77,9 @@ class UpdateCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -113,9 +113,8 @@ class UpdateCallResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Call $var
      * @return $this
      */
-    public function setCall($var)
+    public function setCall(\Ondewo\Vtsi\Call|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Call::class);
         $this->call = $var;
 
         return $this;
@@ -139,9 +138,9 @@ class UpdateCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

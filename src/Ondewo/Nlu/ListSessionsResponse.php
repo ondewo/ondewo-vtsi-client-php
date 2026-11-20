@@ -66,7 +66,7 @@ class ListSessionsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Session[] $var
      * @return $this
      */
-    public function setSessions($var)
+    public function setSessions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Session::class);
         $this->sessions = $arr;
@@ -94,9 +94,9 @@ class ListSessionsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

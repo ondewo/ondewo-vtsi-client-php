@@ -237,9 +237,9 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -263,9 +263,9 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -289,7 +289,7 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDatasetIds($var)
+    public function setDatasetIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->dataset_ids = $arr;
@@ -343,9 +343,9 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -369,9 +369,9 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setQuestion($var)
+    public function setQuestion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->question = $var;
 
         return $this;
@@ -395,7 +395,7 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDocumentIds($var)
+    public function setDocumentIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->document_ids = $arr;
@@ -431,9 +431,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setUseKg($var)
+    public function setUseKg(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->use_kg = $var;
 
         return $this;
@@ -459,7 +458,7 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCrossLanguages($var)
+    public function setCrossLanguages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->cross_languages = $arr;
@@ -495,9 +494,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagMetadataConditions $var
      * @return $this
      */
-    public function setMetadataCondition($var)
+    public function setMetadataCondition(\Ondewo\Nlu\RagMetadataConditions|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagMetadataConditions::class);
         $this->metadata_condition = $var;
 
         return $this;
@@ -531,9 +529,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSimilarityThreshold($var)
+    public function setSimilarityThreshold(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->similarity_threshold = $var;
 
         return $this;
@@ -569,9 +566,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setVectorSimilarityWeight($var)
+    public function setVectorSimilarityWeight(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->vector_similarity_weight = $var;
 
         return $this;
@@ -595,7 +591,7 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTopK($var)
+    public function setTopK(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->top_k = $var;
@@ -631,9 +627,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHighlight($var)
+    public function setHighlight(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->highlight = $var;
 
         return $this;
@@ -667,9 +662,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setKeyword($var)
+    public function setKeyword(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->keyword = $var;
 
         return $this;
@@ -703,9 +697,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -739,9 +732,9 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRerankModelCcaiServiceName($var)
+    public function setRerankModelCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->rerank_model_ccai_service_name = $var;
 
         return $this;
@@ -765,7 +758,7 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRerankCandidates($var)
+    public function setRerankCandidates(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->rerank_candidates = $var;
@@ -801,9 +794,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDedupThreshold($var)
+    public function setDedupThreshold(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->dedup_threshold = $var;
 
         return $this;
@@ -837,9 +829,8 @@ class RagRetrievalRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setDedupBeforeRerank($var)
+    public function setDedupBeforeRerank(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->dedup_before_rerank = $var;
 
         return $this;

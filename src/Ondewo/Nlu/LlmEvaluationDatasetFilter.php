@@ -77,9 +77,9 @@ class LlmEvaluationDatasetFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -103,7 +103,7 @@ class LlmEvaluationDatasetFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -115,7 +115,7 @@ class LlmEvaluationDatasetFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only datasets of this type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationDatasetType llm_evaluation_dataset_type = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationDatasetType}
      */
     public function getLlmEvaluationDatasetType()
     {
@@ -126,10 +126,10 @@ class LlmEvaluationDatasetFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only datasets of this type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationDatasetType llm_evaluation_dataset_type = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationDatasetType}
      * @return $this
      */
-    public function setLlmEvaluationDatasetType($var)
+    public function setLlmEvaluationDatasetType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationDatasetType::class);
         $this->llm_evaluation_dataset_type = $var;

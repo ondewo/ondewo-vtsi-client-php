@@ -168,9 +168,9 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -194,9 +194,9 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProvider($var)
+    public function setProvider(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->provider = $var;
 
         return $this;
@@ -220,7 +220,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -256,9 +256,8 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -282,7 +281,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setToolCallCount($var)
+    public function setToolCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->tool_call_count = $var;
@@ -308,7 +307,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setErrorCount($var)
+    public function setErrorCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->error_count = $var;
@@ -334,9 +333,8 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationSecondsTotal($var)
+    public function setDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_seconds_total = $var;
 
         return $this;
@@ -370,9 +368,8 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmCacheStats $var
      * @return $this
      */
-    public function setCacheStats($var)
+    public function setCacheStats(\Ondewo\Nlu\LlmCacheStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmCacheStats::class);
         $this->cache_stats = $var;
 
         return $this;
@@ -396,9 +393,9 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCcaiServiceName($var)
+    public function setCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ccai_service_name = $var;
 
         return $this;
@@ -408,7 +405,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * Provider of the CCAI service.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 10;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getCcaiServiceProvider()
     {
@@ -419,10 +416,10 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * Provider of the CCAI service.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 10;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setCcaiServiceProvider($var)
+    public function setCcaiServiceProvider(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->ccai_service_provider = $var;
@@ -448,9 +445,9 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBaseUrl($var)
+    public function setBaseUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->base_url = $var;
 
         return $this;
@@ -474,7 +471,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setThinkingTokensTotal($var)
+    public function setThinkingTokensTotal(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->thinking_tokens_total = $var;
@@ -500,9 +497,8 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThinkingDurationSecondsTotal($var)
+    public function setThinkingDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->thinking_duration_seconds_total = $var;
 
         return $this;
@@ -526,7 +522,7 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setToolCallTokensTotal($var)
+    public function setToolCallTokensTotal(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->tool_call_tokens_total = $var;
@@ -552,9 +548,8 @@ class LlmModelUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setToolCallDurationSecondsTotal($var)
+    public function setToolCallDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->tool_call_duration_seconds_total = $var;
 
         return $this;

@@ -122,9 +122,9 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmAgentNodeEventNodeRunId($var)
+    public function setLlmAgentNodeEventNodeRunId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_agent_node_event_node_run_id = $var;
 
         return $this;
@@ -148,9 +148,9 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmAgentNodeEventParentNodeRunId($var)
+    public function setLlmAgentNodeEventParentNodeRunId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_agent_node_event_parent_node_run_id = $var;
 
         return $this;
@@ -174,9 +174,9 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmAgentNodeEventNodeDisplayName($var)
+    public function setLlmAgentNodeEventNodeDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_agent_node_event_node_display_name = $var;
 
         return $this;
@@ -202,7 +202,7 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmAgentNodeEventNodePath($var)
+    public function setLlmAgentNodeEventNodePath(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_agent_node_event_node_path = $arr;
@@ -214,7 +214,7 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * Lifecycle phase this event reports.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmAgentNodePhase llm_agent_node_phase = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmAgentNodePhase}
      */
     public function getLlmAgentNodePhase()
     {
@@ -225,10 +225,10 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * Lifecycle phase this event reports.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmAgentNodePhase llm_agent_node_phase = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmAgentNodePhase}
      * @return $this
      */
-    public function setLlmAgentNodePhase($var)
+    public function setLlmAgentNodePhase(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmAgentNodePhase::class);
         $this->llm_agent_node_phase = $var;
@@ -264,9 +264,8 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setTimestamp($var)
+    public function setTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->timestamp = $var;
 
         return $this;
@@ -292,9 +291,8 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setLlmAgentNodeEventDurationInS($var)
+    public function setLlmAgentNodeEventDurationInS(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->llm_agent_node_event_duration_in_s = $var;
 
         return $this;
@@ -318,9 +316,9 @@ class LlmAgentNodeEvent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmAgentNodeEventErrorMessage($var)
+    public function setLlmAgentNodeEventErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_agent_node_event_error_message = $var;
 
         return $this;

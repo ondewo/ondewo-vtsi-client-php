@@ -302,9 +302,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -330,9 +330,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -356,9 +356,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -382,9 +382,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -408,9 +408,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setGitSha($var)
+    public function setGitSha(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->git_sha = $var;
 
         return $this;
@@ -434,9 +434,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPromptVersion($var)
+    public function setPromptVersion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->prompt_version = $var;
 
         return $this;
@@ -460,9 +460,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -496,9 +496,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->config = $var;
 
         return $this;
@@ -522,7 +521,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationEvaluatorRun[] $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorRuns($var)
+    public function setLlmEvaluationEvaluatorRuns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationEvaluatorRun::class);
         $this->llm_evaluation_evaluator_runs = $arr;
@@ -558,9 +557,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartedAt($var)
+    public function setStartedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->started_at = $var;
 
         return $this;
@@ -594,9 +592,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setFinishedAt($var)
+    public function setFinishedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->finished_at = $var;
 
         return $this;
@@ -620,9 +617,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -646,7 +642,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNExamples($var)
+    public function setNExamples(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_examples = $var;
@@ -672,7 +668,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNPassed($var)
+    public function setNPassed(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_passed = $var;
@@ -698,7 +694,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNFailed($var)
+    public function setNFailed(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_failed = $var;
@@ -726,9 +722,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationBaselineExperimentName($var)
+    public function setLlmEvaluationBaselineExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_baseline_experiment_name = $var;
 
         return $this;
@@ -754,9 +750,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -767,7 +763,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * failed / cancelled).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus llm_evaluation_experiment_status = 18;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      */
     public function getLlmEvaluationExperimentStatus()
     {
@@ -779,10 +775,10 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * failed / cancelled).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus llm_evaluation_experiment_status = 18;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      * @return $this
      */
-    public function setLlmEvaluationExperimentStatus($var)
+    public function setLlmEvaluationExperimentStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExperimentStatus::class);
         $this->llm_evaluation_experiment_status = $var;
@@ -808,9 +804,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -838,9 +834,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -866,7 +862,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCcaiServiceNames($var)
+    public function setCcaiServiceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->ccai_service_names = $arr;
@@ -902,9 +898,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -938,9 +933,8 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -964,9 +958,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -992,7 +986,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRepetitions($var)
+    public function setRepetitions(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->repetitions = $var;
@@ -1022,9 +1016,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationScheduleName($var)
+    public function setLlmEvaluationScheduleName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_schedule_name = $var;
 
         return $this;
@@ -1035,7 +1029,7 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * gate candidate, gate safety, scheduled).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentKind llm_evaluation_experiment_kind = 27;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentKind}
      */
     public function getLlmEvaluationExperimentKind()
     {
@@ -1047,10 +1041,10 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * gate candidate, gate safety, scheduled).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentKind llm_evaluation_experiment_kind = 27;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentKind}
      * @return $this
      */
-    public function setLlmEvaluationExperimentKind($var)
+    public function setLlmEvaluationExperimentKind(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExperimentKind::class);
         $this->llm_evaluation_experiment_kind = $var;
@@ -1080,9 +1074,9 @@ class LlmEvaluationExperiment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationReleaseGateRunName($var)
+    public function setLlmEvaluationReleaseGateRunName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_release_gate_run_name = $var;
 
         return $this;

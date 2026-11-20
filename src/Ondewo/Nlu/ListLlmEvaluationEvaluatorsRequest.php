@@ -68,9 +68,9 @@ class ListLlmEvaluationEvaluatorsRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -94,9 +94,9 @@ class ListLlmEvaluationEvaluatorsRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

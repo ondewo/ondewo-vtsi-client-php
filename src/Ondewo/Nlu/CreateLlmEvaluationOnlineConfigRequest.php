@@ -84,9 +84,8 @@ class CreateLlmEvaluationOnlineConfigRequest extends \Google\Protobuf\Internal\M
      * @param \Ondewo\Nlu\LlmEvaluationOnlineConfig $var
      * @return $this
      */
-    public function setLlmEvaluationOnlineConfig($var)
+    public function setLlmEvaluationOnlineConfig(\Ondewo\Nlu\LlmEvaluationOnlineConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationOnlineConfig::class);
         $this->llm_evaluation_online_config = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class CreateLlmEvaluationOnlineConfigRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class CreateLlmEvaluationOnlineConfigRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

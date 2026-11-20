@@ -56,7 +56,7 @@ class AddNotificationsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Notification[] $var
      * @return $this
      */
-    public function setNotifications($var)
+    public function setNotifications(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Notification::class);
         $this->notifications = $arr;

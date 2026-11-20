@@ -28,7 +28,7 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
      * <code>softphone_account.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
-     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>.
+     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>, <code>description</code>.
      * Semantics:
      * <ul>
      *   <li>Mask unset or empty: rejected with <code>INVALID_ARGUMENT</code>. There is no implicit
@@ -60,7 +60,7 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      *           Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
      *           <code>softphone_account.</code> prefix. Updatable paths:
      *           <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
-     *           <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>.
+     *           <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>, <code>description</code>.
      *           Semantics:
      *           <ul>
      *             <li>Mask unset or empty: rejected with <code>INVALID_ARGUMENT</code>. There is no implicit
@@ -111,9 +111,8 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SoftphoneAccount $var
      * @return $this
      */
-    public function setSoftphoneAccount($var)
+    public function setSoftphoneAccount(\Ondewo\Vtsi\SoftphoneAccount|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneAccount::class);
         $this->softphone_account = $var;
 
         return $this;
@@ -123,7 +122,7 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
      * <code>softphone_account.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
-     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>.
+     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>, <code>description</code>.
      * Semantics:
      * <ul>
      *   <li>Mask unset or empty: rejected with <code>INVALID_ARGUMENT</code>. There is no implicit
@@ -160,7 +159,7 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * Required. The fields to update. Paths are field paths within <code>softphone_account</code> WITHOUT a
      * <code>softphone_account.</code> prefix. Updatable paths:
      * <code>display_name</code>, <code>transport_security</code>, <code>enabled</code>,
-     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>.
+     * <code>max_contacts</code>, <code>labels</code>, <code>allowed_destinations</code>, <code>description</code>.
      * Semantics:
      * <ul>
      *   <li>Mask unset or empty: rejected with <code>INVALID_ARGUMENT</code>. There is no implicit
@@ -179,9 +178,8 @@ class UpdateSoftphoneAccountRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

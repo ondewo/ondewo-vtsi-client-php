@@ -89,9 +89,9 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -115,7 +115,7 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      * @param \Ondewo\Vtsi\StartScheduledCallerResponse[] $var
      * @return $this
      */
-    public function setScheduledCallerResponses($var)
+    public function setScheduledCallerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\StartScheduledCallerResponse::class);
         $this->scheduled_caller_responses = $arr;
@@ -155,9 +155,8 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      * @param \Ondewo\Vtsi\Campaign $var
      * @return $this
      */
-    public function setCampaign($var)
+    public function setCampaign(\Ondewo\Vtsi\Campaign|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->campaign = $var;
 
         return $this;
@@ -181,7 +180,7 @@ class AddScheduledCallersToCampaignResponse extends \Google\Protobuf\Internal\Me
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignCallNames($var)
+    public function setCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_call_names = $arr;

@@ -69,9 +69,9 @@ class LlmEvaluationAbRolloutDecisionFilter extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationAbExperimentName($var)
+    public function setLlmEvaluationAbExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_ab_experiment_name = $var;
 
         return $this;
@@ -95,9 +95,9 @@ class LlmEvaluationAbRolloutDecisionFilter extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setAppliedBy($var)
+    public function setAppliedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->applied_by = $var;
 
         return $this;

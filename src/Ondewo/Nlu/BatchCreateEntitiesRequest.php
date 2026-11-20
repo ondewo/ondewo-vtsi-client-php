@@ -56,7 +56,7 @@ class BatchCreateEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CreateEntityRequest[] $var
      * @return $this
      */
-    public function setCreateEntityRequests($var)
+    public function setCreateEntityRequests(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\CreateEntityRequest::class);
         $this->create_entity_requests = $arr;

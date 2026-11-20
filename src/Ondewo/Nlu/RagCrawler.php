@@ -174,9 +174,9 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -202,9 +202,9 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -238,9 +238,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -274,9 +273,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -300,9 +298,9 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -326,9 +324,9 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -364,9 +362,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerSources $var
      * @return $this
      */
-    public function setCrawlerSources($var)
+    public function setCrawlerSources(\Ondewo\Nlu\RagCrawlerSources|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerSources::class);
         $this->crawler_sources = $var;
 
         return $this;
@@ -402,9 +399,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerSeedUrlFilters $var
      * @return $this
      */
-    public function setCrawlerSeedUrlFilters($var)
+    public function setCrawlerSeedUrlFilters(\Ondewo\Nlu\RagCrawlerSeedUrlFilters|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerSeedUrlFilters::class);
         $this->crawler_seed_url_filters = $var;
 
         return $this;
@@ -438,9 +434,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerAuth $var
      * @return $this
      */
-    public function setCrawlerAuth($var)
+    public function setCrawlerAuth(\Ondewo\Nlu\RagCrawlerAuth|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerAuth::class);
         $this->crawler_auth = $var;
 
         return $this;
@@ -478,9 +473,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerBrowserConfig $var
      * @return $this
      */
-    public function setCrawlerBrowserConfig($var)
+    public function setCrawlerBrowserConfig(\Ondewo\Nlu\RagCrawlerBrowserConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerBrowserConfig::class);
         $this->crawler_browser_config = $var;
 
         return $this;
@@ -516,9 +510,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerConfig $var
      * @return $this
      */
-    public function setCrawlerConfig($var)
+    public function setCrawlerConfig(\Ondewo\Nlu\RagCrawlerConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerConfig::class);
         $this->crawler_config = $var;
 
         return $this;
@@ -552,9 +545,8 @@ class RagCrawler extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerRetryConfig $var
      * @return $this
      */
-    public function setRetryConfig($var)
+    public function setRetryConfig(\Ondewo\Nlu\RagCrawlerRetryConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerRetryConfig::class);
         $this->retry_config = $var;
 
         return $this;

@@ -76,9 +76,9 @@ class SetAgentStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -88,7 +88,7 @@ class SetAgentStatusRequest extends \Google\Protobuf\Internal\Message
      * Required. Status of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentStatus status = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\AgentStatus}
      */
     public function getStatus()
     {
@@ -99,10 +99,10 @@ class SetAgentStatusRequest extends \Google\Protobuf\Internal\Message
      * Required. Status of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentStatus status = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\AgentStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\AgentStatus::class);
         $this->status = $var;
@@ -114,7 +114,7 @@ class SetAgentStatusRequest extends \Google\Protobuf\Internal\Message
      * Optional. View of the returned agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentView agent_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\AgentView}
      */
     public function getAgentView()
     {
@@ -125,10 +125,10 @@ class SetAgentStatusRequest extends \Google\Protobuf\Internal\Message
      * Optional. View of the returned agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.AgentView agent_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\AgentView}
      * @return $this
      */
-    public function setAgentView($var)
+    public function setAgentView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\AgentView::class);
         $this->agent_view = $var;

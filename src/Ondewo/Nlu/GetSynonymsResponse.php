@@ -56,7 +56,7 @@ class GetSynonymsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Synonym[] $var
      * @return $this
      */
-    public function setSynonyms($var)
+    public function setSynonyms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Synonym::class);
         $this->synonyms = $arr;

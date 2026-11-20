@@ -88,7 +88,7 @@ class RagDatasetParsingStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setUnstart($var)
+    public function setUnstart(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->unstart = $var;
@@ -114,7 +114,7 @@ class RagDatasetParsingStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRunning($var)
+    public function setRunning(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->running = $var;
@@ -140,7 +140,7 @@ class RagDatasetParsingStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCancel($var)
+    public function setCancel(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cancel = $var;
@@ -166,7 +166,7 @@ class RagDatasetParsingStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDone($var)
+    public function setDone(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->done = $var;
@@ -192,7 +192,7 @@ class RagDatasetParsingStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setFail($var)
+    public function setFail(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->fail = $var;

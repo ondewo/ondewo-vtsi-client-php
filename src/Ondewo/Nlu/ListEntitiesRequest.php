@@ -162,9 +162,9 @@ class ListEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeName($var)
+    public function setEntityTypeName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_name = $var;
 
         return $this;
@@ -190,9 +190,9 @@ class ListEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -266,9 +266,9 @@ class ListEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -302,9 +302,8 @@ class ListEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityValueSorting $var
      * @return $this
      */
-    public function setSortByField($var)
+    public function setSortByField(\Ondewo\Nlu\EntityValueSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityValueSorting::class);
         $this->sort_by_field = $var;
 
         return $this;
@@ -346,9 +345,9 @@ class ListEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSearchByPattern($var)
+    public function setSearchByPattern(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->search_by_pattern = $var;
 
         return $this;

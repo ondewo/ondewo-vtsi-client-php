@@ -72,9 +72,9 @@ class TrainingPhraseForIntent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTrainingPhrase($var)
+    public function setTrainingPhrase(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->training_phrase = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class TrainingPhraseForIntent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentDisplayName($var)
+    public function setIntentDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_display_name = $var;
 
         return $this;
@@ -124,7 +124,7 @@ class TrainingPhraseForIntent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase\Entity[] $var
      * @return $this
      */
-    public function setEntities($var)
+    public function setEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\TrainingPhrase\Entity::class);
         $this->entities = $arr;

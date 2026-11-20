@@ -72,9 +72,9 @@ class CreateProjectTechnicalUserRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -102,9 +102,9 @@ class CreateProjectTechnicalUserRequest extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;

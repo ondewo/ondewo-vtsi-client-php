@@ -150,9 +150,9 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParticipantId($var)
+    public function setParticipantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->participant_id = $var;
 
         return $this;
@@ -178,9 +178,9 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountName($var)
+    public function setSoftphoneAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->softphone_account_name = $var;
 
         return $this;
@@ -190,7 +190,7 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * How the participant takes part
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantMode mode = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ParticipantMode}
      */
     public function getMode()
     {
@@ -201,10 +201,10 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * How the participant takes part
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantMode mode = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ParticipantMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ParticipantMode::class);
         $this->mode = $var;
@@ -216,7 +216,7 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * State of the participant
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantState state = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ParticipantState}
      */
     public function getState()
     {
@@ -227,10 +227,10 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * State of the participant
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantState state = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ParticipantState}
      * @return $this
      */
-    public function setState($var)
+    public function setState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ParticipantState::class);
         $this->state = $var;
@@ -266,9 +266,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setInvitedAt($var)
+    public function setInvitedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->invited_at = $var;
 
         return $this;
@@ -302,9 +301,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setJoinedAt($var)
+    public function setJoinedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->joined_at = $var;
 
         return $this;
@@ -338,9 +336,8 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLeftAt($var)
+    public function setLeftAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->left_at = $var;
 
         return $this;
@@ -370,9 +367,9 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEndReason($var)
+    public function setEndReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->end_reason = $var;
 
         return $this;
@@ -396,9 +393,9 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setInvitedBy($var)
+    public function setInvitedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->invited_by = $var;
 
         return $this;
@@ -408,7 +405,7 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * Bot policy applied while this participant is ringing or joined
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BotPolicyOnJoin bot_policy = 10;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\BotPolicyOnJoin}
      */
     public function getBotPolicy()
     {
@@ -419,10 +416,10 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * Bot policy applied while this participant is ringing or joined
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BotPolicyOnJoin bot_policy = 10;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\BotPolicyOnJoin}
      * @return $this
      */
-    public function setBotPolicy($var)
+    public function setBotPolicy(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\BotPolicyOnJoin::class);
         $this->bot_policy = $var;
@@ -437,7 +434,7 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * then.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantEndReason end_reason_type = 11;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\ParticipantEndReason}
      */
     public function getEndReasonType()
     {
@@ -451,10 +448,10 @@ class CallParticipant extends \Google\Protobuf\Internal\Message
      * then.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ParticipantEndReason end_reason_type = 11;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\ParticipantEndReason}
      * @return $this
      */
-    public function setEndReasonType($var)
+    public function setEndReasonType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\ParticipantEndReason::class);
         $this->end_reason_type = $var;

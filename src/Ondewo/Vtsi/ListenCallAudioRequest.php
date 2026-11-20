@@ -66,9 +66,8 @@ class ListenCallAudioRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\StreamCallAudioConfig $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Ondewo\Vtsi\StreamCallAudioConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\StreamCallAudioConfig::class);
         $this->config = $var;
 
         return $this;

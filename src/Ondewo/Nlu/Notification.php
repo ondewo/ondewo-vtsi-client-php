@@ -208,9 +208,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -236,9 +236,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserName($var)
+    public function setUserName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_name = $var;
 
         return $this;
@@ -264,9 +264,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTitle($var)
+    public function setTitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->title = $var;
 
         return $this;
@@ -290,9 +290,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescriptionShort($var)
+    public function setDescriptionShort(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description_short = $var;
 
         return $this;
@@ -316,9 +316,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescriptionLong($var)
+    public function setDescriptionLong(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description_long = $var;
 
         return $this;
@@ -328,7 +328,7 @@ class Notification extends \Google\Protobuf\Internal\Message
      * Has a notification been flagged by a specific user
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationFlaggedStatus notification_flagged_status = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\NotificationFlaggedStatus}
      */
     public function getNotificationFlaggedStatus()
     {
@@ -339,10 +339,10 @@ class Notification extends \Google\Protobuf\Internal\Message
      * Has a notification been flagged by a specific user
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationFlaggedStatus notification_flagged_status = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\NotificationFlaggedStatus}
      * @return $this
      */
-    public function setNotificationFlaggedStatus($var)
+    public function setNotificationFlaggedStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\NotificationFlaggedStatus::class);
         $this->notification_flagged_status = $var;
@@ -378,9 +378,8 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNotificationFlaggedTimestamp($var)
+    public function setNotificationFlaggedTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->notification_flagged_timestamp = $var;
 
         return $this;
@@ -390,7 +389,7 @@ class Notification extends \Google\Protobuf\Internal\Message
      * Has a notification been read by a specific user
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationReadStatus notification_read_status = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\NotificationReadStatus}
      */
     public function getNotificationReadStatus()
     {
@@ -401,10 +400,10 @@ class Notification extends \Google\Protobuf\Internal\Message
      * Has a notification been read by a specific user
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationReadStatus notification_read_status = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\NotificationReadStatus}
      * @return $this
      */
-    public function setNotificationReadStatus($var)
+    public function setNotificationReadStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\NotificationReadStatus::class);
         $this->notification_read_status = $var;
@@ -440,9 +439,8 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNotificationReadTimestamp($var)
+    public function setNotificationReadTimestamp(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->notification_read_timestamp = $var;
 
         return $this;
@@ -453,7 +451,7 @@ class Notification extends \Google\Protobuf\Internal\Message
      * A Notification origin can be from a product (service), e.g. ondewo-nlu, ondewo-s2t, ondewo-t2s, etc.
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationOrigin notification_origin = 10;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\NotificationOrigin}
      */
     public function getNotificationOrigin()
     {
@@ -465,10 +463,10 @@ class Notification extends \Google\Protobuf\Internal\Message
      * A Notification origin can be from a product (service), e.g. ondewo-nlu, ondewo-s2t, ondewo-t2s, etc.
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationOrigin notification_origin = 10;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\NotificationOrigin}
      * @return $this
      */
-    public function setNotificationOrigin($var)
+    public function setNotificationOrigin(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\NotificationOrigin::class);
         $this->notification_origin = $var;
@@ -494,9 +492,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOriginName($var)
+    public function setOriginName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->origin_name = $var;
 
         return $this;
@@ -520,9 +518,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOriginLanguage($var)
+    public function setOriginLanguage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->origin_language = $var;
 
         return $this;
@@ -532,7 +530,7 @@ class Notification extends \Google\Protobuf\Internal\Message
      * The type of notification
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationType notification_type = 13;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\NotificationType}
      */
     public function getNotificationType()
     {
@@ -543,10 +541,10 @@ class Notification extends \Google\Protobuf\Internal\Message
      * The type of notification
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationType notification_type = 13;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\NotificationType}
      * @return $this
      */
-    public function setNotificationType($var)
+    public function setNotificationType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\NotificationType::class);
         $this->notification_type = $var;
@@ -558,7 +556,7 @@ class Notification extends \Google\Protobuf\Internal\Message
      * The visibility level of the notification
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationVisibility notification_visibility = 14;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\NotificationVisibility}
      */
     public function getNotificationVisibility()
     {
@@ -569,10 +567,10 @@ class Notification extends \Google\Protobuf\Internal\Message
      * The visibility level of the notification
      *
      * Generated from protobuf field <code>.ondewo.nlu.NotificationVisibility notification_visibility = 14;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\NotificationVisibility}
      * @return $this
      */
-    public function setNotificationVisibility($var)
+    public function setNotificationVisibility(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\NotificationVisibility::class);
         $this->notification_visibility = $var;
@@ -608,9 +606,8 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -644,9 +641,8 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -670,9 +666,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -696,9 +692,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -724,9 +720,9 @@ class Notification extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLink($var)
+    public function setLink(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->link = $var;
 
         return $this;

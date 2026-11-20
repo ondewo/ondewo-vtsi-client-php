@@ -106,7 +106,7 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiEventMessage[] $var
      * @return $this
      */
-    public function setEvents($var)
+    public function setEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\VtsiEventMessage::class);
         $this->events = $arr;
@@ -138,9 +138,9 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResumeToken($var)
+    public function setResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resume_token = $var;
 
         return $this;
@@ -164,7 +164,7 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDroppedEventCount($var)
+    public function setDroppedEventCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->dropped_event_count = $var;
@@ -192,9 +192,9 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEndReason($var)
+    public function setEndReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->end_reason = $var;
 
         return $this;
@@ -209,7 +209,7 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * that predates this field).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\StreamEndReason}
      */
     public function getEndReasonType()
     {
@@ -225,10 +225,10 @@ class SubscribeVtsiEventsResponse extends \Google\Protobuf\Internal\Message
      * that predates this field).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\StreamEndReason}
      * @return $this
      */
-    public function setEndReasonType($var)
+    public function setEndReasonType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\StreamEndReason::class);
         $this->end_reason_type = $var;

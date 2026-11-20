@@ -78,9 +78,9 @@ class CreateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -114,9 +114,8 @@ class CreateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionStep $var
      * @return $this
      */
-    public function setSessionStep($var)
+    public function setSessionStep(\Ondewo\Nlu\SessionStep|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionStep::class);
         $this->session_step = $var;
 
         return $this;
@@ -152,9 +151,8 @@ class CreateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

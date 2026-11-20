@@ -64,9 +64,9 @@ class UpdateSessionCommentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -100,9 +100,8 @@ class UpdateSessionCommentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Comment $var
      * @return $this
      */
-    public function setComment($var)
+    public function setComment(\Ondewo\Nlu\Comment|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Comment::class);
         $this->comment = $var;
 
         return $this;

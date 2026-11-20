@@ -56,7 +56,7 @@ class ListRemoteOperationContainersResponse extends \Google\Protobuf\Internal\Me
      * @param \Ondewo\Nlu\RemoteOperationContainer[] $var
      * @return $this
      */
-    public function setContainers($var)
+    public function setContainers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RemoteOperationContainer::class);
         $this->containers = $arr;

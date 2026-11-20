@@ -110,9 +110,8 @@ class DetectedIntent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent $var
      * @return $this
      */
-    public function setIntent($var)
+    public function setIntent(\Ondewo\Nlu\Intent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent::class);
         $this->intent = $var;
 
         return $this;
@@ -136,9 +135,8 @@ class DetectedIntent extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;
@@ -162,9 +160,9 @@ class DetectedIntent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAlgorithm($var)
+    public function setAlgorithm(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->algorithm = $var;
 
         return $this;
@@ -192,7 +190,7 @@ class DetectedIntent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setFulfillmentMessages($var)
+    public function setFulfillmentMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->fulfillment_messages = $arr;
@@ -226,9 +224,8 @@ class DetectedIntent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setRequiredParamMissing($var)
+    public function setRequiredParamMissing(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->required_param_missing = $var;
 
         return $this;

@@ -36,6 +36,13 @@ class CallTarget extends \Google\Protobuf\Internal\Message
      *           The call goes to that listener&apos;s idle container; a busy listener is refused (<code>listener-busy</code>)
      *     @type \Ondewo\Vtsi\ListenerQueueTarget $listener_queue
      *           The project&apos;s listener queue: any idle listener of the project takes the call
+     *     @type string $ivr_menu_name
+     *           A PUBLISHED IVR menu of the same project:
+     *           <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
+     *           the menu&apos;s published revision at its entry node. <code>TRANSFER_MODE_BLIND</code> only; with
+     *           <code>TRANSFER_MODE_WARM</code> it is refused with <code>INVALID_ARGUMENT</code>. A menu that is not
+     *           published is refused with <code>FAILED_PRECONDITION</code> <code>reason=menu-not-published</code>, and a
+     *           deployment without IVR menus with <code>UNIMPLEMENTED</code> <code>reason=ivr-disabled</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -68,9 +75,9 @@ class CallTarget extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPhoneNumber($var)
+    public function setPhoneNumber(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -103,9 +110,9 @@ class CallTarget extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSoftphoneAccountName($var)
+    public function setSoftphoneAccountName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -136,9 +143,9 @@ class CallTarget extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setListenerName($var)
+    public function setListenerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -167,10 +174,50 @@ class CallTarget extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ListenerQueueTarget $var
      * @return $this
      */
-    public function setListenerQueue($var)
+    public function setListenerQueue(\Ondewo\Vtsi\ListenerQueueTarget|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ListenerQueueTarget::class);
         $this->writeOneof(4, $var);
+
+        return $this;
+    }
+
+    /**
+     * A PUBLISHED IVR menu of the same project:
+     * <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
+     * the menu&apos;s published revision at its entry node. <code>TRANSFER_MODE_BLIND</code> only; with
+     * <code>TRANSFER_MODE_WARM</code> it is refused with <code>INVALID_ARGUMENT</code>. A menu that is not
+     * published is refused with <code>FAILED_PRECONDITION</code> <code>reason=menu-not-published</code>, and a
+     * deployment without IVR menus with <code>UNIMPLEMENTED</code> <code>reason=ivr-disabled</code>
+     *
+     * Generated from protobuf field <code>string ivr_menu_name = 5;</code>
+     * @return string
+     */
+    public function getIvrMenuName()
+    {
+        return $this->readOneof(5);
+    }
+
+    public function hasIvrMenuName()
+    {
+        return $this->hasOneof(5);
+    }
+
+    /**
+     * A PUBLISHED IVR menu of the same project:
+     * <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>. The caller enters
+     * the menu&apos;s published revision at its entry node. <code>TRANSFER_MODE_BLIND</code> only; with
+     * <code>TRANSFER_MODE_WARM</code> it is refused with <code>INVALID_ARGUMENT</code>. A menu that is not
+     * published is refused with <code>FAILED_PRECONDITION</code> <code>reason=menu-not-published</code>, and a
+     * deployment without IVR menus with <code>UNIMPLEMENTED</code> <code>reason=ivr-disabled</code>
+     *
+     * Generated from protobuf field <code>string ivr_menu_name = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setIvrMenuName(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->writeOneof(5, $var);
 
         return $this;
     }

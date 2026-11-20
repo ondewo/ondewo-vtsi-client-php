@@ -73,9 +73,9 @@ class CreateProjectTechnicalUserResponse extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setUserId($var)
+    public function setUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_id = $var;
 
         return $this;
@@ -99,9 +99,9 @@ class CreateProjectTechnicalUserResponse extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setUsername($var)
+    public function setUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->username = $var;
 
         return $this;
@@ -125,9 +125,9 @@ class CreateProjectTechnicalUserResponse extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setPassword($var)
+    public function setPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->password = $var;
 
         return $this;

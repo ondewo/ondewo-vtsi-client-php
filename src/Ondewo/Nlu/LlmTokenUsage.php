@@ -72,7 +72,7 @@ class LlmTokenUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setTotalTokens($var)
+    public function setTotalTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->total_tokens = $var;
@@ -98,7 +98,7 @@ class LlmTokenUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setInputTokens($var)
+    public function setInputTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->input_tokens = $var;
@@ -124,7 +124,7 @@ class LlmTokenUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setOutputTokens($var)
+    public function setOutputTokens(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->output_tokens = $var;

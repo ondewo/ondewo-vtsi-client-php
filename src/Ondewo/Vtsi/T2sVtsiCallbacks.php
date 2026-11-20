@@ -68,7 +68,7 @@ class T2sVtsiCallbacks extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPreT2SCallbacks($var)
+    public function setPreT2SCallbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->pre_t2s_callbacks = $arr;
@@ -94,7 +94,7 @@ class T2sVtsiCallbacks extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPostT2SCallbacks($var)
+    public function setPostT2SCallbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->post_t2s_callbacks = $arr;

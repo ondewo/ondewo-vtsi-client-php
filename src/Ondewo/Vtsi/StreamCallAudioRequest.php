@@ -60,9 +60,8 @@ class StreamCallAudioRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\StreamCallAudioConfig $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Ondewo\Vtsi\StreamCallAudioConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\StreamCallAudioConfig::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -91,9 +90,8 @@ class StreamCallAudioRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallAudioFrame $var
      * @return $this
      */
-    public function setAudio($var)
+    public function setAudio(\Ondewo\Vtsi\CallAudioFrame|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallAudioFrame::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -122,9 +120,8 @@ class StreamCallAudioRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAgentMuted($var)
+    public function setAgentMuted(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->writeOneof(3, $var);
 
         return $this;

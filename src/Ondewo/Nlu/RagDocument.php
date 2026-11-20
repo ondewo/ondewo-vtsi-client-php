@@ -200,9 +200,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -226,9 +226,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setThumbnail($var)
+    public function setThumbnail(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->thumbnail = $var;
 
         return $this;
@@ -252,9 +252,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -264,7 +264,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Chunking method used for this document.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      */
     public function getChunkMethod()
     {
@@ -275,10 +275,10 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Chunking method used for this document.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagChunkMethod chunk_method = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagChunkMethod}
      * @return $this
      */
-    public function setChunkMethod($var)
+    public function setChunkMethod(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagChunkMethod::class);
         $this->chunk_method = $var;
@@ -314,9 +314,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagParserConfig $var
      * @return $this
      */
-    public function setParserConfig($var)
+    public function setParserConfig(\Ondewo\Nlu\RagParserConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagParserConfig::class);
         $this->parser_config = $var;
 
         return $this;
@@ -326,7 +325,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Broad file category
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagDocumentType type = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagDocumentType}
      */
     public function getType()
     {
@@ -337,10 +336,10 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Broad file category
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagDocumentType type = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagDocumentType}
      * @return $this
      */
-    public function setType($var)
+    public function setType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagDocumentType::class);
         $this->type = $var;
@@ -366,9 +365,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -382,7 +381,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      */
     public function getSize()
     {
-        return isset($this->size) ? $this->size : 0;
+        return isset($this->size) ? $this->size : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasSize()
@@ -402,7 +401,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setSize($var)
+    public function setSize(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->size = $var;
@@ -438,7 +437,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setChunkCount($var)
+    public function setChunkCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->chunk_count = $var;
@@ -474,7 +473,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTokenCount($var)
+    public function setTokenCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->token_count = $var;
@@ -510,9 +509,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setProgress($var)
+    public function setProgress(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->progress = $var;
 
         return $this;
@@ -536,9 +534,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProgressMsg($var)
+    public function setProgressMsg(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->progress_msg = $var;
 
         return $this;
@@ -572,9 +570,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setProcessBeginAt($var)
+    public function setProcessBeginAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->process_begin_at = $var;
 
         return $this;
@@ -608,9 +605,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setProcessDuration($var)
+    public function setProcessDuration(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->process_duration = $var;
 
         return $this;
@@ -644,9 +640,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setMetaFields($var)
+    public function setMetaFields(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->meta_fields = $var;
 
         return $this;
@@ -656,7 +651,7 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Document processing status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagDocumentStatus run = 16;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagDocumentStatus}
      */
     public function getRun()
     {
@@ -667,10 +662,10 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * Document processing status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagDocumentStatus run = 16;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagDocumentStatus}
      * @return $this
      */
-    public function setRun($var)
+    public function setRun(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagDocumentStatus::class);
         $this->run = $var;
@@ -696,9 +691,9 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->status = $var;
 
         return $this;
@@ -732,9 +727,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTime($var)
+    public function setCreateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time = $var;
 
         return $this;
@@ -768,9 +762,8 @@ class RagDocument extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setUpdateTime($var)
+    public function setUpdateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->update_time = $var;
 
         return $this;

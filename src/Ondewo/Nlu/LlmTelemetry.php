@@ -612,9 +612,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProvider($var)
+    public function setProvider(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->provider = $var;
 
         return $this;
@@ -638,9 +638,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -664,9 +664,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentName($var)
+    public function setAgentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_name = $var;
 
         return $this;
@@ -700,9 +700,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -726,7 +725,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmToolCallMetadata[] $var
      * @return $this
      */
-    public function setLlmToolCallMetadatas($var)
+    public function setLlmToolCallMetadatas(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmToolCallMetadata::class);
         $this->llm_tool_call_metadatas = $arr;
@@ -752,7 +751,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setToolCallCount($var)
+    public function setToolCallCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->tool_call_count = $var;
@@ -788,9 +787,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmThinkingMetadata $var
      * @return $this
      */
-    public function setLlmThinkingMetadata($var)
+    public function setLlmThinkingMetadata(\Ondewo\Nlu\LlmThinkingMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmThinkingMetadata::class);
         $this->llm_thinking_metadata = $var;
 
         return $this;
@@ -824,9 +822,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -860,9 +857,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -886,9 +882,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -912,9 +907,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRunId($var)
+    public function setRunId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->run_id = $var;
 
         return $this;
@@ -940,9 +935,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParentRunId($var)
+    public function setParentRunId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent_run_id = $var;
 
         return $this;
@@ -966,9 +961,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRunType($var)
+    public function setRunType(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->run_type = $var;
 
         return $this;
@@ -992,9 +987,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setComponentName($var)
+    public function setComponentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->component_name = $var;
 
         return $this;
@@ -1018,7 +1013,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -1054,9 +1049,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setMetadata($var)
+    public function setMetadata(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->metadata = $var;
 
         return $this;
@@ -1090,9 +1084,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setInputs($var)
+    public function setInputs(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->inputs = $var;
 
         return $this;
@@ -1126,9 +1119,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setOutputs($var)
+    public function setOutputs(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->outputs = $var;
 
         return $this;
@@ -1152,9 +1144,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorClass($var)
+    public function setErrorClass(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_class = $var;
 
         return $this;
@@ -1178,9 +1170,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;
@@ -1204,9 +1196,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTraceback($var)
+    public function setTraceback(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->traceback = $var;
 
         return $this;
@@ -1230,7 +1222,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setStreamingChunkCount($var)
+    public function setStreamingChunkCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->streaming_chunk_count = $var;
@@ -1256,9 +1248,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFirstTokenLatencySeconds($var)
+    public function setFirstTokenLatencySeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->first_token_latency_seconds = $var;
 
         return $this;
@@ -1282,9 +1273,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSystemFingerprint($var)
+    public function setSystemFingerprint(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->system_fingerprint = $var;
 
         return $this;
@@ -1308,9 +1299,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setCached($var)
+    public function setCached(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->cached = $var;
 
         return $this;
@@ -1334,7 +1324,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRetryCount($var)
+    public function setRetryCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->retry_count = $var;
@@ -1360,7 +1350,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setFallbackDepth($var)
+    public function setFallbackDepth(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->fallback_depth = $var;
@@ -1386,9 +1376,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTemperature($var)
+    public function setTemperature(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->temperature = $var;
 
         return $this;
@@ -1412,9 +1401,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTopP($var)
+    public function setTopP(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->top_p = $var;
 
         return $this;
@@ -1438,7 +1426,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxTokens($var)
+    public function setMaxTokens(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_tokens = $var;
@@ -1464,7 +1452,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNGenerations($var)
+    public function setNGenerations(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->n_generations = $var;
@@ -1490,7 +1478,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setFinishReasons($var)
+    public function setFinishReasons(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->finish_reasons = $arr;
@@ -1518,7 +1506,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCachedInputTokens($var)
+    public function setCachedInputTokens(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cached_input_tokens = $var;
@@ -1546,7 +1534,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCacheCreationInputTokens($var)
+    public function setCacheCreationInputTokens(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cache_creation_input_tokens = $var;
@@ -1572,9 +1560,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLangsmithRunUrl($var)
+    public function setLangsmithRunUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->langsmith_run_url = $var;
 
         return $this;
@@ -1598,9 +1586,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTeamName($var)
+    public function setTeamName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->team_name = $var;
 
         return $this;
@@ -1624,9 +1612,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTeamId($var)
+    public function setTeamId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->team_id = $var;
 
         return $this;
@@ -1650,9 +1638,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentRole($var)
+    public function setAgentRole(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_role = $var;
 
         return $this;
@@ -1676,9 +1664,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSenderAgent($var)
+    public function setSenderAgent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sender_agent = $var;
 
         return $this;
@@ -1702,9 +1690,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRecipientAgent($var)
+    public function setRecipientAgent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->recipient_agent = $var;
 
         return $this;
@@ -1728,7 +1716,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTurnIndex($var)
+    public function setTurnIndex(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->turn_index = $var;
@@ -1754,7 +1742,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setReflectionIterations($var)
+    public function setReflectionIterations(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->reflection_iterations = $var;
@@ -1780,9 +1768,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTerminationReason($var)
+    public function setTerminationReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->termination_reason = $var;
 
         return $this;
@@ -1806,9 +1794,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEvaluatorRunsJoinKey($var)
+    public function setEvaluatorRunsJoinKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->evaluator_runs_join_key = $var;
 
         return $this;
@@ -1834,7 +1822,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationFeedback[] $var
      * @return $this
      */
-    public function setLlmEvaluationFeedbacks($var)
+    public function setLlmEvaluationFeedbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationFeedback::class);
         $this->llm_evaluation_feedbacks = $arr;
@@ -1860,9 +1848,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCcaiServiceName($var)
+    public function setCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ccai_service_name = $var;
 
         return $this;
@@ -1888,9 +1876,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBaseUrl($var)
+    public function setBaseUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->base_url = $var;
 
         return $this;
@@ -1924,9 +1912,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setDefaultHeaders($var)
+    public function setDefaultHeaders(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->default_headers = $var;
 
         return $this;
@@ -1964,9 +1951,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setDefaultQuery($var)
+    public function setDefaultQuery(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->default_query = $var;
 
         return $this;
@@ -2004,9 +1990,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFrequencyPenalty($var)
+    public function setFrequencyPenalty(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->frequency_penalty = $var;
 
         return $this;
@@ -2042,9 +2027,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setOpenaiMetadata($var)
+    public function setOpenaiMetadata(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->openai_metadata = $var;
 
         return $this;
@@ -2082,9 +2066,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setPresencePenalty($var)
+    public function setPresencePenalty(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->presence_penalty = $var;
 
         return $this;
@@ -2095,7 +2078,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * Controls the trade-off between speed and quality.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.ReasoningEffort reasoning_effort = 53;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReasoningEffort}
      */
     public function getReasoningEffort()
     {
@@ -2117,10 +2100,10 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * Controls the trade-off between speed and quality.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.ReasoningEffort reasoning_effort = 53;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReasoningEffort}
      * @return $this
      */
-    public function setReasoningEffort($var)
+    public function setReasoningEffort(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReasoningEffort::class);
         $this->reasoning_effort = $var;
@@ -2158,9 +2141,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUser($var)
+    public function setUser(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user = $var;
 
         return $this;
@@ -2196,9 +2179,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTimeout($var)
+    public function setTimeout(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->timeout = $var;
 
         return $this;
@@ -2234,9 +2216,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setStrictResponseValidation($var)
+    public function setStrictResponseValidation(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->strict_response_validation = $var;
 
         return $this;
@@ -2272,9 +2253,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setExtraHeaders($var)
+    public function setExtraHeaders(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->extra_headers = $var;
 
         return $this;
@@ -2310,9 +2290,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setExtraQuery($var)
+    public function setExtraQuery(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->extra_query = $var;
 
         return $this;
@@ -2348,9 +2327,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setExtraBody($var)
+    public function setExtraBody(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->extra_body = $var;
 
         return $this;
@@ -2360,7 +2338,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * Provider of the ccai service
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 60;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getCcaiServiceProvider()
     {
@@ -2371,10 +2349,10 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * Provider of the ccai service
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiServiceProvider ccai_service_provider = 60;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setCcaiServiceProvider($var)
+    public function setCcaiServiceProvider(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->ccai_service_provider = $var;
@@ -2418,9 +2396,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmSafetyAssessment $var
      * @return $this
      */
-    public function setLlmSafetyAssessment($var)
+    public function setLlmSafetyAssessment(\Ondewo\Nlu\LlmSafetyAssessment|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmSafetyAssessment::class);
         $this->llm_safety_assessment = $var;
 
         return $this;
@@ -2460,9 +2437,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmRetrievalMetadata $var
      * @return $this
      */
-    public function setLlmRetrievalMetadata($var)
+    public function setLlmRetrievalMetadata(\Ondewo\Nlu\LlmRetrievalMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmRetrievalMetadata::class);
         $this->llm_retrieval_metadata = $var;
 
         return $this;
@@ -2494,9 +2470,9 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmCallId($var)
+    public function setLlmCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_call_id = $var;
 
         return $this;

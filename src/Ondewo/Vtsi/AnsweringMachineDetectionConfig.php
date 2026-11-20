@@ -290,9 +290,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActive($var)
+    public function setActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active = $var;
 
         return $this;
@@ -302,7 +301,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * Optional: Action on a non-human verdict (default: HANG_UP)
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction action = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdAction}
      */
     public function getAction()
     {
@@ -323,10 +322,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * Optional: Action on a non-human verdict (default: HANG_UP)
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction action = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdAction}
      * @return $this
      */
-    public function setAction($var)
+    public function setAction(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdAction::class);
         $this->action = $var;
@@ -338,7 +337,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * Optional: Sensitivity of the detection (default: LOW)
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity sensitivity = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdSensitivity}
      */
     public function getSensitivity()
     {
@@ -359,10 +358,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * Optional: Sensitivity of the detection (default: LOW)
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity sensitivity = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdSensitivity}
      * @return $this
      */
-    public function setSensitivity($var)
+    public function setSensitivity(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdSensitivity::class);
         $this->sensitivity = $var;
@@ -402,7 +401,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxDecisionTimeMs($var)
+    public function setMaxDecisionTimeMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_decision_time_ms = $var;
@@ -440,7 +439,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxMachineWaitMs($var)
+    public function setMaxMachineWaitMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_machine_wait_ms = $var;
@@ -478,7 +477,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setBeepWaitAfterGreetingMs($var)
+    public function setBeepWaitAfterGreetingMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->beep_wait_after_greeting_ms = $var;
@@ -516,7 +515,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setInitialSilenceMs($var)
+    public function setInitialSilenceMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->initial_silence_ms = $var;
@@ -554,7 +553,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxHumanGreetingMs($var)
+    public function setMaxHumanGreetingMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_human_greeting_ms = $var;
@@ -592,7 +591,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setGreetingEndSilenceMs($var)
+    public function setGreetingEndSilenceMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->greeting_end_silence_ms = $var;
@@ -628,9 +627,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setBeepDetectionActive($var)
+    public function setBeepDetectionActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->beep_detection_active = $var;
 
         return $this;
@@ -656,7 +654,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAdditionalMachinePhrases($var)
+    public function setAdditionalMachinePhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->additional_machine_phrases = $arr;
@@ -684,7 +682,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAdditionalHumanPhrases($var)
+    public function setAdditionalHumanPhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->additional_human_phrases = $arr;
@@ -720,9 +718,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHangUpOnFax($var)
+    public function setHangUpOnFax(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->hang_up_on_fax = $var;
 
         return $this;
@@ -758,9 +755,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHangUpOnNetworkAnnouncement($var)
+    public function setHangUpOnNetworkAnnouncement(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->hang_up_on_network_announcement = $var;
 
         return $this;
@@ -794,9 +790,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHangUpOnIvr($var)
+    public function setHangUpOnIvr(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->hang_up_on_ivr = $var;
 
         return $this;
@@ -832,9 +827,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHangUpOnCallScreening($var)
+    public function setHangUpOnCallScreening(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->hang_up_on_call_screening = $var;
 
         return $this;
@@ -872,9 +866,9 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVoiceMessageIntent($var)
+    public function setVoiceMessageIntent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->voice_message_intent = $var;
 
         return $this;
@@ -912,7 +906,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setVoiceMessageMaxBeepWaitMs($var)
+    public function setVoiceMessageMaxBeepWaitMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->voice_message_max_beep_wait_ms = $var;
@@ -952,7 +946,7 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setVoiceMessageTimeoutMs($var)
+    public function setVoiceMessageTimeoutMs(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->voice_message_timeout_ms = $var;
@@ -992,9 +986,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setKeywordDetectionActive($var)
+    public function setKeywordDetectionActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->keyword_detection_active = $var;
 
         return $this;
@@ -1032,9 +1025,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setCadenceDetectionActive($var)
+    public function setCadenceDetectionActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->cadence_detection_active = $var;
 
         return $this;

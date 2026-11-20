@@ -160,9 +160,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -186,9 +186,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -212,9 +212,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -240,7 +240,7 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationExample[] $var
      * @return $this
      */
-    public function setLlmEvaluationExamples($var)
+    public function setLlmEvaluationExamples(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationExample::class);
         $this->llm_evaluation_examples = $arr;
@@ -276,9 +276,8 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -302,9 +301,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -328,7 +327,7 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -364,9 +363,8 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -390,9 +388,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -418,9 +416,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -450,9 +448,9 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -463,7 +461,7 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * flow, RAG question-answering, adversarial red-team probes, simulated).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationDatasetType llm_evaluation_dataset_type = 12;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationDatasetType}
      */
     public function getLlmEvaluationDatasetType()
     {
@@ -475,10 +473,10 @@ class LlmEvaluationDataset extends \Google\Protobuf\Internal\Message
      * flow, RAG question-answering, adversarial red-team probes, simulated).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationDatasetType llm_evaluation_dataset_type = 12;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationDatasetType}
      * @return $this
      */
-    public function setLlmEvaluationDatasetType($var)
+    public function setLlmEvaluationDatasetType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationDatasetType::class);
         $this->llm_evaluation_dataset_type = $var;

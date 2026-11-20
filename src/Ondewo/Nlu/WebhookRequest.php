@@ -98,9 +98,9 @@ class WebhookRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResponseId($var)
+    public function setResponseId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->response_id = $var;
 
         return $this;
@@ -136,9 +136,8 @@ class WebhookRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryResult $var
      * @return $this
      */
-    public function setQueryResult($var)
+    public function setQueryResult(\Ondewo\Nlu\QueryResult|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryResult::class);
         $this->query_result = $var;
 
         return $this;
@@ -172,9 +171,8 @@ class WebhookRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\OriginalDetectIntentRequest $var
      * @return $this
      */
-    public function setOriginalDetectIntentRequest($var)
+    public function setOriginalDetectIntentRequest(\Ondewo\Nlu\OriginalDetectIntentRequest|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\OriginalDetectIntentRequest::class);
         $this->original_detect_intent_request = $var;
 
         return $this;
@@ -202,9 +200,9 @@ class WebhookRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSession($var)
+    public function setSession(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session = $var;
 
         return $this;
@@ -238,9 +236,8 @@ class WebhookRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setHeaders($var)
+    public function setHeaders(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->headers = $var;
 
         return $this;

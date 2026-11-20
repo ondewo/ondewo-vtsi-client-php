@@ -106,9 +106,9 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -148,7 +148,7 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      * Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallView}
      */
     public function getCallView()
     {
@@ -169,10 +169,10 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      * Optional. How much of the call to populate; see <code>CallView</code>. Unset means <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallView}
      * @return $this
      */
-    public function setCallView($var)
+    public function setCallView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
@@ -222,9 +222,8 @@ class GetCallRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

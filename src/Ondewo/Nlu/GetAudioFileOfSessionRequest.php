@@ -86,9 +86,9 @@ class GetAudioFileOfSessionRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -114,9 +114,9 @@ class GetAudioFileOfSessionRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -126,7 +126,7 @@ class GetAudioFileOfSessionRequest extends \Google\Protobuf\Internal\Message
      * Represents the options for views of resources
      *
      * Generated from protobuf field <code>.ondewo.nlu.ResourceView resource_view = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ResourceView}
      */
     public function getResourceView()
     {
@@ -137,10 +137,10 @@ class GetAudioFileOfSessionRequest extends \Google\Protobuf\Internal\Message
      * Represents the options for views of resources
      *
      * Generated from protobuf field <code>.ondewo.nlu.ResourceView resource_view = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ResourceView}
      * @return $this
      */
-    public function setResourceView($var)
+    public function setResourceView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ResourceView::class);
         $this->resource_view = $var;
@@ -176,9 +176,8 @@ class GetAudioFileOfSessionRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

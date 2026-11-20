@@ -56,7 +56,7 @@ class RunScraperRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setProjectIds($var)
+    public function setProjectIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->project_ids = $arr;

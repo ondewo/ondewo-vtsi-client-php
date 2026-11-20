@@ -102,9 +102,8 @@ class RagCrawlerResultsConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setInjectFrontmatter($var)
+    public function setInjectFrontmatter(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->inject_frontmatter = $var;
 
         return $this;
@@ -128,7 +127,7 @@ class RagCrawlerResultsConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerMetaDataExtractor[] $var
      * @return $this
      */
-    public function setMetaDataExtractors($var)
+    public function setMetaDataExtractors(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagCrawlerMetaDataExtractor::class);
         $this->meta_data_extractors = $arr;
@@ -164,9 +163,8 @@ class RagCrawlerResultsConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerContentScope $var
      * @return $this
      */
-    public function setContentScope($var)
+    public function setContentScope(\Ondewo\Nlu\RagCrawlerContentScope|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerContentScope::class);
         $this->content_scope = $var;
 
         return $this;
@@ -202,9 +200,8 @@ class RagCrawlerResultsConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerDensityPruning $var
      * @return $this
      */
-    public function setDensityPruning($var)
+    public function setDensityPruning(\Ondewo\Nlu\RagCrawlerDensityPruning|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerDensityPruning::class);
         $this->density_pruning = $var;
 
         return $this;
@@ -228,7 +225,7 @@ class RagCrawlerResultsConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDiscoveryOnlyUrlRegex($var)
+    public function setDiscoveryOnlyUrlRegex(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->discovery_only_url_regex = $arr;

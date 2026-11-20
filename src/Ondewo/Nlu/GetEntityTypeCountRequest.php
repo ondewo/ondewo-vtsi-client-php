@@ -68,9 +68,9 @@ class GetEntityTypeCountRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -80,7 +80,7 @@ class GetEntityTypeCountRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list to be counted. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeCategory filter_by_category = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityTypeCategory}
      */
     public function getFilterByCategory()
     {
@@ -91,10 +91,10 @@ class GetEntityTypeCountRequest extends \Google\Protobuf\Internal\Message
      * Optional. Applies a filter to the list to be counted. Default, no filter.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeCategory filter_by_category = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityTypeCategory}
      * @return $this
      */
-    public function setFilterByCategory($var)
+    public function setFilterByCategory(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityTypeCategory::class);
         $this->filter_by_category = $var;

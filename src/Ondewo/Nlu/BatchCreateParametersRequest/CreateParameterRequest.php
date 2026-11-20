@@ -64,9 +64,9 @@ class CreateParameterRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -100,9 +100,8 @@ class CreateParameterRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Parameter $var
      * @return $this
      */
-    public function setParameter($var)
+    public function setParameter(\Ondewo\Nlu\Intent\Parameter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Parameter::class);
         $this->parameter = $var;
 
         return $this;

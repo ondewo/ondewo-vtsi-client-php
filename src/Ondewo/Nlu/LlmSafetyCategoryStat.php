@@ -76,9 +76,9 @@ class LlmSafetyCategoryStat extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCategory($var)
+    public function setCategory(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->category = $var;
 
         return $this;
@@ -102,7 +102,7 @@ class LlmSafetyCategoryStat extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->count = $var;
@@ -128,9 +128,8 @@ class LlmSafetyCategoryStat extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRate($var)
+    public function setRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->rate = $var;
 
         return $this;

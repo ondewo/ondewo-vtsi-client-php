@@ -78,7 +78,7 @@ class Http extends \Google\Protobuf\Internal\Message
      * @param \Google\Api\HttpRule[] $var
      * @return $this
      */
-    public function setRules($var)
+    public function setRules(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Google\Api\HttpRule::class);
         $this->rules = $arr;
@@ -112,9 +112,8 @@ class Http extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setFullyDecodeReservedExpansion($var)
+    public function setFullyDecodeReservedExpansion(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->fully_decode_reserved_expansion = $var;
 
         return $this;

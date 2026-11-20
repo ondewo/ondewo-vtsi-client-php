@@ -96,7 +96,7 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCacheVersion($var)
+    public function setCacheVersion(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cache_version = $var;
@@ -122,9 +122,9 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -148,9 +148,9 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -184,9 +184,8 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStatusSetTime($var)
+    public function setStatusSetTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->status_set_time = $var;
 
         return $this;
@@ -210,9 +209,9 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->config = $var;
 
         return $this;
@@ -222,7 +221,7 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * Current status of the model.
      *
      * Generated from protobuf field <code>.ondewo.nlu.ModelStatus.StatusName status = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ModelStatus\StatusName}
      */
     public function getStatus()
     {
@@ -233,10 +232,10 @@ class ModelStatus extends \Google\Protobuf\Internal\Message
      * Current status of the model.
      *
      * Generated from protobuf field <code>.ondewo.nlu.ModelStatus.StatusName status = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ModelStatus\StatusName}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ModelStatus\StatusName::class);
         $this->status = $var;

@@ -216,9 +216,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -242,9 +242,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -268,9 +268,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -296,9 +296,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCronExpression($var)
+    public function setCronExpression(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cron_expression = $var;
 
         return $this;
@@ -324,7 +324,7 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setIntervalSeconds($var)
+    public function setIntervalSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->interval_seconds = $var;
@@ -350,9 +350,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -362,7 +361,7 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * What the schedule executes when it fires.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationScheduleAction llm_evaluation_schedule_action = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationScheduleAction}
      */
     public function getLlmEvaluationScheduleAction()
     {
@@ -373,10 +372,10 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * What the schedule executes when it fires.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationScheduleAction llm_evaluation_schedule_action = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationScheduleAction}
      * @return $this
      */
-    public function setLlmEvaluationScheduleAction($var)
+    public function setLlmEvaluationScheduleAction(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationScheduleAction::class);
         $this->llm_evaluation_schedule_action = $var;
@@ -414,9 +413,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RunLlmEvaluationExperimentRequest $var
      * @return $this
      */
-    public function setRunLlmEvaluationExperimentRequest($var)
+    public function setRunLlmEvaluationExperimentRequest(\Ondewo\Nlu\RunLlmEvaluationExperimentRequest|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RunLlmEvaluationExperimentRequest::class);
         $this->run_llm_evaluation_experiment_request = $var;
 
         return $this;
@@ -442,9 +440,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationReleaseGateName($var)
+    public function setLlmEvaluationReleaseGateName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_release_gate_name = $var;
 
         return $this;
@@ -478,9 +476,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLastRunAt($var)
+    public function setLastRunAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->last_run_at = $var;
 
         return $this;
@@ -514,9 +511,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNextRunAt($var)
+    public function setNextRunAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->next_run_at = $var;
 
         return $this;
@@ -542,9 +538,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLastRunResourceName($var)
+    public function setLastRunResourceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->last_run_resource_name = $var;
 
         return $this;
@@ -554,7 +550,7 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * Status of the experiment created by the most recent firing. Read-only.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus last_run_status = 13;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      */
     public function getLastRunStatus()
     {
@@ -565,10 +561,10 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * Status of the experiment created by the most recent firing. Read-only.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExperimentStatus last_run_status = 13;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExperimentStatus}
      * @return $this
      */
-    public function setLastRunStatus($var)
+    public function setLastRunStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExperimentStatus::class);
         $this->last_run_status = $var;
@@ -604,9 +600,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -630,9 +625,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -666,9 +661,8 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -692,9 +686,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -720,9 +714,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -746,9 +740,9 @@ class LlmEvaluationSchedule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

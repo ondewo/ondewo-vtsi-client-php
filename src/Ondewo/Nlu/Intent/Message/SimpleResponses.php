@@ -56,7 +56,7 @@ class SimpleResponses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\SimpleResponse[] $var
      * @return $this
      */
-    public function setSimpleResponses($var)
+    public function setSimpleResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message\SimpleResponse::class);
         $this->simple_responses = $arr;

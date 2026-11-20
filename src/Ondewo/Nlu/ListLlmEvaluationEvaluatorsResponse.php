@@ -56,7 +56,7 @@ class ListLlmEvaluationEvaluatorsResponse extends \Google\Protobuf\Internal\Mess
      * @param \Ondewo\Nlu\LlmEvaluationEvaluatorSpec[] $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorSpecs($var)
+    public function setLlmEvaluationEvaluatorSpecs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationEvaluatorSpec::class);
         $this->llm_evaluation_evaluator_specs = $arr;

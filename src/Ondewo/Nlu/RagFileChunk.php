@@ -75,9 +75,8 @@ class RagFileChunk extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagFileMetadata $var
      * @return $this
      */
-    public function setMetadata($var)
+    public function setMetadata(\Ondewo\Nlu\RagFileMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagFileMetadata::class);
         $this->metadata = $var;
 
         return $this;
@@ -101,9 +100,9 @@ class RagFileChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setData($var)
+    public function setData(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->data = $var;
 
         return $this;

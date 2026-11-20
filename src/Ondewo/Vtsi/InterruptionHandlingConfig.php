@@ -71,6 +71,14 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      */
     protected $transcribe_on_disabled_interruptions = null;
+    /**
+     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
+     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
+     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
+     */
+    protected $interruption_fade_out_ms = null;
 
     /**
      * Constructor.
@@ -101,6 +109,10 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      *     @type bool $transcribe_on_disabled_interruptions
      *           Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
      *           (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+     *     @type int $interruption_fade_out_ms
+     *           Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
+     *           interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
+     *           A value outside the range is refused with <code>INVALID_ARGUMENT</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -138,9 +150,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -176,9 +187,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinInterruptionDurationSeconds($var)
+    public function setMinInterruptionDurationSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->min_interruption_duration_seconds = $var;
 
         return $this;
@@ -214,7 +224,7 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMinInterruptionWords($var)
+    public function setMinInterruptionWords(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->min_interruption_words = $var;
@@ -252,9 +262,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFalseInterruptionTimeoutSeconds($var)
+    public function setFalseInterruptionTimeoutSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->false_interruption_timeout_seconds = $var;
 
         return $this;
@@ -290,9 +299,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setResumeAfterFalseInterruption($var)
+    public function setResumeAfterFalseInterruption(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->resume_after_false_interruption = $var;
 
         return $this;
@@ -326,9 +334,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setBackoffSeconds($var)
+    public function setBackoffSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->backoff_seconds = $var;
 
         return $this;
@@ -364,9 +371,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFirstMessageProtectedSeconds($var)
+    public function setFirstMessageProtectedSeconds(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->first_message_protected_seconds = $var;
 
         return $this;
@@ -402,10 +408,49 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setTranscribeOnDisabledInterruptions($var)
+    public function setTranscribeOnDisabledInterruptions(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->transcribe_on_disabled_interruptions = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
+     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
+     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
+     * @return int
+     */
+    public function getInterruptionFadeOutMs()
+    {
+        return isset($this->interruption_fade_out_ms) ? $this->interruption_fade_out_ms : 0;
+    }
+
+    public function hasInterruptionFadeOutMs()
+    {
+        return isset($this->interruption_fade_out_ms);
+    }
+
+    public function clearInterruptionFadeOutMs()
+    {
+        unset($this->interruption_fade_out_ms);
+    }
+
+    /**
+     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
+     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
+     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setInterruptionFadeOutMs(int $var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->interruption_fade_out_ms = $var;
 
         return $this;
     }

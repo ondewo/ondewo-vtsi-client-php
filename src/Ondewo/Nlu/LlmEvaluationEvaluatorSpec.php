@@ -130,9 +130,9 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEvaluatorName($var)
+    public function setEvaluatorName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->evaluator_name = $var;
 
         return $this;
@@ -156,9 +156,9 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -182,9 +182,9 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -194,7 +194,7 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * Family of evaluator implementations.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationEvaluatorType llm_evaluation_evaluator_type = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationEvaluatorType}
      */
     public function getLlmEvaluationEvaluatorType()
     {
@@ -205,10 +205,10 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * Family of evaluator implementations.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationEvaluatorType llm_evaluation_evaluator_type = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationEvaluatorType}
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorType($var)
+    public function setLlmEvaluationEvaluatorType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationEvaluatorType::class);
         $this->llm_evaluation_evaluator_type = $var;
@@ -220,7 +220,7 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * Category the evaluator belongs to.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationEvaluatorCategory llm_evaluation_evaluator_category = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationEvaluatorCategory}
      */
     public function getLlmEvaluationEvaluatorCategory()
     {
@@ -231,10 +231,10 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * Category the evaluator belongs to.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationEvaluatorCategory llm_evaluation_evaluator_category = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationEvaluatorCategory}
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorCategory($var)
+    public function setLlmEvaluationEvaluatorCategory(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationEvaluatorCategory::class);
         $this->llm_evaluation_evaluator_category = $var;
@@ -262,7 +262,7 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setRequiredExampleFields($var)
+    public function setRequiredExampleFields(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->required_example_fields = $arr;
@@ -288,9 +288,8 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setMultiTurn($var)
+    public function setMultiTurn(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->multi_turn = $var;
 
         return $this;
@@ -314,9 +313,8 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDefaultThreshold($var)
+    public function setDefaultThreshold(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->default_threshold = $var;
 
         return $this;
@@ -340,9 +338,8 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setRequiresJudge($var)
+    public function setRequiresJudge(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->requires_judge = $var;
 
         return $this;
@@ -366,7 +363,7 @@ class LlmEvaluationEvaluatorSpec extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationEvaluatorParameterSpec[] $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorParameterSpecs($var)
+    public function setLlmEvaluationEvaluatorParameterSpecs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationEvaluatorParameterSpec::class);
         $this->llm_evaluation_evaluator_parameter_specs = $arr;

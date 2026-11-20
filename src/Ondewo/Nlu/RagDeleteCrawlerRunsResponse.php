@@ -64,7 +64,7 @@ class RagDeleteCrawlerRunsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDeletedCount($var)
+    public function setDeletedCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->deleted_count = $var;
@@ -90,7 +90,7 @@ class RagDeleteCrawlerRunsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDeletedRunNames($var)
+    public function setDeletedRunNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->deleted_run_names = $arr;

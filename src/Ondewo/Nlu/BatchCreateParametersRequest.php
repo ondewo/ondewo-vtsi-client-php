@@ -56,7 +56,7 @@ class BatchCreateParametersRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\BatchCreateParametersRequest\CreateParameterRequest[] $var
      * @return $this
      */
-    public function setParameterRequests($var)
+    public function setParameterRequests(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\BatchCreateParametersRequest\CreateParameterRequest::class);
         $this->parameter_requests = $arr;

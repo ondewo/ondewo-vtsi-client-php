@@ -64,9 +64,9 @@ class ListSelect extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTitle($var)
+    public function setTitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->title = $var;
 
         return $this;
@@ -90,7 +90,7 @@ class ListSelect extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\ListSelect\Item[] $var
      * @return $this
      */
-    public function setItems($var)
+    public function setItems(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message\ListSelect\Item::class);
         $this->items = $arr;

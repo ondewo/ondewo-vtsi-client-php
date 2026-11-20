@@ -66,9 +66,9 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class StartScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\StartScheduledCallerResponse[] $var
      * @return $this
      */
-    public function setScheduledCallerResponses($var)
+    public function setScheduledCallerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\StartScheduledCallerResponse::class);
         $this->scheduled_caller_responses = $arr;

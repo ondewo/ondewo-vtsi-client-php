@@ -98,9 +98,8 @@ class LatLng extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setLatitude($var)
+    public function setLatitude(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->latitude = $var;
 
         return $this;
@@ -124,9 +123,8 @@ class LatLng extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setLongitude($var)
+    public function setLongitude(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->longitude = $var;
 
         return $this;

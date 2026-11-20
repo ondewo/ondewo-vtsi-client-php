@@ -130,9 +130,9 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -168,9 +168,8 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\TextInput $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(\Ondewo\Nlu\TextInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\TextInput::class);
         $this->text = $var;
 
         return $this;
@@ -194,7 +193,7 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxNumAnswers($var)
+    public function setMaxNumAnswers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_num_answers = $var;
@@ -220,9 +219,8 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThresholdReader($var)
+    public function setThresholdReader(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->threshold_reader = $var;
 
         return $this;
@@ -246,9 +244,8 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThresholdRetriever($var)
+    public function setThresholdRetriever(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->threshold_retriever = $var;
 
         return $this;
@@ -272,9 +269,8 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThresholdOverall($var)
+    public function setThresholdOverall(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->threshold_overall = $var;
 
         return $this;
@@ -298,9 +294,9 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setReaderModelName($var)
+    public function setReaderModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->reader_model_name = $var;
 
         return $this;
@@ -334,9 +330,8 @@ class GetAnswerRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Qa\UrlFilter $var
      * @return $this
      */
-    public function setUrlFilter($var)
+    public function setUrlFilter(\Ondewo\Qa\UrlFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Qa\UrlFilter::class);
         $this->url_filter = $var;
 
         return $this;

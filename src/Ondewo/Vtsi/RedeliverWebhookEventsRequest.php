@@ -112,9 +112,9 @@ class RedeliverWebhookEventsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setWebhookName($var)
+    public function setWebhookName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->webhook_name = $var;
 
         return $this;
@@ -148,7 +148,7 @@ class RedeliverWebhookEventsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEventIds($var)
+    public function setEventIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->event_ids = $arr;
@@ -190,9 +190,8 @@ class RedeliverWebhookEventsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -228,9 +227,8 @@ class RedeliverWebhookEventsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -266,9 +264,8 @@ class RedeliverWebhookEventsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiEventFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\VtsiEventFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiEventFilter::class);
         $this->filter = $var;
 
         return $this;

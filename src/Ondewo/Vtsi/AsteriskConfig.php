@@ -66,9 +66,8 @@ class AsteriskConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
      * @return $this
      */
-    public function setAsteriskBaseConfig($var)
+    public function setAsteriskBaseConfig(\Ondewo\Vtsi\BaseServiceConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\BaseServiceConfig::class);
         $this->asterisk_base_config = $var;
 
         return $this;

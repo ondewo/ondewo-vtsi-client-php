@@ -68,9 +68,9 @@ class SetUserPreferencesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserName($var)
+    public function setUserName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_name = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class SetUserPreferencesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\KeyValuePair[] $var
      * @return $this
      */
-    public function setKeyValuePairs($var)
+    public function setKeyValuePairs(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\KeyValuePair::class);
         $this->key_value_pairs = $arr;

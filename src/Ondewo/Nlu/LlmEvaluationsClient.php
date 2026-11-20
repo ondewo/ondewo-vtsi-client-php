@@ -44,7 +44,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationDataset>
      */
     public function LlmEvaluationCreateDataset(\Ondewo\Nlu\CreateLlmEvaluationDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -59,7 +59,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationDataset>
      */
     public function LlmEvaluationGetDataset(\Ondewo\Nlu\GetLlmEvaluationDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -74,7 +74,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationDatasetsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationDatasetsResponse>
      */
     public function LlmEvaluationListDatasets(\Ondewo\Nlu\ListLlmEvaluationDatasetsRequest $argument,
       $metadata = [], $options = []) {
@@ -89,7 +89,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationDataset>
      */
     public function LlmEvaluationUpdateDataset(\Ondewo\Nlu\UpdateLlmEvaluationDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -104,7 +104,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteDataset(\Ondewo\Nlu\DeleteLlmEvaluationDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -123,7 +123,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddLlmEvaluationExampleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExample>
      */
     public function LlmEvaluationAddExample(\Ondewo\Nlu\AddLlmEvaluationExampleRequest $argument,
       $metadata = [], $options = []) {
@@ -138,7 +138,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddLlmEvaluationExamplesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\AddLlmEvaluationExamplesResponse>
      */
     public function LlmEvaluationAddExamples(\Ondewo\Nlu\AddLlmEvaluationExamplesRequest $argument,
       $metadata = [], $options = []) {
@@ -153,7 +153,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationExampleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExample>
      */
     public function LlmEvaluationGetExample(\Ondewo\Nlu\GetLlmEvaluationExampleRequest $argument,
       $metadata = [], $options = []) {
@@ -168,7 +168,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationExamplesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationExamplesResponse>
      */
     public function LlmEvaluationListExamples(\Ondewo\Nlu\ListLlmEvaluationExamplesRequest $argument,
       $metadata = [], $options = []) {
@@ -183,7 +183,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationExampleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExample>
      */
     public function LlmEvaluationUpdateExample(\Ondewo\Nlu\UpdateLlmEvaluationExampleRequest $argument,
       $metadata = [], $options = []) {
@@ -198,7 +198,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationExampleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteExample(\Ondewo\Nlu\DeleteLlmEvaluationExampleRequest $argument,
       $metadata = [], $options = []) {
@@ -219,7 +219,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RunLlmEvaluationExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function LlmEvaluationRunExperiment(\Ondewo\Nlu\RunLlmEvaluationExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -234,7 +234,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExperiment>
      */
     public function LlmEvaluationGetExperiment(\Ondewo\Nlu\GetLlmEvaluationExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -249,7 +249,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationExperimentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationExperimentsResponse>
      */
     public function LlmEvaluationListExperiments(\Ondewo\Nlu\ListLlmEvaluationExperimentsRequest $argument,
       $metadata = [], $options = []) {
@@ -266,7 +266,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExperiment>
      */
     public function LlmEvaluationUpdateExperiment(\Ondewo\Nlu\UpdateLlmEvaluationExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -281,7 +281,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteExperiment(\Ondewo\Nlu\DeleteLlmEvaluationExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -296,7 +296,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CancelLlmEvaluationExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationExperiment>
      */
     public function LlmEvaluationCancelExperiment(\Ondewo\Nlu\CancelLlmEvaluationExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -311,7 +311,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CompareLlmEvaluationExperimentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationComparison>
      */
     public function LlmEvaluationCompareExperiments(\Ondewo\Nlu\CompareLlmEvaluationExperimentsRequest $argument,
       $metadata = [], $options = []) {
@@ -330,7 +330,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SubmitLlmEvaluationFeedbackRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationFeedback>
      */
     public function LlmEvaluationSubmitFeedback(\Ondewo\Nlu\SubmitLlmEvaluationFeedbackRequest $argument,
       $metadata = [], $options = []) {
@@ -345,7 +345,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationFeedbackRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationFeedbackResponse>
      */
     public function LlmEvaluationListFeedback(\Ondewo\Nlu\ListLlmEvaluationFeedbackRequest $argument,
       $metadata = [], $options = []) {
@@ -360,7 +360,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationFeedbackRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteFeedback(\Ondewo\Nlu\DeleteLlmEvaluationFeedbackRequest $argument,
       $metadata = [], $options = []) {
@@ -375,7 +375,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationFeedbackRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationFeedback>
      */
     public function LlmEvaluationUpdateFeedback(\Ondewo\Nlu\UpdateLlmEvaluationFeedbackRequest $argument,
       $metadata = [], $options = []) {
@@ -395,7 +395,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationReleaseGateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReleaseGate>
      */
     public function LlmEvaluationCreateReleaseGate(\Ondewo\Nlu\CreateLlmEvaluationReleaseGateRequest $argument,
       $metadata = [], $options = []) {
@@ -410,7 +410,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationReleaseGateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReleaseGate>
      */
     public function LlmEvaluationGetReleaseGate(\Ondewo\Nlu\GetLlmEvaluationReleaseGateRequest $argument,
       $metadata = [], $options = []) {
@@ -425,7 +425,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationReleaseGatesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationReleaseGatesResponse>
      */
     public function LlmEvaluationListReleaseGates(\Ondewo\Nlu\ListLlmEvaluationReleaseGatesRequest $argument,
       $metadata = [], $options = []) {
@@ -441,7 +441,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationReleaseGateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReleaseGate>
      */
     public function LlmEvaluationUpdateReleaseGate(\Ondewo\Nlu\UpdateLlmEvaluationReleaseGateRequest $argument,
       $metadata = [], $options = []) {
@@ -456,7 +456,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationReleaseGateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteReleaseGate(\Ondewo\Nlu\DeleteLlmEvaluationReleaseGateRequest $argument,
       $metadata = [], $options = []) {
@@ -474,7 +474,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RunLlmEvaluationReleaseGateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function LlmEvaluationRunReleaseGate(\Ondewo\Nlu\RunLlmEvaluationReleaseGateRequest $argument,
       $metadata = [], $options = []) {
@@ -489,7 +489,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationReleaseGateRunRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReleaseGateRun>
      */
     public function LlmEvaluationGetReleaseGateRun(\Ondewo\Nlu\GetLlmEvaluationReleaseGateRunRequest $argument,
       $metadata = [], $options = []) {
@@ -504,7 +504,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationReleaseGateRunsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationReleaseGateRunsResponse>
      */
     public function LlmEvaluationListReleaseGateRuns(\Ondewo\Nlu\ListLlmEvaluationReleaseGateRunsRequest $argument,
       $metadata = [], $options = []) {
@@ -523,7 +523,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationScorecardRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationScorecard>
      */
     public function LlmEvaluationCreateScorecard(\Ondewo\Nlu\CreateLlmEvaluationScorecardRequest $argument,
       $metadata = [], $options = []) {
@@ -538,7 +538,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationScorecardRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationScorecard>
      */
     public function LlmEvaluationGetScorecard(\Ondewo\Nlu\GetLlmEvaluationScorecardRequest $argument,
       $metadata = [], $options = []) {
@@ -553,7 +553,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationScorecardsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationScorecardsResponse>
      */
     public function LlmEvaluationListScorecards(\Ondewo\Nlu\ListLlmEvaluationScorecardsRequest $argument,
       $metadata = [], $options = []) {
@@ -568,7 +568,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationScorecardRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationScorecard>
      */
     public function LlmEvaluationUpdateScorecard(\Ondewo\Nlu\UpdateLlmEvaluationScorecardRequest $argument,
       $metadata = [], $options = []) {
@@ -583,7 +583,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationScorecardRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteScorecard(\Ondewo\Nlu\DeleteLlmEvaluationScorecardRequest $argument,
       $metadata = [], $options = []) {
@@ -604,7 +604,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationProjectSettingsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationProjectSettings>
      */
     public function LlmEvaluationGetProjectSettings(\Ondewo\Nlu\GetLlmEvaluationProjectSettingsRequest $argument,
       $metadata = [], $options = []) {
@@ -619,7 +619,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationProjectSettingsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationProjectSettings>
      */
     public function LlmEvaluationUpdateProjectSettings(\Ondewo\Nlu\UpdateLlmEvaluationProjectSettingsRequest $argument,
       $metadata = [], $options = []) {
@@ -640,7 +640,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationEvaluatorsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationEvaluatorsResponse>
      */
     public function LlmEvaluationListEvaluators(\Ondewo\Nlu\ListLlmEvaluationEvaluatorsRequest $argument,
       $metadata = [], $options = []) {
@@ -660,7 +660,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationExamplesFromSessionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CreateLlmEvaluationExamplesFromSessionResponse>
      */
     public function LlmEvaluationCreateExamplesFromSession(\Ondewo\Nlu\CreateLlmEvaluationExamplesFromSessionRequest $argument,
       $metadata = [], $options = []) {
@@ -678,7 +678,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SimulateLlmEvaluationConversationsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function LlmEvaluationSimulateConversations(\Ondewo\Nlu\SimulateLlmEvaluationConversationsRequest $argument,
       $metadata = [], $options = []) {
@@ -697,7 +697,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationScheduleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationSchedule>
      */
     public function LlmEvaluationCreateSchedule(\Ondewo\Nlu\CreateLlmEvaluationScheduleRequest $argument,
       $metadata = [], $options = []) {
@@ -712,7 +712,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationScheduleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationSchedule>
      */
     public function LlmEvaluationGetSchedule(\Ondewo\Nlu\GetLlmEvaluationScheduleRequest $argument,
       $metadata = [], $options = []) {
@@ -727,7 +727,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationSchedulesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationSchedulesResponse>
      */
     public function LlmEvaluationListSchedules(\Ondewo\Nlu\ListLlmEvaluationSchedulesRequest $argument,
       $metadata = [], $options = []) {
@@ -742,7 +742,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationScheduleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationSchedule>
      */
     public function LlmEvaluationUpdateSchedule(\Ondewo\Nlu\UpdateLlmEvaluationScheduleRequest $argument,
       $metadata = [], $options = []) {
@@ -757,7 +757,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationScheduleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteSchedule(\Ondewo\Nlu\DeleteLlmEvaluationScheduleRequest $argument,
       $metadata = [], $options = []) {
@@ -776,7 +776,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationReportRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReport>
      */
     public function LlmEvaluationCreateReport(\Ondewo\Nlu\CreateLlmEvaluationReportRequest $argument,
       $metadata = [], $options = []) {
@@ -791,7 +791,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationReportRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationReport>
      */
     public function LlmEvaluationGetReport(\Ondewo\Nlu\GetLlmEvaluationReportRequest $argument,
       $metadata = [], $options = []) {
@@ -807,7 +807,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationReportsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationReportsResponse>
      */
     public function LlmEvaluationListReports(\Ondewo\Nlu\ListLlmEvaluationReportsRequest $argument,
       $metadata = [], $options = []) {
@@ -822,7 +822,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationReportRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteReport(\Ondewo\Nlu\DeleteLlmEvaluationReportRequest $argument,
       $metadata = [], $options = []) {
@@ -843,7 +843,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbExperiment>
      */
     public function LlmEvaluationCreateAbExperiment(\Ondewo\Nlu\CreateLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -858,7 +858,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbExperiment>
      */
     public function LlmEvaluationGetAbExperiment(\Ondewo\Nlu\GetLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -873,7 +873,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationAbExperimentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationAbExperimentsResponse>
      */
     public function LlmEvaluationListAbExperiments(\Ondewo\Nlu\ListLlmEvaluationAbExperimentsRequest $argument,
       $metadata = [], $options = []) {
@@ -889,7 +889,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbExperiment>
      */
     public function LlmEvaluationUpdateAbExperiment(\Ondewo\Nlu\UpdateLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -904,7 +904,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteAbExperiment(\Ondewo\Nlu\DeleteLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -921,7 +921,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\StartLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbExperiment>
      */
     public function LlmEvaluationStartAbExperiment(\Ondewo\Nlu\StartLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -937,7 +937,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\StopLlmEvaluationAbExperimentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbExperiment>
      */
     public function LlmEvaluationStopAbExperiment(\Ondewo\Nlu\StopLlmEvaluationAbExperimentRequest $argument,
       $metadata = [], $options = []) {
@@ -954,7 +954,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationAbExperimentResultsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetLlmEvaluationAbExperimentResultsResponse>
      */
     public function LlmEvaluationGetAbExperimentResults(\Ondewo\Nlu\GetLlmEvaluationAbExperimentResultsRequest $argument,
       $metadata = [], $options = []) {
@@ -977,7 +977,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationAbRolloutRecommendationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbRolloutRecommendation>
      */
     public function LlmEvaluationGetAbRolloutRecommendation(\Ondewo\Nlu\GetLlmEvaluationAbRolloutRecommendationRequest $argument,
       $metadata = [], $options = []) {
@@ -996,7 +996,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ApplyLlmEvaluationAbRolloutRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbRolloutDecision>
      */
     public function LlmEvaluationApplyAbRollout(\Ondewo\Nlu\ApplyLlmEvaluationAbRolloutRequest $argument,
       $metadata = [], $options = []) {
@@ -1011,7 +1011,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationAbRolloutDecisionRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAbRolloutDecision>
      */
     public function LlmEvaluationGetAbRolloutDecision(\Ondewo\Nlu\GetLlmEvaluationAbRolloutDecisionRequest $argument,
       $metadata = [], $options = []) {
@@ -1027,7 +1027,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationAbRolloutDecisionsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationAbRolloutDecisionsResponse>
      */
     public function LlmEvaluationListAbRolloutDecisions(\Ondewo\Nlu\ListLlmEvaluationAbRolloutDecisionsRequest $argument,
       $metadata = [], $options = []) {
@@ -1050,7 +1050,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateLlmEvaluationOnlineConfigRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationOnlineConfig>
      */
     public function LlmEvaluationCreateOnlineConfig(\Ondewo\Nlu\CreateLlmEvaluationOnlineConfigRequest $argument,
       $metadata = [], $options = []) {
@@ -1065,7 +1065,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationOnlineConfigRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationOnlineConfig>
      */
     public function LlmEvaluationGetOnlineConfig(\Ondewo\Nlu\GetLlmEvaluationOnlineConfigRequest $argument,
       $metadata = [], $options = []) {
@@ -1080,7 +1080,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationOnlineConfigsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationOnlineConfigsResponse>
      */
     public function LlmEvaluationListOnlineConfigs(\Ondewo\Nlu\ListLlmEvaluationOnlineConfigsRequest $argument,
       $metadata = [], $options = []) {
@@ -1096,7 +1096,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationOnlineConfigRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationOnlineConfig>
      */
     public function LlmEvaluationUpdateOnlineConfig(\Ondewo\Nlu\UpdateLlmEvaluationOnlineConfigRequest $argument,
       $metadata = [], $options = []) {
@@ -1112,7 +1112,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteLlmEvaluationOnlineConfigRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function LlmEvaluationDeleteOnlineConfig(\Ondewo\Nlu\DeleteLlmEvaluationOnlineConfigRequest $argument,
       $metadata = [], $options = []) {
@@ -1131,7 +1131,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationOnlineResultRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationOnlineResult>
      */
     public function LlmEvaluationGetOnlineResult(\Ondewo\Nlu\GetLlmEvaluationOnlineResultRequest $argument,
       $metadata = [], $options = []) {
@@ -1147,7 +1147,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationOnlineResultsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationOnlineResultsResponse>
      */
     public function LlmEvaluationListOnlineResults(\Ondewo\Nlu\ListLlmEvaluationOnlineResultsRequest $argument,
       $metadata = [], $options = []) {
@@ -1166,7 +1166,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetLlmEvaluationAnnotationQueueItemRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAnnotationQueueItem>
      */
     public function LlmEvaluationGetAnnotationQueueItem(\Ondewo\Nlu\GetLlmEvaluationAnnotationQueueItemRequest $argument,
       $metadata = [], $options = []) {
@@ -1182,7 +1182,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListLlmEvaluationAnnotationQueueItemsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListLlmEvaluationAnnotationQueueItemsResponse>
      */
     public function LlmEvaluationListAnnotationQueueItems(\Ondewo\Nlu\ListLlmEvaluationAnnotationQueueItemsRequest $argument,
       $metadata = [], $options = []) {
@@ -1198,7 +1198,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateLlmEvaluationAnnotationQueueItemRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\LlmEvaluationAnnotationQueueItem>
      */
     public function LlmEvaluationUpdateAnnotationQueueItem(\Ondewo\Nlu\UpdateLlmEvaluationAnnotationQueueItemRequest $argument,
       $metadata = [], $options = []) {
@@ -1216,7 +1216,7 @@ class LlmEvaluationsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\PromoteLlmEvaluationAnnotationQueueItemRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\PromoteLlmEvaluationAnnotationQueueItemResponse>
      */
     public function LlmEvaluationPromoteAnnotationQueueItem(\Ondewo\Nlu\PromoteLlmEvaluationAnnotationQueueItemRequest $argument,
       $metadata = [], $options = []) {

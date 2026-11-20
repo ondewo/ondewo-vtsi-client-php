@@ -132,9 +132,9 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -168,9 +168,8 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;
@@ -194,7 +193,7 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param int $var
      * @return $this
      */
-    public function setBucketWidthSeconds($var)
+    public function setBucketWidthSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->bucket_width_seconds = $var;
@@ -220,7 +219,7 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param int $var
      * @return $this
      */
-    public function setMaxBuckets($var)
+    public function setMaxBuckets(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_buckets = $var;
@@ -256,9 +255,8 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -292,9 +290,8 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param \Ondewo\Nlu\FeedbackFilter $var
      * @return $this
      */
-    public function setFeedbackFilter($var)
+    public function setFeedbackFilter(\Ondewo\Nlu\FeedbackFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\FeedbackFilter::class);
         $this->feedback_filter = $var;
 
         return $this;
@@ -304,7 +301,7 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * Optional. Calendar granularity; when set (non-unspecified) it overrides bucket_width_seconds.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackTimeGranularity granularity = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\FeedbackTimeGranularity}
      */
     public function getGranularity()
     {
@@ -315,10 +312,10 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * Optional. Calendar granularity; when set (non-unspecified) it overrides bucket_width_seconds.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackTimeGranularity granularity = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\FeedbackTimeGranularity}
      * @return $this
      */
-    public function setGranularity($var)
+    public function setGranularity(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\FeedbackTimeGranularity::class);
         $this->granularity = $var;
@@ -344,9 +341,9 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setTimeZone($var)
+    public function setTimeZone(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->time_zone = $var;
 
         return $this;
@@ -380,9 +377,8 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStart($var)
+    public function setStart(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start = $var;
 
         return $this;
@@ -416,9 +412,8 @@ class GetFeedbackStatisticsTimeSeriesRequest extends \Google\Protobuf\Internal\M
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEnd($var)
+    public function setEnd(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end = $var;
 
         return $this;

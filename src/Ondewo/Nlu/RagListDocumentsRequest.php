@@ -209,9 +209,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -235,9 +235,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -261,9 +261,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -287,9 +287,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -313,9 +313,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -367,9 +367,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -393,9 +393,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOrderby($var)
+    public function setOrderby(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->orderby = $var;
 
         return $this;
@@ -438,10 +438,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setDesc($var)
+    public function setDesc(bool $var)
     {
         @trigger_error('desc is deprecated.', E_USER_DEPRECATED);
-        GPBUtil::checkBool($var);
         $this->desc = $var;
 
         return $this;
@@ -465,9 +464,9 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setKeywords($var)
+    public function setKeywords(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->keywords = $var;
 
         return $this;
@@ -491,7 +490,7 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSuffix($var)
+    public function setSuffix(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->suffix = $arr;
@@ -503,7 +502,7 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Document statuses to filter by.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.RagDocumentStatus run_status = 11;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\RagDocumentStatus}
      */
     public function getRunStatus()
     {
@@ -514,10 +513,10 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Document statuses to filter by.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.RagDocumentStatus run_status = 11;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\RagDocumentStatus}
      * @return $this
      */
-    public function setRunStatus($var)
+    public function setRunStatus(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\RagDocumentStatus::class);
         $this->run_status = $arr;
@@ -553,9 +552,8 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTimeFrom($var)
+    public function setCreateTimeFrom(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time_from = $var;
 
         return $this;
@@ -589,9 +587,8 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTimeTo($var)
+    public function setCreateTimeTo(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time_to = $var;
 
         return $this;
@@ -625,9 +622,8 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagMetadataConditions $var
      * @return $this
      */
-    public function setMetadataCondition($var)
+    public function setMetadataCondition(\Ondewo\Nlu\RagMetadataConditions|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagMetadataConditions::class);
         $this->metadata_condition = $var;
 
         return $this;
@@ -637,7 +633,7 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify whether to sort ascending or descending (default: ascending).
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 15;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -648,10 +644,10 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify whether to sort ascending or descending (default: ascending).
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 15;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;
@@ -687,9 +683,8 @@ class RagListDocumentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

@@ -84,9 +84,8 @@ class CreateLlmEvaluationScheduleRequest extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\LlmEvaluationSchedule $var
      * @return $this
      */
-    public function setLlmEvaluationSchedule($var)
+    public function setLlmEvaluationSchedule(\Ondewo\Nlu\LlmEvaluationSchedule|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationSchedule::class);
         $this->llm_evaluation_schedule = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class CreateLlmEvaluationScheduleRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class CreateLlmEvaluationScheduleRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

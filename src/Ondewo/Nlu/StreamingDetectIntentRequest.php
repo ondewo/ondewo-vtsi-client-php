@@ -68,6 +68,25 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bytes input_audio = 6;</code>
      */
     protected $input_audio = '';
+    /**
+     * Optional. Controls a turn of this stream: cancels it, reports what the user heard of its answer, or discards
+     * the session step of a preemptive draft. Sent ALONE (no <code>query_input</code>) on a call-length stream; the
+     * server applies it in stream order and starts no turn for it. Send it only to a server that advertised the
+     * initial metadata <code>x-ondewo-cai-turn-control: 1</code> on this stream: an older server treats a request
+     * without <code>query_input</code> as a malformed turn and ends the stream.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControl turn_control = 7;</code>
+     */
+    protected $turn_control = null;
+    /**
+     * Optional. Client-minted id (e.g. a uuid4 hex) of the turn this request STARTS; set together with
+     * <code>query_input</code>. The server echoes it on every response of that turn
+     * (<code>StreamingDetectIntentResponse.client_turn_id</code>), and a <code>CancelTurn</code> or
+     * <code>HeardReport</code> can name the turn by it before the server's <code>response_id</code> is known.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 8;</code>
+     */
+    protected $client_turn_id = '';
 
     /**
      * Constructor.
@@ -104,6 +123,17 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      *           Optional. The input audio content to be recognized. Must be sent if
      *           <code>query_input</code> was set to a streaming input audio config. The complete audio
      *           over all streaming messages must not exceed 1 minute.
+     *     @type \Ondewo\Nlu\TurnControl $turn_control
+     *           Optional. Controls a turn of this stream: cancels it, reports what the user heard of its answer, or discards
+     *           the session step of a preemptive draft. Sent ALONE (no <code>query_input</code>) on a call-length stream; the
+     *           server applies it in stream order and starts no turn for it. Send it only to a server that advertised the
+     *           initial metadata <code>x-ondewo-cai-turn-control: 1</code> on this stream: an older server treats a request
+     *           without <code>query_input</code> as a malformed turn and ends the stream.
+     *     @type string $client_turn_id
+     *           Optional. Client-minted id (e.g. a uuid4 hex) of the turn this request STARTS; set together with
+     *           <code>query_input</code>. The server echoes it on every response of that turn
+     *           (<code>StreamingDetectIntentResponse.client_turn_id</code>), and a <code>CancelTurn</code> or
+     *           <code>HeardReport</code> can name the turn by it before the server's <code>response_id</code> is known.
      * }
      */
     public function __construct($data = NULL) {
@@ -139,9 +169,9 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSession($var)
+    public function setSession(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session = $var;
 
         return $this;
@@ -175,9 +205,8 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryParameters $var
      * @return $this
      */
-    public function setQueryParams($var)
+    public function setQueryParams(\Ondewo\Nlu\QueryParameters|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryParameters::class);
         $this->query_params = $var;
 
         return $this;
@@ -221,9 +250,8 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryInput $var
      * @return $this
      */
-    public function setQueryInput($var)
+    public function setQueryInput(\Ondewo\Nlu\QueryInput|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryInput::class);
         $this->query_input = $var;
 
         return $this;
@@ -261,9 +289,8 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSingleUtterance($var)
+    public function setSingleUtterance(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->single_utterance = $var;
 
         return $this;
@@ -291,10 +318,85 @@ class StreamingDetectIntentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setInputAudio($var)
+    public function setInputAudio(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->input_audio = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Controls a turn of this stream: cancels it, reports what the user heard of its answer, or discards
+     * the session step of a preemptive draft. Sent ALONE (no <code>query_input</code>) on a call-length stream; the
+     * server applies it in stream order and starts no turn for it. Send it only to a server that advertised the
+     * initial metadata <code>x-ondewo-cai-turn-control: 1</code> on this stream: an older server treats a request
+     * without <code>query_input</code> as a malformed turn and ends the stream.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControl turn_control = 7;</code>
+     * @return \Ondewo\Nlu\TurnControl|null
+     */
+    public function getTurnControl()
+    {
+        return $this->turn_control;
+    }
+
+    public function hasTurnControl()
+    {
+        return isset($this->turn_control);
+    }
+
+    public function clearTurnControl()
+    {
+        unset($this->turn_control);
+    }
+
+    /**
+     * Optional. Controls a turn of this stream: cancels it, reports what the user heard of its answer, or discards
+     * the session step of a preemptive draft. Sent ALONE (no <code>query_input</code>) on a call-length stream; the
+     * server applies it in stream order and starts no turn for it. Send it only to a server that advertised the
+     * initial metadata <code>x-ondewo-cai-turn-control: 1</code> on this stream: an older server treats a request
+     * without <code>query_input</code> as a malformed turn and ends the stream.
+     *
+     * Generated from protobuf field <code>.ondewo.nlu.TurnControl turn_control = 7;</code>
+     * @param \Ondewo\Nlu\TurnControl $var
+     * @return $this
+     */
+    public function setTurnControl(\Ondewo\Nlu\TurnControl|null $var)
+    {
+        $this->turn_control = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Client-minted id (e.g. a uuid4 hex) of the turn this request STARTS; set together with
+     * <code>query_input</code>. The server echoes it on every response of that turn
+     * (<code>StreamingDetectIntentResponse.client_turn_id</code>), and a <code>CancelTurn</code> or
+     * <code>HeardReport</code> can name the turn by it before the server's <code>response_id</code> is known.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 8;</code>
+     * @return string
+     */
+    public function getClientTurnId()
+    {
+        return $this->client_turn_id;
+    }
+
+    /**
+     * Optional. Client-minted id (e.g. a uuid4 hex) of the turn this request STARTS; set together with
+     * <code>query_input</code>. The server echoes it on every response of that turn
+     * (<code>StreamingDetectIntentResponse.client_turn_id</code>), and a <code>CancelTurn</code> or
+     * <code>HeardReport</code> can name the turn by it before the server's <code>response_id</code> is known.
+     *
+     * Generated from protobuf field <code>string client_turn_id = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setClientTurnId(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->client_turn_id = $var;
 
         return $this;
     }

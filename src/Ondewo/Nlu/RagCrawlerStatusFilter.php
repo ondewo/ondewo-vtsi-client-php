@@ -75,9 +75,8 @@ class RagCrawlerStatusFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsActive($var)
+    public function setIsActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_active = $var;
 
         return $this;
@@ -101,7 +100,7 @@ class RagCrawlerStatusFilter extends \Google\Protobuf\Internal\Message
      * @param int[] $var
      * @return $this
      */
-    public function setAcceptedStatusCodes($var)
+    public function setAcceptedStatusCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
         $this->accepted_status_codes = $arr;

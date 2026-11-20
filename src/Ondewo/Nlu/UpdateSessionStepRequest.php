@@ -86,9 +86,8 @@ class UpdateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionStep $var
      * @return $this
      */
-    public function setSessionStep($var)
+    public function setSessionStep(\Ondewo\Nlu\SessionStep|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionStep::class);
         $this->session_step = $var;
 
         return $this;
@@ -124,9 +123,8 @@ class UpdateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -162,9 +160,8 @@ class UpdateSessionStepRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

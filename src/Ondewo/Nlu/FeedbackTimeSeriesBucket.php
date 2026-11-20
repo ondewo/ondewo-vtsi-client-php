@@ -98,9 +98,8 @@ class FeedbackTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setBucketStart($var)
+    public function setBucketStart(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->bucket_start = $var;
 
         return $this;
@@ -124,7 +123,7 @@ class FeedbackTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsUpCount($var)
+    public function setThumbsUpCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_up_count = $var;
@@ -150,7 +149,7 @@ class FeedbackTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setThumbsDownCount($var)
+    public function setThumbsDownCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->thumbs_down_count = $var;
@@ -176,7 +175,7 @@ class FeedbackTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;
@@ -212,9 +211,8 @@ class FeedbackTimeSeriesBucket extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setBucketEnd($var)
+    public function setBucketEnd(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->bucket_end = $var;
 
         return $this;

@@ -102,9 +102,8 @@ class UpdateEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType $var
      * @return $this
      */
-    public function setEntityType($var)
+    public function setEntityType(\Ondewo\Nlu\EntityType|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType::class);
         $this->entity_type = $var;
 
         return $this;
@@ -136,9 +135,9 @@ class UpdateEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -172,9 +171,8 @@ class UpdateEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -184,7 +182,7 @@ class UpdateEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned Entity Type
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeView entity_type_view = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityTypeView}
      */
     public function getEntityTypeView()
     {
@@ -195,10 +193,10 @@ class UpdateEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * Optional. The resource view to apply to the returned Entity Type
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityTypeView entity_type_view = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityTypeView}
      * @return $this
      */
-    public function setEntityTypeView($var)
+    public function setEntityTypeView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityTypeView::class);
         $this->entity_type_view = $var;

@@ -89,9 +89,9 @@ class CreateSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -117,9 +117,9 @@ class CreateSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParentReviewId($var)
+    public function setParentReviewId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent_review_id = $var;
 
         return $this;
@@ -153,9 +153,8 @@ class CreateSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionReview $var
      * @return $this
      */
-    public function setSessionReview($var)
+    public function setSessionReview(\Ondewo\Nlu\SessionReview|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionReview::class);
         $this->session_review = $var;
 
         return $this;
@@ -166,7 +165,7 @@ class CreateSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      */
     public function getSessionReviewView()
     {
@@ -178,10 +177,10 @@ class CreateSessionReviewRequest extends \Google\Protobuf\Internal\Message
      * A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionReview.View session_review_view = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SessionReview\View}
      * @return $this
      */
-    public function setSessionReviewView($var)
+    public function setSessionReviewView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SessionReview\View::class);
         $this->session_review_view = $var;

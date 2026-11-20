@@ -67,9 +67,8 @@ class RagCrawlerIncrementalConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsActive($var)
+    public function setIsActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_active = $var;
 
         return $this;
@@ -103,7 +102,7 @@ class RagCrawlerIncrementalConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxAgeDays($var)
+    public function setMaxAgeDays(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_age_days = $var;

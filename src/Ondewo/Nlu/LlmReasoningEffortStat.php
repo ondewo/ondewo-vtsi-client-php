@@ -66,7 +66,7 @@ class LlmReasoningEffortStat extends \Google\Protobuf\Internal\Message
      * Reasoning effort enum value.
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReasoningEffort reasoning_effort = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReasoningEffort}
      */
     public function getReasoningEffort()
     {
@@ -77,10 +77,10 @@ class LlmReasoningEffortStat extends \Google\Protobuf\Internal\Message
      * Reasoning effort enum value.
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReasoningEffort reasoning_effort = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReasoningEffort}
      * @return $this
      */
-    public function setReasoningEffort($var)
+    public function setReasoningEffort(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReasoningEffort::class);
         $this->reasoning_effort = $var;
@@ -106,7 +106,7 @@ class LlmReasoningEffortStat extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->count = $var;
@@ -132,9 +132,8 @@ class LlmReasoningEffortStat extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRate($var)
+    public function setRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->rate = $var;
 
         return $this;
@@ -168,9 +167,8 @@ class LlmReasoningEffortStat extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;

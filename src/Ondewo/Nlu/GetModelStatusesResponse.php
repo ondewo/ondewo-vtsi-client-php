@@ -56,7 +56,7 @@ class GetModelStatusesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ModelStatus[] $var
      * @return $this
      */
-    public function setModelStatuses($var)
+    public function setModelStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ModelStatus::class);
         $this->model_statuses = $arr;

@@ -64,7 +64,7 @@ class BatchDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DeleteEntityStatus[] $var
      * @return $this
      */
-    public function setDeleteStatuses($var)
+    public function setDeleteStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\DeleteEntityStatus::class);
         $this->delete_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchDeleteEntitiesResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

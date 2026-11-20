@@ -45,6 +45,23 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * Generated from protobuf field <code>string container_id = 4;</code>
      */
     protected $container_id = '';
+    /**
+     * Optional. Only stream lines whose message matches this regular expression (Python <code>re</code> syntax,
+     * at most 512 characters). Empty (the default) disables regex filtering. An invalid, oversized or
+     * catastrophically backtracking pattern is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string regex = 5;</code>
+     */
+    protected $regex = '';
+    /**
+     * Optional. Resume exactly where a previous stream or <code>GetRemoteOperationContainerLogs</code> page
+     * stopped: the <code>next_resume_token</code> of that response, echoed back verbatim. When set, no
+     * historical replay is applied and <code>tail_lines</code> is ignored. The token is interchangeable with
+     * <code>Logs.StreamLogs</code> / <code>Logs.ListLogs</code> tokens.
+     *
+     * Generated from protobuf field <code>string resume_token = 6;</code>
+     */
+    protected $resume_token = '';
 
     /**
      * Constructor.
@@ -65,6 +82,15 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      *           container id (as returned by <a href="index.html#ondewo.nlu.RemoteOperationContainer">RemoteOperationContainer</a>).
      *           Empty (the default) streams the operation&apos;s currently-registered container, preserving the
      *           legacy single-container behavior.
+     *     @type string $regex
+     *           Optional. Only stream lines whose message matches this regular expression (Python <code>re</code> syntax,
+     *           at most 512 characters). Empty (the default) disables regex filtering. An invalid, oversized or
+     *           catastrophically backtracking pattern is rejected with <code>INVALID_ARGUMENT</code>.
+     *     @type string $resume_token
+     *           Optional. Resume exactly where a previous stream or <code>GetRemoteOperationContainerLogs</code> page
+     *           stopped: the <code>next_resume_token</code> of that response, echoed back verbatim. When set, no
+     *           historical replay is applied and <code>tail_lines</code> is ignored. The token is interchangeable with
+     *           <code>Logs.StreamLogs</code> / <code>Logs.ListLogs</code> tokens.
      * }
      */
     public function __construct($data = NULL) {
@@ -90,9 +116,9 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -103,7 +129,7 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * default) streams every line regardless of level.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getMinLogLevel()
     {
@@ -115,10 +141,10 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * default) streams every line regardless of level.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setMinLogLevel($var)
+    public function setMinLogLevel(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LogSeverity::class);
         $this->min_log_level = $var;
@@ -146,7 +172,7 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * @param int $var
      * @return $this
      */
-    public function setTailLines($var)
+    public function setTailLines(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->tail_lines = $var;
@@ -178,10 +204,72 @@ class StreamRemoteOperationContainerLogsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Only stream lines whose message matches this regular expression (Python <code>re</code> syntax,
+     * at most 512 characters). Empty (the default) disables regex filtering. An invalid, oversized or
+     * catastrophically backtracking pattern is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string regex = 5;</code>
+     * @return string
+     */
+    public function getRegex()
+    {
+        return $this->regex;
+    }
+
+    /**
+     * Optional. Only stream lines whose message matches this regular expression (Python <code>re</code> syntax,
+     * at most 512 characters). Empty (the default) disables regex filtering. An invalid, oversized or
+     * catastrophically backtracking pattern is rejected with <code>INVALID_ARGUMENT</code>.
+     *
+     * Generated from protobuf field <code>string regex = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setRegex(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->regex = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Resume exactly where a previous stream or <code>GetRemoteOperationContainerLogs</code> page
+     * stopped: the <code>next_resume_token</code> of that response, echoed back verbatim. When set, no
+     * historical replay is applied and <code>tail_lines</code> is ignored. The token is interchangeable with
+     * <code>Logs.StreamLogs</code> / <code>Logs.ListLogs</code> tokens.
+     *
+     * Generated from protobuf field <code>string resume_token = 6;</code>
+     * @return string
+     */
+    public function getResumeToken()
+    {
+        return $this->resume_token;
+    }
+
+    /**
+     * Optional. Resume exactly where a previous stream or <code>GetRemoteOperationContainerLogs</code> page
+     * stopped: the <code>next_resume_token</code> of that response, echoed back verbatim. When set, no
+     * historical replay is applied and <code>tail_lines</code> is ignored. The token is interchangeable with
+     * <code>Logs.StreamLogs</code> / <code>Logs.ListLogs</code> tokens.
+     *
+     * Generated from protobuf field <code>string resume_token = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setResumeToken(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->resume_token = $var;
 
         return $this;
     }

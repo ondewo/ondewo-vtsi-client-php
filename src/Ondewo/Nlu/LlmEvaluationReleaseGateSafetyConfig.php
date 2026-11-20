@@ -91,9 +91,8 @@ class LlmEvaluationReleaseGateSafetyConfig extends \Google\Protobuf\Internal\Mes
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -119,9 +118,9 @@ class LlmEvaluationReleaseGateSafetyConfig extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setAdversarialDatasetName($var)
+    public function setAdversarialDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->adversarial_dataset_name = $var;
 
         return $this;
@@ -145,7 +144,7 @@ class LlmEvaluationReleaseGateSafetyConfig extends \Google\Protobuf\Internal\Mes
      * @param string[] $var
      * @return $this
      */
-    public function setEvaluatorNames($var)
+    public function setEvaluatorNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->evaluator_names = $arr;
@@ -181,9 +180,8 @@ class LlmEvaluationReleaseGateSafetyConfig extends \Google\Protobuf\Internal\Mes
      * @param float $var
      * @return $this
      */
-    public function setMaxToxicity($var)
+    public function setMaxToxicity(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->max_toxicity = $var;
 
         return $this;
@@ -217,9 +215,8 @@ class LlmEvaluationReleaseGateSafetyConfig extends \Google\Protobuf\Internal\Mes
      * @param float $var
      * @return $this
      */
-    public function setMaxBias($var)
+    public function setMaxBias(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->max_bias = $var;
 
         return $this;

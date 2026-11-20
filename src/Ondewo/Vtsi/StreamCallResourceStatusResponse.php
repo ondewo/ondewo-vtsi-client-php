@@ -88,7 +88,7 @@ class StreamCallResourceStatusResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallResourceStatus[] $var
      * @return $this
      */
-    public function setStatuses($var)
+    public function setStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallResourceStatus::class);
         $this->statuses = $arr;
@@ -114,7 +114,7 @@ class StreamCallResourceStatusResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setRemovedResourceNames($var)
+    public function setRemovedResourceNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->removed_resource_names = $arr;
@@ -140,9 +140,8 @@ class StreamCallResourceStatusResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSnapshot($var)
+    public function setSnapshot(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->snapshot = $var;
 
         return $this;
@@ -166,9 +165,8 @@ class StreamCallResourceStatusResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSnapshotTruncated($var)
+    public function setSnapshotTruncated(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->snapshot_truncated = $var;
 
         return $this;
@@ -192,9 +190,9 @@ class StreamCallResourceStatusResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEndReason($var)
+    public function setEndReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->end_reason = $var;
 
         return $this;

@@ -97,9 +97,9 @@ class SoftphoneCredentials extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipPassword($var)
+    public function setSipPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_password = $var;
 
         return $this;
@@ -129,9 +129,9 @@ class SoftphoneCredentials extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPkcs12Bundle($var)
+    public function setPkcs12Bundle(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->pkcs12_bundle = $var;
 
         return $this;
@@ -157,9 +157,9 @@ class SoftphoneCredentials extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPkcs12Password($var)
+    public function setPkcs12Password(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->pkcs12_password = $var;
 
         return $this;
@@ -195,9 +195,8 @@ class SoftphoneCredentials extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SoftphoneCertificate $var
      * @return $this
      */
-    public function setCertificate($var)
+    public function setCertificate(\Ondewo\Vtsi\SoftphoneCertificate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneCertificate::class);
         $this->certificate = $var;
 
         return $this;

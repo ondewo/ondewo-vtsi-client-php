@@ -68,9 +68,9 @@ class GetRemoteOperationContainerStatusRequest extends \Google\Protobuf\Internal
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class GetRemoteOperationContainerStatusRequest extends \Google\Protobuf\Internal
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
 
         return $this;

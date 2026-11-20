@@ -77,9 +77,8 @@ class RotateSoftphoneCredentialsResponse extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Vtsi\SoftphoneAccount $var
      * @return $this
      */
-    public function setSoftphoneAccount($var)
+    public function setSoftphoneAccount(\Ondewo\Vtsi\SoftphoneAccount|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneAccount::class);
         $this->softphone_account = $var;
 
         return $this;
@@ -115,9 +114,8 @@ class RotateSoftphoneCredentialsResponse extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Vtsi\SoftphoneCredentials $var
      * @return $this
      */
-    public function setCredentials($var)
+    public function setCredentials(\Ondewo\Vtsi\SoftphoneCredentials|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SoftphoneCredentials::class);
         $this->credentials = $var;
 
         return $this;

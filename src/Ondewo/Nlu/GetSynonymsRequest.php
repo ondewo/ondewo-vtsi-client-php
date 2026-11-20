@@ -100,9 +100,8 @@ class GetSynonymsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\DataEnrichmentConfig $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Ondewo\Nlu\DataEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DataEnrichmentConfig::class);
         $this->config = $var;
 
         return $this;
@@ -126,9 +125,9 @@ class GetSynonymsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setWord($var)
+    public function setWord(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->word = $var;
 
         return $this;
@@ -152,9 +151,9 @@ class GetSynonymsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -180,9 +179,9 @@ class GetSynonymsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -216,9 +215,8 @@ class GetSynonymsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

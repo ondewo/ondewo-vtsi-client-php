@@ -92,7 +92,7 @@ class LlmEvaluationOnlineSessionFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
@@ -120,7 +120,7 @@ class LlmEvaluationOnlineSessionFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -146,7 +146,7 @@ class LlmEvaluationOnlineSessionFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPlatforms($var)
+    public function setPlatforms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->platforms = $arr;
@@ -176,9 +176,8 @@ class LlmEvaluationOnlineSessionFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setRequireTelemetry($var)
+    public function setRequireTelemetry(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->require_telemetry = $var;
 
         return $this;

@@ -70,6 +70,12 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string deep_link_url = 9;</code>
      */
     protected $deep_link_url = '';
+    /**
+     * Title of the document (optional).
+     *
+     * Generated from protobuf field <code>string document_title = 10;</code>
+     */
+    protected $document_title = '';
 
     /**
      * Constructor.
@@ -95,6 +101,8 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      *           For crawled documents the URL of the source document. For any other document it is left empty.
      *     @type string $deep_link_url
      *           For crawled documents link to the source document that directly jumps to the chunk's location on the page using a text fragment anchor (a bit fragile and might not always work). For any other document it is left empty.
+     *     @type string $document_title
+     *           Title of the document (optional).
      * }
      */
     public function __construct($data = NULL) {
@@ -120,7 +128,7 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setReferenceIndex($var)
+    public function setReferenceIndex(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->reference_index = $var;
@@ -146,9 +154,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -172,9 +180,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentId($var)
+    public function setDocumentId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_id = $var;
 
         return $this;
@@ -198,9 +206,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setChunkId($var)
+    public function setChunkId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->chunk_id = $var;
 
         return $this;
@@ -224,9 +232,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentName($var)
+    public function setDocumentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_name = $var;
 
         return $this;
@@ -250,9 +258,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContent($var)
+    public function setContent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->content = $var;
 
         return $this;
@@ -276,9 +284,8 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSimilarity($var)
+    public function setSimilarity(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->similarity = $var;
 
         return $this;
@@ -302,9 +309,9 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentUrl($var)
+    public function setDocumentUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_url = $var;
 
         return $this;
@@ -328,10 +335,36 @@ class ReferencedChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDeepLinkUrl($var)
+    public function setDeepLinkUrl(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->deep_link_url = $var;
+
+        return $this;
+    }
+
+    /**
+     * Title of the document (optional).
+     *
+     * Generated from protobuf field <code>string document_title = 10;</code>
+     * @return string
+     */
+    public function getDocumentTitle()
+    {
+        return $this->document_title;
+    }
+
+    /**
+     * Title of the document (optional).
+     *
+     * Generated from protobuf field <code>string document_title = 10;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setDocumentTitle(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->document_title = $var;
 
         return $this;
     }

@@ -74,9 +74,8 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
      * @return $this
      */
-    public function setS2TBaseConfig($var)
+    public function setS2TBaseConfig(\Ondewo\Vtsi\BaseServiceConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\BaseServiceConfig::class);
         $this->s2t_base_config = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\S2t\TranscribeRequestConfig $var
      * @return $this
      */
-    public function setS2TTranscribeRequestConfig($var)
+    public function setS2TTranscribeRequestConfig(\Ondewo\S2t\TranscribeRequestConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\S2t\TranscribeRequestConfig::class);
         $this->s2t_transcribe_request_config = $var;
 
         return $this;

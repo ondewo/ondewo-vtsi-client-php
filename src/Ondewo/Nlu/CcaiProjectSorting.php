@@ -50,7 +50,7 @@ class CcaiProjectSorting extends \Google\Protobuf\Internal\Message
      * sorting field for ccai projects sorting
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectSorting.CcaiProjectSortingField sorting_field = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiProjectSorting\CcaiProjectSortingField}
      */
     public function getSortingField()
     {
@@ -61,10 +61,10 @@ class CcaiProjectSorting extends \Google\Protobuf\Internal\Message
      * sorting field for ccai projects sorting
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectSorting.CcaiProjectSortingField sorting_field = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiProjectSorting\CcaiProjectSortingField}
      * @return $this
      */
-    public function setSortingField($var)
+    public function setSortingField(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiProjectSorting\CcaiProjectSortingField::class);
         $this->sorting_field = $var;
@@ -76,7 +76,7 @@ class CcaiProjectSorting extends \Google\Protobuf\Internal\Message
      * Sorting mode
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -87,10 +87,10 @@ class CcaiProjectSorting extends \Google\Protobuf\Internal\Message
      * Sorting mode
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;

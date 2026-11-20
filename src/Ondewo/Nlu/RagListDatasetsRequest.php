@@ -179,9 +179,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -205,9 +205,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -259,9 +259,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -285,9 +285,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -311,9 +311,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -363,9 +363,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOrderby($var)
+    public function setOrderby(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->orderby = $var;
 
         return $this;
@@ -408,10 +408,9 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setDesc($var)
+    public function setDesc(bool $var)
     {
         @trigger_error('desc is deprecated.', E_USER_DEPRECATED);
-        GPBUtil::checkBool($var);
         $this->desc = $var;
 
         return $this;
@@ -421,7 +420,7 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify whether to sort ascending or descending (default: ascending).
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -432,10 +431,10 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify whether to sort ascending or descending (default: ascending).
      *
      * Generated from protobuf field <code>.ondewo.nlu.SortingMode sorting_mode = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;
@@ -471,9 +470,8 @@ class RagListDatasetsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

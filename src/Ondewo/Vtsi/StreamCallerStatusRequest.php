@@ -72,9 +72,9 @@ class StreamCallerStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -98,7 +98,7 @@ class StreamCallerStatusRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCallerNames($var)
+    public function setCallerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->caller_names = $arr;
@@ -124,9 +124,8 @@ class StreamCallerStatusRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActiveOnly($var)
+    public function setActiveOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active_only = $var;
 
         return $this;

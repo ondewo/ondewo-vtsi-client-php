@@ -74,9 +74,9 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -112,9 +112,8 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ScheduledCaller $var
      * @return $this
      */
-    public function setScheduledCaller($var)
+    public function setScheduledCaller(\Ondewo\Vtsi\ScheduledCaller|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ScheduledCaller::class);
         $this->scheduled_caller = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class StartScheduledCallerResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

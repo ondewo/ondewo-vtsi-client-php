@@ -60,9 +60,8 @@ class PingResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsReachable($var)
+    public function setIsReachable(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_reachable = $var;
 
         return $this;

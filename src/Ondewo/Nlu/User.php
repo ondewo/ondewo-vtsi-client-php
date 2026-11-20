@@ -122,9 +122,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserId($var)
+    public function setUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_id = $var;
 
         return $this;
@@ -150,9 +150,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -176,7 +176,7 @@ class User extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setServerRoleId($var)
+    public function setServerRoleId(int $var)
     {
         GPBUtil::checkUint32($var);
         $this->server_role_id = $var;
@@ -202,9 +202,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserEmail($var)
+    public function setUserEmail(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_email = $var;
 
         return $this;
@@ -228,9 +228,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserProfilePicture($var)
+    public function setUserProfilePicture(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->user_profile_picture = $var;
 
         return $this;
@@ -264,9 +264,8 @@ class User extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -300,9 +299,8 @@ class User extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -326,9 +324,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -352,9 +350,9 @@ class User extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

@@ -78,9 +78,9 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -106,7 +106,7 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\TransferCallResponse[] $var
      * @return $this
      */
-    public function setTransferCallResponses($var)
+    public function setTransferCallResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\TransferCallResponse::class);
         $this->transfer_call_responses = $arr;
@@ -136,9 +136,9 @@ class TransferCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

@@ -80,9 +80,9 @@ class LlmErrorStat extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorClass($var)
+    public function setErrorClass(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_class = $var;
 
         return $this;
@@ -106,7 +106,7 @@ class LlmErrorStat extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->count = $var;
@@ -132,9 +132,8 @@ class LlmErrorStat extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRate($var)
+    public function setRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->rate = $var;
 
         return $this;
@@ -158,9 +157,9 @@ class LlmErrorStat extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSampleMessage($var)
+    public function setSampleMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sample_message = $var;
 
         return $this;

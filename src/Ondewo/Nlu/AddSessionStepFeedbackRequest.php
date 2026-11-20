@@ -72,9 +72,9 @@ class AddSessionStepFeedbackRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class AddSessionStepFeedbackRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepId($var)
+    public function setSessionStepId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_id = $var;
 
         return $this;
@@ -134,9 +134,8 @@ class AddSessionStepFeedbackRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionFeedback $var
      * @return $this
      */
-    public function setFeedback($var)
+    public function setFeedback(\Ondewo\Nlu\SessionFeedback|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFeedback::class);
         $this->feedback = $var;
 
         return $this;

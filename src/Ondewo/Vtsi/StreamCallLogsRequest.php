@@ -117,9 +117,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -157,9 +157,8 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\CallLogFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallLogFilter::class);
         $this->filter = $var;
 
         return $this;
@@ -203,7 +202,7 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTailLines($var)
+    public function setTailLines(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->tail_lines = $var;
@@ -245,9 +244,9 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResumeToken($var)
+    public function setResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resume_token = $var;
 
         return $this;
@@ -263,7 +262,7 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      */
     public function getAfterSeq()
     {
-        return isset($this->after_seq) ? $this->after_seq : 0;
+        return isset($this->after_seq) ? $this->after_seq : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasAfterSeq()
@@ -285,7 +284,7 @@ class StreamCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setAfterSeq($var)
+    public function setAfterSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->after_seq = $var;

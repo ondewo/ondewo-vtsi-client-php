@@ -48,7 +48,8 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      */
     protected $error_message = '';
     /**
-     * Outcome of the transfer
+     * Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
+     * final outcome arrives in <code>Call.last_transfer</code> and the events
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
      */
@@ -97,7 +98,8 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      *           refused with a gRPC status, prefixed with the name of that status code, e.g.
      *           <code>FAILED_PRECONDITION: reason=call-not-connected</code>.
      *     @type int $outcome
-     *           Outcome of the transfer
+     *           Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
+     *           final outcome arrives in <code>Call.last_transfer</code> and the events
      *     @type string $resolved_target
      *           The dialplan extension the target resolved to, e.g. <code>ondewo0007</code>, a softphone user name,
      *           <code>ondewoqueue</code> or the E.164 number
@@ -132,9 +134,9 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -162,9 +164,9 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -190,9 +192,9 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTransferId($var)
+    public function setTransferId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->transfer_id = $var;
 
         return $this;
@@ -224,19 +226,20 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;
     }
 
     /**
-     * Outcome of the transfer
+     * Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
+     * final outcome arrives in <code>Call.last_transfer</code> and the events
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      */
     public function getOutcome()
     {
@@ -244,13 +247,14 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Outcome of the transfer
+     * Outcome of the transfer. A WARM transfer with a warm intro answers <code>TRANSFER_OUTCOME_PENDING</code>; its
+     * final outcome arrives in <code>Call.last_transfer</code> and the events
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      * @return $this
      */
-    public function setOutcome($var)
+    public function setOutcome(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferOutcome::class);
         $this->outcome = $var;
@@ -278,9 +282,9 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResolvedTarget($var)
+    public function setResolvedTarget(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resolved_target = $var;
 
         return $this;
@@ -306,7 +310,7 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSipResponseCode($var)
+    public function setSipResponseCode(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sip_response_code = $var;
@@ -334,9 +338,9 @@ class TransferCallResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorReason($var)
+    public function setErrorReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_reason = $var;
 
         return $this;

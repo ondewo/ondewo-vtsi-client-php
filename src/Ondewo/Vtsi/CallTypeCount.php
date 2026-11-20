@@ -53,7 +53,7 @@ class CallTypeCount extends \Google\Protobuf\Internal\Message
      * is not the type of a stored call.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallType}
      */
     public function getCallType()
     {
@@ -65,10 +65,10 @@ class CallTypeCount extends \Google\Protobuf\Internal\Message
      * is not the type of a stored call.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallType call_type = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallType}
      * @return $this
      */
-    public function setCallType($var)
+    public function setCallType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallType::class);
         $this->call_type = $var;
@@ -94,7 +94,7 @@ class CallTypeCount extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->count = $var;

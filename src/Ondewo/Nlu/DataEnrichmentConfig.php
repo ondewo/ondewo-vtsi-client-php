@@ -130,9 +130,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityEnrichmentConfig $var
      * @return $this
      */
-    public function setEntityEnrichment($var)
+    public function setEntityEnrichment(\Ondewo\Nlu\EntityEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityEnrichmentConfig::class);
         $this->entity_enrichment = $var;
 
         return $this;
@@ -166,9 +165,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ThesaurusEnrichmentConfig $var
      * @return $this
      */
-    public function setThesaurusEnrichment($var)
+    public function setThesaurusEnrichment(\Ondewo\Nlu\ThesaurusEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\ThesaurusEnrichmentConfig::class);
         $this->thesaurus_enrichment = $var;
 
         return $this;
@@ -202,9 +200,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Word2VecEnrichmentConfig $var
      * @return $this
      */
-    public function setWord2VecEnrichment($var)
+    public function setWord2VecEnrichment(\Ondewo\Nlu\Word2VecEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Word2VecEnrichmentConfig::class);
         $this->word2vec_enrichment = $var;
 
         return $this;
@@ -238,9 +235,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\WordNetAugEnrichmentConfig $var
      * @return $this
      */
-    public function setWordNetEnrichment($var)
+    public function setWordNetEnrichment(\Ondewo\Nlu\WordNetAugEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\WordNetAugEnrichmentConfig::class);
         $this->word_net_enrichment = $var;
 
         return $this;
@@ -274,9 +270,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\GPT2EnrichmentConfig $var
      * @return $this
      */
-    public function setGpt2Enrichment($var)
+    public function setGpt2Enrichment(\Ondewo\Nlu\GPT2EnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\GPT2EnrichmentConfig::class);
         $this->gpt2_enrichment = $var;
 
         return $this;
@@ -310,9 +305,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\GloVeEnrichmentConfig $var
      * @return $this
      */
-    public function setGloveEnrichment($var)
+    public function setGloveEnrichment(\Ondewo\Nlu\GloVeEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\GloVeEnrichmentConfig::class);
         $this->glove_enrichment = $var;
 
         return $this;
@@ -346,9 +340,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\BertAugEnrichmentConfig $var
      * @return $this
      */
-    public function setBertEnrichment($var)
+    public function setBertEnrichment(\Ondewo\Nlu\BertAugEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\BertAugEnrichmentConfig::class);
         $this->bert_enrichment = $var;
 
         return $this;
@@ -382,9 +375,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\XLNetAugEnrichmentConfig $var
      * @return $this
      */
-    public function setXlnetEnrichment($var)
+    public function setXlnetEnrichment(\Ondewo\Nlu\XLNetAugEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\XLNetAugEnrichmentConfig::class);
         $this->xlnet_enrichment = $var;
 
         return $this;
@@ -418,9 +410,8 @@ class DataEnrichmentConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEnrichmentConfig $var
      * @return $this
      */
-    public function setLlmEnrichment($var)
+    public function setLlmEnrichment(\Ondewo\Nlu\LlmEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEnrichmentConfig::class);
         $this->llm_enrichment = $var;
 
         return $this;

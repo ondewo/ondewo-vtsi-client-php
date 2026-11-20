@@ -226,9 +226,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -254,9 +254,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -280,9 +280,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepId($var)
+    public function setSessionStepId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_id = $var;
 
         return $this;
@@ -306,9 +306,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResponseId($var)
+    public function setResponseId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->response_id = $var;
 
         return $this;
@@ -332,9 +332,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepLlmTelemetryId($var)
+    public function setSessionStepLlmTelemetryId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_llm_telemetry_id = $var;
 
         return $this;
@@ -344,7 +344,7 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * The thumbs rating.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackRating rating = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\FeedbackRating}
      */
     public function getRating()
     {
@@ -355,10 +355,10 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * The thumbs rating.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackRating rating = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\FeedbackRating}
      * @return $this
      */
-    public function setRating($var)
+    public function setRating(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\FeedbackRating::class);
         $this->rating = $var;
@@ -384,9 +384,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCategoricalValue($var)
+    public function setCategoricalValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->categorical_value = $var;
 
         return $this;
@@ -434,9 +434,8 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;
@@ -460,9 +459,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setComment($var)
+    public function setComment(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->comment = $var;
 
         return $this;
@@ -486,9 +485,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCriterion($var)
+    public function setCriterion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->criterion = $var;
 
         return $this;
@@ -498,7 +497,7 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * Who left the feedback.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackAuthorType author_type = 11;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\FeedbackAuthorType}
      */
     public function getAuthorType()
     {
@@ -509,10 +508,10 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * Who left the feedback.
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackAuthorType author_type = 11;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\FeedbackAuthorType}
      * @return $this
      */
-    public function setAuthorType($var)
+    public function setAuthorType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\FeedbackAuthorType::class);
         $this->author_type = $var;
@@ -538,9 +537,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAnnotatorUserId($var)
+    public function setAnnotatorUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->annotator_user_id = $var;
 
         return $this;
@@ -564,9 +563,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOriginId($var)
+    public function setOriginId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->origin_id = $var;
 
         return $this;
@@ -590,9 +589,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdentifiedUserId($var)
+    public function setIdentifiedUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->identified_user_id = $var;
 
         return $this;
@@ -626,9 +625,8 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setRaw($var)
+    public function setRaw(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->raw = $var;
 
         return $this;
@@ -662,9 +660,8 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -698,9 +695,8 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -724,9 +720,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -750,9 +746,9 @@ class SessionFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

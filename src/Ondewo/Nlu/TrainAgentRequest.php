@@ -76,9 +76,9 @@ class TrainAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -102,9 +102,9 @@ class TrainAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBranch($var)
+    public function setBranch(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->branch = $var;
 
         return $this;
@@ -114,7 +114,7 @@ class TrainAgentRequest extends \Google\Protobuf\Internal\Message
      * Defines when to initiate newly created agent when training started
      *
      * Generated from protobuf field <code>.ondewo.nlu.InitiationProtocol initiation_protocol = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\InitiationProtocol}
      */
     public function getInitiationProtocol()
     {
@@ -125,10 +125,10 @@ class TrainAgentRequest extends \Google\Protobuf\Internal\Message
      * Defines when to initiate newly created agent when training started
      *
      * Generated from protobuf field <code>.ondewo.nlu.InitiationProtocol initiation_protocol = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\InitiationProtocol}
      * @return $this
      */
-    public function setInitiationProtocol($var)
+    public function setInitiationProtocol(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\InitiationProtocol::class);
         $this->initiation_protocol = $var;

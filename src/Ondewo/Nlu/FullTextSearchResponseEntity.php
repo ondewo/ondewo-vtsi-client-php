@@ -110,9 +110,9 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -162,7 +162,7 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FullTextSearchResponseEntity\EntitySearchResult[] $var
      * @return $this
      */
-    public function setEntityResults($var)
+    public function setEntityResults(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FullTextSearchResponseEntity\EntitySearchResult::class);
         $this->entity_results = $arr;
@@ -188,9 +188,9 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTerm($var)
+    public function setTerm(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->term = $var;
 
         return $this;
@@ -214,9 +214,9 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setElasticQuery($var)
+    public function setElasticQuery(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->elastic_query = $var;
 
         return $this;
@@ -240,9 +240,8 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTime($var)
+    public function setTime(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->time = $var;
 
         return $this;
@@ -268,9 +267,9 @@ class FullTextSearchResponseEntity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

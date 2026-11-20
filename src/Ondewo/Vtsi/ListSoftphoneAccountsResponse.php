@@ -65,7 +65,7 @@ class ListSoftphoneAccountsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SoftphoneAccount[] $var
      * @return $this
      */
-    public function setSoftphoneAccounts($var)
+    public function setSoftphoneAccounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\SoftphoneAccount::class);
         $this->softphone_accounts = $arr;
@@ -91,9 +91,9 @@ class ListSoftphoneAccountsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

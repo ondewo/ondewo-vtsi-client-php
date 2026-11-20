@@ -72,7 +72,7 @@ class ListTrainingPhrasesofIntentsWithEnrichmentResponse extends \Google\Protobu
      * @param string[] $var
      * @return $this
      */
-    public function setTrainingPhrases($var)
+    public function setTrainingPhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->training_phrases = $arr;
@@ -102,9 +102,9 @@ class ListTrainingPhrasesofIntentsWithEnrichmentResponse extends \Google\Protobu
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

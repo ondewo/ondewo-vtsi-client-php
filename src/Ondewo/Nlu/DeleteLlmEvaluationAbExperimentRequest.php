@@ -78,9 +78,9 @@ class DeleteLlmEvaluationAbExperimentRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -106,9 +106,9 @@ class DeleteLlmEvaluationAbExperimentRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -132,9 +132,9 @@ class DeleteLlmEvaluationAbExperimentRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

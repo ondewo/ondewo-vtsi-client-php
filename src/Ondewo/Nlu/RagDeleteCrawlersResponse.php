@@ -64,7 +64,7 @@ class RagDeleteCrawlersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagDeleteCrawlerResponse[] $var
      * @return $this
      */
-    public function setDeleteCrawlerResponses($var)
+    public function setDeleteCrawlerResponses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagDeleteCrawlerResponse::class);
         $this->delete_crawler_responses = $arr;
@@ -90,9 +90,9 @@ class RagDeleteCrawlersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

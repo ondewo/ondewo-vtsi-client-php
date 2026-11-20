@@ -84,9 +84,9 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -96,7 +96,7 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned VtsiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectView vtsi_project_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiProjectView}
      */
     public function getVtsiProjectView()
     {
@@ -107,10 +107,10 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned VtsiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectView vtsi_project_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectView}
      * @return $this
      */
-    public function setVtsiProjectView($var)
+    public function setVtsiProjectView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectView::class);
         $this->vtsi_project_view = $var;
@@ -158,9 +158,8 @@ class GetVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

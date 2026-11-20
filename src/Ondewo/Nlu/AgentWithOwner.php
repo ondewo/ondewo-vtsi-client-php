@@ -74,9 +74,8 @@ class AgentWithOwner extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Agent $var
      * @return $this
      */
-    public function setAgent($var)
+    public function setAgent(\Ondewo\Nlu\Agent|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Agent::class);
         $this->agent = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class AgentWithOwner extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\User $var
      * @return $this
      */
-    public function setOwner($var)
+    public function setOwner(\Ondewo\Nlu\User|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\User::class);
         $this->owner = $var;
 
         return $this;

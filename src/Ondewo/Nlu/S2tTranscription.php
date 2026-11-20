@@ -150,9 +150,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -176,9 +176,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -206,9 +206,8 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;
@@ -234,9 +233,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -260,9 +259,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAudioResourceName($var)
+    public function setAudioResourceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->audio_resource_name = $var;
 
         return $this;
@@ -286,9 +285,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPipelineId($var)
+    public function setPipelineId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->pipeline_id = $var;
 
         return $this;
@@ -312,9 +311,8 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->duration_in_s = $var;
 
         return $this;
@@ -324,7 +322,7 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * Whether a speech-to-text engine or a human has transcribed the audio
      *
      * Generated from protobuf field <code>.ondewo.nlu.TranscriptionType transcription_type = 8;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\TranscriptionType}
      */
     public function getTranscriptionType()
     {
@@ -335,10 +333,10 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * Whether a speech-to-text engine or a human has transcribed the audio
      *
      * Generated from protobuf field <code>.ondewo.nlu.TranscriptionType transcription_type = 8;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\TranscriptionType}
      * @return $this
      */
-    public function setTranscriptionType($var)
+    public function setTranscriptionType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\TranscriptionType::class);
         $this->transcription_type = $var;
@@ -374,9 +372,8 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -410,9 +407,8 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -436,9 +432,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -462,9 +458,9 @@ class S2tTranscription extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

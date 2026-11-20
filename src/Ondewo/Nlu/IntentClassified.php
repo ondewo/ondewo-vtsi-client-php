@@ -84,9 +84,9 @@ class IntentClassified extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -110,9 +110,9 @@ class IntentClassified extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentDisplayName($var)
+    public function setIntentDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_display_name = $var;
 
         return $this;
@@ -136,9 +136,9 @@ class IntentClassified extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setClassifier($var)
+    public function setClassifier(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->classifier = $var;
 
         return $this;
@@ -162,9 +162,8 @@ class IntentClassified extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;

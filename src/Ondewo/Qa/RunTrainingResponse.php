@@ -64,9 +64,8 @@ class RunTrainingResponse extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setF1($var)
+    public function setF1(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->f1 = $var;
 
         return $this;
@@ -90,9 +89,8 @@ class RunTrainingResponse extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setAccuracy($var)
+    public function setAccuracy(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->accuracy = $var;
 
         return $this;

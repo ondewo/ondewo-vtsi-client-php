@@ -56,7 +56,7 @@ class BatchUpdateEntitiesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity[] $var
      * @return $this
      */
-    public function setEntities($var)
+    public function setEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entities = $arr;

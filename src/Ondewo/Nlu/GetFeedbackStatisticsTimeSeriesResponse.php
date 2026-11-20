@@ -56,7 +56,7 @@ class GetFeedbackStatisticsTimeSeriesResponse extends \Google\Protobuf\Internal\
      * @param \Ondewo\Nlu\FeedbackTimeSeriesBucket[] $var
      * @return $this
      */
-    public function setBuckets($var)
+    public function setBuckets(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FeedbackTimeSeriesBucket::class);
         $this->buckets = $arr;

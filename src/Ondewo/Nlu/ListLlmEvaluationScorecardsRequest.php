@@ -110,9 +110,9 @@ class ListLlmEvaluationScorecardsRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -154,9 +154,9 @@ class ListLlmEvaluationScorecardsRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -190,9 +190,8 @@ class ListLlmEvaluationScorecardsRequest extends \Google\Protobuf\Internal\Messa
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -216,9 +215,9 @@ class ListLlmEvaluationScorecardsRequest extends \Google\Protobuf\Internal\Messa
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -252,9 +251,8 @@ class ListLlmEvaluationScorecardsRequest extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\LlmEvaluationScorecardFilter $var
      * @return $this
      */
-    public function setLlmEvaluationScorecardFilter($var)
+    public function setLlmEvaluationScorecardFilter(\Ondewo\Nlu\LlmEvaluationScorecardFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationScorecardFilter::class);
         $this->llm_evaluation_scorecard_filter = $var;
 
         return $this;

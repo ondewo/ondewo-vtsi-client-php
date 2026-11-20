@@ -108,9 +108,8 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setUseRaptor($var)
+    public function setUseRaptor(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->use_raptor = $var;
 
         return $this;
@@ -136,9 +135,9 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPrompt($var)
+    public function setPrompt(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->prompt = $var;
 
         return $this;
@@ -162,7 +161,7 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxToken($var)
+    public function setMaxToken(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_token = $var;
@@ -198,9 +197,8 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThreshold($var)
+    public function setThreshold(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->threshold = $var;
 
         return $this;
@@ -224,7 +222,7 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxCluster($var)
+    public function setMaxCluster(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_cluster = $var;
@@ -240,7 +238,7 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      */
     public function getRandomSeed()
     {
-        return isset($this->random_seed) ? $this->random_seed : 0;
+        return isset($this->random_seed) ? $this->random_seed : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasRandomSeed()
@@ -260,7 +258,7 @@ class RagRaptorConfig extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setRandomSeed($var)
+    public function setRandomSeed(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->random_seed = $var;

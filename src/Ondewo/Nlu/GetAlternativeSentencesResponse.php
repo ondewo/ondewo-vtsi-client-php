@@ -56,7 +56,7 @@ class GetAlternativeSentencesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AltSentence[] $var
      * @return $this
      */
-    public function setAlternativeSentences($var)
+    public function setAlternativeSentences(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AltSentence::class);
         $this->alternative_sentences = $arr;

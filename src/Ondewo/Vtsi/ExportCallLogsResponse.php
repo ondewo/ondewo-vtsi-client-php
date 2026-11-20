@@ -96,9 +96,9 @@ class ExportCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setChunk($var)
+    public function setChunk(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->chunk = $var;
 
         return $this;
@@ -124,7 +124,7 @@ class ExportCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setEntryCount($var)
+    public function setEntryCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->entry_count = $var;
@@ -152,9 +152,8 @@ class ExportCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setLast($var)
+    public function setLast(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->last = $var;
 
         return $this;
@@ -182,9 +181,8 @@ class ExportCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setTruncated($var)
+    public function setTruncated(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->truncated = $var;
 
         return $this;

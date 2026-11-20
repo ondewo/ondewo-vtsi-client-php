@@ -68,9 +68,9 @@ class ListPropertyIdsOfAllSessionsRequest extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -104,9 +104,8 @@ class ListPropertyIdsOfAllSessionsRequest extends \Google\Protobuf\Internal\Mess
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;

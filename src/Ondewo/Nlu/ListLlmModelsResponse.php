@@ -72,7 +72,7 @@ class ListLlmModelsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmModel[] $var
      * @return $this
      */
-    public function setLlmModels($var)
+    public function setLlmModels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmModel::class);
         $this->llm_models = $arr;

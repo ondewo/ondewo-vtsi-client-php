@@ -67,7 +67,7 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDeletedLogEntryCount($var)
+    public function setDeletedLogEntryCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->deleted_log_entry_count = $var;
@@ -95,7 +95,7 @@ class DeleteCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDeletedLogStreamCount($var)
+    public function setDeletedLogStreamCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->deleted_log_stream_count = $var;

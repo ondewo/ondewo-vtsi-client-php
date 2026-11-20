@@ -150,9 +150,8 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param \Ondewo\Nlu\DataEnrichmentConfig $var
      * @return $this
      */
-    public function setConfig($var)
+    public function setConfig(\Ondewo\Nlu\DataEnrichmentConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\DataEnrichmentConfig::class);
         $this->config = $var;
 
         return $this;
@@ -186,9 +185,8 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param \Ondewo\Nlu\Intent\TrainingPhrase $var
      * @return $this
      */
-    public function setTrainingPhrase($var)
+    public function setTrainingPhrase(\Ondewo\Nlu\Intent\TrainingPhrase|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->training_phrase = $var;
 
         return $this;
@@ -212,9 +210,9 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -238,9 +236,9 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -266,9 +264,9 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -292,9 +290,8 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param bool $var
      * @return $this
      */
-    public function setDetectEntities($var)
+    public function setDetectEntities(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->detect_entities = $var;
 
         return $this;
@@ -320,9 +317,8 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param float $var
      * @return $this
      */
-    public function setSimilarityThreshold($var)
+    public function setSimilarityThreshold(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->similarity_threshold = $var;
 
         return $this;
@@ -346,7 +342,7 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string[] $var
      * @return $this
      */
-    public function setProtectedWords($var)
+    public function setProtectedWords(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->protected_words = $arr;
@@ -372,7 +368,7 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string[] $var
      * @return $this
      */
-    public function setWordsToChange($var)
+    public function setWordsToChange(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->words_to_change = $arr;
@@ -398,9 +394,9 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setBranch($var)
+    public function setBranch(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->branch = $var;
 
         return $this;
@@ -434,9 +430,8 @@ class GetAlternativeTrainingPhrasesRequest extends \Google\Protobuf\Internal\Mes
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

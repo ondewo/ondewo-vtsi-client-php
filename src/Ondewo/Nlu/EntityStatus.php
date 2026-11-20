@@ -58,9 +58,8 @@ class EntityStatus extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity $var
      * @return $this
      */
-    public function setEntity($var)
+    public function setEntity(\Ondewo\Nlu\EntityType\Entity|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\EntityType\Entity::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -89,9 +88,9 @@ class EntityStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;

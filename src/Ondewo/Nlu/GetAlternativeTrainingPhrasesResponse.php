@@ -56,7 +56,7 @@ class GetAlternativeTrainingPhrasesResponse extends \Google\Protobuf\Internal\Me
      * @param \Ondewo\Nlu\AltTrainingPhrase[] $var
      * @return $this
      */
-    public function setAlternativeTrainingPhrases($var)
+    public function setAlternativeTrainingPhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AltTrainingPhrase::class);
         $this->alternative_training_phrases = $arr;

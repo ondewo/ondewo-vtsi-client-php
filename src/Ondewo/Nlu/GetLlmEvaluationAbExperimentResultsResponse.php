@@ -68,9 +68,9 @@ class GetLlmEvaluationAbExperimentResultsResponse extends \Google\Protobuf\Inter
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationAbExperimentName($var)
+    public function setLlmEvaluationAbExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_ab_experiment_name = $var;
 
         return $this;
@@ -94,7 +94,7 @@ class GetLlmEvaluationAbExperimentResultsResponse extends \Google\Protobuf\Inter
      * @param \Ondewo\Nlu\LlmEvaluationAbVariantResult[] $var
      * @return $this
      */
-    public function setVariantResults($var)
+    public function setVariantResults(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationAbVariantResult::class);
         $this->variant_results = $arr;

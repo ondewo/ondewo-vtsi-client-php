@@ -63,7 +63,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListIntentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListIntentsResponse>
      */
     public function ListIntents(\Ondewo\Nlu\ListIntentsRequest $argument,
       $metadata = [], $options = []) {
@@ -78,7 +78,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetIntentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Intent>
      */
     public function GetIntent(\Ondewo\Nlu\GetIntentRequest $argument,
       $metadata = [], $options = []) {
@@ -93,7 +93,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateIntentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Intent>
      */
     public function CreateIntent(\Ondewo\Nlu\CreateIntentRequest $argument,
       $metadata = [], $options = []) {
@@ -108,7 +108,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateIntentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Intent>
      */
     public function UpdateIntent(\Ondewo\Nlu\UpdateIntentRequest $argument,
       $metadata = [], $options = []) {
@@ -123,7 +123,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteIntentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteIntent(\Ondewo\Nlu\DeleteIntentRequest $argument,
       $metadata = [], $options = []) {
@@ -140,7 +140,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateIntentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchUpdateIntentsResponse>
      */
     public function BatchUpdateIntents(\Ondewo\Nlu\BatchUpdateIntentsRequest $argument,
       $metadata = [], $options = []) {
@@ -157,7 +157,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteIntentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function BatchDeleteIntents(\Ondewo\Nlu\BatchDeleteIntentsRequest $argument,
       $metadata = [], $options = []) {
@@ -172,7 +172,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\IntentTagRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function TagIntent(\Ondewo\Nlu\IntentTagRequest $argument,
       $metadata = [], $options = []) {
@@ -187,7 +187,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\IntentTagRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteIntentTag(\Ondewo\Nlu\IntentTagRequest $argument,
       $metadata = [], $options = []) {
@@ -202,7 +202,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetIntentTagsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetIntentTagsResponse>
      */
     public function GetIntentTags(\Ondewo\Nlu\GetIntentTagsRequest $argument,
       $metadata = [], $options = []) {
@@ -217,7 +217,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetAllIntentTagsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetIntentTagsResponse>
      */
     public function GetAllIntentTags(\Ondewo\Nlu\GetAllIntentTagsRequest $argument,
       $metadata = [], $options = []) {
@@ -234,7 +234,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchCreateTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchTrainingPhrasesStatusResponse>
      */
     public function BatchCreateTrainingPhrases(\Ondewo\Nlu\BatchCreateTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -249,7 +249,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchGetTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchTrainingPhrasesStatusResponse>
      */
     public function BatchGetTrainingPhrases(\Ondewo\Nlu\BatchGetTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -264,7 +264,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchTrainingPhrasesStatusResponse>
      */
     public function BatchUpdateTrainingPhrases(\Ondewo\Nlu\BatchUpdateTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -279,7 +279,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchDeleteTrainingPhrasesResponse>
      */
     public function BatchDeleteTrainingPhrases(\Ondewo\Nlu\BatchDeleteTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -294,7 +294,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListTrainingPhrasesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListTrainingPhrasesResponse>
      */
     public function ListTrainingPhrases(\Ondewo\Nlu\ListTrainingPhrasesRequest $argument,
       $metadata = [], $options = []) {
@@ -311,7 +311,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchCreateResponseMessagesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchResponseMessagesStatusResponse>
      */
     public function BatchCreateResponseMessages(\Ondewo\Nlu\BatchCreateResponseMessagesRequest $argument,
       $metadata = [], $options = []) {
@@ -326,7 +326,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchGetResponseMessagesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchResponseMessagesStatusResponse>
      */
     public function BatchGetResponseMessages(\Ondewo\Nlu\BatchGetResponseMessagesRequest $argument,
       $metadata = [], $options = []) {
@@ -341,7 +341,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateResponseMessagesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchResponseMessagesStatusResponse>
      */
     public function BatchUpdateResponseMessages(\Ondewo\Nlu\BatchUpdateResponseMessagesRequest $argument,
       $metadata = [], $options = []) {
@@ -356,7 +356,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteResponseMessagesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchDeleteResponseMessagesResponse>
      */
     public function BatchDeleteResponseMessages(\Ondewo\Nlu\BatchDeleteResponseMessagesRequest $argument,
       $metadata = [], $options = []) {
@@ -371,7 +371,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListResponseMessagesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListResponseMessagesResponse>
      */
     public function ListResponseMessages(\Ondewo\Nlu\ListResponseMessagesRequest $argument,
       $metadata = [], $options = []) {
@@ -388,7 +388,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchCreateParametersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchParametersStatusResponse>
      */
     public function BatchCreateParameters(\Ondewo\Nlu\BatchCreateParametersRequest $argument,
       $metadata = [], $options = []) {
@@ -403,7 +403,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchGetParametersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchParametersStatusResponse>
      */
     public function BatchGetParameters(\Ondewo\Nlu\BatchGetParametersRequest $argument,
       $metadata = [], $options = []) {
@@ -418,7 +418,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchUpdateParametersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchParametersStatusResponse>
      */
     public function BatchUpdateParameters(\Ondewo\Nlu\BatchUpdateParametersRequest $argument,
       $metadata = [], $options = []) {
@@ -433,7 +433,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BatchDeleteParametersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\BatchDeleteParametersResponse>
      */
     public function BatchDeleteParameters(\Ondewo\Nlu\BatchDeleteParametersRequest $argument,
       $metadata = [], $options = []) {
@@ -448,7 +448,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListParametersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListParametersResponse>
      */
     public function ListParameters(\Ondewo\Nlu\ListParametersRequest $argument,
       $metadata = [], $options = []) {
@@ -463,7 +463,7 @@ class IntentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListTrainingPhrasesofIntentsWithEnrichmentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListTrainingPhrasesofIntentsWithEnrichmentResponse>
      */
     public function ListTrainingPhrasesofIntentsWithEnrichment(\Ondewo\Nlu\ListTrainingPhrasesofIntentsWithEnrichmentRequest $argument,
       $metadata = [], $options = []) {

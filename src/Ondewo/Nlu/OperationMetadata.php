@@ -211,7 +211,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * long-running operation status code
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      */
     public function getStatus()
     {
@@ -222,10 +222,10 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * long-running operation status code
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\OperationMetadata\Status::class);
         $this->status = $var;
@@ -251,9 +251,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParentOperationName($var)
+    public function setParentOperationName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent_operation_name = $var;
 
         return $this;
@@ -277,7 +277,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSubOperationNames($var)
+    public function setSubOperationNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->sub_operation_names = $arr;
@@ -313,9 +313,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTime($var)
+    public function setCreateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time = $var;
 
         return $this;
@@ -349,9 +348,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -385,9 +383,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -411,9 +408,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsCancellationRequested($var)
+    public function setIsCancellationRequested(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_cancellation_requested = $var;
 
         return $this;
@@ -437,9 +433,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCancelCommand($var)
+    public function setCancelCommand(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->cancel_command = $var;
 
         return $this;
@@ -463,9 +459,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserIdCreated($var)
+    public function setUserIdCreated(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_id_created = $var;
 
         return $this;
@@ -489,9 +485,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserIdCancelled($var)
+    public function setUserIdCancelled(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_id_cancelled = $var;
 
         return $this;
@@ -515,9 +511,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProjectParent($var)
+    public function setProjectParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->project_parent = $var;
 
         return $this;
@@ -527,7 +523,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * operation type
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.OperationType operation_type = 12;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\OperationMetadata\OperationType}
      */
     public function getOperationType()
     {
@@ -538,10 +534,10 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * operation type
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.OperationType operation_type = 12;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\OperationType}
      * @return $this
      */
-    public function setOperationType($var)
+    public function setOperationType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\OperationMetadata\OperationType::class);
         $this->operation_type = $var;
@@ -567,9 +563,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHostName($var)
+    public function setHostName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->host_name = $var;
 
         return $this;
@@ -593,7 +589,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNumReruns($var)
+    public function setNumReruns(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->num_reruns = $var;
@@ -619,7 +615,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxNumReruns($var)
+    public function setMaxNumReruns(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_num_reruns = $var;
@@ -645,9 +641,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -671,7 +667,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLog($var)
+    public function setLog(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->log = $arr;
@@ -697,7 +693,7 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setLogLimit($var)
+    public function setLogLimit(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->log_limit = $var;
@@ -733,9 +729,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -769,9 +764,8 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -795,9 +789,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -821,9 +815,9 @@ class OperationMetadata extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

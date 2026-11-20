@@ -67,9 +67,9 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setKey($var)
+    public function setKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->key = $var;
 
         return $this;
@@ -98,7 +98,7 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setIntValue($var)
+    public function setIntValue(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->writeOneof(2, $var);
@@ -129,9 +129,8 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFloatValue($var)
+    public function setFloatValue(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -160,9 +159,8 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDoubleValue($var)
+    public function setDoubleValue(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->writeOneof(4, $var);
 
         return $this;
@@ -191,9 +189,9 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setStringValue($var)
+    public function setStringValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -222,9 +220,8 @@ class KeyValuePair extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->writeOneof(6, $var);
 
         return $this;

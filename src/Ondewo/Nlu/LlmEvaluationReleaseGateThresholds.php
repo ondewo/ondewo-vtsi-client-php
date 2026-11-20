@@ -83,9 +83,8 @@ class LlmEvaluationReleaseGateThresholds extends \Google\Protobuf\Internal\Messa
      * @param float $var
      * @return $this
      */
-    public function setMinPassRate($var)
+    public function setMinPassRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->min_pass_rate = $var;
 
         return $this;
@@ -121,9 +120,8 @@ class LlmEvaluationReleaseGateThresholds extends \Google\Protobuf\Internal\Messa
      * @param float $var
      * @return $this
      */
-    public function setMaxRegressionPerCriterion($var)
+    public function setMaxRegressionPerCriterion(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->max_regression_per_criterion = $var;
 
         return $this;
@@ -147,9 +145,8 @@ class LlmEvaluationReleaseGateThresholds extends \Google\Protobuf\Internal\Messa
      * @param float $var
      * @return $this
      */
-    public function setMaxP95LatencySeconds($var)
+    public function setMaxP95LatencySeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->max_p95_latency_seconds = $var;
 
         return $this;
@@ -173,9 +170,8 @@ class LlmEvaluationReleaseGateThresholds extends \Google\Protobuf\Internal\Messa
      * @param bool $var
      * @return $this
      */
-    public function setAcceptanceMustPass($var)
+    public function setAcceptanceMustPass(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->acceptance_must_pass = $var;
 
         return $this;

@@ -56,7 +56,7 @@ class CarouselSelect extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\CarouselSelect\Item[] $var
      * @return $this
      */
-    public function setItems($var)
+    public function setItems(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message\CarouselSelect\Item::class);
         $this->items = $arr;

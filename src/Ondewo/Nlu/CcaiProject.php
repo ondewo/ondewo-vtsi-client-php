@@ -132,9 +132,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -158,9 +158,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -184,9 +184,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOwnerName($var)
+    public function setOwnerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->owner_name = $var;
 
         return $this;
@@ -212,7 +212,7 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setCcaiServicesMap($var)
+    public function setCcaiServicesMap(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\CcaiServiceList::class);
         $this->ccai_services_map = $arr;
@@ -224,7 +224,7 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * The status of the ccai project.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectStatus ccai_project_status = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\CcaiProjectStatus}
      */
     public function getCcaiProjectStatus()
     {
@@ -235,10 +235,10 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * The status of the ccai project.
      *
      * Generated from protobuf field <code>.ondewo.nlu.CcaiProjectStatus ccai_project_status = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\CcaiProjectStatus}
      * @return $this
      */
-    public function setCcaiProjectStatus($var)
+    public function setCcaiProjectStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\CcaiProjectStatus::class);
         $this->ccai_project_status = $var;
@@ -274,9 +274,8 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -310,9 +309,8 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -336,9 +334,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -362,9 +360,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -390,9 +388,9 @@ class CcaiProject extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNluProjectName($var)
+    public function setNluProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->nlu_project_name = $var;
 
         return $this;

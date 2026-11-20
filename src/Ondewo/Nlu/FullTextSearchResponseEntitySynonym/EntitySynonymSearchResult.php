@@ -136,9 +136,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -188,9 +188,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeName($var)
+    public function setEntityTypeName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_name = $var;
 
         return $this;
@@ -214,9 +214,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeDisplayName($var)
+    public function setEntityTypeDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_display_name = $var;
 
         return $this;
@@ -240,9 +240,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityName($var)
+    public function setEntityName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_name = $var;
 
         return $this;
@@ -266,9 +266,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityDisplayName($var)
+    public function setEntityDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_display_name = $var;
 
         return $this;
@@ -292,9 +292,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguage($var)
+    public function setLanguage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language = $var;
 
         return $this;
@@ -328,9 +328,8 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -364,9 +363,8 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -390,9 +388,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -416,9 +414,9 @@ class EntitySynonymSearchResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

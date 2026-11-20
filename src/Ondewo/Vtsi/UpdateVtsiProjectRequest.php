@@ -178,9 +178,8 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiProject $var
      * @return $this
      */
-    public function setVtsiProject($var)
+    public function setVtsiProject(\Ondewo\Vtsi\VtsiProject|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiProject::class);
         $this->vtsi_project = $var;
 
         return $this;
@@ -270,9 +269,8 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -318,9 +316,8 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -352,9 +349,8 @@ class UpdateVtsiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setValidateOnly($var)
+    public function setValidateOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->validate_only = $var;
 
         return $this;

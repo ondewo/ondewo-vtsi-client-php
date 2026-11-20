@@ -103,9 +103,9 @@ class CampaignCallingWindow extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTimeZone($var)
+    public function setTimeZone(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->time_zone = $var;
 
         return $this;
@@ -129,7 +129,7 @@ class CampaignCallingWindow extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallingWindowSlot[] $var
      * @return $this
      */
-    public function setSlots($var)
+    public function setSlots(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallingWindowSlot::class);
         $this->slots = $arr;
@@ -171,9 +171,8 @@ class CampaignCallingWindow extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNextWindowStart($var)
+    public function setNextWindowStart(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->next_window_start = $var;
 
         return $this;

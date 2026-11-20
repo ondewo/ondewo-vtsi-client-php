@@ -66,9 +66,9 @@ class Image extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setImageUri($var)
+    public function setImageUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->image_uri = $var;
 
         return $this;
@@ -94,9 +94,9 @@ class Image extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAccessibilityText($var)
+    public function setAccessibilityText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->accessibility_text = $var;
 
         return $this;

@@ -108,9 +108,9 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -147,9 +147,8 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign $var
      * @return $this
      */
-    public function setNewCampaign($var)
+    public function setNewCampaign(\Ondewo\Vtsi\Campaign|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -186,9 +185,9 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -199,7 +198,7 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * new campaign and leaves an existing one in its state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignStartMode start_mode = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignStartMode}
      */
     public function getStartMode()
     {
@@ -211,10 +210,10 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * new campaign and leaves an existing one in its state.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignStartMode start_mode = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignStartMode}
      * @return $this
      */
-    public function setStartMode($var)
+    public function setStartMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignStartMode::class);
         $this->start_mode = $var;

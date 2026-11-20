@@ -287,9 +287,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSelector($var)
+    public function setSelector(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->selector = $var;
 
         return $this;
@@ -318,9 +318,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setGet($var)
+    public function setGet(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -349,9 +349,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPut($var)
+    public function setPut(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -380,9 +380,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPost($var)
+    public function setPost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(4, $var);
 
         return $this;
@@ -411,9 +411,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDelete($var)
+    public function setDelete(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(5, $var);
 
         return $this;
@@ -442,9 +442,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPatch($var)
+    public function setPatch(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(6, $var);
 
         return $this;
@@ -479,9 +479,8 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param \Google\Api\CustomHttpPattern $var
      * @return $this
      */
-    public function setCustom($var)
+    public function setCustom(\Google\Api\CustomHttpPattern|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Api\CustomHttpPattern::class);
         $this->writeOneof(8, $var);
 
         return $this;
@@ -511,9 +510,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setBody($var)
+    public function setBody(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->body = $var;
 
         return $this;
@@ -541,9 +540,9 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResponseBody($var)
+    public function setResponseBody(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->response_body = $var;
 
         return $this;
@@ -571,7 +570,7 @@ class HttpRule extends \Google\Protobuf\Internal\Message
      * @param \Google\Api\HttpRule[] $var
      * @return $this
      */
-    public function setAdditionalBindings($var)
+    public function setAdditionalBindings(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Google\Api\HttpRule::class);
         $this->additional_bindings = $arr;

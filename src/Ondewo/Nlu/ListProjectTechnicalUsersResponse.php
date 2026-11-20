@@ -64,7 +64,7 @@ class ListProjectTechnicalUsersResponse extends \Google\Protobuf\Internal\Messag
      * @param \Ondewo\Nlu\ProjectTechnicalUser[] $var
      * @return $this
      */
-    public function setTechnicalUsers($var)
+    public function setTechnicalUsers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ProjectTechnicalUser::class);
         $this->technical_users = $arr;
@@ -90,9 +90,9 @@ class ListProjectTechnicalUsersResponse extends \Google\Protobuf\Internal\Messag
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

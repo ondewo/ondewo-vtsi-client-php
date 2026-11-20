@@ -56,7 +56,7 @@ class ListPropertyIdsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPropertyIds($var)
+    public function setPropertyIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->property_ids = $arr;

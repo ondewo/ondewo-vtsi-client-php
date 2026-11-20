@@ -72,7 +72,7 @@ class UrlFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAllowedValues($var)
+    public function setAllowedValues(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->allowed_values = $arr;
@@ -98,9 +98,9 @@ class UrlFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRegexFilterInclude($var)
+    public function setRegexFilterInclude(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->regex_filter_include = $var;
 
         return $this;
@@ -124,9 +124,9 @@ class UrlFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRegexFilterExclude($var)
+    public function setRegexFilterExclude(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->regex_filter_exclude = $var;
 
         return $this;

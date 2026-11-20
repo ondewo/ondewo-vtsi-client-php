@@ -80,9 +80,9 @@ class ContextFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContextName($var)
+    public function setContextName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->context_name = $var;
 
         return $this;
@@ -106,9 +106,9 @@ class ContextFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setKey($var)
+    public function setKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->key = $var;
 
         return $this;
@@ -132,9 +132,9 @@ class ContextFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setValue($var)
+    public function setValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->value = $var;
 
         return $this;
@@ -144,7 +144,7 @@ class ContextFilter extends \Google\Protobuf\Internal\Message
      * comparison operator to use for filtering
      *
      * Generated from protobuf field <code>.ondewo.nlu.ComparisonOperator operator = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ComparisonOperator}
      */
     public function getOperator()
     {
@@ -155,10 +155,10 @@ class ContextFilter extends \Google\Protobuf\Internal\Message
      * comparison operator to use for filtering
      *
      * Generated from protobuf field <code>.ondewo.nlu.ComparisonOperator operator = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ComparisonOperator}
      * @return $this
      */
-    public function setOperator($var)
+    public function setOperator(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ComparisonOperator::class);
         $this->operator = $var;

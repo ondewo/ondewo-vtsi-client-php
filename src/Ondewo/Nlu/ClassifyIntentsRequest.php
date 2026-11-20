@@ -128,9 +128,9 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -154,9 +154,9 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -180,9 +180,9 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -206,9 +206,8 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActiveContexts($var)
+    public function setActiveContexts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->active_contexts = $var;
 
         return $this;
@@ -234,7 +233,7 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setContextNames($var)
+    public function setContextNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->context_names = $arr;
@@ -251,7 +250,7 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * </ul>
      *
      * Generated from protobuf field <code>.ondewo.nlu.Mode mode = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Mode}
      */
     public function getMode()
     {
@@ -267,10 +266,10 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * </ul>
      *
      * Generated from protobuf field <code>.ondewo.nlu.Mode mode = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Mode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Mode::class);
         $this->mode = $var;
@@ -282,7 +281,7 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional: Algorithm list
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.IntentAlgorithms algorithms = 7;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\IntentAlgorithms}
      */
     public function getAlgorithms()
     {
@@ -293,10 +292,10 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * Optional: Algorithm list
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.IntentAlgorithms algorithms = 7;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\IntentAlgorithms}
      * @return $this
      */
-    public function setAlgorithms($var)
+    public function setAlgorithms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\IntentAlgorithms::class);
         $this->algorithms = $arr;
@@ -332,9 +331,8 @@ class ClassifyIntentsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

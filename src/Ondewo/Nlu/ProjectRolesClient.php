@@ -37,7 +37,7 @@ class ProjectRolesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateProjectRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ProjectRole>
      */
     public function CreateProjectRole(\Ondewo\Nlu\CreateProjectRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class ProjectRolesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetProjectRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ProjectRole>
      */
     public function GetProjectRole(\Ondewo\Nlu\GetProjectRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class ProjectRolesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteProjectRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteProjectRole(\Ondewo\Nlu\DeleteProjectRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class ProjectRolesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateProjectRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ProjectRole>
      */
     public function UpdateProjectRole(\Ondewo\Nlu\UpdateProjectRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class ProjectRolesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListProjectRolesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListProjectRolesResponse>
      */
     public function ListProjectRoles(\Ondewo\Nlu\ListProjectRolesRequest $argument,
       $metadata = [], $options = []) {

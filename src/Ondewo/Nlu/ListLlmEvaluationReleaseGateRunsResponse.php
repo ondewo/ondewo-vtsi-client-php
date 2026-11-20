@@ -64,7 +64,7 @@ class ListLlmEvaluationReleaseGateRunsResponse extends \Google\Protobuf\Internal
      * @param \Ondewo\Nlu\LlmEvaluationReleaseGateRun[] $var
      * @return $this
      */
-    public function setLlmEvaluationReleaseGateRuns($var)
+    public function setLlmEvaluationReleaseGateRuns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationReleaseGateRun::class);
         $this->llm_evaluation_release_gate_runs = $arr;
@@ -90,9 +90,9 @@ class ListLlmEvaluationReleaseGateRunsResponse extends \Google\Protobuf\Internal
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

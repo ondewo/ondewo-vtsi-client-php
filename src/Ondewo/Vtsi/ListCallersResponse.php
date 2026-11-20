@@ -80,7 +80,7 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Caller[] $var
      * @return $this
      */
-    public function setCallers($var)
+    public function setCallers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\Caller::class);
         $this->callers = $arr;
@@ -106,9 +106,9 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -136,7 +136,7 @@ class ListCallersResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotalSize($var)
+    public function setTotalSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total_size = $var;

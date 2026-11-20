@@ -77,9 +77,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setActivateMessageBroker($var)
+    public function setActivateMessageBroker(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->activate_message_broker = $var;
 
         return $this;
@@ -113,9 +112,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\MessageBrokerServicesActivationConfig $var
      * @return $this
      */
-    public function setMessageBrokerServicesActivationConfig($var)
+    public function setMessageBrokerServicesActivationConfig(\Ondewo\Vtsi\MessageBrokerServicesActivationConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\MessageBrokerServicesActivationConfig::class);
         $this->message_broker_services_activation_config = $var;
 
         return $this;
@@ -144,9 +142,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\RabbitMqConfig $var
      * @return $this
      */
-    public function setRabbitMqConfig($var)
+    public function setRabbitMqConfig(\Ondewo\Vtsi\RabbitMqConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\RabbitMqConfig::class);
         $this->writeOneof(3, $var);
 
         return $this;

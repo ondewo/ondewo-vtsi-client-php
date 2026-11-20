@@ -98,9 +98,9 @@ class LlmEvaluationJudgeConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCcaiServiceName($var)
+    public function setCcaiServiceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->ccai_service_name = $var;
 
         return $this;
@@ -124,9 +124,9 @@ class LlmEvaluationJudgeConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModelName($var)
+    public function setModelName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->model_name = $var;
 
         return $this;
@@ -150,9 +150,8 @@ class LlmEvaluationJudgeConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTemperature($var)
+    public function setTemperature(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->temperature = $var;
 
         return $this;
@@ -178,9 +177,8 @@ class LlmEvaluationJudgeConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setVerboseReasoning($var)
+    public function setVerboseReasoning(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->verbose_reasoning = $var;
 
         return $this;
@@ -218,9 +216,8 @@ class LlmEvaluationJudgeConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setEvaluatorOverrides($var)
+    public function setEvaluatorOverrides(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->evaluator_overrides = $var;
 
         return $this;

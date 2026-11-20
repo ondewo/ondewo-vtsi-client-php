@@ -116,7 +116,7 @@ class ListSessionCommentsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Comment[] $var
      * @return $this
      */
-    public function setComment($var)
+    public function setComment(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Comment::class);
         $this->comment = $arr;
@@ -190,9 +190,9 @@ class ListSessionCommentsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;

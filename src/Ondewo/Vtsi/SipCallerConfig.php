@@ -110,9 +110,8 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipBaseConfig $var
      * @return $this
      */
-    public function setSipBaseConfig($var)
+    public function setSipBaseConfig(\Ondewo\Vtsi\SipBaseConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\SipBaseConfig::class);
         $this->sip_base_config = $var;
 
         return $this;
@@ -152,9 +151,9 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCalleeId($var)
+    public function setCalleeId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->callee_id = $var;
 
         return $this;
@@ -190,7 +189,7 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setSipHeaders($var)
+    public function setSipHeaders(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->sip_headers = $arr;

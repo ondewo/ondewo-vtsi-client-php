@@ -369,7 +369,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCallNames($var)
+    public function setCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->call_names = $arr;
@@ -395,7 +395,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCallerNames($var)
+    public function setCallerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->caller_names = $arr;
@@ -421,7 +421,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setListenerNames($var)
+    public function setListenerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->listener_names = $arr;
@@ -447,7 +447,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCallerIds($var)
+    public function setCallerIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->caller_ids = $arr;
@@ -473,7 +473,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setListenerIds($var)
+    public function setListenerIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->listener_ids = $arr;
@@ -499,7 +499,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCallIds($var)
+    public function setCallIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->call_ids = $arr;
@@ -525,7 +525,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setContainerNames($var)
+    public function setContainerNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->container_names = $arr;
@@ -551,7 +551,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setContainerIds($var)
+    public function setContainerIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->container_ids = $arr;
@@ -579,7 +579,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLogStreamNames($var)
+    public function setLogStreamNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->log_stream_names = $arr;
@@ -605,7 +605,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setSipAccounts($var)
+    public function setSipAccounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->sip_accounts = $arr;
@@ -640,7 +640,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setSipPorts($var)
+    public function setSipPorts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         if (count($arr) !== 0) {
@@ -676,7 +676,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setCsiPorts($var)
+    public function setCsiPorts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         if (count($arr) !== 0) {
@@ -712,7 +712,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @return $this
      * @deprecated
      */
-    public function setAsteriskPorts($var)
+    public function setAsteriskPorts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         if (count($arr) !== 0) {
@@ -741,7 +741,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPhoneNumbers($var)
+    public function setPhoneNumbers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->phone_numbers = $arr;
@@ -767,7 +767,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCalleeIds($var)
+    public function setCalleeIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->callee_ids = $arr;
@@ -795,7 +795,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNluSessionNames($var)
+    public function setNluSessionNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_session_names = $arr;
@@ -821,7 +821,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNluSessionUuids($var)
+    public function setNluSessionUuids(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_session_uuids = $arr;
@@ -847,7 +847,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNluProjectUuids($var)
+    public function setNluProjectUuids(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_project_uuids = $arr;
@@ -860,7 +860,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * the semantics of <a href="index.html#ondewo.vtsi.CallFilter">CallFilter</a>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallType call_types = 19;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CallType}
      */
     public function getCallTypes()
     {
@@ -872,10 +872,10 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * the semantics of <a href="index.html#ondewo.vtsi.CallFilter">CallFilter</a>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CallType call_types = 19;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CallType}
      * @return $this
      */
-    public function setCallTypes($var)
+    public function setCallTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CallType::class);
         $this->call_types = $arr;
@@ -901,7 +901,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipHeaderFilter[] $var
      * @return $this
      */
-    public function setSipHeaders($var)
+    public function setSipHeaders(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\SipHeaderFilter::class);
         $this->sip_headers = $arr;
@@ -913,7 +913,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Restrict to entries emitted by these processes.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogSource log_sources = 21;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\LogSource}
      */
     public function getLogSources()
     {
@@ -924,10 +924,10 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Restrict to entries emitted by these processes.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogSource log_sources = 21;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\LogSource}
      * @return $this
      */
-    public function setLogSources($var)
+    public function setLogSources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\LogSource::class);
         $this->log_sources = $arr;
@@ -939,7 +939,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Restrict to entries that arrived on these docker channels.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogStreamChannel channels = 22;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\LogStreamChannel}
      */
     public function getChannels()
     {
@@ -950,10 +950,10 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Restrict to entries that arrived on these docker channels.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogStreamChannel channels = 22;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\LogStreamChannel}
      * @return $this
      */
-    public function setChannels($var)
+    public function setChannels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\LogStreamChannel::class);
         $this->channels = $arr;
@@ -966,7 +966,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * default) applies no lower bound. Ignored when <code>log_levels</code> is non-empty.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 23;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getMinLogLevel()
     {
@@ -978,10 +978,10 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * default) applies no lower bound. Ignored when <code>log_levels</code> is non-empty.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 23;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setMinLogLevel($var)
+    public function setMinLogLevel(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LogSeverity::class);
         $this->min_log_level = $var;
@@ -993,7 +993,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Exact severities to include. When non-empty this OVERRIDES <code>min_log_level</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.LogSeverity log_levels = 24;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getLogLevels()
     {
@@ -1004,10 +1004,10 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * Exact severities to include. When non-empty this OVERRIDES <code>min_log_level</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.LogSeverity log_levels = 24;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setLogLevels($var)
+    public function setLogLevels(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\LogSeverity::class);
         $this->log_levels = $arr;
@@ -1049,9 +1049,8 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeUnleveledLines($var)
+    public function setIncludeUnleveledLines(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_unleveled_lines = $var;
 
         return $this;
@@ -1085,9 +1084,9 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -1123,9 +1122,9 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRegex($var)
+    public function setRegex(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->regex = $var;
 
         return $this;
@@ -1151,7 +1150,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEmitterPrefixes($var)
+    public function setEmitterPrefixes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->emitter_prefixes = $arr;
@@ -1177,7 +1176,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setThreadNames($var)
+    public function setThreadNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->thread_names = $arr;
@@ -1213,9 +1212,8 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -1253,9 +1251,8 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -1283,7 +1280,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param int[] $var
      * @return $this
      */
-    public function setSipPortNumbers($var)
+    public function setSipPortNumbers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
         $this->sip_port_numbers = $arr;
@@ -1311,7 +1308,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param int[] $var
      * @return $this
      */
-    public function setCsiPortNumbers($var)
+    public function setCsiPortNumbers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
         $this->csi_port_numbers = $arr;
@@ -1339,7 +1336,7 @@ class CallLogFilter extends \Google\Protobuf\Internal\Message
      * @param int[] $var
      * @return $this
      */
-    public function setAsteriskPortNumbers($var)
+    public function setAsteriskPortNumbers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::INT32);
         $this->asterisk_port_numbers = $arr;

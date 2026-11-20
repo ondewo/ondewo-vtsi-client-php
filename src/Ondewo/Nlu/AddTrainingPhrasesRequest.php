@@ -114,9 +114,9 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -144,9 +144,9 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -170,7 +170,7 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\AddTrainingPhrasesRequest\TrainingPhraseForIntent[] $var
      * @return $this
      */
-    public function setTrainingPhraseList($var)
+    public function setTrainingPhraseList(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\AddTrainingPhrasesRequest\TrainingPhraseForIntent::class);
         $this->training_phrase_list = $arr;
@@ -196,9 +196,8 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setExtractEntities($var)
+    public function setExtractEntities(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->extract_entities = $var;
 
         return $this;
@@ -224,9 +223,9 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSpecialCharacters($var)
+    public function setSpecialCharacters(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->special_characters = $var;
 
         return $this;
@@ -260,9 +259,8 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\TrainingPhraseCleanerOptions $var
      * @return $this
      */
-    public function setTrainingPhraseCleanerOptions($var)
+    public function setTrainingPhraseCleanerOptions(\Ondewo\Nlu\TrainingPhraseCleanerOptions|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\TrainingPhraseCleanerOptions::class);
         $this->training_phrase_cleaner_options = $var;
 
         return $this;
@@ -286,7 +284,7 @@ class AddTrainingPhrasesRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setNumberOfWorkers($var)
+    public function setNumberOfWorkers(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->number_of_workers = $var;

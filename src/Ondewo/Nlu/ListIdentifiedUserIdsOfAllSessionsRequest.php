@@ -76,9 +76,9 @@ class ListIdentifiedUserIdsOfAllSessionsRequest extends \Google\Protobuf\Interna
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -112,9 +112,8 @@ class ListIdentifiedUserIdsOfAllSessionsRequest extends \Google\Protobuf\Interna
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;
@@ -148,9 +147,8 @@ class ListIdentifiedUserIdsOfAllSessionsRequest extends \Google\Protobuf\Interna
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

@@ -81,6 +81,23 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * Generated from protobuf field <code>int64 after_seq = 9;</code>
      */
     protected $after_seq = 0;
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>RemoteOperationContainerLogLine</code>, relative to that message (no <code>log_lines.</code>
+     * prefix). <code>seq</code> and <code>log_stream</code> are always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     */
+    protected $field_mask = null;
+    /**
+     * Optional. An opaque cursor from a previous response&apos;s <code>next_resume_token</code>. Use it instead of
+     * <code>after_seq</code> / <code>before_seq</code> when the operation ran several containers. Cannot be
+     * combined with <code>before_seq</code> or <code>after_seq</code>.
+     *
+     * Generated from protobuf field <code>string resume_token = 11;</code>
+     */
+    protected $resume_token = '';
 
     /**
      * Constructor.
@@ -117,6 +134,15 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      *     @type int|string $after_seq
      *           Optional cursor for infinite-scroll-DOWN paging: return lines with <code>seq</code> &gt;
      *           <code>after_seq</code> (newer window). <code>0</code> (the default) disables forward paging.
+     *     @type \Google\Protobuf\FieldMask $field_mask
+     *           Optional. Partial response: the field paths to populate in every returned
+     *           <code>RemoteOperationContainerLogLine</code>, relative to that message (no <code>log_lines.</code>
+     *           prefix). <code>seq</code> and <code>log_stream</code> are always populated. Unset or empty returns every
+     *           field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *     @type string $resume_token
+     *           Optional. An opaque cursor from a previous response&apos;s <code>next_resume_token</code>. Use it instead of
+     *           <code>after_seq</code> / <code>before_seq</code> when the operation ran several containers. Cannot be
+     *           combined with <code>before_seq</code> or <code>after_seq</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -142,9 +168,9 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -155,7 +181,7 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * default) returns every line regardless of level.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LogSeverity}
      */
     public function getMinLogLevel()
     {
@@ -167,10 +193,10 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * default) returns every line regardless of level.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LogSeverity min_log_level = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LogSeverity}
      * @return $this
      */
-    public function setMinLogLevel($var)
+    public function setMinLogLevel(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LogSeverity::class);
         $this->min_log_level = $var;
@@ -208,9 +234,8 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -246,9 +271,8 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -274,7 +298,7 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param int $var
      * @return $this
      */
-    public function setMaxLines($var)
+    public function setMaxLines(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_lines = $var;
@@ -302,9 +326,9 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setRegex($var)
+    public function setRegex(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->regex = $var;
 
         return $this;
@@ -334,9 +358,9 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
 
         return $this;
@@ -364,7 +388,7 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param int|string $var
      * @return $this
      */
-    public function setBeforeSeq($var)
+    public function setBeforeSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->before_seq = $var;
@@ -392,10 +416,81 @@ class GetRemoteOperationContainerLogsRequest extends \Google\Protobuf\Internal\M
      * @param int|string $var
      * @return $this
      */
-    public function setAfterSeq($var)
+    public function setAfterSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->after_seq = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>RemoteOperationContainerLogLine</code>, relative to that message (no <code>log_lines.</code>
+     * prefix). <code>seq</code> and <code>log_stream</code> are always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     * @return \Google\Protobuf\FieldMask|null
+     */
+    public function getFieldMask()
+    {
+        return $this->field_mask;
+    }
+
+    public function hasFieldMask()
+    {
+        return isset($this->field_mask);
+    }
+
+    public function clearFieldMask()
+    {
+        unset($this->field_mask);
+    }
+
+    /**
+     * Optional. Partial response: the field paths to populate in every returned
+     * <code>RemoteOperationContainerLogLine</code>, relative to that message (no <code>log_lines.</code>
+     * prefix). <code>seq</code> and <code>log_stream</code> are always populated. Unset or empty returns every
+     * field. An unknown path is rejected with <code>INVALID_ARGUMENT</code> naming it.
+     *
+     * Generated from protobuf field <code>.google.protobuf.FieldMask field_mask = 10;</code>
+     * @param \Google\Protobuf\FieldMask $var
+     * @return $this
+     */
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
+    {
+        $this->field_mask = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional. An opaque cursor from a previous response&apos;s <code>next_resume_token</code>. Use it instead of
+     * <code>after_seq</code> / <code>before_seq</code> when the operation ran several containers. Cannot be
+     * combined with <code>before_seq</code> or <code>after_seq</code>.
+     *
+     * Generated from protobuf field <code>string resume_token = 11;</code>
+     * @return string
+     */
+    public function getResumeToken()
+    {
+        return $this->resume_token;
+    }
+
+    /**
+     * Optional. An opaque cursor from a previous response&apos;s <code>next_resume_token</code>. Use it instead of
+     * <code>after_seq</code> / <code>before_seq</code> when the operation ran several containers. Cannot be
+     * combined with <code>before_seq</code> or <code>after_seq</code>.
+     *
+     * Generated from protobuf field <code>string resume_token = 11;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setResumeToken(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->resume_token = $var;
 
         return $this;
     }

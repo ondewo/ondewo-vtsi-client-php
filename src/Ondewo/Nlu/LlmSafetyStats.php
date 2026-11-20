@@ -83,7 +83,7 @@ class LlmSafetyStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setTotalAssessed($var)
+    public function setTotalAssessed(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->total_assessed = $var;
@@ -109,7 +109,7 @@ class LlmSafetyStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setFlaggedCount($var)
+    public function setFlaggedCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->flagged_count = $var;
@@ -137,9 +137,8 @@ class LlmSafetyStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setOverallSafetyScore($var)
+    public function setOverallSafetyScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->overall_safety_score = $var;
 
         return $this;
@@ -163,7 +162,7 @@ class LlmSafetyStats extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmSafetyCategoryStat[] $var
      * @return $this
      */
-    public function setCategoryStats($var)
+    public function setCategoryStats(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmSafetyCategoryStat::class);
         $this->category_stats = $arr;

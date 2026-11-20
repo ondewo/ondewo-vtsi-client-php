@@ -167,9 +167,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeName($var)
+    public function setEntityTypeName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_name = $var;
 
         return $this;
@@ -193,9 +193,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityTypeDisplayName($var)
+    public function setEntityTypeDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_type_display_name = $var;
 
         return $this;
@@ -223,9 +223,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityValueName($var)
+    public function setEntityValueName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_value_name = $var;
 
         return $this;
@@ -249,9 +249,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEntityValueDisplayName($var)
+    public function setEntityValueDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->entity_value_display_name = $var;
 
         return $this;
@@ -277,7 +277,7 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setStart($var)
+    public function setStart(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->start = $var;
@@ -305,7 +305,7 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEnd($var)
+    public function setEnd(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->end = $var;
@@ -341,9 +341,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParameterName($var)
+    public function setParameterName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parameter_name = $var;
 
         return $this;
@@ -367,9 +367,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParameterDisplayName($var)
+    public function setParameterDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parameter_display_name = $var;
 
         return $this;
@@ -403,9 +403,8 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -439,9 +438,8 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -465,9 +463,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -491,9 +489,9 @@ class Entity extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

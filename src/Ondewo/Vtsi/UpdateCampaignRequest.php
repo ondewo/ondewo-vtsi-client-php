@@ -167,9 +167,8 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign $var
      * @return $this
      */
-    public function setCampaign($var)
+    public function setCampaign(\Ondewo\Vtsi\Campaign|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\Campaign::class);
         $this->campaign = $var;
 
         return $this;
@@ -269,9 +268,8 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;
@@ -319,9 +317,8 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

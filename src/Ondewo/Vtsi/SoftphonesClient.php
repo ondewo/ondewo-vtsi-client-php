@@ -91,7 +91,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\CreateSoftphoneAccountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CreateSoftphoneAccountResponse>
      */
     public function CreateSoftphoneAccount(\Ondewo\Vtsi\CreateSoftphoneAccountRequest $argument,
       $metadata = [], $options = []) {
@@ -108,7 +108,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetSoftphoneAccountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneAccount>
      */
     public function GetSoftphoneAccount(\Ondewo\Vtsi\GetSoftphoneAccountRequest $argument,
       $metadata = [], $options = []) {
@@ -132,7 +132,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\UpdateSoftphoneAccountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneAccount>
      */
     public function UpdateSoftphoneAccount(\Ondewo\Vtsi\UpdateSoftphoneAccountRequest $argument,
       $metadata = [], $options = []) {
@@ -160,7 +160,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteSoftphoneAccountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteSoftphoneAccountResponse>
      */
     public function DeleteSoftphoneAccount(\Ondewo\Vtsi\DeleteSoftphoneAccountRequest $argument,
       $metadata = [], $options = []) {
@@ -179,7 +179,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListSoftphoneAccountsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListSoftphoneAccountsResponse>
      */
     public function ListSoftphoneAccounts(\Ondewo\Vtsi\ListSoftphoneAccountsRequest $argument,
       $metadata = [], $options = []) {
@@ -211,7 +211,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RotateSoftphoneCredentialsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\RotateSoftphoneCredentialsResponse>
      */
     public function RotateSoftphoneCredentials(\Ondewo\Vtsi\RotateSoftphoneCredentialsRequest $argument,
       $metadata = [], $options = []) {
@@ -235,7 +235,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListSoftphoneCertificatesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListSoftphoneCertificatesResponse>
      */
     public function ListSoftphoneCertificates(\Ondewo\Vtsi\ListSoftphoneCertificatesRequest $argument,
       $metadata = [], $options = []) {
@@ -252,7 +252,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetSoftphoneCertificateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneCertificate>
      */
     public function GetSoftphoneCertificate(\Ondewo\Vtsi\GetSoftphoneCertificateRequest $argument,
       $metadata = [], $options = []) {
@@ -286,7 +286,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\RevokeSoftphoneCertificateRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneCertificate>
      */
     public function RevokeSoftphoneCertificate(\Ondewo\Vtsi\RevokeSoftphoneCertificateRequest $argument,
       $metadata = [], $options = []) {
@@ -313,7 +313,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetSoftphoneProvisioningRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneProvisioning>
      */
     public function GetSoftphoneProvisioning(\Ondewo\Vtsi\GetSoftphoneProvisioningRequest $argument,
       $metadata = [], $options = []) {
@@ -343,7 +343,7 @@ class SoftphonesClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetSoftphoneRegistrationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\SoftphoneRegistration>
      */
     public function GetSoftphoneRegistration(\Ondewo\Vtsi\GetSoftphoneRegistrationRequest $argument,
       $metadata = [], $options = []) {

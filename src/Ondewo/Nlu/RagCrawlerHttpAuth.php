@@ -64,9 +64,9 @@ class RagCrawlerHttpAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHttpAuthUsername($var)
+    public function setHttpAuthUsername(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->http_auth_username = $var;
 
         return $this;
@@ -90,9 +90,9 @@ class RagCrawlerHttpAuth extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHttpAuthPassword($var)
+    public function setHttpAuthPassword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->http_auth_password = $var;
 
         return $this;

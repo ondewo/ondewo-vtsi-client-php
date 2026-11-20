@@ -63,7 +63,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagCreateDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDataset>
      */
     public function RagCreateDataset(\Ondewo\Nlu\RagCreateDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -80,7 +80,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagUpdateDatasetRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDataset>
      */
     public function RagUpdateDataset(\Ondewo\Nlu\RagUpdateDatasetRequest $argument,
       $metadata = [], $options = []) {
@@ -99,7 +99,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDeleteRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagPartialSuccess>
      */
     public function RagDeleteDatasets(\Ondewo\Nlu\RagDeleteRequest $argument,
       $metadata = [], $options = []) {
@@ -117,7 +117,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagListDatasetsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDatasetList>
      */
     public function RagListDatasets(\Ondewo\Nlu\RagListDatasetsRequest $argument,
       $metadata = [], $options = []) {
@@ -156,7 +156,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagUpdateDocumentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDocument>
      */
     public function RagUpdateDocument(\Ondewo\Nlu\RagUpdateDocumentRequest $argument,
       $metadata = [], $options = []) {
@@ -193,7 +193,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagListDocumentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDocumentList>
      */
     public function RagListDocuments(\Ondewo\Nlu\RagListDocumentsRequest $argument,
       $metadata = [], $options = []) {
@@ -211,7 +211,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDeleteDocumentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagPartialSuccess>
      */
     public function RagDeleteDocuments(\Ondewo\Nlu\RagDeleteDocumentsRequest $argument,
       $metadata = [], $options = []) {
@@ -234,7 +234,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagRetrievalRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagRetrievalResponse>
      */
     public function RagRetrieval(\Ondewo\Nlu\RagRetrievalRequest $argument,
       $metadata = [], $options = []) {
@@ -252,7 +252,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDocumentIdsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagPartialSuccess>
      */
     public function RagParseDocuments(\Ondewo\Nlu\RagDocumentIdsRequest $argument,
       $metadata = [], $options = []) {
@@ -269,7 +269,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDocumentIdsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagPartialSuccess>
      */
     public function RagStopParsing(\Ondewo\Nlu\RagDocumentIdsRequest $argument,
       $metadata = [], $options = []) {
@@ -288,7 +288,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagCreateCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagCrawler>
      */
     public function RagCreateCrawler(\Ondewo\Nlu\RagCreateCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -303,7 +303,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagCrawler>
      */
     public function RagGetCrawler(\Ondewo\Nlu\RagGetCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -318,7 +318,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagListCrawlersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagListCrawlersResponse>
      */
     public function RagListCrawlers(\Ondewo\Nlu\RagListCrawlersRequest $argument,
       $metadata = [], $options = []) {
@@ -333,7 +333,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagUpdateCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagCrawler>
      */
     public function RagUpdateCrawler(\Ondewo\Nlu\RagUpdateCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -348,7 +348,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDeleteCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDeleteCrawlerResponse>
      */
     public function RagDeleteCrawler(\Ondewo\Nlu\RagDeleteCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -363,7 +363,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagStartCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function RagStartCrawler(\Ondewo\Nlu\RagStartCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -378,7 +378,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagStopCrawlerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagStopCrawlerResponse>
      */
     public function RagStopCrawler(\Ondewo\Nlu\RagStopCrawlerRequest $argument,
       $metadata = [], $options = []) {
@@ -393,7 +393,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerRunRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function RagGetCrawlerRun(\Ondewo\Nlu\RagGetCrawlerRunRequest $argument,
       $metadata = [], $options = []) {
@@ -408,7 +408,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagListCrawlerRunsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagListCrawlerRunsResponse>
      */
     public function RagListCrawlerRuns(\Ondewo\Nlu\RagListCrawlerRunsRequest $argument,
       $metadata = [], $options = []) {
@@ -423,7 +423,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDeleteCrawlerRunsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDeleteCrawlerRunsResponse>
      */
     public function RagDeleteCrawlerRuns(\Ondewo\Nlu\RagDeleteCrawlerRunsRequest $argument,
       $metadata = [], $options = []) {
@@ -438,7 +438,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerResultRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagCrawlerResult>
      */
     public function RagGetCrawlerResult(\Ondewo\Nlu\RagGetCrawlerResultRequest $argument,
       $metadata = [], $options = []) {
@@ -453,7 +453,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerResultsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagGetCrawlerResultsResponse>
      */
     public function RagGetCrawlerResults(\Ondewo\Nlu\RagGetCrawlerResultsRequest $argument,
       $metadata = [], $options = []) {
@@ -468,7 +468,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagAddCrawlerResultsToDatasetsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function RagAddCrawlerResultsToDatasets(\Ondewo\Nlu\RagAddCrawlerResultsToDatasetsRequest $argument,
       $metadata = [], $options = []) {
@@ -483,7 +483,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagRemoveCrawlerResultsFromDatasetsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function RagRemoveCrawlerResultsFromDatasets(\Ondewo\Nlu\RagRemoveCrawlerResultsFromDatasetsRequest $argument,
       $metadata = [], $options = []) {
@@ -498,7 +498,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerAttachedDatasetsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagGetCrawlerAttachedDatasetsResponse>
      */
     public function RagGetCrawlerAttachedDatasets(\Ondewo\Nlu\RagGetCrawlerAttachedDatasetsRequest $argument,
       $metadata = [], $options = []) {
@@ -513,7 +513,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagDeleteCrawlersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagDeleteCrawlersResponse>
      */
     public function RagDeleteCrawlers(\Ondewo\Nlu\RagDeleteCrawlersRequest $argument,
       $metadata = [], $options = []) {
@@ -528,7 +528,7 @@ class RagsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RagGetCrawlerRunLogsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RagGetCrawlerRunLogsResponse>
      */
     public function RagGetCrawlerRunLogs(\Ondewo\Nlu\RagGetCrawlerRunLogsRequest $argument,
       $metadata = [], $options = []) {

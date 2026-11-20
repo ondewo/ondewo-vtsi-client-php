@@ -66,9 +66,8 @@ class GetFeedbackStatisticsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackStatistics $var
      * @return $this
      */
-    public function setStatistics($var)
+    public function setStatistics(\Ondewo\Nlu\FeedbackStatistics|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\FeedbackStatistics::class);
         $this->statistics = $var;
 
         return $this;

@@ -98,9 +98,9 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -124,9 +124,9 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -136,7 +136,7 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * Mode of the stream. Unspecified means LISTEN
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallAudioMode mode = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallAudioMode}
      */
     public function getMode()
     {
@@ -147,10 +147,10 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * Mode of the stream. Unspecified means LISTEN
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallAudioMode mode = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallAudioMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallAudioMode::class);
         $this->mode = $var;
@@ -178,7 +178,7 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSampleRateHz($var)
+    public function setSampleRateHz(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sample_rate_hz = $var;
@@ -204,9 +204,8 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setTakeOver($var)
+    public function setTakeOver(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->take_over = $var;
 
         return $this;
@@ -230,7 +229,7 @@ class StreamCallAudioConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxDurationS($var)
+    public function setMaxDurationS(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_duration_s = $var;

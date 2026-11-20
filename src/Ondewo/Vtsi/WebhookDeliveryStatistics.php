@@ -109,7 +109,7 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDeliveredCount($var)
+    public function setDeliveredCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->delivered_count = $var;
@@ -135,7 +135,7 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setFailedCount($var)
+    public function setFailedCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->failed_count = $var;
@@ -163,7 +163,7 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDroppedCount($var)
+    public function setDroppedCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->dropped_count = $var;
@@ -199,9 +199,8 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLastDeliveryTime($var)
+    public function setLastDeliveryTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->last_delivery_time = $var;
 
         return $this;
@@ -235,9 +234,8 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLastSuccessTime($var)
+    public function setLastSuccessTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->last_success_time = $var;
 
         return $this;
@@ -261,7 +259,7 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setLastHttpStatusCode($var)
+    public function setLastHttpStatusCode(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->last_http_status_code = $var;
@@ -289,9 +287,9 @@ class WebhookDeliveryStatistics extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLastError($var)
+    public function setLastError(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->last_error = $var;
 
         return $this;

@@ -92,9 +92,9 @@ class RagUploadDocumentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -118,9 +118,9 @@ class RagUploadDocumentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -144,9 +144,9 @@ class RagUploadDocumentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -180,9 +180,8 @@ class RagUploadDocumentRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagFileMetadata $var
      * @return $this
      */
-    public function setMetadata($var)
+    public function setMetadata(\Ondewo\Nlu\RagFileMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagFileMetadata::class);
         $this->metadata = $var;
 
         return $this;
@@ -206,9 +205,9 @@ class RagUploadDocumentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setData($var)
+    public function setData(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->data = $var;
 
         return $this;

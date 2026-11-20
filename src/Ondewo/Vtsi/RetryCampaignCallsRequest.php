@@ -133,9 +133,9 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -166,9 +166,9 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -202,9 +202,9 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -230,7 +230,7 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCampaignCallNames($var)
+    public function setCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->campaign_call_names = $arr;
@@ -245,7 +245,7 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * must be set.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState states = 5;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      */
     public function getStates()
     {
@@ -259,10 +259,10 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * must be set.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState states = 5;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      * @return $this
      */
-    public function setStates($var)
+    public function setStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignCallState::class);
         $this->states = $arr;
@@ -296,7 +296,7 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAdditionalAttempts($var)
+    public function setAdditionalAttempts(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->additional_attempts = $var;
@@ -336,9 +336,8 @@ class RetryCampaignCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setNotBefore($var)
+    public function setNotBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->not_before = $var;
 
         return $this;

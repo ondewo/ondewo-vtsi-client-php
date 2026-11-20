@@ -90,9 +90,8 @@ class TrainingPhraseUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\StringUpdate $var
      * @return $this
      */
-    public function setTrainingPhraseUpdate($var)
+    public function setTrainingPhraseUpdate(\Ondewo\Nlu\StringUpdate|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\StringUpdate::class);
         $this->training_phrase_update = $var;
 
         return $this;
@@ -116,7 +115,7 @@ class TrainingPhraseUpdate extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\StringUpdate[] $var
      * @return $this
      */
-    public function setEntityUpdates($var)
+    public function setEntityUpdates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\StringUpdate::class);
         $this->entity_updates = $arr;
@@ -142,7 +141,7 @@ class TrainingPhraseUpdate extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEntitiesReannotated($var)
+    public function setEntitiesReannotated(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->entities_reannotated = $arr;
@@ -168,9 +167,8 @@ class TrainingPhraseUpdate extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setContainsUpdateVariable($var)
+    public function setContainsUpdateVariable(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->contains_update_variable = $var;
 
         return $this;

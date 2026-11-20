@@ -74,9 +74,8 @@ class CreateServerRoleRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ServerRole $var
      * @return $this
      */
-    public function setRole($var)
+    public function setRole(\Ondewo\Nlu\ServerRole|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\ServerRole::class);
         $this->role = $var;
 
         return $this;

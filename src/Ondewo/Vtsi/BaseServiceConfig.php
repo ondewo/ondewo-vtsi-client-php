@@ -84,9 +84,9 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setHost($var)
+    public function setHost(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->host = $var;
 
         return $this;
@@ -112,7 +112,7 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPort($var)
+    public function setPort(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->port = $var;
@@ -144,9 +144,9 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setGrpcCert($var)
+    public function setGrpcCert(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->grpc_cert = $var;
 
         return $this;

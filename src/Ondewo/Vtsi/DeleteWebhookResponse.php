@@ -64,9 +64,9 @@ class DeleteWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -90,7 +90,7 @@ class DeleteWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDetachedSubscriptionCount($var)
+    public function setDetachedSubscriptionCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->detached_subscription_count = $var;

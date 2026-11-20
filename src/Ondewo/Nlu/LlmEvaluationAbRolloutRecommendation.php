@@ -129,7 +129,7 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * The metric the recommendation was computed against (echoed from the request).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      */
     public function getOptimizeMetric()
     {
@@ -140,10 +140,10 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * The metric the recommendation was computed against (echoed from the request).
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationAbOptimizeMetric optimize_metric = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric}
      * @return $this
      */
-    public function setOptimizeMetric($var)
+    public function setOptimizeMetric(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationAbOptimizeMetric::class);
         $this->optimize_metric = $var;
@@ -175,9 +175,9 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setWinnerVariantId($var)
+    public function setWinnerVariantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->winner_variant_id = $var;
 
         return $this;
@@ -201,9 +201,9 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setControlVariantId($var)
+    public function setControlVariantId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->control_variant_id = $var;
 
         return $this;
@@ -227,9 +227,8 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param float $var
      * @return $this
      */
-    public function setPValue($var)
+    public function setPValue(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->p_value = $var;
 
         return $this;
@@ -255,9 +254,8 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param float $var
      * @return $this
      */
-    public function setEffectSize($var)
+    public function setEffectSize(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->effect_size = $var;
 
         return $this;
@@ -283,9 +281,8 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param bool $var
      * @return $this
      */
-    public function setIsSignificant($var)
+    public function setIsSignificant(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_significant = $var;
 
         return $this;
@@ -311,7 +308,7 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setSessionsPerVariant($var)
+    public function setSessionsPerVariant(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::INT64);
         $this->sessions_per_variant = $arr;
@@ -339,9 +336,8 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param bool $var
      * @return $this
      */
-    public function setNeedsMoreData($var)
+    public function setNeedsMoreData(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->needs_more_data = $var;
 
         return $this;
@@ -369,9 +365,9 @@ class LlmEvaluationAbRolloutRecommendation extends \Google\Protobuf\Internal\Mes
      * @param string $var
      * @return $this
      */
-    public function setReason($var)
+    public function setReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->reason = $var;
 
         return $this;

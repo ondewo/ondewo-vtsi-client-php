@@ -96,9 +96,9 @@ class CreateSessionEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -132,9 +132,8 @@ class CreateSessionEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionEntityType $var
      * @return $this
      */
-    public function setSessionEntityType($var)
+    public function setSessionEntityType(\Ondewo\Nlu\SessionEntityType|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionEntityType::class);
         $this->session_entity_type = $var;
 
         return $this;
@@ -178,9 +177,9 @@ class CreateSessionEntityTypeRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;

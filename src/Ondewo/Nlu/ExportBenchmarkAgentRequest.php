@@ -106,9 +106,9 @@ class ExportBenchmarkAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -136,7 +136,7 @@ class ExportBenchmarkAgentRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCompressionLevel($var)
+    public function setCompressionLevel(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->compression_level = $var;
@@ -168,9 +168,8 @@ class ExportBenchmarkAgentRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTestSize($var)
+    public function setTestSize(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->test_size = $var;
 
         return $this;
@@ -194,9 +193,8 @@ class ExportBenchmarkAgentRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTrainSize($var)
+    public function setTrainSize(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->train_size = $var;
 
         return $this;
@@ -220,7 +218,7 @@ class ExportBenchmarkAgentRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRandomState($var)
+    public function setRandomState(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->random_state = $var;

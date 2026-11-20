@@ -96,9 +96,9 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setProvider($var)
+    public function setProvider(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->provider = $var;
 
         return $this;
@@ -122,7 +122,7 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -158,9 +158,8 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -184,7 +183,7 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setErrorCount($var)
+    public function setErrorCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->error_count = $var;
@@ -210,9 +209,8 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationSecondsTotal($var)
+    public function setDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_seconds_total = $var;
 
         return $this;
@@ -236,7 +234,7 @@ class LlmProviderUsage extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setModelNames($var)
+    public function setModelNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->model_names = $arr;

@@ -87,9 +87,9 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -129,9 +129,8 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\CallLogFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallLogFilter::class);
         $this->filter = $var;
 
         return $this;
@@ -159,9 +158,8 @@ class DeleteCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setValidateOnly($var)
+    public function setValidateOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->validate_only = $var;
 
         return $this;

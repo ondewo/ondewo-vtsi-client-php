@@ -92,9 +92,9 @@ class GetFeedbackStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -128,9 +128,8 @@ class GetFeedbackStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;
@@ -154,9 +153,8 @@ class GetFeedbackStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeReviewAndCommentRollup($var)
+    public function setIncludeReviewAndCommentRollup(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_review_and_comment_rollup = $var;
 
         return $this;
@@ -190,9 +188,8 @@ class GetFeedbackStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -226,9 +223,8 @@ class GetFeedbackStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FeedbackFilter $var
      * @return $this
      */
-    public function setFeedbackFilter($var)
+    public function setFeedbackFilter(\Ondewo\Nlu\FeedbackFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\FeedbackFilter::class);
         $this->feedback_filter = $var;
 
         return $this;

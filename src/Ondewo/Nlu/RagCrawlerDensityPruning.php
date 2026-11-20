@@ -91,9 +91,8 @@ class RagCrawlerDensityPruning extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsActive($var)
+    public function setIsActive(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_active = $var;
 
         return $this;
@@ -127,9 +126,8 @@ class RagCrawlerDensityPruning extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setThreshold($var)
+    public function setThreshold(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->threshold = $var;
 
         return $this;
@@ -139,7 +137,7 @@ class RagCrawlerDensityPruning extends \Google\Protobuf\Internal\Message
      * Optional. Threshold interpretation. Default <code>RAG_CRAWLER_PRUNING_THRESHOLD_TYPE_FIXED</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.RagCrawlerPruningThresholdType threshold_type = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerPruningThresholdType}
      */
     public function getThresholdType()
     {
@@ -160,10 +158,10 @@ class RagCrawlerDensityPruning extends \Google\Protobuf\Internal\Message
      * Optional. Threshold interpretation. Default <code>RAG_CRAWLER_PRUNING_THRESHOLD_TYPE_FIXED</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.RagCrawlerPruningThresholdType threshold_type = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerPruningThresholdType}
      * @return $this
      */
-    public function setThresholdType($var)
+    public function setThresholdType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerPruningThresholdType::class);
         $this->threshold_type = $var;
@@ -199,7 +197,7 @@ class RagCrawlerDensityPruning extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMinWordThreshold($var)
+    public function setMinWordThreshold(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->min_word_threshold = $var;

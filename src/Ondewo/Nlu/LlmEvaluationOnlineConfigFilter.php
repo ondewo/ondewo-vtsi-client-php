@@ -69,9 +69,9 @@ class LlmEvaluationOnlineConfigFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -95,9 +95,8 @@ class LlmEvaluationOnlineConfigFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabledOnly($var)
+    public function setEnabledOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled_only = $var;
 
         return $this;

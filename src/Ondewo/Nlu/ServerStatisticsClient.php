@@ -37,7 +37,7 @@ class ServerStatisticsClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetProjectCount(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class ServerStatisticsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetUserProjectCountRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetUserProjectCount(\Ondewo\Nlu\GetUserProjectCountRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class ServerStatisticsClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\StatResponse>
      */
     public function GetUserCount(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {

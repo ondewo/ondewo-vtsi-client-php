@@ -170,9 +170,9 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -196,9 +196,9 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -208,7 +208,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * Required. Indicates the kind of entity type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.Kind kind = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityType\Kind}
      */
     public function getKind()
     {
@@ -219,10 +219,10 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * Required. Indicates the kind of entity type.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.Kind kind = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityType\Kind}
      * @return $this
      */
-    public function setKind($var)
+    public function setKind(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityType\Kind::class);
         $this->kind = $var;
@@ -235,7 +235,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * expanded.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.AutoExpansionMode auto_expansion_mode = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityType\AutoExpansionMode}
      */
     public function getAutoExpansionMode()
     {
@@ -247,10 +247,10 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * expanded.
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.AutoExpansionMode auto_expansion_mode = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityType\AutoExpansionMode}
      * @return $this
      */
-    public function setAutoExpansionMode($var)
+    public function setAutoExpansionMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityType\AutoExpansionMode::class);
         $this->auto_expansion_mode = $var;
@@ -276,7 +276,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType\Entity[] $var
      * @return $this
      */
-    public function setEntities($var)
+    public function setEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType\Entity::class);
         $this->entities = $arr;
@@ -304,9 +304,9 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -330,7 +330,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEntityCount($var)
+    public function setEntityCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->entity_count = $var;
@@ -342,7 +342,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * Indicates whether the entity type is active or not
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.EntityTypeStatus status = 12;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\EntityType\EntityTypeStatus}
      */
     public function getStatus()
     {
@@ -353,10 +353,10 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * Indicates whether the entity type is active or not
      *
      * Generated from protobuf field <code>.ondewo.nlu.EntityType.EntityTypeStatus status = 12;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\EntityType\EntityTypeStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\EntityType\EntityTypeStatus::class);
         $this->status = $var;
@@ -382,7 +382,7 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSynonymCount($var)
+    public function setSynonymCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->synonym_count = $var;
@@ -418,9 +418,8 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -454,9 +453,8 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -480,9 +478,9 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -506,9 +504,9 @@ class EntityType extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

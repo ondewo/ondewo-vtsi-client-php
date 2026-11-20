@@ -90,9 +90,8 @@ class Item extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\SelectItemInfo $var
      * @return $this
      */
-    public function setInfo($var)
+    public function setInfo(\Ondewo\Nlu\Intent\Message\SelectItemInfo|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\SelectItemInfo::class);
         $this->info = $var;
 
         return $this;
@@ -116,9 +115,9 @@ class Item extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTitle($var)
+    public function setTitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->title = $var;
 
         return $this;
@@ -142,9 +141,9 @@ class Item extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -178,9 +177,8 @@ class Item extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\Image $var
      * @return $this
      */
-    public function setImage($var)
+    public function setImage(\Ondewo\Nlu\Intent\Message\Image|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\Image::class);
         $this->image = $var;
 
         return $this;

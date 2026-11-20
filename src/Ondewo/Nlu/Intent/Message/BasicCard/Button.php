@@ -64,9 +64,9 @@ class Button extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTitle($var)
+    public function setTitle(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->title = $var;
 
         return $this;
@@ -100,9 +100,8 @@ class Button extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message\BasicCard\Button\OpenUriAction $var
      * @return $this
      */
-    public function setOpenUriAction($var)
+    public function setOpenUriAction(\Ondewo\Nlu\Intent\Message\BasicCard\Button\OpenUriAction|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message\BasicCard\Button\OpenUriAction::class);
         $this->open_uri_action = $var;
 
         return $this;

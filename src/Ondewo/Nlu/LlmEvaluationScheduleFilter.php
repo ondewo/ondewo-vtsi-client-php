@@ -77,9 +77,9 @@ class LlmEvaluationScheduleFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -103,9 +103,8 @@ class LlmEvaluationScheduleFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabledOnly($var)
+    public function setEnabledOnly(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled_only = $var;
 
         return $this;
@@ -115,7 +114,7 @@ class LlmEvaluationScheduleFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only schedules with this action.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationScheduleAction llm_evaluation_schedule_action = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationScheduleAction}
      */
     public function getLlmEvaluationScheduleAction()
     {
@@ -126,10 +125,10 @@ class LlmEvaluationScheduleFilter extends \Google\Protobuf\Internal\Message
      * Optional. Match only schedules with this action.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationScheduleAction llm_evaluation_schedule_action = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationScheduleAction}
      * @return $this
      */
-    public function setLlmEvaluationScheduleAction($var)
+    public function setLlmEvaluationScheduleAction(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationScheduleAction::class);
         $this->llm_evaluation_schedule_action = $var;

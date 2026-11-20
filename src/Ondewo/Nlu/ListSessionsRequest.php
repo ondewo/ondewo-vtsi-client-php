@@ -142,9 +142,9 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -154,7 +154,7 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned per session
      *
      * Generated from protobuf field <code>.ondewo.nlu.Session.View session_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Session\View}
      */
     public function getSessionView()
     {
@@ -165,10 +165,10 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * An enum specifying the amount of information to be returned per session
      *
      * Generated from protobuf field <code>.ondewo.nlu.Session.View session_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Session\View}
      * @return $this
      */
-    public function setSessionView($var)
+    public function setSessionView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Session\View::class);
         $this->session_view = $var;
@@ -242,9 +242,9 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -278,9 +278,8 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;
@@ -316,9 +315,8 @@ class ListSessionsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

@@ -134,9 +134,9 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -147,7 +147,7 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallView}
      */
     public function getCallView()
     {
@@ -169,10 +169,10 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * <code>SHALLOW</code>.
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.CallView call_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallView}
      * @return $this
      */
-    public function setCallView($var)
+    public function setCallView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallView::class);
         $this->call_view = $var;
@@ -210,9 +210,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallFilter $var
      * @return $this
      */
-    public function setCallFilter($var)
+    public function setCallFilter(\Ondewo\Vtsi\CallFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallFilter::class);
         $this->call_filter = $var;
 
         return $this;
@@ -252,9 +251,9 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -304,9 +303,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -334,7 +332,7 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -370,9 +368,8 @@ class ListCallsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallSorting $var
      * @return $this
      */
-    public function setCallSorting($var)
+    public function setCallSorting(\Ondewo\Vtsi\CallSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallSorting::class);
         $this->call_sorting = $var;
 
         return $this;

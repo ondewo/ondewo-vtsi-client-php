@@ -120,7 +120,7 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTurnIndex($var)
+    public function setTurnIndex(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->turn_index = $var;
@@ -156,9 +156,8 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setUserInput($var)
+    public function setUserInput(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->user_input = $var;
 
         return $this;
@@ -194,9 +193,8 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setExpectedOutput($var)
+    public function setExpectedOutput(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->expected_output = $var;
 
         return $this;
@@ -232,9 +230,8 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setActualOutput($var)
+    public function setActualOutput(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->actual_output = $var;
 
         return $this;
@@ -260,9 +257,9 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmTelemetryRunId($var)
+    public function setLlmTelemetryRunId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_telemetry_run_id = $var;
 
         return $this;
@@ -288,9 +285,9 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionStepName($var)
+    public function setSessionStepName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_step_name = $var;
 
         return $this;
@@ -314,7 +311,7 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationFeedback[] $var
      * @return $this
      */
-    public function setLlmEvaluationFeedbacks($var)
+    public function setLlmEvaluationFeedbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmEvaluationFeedback::class);
         $this->llm_evaluation_feedbacks = $arr;
@@ -340,9 +337,8 @@ class LlmEvaluationTurnResult extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationInS($var)
+    public function setDurationInS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_in_s = $var;
 
         return $this;

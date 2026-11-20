@@ -43,6 +43,21 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.AnsweringMachineDetectionConfig answering_machine_detection_config = 4;</code>
      */
     protected $answering_machine_detection_config = null;
+    /**
+     * Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
+     * behaviour (keys on, a key barges in, undeclared keys dropped)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DtmfConfig dtmf_config = 5;</code>
+     */
+    protected $dtmf_config = null;
+    /**
+     * Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
+     * inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
+     * <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 6;</code>
+     */
+    protected $warm_transfer_config = null;
 
     /**
      * Constructor.
@@ -60,6 +75,13 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      *           Configuration of the answering machine detection (AMD) of an outbound call.
      *           Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
      *           is rejected with INVALID_ARGUMENT
+     *     @type \Ondewo\Vtsi\DtmfConfig $dtmf_config
+     *           Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
+     *           behaviour (keys on, a key barges in, undeclared keys dropped)
+     *     @type \Ondewo\Vtsi\WarmTransferConfig $warm_transfer_config
+     *           Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
+     *           inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
+     *           <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
      * }
      */
     public function __construct($data = NULL) {
@@ -95,9 +117,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\TurnDetectionConfig $var
      * @return $this
      */
-    public function setTurnDetectionConfig($var)
+    public function setTurnDetectionConfig(\Ondewo\Vtsi\TurnDetectionConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\TurnDetectionConfig::class);
         $this->turn_detection_config = $var;
 
         return $this;
@@ -131,9 +152,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\InterruptionHandlingConfig $var
      * @return $this
      */
-    public function setInterruptionHandlingConfig($var)
+    public function setInterruptionHandlingConfig(\Ondewo\Vtsi\InterruptionHandlingConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\InterruptionHandlingConfig::class);
         $this->interruption_handling_config = $var;
 
         return $this;
@@ -167,9 +187,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ResponseTimingConfig $var
      * @return $this
      */
-    public function setResponseTimingConfig($var)
+    public function setResponseTimingConfig(\Ondewo\Vtsi\ResponseTimingConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ResponseTimingConfig::class);
         $this->response_timing_config = $var;
 
         return $this;
@@ -207,10 +226,85 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AnsweringMachineDetectionConfig $var
      * @return $this
      */
-    public function setAnsweringMachineDetectionConfig($var)
+    public function setAnsweringMachineDetectionConfig(\Ondewo\Vtsi\AnsweringMachineDetectionConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\AnsweringMachineDetectionConfig::class);
         $this->answering_machine_detection_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
+     * behaviour (keys on, a key barges in, undeclared keys dropped)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DtmfConfig dtmf_config = 5;</code>
+     * @return \Ondewo\Vtsi\DtmfConfig|null
+     */
+    public function getDtmfConfig()
+    {
+        return $this->dtmf_config;
+    }
+
+    public function hasDtmfConfig()
+    {
+        return isset($this->dtmf_config);
+    }
+
+    public function clearDtmfConfig()
+    {
+        unset($this->dtmf_config);
+    }
+
+    /**
+     * Configuration of the DTMF keys the CALLER presses (keypad input to the bot). Unset keeps the deployment&apos;s
+     * behaviour (keys on, a key barges in, undeclared keys dropped)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.DtmfConfig dtmf_config = 5;</code>
+     * @param \Ondewo\Vtsi\DtmfConfig $var
+     * @return $this
+     */
+    public function setDtmfConfig(\Ondewo\Vtsi\DtmfConfig|null $var)
+    {
+        $this->dtmf_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
+     * inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
+     * <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 6;</code>
+     * @return \Ondewo\Vtsi\WarmTransferConfig|null
+     */
+    public function getWarmTransferConfig()
+    {
+        return $this->warm_transfer_config;
+    }
+
+    public function hasWarmTransferConfig()
+    {
+        return isset($this->warm_transfer_config);
+    }
+
+    public function clearWarmTransferConfig()
+    {
+        unset($this->warm_transfer_config);
+    }
+
+    /**
+     * Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
+     * inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
+     * <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 6;</code>
+     * @param \Ondewo\Vtsi\WarmTransferConfig $var
+     * @return $this
+     */
+    public function setWarmTransferConfig(\Ondewo\Vtsi\WarmTransferConfig|null $var)
+    {
+        $this->warm_transfer_config = $var;
 
         return $this;
     }

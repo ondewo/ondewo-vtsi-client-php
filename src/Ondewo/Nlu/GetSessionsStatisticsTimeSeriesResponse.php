@@ -68,7 +68,7 @@ class GetSessionsStatisticsTimeSeriesResponse extends \Google\Protobuf\Internal\
      * @param \Ondewo\Nlu\LlmTelemetryTimeSeriesBucket[] $var
      * @return $this
      */
-    public function setLlmTelemetryTimeSeriesBuckets($var)
+    public function setLlmTelemetryTimeSeriesBuckets(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmTelemetryTimeSeriesBucket::class);
         $this->llm_telemetry_time_series_buckets = $arr;
@@ -94,7 +94,7 @@ class GetSessionsStatisticsTimeSeriesResponse extends \Google\Protobuf\Internal\
      * @param int $var
      * @return $this
      */
-    public function setBucketWidthSeconds($var)
+    public function setBucketWidthSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->bucket_width_seconds = $var;

@@ -76,9 +76,8 @@ class RagCrawlerAuth extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerHttpAuth $var
      * @return $this
      */
-    public function setHttpAuth($var)
+    public function setHttpAuth(\Ondewo\Nlu\RagCrawlerHttpAuth|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerHttpAuth::class);
         $this->http_auth = $var;
 
         return $this;
@@ -112,9 +111,8 @@ class RagCrawlerAuth extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerHtmlAuth $var
      * @return $this
      */
-    public function setHtmlAuth($var)
+    public function setHtmlAuth(\Ondewo\Nlu\RagCrawlerHtmlAuth|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagCrawlerHtmlAuth::class);
         $this->html_auth = $var;
 
         return $this;

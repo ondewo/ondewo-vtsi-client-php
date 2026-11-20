@@ -80,9 +80,9 @@ class LlmEvaluationScorecardComponent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCriterion($var)
+    public function setCriterion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->criterion = $var;
 
         return $this;
@@ -106,9 +106,8 @@ class LlmEvaluationScorecardComponent extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setWeight($var)
+    public function setWeight(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->weight = $var;
 
         return $this;
@@ -132,9 +131,8 @@ class LlmEvaluationScorecardComponent extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTargetScore($var)
+    public function setTargetScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->target_score = $var;
 
         return $this;
@@ -158,9 +156,9 @@ class LlmEvaluationScorecardComponent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEvaluatorName($var)
+    public function setEvaluatorName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->evaluator_name = $var;
 
         return $this;

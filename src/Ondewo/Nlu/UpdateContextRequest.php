@@ -74,9 +74,8 @@ class UpdateContextRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context $var
      * @return $this
      */
-    public function setContext($var)
+    public function setContext(\Ondewo\Nlu\Context|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Context::class);
         $this->context = $var;
 
         return $this;
@@ -110,9 +109,8 @@ class UpdateContextRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

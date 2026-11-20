@@ -190,9 +190,9 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -202,7 +202,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * File formats for reports
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportFormat format = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReportFormat}
      */
     public function getFormat()
     {
@@ -213,10 +213,10 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * File formats for reports
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportFormat format = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReportFormat}
      * @return $this
      */
-    public function setFormat($var)
+    public function setFormat(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReportFormat::class);
         $this->format = $var;
@@ -228,7 +228,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * Type of reports about the domain of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionsReportType type = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SessionsReportType}
      */
     public function getType()
     {
@@ -239,10 +239,10 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * Type of reports about the domain of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.SessionsReportType type = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SessionsReportType}
      * @return $this
      */
-    public function setType($var)
+    public function setType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SessionsReportType::class);
         $this->type = $var;
@@ -278,9 +278,8 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\SessionFilter $var
      * @return $this
      */
-    public function setSessionFilter($var)
+    public function setSessionFilter(\Ondewo\Nlu\SessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\SessionFilter::class);
         $this->session_filter = $var;
 
         return $this;
@@ -304,7 +303,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ContextFilter[] $var
      * @return $this
      */
-    public function setContextFilters($var)
+    public function setContextFilters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ContextFilter::class);
         $this->context_filters = $arr;
@@ -330,7 +329,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setLimit($var)
+    public function setLimit(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->limit = $var;
@@ -356,7 +355,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setGroupBys($var)
+    public function setGroupBys(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->group_bys = $arr;
@@ -382,7 +381,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setOrderBys($var)
+    public function setOrderBys(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->order_bys = $arr;
@@ -424,9 +423,8 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -450,9 +448,9 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSqlQuery($var)
+    public function setSqlQuery(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sql_query = $var;
 
         return $this;
@@ -476,7 +474,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmModelFilter($var)
+    public function setLlmModelFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_model_filter = $arr;
@@ -502,7 +500,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmProviderFilter($var)
+    public function setLlmProviderFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_provider_filter = $arr;
@@ -528,7 +526,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmAgentNameFilter($var)
+    public function setLlmAgentNameFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_agent_name_filter = $arr;
@@ -554,7 +552,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmToolNameFilter($var)
+    public function setLlmToolNameFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_tool_name_filter = $arr;
@@ -566,7 +564,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Restrict LLM-typed reports to specific CCAI service providers. Empty = all.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceProvider llm_ccai_service_provider_filter = 15;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      */
     public function getLlmCcaiServiceProviderFilter()
     {
@@ -577,10 +575,10 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Restrict LLM-typed reports to specific CCAI service providers. Empty = all.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.CcaiServiceProvider llm_ccai_service_provider_filter = 15;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\CcaiServiceProvider}
      * @return $this
      */
-    public function setLlmCcaiServiceProviderFilter($var)
+    public function setLlmCcaiServiceProviderFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\CcaiServiceProvider::class);
         $this->llm_ccai_service_provider_filter = $arr;
@@ -610,7 +608,7 @@ class GetSessionsStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLlmBaseUrlFilter($var)
+    public function setLlmBaseUrlFilter(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->llm_base_url_filter = $arr;

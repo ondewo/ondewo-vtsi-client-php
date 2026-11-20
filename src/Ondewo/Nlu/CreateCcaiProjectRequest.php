@@ -76,9 +76,8 @@ class CreateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\CcaiProject $var
      * @return $this
      */
-    public function setCcaiProject($var)
+    public function setCcaiProject(\Ondewo\Nlu\CcaiProject|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\CcaiProject::class);
         $this->ccai_project = $var;
 
         return $this;
@@ -104,9 +103,9 @@ class CreateCcaiProjectRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNluProjectName($var)
+    public function setNluProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->nlu_project_name = $var;
 
         return $this;

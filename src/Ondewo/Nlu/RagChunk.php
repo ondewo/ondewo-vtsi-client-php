@@ -139,9 +139,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setId($var)
+    public function setId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->id = $var;
 
         return $this;
@@ -165,9 +165,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDatasetId($var)
+    public function setDatasetId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->dataset_id = $var;
 
         return $this;
@@ -191,9 +191,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentId($var)
+    public function setDocumentId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_id = $var;
 
         return $this;
@@ -217,9 +217,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContent($var)
+    public function setContent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->content = $var;
 
         return $this;
@@ -243,7 +243,7 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setImportantKeywords($var)
+    public function setImportantKeywords(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->important_keywords = $arr;
@@ -269,7 +269,7 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setQuestions($var)
+    public function setQuestions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->questions = $arr;
@@ -295,9 +295,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setImageId($var)
+    public function setImageId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->image_id = $var;
 
         return $this;
@@ -323,7 +323,7 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\ListValue[] $var
      * @return $this
      */
-    public function setPositions($var)
+    public function setPositions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Google\Protobuf\ListValue::class);
         $this->positions = $arr;
@@ -359,9 +359,8 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreateTime($var)
+    public function setCreateTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->create_time = $var;
 
         return $this;
@@ -385,9 +384,9 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocumentKeyword($var)
+    public function setDocumentKeyword(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->document_keyword = $var;
 
         return $this;
@@ -421,9 +420,8 @@ class RagChunk extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSimilarity($var)
+    public function setSimilarity(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->similarity = $var;
 
         return $this;

@@ -96,9 +96,9 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentName($var)
+    public function setAgentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_name = $var;
 
         return $this;
@@ -122,9 +122,9 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentRole($var)
+    public function setAgentRole(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->agent_role = $var;
 
         return $this;
@@ -148,9 +148,9 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTeamName($var)
+    public function setTeamName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->team_name = $var;
 
         return $this;
@@ -174,7 +174,7 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -210,9 +210,8 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -236,7 +235,7 @@ class LlmAgentUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setToolCallCount($var)
+    public function setToolCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->tool_call_count = $var;

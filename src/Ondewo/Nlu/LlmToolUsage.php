@@ -132,9 +132,9 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setToolName($var)
+    public function setToolName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_name = $var;
 
         return $this;
@@ -158,7 +158,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setCallCount($var)
+    public function setCallCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->call_count = $var;
@@ -184,7 +184,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setErrorCount($var)
+    public function setErrorCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->error_count = $var;
@@ -210,9 +210,8 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setErrorRate($var)
+    public function setErrorRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->error_rate = $var;
 
         return $this;
@@ -236,9 +235,8 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setDurationSecondsTotal($var)
+    public function setDurationSecondsTotal(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->duration_seconds_total = $var;
 
         return $this;
@@ -262,9 +260,8 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMeanDurationSeconds($var)
+    public function setMeanDurationSeconds(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->mean_duration_seconds = $var;
 
         return $this;
@@ -298,9 +295,8 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTokenUsage $var
      * @return $this
      */
-    public function setLlmTokenUsage($var)
+    public function setLlmTokenUsage(\Ondewo\Nlu\LlmTokenUsage|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTokenUsage::class);
         $this->llm_token_usage = $var;
 
         return $this;
@@ -336,9 +332,8 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setArguments($var)
+    public function setArguments(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->arguments = $var;
 
         return $this;
@@ -362,9 +357,9 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmCallId($var)
+    public function setLlmCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_call_id = $var;
 
         return $this;
@@ -390,9 +385,9 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setToolCallId($var)
+    public function setToolCallId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tool_call_id = $var;
 
         return $this;

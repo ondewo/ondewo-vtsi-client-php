@@ -52,7 +52,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\WebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\WebhookResponse>
      */
     public function ResponseRefinement(\Ondewo\Nlu\WebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -69,7 +69,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\WebhookRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\WebhookResponse>
      */
     public function SlotFilling(\Ondewo\Nlu\WebhookRequest $argument,
       $metadata = [], $options = []) {
@@ -85,7 +85,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\PingRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\PingResponse>
      */
     public function Ping(\Ondewo\Nlu\PingRequest $argument,
       $metadata = [], $options = []) {
@@ -107,7 +107,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateSessionEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\SessionEntityType>
      */
     public function CreateSessionEntityType(\Ondewo\Nlu\CreateSessionEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -126,7 +126,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateSessionEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\SessionEntityType>
      */
     public function UpdateSessionEntityType(\Ondewo\Nlu\UpdateSessionEntityTypeRequest $argument,
       $metadata = [], $options = []) {
@@ -145,7 +145,7 @@ class WebhookClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteSessionEntityTypeRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteSessionEntityType(\Ondewo\Nlu\DeleteSessionEntityTypeRequest $argument,
       $metadata = [], $options = []) {

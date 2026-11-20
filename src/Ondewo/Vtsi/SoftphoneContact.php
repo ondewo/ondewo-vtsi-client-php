@@ -106,9 +106,9 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUri($var)
+    public function setUri(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->uri = $var;
 
         return $this;
@@ -134,9 +134,9 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setUserAgent($var)
+    public function setUserAgent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->user_agent = $var;
 
         return $this;
@@ -162,9 +162,9 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceAddress($var)
+    public function setSourceAddress(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->source_address = $var;
 
         return $this;
@@ -198,9 +198,8 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setExpireTime($var)
+    public function setExpireTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->expire_time = $var;
 
         return $this;
@@ -226,9 +225,8 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setRoundTripMs($var)
+    public function setRoundTripMs(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->round_trip_ms = $var;
 
         return $this;
@@ -238,7 +236,7 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * Reachability of the contact.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\SoftphoneContactStatus}
      */
     public function getStatus()
     {
@@ -249,10 +247,10 @@ class SoftphoneContact extends \Google\Protobuf\Internal\Message
      * Reachability of the contact.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftphoneContactStatus status = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\SoftphoneContactStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\SoftphoneContactStatus::class);
         $this->status = $var;

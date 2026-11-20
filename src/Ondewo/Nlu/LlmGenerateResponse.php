@@ -86,9 +86,8 @@ class LlmGenerateResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setLlmGenerationResponse($var)
+    public function setLlmGenerationResponse(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->llm_generation_response = $var;
 
         return $this;
@@ -112,7 +111,7 @@ class LlmGenerateResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\FileResource[] $var
      * @return $this
      */
-    public function setFileResources($var)
+    public function setFileResources(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\FileResource::class);
         $this->file_resources = $arr;

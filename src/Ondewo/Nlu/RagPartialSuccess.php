@@ -65,7 +65,7 @@ class RagPartialSuccess extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSuccessCount($var)
+    public function setSuccessCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->success_count = $var;
@@ -91,7 +91,7 @@ class RagPartialSuccess extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setErrors($var)
+    public function setErrors(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->errors = $arr;

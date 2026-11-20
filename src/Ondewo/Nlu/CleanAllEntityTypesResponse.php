@@ -80,7 +80,7 @@ class CleanAllEntityTypesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType[] $var
      * @return $this
      */
-    public function setCleanedEntityTypes($var)
+    public function setCleanedEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType::class);
         $this->cleaned_entity_types = $arr;
@@ -106,7 +106,7 @@ class CleanAllEntityTypesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityType[] $var
      * @return $this
      */
-    public function setDeletedEntityTypes($var)
+    public function setDeletedEntityTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityType::class);
         $this->deleted_entity_types = $arr;
@@ -132,7 +132,7 @@ class CleanAllEntityTypesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeUpdate[] $var
      * @return $this
      */
-    public function setEntityTypeUpdates($var)
+    public function setEntityTypeUpdates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityTypeUpdate::class);
         $this->entity_type_updates = $arr;
@@ -158,7 +158,7 @@ class CleanAllEntityTypesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeUpdate[] $var
      * @return $this
      */
-    public function setEntityTypeDeletions($var)
+    public function setEntityTypeDeletions(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityTypeUpdate::class);
         $this->entity_type_deletions = $arr;

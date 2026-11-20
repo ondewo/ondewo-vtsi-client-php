@@ -51,7 +51,7 @@ class TransferOutcomeCount extends \Google\Protobuf\Internal\Message
      * The outcome of the call&apos;s last transfer attempt (<code>Call.last_transfer.outcome</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      */
     public function getOutcome()
     {
@@ -62,10 +62,10 @@ class TransferOutcomeCount extends \Google\Protobuf\Internal\Message
      * The outcome of the call&apos;s last transfer attempt (<code>Call.last_transfer.outcome</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      * @return $this
      */
-    public function setOutcome($var)
+    public function setOutcome(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferOutcome::class);
         $this->outcome = $var;
@@ -91,7 +91,7 @@ class TransferOutcomeCount extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->count = $var;

@@ -74,7 +74,7 @@ class ListResponseMessagesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setResponseMessages($var)
+    public function setResponseMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->response_messages = $arr;
@@ -106,9 +106,9 @@ class ListResponseMessagesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

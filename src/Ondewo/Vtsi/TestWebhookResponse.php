@@ -88,9 +88,8 @@ class TestWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSuccess($var)
+    public function setSuccess(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->success = $var;
 
         return $this;
@@ -114,7 +113,7 @@ class TestWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setHttpStatusCode($var)
+    public function setHttpStatusCode(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->http_status_code = $var;
@@ -150,9 +149,8 @@ class TestWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Duration $var
      * @return $this
      */
-    public function setLatency($var)
+    public function setLatency(\Google\Protobuf\Duration|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Duration::class);
         $this->latency = $var;
 
         return $this;
@@ -176,9 +174,9 @@ class TestWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;
@@ -202,9 +200,9 @@ class TestWebhookResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEventId($var)
+    public function setEventId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->event_id = $var;
 
         return $this;

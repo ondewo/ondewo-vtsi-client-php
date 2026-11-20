@@ -188,9 +188,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -214,9 +214,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -244,9 +244,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCriterion($var)
+    public function setCriterion(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->criterion = $var;
 
         return $this;
@@ -284,9 +284,8 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->score = $var;
 
         return $this;
@@ -310,9 +309,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCategoricalValue($var)
+    public function setCategoricalValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->categorical_value = $var;
 
         return $this;
@@ -336,9 +335,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setComment($var)
+    public function setComment(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->comment = $var;
 
         return $this;
@@ -362,9 +361,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAnnotatorUserId($var)
+    public function setAnnotatorUserId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->annotator_user_id = $var;
 
         return $this;
@@ -398,9 +397,8 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -434,9 +432,8 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setRaw($var)
+    public function setRaw(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->raw = $var;
 
         return $this;
@@ -464,9 +461,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationEvaluatorRunName($var)
+    public function setLlmEvaluationEvaluatorRunName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_evaluator_run_name = $var;
 
         return $this;
@@ -492,9 +489,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationExperimentName($var)
+    public function setLlmEvaluationExperimentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_experiment_name = $var;
 
         return $this;
@@ -520,9 +517,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationExampleName($var)
+    public function setLlmEvaluationExampleName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_example_name = $var;
 
         return $this;
@@ -556,9 +553,8 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -582,9 +578,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -608,9 +604,9 @@ class LlmEvaluationFeedback extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

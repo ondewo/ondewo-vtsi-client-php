@@ -98,9 +98,8 @@ class AllServicesStatuses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ServiceStatus $var
      * @return $this
      */
-    public function setStatusSip($var)
+    public function setStatusSip(\Ondewo\Vtsi\ServiceStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ServiceStatus::class);
         $this->status_sip = $var;
 
         return $this;
@@ -134,9 +133,8 @@ class AllServicesStatuses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ServiceStatus $var
      * @return $this
      */
-    public function setStatusAsterisk($var)
+    public function setStatusAsterisk(\Ondewo\Vtsi\ServiceStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ServiceStatus::class);
         $this->status_asterisk = $var;
 
         return $this;
@@ -170,9 +168,8 @@ class AllServicesStatuses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ServiceStatus $var
      * @return $this
      */
-    public function setStatusNlu($var)
+    public function setStatusNlu(\Ondewo\Vtsi\ServiceStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ServiceStatus::class);
         $this->status_nlu = $var;
 
         return $this;
@@ -206,9 +203,8 @@ class AllServicesStatuses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ServiceStatus $var
      * @return $this
      */
-    public function setStatusStt($var)
+    public function setStatusStt(\Ondewo\Vtsi\ServiceStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ServiceStatus::class);
         $this->status_stt = $var;
 
         return $this;
@@ -242,9 +238,8 @@ class AllServicesStatuses extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ServiceStatus $var
      * @return $this
      */
-    public function setStatusTts($var)
+    public function setStatusTts(\Ondewo\Vtsi\ServiceStatus|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\ServiceStatus::class);
         $this->status_tts = $var;
 
         return $this;

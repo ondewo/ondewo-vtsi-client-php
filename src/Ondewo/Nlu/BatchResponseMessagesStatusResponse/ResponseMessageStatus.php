@@ -58,9 +58,8 @@ class ResponseMessageStatus extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message $var
      * @return $this
      */
-    public function setResponseMessage($var)
+    public function setResponseMessage(\Ondewo\Nlu\Intent\Message|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\Message::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -89,9 +88,9 @@ class ResponseMessageStatus extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;

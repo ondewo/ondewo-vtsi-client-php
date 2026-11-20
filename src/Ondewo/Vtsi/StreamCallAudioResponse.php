@@ -62,9 +62,8 @@ class StreamCallAudioResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallAudioStarted $var
      * @return $this
      */
-    public function setStarted($var)
+    public function setStarted(\Ondewo\Vtsi\CallAudioStarted|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallAudioStarted::class);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -93,9 +92,8 @@ class StreamCallAudioResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallAudioFrame $var
      * @return $this
      */
-    public function setAudio($var)
+    public function setAudio(\Ondewo\Vtsi\CallAudioFrame|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallAudioFrame::class);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -124,9 +122,8 @@ class StreamCallAudioResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallAudioStats $var
      * @return $this
      */
-    public function setStats($var)
+    public function setStats(\Ondewo\Vtsi\CallAudioStats|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallAudioStats::class);
         $this->writeOneof(3, $var);
 
         return $this;
@@ -155,9 +152,8 @@ class StreamCallAudioResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallAudioEnded $var
      * @return $this
      */
-    public function setEnded($var)
+    public function setEnded(\Ondewo\Vtsi\CallAudioEnded|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallAudioEnded::class);
         $this->writeOneof(4, $var);
 
         return $this;

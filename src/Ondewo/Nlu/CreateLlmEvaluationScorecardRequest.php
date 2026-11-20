@@ -84,9 +84,8 @@ class CreateLlmEvaluationScorecardRequest extends \Google\Protobuf\Internal\Mess
      * @param \Ondewo\Nlu\LlmEvaluationScorecard $var
      * @return $this
      */
-    public function setLlmEvaluationScorecard($var)
+    public function setLlmEvaluationScorecard(\Ondewo\Nlu\LlmEvaluationScorecard|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationScorecard::class);
         $this->llm_evaluation_scorecard = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class CreateLlmEvaluationScorecardRequest extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -138,9 +137,9 @@ class CreateLlmEvaluationScorecardRequest extends \Google\Protobuf\Internal\Mess
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

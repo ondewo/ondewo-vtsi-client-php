@@ -88,9 +88,9 @@ class DetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResponseId($var)
+    public function setResponseId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->response_id = $var;
 
         return $this;
@@ -124,9 +124,8 @@ class DetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\QueryResult $var
      * @return $this
      */
-    public function setQueryResult($var)
+    public function setQueryResult(\Ondewo\Nlu\QueryResult|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\QueryResult::class);
         $this->query_result = $var;
 
         return $this;
@@ -162,9 +161,8 @@ class DetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Google\Rpc\Status $var
      * @return $this
      */
-    public function setWebhookStatus($var)
+    public function setWebhookStatus(\Google\Rpc\Status|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Rpc\Status::class);
         $this->webhook_status = $var;
 
         return $this;
@@ -200,9 +198,8 @@ class DetectIntentResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetryReport $var
      * @return $this
      */
-    public function setLlmTelemetryReport($var)
+    public function setLlmTelemetryReport(\Ondewo\Nlu\LlmTelemetryReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTelemetryReport::class);
         $this->llm_telemetry_report = $var;
 
         return $this;

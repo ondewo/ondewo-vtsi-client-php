@@ -70,7 +70,7 @@ class ListProjectRolesResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ProjectRole[] $var
      * @return $this
      */
-    public function setProjectRoles($var)
+    public function setProjectRoles(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\ProjectRole::class);
         $this->project_roles = $arr;
@@ -98,9 +98,9 @@ class ListProjectRolesResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

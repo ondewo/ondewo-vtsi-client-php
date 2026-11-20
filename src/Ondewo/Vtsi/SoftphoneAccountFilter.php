@@ -117,7 +117,7 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_TRANSPORT_SECURITY_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.SoftphoneTransportSecurity transport_securities = 1;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      */
     public function getTransportSecurities()
     {
@@ -129,10 +129,10 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * <code>SOFTPHONE_TRANSPORT_SECURITY_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.SoftphoneTransportSecurity transport_securities = 1;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\SoftphoneTransportSecurity}
      * @return $this
      */
-    public function setTransportSecurities($var)
+    public function setTransportSecurities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\SoftphoneTransportSecurity::class);
         $this->transport_securities = $arr;
@@ -168,9 +168,8 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -196,7 +195,7 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
-    public function setLabels($var)
+    public function setLabels(array|\Google\Protobuf\Internal\MapField $var)
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::STRING);
         $this->labels = $arr;
@@ -224,9 +223,9 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayNameContains($var)
+    public function setDisplayNameContains(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name_contains = $var;
 
         return $this;
@@ -252,9 +251,9 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipUsernameContains($var)
+    public function setSipUsernameContains(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_username_contains = $var;
 
         return $this;
@@ -290,9 +289,8 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCertificateExpiresBefore($var)
+    public function setCertificateExpiresBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->certificate_expires_before = $var;
 
         return $this;
@@ -330,9 +328,8 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCertificateExpiresAfter($var)
+    public function setCertificateExpiresAfter(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->certificate_expires_after = $var;
 
         return $this;
@@ -368,9 +365,8 @@ class SoftphoneAccountFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setLocked($var)
+    public function setLocked(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->locked = $var;
 
         return $this;

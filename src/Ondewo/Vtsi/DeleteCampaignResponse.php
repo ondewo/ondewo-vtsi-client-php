@@ -73,9 +73,9 @@ class DeleteCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -99,7 +99,7 @@ class DeleteCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setDeletedCampaignCallCount($var)
+    public function setDeletedCampaignCallCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->deleted_campaign_call_count = $var;
@@ -125,7 +125,7 @@ class DeleteCampaignResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCancelledScheduledCallerCount($var)
+    public function setCancelledScheduledCallerCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->cancelled_scheduled_caller_count = $var;

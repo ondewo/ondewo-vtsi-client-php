@@ -136,9 +136,9 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -164,9 +164,9 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setSessionName($var)
+    public function setSessionName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_name = $var;
 
         return $this;
@@ -192,9 +192,9 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationDatasetName($var)
+    public function setLlmEvaluationDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_dataset_name = $var;
 
         return $this;
@@ -220,7 +220,7 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string[] $var
      * @return $this
      */
-    public function setSessionStepNames($var)
+    public function setSessionStepNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->session_step_names = $arr;
@@ -232,7 +232,7 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * How the selected steps are turned into examples.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExampleExtractionMode llm_evaluation_example_extraction_mode = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\LlmEvaluationExampleExtractionMode}
      */
     public function getLlmEvaluationExampleExtractionMode()
     {
@@ -243,10 +243,10 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * How the selected steps are turned into examples.
      *
      * Generated from protobuf field <code>.ondewo.nlu.LlmEvaluationExampleExtractionMode llm_evaluation_example_extraction_mode = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\LlmEvaluationExampleExtractionMode}
      * @return $this
      */
-    public function setLlmEvaluationExampleExtractionMode($var)
+    public function setLlmEvaluationExampleExtractionMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\LlmEvaluationExampleExtractionMode::class);
         $this->llm_evaluation_example_extraction_mode = $var;
@@ -274,9 +274,9 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -300,9 +300,9 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -328,9 +328,8 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param bool $var
      * @return $this
      */
-    public function setIncludeToolCalls($var)
+    public function setIncludeToolCalls(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_tool_calls = $var;
 
         return $this;
@@ -356,9 +355,8 @@ class CreateLlmEvaluationExamplesFromSessionRequest extends \Google\Protobuf\Int
      * @param bool $var
      * @return $this
      */
-    public function setIncludeRetrievalContext($var)
+    public function setIncludeRetrievalContext(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_retrieval_context = $var;
 
         return $this;

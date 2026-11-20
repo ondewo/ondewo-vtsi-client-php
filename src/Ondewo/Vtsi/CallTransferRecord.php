@@ -52,6 +52,21 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.google.protobuf.Timestamp time = 6;</code>
      */
     protected $time = null;
+    /**
+     * The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
+     * unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroRecord warm_intro = 7;</code>
+     */
+    protected $warm_intro = null;
+    /**
+     * The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
+     * support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
+     * enabled
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig effective_warm_transfer_config = 8;</code>
+     */
+    protected $effective_warm_transfer_config = null;
 
     /**
      * Constructor.
@@ -71,6 +86,13 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      *           SIP response code of the REFER where known, else <code>0</code>
      *     @type \Google\Protobuf\Timestamp $time
      *           When the outcome was recorded
+     *     @type \Ondewo\Vtsi\WarmIntroRecord $warm_intro
+     *           The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
+     *           unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
+     *     @type \Ondewo\Vtsi\WarmTransferConfig $effective_warm_transfer_config
+     *           The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
+     *           support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
+     *           enabled
      * }
      */
     public function __construct($data = NULL) {
@@ -106,9 +128,8 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallTarget $var
      * @return $this
      */
-    public function setTarget($var)
+    public function setTarget(\Ondewo\Vtsi\CallTarget|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallTarget::class);
         $this->target = $var;
 
         return $this;
@@ -132,9 +153,9 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResolvedTarget($var)
+    public function setResolvedTarget(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resolved_target = $var;
 
         return $this;
@@ -144,7 +165,7 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * Mode of the transfer
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TransferMode}
      */
     public function getMode()
     {
@@ -155,10 +176,10 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * Mode of the transfer
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferMode}
      * @return $this
      */
-    public function setMode($var)
+    public function setMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferMode::class);
         $this->mode = $var;
@@ -170,7 +191,7 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * Outcome of the transfer
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      */
     public function getOutcome()
     {
@@ -181,10 +202,10 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * Outcome of the transfer
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferOutcome outcome = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferOutcome}
      * @return $this
      */
-    public function setOutcome($var)
+    public function setOutcome(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\TransferOutcome::class);
         $this->outcome = $var;
@@ -210,7 +231,7 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSipResponseCode($var)
+    public function setSipResponseCode(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->sip_response_code = $var;
@@ -246,10 +267,85 @@ class CallTransferRecord extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setTime($var)
+    public function setTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->time = $var;
+
+        return $this;
+    }
+
+    /**
+     * The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
+     * unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroRecord warm_intro = 7;</code>
+     * @return \Ondewo\Vtsi\WarmIntroRecord|null
+     */
+    public function getWarmIntro()
+    {
+        return $this->warm_intro;
+    }
+
+    public function hasWarmIntro()
+    {
+        return isset($this->warm_intro);
+    }
+
+    public function clearWarmIntro()
+    {
+        unset($this->warm_intro);
+    }
+
+    /**
+     * The warm intro of the transfer; unset when the transfer ran no intro and tried none. A busy, unanswered or
+     * unreachable target keeps the outcome it had before 9.5.0 (<code>TRANSFER_OUTCOME_TIMEOUT</code>, ...)
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroRecord warm_intro = 7;</code>
+     * @param \Ondewo\Vtsi\WarmIntroRecord $var
+     * @return $this
+     */
+    public function setWarmIntro(\Ondewo\Vtsi\WarmIntroRecord|null $var)
+    {
+        $this->warm_intro = $var;
+
+        return $this;
+    }
+
+    /**
+     * The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
+     * support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
+     * enabled
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig effective_warm_transfer_config = 8;</code>
+     * @return \Ondewo\Vtsi\WarmTransferConfig|null
+     */
+    public function getEffectiveWarmTransferConfig()
+    {
+        return $this->effective_warm_transfer_config;
+    }
+
+    public function hasEffectiveWarmTransferConfig()
+    {
+        return isset($this->effective_warm_transfer_config);
+    }
+
+    public function clearEffectiveWarmTransferConfig()
+    {
+        unset($this->effective_warm_transfer_config);
+    }
+
+    /**
+     * The RESOLVED warm intro configuration the transfer ran with (every level merged, defaults filled in), for
+     * support. Holds configuration texts only, never a briefing or a decline reason. Unset when no intro was
+     * enabled
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig effective_warm_transfer_config = 8;</code>
+     * @param \Ondewo\Vtsi\WarmTransferConfig $var
+     * @return $this
+     */
+    public function setEffectiveWarmTransferConfig(\Ondewo\Vtsi\WarmTransferConfig|null $var)
+    {
+        $this->effective_warm_transfer_config = $var;
 
         return $this;
     }

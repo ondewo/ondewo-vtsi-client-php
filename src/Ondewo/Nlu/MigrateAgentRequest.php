@@ -56,9 +56,9 @@ class MigrateAgentRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAgentContent($var)
+    public function setAgentContent(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->agent_content = $var;
 
         return $this;

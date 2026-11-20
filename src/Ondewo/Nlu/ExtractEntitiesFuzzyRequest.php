@@ -100,9 +100,9 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -126,9 +126,9 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setText($var)
+    public function setText(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->text = $var;
 
         return $this;
@@ -152,7 +152,7 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\EntityTypeFuzzyNerConfig[] $var
      * @return $this
      */
-    public function setPotentialEntities($var)
+    public function setPotentialEntities(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\EntityTypeFuzzyNerConfig::class);
         $this->potential_entities = $arr;
@@ -178,9 +178,8 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setMinimalScore($var)
+    public function setMinimalScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->minimal_score = $var;
 
         return $this;
@@ -204,9 +203,8 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setAllowOverlaps($var)
+    public function setAllowOverlaps(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->allow_overlaps = $var;
 
         return $this;
@@ -240,9 +238,8 @@ class ExtractEntitiesFuzzyRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

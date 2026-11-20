@@ -163,9 +163,9 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -191,7 +191,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotal($var)
+    public function setTotal(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total = $var;
@@ -217,7 +217,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setActive($var)
+    public function setActive(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->active = $var;
@@ -243,7 +243,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\SipStatusTypeCount[] $var
      * @return $this
      */
-    public function setSipStatusTypeCounts($var)
+    public function setSipStatusTypeCounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\SipStatusTypeCount::class);
         $this->sip_status_type_counts = $arr;
@@ -273,7 +273,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallTypeCount[] $var
      * @return $this
      */
-    public function setCallTypeCounts($var)
+    public function setCallTypeCounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallTypeCount::class);
         $this->call_type_counts = $arr;
@@ -303,7 +303,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setEndedCalls($var)
+    public function setEndedCalls(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->ended_calls = $var;
@@ -329,9 +329,8 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setTotalDurationS($var)
+    public function setTotalDurationS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->total_duration_s = $var;
 
         return $this;
@@ -355,9 +354,8 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setAverageDurationS($var)
+    public function setAverageDurationS(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->average_duration_s = $var;
 
         return $this;
@@ -381,7 +379,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRedialRecommended($var)
+    public function setRedialRecommended(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->redial_recommended = $var;
@@ -411,7 +409,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\AmdVerdictCount[] $var
      * @return $this
      */
-    public function setAmdVerdictCounts($var)
+    public function setAmdVerdictCounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\AmdVerdictCount::class);
         $this->amd_verdict_counts = $arr;
@@ -441,7 +439,7 @@ class CallStatistics extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\TransferOutcomeCount[] $var
      * @return $this
      */
-    public function setTransferOutcomeCounts($var)
+    public function setTransferOutcomeCounts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\TransferOutcomeCount::class);
         $this->transfer_outcome_counts = $arr;

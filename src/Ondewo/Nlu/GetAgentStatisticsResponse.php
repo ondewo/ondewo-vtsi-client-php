@@ -84,9 +84,9 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setReports($var)
+    public function setReports(string $var)
     {
-        GPBUtil::checkString($var, False);
+        GPBUtil::checkString($var, false);
         $this->reports = $var;
 
         return $this;
@@ -96,7 +96,7 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * File formats for reports
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportFormat format = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReportFormat}
      */
     public function getFormat()
     {
@@ -107,10 +107,10 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * File formats for reports
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportFormat format = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReportFormat}
      * @return $this
      */
-    public function setFormat($var)
+    public function setFormat(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReportFormat::class);
         $this->format = $var;
@@ -122,7 +122,7 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * Type of reports about the domain of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportType type = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\ReportType}
      */
     public function getType()
     {
@@ -133,10 +133,10 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * Type of reports about the domain of the agent
      *
      * Generated from protobuf field <code>.ondewo.nlu.ReportType type = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\ReportType}
      * @return $this
      */
-    public function setType($var)
+    public function setType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\ReportType::class);
         $this->type = $var;
@@ -176,9 +176,8 @@ class GetAgentStatisticsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmTelemetryReport $var
      * @return $this
      */
-    public function setLlmTelemetryReport($var)
+    public function setLlmTelemetryReport(\Ondewo\Nlu\LlmTelemetryReport|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmTelemetryReport::class);
         $this->llm_telemetry_report = $var;
 
         return $this;

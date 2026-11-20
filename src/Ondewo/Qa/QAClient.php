@@ -37,7 +37,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Ondewo\Qa\GetAnswerRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\GetAnswerResponse>
      */
     public function GetAnswer(\Ondewo\Qa\GetAnswerRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Ondewo\Qa\RunScraperRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\RunScraperResponse>
      */
     public function RunScraper(\Ondewo\Qa\RunScraperRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Ondewo\Qa\UpdateDatabaseRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\UpdateDatabaseResponse>
      */
     public function UpdateDatabase(\Ondewo\Qa\UpdateDatabaseRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\RunTrainingResponse>
      */
     public function RunTraining(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\GetServerStateResponse>
      */
     public function GetServerState(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\ListProjectIdsResponse>
      */
     public function ListProjectIds(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -127,7 +127,7 @@ class QAClient extends \Grpc\BaseStub {
      * @param \Ondewo\Qa\GetProjectConfigRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Qa\GetProjectConfigResponse>
      */
     public function GetProjectConfig(\Ondewo\Qa\GetProjectConfigRequest $argument,
       $metadata = [], $options = []) {

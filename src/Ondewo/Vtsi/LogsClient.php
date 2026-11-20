@@ -113,7 +113,7 @@ class LogsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCallLogsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCallLogsResponse>
      */
     public function ListCallLogs(\Ondewo\Vtsi\ListCallLogsRequest $argument,
       $metadata = [], $options = []) {
@@ -134,7 +134,7 @@ class LogsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\GetCallLogStreamRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\CallLogStream>
      */
     public function GetCallLogStream(\Ondewo\Vtsi\GetCallLogStreamRequest $argument,
       $metadata = [], $options = []) {
@@ -158,7 +158,7 @@ class LogsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\ListCallLogStreamsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\ListCallLogStreamsResponse>
      */
     public function ListCallLogStreams(\Ondewo\Vtsi\ListCallLogStreamsRequest $argument,
       $metadata = [], $options = []) {
@@ -194,7 +194,7 @@ class LogsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Vtsi\DeleteCallLogsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Vtsi\DeleteCallLogsResponse>
      */
     public function DeleteCallLogs(\Ondewo\Vtsi\DeleteCallLogsRequest $argument,
       $metadata = [], $options = []) {

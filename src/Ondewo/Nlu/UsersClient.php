@@ -37,7 +37,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\User>
      */
     public function CreateUser(\Ondewo\Nlu\CreateUserRequest $argument,
       $metadata = [], $options = []) {
@@ -52,7 +52,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\User>
      */
     public function GetUser(\Ondewo\Nlu\GetUserRequest $argument,
       $metadata = [], $options = []) {
@@ -67,7 +67,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\UserInfo>
      */
     public function GetUserInfo(\Ondewo\Nlu\GetUserRequest $argument,
       $metadata = [], $options = []) {
@@ -82,7 +82,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteUser(\Ondewo\Nlu\GetUserRequest $argument,
       $metadata = [], $options = []) {
@@ -97,7 +97,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\User>
      */
     public function UpdateUser(\Ondewo\Nlu\UpdateUserRequest $argument,
       $metadata = [], $options = []) {
@@ -112,7 +112,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListUsersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListUsersResponse>
      */
     public function ListUsers(\Ondewo\Nlu\ListUsersRequest $argument,
       $metadata = [], $options = []) {
@@ -127,7 +127,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListUsersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListUserInfosResponse>
      */
     public function ListUserInfos(\Ondewo\Nlu\ListUsersRequest $argument,
       $metadata = [], $options = []) {
@@ -142,7 +142,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateServerRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ServerRole>
      */
     public function CreateServerRole(\Ondewo\Nlu\CreateServerRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -157,7 +157,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetServerRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ServerRole>
      */
     public function GetServerRole(\Ondewo\Nlu\GetServerRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -172,7 +172,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteServerRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteServerRole(\Ondewo\Nlu\DeleteServerRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -187,7 +187,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateServerRoleRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ServerRole>
      */
     public function UpdateServerRole(\Ondewo\Nlu\UpdateServerRoleRequest $argument,
       $metadata = [], $options = []) {
@@ -202,7 +202,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListServerRolesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListServerRolesResponse>
      */
     public function ListServerRoles(\Ondewo\Nlu\ListServerRolesRequest $argument,
       $metadata = [], $options = []) {
@@ -217,7 +217,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListServerPermissionsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListServerPermissionsResponse>
      */
     public function ListServerPermissions(\Ondewo\Nlu\ListServerPermissionsRequest $argument,
       $metadata = [], $options = []) {
@@ -232,7 +232,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function CheckLogin(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -247,7 +247,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListNotificationsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListNotificationsResponse>
      */
     public function ListNotifications(\Ondewo\Nlu\ListNotificationsRequest $argument,
       $metadata = [], $options = []) {
@@ -262,7 +262,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SetNotificationsFlaggedStatusRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListNotificationsResponse>
      */
     public function SetNotificationsFlaggedStatus(\Ondewo\Nlu\SetNotificationsFlaggedStatusRequest $argument,
       $metadata = [], $options = []) {
@@ -277,7 +277,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SetNotificationsReadStatusRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListNotificationsResponse>
      */
     public function SetNotificationsReadStatus(\Ondewo\Nlu\SetNotificationsReadStatusRequest $argument,
       $metadata = [], $options = []) {
@@ -292,7 +292,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddNotificationsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\AddNotificationsResponse>
      */
     public function AddNotifications(\Ondewo\Nlu\AddNotificationsRequest $argument,
       $metadata = [], $options = []) {
@@ -307,7 +307,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetNotificationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Notification>
      */
     public function GetNotification(\Ondewo\Nlu\GetNotificationRequest $argument,
       $metadata = [], $options = []) {
@@ -322,7 +322,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateNotificationRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Notification>
      */
     public function UpdateNotification(\Ondewo\Nlu\UpdateNotificationRequest $argument,
       $metadata = [], $options = []) {
@@ -337,7 +337,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteNotificationsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteNotifications(\Ondewo\Nlu\DeleteNotificationsRequest $argument,
       $metadata = [], $options = []) {
@@ -371,7 +371,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetUserPreferencesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetUserPreferencesResponse>
      */
     public function GetUserPreferences(\Ondewo\Nlu\GetUserPreferencesRequest $argument,
       $metadata = [], $options = []) {
@@ -386,7 +386,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SetUserPreferencesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\SetUserPreferencesResponse>
      */
     public function SetUserPreferences(\Ondewo\Nlu\SetUserPreferencesRequest $argument,
       $metadata = [], $options = []) {
@@ -401,7 +401,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteUserPreferencesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\DeleteUserPreferencesResponse>
      */
     public function DeleteUserPreferences(\Ondewo\Nlu\DeleteUserPreferencesRequest $argument,
       $metadata = [], $options = []) {
@@ -416,7 +416,7 @@ class UsersClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteAllUserPreferencesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\DeleteUserPreferencesResponse>
      */
     public function DeleteAllUserPreferences(\Ondewo\Nlu\DeleteAllUserPreferencesRequest $argument,
       $metadata = [], $options = []) {

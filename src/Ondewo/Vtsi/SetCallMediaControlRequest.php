@@ -96,9 +96,9 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -122,9 +122,9 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -141,7 +141,7 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * state from any server.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_voice = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallMediaSetting}
      */
     public function getBotVoice()
     {
@@ -159,10 +159,10 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * state from any server.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_voice = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallMediaSetting}
      * @return $this
      */
-    public function setBotVoice($var)
+    public function setBotVoice(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallMediaSetting::class);
         $this->bot_voice = $var;
@@ -175,7 +175,7 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_listening = 4;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CallMediaSetting}
      */
     public function getBotListening()
     {
@@ -187,10 +187,10 @@ class SetCallMediaControlRequest extends \Google\Protobuf\Internal\Message
      * <code>CALL_MEDIA_SETTING_UNCHANGED</code> (the zero value) leaves it as it is.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallMediaSetting bot_listening = 4;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CallMediaSetting}
      * @return $this
      */
-    public function setBotListening($var)
+    public function setBotListening(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CallMediaSetting::class);
         $this->bot_listening = $var;

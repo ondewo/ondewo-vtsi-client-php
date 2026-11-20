@@ -163,9 +163,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -199,9 +199,8 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\CallLogFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallLogFilter::class);
         $this->filter = $var;
 
         return $this;
@@ -239,7 +238,7 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxLines($var)
+    public function setMaxLines(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_lines = $var;
@@ -256,7 +255,7 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      */
     public function getBeforeSeq()
     {
-        return isset($this->before_seq) ? $this->before_seq : 0;
+        return isset($this->before_seq) ? $this->before_seq : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasBeforeSeq()
@@ -277,7 +276,7 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setBeforeSeq($var)
+    public function setBeforeSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->before_seq = $var;
@@ -294,7 +293,7 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      */
     public function getAfterSeq()
     {
-        return isset($this->after_seq) ? $this->after_seq : 0;
+        return isset($this->after_seq) ? $this->after_seq : GPBUtil::compatibleInt64(0, '0');
     }
 
     public function hasAfterSeq()
@@ -315,7 +314,7 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setAfterSeq($var)
+    public function setAfterSeq(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->after_seq = $var;
@@ -353,9 +352,9 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResumeToken($var)
+    public function setResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resume_token = $var;
 
         return $this;
@@ -393,9 +392,8 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setOldestFirst($var)
+    public function setOldestFirst(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->oldest_first = $var;
 
         return $this;
@@ -447,9 +445,8 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -479,9 +476,8 @@ class ListCallLogsRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeCounts($var)
+    public function setIncludeCounts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_counts = $var;
 
         return $this;

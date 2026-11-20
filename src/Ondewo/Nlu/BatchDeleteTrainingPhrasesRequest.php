@@ -60,7 +60,7 @@ class BatchDeleteTrainingPhrasesRequest extends \Google\Protobuf\Internal\Messag
      * @param string[] $var
      * @return $this
      */
-    public function setNames($var)
+    public function setNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->names = $arr;

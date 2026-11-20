@@ -88,7 +88,7 @@ class LlmErrorStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setTotalErrorCount($var)
+    public function setTotalErrorCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->total_error_count = $var;
@@ -114,9 +114,8 @@ class LlmErrorStats extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setOverallErrorRate($var)
+    public function setOverallErrorRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->overall_error_rate = $var;
 
         return $this;
@@ -140,7 +139,7 @@ class LlmErrorStats extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmErrorStat[] $var
      * @return $this
      */
-    public function setErrorsByClass($var)
+    public function setErrorsByClass(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\LlmErrorStat::class);
         $this->errors_by_class = $arr;
@@ -166,7 +165,7 @@ class LlmErrorStats extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setRetryCountTotal($var)
+    public function setRetryCountTotal(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->retry_count_total = $var;
@@ -192,7 +191,7 @@ class LlmErrorStats extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setMaxFallbackDepth($var)
+    public function setMaxFallbackDepth(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->max_fallback_depth = $var;

@@ -78,9 +78,8 @@ class UpdateServerRoleRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\ServerRole $var
      * @return $this
      */
-    public function setRole($var)
+    public function setRole(\Ondewo\Nlu\ServerRole|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\ServerRole::class);
         $this->role = $var;
 
         return $this;
@@ -114,9 +113,8 @@ class UpdateServerRoleRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setUpdateMask($var)
+    public function setUpdateMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->update_mask = $var;
 
         return $this;

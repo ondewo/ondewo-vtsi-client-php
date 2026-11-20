@@ -65,7 +65,7 @@ class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign[] $var
      * @return $this
      */
-    public function setCampaigns($var)
+    public function setCampaigns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\Campaign::class);
         $this->campaigns = $arr;
@@ -91,9 +91,9 @@ class ListCampaignsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

@@ -135,9 +135,9 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -177,9 +177,8 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogFilter $var
      * @return $this
      */
-    public function setFilter($var)
+    public function setFilter(\Ondewo\Vtsi\CallLogFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallLogFilter::class);
         $this->filter = $var;
 
         return $this;
@@ -219,9 +218,9 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -269,9 +268,8 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -299,7 +297,7 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -313,7 +311,7 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      */
     public function getCaptureStates()
     {
@@ -326,10 +324,10 @@ class ListCallLogStreamsRequest extends \Google\Protobuf\Internal\Message
      * state. <code>LOG_CAPTURE_STATE_UNSPECIFIED</code> is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.LogCaptureState capture_states = 6;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      * @return $this
      */
-    public function setCaptureStates($var)
+    public function setCaptureStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\LogCaptureState::class);
         $this->capture_states = $arr;

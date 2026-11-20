@@ -64,9 +64,9 @@ class CreateTrainingPhraseRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIntentName($var)
+    public function setIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->intent_name = $var;
 
         return $this;
@@ -100,9 +100,8 @@ class CreateTrainingPhraseRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase $var
      * @return $this
      */
-    public function setTrainingPhrase($var)
+    public function setTrainingPhrase(\Ondewo\Nlu\Intent\TrainingPhrase|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->training_phrase = $var;
 
         return $this;

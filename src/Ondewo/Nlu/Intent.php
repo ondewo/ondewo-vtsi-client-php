@@ -355,9 +355,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -381,9 +381,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -393,7 +393,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * Required. Indicates whether webhooks are enabled for the intent.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.WebhookState webhook_state = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\WebhookState}
      */
     public function getWebhookState()
     {
@@ -404,10 +404,10 @@ class Intent extends \Google\Protobuf\Internal\Message
      * Required. Indicates whether webhooks are enabled for the intent.
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.WebhookState webhook_state = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\WebhookState}
      * @return $this
      */
-    public function setWebhookState($var)
+    public function setWebhookState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\WebhookState::class);
         $this->webhook_state = $var;
@@ -435,7 +435,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPriority($var)
+    public function setPriority(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->priority = $var;
@@ -461,9 +461,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsFallback($var)
+    public function setIsFallback(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_fallback = $var;
 
         return $this;
@@ -493,9 +492,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setMlDisabled($var)
+    public function setMlDisabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->ml_disabled = $var;
 
         return $this;
@@ -523,7 +521,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setInputContextNames($var)
+    public function setInputContextNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->input_context_names = $arr;
@@ -553,7 +551,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEvents($var)
+    public function setEvents(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->events = $arr;
@@ -581,7 +579,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase[] $var
      * @return $this
      */
-    public function setTrainingPhrases($var)
+    public function setTrainingPhrases(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\TrainingPhrase::class);
         $this->training_phrases = $arr;
@@ -607,9 +605,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAction($var)
+    public function setAction(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->action = $var;
 
         return $this;
@@ -641,7 +639,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Context[] $var
      * @return $this
      */
-    public function setOutputContexts($var)
+    public function setOutputContexts(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Context::class);
         $this->output_contexts = $arr;
@@ -669,9 +667,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setResetContexts($var)
+    public function setResetContexts(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->reset_contexts = $var;
 
         return $this;
@@ -695,7 +692,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Parameter[] $var
      * @return $this
      */
-    public function setParameters($var)
+    public function setParameters(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Parameter::class);
         $this->parameters = $arr;
@@ -723,7 +720,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\Message[] $var
      * @return $this
      */
-    public function setMessages($var)
+    public function setMessages(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\Message::class);
         $this->messages = $arr;
@@ -736,7 +733,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * taken from among the messages assigned to the DEFAULT_PLATFORM.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform default_response_platforms = 15;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      */
     public function getDefaultResponsePlatforms()
     {
@@ -748,10 +745,10 @@ class Intent extends \Google\Protobuf\Internal\Message
      * taken from among the messages assigned to the DEFAULT_PLATFORM.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Intent.Message.Platform default_response_platforms = 15;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
      * @return $this
      */
-    public function setDefaultResponsePlatforms($var)
+    public function setDefaultResponsePlatforms(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\Intent\Message\Platform::class);
         $this->default_response_platforms = $arr;
@@ -781,9 +778,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setRootFollowupIntentName($var)
+    public function setRootFollowupIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->root_followup_intent_name = $var;
 
         return $this;
@@ -813,9 +810,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParentFollowupIntentName($var)
+    public function setParentFollowupIntentName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent_followup_intent_name = $var;
 
         return $this;
@@ -841,7 +838,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\FollowupIntentInfo[] $var
      * @return $this
      */
-    public function setFollowupIntentInfo($var)
+    public function setFollowupIntentInfo(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Intent\FollowupIntentInfo::class);
         $this->followup_intent_info = $arr;
@@ -869,9 +866,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -895,9 +892,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDomainName($var)
+    public function setDomainName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->domain_name = $var;
 
         return $this;
@@ -921,9 +918,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsStartOfDeviation($var)
+    public function setIsStartOfDeviation(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_start_of_deviation = $var;
 
         return $this;
@@ -947,9 +943,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIsEndOfDeviation($var)
+    public function setIsEndOfDeviation(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->is_end_of_deviation = $var;
 
         return $this;
@@ -973,7 +968,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTrainingPhraseCount($var)
+    public function setTrainingPhraseCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->training_phrase_count = $var;
@@ -985,7 +980,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * Indicates whether the intent is active or not
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.IntentStatus status = 35;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Intent\IntentStatus}
      */
     public function getStatus()
     {
@@ -996,10 +991,10 @@ class Intent extends \Google\Protobuf\Internal\Message
      * Indicates whether the intent is active or not
      *
      * Generated from protobuf field <code>.ondewo.nlu.Intent.IntentStatus status = 35;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\IntentStatus}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Intent\IntentStatus::class);
         $this->status = $var;
@@ -1035,9 +1030,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartDate($var)
+    public function setStartDate(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_date = $var;
 
         return $this;
@@ -1071,9 +1065,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndDate($var)
+    public function setEndDate(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_date = $var;
 
         return $this;
@@ -1097,7 +1090,7 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTags($var)
+    public function setTags(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tags = $arr;
@@ -1133,9 +1126,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -1169,9 +1161,8 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -1195,9 +1186,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -1221,9 +1212,9 @@ class Intent extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;

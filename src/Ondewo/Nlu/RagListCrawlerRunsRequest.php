@@ -138,9 +138,9 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -164,9 +164,9 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;
@@ -192,9 +192,9 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCrawlerName($var)
+    public function setCrawlerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->crawler_name = $var;
 
         return $this;
@@ -246,9 +246,9 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -258,7 +258,7 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Filter by operation status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      */
     public function getStatus()
     {
@@ -269,10 +269,10 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Filter by operation status.
      *
      * Generated from protobuf field <code>.ondewo.nlu.OperationMetadata.Status status = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\OperationMetadata\Status}
      * @return $this
      */
-    public function setStatus($var)
+    public function setStatus(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\OperationMetadata\Status::class);
         $this->status = $var;
@@ -298,9 +298,9 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setOrderby($var)
+    public function setOrderby(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->orderby = $var;
 
         return $this;
@@ -310,7 +310,7 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Sort descending.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\SortingMode}
      */
     public function getSortingMode()
     {
@@ -331,10 +331,10 @@ class RagListCrawlerRunsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Sort descending.
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.SortingMode sorting_mode = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\SortingMode}
      * @return $this
      */
-    public function setSortingMode($var)
+    public function setSortingMode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\SortingMode::class);
         $this->sorting_mode = $var;

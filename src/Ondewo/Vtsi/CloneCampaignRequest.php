@@ -139,9 +139,9 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceName($var)
+    public function setSourceName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(1, $var);
 
         return $this;
@@ -172,9 +172,9 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSourceDisplayName($var)
+    public function setSourceDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->writeOneof(2, $var);
 
         return $this;
@@ -210,9 +210,9 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -238,9 +238,9 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNewDisplayName($var)
+    public function setNewDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->new_display_name = $var;
 
         return $this;
@@ -266,9 +266,8 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setIncludeCalls($var)
+    public function setIncludeCalls(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->include_calls = $var;
 
         return $this;
@@ -281,7 +280,7 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * or an unknown value, is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState call_states = 6;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      */
     public function getCallStates()
     {
@@ -295,10 +294,10 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * or an unknown value, is rejected with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.CampaignCallState call_states = 6;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      * @return $this
      */
-    public function setCallStates($var)
+    public function setCallStates(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\CampaignCallState::class);
         $this->call_states = $arr;
@@ -336,9 +335,8 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -366,9 +364,9 @@ class CloneCampaignRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setIdempotencyKey($var)
+    public function setIdempotencyKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->idempotency_key = $var;
 
         return $this;

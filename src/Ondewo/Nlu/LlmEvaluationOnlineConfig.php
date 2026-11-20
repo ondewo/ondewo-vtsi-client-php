@@ -226,9 +226,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setName($var)
+    public function setName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->name = $var;
 
         return $this;
@@ -252,9 +252,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayName($var)
+    public function setDisplayName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name = $var;
 
         return $this;
@@ -278,9 +278,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDescription($var)
+    public function setDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->description = $var;
 
         return $this;
@@ -308,7 +308,7 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setEvaluatorNames($var)
+    public function setEvaluatorNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->evaluator_names = $arr;
@@ -336,9 +336,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setSampleRate($var)
+    public function setSampleRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->sample_rate = $var;
 
         return $this;
@@ -362,9 +361,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setEnabled($var)
+    public function setEnabled(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->enabled = $var;
 
         return $this;
@@ -390,9 +388,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTargetDatasetName($var)
+    public function setTargetDatasetName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->target_dataset_name = $var;
 
         return $this;
@@ -428,9 +426,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFailThreshold($var)
+    public function setFailThreshold(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->fail_threshold = $var;
 
         return $this;
@@ -456,7 +453,7 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setSettleSeconds($var)
+    public function setSettleSeconds(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->settle_seconds = $var;
@@ -484,9 +481,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setRequireTelemetry($var)
+    public function setRequireTelemetry(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->require_telemetry = $var;
 
         return $this;
@@ -520,9 +516,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\LlmEvaluationOnlineSessionFilter $var
      * @return $this
      */
-    public function setLlmEvaluationOnlineSessionFilter($var)
+    public function setLlmEvaluationOnlineSessionFilter(\Ondewo\Nlu\LlmEvaluationOnlineSessionFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\LlmEvaluationOnlineSessionFilter::class);
         $this->llm_evaluation_online_session_filter = $var;
 
         return $this;
@@ -558,9 +553,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLastEvaluatedAt($var)
+    public function setLastEvaluatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->last_evaluated_at = $var;
 
         return $this;
@@ -584,7 +578,7 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setNSessionsEvaluated($var)
+    public function setNSessionsEvaluated(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->n_sessions_evaluated = $var;
@@ -620,9 +614,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAt($var)
+    public function setCreatedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_at = $var;
 
         return $this;
@@ -646,9 +639,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCreatedBy($var)
+    public function setCreatedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->created_by = $var;
 
         return $this;
@@ -682,9 +675,8 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setModifiedAt($var)
+    public function setModifiedAt(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->modified_at = $var;
 
         return $this;
@@ -708,9 +700,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setModifiedBy($var)
+    public function setModifiedBy(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->modified_by = $var;
 
         return $this;
@@ -736,9 +728,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setParent($var)
+    public function setParent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->parent = $var;
 
         return $this;
@@ -762,9 +754,9 @@ class LlmEvaluationOnlineConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLanguageCode($var)
+    public function setLanguageCode(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->language_code = $var;
 
         return $this;

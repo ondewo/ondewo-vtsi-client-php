@@ -58,7 +58,7 @@ class RagCrawlerMetaDataExtractor extends \Google\Protobuf\Internal\Message
      * Optional. Regex pattern to match metadata field names.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerMetaDataExtractorType type = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\RagCrawlerMetaDataExtractorType}
      */
     public function getType()
     {
@@ -69,10 +69,10 @@ class RagCrawlerMetaDataExtractor extends \Google\Protobuf\Internal\Message
      * Optional. Regex pattern to match metadata field names.
      *
      * Generated from protobuf field <code>.ondewo.nlu.RagCrawlerMetaDataExtractorType type = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\RagCrawlerMetaDataExtractorType}
      * @return $this
      */
-    public function setType($var)
+    public function setType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\RagCrawlerMetaDataExtractorType::class);
         $this->type = $var;
@@ -98,9 +98,9 @@ class RagCrawlerMetaDataExtractor extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setValue($var)
+    public function setValue(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->value = $var;
 
         return $this;
@@ -124,9 +124,9 @@ class RagCrawlerMetaDataExtractor extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setKey($var)
+    public function setKey(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->key = $var;
 
         return $this;

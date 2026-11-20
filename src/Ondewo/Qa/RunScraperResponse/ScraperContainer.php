@@ -64,9 +64,9 @@ class ScraperContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerName($var)
+    public function setContainerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_name = $var;
 
         return $this;
@@ -90,9 +90,9 @@ class ScraperContainer extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setContainerId($var)
+    public function setContainerId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->container_id = $var;
 
         return $this;

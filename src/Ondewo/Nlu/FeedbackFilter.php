@@ -132,7 +132,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Keep only feedback with one of these ratings (thumbs up / down / unspecified).
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FeedbackRating ratings = 1;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\FeedbackRating}
      */
     public function getRatings()
     {
@@ -143,10 +143,10 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Keep only feedback with one of these ratings (thumbs up / down / unspecified).
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FeedbackRating ratings = 1;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\FeedbackRating}
      * @return $this
      */
-    public function setRatings($var)
+    public function setRatings(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\FeedbackRating::class);
         $this->ratings = $arr;
@@ -158,7 +158,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Keep only feedback left by one of these author types.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FeedbackAuthorType author_types = 2;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Nlu\FeedbackAuthorType}
      */
     public function getAuthorTypes()
     {
@@ -169,10 +169,10 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Keep only feedback left by one of these author types.
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.FeedbackAuthorType author_types = 2;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Nlu\FeedbackAuthorType}
      * @return $this
      */
-    public function setAuthorTypes($var)
+    public function setAuthorTypes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Nlu\FeedbackAuthorType::class);
         $this->author_types = $arr;
@@ -208,9 +208,8 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHasComment($var)
+    public function setHasComment(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_comment = $var;
 
         return $this;
@@ -244,9 +243,8 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEarliest($var)
+    public function setEarliest(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->earliest = $var;
 
         return $this;
@@ -280,9 +278,8 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setLatest($var)
+    public function setLatest(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->latest = $var;
 
         return $this;
@@ -306,7 +303,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCriteria($var)
+    public function setCriteria(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->criteria = $arr;
@@ -332,7 +329,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setLanguageCodes($var)
+    public function setLanguageCodes(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->language_codes = $arr;
@@ -358,7 +355,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setAnnotatorUserIds($var)
+    public function setAnnotatorUserIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->annotator_user_ids = $arr;
@@ -384,7 +381,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setOriginIds($var)
+    public function setOriginIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->origin_ids = $arr;
@@ -420,9 +417,8 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScoreMin($var)
+    public function setScoreMin(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score_min = $var;
 
         return $this;
@@ -456,9 +452,8 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScoreMax($var)
+    public function setScoreMax(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score_max = $var;
 
         return $this;
@@ -468,7 +463,7 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Restrict to session-level or step-level feedback (unspecified means both).
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackScope scope = 12;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\FeedbackScope}
      */
     public function getScope()
     {
@@ -479,10 +474,10 @@ class FeedbackFilter extends \Google\Protobuf\Internal\Message
      * Restrict to session-level or step-level feedback (unspecified means both).
      *
      * Generated from protobuf field <code>.ondewo.nlu.FeedbackScope scope = 12;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\FeedbackScope}
      * @return $this
      */
-    public function setScope($var)
+    public function setScope(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\FeedbackScope::class);
         $this->scope = $var;

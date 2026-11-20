@@ -79,7 +79,7 @@ class RagCrawlerBrowserConfig extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct[] $var
      * @return $this
      */
-    public function setCrawlerHeaders($var)
+    public function setCrawlerHeaders(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Google\Protobuf\Struct::class);
         $this->crawler_headers = $arr;
@@ -105,7 +105,7 @@ class RagCrawlerBrowserConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagCrawlerCookie[] $var
      * @return $this
      */
-    public function setCrawlerCookies($var)
+    public function setCrawlerCookies(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\RagCrawlerCookie::class);
         $this->crawler_cookies = $arr;
@@ -141,9 +141,9 @@ class RagCrawlerBrowserConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCrawlerUserAgent($var)
+    public function setCrawlerUserAgent(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->crawler_user_agent = $var;
 
         return $this;

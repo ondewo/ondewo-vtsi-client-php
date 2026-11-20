@@ -122,7 +122,7 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAttemptNumber($var)
+    public function setAttemptNumber(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->attempt_number = $var;
@@ -148,9 +148,9 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallerName($var)
+    public function setCallerName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->caller_name = $var;
 
         return $this;
@@ -176,9 +176,9 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCallName($var)
+    public function setCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->call_name = $var;
 
         return $this;
@@ -212,9 +212,8 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setStartTime($var)
+    public function setStartTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->start_time = $var;
 
         return $this;
@@ -248,9 +247,8 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setEndTime($var)
+    public function setEndTime(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->end_time = $var;
 
         return $this;
@@ -260,7 +258,7 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * Outcome of the attempt.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallAttemptOutcome outcome = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignCallAttemptOutcome}
      */
     public function getOutcome()
     {
@@ -271,10 +269,10 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * Outcome of the attempt.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallAttemptOutcome outcome = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignCallAttemptOutcome}
      * @return $this
      */
-    public function setOutcome($var)
+    public function setOutcome(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignCallAttemptOutcome::class);
         $this->outcome = $var;
@@ -286,7 +284,7 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * Last SIP status of the attempt&apos;s call.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      */
     public function getSipStatusType()
     {
@@ -297,10 +295,10 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * Last SIP status of the attempt&apos;s call.
      *
      * Generated from protobuf field <code>.ondewo.sip.SipStatus.StatusType sip_status_type = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Sip\SipStatus\StatusType}
      * @return $this
      */
-    public function setSipStatusType($var)
+    public function setSipStatusType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Sip\SipStatus\StatusType::class);
         $this->sip_status_type = $var;
@@ -326,9 +324,9 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSipStatusDescription($var)
+    public function setSipStatusDescription(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->sip_status_description = $var;
 
         return $this;
@@ -352,9 +350,9 @@ class CampaignCallAttempt extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setErrorMessage($var)
+    public function setErrorMessage(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->error_message = $var;
 
         return $this;

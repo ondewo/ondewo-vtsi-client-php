@@ -129,7 +129,7 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallLogEntry[] $var
      * @return $this
      */
-    public function setLogEntries($var)
+    public function setLogEntries(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CallLogEntry::class);
         $this->log_entries = $arr;
@@ -143,7 +143,7 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * is capturing, else <code>STOPPED</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogCaptureState capture_state = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      */
     public function getCaptureState()
     {
@@ -156,10 +156,10 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * is capturing, else <code>STOPPED</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogCaptureState capture_state = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\LogCaptureState}
      * @return $this
      */
-    public function setCaptureState($var)
+    public function setCaptureState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\LogCaptureState::class);
         $this->capture_state = $var;
@@ -185,9 +185,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCaptureError($var)
+    public function setCaptureError(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->capture_error = $var;
 
         return $this;
@@ -213,7 +213,7 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param int|string $var
      * @return $this
      */
-    public function setDroppedLineCount($var)
+    public function setDroppedLineCount(int|string $var)
     {
         GPBUtil::checkInt64($var);
         $this->dropped_line_count = $var;
@@ -241,9 +241,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setResumeToken($var)
+    public function setResumeToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->resume_token = $var;
 
         return $this;
@@ -271,9 +271,9 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEndReason($var)
+    public function setEndReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->end_reason = $var;
 
         return $this;
@@ -284,7 +284,7 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\LogStreamEndReason}
      */
     public function getEndReasonCode()
     {
@@ -296,10 +296,10 @@ class StreamCallLogsResponse extends \Google\Protobuf\Internal\Message
      * <code>end_reason</code>; <code>LOG_STREAM_END_REASON_UNSPECIFIED</code> on every other message.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.LogStreamEndReason end_reason_code = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\LogStreamEndReason}
      * @return $this
      */
-    public function setEndReasonCode($var)
+    public function setEndReasonCode(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\LogStreamEndReason::class);
         $this->end_reason_code = $var;

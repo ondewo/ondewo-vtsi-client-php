@@ -157,7 +157,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned VtsiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectView vtsi_project_view = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\VtsiProjectView}
      */
     public function getVtsiProjectView()
     {
@@ -168,10 +168,10 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * Optional. Specify the view of the returned VtsiProject (full view by default)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VtsiProjectView vtsi_project_view = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectView}
      * @return $this
      */
-    public function setVtsiProjectView($var)
+    public function setVtsiProjectView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\VtsiProjectView::class);
         $this->vtsi_project_view = $var;
@@ -213,9 +213,9 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setPageToken($var)
+    public function setPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->page_token = $var;
 
         return $this;
@@ -253,9 +253,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\VtsiProjectSorting $var
      * @return $this
      */
-    public function setVtsiProjectSorting($var)
+    public function setVtsiProjectSorting(\Ondewo\Vtsi\VtsiProjectSorting|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\VtsiProjectSorting::class);
         $this->vtsi_project_sorting = $var;
 
         return $this;
@@ -281,7 +280,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setNluAgentNames($var)
+    public function setNluAgentNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->nlu_agent_names = $arr;
@@ -335,9 +334,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;
@@ -367,7 +365,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPageSize($var)
+    public function setPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page_size = $var;
@@ -380,7 +378,7 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
-     * @return RepeatedField<int>
+     * @return RepeatedField<int> one of the values in {@see \Ondewo\Vtsi\VtsiProjectStatus}
      */
     public function getStatuses()
     {
@@ -392,10 +390,10 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.VtsiProjectStatus statuses = 7;</code>
-     * @param int[] $var
+     * @param int[] $var one of the values in {@see \Ondewo\Vtsi\VtsiProjectStatus}
      * @return $this
      */
-    public function setStatuses($var)
+    public function setStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::ENUM, \Ondewo\Vtsi\VtsiProjectStatus::class);
         $this->statuses = $arr;
@@ -423,9 +421,9 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDisplayNameContains($var)
+    public function setDisplayNameContains(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->display_name_contains = $var;
 
         return $this;
@@ -459,9 +457,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedAfter($var)
+    public function setCreatedAfter(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_after = $var;
 
         return $this;
@@ -497,9 +494,8 @@ class ListVtsiProjectsRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Timestamp $var
      * @return $this
      */
-    public function setCreatedBefore($var)
+    public function setCreatedBefore(\Google\Protobuf\Timestamp|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Timestamp::class);
         $this->created_before = $var;
 
         return $this;

@@ -79,9 +79,9 @@ class LlmEvaluationOnlineResultFilter extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLlmEvaluationOnlineConfigName($var)
+    public function setLlmEvaluationOnlineConfigName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->llm_evaluation_online_config_name = $var;
 
         return $this;
@@ -105,9 +105,8 @@ class LlmEvaluationOnlineResultFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setPassed($var)
+    public function setPassed(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->passed = $var;
 
         return $this;
@@ -133,9 +132,8 @@ class LlmEvaluationOnlineResultFilter extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setFilterByPassed($var)
+    public function setFilterByPassed(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->filter_by_passed = $var;
 
         return $this;

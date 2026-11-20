@@ -76,9 +76,8 @@ class RagCrawlerContentResult extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\Struct $var
      * @return $this
      */
-    public function setMetadata($var)
+    public function setMetadata(\Google\Protobuf\Struct|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\Struct::class);
         $this->metadata = $var;
 
         return $this;
@@ -112,9 +111,9 @@ class RagCrawlerContentResult extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setMarkdown($var)
+    public function setMarkdown(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->markdown = $var;
 
         return $this;

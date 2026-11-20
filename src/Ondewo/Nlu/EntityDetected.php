@@ -82,9 +82,8 @@ class EntityDetected extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Intent\TrainingPhrase\Entity $var
      * @return $this
      */
-    public function setEntity($var)
+    public function setEntity(\Ondewo\Nlu\Intent\TrainingPhrase\Entity|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\Intent\TrainingPhrase\Entity::class);
         $this->entity = $var;
 
         return $this;
@@ -108,9 +107,9 @@ class EntityDetected extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setExtractionMethod($var)
+    public function setExtractionMethod(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->extraction_method = $var;
 
         return $this;
@@ -134,9 +133,8 @@ class EntityDetected extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setScore($var)
+    public function setScore(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->score = $var;
 
         return $this;

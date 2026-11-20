@@ -68,7 +68,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPreNluCallbacks($var)
+    public function setPreNluCallbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->pre_nlu_callbacks = $arr;
@@ -94,7 +94,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setPostNluCallbacks($var)
+    public function setPostNluCallbacks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->post_nlu_callbacks = $arr;

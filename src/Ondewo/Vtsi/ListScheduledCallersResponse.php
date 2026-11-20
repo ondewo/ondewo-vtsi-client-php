@@ -84,7 +84,7 @@ class ListScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\ScheduledCaller[] $var
      * @return $this
      */
-    public function setScheduledCallers($var)
+    public function setScheduledCallers(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\ScheduledCaller::class);
         $this->scheduled_callers = $arr;
@@ -110,9 +110,9 @@ class ListScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;
@@ -140,7 +140,7 @@ class ListScheduledCallersResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTotalSize($var)
+    public function setTotalSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->total_size = $var;

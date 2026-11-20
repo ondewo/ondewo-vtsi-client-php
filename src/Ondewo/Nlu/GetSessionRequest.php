@@ -78,9 +78,9 @@ class GetSessionRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setSessionId($var)
+    public function setSessionId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->session_id = $var;
 
         return $this;
@@ -90,7 +90,7 @@ class GetSessionRequest extends \Google\Protobuf\Internal\Message
      * whether to return a full or sparse view; if unspecified full view is returned
      *
      * Generated from protobuf field <code>.ondewo.nlu.Session.View session_view = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Nlu\Session\View}
      */
     public function getSessionView()
     {
@@ -101,10 +101,10 @@ class GetSessionRequest extends \Google\Protobuf\Internal\Message
      * whether to return a full or sparse view; if unspecified full view is returned
      *
      * Generated from protobuf field <code>.ondewo.nlu.Session.View session_view = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Nlu\Session\View}
      * @return $this
      */
-    public function setSessionView($var)
+    public function setSessionView(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Nlu\Session\View::class);
         $this->session_view = $var;
@@ -142,9 +142,8 @@ class GetSessionRequest extends \Google\Protobuf\Internal\Message
      * @param \Google\Protobuf\FieldMask $var
      * @return $this
      */
-    public function setFieldMask($var)
+    public function setFieldMask(\Google\Protobuf\FieldMask|null $var)
     {
-        GPBUtil::checkMessage($var, \Google\Protobuf\FieldMask::class);
         $this->field_mask = $var;
 
         return $this;

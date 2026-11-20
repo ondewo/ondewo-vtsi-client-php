@@ -87,9 +87,9 @@ class CancelCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -115,7 +115,7 @@ class CancelCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setCancelledCampaignCallNames($var)
+    public function setCancelledCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->cancelled_campaign_call_names = $arr;
@@ -143,7 +143,7 @@ class CancelCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignCallRefusal[] $var
      * @return $this
      */
-    public function setRefused($var)
+    public function setRefused(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CampaignCallRefusal::class);
         $this->refused = $arr;
@@ -171,7 +171,7 @@ class CancelCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRemainingCount($var)
+    public function setRemainingCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->remaining_count = $var;

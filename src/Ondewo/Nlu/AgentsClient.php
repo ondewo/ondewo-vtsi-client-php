@@ -93,7 +93,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Agent>
      */
     public function CreateAgent(\Ondewo\Nlu\CreateAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -140,7 +140,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\UpdateAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Agent>
      */
     public function UpdateAgent(\Ondewo\Nlu\UpdateAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -177,7 +177,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Agent>
      */
     public function GetAgent(\Ondewo\Nlu\GetAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -201,7 +201,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteAgent(\Ondewo\Nlu\DeleteAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -223,7 +223,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteAllAgents(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -263,7 +263,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListAgentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListAgentsResponse>
      */
     public function ListAgents(\Ondewo\Nlu\ListAgentsRequest $argument,
       $metadata = [], $options = []) {
@@ -309,7 +309,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListAgentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListAgentsOfUserResponse>
      */
     public function ListAgentsOfUser(\Ondewo\Nlu\ListAgentsRequest $argument,
       $metadata = [], $options = []) {
@@ -349,7 +349,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListAgentsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListAgentsResponse>
      */
     public function ListAllAgents(\Ondewo\Nlu\ListAgentsRequest $argument,
       $metadata = [], $options = []) {
@@ -364,7 +364,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\AddUserToProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function AddUserToProject(\Ondewo\Nlu\AddUserToProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -379,7 +379,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RemoveUserFromProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function RemoveUserFromProject(\Ondewo\Nlu\RemoveUserFromProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -394,7 +394,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListUsersInProjectRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListUsersInProjectResponse>
      */
     public function ListUsersInProject(\Ondewo\Nlu\ListUsersInProjectRequest $argument,
       $metadata = [], $options = []) {
@@ -412,7 +412,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Google\Protobuf\GPBEmpty $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetPlatformInfoResponse>
      */
     public function GetPlatformInfo(\Google\Protobuf\GPBEmpty $argument,
       $metadata = [], $options = []) {
@@ -427,7 +427,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListProjectPermissionsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListProjectPermissionsResponse>
      */
     public function ListProjectPermissions(\Ondewo\Nlu\ListProjectPermissionsRequest $argument,
       $metadata = [], $options = []) {
@@ -445,7 +445,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\TrainAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function TrainAgent(\Ondewo\Nlu\TrainAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -463,7 +463,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\BuildCacheRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function BuildCache(\Ondewo\Nlu\BuildCacheRequest $argument,
       $metadata = [], $options = []) {
@@ -481,7 +481,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ExportAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function ExportAgent(\Ondewo\Nlu\ExportAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -497,7 +497,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ExportBenchmarkAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function ExportBenchmarkAgent(\Ondewo\Nlu\ExportBenchmarkAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -519,7 +519,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ImportAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function ImportAgent(\Ondewo\Nlu\ImportAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -533,7 +533,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\MigrateAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function MigrateAgent(\Ondewo\Nlu\MigrateAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -547,7 +547,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\OptimizeRankingMatchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function OptimizeRankingMatch(\Ondewo\Nlu\OptimizeRankingMatchRequest $argument,
       $metadata = [], $options = []) {
@@ -568,7 +568,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RestoreAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function RestoreAgent(\Ondewo\Nlu\RestoreAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -583,7 +583,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetAgentStatisticsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetAgentStatisticsResponse>
      */
     public function GetAgentStatistics(\Ondewo\Nlu\GetAgentStatisticsRequest $argument,
       $metadata = [], $options = []) {
@@ -597,7 +597,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetSessionsStatisticsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetSessionsStatisticsResponse>
      */
     public function GetSessionsStatistics(\Ondewo\Nlu\GetSessionsStatisticsRequest $argument,
       $metadata = [], $options = []) {
@@ -613,7 +613,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetSessionsStatisticsTimeSeriesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetSessionsStatisticsTimeSeriesResponse>
      */
     public function GetSessionsStatisticsTimeSeries(\Ondewo\Nlu\GetSessionsStatisticsTimeSeriesRequest $argument,
       $metadata = [], $options = []) {
@@ -628,7 +628,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SetAgentStatusRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Agent>
      */
     public function SetAgentStatus(\Ondewo\Nlu\SetAgentStatusRequest $argument,
       $metadata = [], $options = []) {
@@ -643,7 +643,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\SetResourcesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function SetResources(\Ondewo\Nlu\SetResourcesRequest $argument,
       $metadata = [], $options = []) {
@@ -658,7 +658,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteResourcesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteResources(\Ondewo\Nlu\DeleteResourcesRequest $argument,
       $metadata = [], $options = []) {
@@ -673,7 +673,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ExportResourcesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ExportResourcesResponse>
      */
     public function ExportResources(\Ondewo\Nlu\ExportResourcesRequest $argument,
       $metadata = [], $options = []) {
@@ -688,7 +688,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetModelStatusesRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\GetModelStatusesResponse>
      */
     public function GetModelStatuses(\Ondewo\Nlu\GetModelStatusesRequest $argument,
       $metadata = [], $options = []) {
@@ -703,7 +703,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\GetPlatformMappingRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\PlatformMapping>
      */
     public function GetPlatformMapping(\Ondewo\Nlu\GetPlatformMappingRequest $argument,
       $metadata = [], $options = []) {
@@ -718,7 +718,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\PlatformMapping $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\PlatformMapping>
      */
     public function SetPlatformMapping(\Ondewo\Nlu\PlatformMapping $argument,
       $metadata = [], $options = []) {
@@ -733,7 +733,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseEntityType>
      */
     public function GetFullTextSearchEntityType(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -748,7 +748,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseEntity>
      */
     public function GetFullTextSearchEntity(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -763,7 +763,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseEntitySynonym>
      */
     public function GetFullTextSearchEntitySynonym(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -778,7 +778,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntent>
      */
     public function GetFullTextSearchIntent(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -793,7 +793,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentContextIn>
      */
     public function GetFullTextSearchIntentContextIn(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -808,7 +808,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentContextOut>
      */
     public function GetFullTextSearchIntentContextOut(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -823,7 +823,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentUsersays>
      */
     public function GetFullTextSearchIntentUsersays(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -838,7 +838,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentTags>
      */
     public function GetFullTextSearchIntentTags(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -853,7 +853,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentResponse>
      */
     public function GetFullTextSearchIntentResponse(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -868,7 +868,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\FullTextSearchRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\FullTextSearchResponseIntentParameters>
      */
     public function GetFullTextSearchIntentParameters(\Ondewo\Nlu\FullTextSearchRequest $argument,
       $metadata = [], $options = []) {
@@ -883,7 +883,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ReindexAgentRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\Operation>
      */
     public function ReindexAgent(\Ondewo\Nlu\ReindexAgentRequest $argument,
       $metadata = [], $options = []) {
@@ -901,7 +901,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\CreateProjectTechnicalUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\CreateProjectTechnicalUserResponse>
      */
     public function CreateProjectTechnicalUser(\Ondewo\Nlu\CreateProjectTechnicalUserRequest $argument,
       $metadata = [], $options = []) {
@@ -916,7 +916,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\ListProjectTechnicalUsersRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\ListProjectTechnicalUsersResponse>
      */
     public function ListProjectTechnicalUsers(\Ondewo\Nlu\ListProjectTechnicalUsersRequest $argument,
       $metadata = [], $options = []) {
@@ -932,7 +932,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\DeleteProjectTechnicalUserRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Google\Protobuf\GPBEmpty>
      */
     public function DeleteProjectTechnicalUser(\Ondewo\Nlu\DeleteProjectTechnicalUserRequest $argument,
       $metadata = [], $options = []) {
@@ -948,7 +948,7 @@ class AgentsClient extends \Grpc\BaseStub {
      * @param \Ondewo\Nlu\RotateProjectTechnicalUserPasswordRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
-     * @return \Grpc\UnaryCall
+     * @return \Grpc\UnaryCall<\Ondewo\Nlu\RotateProjectTechnicalUserPasswordResponse>
      */
     public function RotateProjectTechnicalUserPassword(\Ondewo\Nlu\RotateProjectTechnicalUserPasswordRequest $argument,
       $metadata = [], $options = []) {

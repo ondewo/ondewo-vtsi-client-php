@@ -74,9 +74,8 @@ class LlmEvaluationAbTrafficConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setEnrollmentRate($var)
+    public function setEnrollmentRate(float $var)
     {
-        GPBUtil::checkDouble($var);
         $this->enrollment_rate = $var;
 
         return $this;
@@ -102,9 +101,9 @@ class LlmEvaluationAbTrafficConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setAssignmentSalt($var)
+    public function setAssignmentSalt(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->assignment_salt = $var;
 
         return $this;

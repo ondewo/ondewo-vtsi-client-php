@@ -72,9 +72,9 @@ class RagDocAgg extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocName($var)
+    public function setDocName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->doc_name = $var;
 
         return $this;
@@ -98,9 +98,9 @@ class RagDocAgg extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDocId($var)
+    public function setDocId(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->doc_id = $var;
 
         return $this;
@@ -124,7 +124,7 @@ class RagDocAgg extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setCount($var)
+    public function setCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->count = $var;

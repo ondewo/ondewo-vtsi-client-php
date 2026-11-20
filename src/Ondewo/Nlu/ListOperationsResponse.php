@@ -66,7 +66,7 @@ class ListOperationsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Operation[] $var
      * @return $this
      */
-    public function setOperations($var)
+    public function setOperations(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Operation::class);
         $this->operations = $arr;
@@ -94,9 +94,9 @@ class ListOperationsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

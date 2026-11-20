@@ -113,7 +113,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Campaign[] $var
      * @return $this
      */
-    public function setCampaigns($var)
+    public function setCampaigns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\Campaign::class);
         $this->campaigns = $arr;
@@ -139,7 +139,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignCall[] $var
      * @return $this
      */
-    public function setCampaignCalls($var)
+    public function setCampaignCalls(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CampaignCall::class);
         $this->campaign_calls = $arr;
@@ -165,7 +165,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setDeletedCampaignNames($var)
+    public function setDeletedCampaignNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->deleted_campaign_names = $arr;
@@ -191,9 +191,8 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setSnapshot($var)
+    public function setSnapshot(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->snapshot = $var;
 
         return $this;
@@ -219,9 +218,9 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setEndReason($var)
+    public function setEndReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->end_reason = $var;
 
         return $this;
@@ -234,7 +233,7 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * message (and on the last message of a server that predates this field).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\StreamEndReason}
      */
     public function getEndReasonType()
     {
@@ -248,10 +247,10 @@ class StreamCampaignStatusResponse extends \Google\Protobuf\Internal\Message
      * message (and on the last message of a server that predates this field).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StreamEndReason end_reason_type = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\StreamEndReason}
      * @return $this
      */
-    public function setEndReasonType($var)
+    public function setEndReasonType(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\StreamEndReason::class);
         $this->end_reason_type = $var;

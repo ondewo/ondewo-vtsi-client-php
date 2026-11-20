@@ -172,7 +172,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAutoKeywords($var)
+    public function setAutoKeywords(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->auto_keywords = $var;
@@ -208,7 +208,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setAutoQuestions($var)
+    public function setAutoQuestions(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->auto_questions = $var;
@@ -234,7 +234,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setChunkTokenNum($var)
+    public function setChunkTokenNum(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->chunk_token_num = $var;
@@ -260,9 +260,9 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setDelimiter($var)
+    public function setDelimiter(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->delimiter = $var;
 
         return $this;
@@ -296,9 +296,8 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param bool $var
      * @return $this
      */
-    public function setHtml4Excel($var)
+    public function setHtml4Excel(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->html4excel = $var;
 
         return $this;
@@ -322,9 +321,9 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setLayoutRecognize($var)
+    public function setLayoutRecognize(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->layout_recognize = $var;
 
         return $this;
@@ -348,7 +347,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setTagKbIds($var)
+    public function setTagKbIds(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->tag_kb_ids = $arr;
@@ -374,7 +373,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTopnTags($var)
+    public function setTopnTags(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->topn_tags = $var;
@@ -410,9 +409,8 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param float $var
      * @return $this
      */
-    public function setFilenameEmbdWeight($var)
+    public function setFilenameEmbdWeight(float $var)
     {
-        GPBUtil::checkFloat($var);
         $this->filename_embd_weight = $var;
 
         return $this;
@@ -436,7 +434,7 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setTaskPageSize($var)
+    public function setTaskPageSize(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->task_page_size = $var;
@@ -472,9 +470,8 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagRaptorConfig $var
      * @return $this
      */
-    public function setRaptor($var)
+    public function setRaptor(\Ondewo\Nlu\RagRaptorConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagRaptorConfig::class);
         $this->raptor = $var;
 
         return $this;
@@ -508,9 +505,8 @@ class RagParserConfig extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\RagGraphRagConfig $var
      * @return $this
      */
-    public function setGraphrag($var)
+    public function setGraphrag(\Ondewo\Nlu\RagGraphRagConfig|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Nlu\RagGraphRagConfig::class);
         $this->graphrag = $var;
 
         return $this;

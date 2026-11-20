@@ -64,7 +64,7 @@ class RagListCrawlerRunsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Nlu\Operation[] $var
      * @return $this
      */
-    public function setCrawlerRuns($var)
+    public function setCrawlerRuns(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\Operation::class);
         $this->crawler_runs = $arr;
@@ -90,9 +90,9 @@ class RagListCrawlerRunsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

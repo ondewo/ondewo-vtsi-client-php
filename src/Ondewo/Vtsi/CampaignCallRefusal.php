@@ -85,9 +85,9 @@ class CampaignCallRefusal extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignCallName($var)
+    public function setCampaignCallName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_call_name = $var;
 
         return $this;
@@ -98,7 +98,7 @@ class CampaignCallRefusal extends \Google\Protobuf\Internal\Message
      * <code>reason=not-found</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallState state = 2;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      */
     public function getState()
     {
@@ -110,10 +110,10 @@ class CampaignCallRefusal extends \Google\Protobuf\Internal\Message
      * <code>reason=not-found</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignCallState state = 2;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignCallState}
      * @return $this
      */
-    public function setState($var)
+    public function setState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignCallState::class);
         $this->state = $var;
@@ -149,9 +149,9 @@ class CampaignCallRefusal extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setReason($var)
+    public function setReason(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->reason = $var;
 
         return $this;

@@ -97,9 +97,9 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setCampaignName($var)
+    public function setCampaignName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->campaign_name = $var;
 
         return $this;
@@ -125,7 +125,7 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param string[] $var
      * @return $this
      */
-    public function setRequeuedCampaignCallNames($var)
+    public function setRequeuedCampaignCallNames(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
         $this->requeued_campaign_call_names = $arr;
@@ -153,7 +153,7 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CampaignCallRefusal[] $var
      * @return $this
      */
-    public function setRefused($var)
+    public function setRefused(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\CampaignCallRefusal::class);
         $this->refused = $arr;
@@ -181,7 +181,7 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setRemainingCount($var)
+    public function setRemainingCount(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->remaining_count = $var;
@@ -194,7 +194,7 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * <code>CAMPAIGN_STATE_RUNNING</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignState campaign_state = 5;</code>
-     * @return int
+     * @return int one of the values in {@see \Ondewo\Vtsi\CampaignState}
      */
     public function getCampaignState()
     {
@@ -206,10 +206,10 @@ class RetryCampaignCallsResponse extends \Google\Protobuf\Internal\Message
      * <code>CAMPAIGN_STATE_RUNNING</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CampaignState campaign_state = 5;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Ondewo\Vtsi\CampaignState}
      * @return $this
      */
-    public function setCampaignState($var)
+    public function setCampaignState(int $var)
     {
         GPBUtil::checkEnum($var, \Ondewo\Vtsi\CampaignState::class);
         $this->campaign_state = $var;

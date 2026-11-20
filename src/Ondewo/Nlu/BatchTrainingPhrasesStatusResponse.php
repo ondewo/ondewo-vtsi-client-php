@@ -64,7 +64,7 @@ class BatchTrainingPhrasesStatusResponse extends \Google\Protobuf\Internal\Messa
      * @param \Ondewo\Nlu\TrainingPhraseStatus[] $var
      * @return $this
      */
-    public function setTrainingPhraseStatuses($var)
+    public function setTrainingPhraseStatuses(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Nlu\TrainingPhraseStatus::class);
         $this->training_phrase_statuses = $arr;
@@ -90,9 +90,8 @@ class BatchTrainingPhrasesStatusResponse extends \Google\Protobuf\Internal\Messa
      * @param bool $var
      * @return $this
      */
-    public function setHasErrors($var)
+    public function setHasErrors(bool $var)
     {
-        GPBUtil::checkBool($var);
         $this->has_errors = $var;
 
         return $this;

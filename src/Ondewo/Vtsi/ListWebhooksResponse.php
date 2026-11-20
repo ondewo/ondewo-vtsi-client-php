@@ -64,7 +64,7 @@ class ListWebhooksResponse extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\Webhook[] $var
      * @return $this
      */
-    public function setWebhooks($var)
+    public function setWebhooks(array|RepeatedField $var)
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Ondewo\Vtsi\Webhook::class);
         $this->webhooks = $arr;
@@ -90,9 +90,9 @@ class ListWebhooksResponse extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setNextPageToken($var)
+    public function setNextPageToken(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->next_page_token = $var;
 
         return $this;

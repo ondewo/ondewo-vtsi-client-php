@@ -74,9 +74,9 @@ class GetCallStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setVtsiProjectName($var)
+    public function setVtsiProjectName(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->vtsi_project_name = $var;
 
         return $this;
@@ -116,9 +116,8 @@ class GetCallStatisticsRequest extends \Google\Protobuf\Internal\Message
      * @param \Ondewo\Vtsi\CallFilter $var
      * @return $this
      */
-    public function setCallFilter($var)
+    public function setCallFilter(\Ondewo\Vtsi\CallFilter|null $var)
     {
-        GPBUtil::checkMessage($var, \Ondewo\Vtsi\CallFilter::class);
         $this->call_filter = $var;
 
         return $this;
