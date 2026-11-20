@@ -17,7 +17,7 @@ use Google\Protobuf\RepeatedField;
 class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      */
@@ -54,7 +54,7 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $tool_call_id
-     *           Stable id assigned by the upstream framework (autogen / langchain).
+     *           Stable id assigned by the upstream framework (e.g. langchain).
      *     @type string $tool_name
      *           Name of the tool / function invoked.
      *     @type \Google\Protobuf\Struct $arguments
@@ -71,7 +71,7 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @return string
@@ -82,7 +82,7 @@ class LlmToolCallStartedEvent extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Stable id assigned by the upstream framework (autogen / langchain).
+     * Stable id assigned by the upstream framework (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 1;</code>
      * @param string $var

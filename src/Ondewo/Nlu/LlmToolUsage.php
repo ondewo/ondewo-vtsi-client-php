@@ -73,7 +73,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
     protected $llm_call_id = '';
     /**
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 10;</code>
      */
@@ -106,7 +106,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
      *           Groups the representative invocation under its <code>LlmTelemetry</code> entry.
      *     @type string $tool_call_id
      *           Stable id of the representative invocation, assigned by the upstream framework
-     *           (autogen / langchain).
+     *           (e.g. langchain).
      * }
      */
     public function __construct($data = NULL) {
@@ -367,7 +367,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
 
     /**
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 10;</code>
      * @return string
@@ -379,7 +379,7 @@ class LlmToolUsage extends \Google\Protobuf\Internal\Message
 
     /**
      * Stable id of the representative invocation, assigned by the upstream framework
-     * (autogen / langchain).
+     * (e.g. langchain).
      *
      * Generated from protobuf field <code>string tool_call_id = 10;</code>
      * @param string $var

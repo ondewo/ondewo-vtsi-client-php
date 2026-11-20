@@ -17,7 +17,8 @@ use Google\Protobuf\RepeatedField;
 class LlmTelemetry extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 1;</code>
      */
@@ -230,49 +231,50 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      */
     protected $langsmith_run_url = '';
     /**
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      *
      * Generated from protobuf field <code>string team_name = 36;</code>
      */
     protected $team_name = '';
     /**
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      *
      * Generated from protobuf field <code>string team_id = 37;</code>
      */
     protected $team_id = '';
     /**
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      *
      * Generated from protobuf field <code>string agent_role = 38;</code>
      */
     protected $agent_role = '';
     /**
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      *
      * Generated from protobuf field <code>string sender_agent = 39;</code>
      */
     protected $sender_agent = '';
     /**
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      *
      * Generated from protobuf field <code>string recipient_agent = 40;</code>
      */
     protected $recipient_agent = '';
     /**
-     * Zero-based position of this LLM call inside the autogen <code>run_stream()</code> sequence.
+     * Zero-based position of this LLM call inside the agent run&apos;s sequence of LLM calls.
      *
      * Generated from protobuf field <code>int32 turn_index = 41;</code>
      */
     protected $turn_index = 0;
     /**
-     * Number of reflection loops executed in <code>robust_assistant_agent</code> for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen <code>robust_assistant_agent</code> for this
+     * call. No current agent runs reflection loops, so it is 0.
      *
      * Generated from protobuf field <code>int32 reflection_iterations = 42;</code>
      */
     protected $reflection_iterations = 0;
     /**
-     * Autogen <code>TaskResult.stop_reason</code> string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen <code>TaskResult.stop_reason</code>).
      *
      * Generated from protobuf field <code>string termination_reason = 43;</code>
      */
@@ -419,7 +421,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * <code>llm_call_id</code> (<code>LlmLlmCallStartedEvent</code>,
      * <code>LlmToolCallStartedEvent</code>, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from <code>run_id</code> (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      *
      * Generated from protobuf field <code>string llm_call_id = 63;</code>
      */
@@ -432,7 +434,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $provider
-     *           Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     *           Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     *           was removed).
      *     @type string $model_name
      *           Concrete model identifier (e.g. "Qwen/Qwen3.6-27b-fp8").
      *     @type string $agent_name
@@ -505,21 +508,22 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      *     @type string $langsmith_run_url
      *           LangSmith run URL for direct click-through when LangSmith tracing is active.
      *     @type string $team_name
-     *           Autogen team display name owning the call.
+     *           Display name of the agent team owning the call; empty for a single agent.
      *     @type string $team_id
-     *           Autogen team identifier (UUID).
+     *           Identifier (UUID) of the agent team owning the call.
      *     @type string $agent_role
-     *           Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     *           Role tag of the agent that made the call inside its team.
      *     @type string $sender_agent
-     *           Name of the autogen agent that produced the message.
+     *           Name of the agent that produced the message.
      *     @type string $recipient_agent
-     *           Name of the autogen agent that received the message.
+     *           Name of the agent that received the message.
      *     @type int $turn_index
-     *           Zero-based position of this LLM call inside the autogen <code>run_stream()</code> sequence.
+     *           Zero-based position of this LLM call inside the agent run&apos;s sequence of LLM calls.
      *     @type int $reflection_iterations
-     *           Number of reflection loops executed in <code>robust_assistant_agent</code> for this call.
+     *           Deprecated: number of reflection loops of the removed AutoGen <code>robust_assistant_agent</code> for this
+     *           call. No current agent runs reflection loops, so it is 0.
      *     @type string $termination_reason
-     *           Autogen <code>TaskResult.stop_reason</code> string when surfaced.
+     *           Stop reason of the agent team run when surfaced (formerly AutoGen <code>TaskResult.stop_reason</code>).
      *     @type string $evaluator_runs_join_key
      *           Join key linking this LLM call to an evaluator run (see llm_evaluation.proto).
      *     @type \Ondewo\Nlu\LlmEvaluationFeedback[] $llm_evaluation_feedbacks
@@ -586,7 +590,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      *           <code>llm_call_id</code> (<code>LlmLlmCallStartedEvent</code>,
      *           <code>LlmToolCallStartedEvent</code>, ...), so an aggregate or a persisted row can be
      *           correlated back to the live event stream. Distinct from <code>run_id</code> (field 11),
-     *           which is the UPSTREAM framework's id (autogen / langchain).
+     *           which is the UPSTREAM framework's id (e.g. langchain).
      * }
      */
     public function __construct($data = NULL) {
@@ -595,7 +599,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 1;</code>
      * @return string
@@ -606,7 +611,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Provider tag: "autogen" | "langchain" | "openai" | "anthropic" | ...
+     * Provider tag: "langchain" | "openai" | "anthropic" | ... ("autogen" only on telemetry recorded before AutoGen
+     * was removed).
      *
      * Generated from protobuf field <code>string provider = 1;</code>
      * @param string $var
@@ -1569,7 +1575,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      *
      * Generated from protobuf field <code>string team_name = 36;</code>
      * @return string
@@ -1580,7 +1586,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen team display name owning the call.
+     * Display name of the agent team owning the call; empty for a single agent.
      *
      * Generated from protobuf field <code>string team_name = 36;</code>
      * @param string $var
@@ -1595,7 +1601,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      *
      * Generated from protobuf field <code>string team_id = 37;</code>
      * @return string
@@ -1606,7 +1612,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen team identifier (UUID).
+     * Identifier (UUID) of the agent team owning the call.
      *
      * Generated from protobuf field <code>string team_id = 37;</code>
      * @param string $var
@@ -1621,7 +1627,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      *
      * Generated from protobuf field <code>string agent_role = 38;</code>
      * @return string
@@ -1632,7 +1638,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen agent role tag (user_proxy | assistant | tool_executor | reflection).
+     * Role tag of the agent that made the call inside its team.
      *
      * Generated from protobuf field <code>string agent_role = 38;</code>
      * @param string $var
@@ -1647,7 +1653,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      *
      * Generated from protobuf field <code>string sender_agent = 39;</code>
      * @return string
@@ -1658,7 +1664,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the autogen agent that produced the message.
+     * Name of the agent that produced the message.
      *
      * Generated from protobuf field <code>string sender_agent = 39;</code>
      * @param string $var
@@ -1673,7 +1679,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      *
      * Generated from protobuf field <code>string recipient_agent = 40;</code>
      * @return string
@@ -1684,7 +1690,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Name of the autogen agent that received the message.
+     * Name of the agent that received the message.
      *
      * Generated from protobuf field <code>string recipient_agent = 40;</code>
      * @param string $var
@@ -1699,7 +1705,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Zero-based position of this LLM call inside the autogen <code>run_stream()</code> sequence.
+     * Zero-based position of this LLM call inside the agent run&apos;s sequence of LLM calls.
      *
      * Generated from protobuf field <code>int32 turn_index = 41;</code>
      * @return int
@@ -1710,7 +1716,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Zero-based position of this LLM call inside the autogen <code>run_stream()</code> sequence.
+     * Zero-based position of this LLM call inside the agent run&apos;s sequence of LLM calls.
      *
      * Generated from protobuf field <code>int32 turn_index = 41;</code>
      * @param int $var
@@ -1725,7 +1731,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of reflection loops executed in <code>robust_assistant_agent</code> for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen <code>robust_assistant_agent</code> for this
+     * call. No current agent runs reflection loops, so it is 0.
      *
      * Generated from protobuf field <code>int32 reflection_iterations = 42;</code>
      * @return int
@@ -1736,7 +1743,8 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Number of reflection loops executed in <code>robust_assistant_agent</code> for this call.
+     * Deprecated: number of reflection loops of the removed AutoGen <code>robust_assistant_agent</code> for this
+     * call. No current agent runs reflection loops, so it is 0.
      *
      * Generated from protobuf field <code>int32 reflection_iterations = 42;</code>
      * @param int $var
@@ -1751,7 +1759,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen <code>TaskResult.stop_reason</code> string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen <code>TaskResult.stop_reason</code>).
      *
      * Generated from protobuf field <code>string termination_reason = 43;</code>
      * @return string
@@ -1762,7 +1770,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Autogen <code>TaskResult.stop_reason</code> string when surfaced.
+     * Stop reason of the agent team run when surfaced (formerly AutoGen <code>TaskResult.stop_reason</code>).
      *
      * Generated from protobuf field <code>string termination_reason = 43;</code>
      * @param string $var
@@ -2449,7 +2457,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * <code>llm_call_id</code> (<code>LlmLlmCallStartedEvent</code>,
      * <code>LlmToolCallStartedEvent</code>, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from <code>run_id</code> (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      *
      * Generated from protobuf field <code>string llm_call_id = 63;</code>
      * @return string
@@ -2464,7 +2472,7 @@ class LlmTelemetry extends \Google\Protobuf\Internal\Message
      * <code>llm_call_id</code> (<code>LlmLlmCallStartedEvent</code>,
      * <code>LlmToolCallStartedEvent</code>, ...), so an aggregate or a persisted row can be
      * correlated back to the live event stream. Distinct from <code>run_id</code> (field 11),
-     * which is the UPSTREAM framework's id (autogen / langchain).
+     * which is the UPSTREAM framework's id (e.g. langchain).
      *
      * Generated from protobuf field <code>string llm_call_id = 63;</code>
      * @param string $var
