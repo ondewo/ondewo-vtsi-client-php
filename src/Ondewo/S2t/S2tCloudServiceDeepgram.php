@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tCloudServiceDeepgram message contains settings for the Deepgram Cloud service inference.</p>
+ * S2tCloudServiceDeepgram message contains settings for the Deepgram Cloud service inference.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tCloudServiceDeepgram</code>
  */

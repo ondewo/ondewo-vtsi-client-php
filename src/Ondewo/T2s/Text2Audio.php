@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Text2Audio message contains settings for text-to-audio inference.</p>
+ * Text2Audio message contains settings for text-to-audio inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.Text2Audio</code>
  */

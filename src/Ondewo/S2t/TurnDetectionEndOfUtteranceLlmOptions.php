@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionEndOfUtteranceLlmOptions configures an end-of-utterance LLM (LiveKit-shaped, e.g.
- * <code>livekit/turn-detector</code>) as the turn detector: the model scores the probability of the
- * end-of-utterance token after the turn's transcription and, when
- * <code>TurnDetectionOptions.turn_detection_conversation_context</code> is set, the turns before it.</p>
+ * TurnDetectionEndOfUtteranceLlmOptions configures an end-of-utterance LLM (LiveKit-shaped, e.g. <code>livekit/turn-detector</code>) as the turn detector: the model scores the probability of the end-of-utterance token after the turn's transcription and, when <code>TurnDetectionOptions.turn_detection_conversation_context</code> is set, the turns before it.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionEndOfUtteranceLlmOptions</code>
  */

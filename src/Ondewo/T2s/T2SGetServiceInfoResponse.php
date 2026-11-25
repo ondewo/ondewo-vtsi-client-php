@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Version information of the service</p>
+ * Version information of the service
  *
  * Generated from protobuf message <code>ondewo.t2s.T2SGetServiceInfoResponse</code>
  */

@@ -10,9 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Represents a Streaming Synthesize Response.</p>
- * <p>A Streaming Synthesize Response contains the generated audio, requested text and and
- * all other properties of this generated audio.</p>
+ * Represents a Streaming Synthesize Response.
+ * A Streaming Synthesize Response contains the generated audio, requested text and and all other properties of this generated audio.
  *
  * Generated from protobuf message <code>ondewo.t2s.StreamingSynthesizeResponse</code>
  */

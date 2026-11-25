@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One step of the key script of a test call</p>
+ * One step of the key script of a test call
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrTestStep</code>
  */

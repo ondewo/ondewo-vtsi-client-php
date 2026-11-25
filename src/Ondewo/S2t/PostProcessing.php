@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>PostProcessing contains the configuration for post-processing.</p>
+ * PostProcessing contains the configuration for post-processing.
  *
  * Generated from protobuf message <code>ondewo.s2t.PostProcessing</code>
  */

@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>What the bot does while a CONFERENCE participant is ringing or joined</p>
+ * What the bot does while a CONFERENCE participant is ringing or joined
  *
  * Protobuf type <code>ondewo.vtsi.BotPolicyOnJoin</code>
  */

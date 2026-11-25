@@ -10,28 +10,35 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the soft timeout, i.e. filler messages played
- * when the response generation takes longer than the timeout
+ * Soft timeout of the call: filler messages (e.g. &quot;One moment please.&quot;) the bot speaks while the answer to a caller turn takes longer than <code>timeout_seconds</code> to prepare, so that the caller does not hear a silent line. The timer starts when the NLU is asked for the answer and is stopped as soon as the answer starts playing; a filler is never played after the answer. With interruptions enabled, the caller can interrupt a filler like any other bot utterance.
+ * Example: <code>timeout_seconds=3</code>, <code>messages=[&quot;One moment please.&quot;, &quot;Let me check that.&quot;]</code> and <code>max_per_generation=1</code> speak &quot;One moment please.&quot; when an answer is not ready after 3 s, &quot;Let me check that.&quot; the next time it happens in the call, and then start over.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftTimeoutConfig</code>
  */
 class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Seconds after which a filler message is played while the response is still being generated.
-     * Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
+     * Optional: Seconds an answer may take before a filler message is played (default: off; valid range:
+     * 0.5 - 8.0, and -1 as an explicit off). Any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Fillers are only played while this is set. Recommended: 3.0
      *
      * Generated from protobuf field <code>optional float timeout_seconds = 1;</code>
      */
     protected $timeout_seconds = null;
     /**
-     * Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)
+     * Filler messages, spoken one per filler in the order given and starting over after the last one; the rotation
+     * runs over the whole call. At most 7 messages, each 1 - 200 characters and not blank; anything else is refused
+     * with <code>INVALID_ARGUMENT</code>. Write them in the language of the call: when the list is empty, a short
+     * built-in filler is used
      *
      * Generated from protobuf field <code>repeated string messages = 2;</code>
      */
     private $messages;
     /**
-     * Optional: Maximum number of filler messages per response generation (default: 1)
+     * Optional: Maximum number of filler messages played while one answer is prepared (default: 1; 0 or more, a
+     * negative value is refused with <code>INVALID_ARGUMENT</code>; 0 plays no filler at all). With a value above 1,
+     * the next filler follows about <code>timeout_seconds</code> after the previous one while the answer is still
+     * not ready
      *
      * Generated from protobuf field <code>optional int32 max_per_generation = 3;</code>
      */
@@ -44,12 +51,19 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type float $timeout_seconds
-     *           Optional: Seconds after which a filler message is played while the response is still being generated.
-     *           Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
+     *           Optional: Seconds an answer may take before a filler message is played (default: off; valid range:
+     *           0.5 - 8.0, and -1 as an explicit off). Any other value is refused with <code>INVALID_ARGUMENT</code>.
+     *           Fillers are only played while this is set. Recommended: 3.0
      *     @type string[] $messages
-     *           Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)
+     *           Filler messages, spoken one per filler in the order given and starting over after the last one; the rotation
+     *           runs over the whole call. At most 7 messages, each 1 - 200 characters and not blank; anything else is refused
+     *           with <code>INVALID_ARGUMENT</code>. Write them in the language of the call: when the list is empty, a short
+     *           built-in filler is used
      *     @type int $max_per_generation
-     *           Optional: Maximum number of filler messages per response generation (default: 1)
+     *           Optional: Maximum number of filler messages played while one answer is prepared (default: 1; 0 or more, a
+     *           negative value is refused with <code>INVALID_ARGUMENT</code>; 0 plays no filler at all). With a value above 1,
+     *           the next filler follows about <code>timeout_seconds</code> after the previous one while the answer is still
+     *           not ready
      * }
      */
     public function __construct($data = NULL) {
@@ -58,8 +72,9 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds after which a filler message is played while the response is still being generated.
-     * Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
+     * Optional: Seconds an answer may take before a filler message is played (default: off; valid range:
+     * 0.5 - 8.0, and -1 as an explicit off). Any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Fillers are only played while this is set. Recommended: 3.0
      *
      * Generated from protobuf field <code>optional float timeout_seconds = 1;</code>
      * @return float
@@ -80,8 +95,9 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds after which a filler message is played while the response is still being generated.
-     * Unset = off (-1 is also accepted as explicit off). Recommended: 3.0
+     * Optional: Seconds an answer may take before a filler message is played (default: off; valid range:
+     * 0.5 - 8.0, and -1 as an explicit off). Any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Fillers are only played while this is set. Recommended: 3.0
      *
      * Generated from protobuf field <code>optional float timeout_seconds = 1;</code>
      * @param float $var
@@ -95,7 +111,10 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)
+     * Filler messages, spoken one per filler in the order given and starting over after the last one; the rotation
+     * runs over the whole call. At most 7 messages, each 1 - 200 characters and not blank; anything else is refused
+     * with <code>INVALID_ARGUMENT</code>. Write them in the language of the call: when the list is empty, a short
+     * built-in filler is used
      *
      * Generated from protobuf field <code>repeated string messages = 2;</code>
      * @return RepeatedField<string>
@@ -106,7 +125,10 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Filler messages, rotated per soft timeout (maximum 7 messages, each 1 - 200 characters)
+     * Filler messages, spoken one per filler in the order given and starting over after the last one; the rotation
+     * runs over the whole call. At most 7 messages, each 1 - 200 characters and not blank; anything else is refused
+     * with <code>INVALID_ARGUMENT</code>. Write them in the language of the call: when the list is empty, a short
+     * built-in filler is used
      *
      * Generated from protobuf field <code>repeated string messages = 2;</code>
      * @param string[] $var
@@ -121,7 +143,10 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum number of filler messages per response generation (default: 1)
+     * Optional: Maximum number of filler messages played while one answer is prepared (default: 1; 0 or more, a
+     * negative value is refused with <code>INVALID_ARGUMENT</code>; 0 plays no filler at all). With a value above 1,
+     * the next filler follows about <code>timeout_seconds</code> after the previous one while the answer is still
+     * not ready
      *
      * Generated from protobuf field <code>optional int32 max_per_generation = 3;</code>
      * @return int
@@ -142,7 +167,10 @@ class SoftTimeoutConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum number of filler messages per response generation (default: 1)
+     * Optional: Maximum number of filler messages played while one answer is prepared (default: 1; 0 or more, a
+     * negative value is refused with <code>INVALID_ARGUMENT</code>; 0 plays no filler at all). With a value above 1,
+     * the next filler follows about <code>timeout_seconds</code> after the previous one while the answer is still
+     * not ready
      *
      * Generated from protobuf field <code>optional int32 max_per_generation = 3;</code>
      * @param int $var

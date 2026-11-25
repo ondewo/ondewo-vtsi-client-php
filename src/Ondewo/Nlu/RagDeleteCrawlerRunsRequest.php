@@ -11,9 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request message for deleting crawler runs.
- * Deletion candidates are the union of:
- * - explicit run names in <code>crawler_run_names</code>
- * - all runs belonging to crawlers listed in <code>crawler_names</code>
+ * Deletion candidates are the union of: - explicit run names in <code>crawler_run_names</code> - all runs belonging to crawlers listed in <code>crawler_names</code>
  * If both lists are empty, the call is a no-op.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagDeleteCrawlerRunsRequest</code>

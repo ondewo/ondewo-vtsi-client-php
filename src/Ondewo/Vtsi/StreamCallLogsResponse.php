@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The response message for
- * <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>. The stream carries an
- * envelope rather than a bare entry so that a viewer can tell a healthy quiet container from a
- * capture that has died.
+ * The response message for <a href="index.html#ondewo.vtsi.Logs.StreamCallLogs">Logs.StreamCallLogs</a>. The stream carries an envelope rather than a bare entry so that a viewer can tell a healthy quiet container from a capture that has died.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StreamCallLogsResponse</code>
  */

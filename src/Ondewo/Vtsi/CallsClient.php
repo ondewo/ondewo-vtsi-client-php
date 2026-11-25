@@ -19,7 +19,7 @@
 namespace Ondewo\Vtsi;
 
 /**
- * <p>ONDEWO VTSI API</p>
+ * ONDEWO VTSI API
  */
 class CallsClient extends \Grpc\BaseStub {
 

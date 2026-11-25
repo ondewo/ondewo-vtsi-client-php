@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A single captured container log record. One record may span several physical docker log lines: a
- * Python traceback, a protobuf <code>str()</code> dump and a multi-line configuration banner are all
- * one record, and are stored and returned as one entry.
+ * A single captured container log record. One record may span several physical docker log lines: a Python traceback, a protobuf <code>str()</code> dump and a multi-line configuration banner are all one record, and are stored and returned as one entry.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallLogEntry</code>
  */

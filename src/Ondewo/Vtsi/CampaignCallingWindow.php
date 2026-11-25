@@ -10,28 +10,10 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * When the calls of a campaign may be started: a set of weekly slots, each a day of the week and a range
- * of minutes of that day, in one time zone.
- * <p>Effect: the campaign engine starts an attempt (a first attempt, a retry, or a due scheduled call) only
- * while the current time, converted to <code>time_zone</code>, lies inside a slot. Outside every slot a
- * <code>RUNNING</code> campaign stays <code>RUNNING</code>, reports
- * <code>Campaign.outside_calling_window = true</code> and starts nothing; calls keep their state
- * (<code>NOT_STARTED</code> / <code>RETRY_PENDING</code>) and are started from the next slot on, under
- * <code>max_parallel_calls</code>, in their usual order. A call already started when a slot ends is NEVER
- * ended by it and may run past the slot; its retry, if any, waits for the next slot. Statistics and the
- * campaign&apos;s state machine are otherwise unaffected; stop, hard stop and resume work as without a
- * window.</p>
- * <p>Validation (<code>INVALID_ARGUMENT</code> naming the problem, on <code>CreateCampaign</code>,
- * <code>UpdateCampaign</code>, <code>CampaignAssignment.new_campaign</code>): <code>time_zone</code> must be a
- * name of the IANA time zone database known to the server (e.g. <code>Europe/Vienna</code>, <code>UTC</code>;
- * not an offset such as <code>+02:00</code>); at least one and at most 50 slots; each slot with a day other
- * than <code>CALLING_WINDOW_DAY_OF_WEEK_UNSPECIFIED</code>, <code>0 &lt;= start_minute &lt; end_minute
- * &lt;= 1440</code>. A slot cannot span midnight: split it into two slots on consecutive days. Slots may overlap
- * or touch; the window is their union.</p>
- * <p>Local time: slot boundaries are wall-clock times in <code>time_zone</code>, so they follow daylight saving
- * changes. A boundary that does not exist on a given day (the hour skipped when clocks go forward) takes effect
- * at the first instant after it that exists; a boundary that occurs twice (the hour repeated when clocks go
- * back) takes effect at its first occurrence.</p>
+ * When the calls of a campaign may be started: a set of weekly slots, each a day of the week and a range of minutes of that day, in one time zone.
+ * Effect: the campaign engine starts an attempt (a first attempt, a retry, or a due scheduled call) only while the current time, converted to <code>time_zone</code>, lies inside a slot. Outside every slot a <code>RUNNING</code> campaign stays <code>RUNNING</code>, reports <code>Campaign.outside_calling_window = true</code> and starts nothing; calls keep their state (<code>NOT_STARTED</code> / <code>RETRY_PENDING</code>) and are started from the next slot on, under <code>max_parallel_calls</code>, in their usual order. A call already started when a slot ends is NEVER ended by it and may run past the slot; its retry, if any, waits for the next slot. Statistics and the campaign&apos;s state machine are otherwise unaffected; stop, hard stop and resume work as without a window.
+ * Validation (<code>INVALID_ARGUMENT</code> naming the problem, on <code>CreateCampaign</code>, <code>UpdateCampaign</code>, <code>CampaignAssignment.new_campaign</code>): <code>time_zone</code> must be a name of the IANA time zone database known to the server (e.g. <code>Europe/Vienna</code>, <code>UTC</code>; not an offset such as <code>+02:00</code>); at least one and at most 50 slots; each slot with a day other than <code>CALLING_WINDOW_DAY_OF_WEEK_UNSPECIFIED</code>, <code>0 &lt;= start_minute &lt; end_minute &lt;= 1440</code>. A slot cannot span midnight: split it into two slots on consecutive days. Slots may overlap or touch; the window is their union.
+ * Local time: slot boundaries are wall-clock times in <code>time_zone</code>, so they follow daylight saving changes. A boundary that does not exist on a given day (the hour skipped when clocks go forward) takes effect at the first instant after it that exists; a boundary that occurs twice (the hour repeated when clocks go back) takes effect at its first occurrence.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignCallingWindow</code>
  */

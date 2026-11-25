@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Optional filter narrowing which already-persisted live session steps an
- * online-evaluation config samples. All fields are optional; multiple fields set
- * at the same time are combined via logical AND.
+ * Optional filter narrowing which already-persisted live session steps an online-evaluation config samples. All fields are optional; multiple fields set at the same time are combined via logical AND.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationOnlineSessionFilter</code>
  */

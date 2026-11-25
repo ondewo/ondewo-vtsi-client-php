@@ -10,25 +10,30 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Speech synthesis of the answer of a preemptive (speculative) draft. Every field is optional; an unset field keeps
- * the deployment&apos;s value
+ * Speech synthesis of the answer of a preemptive (speculative) draft. With preemptive generation on, the NLU is asked for the answer of a stable partial transcription while the caller is still finishing the sentence; when the final transcription matches that draft, its answer is used instead of asking again, which shortens the pause before the bot speaks. These two switches decide how much of the speech synthesis is done ahead of time as well.
+ * Every field is optional; an unset field keeps the built-in default listed per field. Neither field has a value that is refused, and both are ignored while preemptive generation is off (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>).
  *
  * Generated from protobuf message <code>ondewo.vtsi.T2sPreemptiveSynthesisConfig</code>
  */
 class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
-     * plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
+     * Optional: Synthesize the answer of a draft already while the caller is still speaking (default: true).
+     * <code>true</code>: a matching draft is played at once, without waiting for its speech synthesis.
+     * <code>false</code>: drafts only ask the NLU; the answer of a matching draft is synthesized after the final
+     * transcription, like a normal answer. This saves the speech synthesis of every draft that is discarded, and
+     * gives back the part of the time saving that comes from synthesizing early
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      */
     protected $enabled = null;
     /**
-     * Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
-     * of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
-     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
-     * <code>chunked</code> has no effect when <code>enabled</code> is false
+     * Optional: Play the answer of a matching draft chunk by chunk while it is still being synthesized, instead of
+     * waiting until its whole speech synthesis has finished (default: false). Only takes effect when
+     * <code>enabled</code> is true (or unset) and chunked text-to-speech streaming is on
+     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>, true by default); otherwise it is ignored.
+     * Example: <code>enabled=true</code> and <code>chunked=true</code> give the shortest pause after the caller
+     * finished speaking for a long answer
      *
      * Generated from protobuf field <code>optional bool chunked = 2;</code>
      */
@@ -41,13 +46,18 @@ class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
-     *           plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
+     *           Optional: Synthesize the answer of a draft already while the caller is still speaking (default: true).
+     *           <code>true</code>: a matching draft is played at once, without waiting for its speech synthesis.
+     *           <code>false</code>: drafts only ask the NLU; the answer of a matching draft is synthesized after the final
+     *           transcription, like a normal answer. This saves the speech synthesis of every draft that is discarded, and
+     *           gives back the part of the time saving that comes from synthesizing early
      *     @type bool $chunked
-     *           Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
-     *           of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
-     *           (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
-     *           <code>chunked</code> has no effect when <code>enabled</code> is false
+     *           Optional: Play the answer of a matching draft chunk by chunk while it is still being synthesized, instead of
+     *           waiting until its whole speech synthesis has finished (default: false). Only takes effect when
+     *           <code>enabled</code> is true (or unset) and chunked text-to-speech streaming is on
+     *           (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>, true by default); otherwise it is ignored.
+     *           Example: <code>enabled=true</code> and <code>chunked=true</code> give the shortest pause after the caller
+     *           finished speaking for a long answer
      * }
      */
     public function __construct($data = NULL) {
@@ -56,8 +66,11 @@ class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
-     * plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
+     * Optional: Synthesize the answer of a draft already while the caller is still speaking (default: true).
+     * <code>true</code>: a matching draft is played at once, without waiting for its speech synthesis.
+     * <code>false</code>: drafts only ask the NLU; the answer of a matching draft is synthesized after the final
+     * transcription, like a normal answer. This saves the speech synthesis of every draft that is discarded, and
+     * gives back the part of the time saving that comes from synthesizing early
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @return bool
@@ -78,8 +91,11 @@ class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Synthesize the answer of a draft before the final transcription arrives, so that a matching draft
-     * plays at once (default: true). <code>false</code> asks the NLU only and synthesizes at the commit
+     * Optional: Synthesize the answer of a draft already while the caller is still speaking (default: true).
+     * <code>true</code>: a matching draft is played at once, without waiting for its speech synthesis.
+     * <code>false</code>: drafts only ask the NLU; the answer of a matching draft is synthesized after the final
+     * transcription, like a normal answer. This saves the speech synthesis of every draft that is discarded, and
+     * gives back the part of the time saving that comes from synthesizing early
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @param bool $var
@@ -93,10 +109,12 @@ class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
-     * of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
-     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
-     * <code>chunked</code> has no effect when <code>enabled</code> is false
+     * Optional: Play the answer of a matching draft chunk by chunk while it is still being synthesized, instead of
+     * waiting until its whole speech synthesis has finished (default: false). Only takes effect when
+     * <code>enabled</code> is true (or unset) and chunked text-to-speech streaming is on
+     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>, true by default); otherwise it is ignored.
+     * Example: <code>enabled=true</code> and <code>chunked=true</code> give the shortest pause after the caller
+     * finished speaking for a long answer
      *
      * Generated from protobuf field <code>optional bool chunked = 2;</code>
      * @return bool
@@ -117,10 +135,12 @@ class T2sPreemptiveSynthesisConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hand a matching draft&apos;s answer over chunk by chunk while it is still being synthesized, instead
-     * of waiting for the whole synthesis (default: false). Needs chunked text-to-speech streaming
-     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>) and is ignored without it.
-     * <code>chunked</code> has no effect when <code>enabled</code> is false
+     * Optional: Play the answer of a matching draft chunk by chunk while it is still being synthesized, instead of
+     * waiting until its whole speech synthesis has finished (default: false). Only takes effect when
+     * <code>enabled</code> is true (or unset) and chunked text-to-speech streaming is on
+     * (<code>ResponseTimingConfig.t2s_chunked_streaming_enabled</code>, true by default); otherwise it is ignored.
+     * Example: <code>enabled=true</code> and <code>chunked=true</code> give the shortest pause after the caller
+     * finished speaking for a long answer
      *
      * Generated from protobuf field <code>optional bool chunked = 2;</code>
      * @param bool $var

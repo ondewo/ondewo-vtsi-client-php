@@ -8,7 +8,7 @@ namespace Ondewo\T2s;
 use UnexpectedValueException;
 
 /**
- * <p>Represents a pulse-code modulation technique.</p>
+ * Represents a pulse-code modulation technique.
  *
  * Protobuf type <code>ondewo.t2s.Pcm</code>
  */

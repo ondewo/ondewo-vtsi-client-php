@@ -19,7 +19,7 @@
 namespace Ondewo\T2s;
 
 /**
- * <p>Text2Speech service provides endpoints for text-to-speech generation.</p>
+ * Text2Speech service provides endpoints for text-to-speech generation.
  */
 class Text2SpeechClient extends \Grpc\BaseStub {
 

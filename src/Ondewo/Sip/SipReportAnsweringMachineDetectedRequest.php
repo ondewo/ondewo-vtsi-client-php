@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Reports the verdict of the answering machine detection of the ongoing outgoing call</p>
+ * Reports the verdict of the answering machine detection of the ongoing outgoing call
  *
  * Generated from protobuf message <code>ondewo.sip.SipReportAnsweringMachineDetectedRequest</code>
  */

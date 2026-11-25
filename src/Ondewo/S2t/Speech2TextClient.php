@@ -19,7 +19,7 @@
 namespace Ondewo\S2t;
 
 /**
- * <p>Speech-to-text service</p>
+ * Speech-to-text service
  */
 class Speech2TextClient extends \Grpc\BaseStub {
 

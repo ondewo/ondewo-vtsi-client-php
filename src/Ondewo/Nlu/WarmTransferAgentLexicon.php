@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Additional entries of the closed decision lexicon of warm transfer intros in one language, matched before an LLM
- * classifies an answer. At most 50 entries in <code>accept_phrases</code> and <code>decline_phrases</code>
- * together.
+ * Additional entries of the closed decision lexicon of warm transfer intros in one language, matched before an LLM classifies an answer. At most 50 entries in <code>accept_phrases</code> and <code>decline_phrases</code> together.
  *
  * Generated from protobuf message <code>ondewo.nlu.WarmTransferAgentLexicon</code>
  */

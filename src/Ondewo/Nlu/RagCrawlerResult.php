@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Crawler result entity.
- * Each result corresponds to one crawled URL in a crawler run and includes
- * extracted content, metadata, diagnostics, and optional binary artifacts.
+ * Each result corresponds to one crawled URL in a crawler run and includes extracted content, metadata, diagnostics, and optional binary artifacts.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerResult</code>
  */

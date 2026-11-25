@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration of text-to-speech models representation.</p>
+ * Configuration of text-to-speech models representation.
  *
  * Generated from protobuf message <code>ondewo.t2s.Text2SpeechConfig</code>
  */

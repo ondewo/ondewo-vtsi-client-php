@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Ends an ongoing call of the active SIP session of the active SIP account</p>
+ * Ends an ongoing call of the active SIP session of the active SIP account
  *
  * Generated from protobuf message <code>ondewo.sip.SipEndCallRequest</code>
  */

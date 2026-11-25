@@ -8,32 +8,35 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Whether a project can use IVR menus, and if not, why</p>
+ * Whether a project can use IVR menus, and if not, why. The same for every project of a deployment.
  *
  * Protobuf type <code>ondewo.vtsi.IvrAvailability</code>
  */
 class IvrAvailability
 {
     /**
-     * Not computed (e.g. an older server)
+     * Not computed, e.g. by a server older than IVR menus. Treat it as unknown, not as available.
      *
      * Generated from protobuf enum <code>IVR_AVAILABILITY_UNSPECIFIED = 0;</code>
      */
     const IVR_AVAILABILITY_UNSPECIFIED = 0;
     /**
-     * IVR menus can be published and routed
+     * IVR menus can be published and route inbound numbers (unless the project switched its routes off with
+     * <code>VtsiProject.ivr_menus_enabled = false</code>).
      *
      * Generated from protobuf enum <code>IVR_AVAILABILITY_AVAILABLE = 1;</code>
      */
     const IVR_AVAILABILITY_AVAILABLE = 1;
     /**
-     * The deployment switch <code>ONDEWO_VTSI_IVR_ACTIVE</code> is off
+     * The operator switched IVR menus off for the whole deployment (<code>ONDEWO_VTSI_IVR_ACTIVE</code> is
+     * <code>false</code>): no menu routes an inbound call.
      *
      * Generated from protobuf enum <code>IVR_AVAILABILITY_DISABLED_BY_DEPLOYMENT = 2;</code>
      */
     const IVR_AVAILABILITY_DISABLED_BY_DEPLOYMENT = 2;
     /**
-     * The project&apos;s Asterisk is not run by this server
+     * The deployment runs on several hosts, where the server cannot reach the
+     * project&apos;s Asterisk directly to apply the routes.
      *
      * Generated from protobuf enum <code>IVR_AVAILABILITY_NEEDS_LOCAL_ASTERISK = 3;</code>
      */

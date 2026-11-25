@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Traffic counters of one node, in <code>IvrMenu.node_stats</code>. Approximate.</p>
+ * Traffic counters of one node, in <code>IvrMenu.node_stats</code>. Approximate.
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrNodeStats</code>
  */

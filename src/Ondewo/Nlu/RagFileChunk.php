@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * File chunk for streaming downloads.<br>
- * First chunk contains metadata, subsequent chunks only contain data.
+ * File chunk for streaming downloads.<br> First chunk contains metadata, subsequent chunks only contain data.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagFileChunk</code>
  */

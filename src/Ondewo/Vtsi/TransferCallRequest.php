@@ -11,6 +11,8 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request to transfer calls
+ * An operator-initiated transfer of ONE live call, the one <code>call_name</code> names. It configures this transfer only: nothing here changes the call&apos;s configuration, a later transfer, or the transfers the bot itself starts from the NLU agent (those follow the call&apos;s <code>VoiceInteractionConfig.bot_transfer_config</code>). The call must be connected. The project&apos;s <code>VtsiProject.transfer_phone_number_allowlist</code> applies to every phone-number target, typed or raw.
+ * Example, a warm handover (Asterisk 22 projects) to a human agent that first rings their phone for up to 45 seconds: <code>target.phone_number = &quot;+4312345678&quot;</code>, <code>mode = TRANSFER_MODE_WARM</code>, <code>ring_timeout_s = 45</code>. If the agent does not answer, the caller stays with the bot.
  *
  * Generated from protobuf message <code>ondewo.vtsi.TransferCallRequest</code>
  */
@@ -33,19 +35,30 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
      * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
-     * <code>INVALID_ARGUMENT</code>
+     * <code>INVALID_ARGUMENT</code>. Always a BLIND transfer: with <code>TRANSFER_MODE_WARM</code> it is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=warm-requires-typed-target</code>). A phone number spelled
+     * here is checked against the project&apos;s transfer allowlist like a typed one. A request that sets ONLY
+     * this field (no <code>mode</code>, <code>headers</code> or <code>ring_timeout_s</code>) is answered as
+     * before 9.0.0: a failure after the call was found is reported in
+     * <code>TransferCallResponse.error_message</code> rather than as a gRPC status.
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      */
     protected $transfer_id = '';
     /**
-     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>.
+     * Exactly one of the two must be set; neither is <code>INVALID_ARGUMENT</code>.
+     * Required for a WARM transfer.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
      */
     protected $target = null;
     /**
-     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>: the call is handed to the dialplan, and a
+     * target that is busy or does not answer after the REFER was accepted loses the caller.
+     * <code>TRANSFER_MODE_WARM</code> rings the target first and keeps the caller with the bot when the target does
+     * not join; it needs a typed <code>target</code> other than an IVR menu. An unknown value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-mode</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
      */
@@ -54,14 +67,23 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
      * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
      * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
-     * number target
+     * number target.
+     * <p>The call&apos;s own headers are the SIP headers it was started with; the merge ignores case, a header named
+     * here replacing the call&apos;s header of the same name, and the same name given twice in different case is
+     * refused. A key, count or value outside the limits, or a value with a control character, is refused before
+     * anything is sent (<code>error_reason</code> <code>invalid-header</code> / <code>too-many-headers</code>), and
+     * the call is untouched. Example:
+     * <code>{&quot;X-ondewo-customer-id&quot;: &quot;4711&quot;}</code> lets the receiving agent&apos;s
+     * softphone or listener see which customer is coming.</p>
      *
      * Generated from protobuf field <code>map<string, string> headers = 6;</code>
      */
     private $headers;
     /**
      * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
-     * <code>30</code>
+     * <code>30</code>. When the target has not answered by then, the transfer ends with its no-answer outcome and the
+     * caller stays with the bot. Checked also on a BLIND transfer, where it has no effect: any other value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-ring-timeout</code>)
      *
      * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
      */
@@ -84,15 +106,21 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
      * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
-     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>): a field set here wins
+     * for this transfer only, a field left unset takes the call&apos;s value, then the project&apos;s, then the
+     * built-in default documented at the field (for <code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>, <code>caller_declined_message</code> and
+     * <code>caller_unreachable_message</code>, the NLU agent&apos;s warm transfer text comes before the built-in
+     * one). The deployment switch decides only whether warm intros can run at all. Unset as a whole, those levels
+     * alone decide whether the intro runs. Set with
      * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
      * enables the intro, the target must be a human (<code>phone_number</code> or
      * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
      * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
      * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
-     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
-     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
-     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code> /
+     * <code>asterisk-version-unsupported</code>, <code>no-nlu-session</code> (the call has no live NLU session),
+     * <code>warm-intro-needs-listener</code> (the project has no listener to run the intro),
      * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
      * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
      * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
@@ -118,19 +146,39 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      *     @type string $transfer_id
      *           LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
      *           <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
-     *           <code>INVALID_ARGUMENT</code>
+     *           <code>INVALID_ARGUMENT</code>. Always a BLIND transfer: with <code>TRANSFER_MODE_WARM</code> it is refused
+     *           with <code>INVALID_ARGUMENT</code> (<code>reason=warm-requires-typed-target</code>). A phone number spelled
+     *           here is checked against the project&apos;s transfer allowlist like a typed one. A request that sets ONLY
+     *           this field (no <code>mode</code>, <code>headers</code> or <code>ring_timeout_s</code>) is answered as
+     *           before 9.0.0: a failure after the call was found is reported in
+     *           <code>TransferCallResponse.error_message</code> rather than as a gRPC status.
      *     @type \Ondewo\Vtsi\CallTarget $target
-     *           Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     *           Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>.
+     *           Exactly one of the two must be set; neither is <code>INVALID_ARGUMENT</code>.
+     *           Required for a WARM transfer.
      *     @type int $mode
-     *           How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     *           How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>: the call is handed to the dialplan, and a
+     *           target that is busy or does not answer after the REFER was accepted loses the caller.
+     *           <code>TRANSFER_MODE_WARM</code> rings the target first and keeps the caller with the bot when the target does
+     *           not join; it needs a typed <code>target</code> other than an IVR menu. An unknown value is
+     *           <code>INVALID_ARGUMENT</code> (<code>reason=invalid-mode</code>)
      *     @type array|\Google\Protobuf\Internal\MapField $headers
      *           Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
      *           entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
      *           dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
-     *           number target
+     *           number target.
+     *           <p>The call&apos;s own headers are the SIP headers it was started with; the merge ignores case, a header named
+     *           here replacing the call&apos;s header of the same name, and the same name given twice in different case is
+     *           refused. A key, count or value outside the limits, or a value with a control character, is refused before
+     *           anything is sent (<code>error_reason</code> <code>invalid-header</code> / <code>too-many-headers</code>), and
+     *           the call is untouched. Example:
+     *           <code>{&quot;X-ondewo-customer-id&quot;: &quot;4711&quot;}</code> lets the receiving agent&apos;s
+     *           softphone or listener see which customer is coming.</p>
      *     @type int $ring_timeout_s
      *           WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
-     *           <code>30</code>
+     *           <code>30</code>. When the target has not answered by then, the transfer ends with its no-answer outcome and the
+     *           caller stays with the bot. Checked also on a BLIND transfer, where it has no effect: any other value is
+     *           <code>INVALID_ARGUMENT</code> (<code>reason=invalid-ring-timeout</code>)
      *     @type string $request_id
      *           Optional idempotency key, with the semantics of <code>InviteToCallRequest.request_id</code>: 1 to 255 visible
      *           ASCII characters, scoped to <code>call_name</code>. A repeated request with the same <code>call_name</code>
@@ -145,15 +193,21 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\WarmTransferConfig $warm_transfer_config
      *           WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
      *           <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
-     *           <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     *           <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>): a field set here wins
+     *           for this transfer only, a field left unset takes the call&apos;s value, then the project&apos;s, then the
+     *           built-in default documented at the field (for <code>ready_question</code>, <code>accept_question</code>,
+     *           <code>decline_reason_question</code>, <code>caller_declined_message</code> and
+     *           <code>caller_unreachable_message</code>, the NLU agent&apos;s warm transfer text comes before the built-in
+     *           one). The deployment switch decides only whether warm intros can run at all. Unset as a whole, those levels
+     *           alone decide whether the intro runs. Set with
      *           <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
      *           enables the intro, the target must be a human (<code>phone_number</code> or
      *           <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
      *           <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
      *           checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
-     *           <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
-     *           <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
-     *           project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     *           <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code> /
+     *           <code>asterisk-version-unsupported</code>, <code>no-nlu-session</code> (the call has no live NLU session),
+     *           <code>warm-intro-needs-listener</code> (the project has no listener to run the intro),
      *           <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
      *           <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
      *           caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
@@ -225,7 +279,12 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
      * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
-     * <code>INVALID_ARGUMENT</code>
+     * <code>INVALID_ARGUMENT</code>. Always a BLIND transfer: with <code>TRANSFER_MODE_WARM</code> it is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=warm-requires-typed-target</code>). A phone number spelled
+     * here is checked against the project&apos;s transfer allowlist like a typed one. A request that sets ONLY
+     * this field (no <code>mode</code>, <code>headers</code> or <code>ring_timeout_s</code>) is answered as
+     * before 9.0.0: a failure after the call was found is reported in
+     * <code>TransferCallResponse.error_message</code> rather than as a gRPC status.
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @return string
@@ -238,7 +297,12 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * LEGACY raw target: the dialplan extension, voip number or phone number to transfer the call to. Validated against
      * <code>^\+?[A-Za-z0-9._-]{1,64}$</code>. Mutually exclusive with <code>target</code>: setting both is
-     * <code>INVALID_ARGUMENT</code>
+     * <code>INVALID_ARGUMENT</code>. Always a BLIND transfer: with <code>TRANSFER_MODE_WARM</code> it is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=warm-requires-typed-target</code>). A phone number spelled
+     * here is checked against the project&apos;s transfer allowlist like a typed one. A request that sets ONLY
+     * this field (no <code>mode</code>, <code>headers</code> or <code>ring_timeout_s</code>) is answered as
+     * before 9.0.0: a failure after the call was found is reported in
+     * <code>TransferCallResponse.error_message</code> rather than as a gRPC status.
      *
      * Generated from protobuf field <code>string transfer_id = 3;</code>
      * @param string $var
@@ -253,7 +317,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>.
+     * Exactly one of the two must be set; neither is <code>INVALID_ARGUMENT</code>.
+     * Required for a WARM transfer.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
      * @return \Ondewo\Vtsi\CallTarget|null
@@ -274,7 +340,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>
+     * Typed target of the transfer, resolved and validated by the server. Mutually exclusive with <code>transfer_id</code>.
+     * Exactly one of the two must be set; neither is <code>INVALID_ARGUMENT</code>.
+     * Required for a WARM transfer.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CallTarget target = 4;</code>
      * @param \Ondewo\Vtsi\CallTarget $var
@@ -288,7 +356,11 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>: the call is handed to the dialplan, and a
+     * target that is busy or does not answer after the REFER was accepted loses the caller.
+     * <code>TRANSFER_MODE_WARM</code> rings the target first and keeps the caller with the bot when the target does
+     * not join; it needs a typed <code>target</code> other than an IVR menu. An unknown value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-mode</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\TransferMode}
@@ -299,7 +371,11 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>
+     * How to transfer. Unspecified means <code>TRANSFER_MODE_BLIND</code>: the call is handed to the dialplan, and a
+     * target that is busy or does not answer after the REFER was accepted loses the caller.
+     * <code>TRANSFER_MODE_WARM</code> rings the target first and keeps the caller with the bot when the target does
+     * not join; it needs a typed <code>target</code> other than an IVR menu. An unknown value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-mode</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TransferMode mode = 5;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\TransferMode}
@@ -317,7 +393,14 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
      * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
      * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
-     * number target
+     * number target.
+     * <p>The call&apos;s own headers are the SIP headers it was started with; the merge ignores case, a header named
+     * here replacing the call&apos;s header of the same name, and the same name given twice in different case is
+     * refused. A key, count or value outside the limits, or a value with a control character, is refused before
+     * anything is sent (<code>error_reason</code> <code>invalid-header</code> / <code>too-many-headers</code>), and
+     * the call is untouched. Example:
+     * <code>{&quot;X-ondewo-customer-id&quot;: &quot;4711&quot;}</code> lets the receiving agent&apos;s
+     * softphone or listener see which customer is coming.</p>
      *
      * Generated from protobuf field <code>map<string, string> headers = 6;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -331,7 +414,14 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
      * Optional headers handed to the transfer target. Keys must match <code>X-ondewo-[A-Za-z0-9-]{1,64}</code>, at most 16
      * entries, values at most 256 bytes. Merged over the call&apos;s own headers. They are delivered through the
      * dialplan, not on the SIP REFER (Asterisk does not forward REFER headers to the target). Not delivered to a phone
-     * number target
+     * number target.
+     * <p>The call&apos;s own headers are the SIP headers it was started with; the merge ignores case, a header named
+     * here replacing the call&apos;s header of the same name, and the same name given twice in different case is
+     * refused. A key, count or value outside the limits, or a value with a control character, is refused before
+     * anything is sent (<code>error_reason</code> <code>invalid-header</code> / <code>too-many-headers</code>), and
+     * the call is untouched. Example:
+     * <code>{&quot;X-ondewo-customer-id&quot;: &quot;4711&quot;}</code> lets the receiving agent&apos;s
+     * softphone or listener see which customer is coming.</p>
      *
      * Generated from protobuf field <code>map<string, string> headers = 6;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
@@ -347,7 +437,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
-     * <code>30</code>
+     * <code>30</code>. When the target has not answered by then, the transfer ends with its no-answer outcome and the
+     * caller stays with the bot. Checked also on a BLIND transfer, where it has no effect: any other value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-ring-timeout</code>)
      *
      * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
      * @return int
@@ -359,7 +451,9 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * WARM only: how long the target may ring, in seconds, <code>5</code> to <code>120</code>. <code>0</code> means
-     * <code>30</code>
+     * <code>30</code>. When the target has not answered by then, the transfer ends with its no-answer outcome and the
+     * caller stays with the bot. Checked also on a BLIND transfer, where it has no effect: any other value is
+     * <code>INVALID_ARGUMENT</code> (<code>reason=invalid-ring-timeout</code>)
      *
      * Generated from protobuf field <code>int32 ring_timeout_s = 7;</code>
      * @param int $var
@@ -420,15 +514,21 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
      * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
-     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>): a field set here wins
+     * for this transfer only, a field left unset takes the call&apos;s value, then the project&apos;s, then the
+     * built-in default documented at the field (for <code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>, <code>caller_declined_message</code> and
+     * <code>caller_unreachable_message</code>, the NLU agent&apos;s warm transfer text comes before the built-in
+     * one). The deployment switch decides only whether warm intros can run at all. Unset as a whole, those levels
+     * alone decide whether the intro runs. Set with
      * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
      * enables the intro, the target must be a human (<code>phone_number</code> or
      * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
      * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
      * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
-     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
-     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
-     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code> /
+     * <code>asterisk-version-unsupported</code>, <code>no-nlu-session</code> (the call has no live NLU session),
+     * <code>warm-intro-needs-listener</code> (the project has no listener to run the intro),
      * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
      * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
      * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then
@@ -456,15 +556,21 @@ class TransferCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * WARM only: the warm intro of this transfer, merged field by field over the call&apos;s
      * <code>VoiceInteractionConfig.warm_transfer_config</code> and the project&apos;s
-     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>). Set with
+     * <code>VtsiProject.warm_transfer_defaults</code> (see <code>WarmTransferConfig</code>): a field set here wins
+     * for this transfer only, a field left unset takes the call&apos;s value, then the project&apos;s, then the
+     * built-in default documented at the field (for <code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>, <code>caller_declined_message</code> and
+     * <code>caller_unreachable_message</code>, the NLU agent&apos;s warm transfer text comes before the built-in
+     * one). The deployment switch decides only whether warm intros can run at all. Unset as a whole, those levels
+     * alone decide whether the intro runs. Set with
      * <code>TRANSFER_MODE_BLIND</code> it is refused with <code>INVALID_ARGUMENT</code>. When the effective config
      * enables the intro, the target must be a human (<code>phone_number</code> or
      * <code>softphone_account_name</code>; a listener, the listener queue or an IVR menu is refused with
      * <code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>), and these preconditions are
      * checked before anything rings, each refused with <code>FAILED_PRECONDITION</code> and the reason:
-     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code>,
-     * <code>no-nlu-session</code> (the call has no live NLU session), <code>warm-intro-needs-listener</code> (the
-     * project has no listener to run the intro), <code>warm-intro-needs-session-from-sip-context</code>,
+     * <code>warm-intro-disabled</code> (the deployment switch is off), <code>asterisk-not-local</code> /
+     * <code>asterisk-version-unsupported</code>, <code>no-nlu-session</code> (the call has no live NLU session),
+     * <code>warm-intro-needs-listener</code> (the project has no listener to run the intro),
      * <code>warm-intro-cross-project</code> (the listeners use another NLU project than the call),
      * <code>warm-intro-notice-unsupported</code> (the call&apos;s SIP container cannot deliver the outcome to the
      * caller), <code>call-control-disabled</code> and <code>phase-b-not-enabled</code>. The response is then

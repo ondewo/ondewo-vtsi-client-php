@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request to hang up a participant of a call</p>
+ * Request to hang up a participant of a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.RemoveCallParticipantRequest</code>
  */

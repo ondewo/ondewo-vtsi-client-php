@@ -8,9 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Represents the options for views of an intent.
- * An intent can be a sizable object. Therefore, we provide a resource view that
- * does not return training phrases in the response by default.
+ * Represents the options for views of an intent. An intent can be a sizable object. Therefore, we provide a resource view that does not return training phrases in the response by default.
  *
  * Protobuf type <code>ondewo.nlu.IntentView</code>
  */

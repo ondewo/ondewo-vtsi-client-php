@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Why the SERVER ended a <code>StreamCallLogs</code> stream. Carried by the final
- * <a href="index.html#ondewo.vtsi.StreamCallLogsResponse">StreamCallLogsResponse</a> beside the
- * human-readable <code>end_reason</code>. A stream ended by the client has no final message.
+ * Why the SERVER ended a <code>StreamCallLogs</code> stream. Carried by the final <a href="index.html#ondewo.vtsi.StreamCallLogsResponse">StreamCallLogsResponse</a> beside the human-readable <code>end_reason</code>. A stream ended by the client has no final message.
  *
  * Protobuf type <code>ondewo.vtsi.LogStreamEndReason</code>
  */

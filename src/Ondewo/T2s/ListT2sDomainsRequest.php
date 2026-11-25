@@ -10,9 +10,9 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Domain Request representation.</p>
- * <p>The request message for ListT2sDomains.</p>
- * <p>Filter domains of pipelines by attributed in request.</p>
+ * Domain Request representation.
+ * The request message for ListT2sDomains.
+ * Filter domains of pipelines by attributed in request.
  *
  * Generated from protobuf message <code>ondewo.t2s.ListT2sDomainsRequest</code>
  */

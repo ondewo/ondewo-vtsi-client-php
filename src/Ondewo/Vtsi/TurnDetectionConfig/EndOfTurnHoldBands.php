@@ -10,15 +10,16 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Hold bands of the semantic turn detection model
+ * Hold bands of an end-of-utterance turn detection model (see <code>hold_bands</code>). The message is a wrapper so that &quot;no bands&quot; can be told apart from &quot;unset&quot;
  *
  * Generated from protobuf message <code>ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBands</code>
  */
 class EndOfTurnHoldBands extends \Google\Protobuf\Internal\Message
 {
     /**
-     * The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
-     * exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
+     * The bands (at most 10, in any order). They are sorted by <code>upper_probability</code>, and the first
+     * band whose upper probability is above the end-of-turn probability decides the hold; a probability at or
+     * above every band&apos;s upper bound is committed without a hold. Empty: no turn is held
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBand bands = 1;</code>
      */
@@ -31,8 +32,9 @@ class EndOfTurnHoldBands extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBand[] $bands
-     *           The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
-     *           exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
+     *           The bands (at most 10, in any order). They are sorted by <code>upper_probability</code>, and the first
+     *           band whose upper probability is above the end-of-turn probability decides the hold; a probability at or
+     *           above every band&apos;s upper bound is committed without a hold. Empty: no turn is held
      * }
      */
     public function __construct($data = NULL) {
@@ -41,8 +43,9 @@ class EndOfTurnHoldBands extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
-     * exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
+     * The bands (at most 10, in any order). They are sorted by <code>upper_probability</code>, and the first
+     * band whose upper probability is above the end-of-turn probability decides the hold; a probability at or
+     * above every band&apos;s upper bound is committed without a hold. Empty: no turn is held
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBand bands = 1;</code>
      * @return RepeatedField<\Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBand>
@@ -53,8 +56,9 @@ class EndOfTurnHoldBands extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The bands (at most 10). The first band, sorted by <code>upper_probability</code>, whose upper probability
-     * exceeds the end-of-turn probability decides the hold; a probability above every band is committed at once
+     * The bands (at most 10, in any order). They are sorted by <code>upper_probability</code>, and the first
+     * band whose upper probability is above the end-of-turn probability decides the hold; a probability at or
+     * above every band&apos;s upper bound is committed without a hold. Empty: no turn is held
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBand bands = 1;</code>
      * @param \Ondewo\Vtsi\TurnDetectionConfig\EndOfTurnHoldBand[] $var

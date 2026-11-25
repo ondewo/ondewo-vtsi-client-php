@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionOndewoDeFusionOptions configures the ONDEWO German fusion turn detector. It combines the ONDEWO
- * German text model on vLLM, acoustic heads on Triton and signals computed from the stream into one end-of-turn
- * probability. The Triton heads, the text model's served name and the weights file are server settings.</p>
+ * TurnDetectionOndewoDeFusionOptions configures the ONDEWO German fusion turn detector. It combines the ONDEWO German text model on vLLM, acoustic heads on Triton and signals computed from the stream into one end-of-turn probability. The Triton heads, the text model's served name and the weights file are server settings.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionOndewoDeFusionOptions</code>
  */

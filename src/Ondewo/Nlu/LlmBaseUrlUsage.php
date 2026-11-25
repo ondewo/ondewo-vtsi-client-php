@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Per-base-URL usage rollup across the scope. One entry per distinct
- * <code>LlmTelemetry.base_url</code>; calls whose model configuration states no base URL are
- * grouped under an empty <code>base_url</code>.
+ * Per-base-URL usage rollup across the scope. One entry per distinct <code>LlmTelemetry.base_url</code>; calls whose model configuration states no base URL are grouped under an empty <code>base_url</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmBaseUrlUsage</code>
  */

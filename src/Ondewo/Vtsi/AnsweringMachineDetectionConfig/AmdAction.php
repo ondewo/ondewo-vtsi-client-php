@@ -8,39 +8,48 @@ namespace Ondewo\Vtsi\AnsweringMachineDetectionConfig;
 use UnexpectedValueException;
 
 /**
- * What to do once a non-human verdict is reached
+ * What the call does once a verdict is reached that is not a person
  *
  * Protobuf type <code>ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction</code>
  */
 class AmdAction
 {
     /**
-     * Unspecified action defaults to HANG_UP
+     * Not set explicitly. As a value of <code>action</code> it selects the built-in default
+     * <code>HANG_UP</code>; leave <code>action</code> unset instead to inherit the deployment setting
+     * <code>ONDEWO_VTSI_AMD_ACTION</code>
      *
      * Generated from protobuf enum <code>AMD_ACTION_UNSPECIFIED = 0;</code>
      */
     const AMD_ACTION_UNSPECIFIED = 0;
     /**
-     * Hang up at once on a non-human verdict whose per-verdict hang-up switch is on
-     * (an answering machine is always hung up on) (default)
+     * Hang up at once on an answering machine, and on a fax, a network announcement, an IVR or a call
+     * screening assistant whose <code>hang_up_on_*</code> switch is on (default). The bot says nothing
+     * before the hangup
      *
      * Generated from protobuf enum <code>HANG_UP = 1;</code>
      */
     const HANG_UP = 1;
     /**
-     * Only detect and record the verdict, never hang up: OUTGOING_CALL_ANSWERING_MACHINE_DETECTED is still
-     * set, then the far end is treated as a person and the call continues with the greeting and ends
-     * normally (shadow mode to calibrate the detection before enabling HANG_UP)
+     * Shadow mode: detect and report the verdict, never hang up.
+     * <code>OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> is still set for a verdict that would hang up, then
+     * the far end is treated as a person: the call continues with the greeting and ends normally. Use it to
+     * measure how the detection would decide on real calls before switching to <code>HANG_UP</code>
      *
      * Generated from protobuf enum <code>DETECT_ONLY = 2;</code>
      */
     const DETECT_ONLY = 2;
     /**
-     * Leave a voice message on a hang-up-eligible verdict, then hang up: the fulfillment of
-     * voice_message_intent is spoken once after the beep (or after the end of the machine greeting),
-     * and the call is hung up when it finished playing or when voice_message_timeout_ms elapsed,
-     * whichever comes first. A FAX verdict never gets a voice message; it is hung up on when
-     * hang_up_on_fax is on. See the compliance note above before enabling it
+     * Leave a voice message on an answering machine, then hang up. Only a MACHINE verdict gets a message: a
+     * fax, a network announcement, an IVR or a call screening assistant is not a mailbox and is hung up on at
+     * once, without a message, when its <code>hang_up_on_*</code> switch is on.
+     * <p>The fulfillment of <code>voice_message_intent</code> is prepared at the verdict and spoken once, when
+     * the first of these happens: the beep of the mailbox ended, the greeting ended in silence, or
+     * <code>voice_message_max_beep_wait_ms</code> passed. The call is hung up when the message finished
+     * playing or when <code>voice_message_timeout_ms</code> after the verdict elapsed, whichever comes first.
+     * If the NLU fails, no apology is spoken onto the mailbox. The voice message intent is triggered on the
+     * call&apos;s NLU session at the verdict, also when the machine hangs up before the message is played.
+     * See the compliance note above before enabling it</p>
      *
      * Generated from protobuf enum <code>LEAVE_VOICE_MESSAGE = 3;</code>
      */

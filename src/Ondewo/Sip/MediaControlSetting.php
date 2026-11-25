@@ -8,7 +8,7 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>Desired setting of one media control flag</p>
+ * Desired setting of one media control flag
  *
  * Protobuf type <code>ondewo.sip.MediaControlSetting</code>
  */

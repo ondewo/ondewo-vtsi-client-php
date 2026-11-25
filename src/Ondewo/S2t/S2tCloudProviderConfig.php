@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration for cloud provider settings for Speech-to-Text (S2T).</p>
+ * Configuration for cloud provider settings for Speech-to-Text (S2T).
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tCloudProviderConfig</code>
  */

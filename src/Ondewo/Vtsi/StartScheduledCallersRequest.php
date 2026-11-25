@@ -26,7 +26,8 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
      * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
      * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
-     * request&apos;s; its <code>field_mask</code> must be unset.
+     * request&apos;s; its <code>field_mask</code> must be unset. Every entry carries its own configuration, which
+     * applies to its own call only (see <code>StartScheduledCallerRequest.request</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      */
@@ -71,7 +72,8 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      *           The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
      *           atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
      *           does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
-     *           request&apos;s; its <code>field_mask</code> must be unset.
+     *           request&apos;s; its <code>field_mask</code> must be unset. Every entry carries its own configuration, which
+     *           applies to its own call only (see <code>StartScheduledCallerRequest.request</code>).
      *     @type string $idempotency_key
      *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
      *           deduplication. A retry carrying the same key returns the response of the first successful attempt instead
@@ -128,7 +130,8 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
      * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
      * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
-     * request&apos;s; its <code>field_mask</code> must be unset.
+     * request&apos;s; its <code>field_mask</code> must be unset. Every entry carries its own configuration, which
+     * applies to its own call only (see <code>StartScheduledCallerRequest.request</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartScheduledCallerRequest>
@@ -142,7 +145,8 @@ class StartScheduledCallersRequest extends \Google\Protobuf\Internal\Message
      * The scheduled callers to create, 1 to 1000, each like <code>StartScheduledCaller</code> and on its own (not
      * atomic: an entry that fails is reported in its <code>StartScheduledCallerResponse.error_message</code> and
      * does not stop the others). Each entry&apos;s <code>vtsi_project_name</code> is overwritten with this
-     * request&apos;s; its <code>field_mask</code> must be unset.
+     * request&apos;s; its <code>field_mask</code> must be unset. Every entry carries its own configuration, which
+     * applies to its own call only (see <code>StartScheduledCallerRequest.request</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartScheduledCallerRequest[] $var

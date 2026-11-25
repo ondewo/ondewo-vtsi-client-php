@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Campaigns.CloneCampaign">Campaigns.CloneCampaign</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Campaigns.CloneCampaign">Campaigns.CloneCampaign</a>.
+ * The clone gets the source&apos;s <code>campaign_common_services_config</code> and <code>campaign_sip_caller_config</code> as they are stored, credentials included, so its calls behave as the source&apos;s calls would; change a setting of the clone afterwards with <code>UpdateCampaign</code>. A copied call keeps its own stored entry, whose own settings still win over the clone&apos;s defaults.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CloneCampaignRequest</code>
  */

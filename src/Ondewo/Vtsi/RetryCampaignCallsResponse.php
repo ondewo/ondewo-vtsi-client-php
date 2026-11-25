@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The response message for
- * <a href="index.html#ondewo.vtsi.Campaigns.RetryCampaignCalls">Campaigns.RetryCampaignCalls</a>.
+ * The response message for <a href="index.html#ondewo.vtsi.Campaigns.RetryCampaignCalls">Campaigns.RetryCampaignCalls</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.RetryCampaignCallsResponse</code>
  */

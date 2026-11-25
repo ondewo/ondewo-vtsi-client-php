@@ -11,24 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Document parser configuration.
- * Used fields depend on the chunking method of the document.
- * <ul>
- *     <li><code>naive</code>: uses the following fields (all optional)</li>
- *     <ul>
- *         <li><code>auto_keywords</code></li>
- *         <li><code>auto_questions</code></li>
- *         <li><code>chunk_token_num</code></li>
- *         <li><code>delimiter</code></li>
- *         <li><code>html4excel</code></li>
- *         <li><code>layout_recognize</code></li>
- *         <li><code>tag_kb_ids</code></li>
- *         <li><code>task_page_size</code></li>
- *         <li><code>raptor</code></li>
- *         <li><code>graphrag</code></li>
- *     </ul>
- *     <li><code>qa</code>, <code>manual</code>, <code>paper</code>, <code>book</code>, <code>laws</code>, <code>presentation</code>: uses only the <code>raptor</code> field</li>
- *     <li><code>table</code>, <code>picture</code>, <code>one</code>, <code>email</code>: does not use any field (expects empty message)</li>
- * </ul>
+ * Used fields depend on the chunking method of the document. <ul> <li><code>naive</code>: uses the following fields (all optional)</li> <ul> <li><code>auto_keywords</code></li> <li><code>auto_questions</code></li> <li><code>chunk_token_num</code></li> <li><code>delimiter</code></li> <li><code>html4excel</code></li> <li><code>layout_recognize</code></li> <li><code>tag_kb_ids</code></li> <li><code>task_page_size</code></li> <li><code>raptor</code></li> <li><code>graphrag</code></li> </ul> <li><code>qa</code>, <code>manual</code>, <code>paper</code>, <code>book</code>, <code>laws</code>, <code>presentation</code>: uses only the <code>raptor</code> field</li> <li><code>table</code>, <code>picture</code>, <code>one</code>, <code>email</code>: does not use any field (expects empty message)</li> </ul>
  *
  * Generated from protobuf message <code>ondewo.nlu.RagParserConfig</code>
  */

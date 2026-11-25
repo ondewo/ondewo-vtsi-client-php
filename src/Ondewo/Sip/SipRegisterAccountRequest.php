@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request for registering a SIP account at a SIP server</p>
+ * Request for registering a SIP account at a SIP server
  *
  * Generated from protobuf message <code>ondewo.sip.SipRegisterAccountRequest</code>
  */

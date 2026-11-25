@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to list VTSI projects. The filters are combined with AND; the values within one repeated
- * field are combined with OR; an unset field or an empty repeated field does not filter.
+ * Request to list VTSI projects. The filters are combined with AND; the values within one repeated field are combined with OR; an unset field or an empty repeated field does not filter.
  *
  * Generated from protobuf message <code>ondewo.vtsi.ListVtsiProjectsRequest</code>
  */

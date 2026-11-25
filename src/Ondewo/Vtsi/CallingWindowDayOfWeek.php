@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Day of the week of a <code>CallingWindowSlot</code>, in the window&apos;s time zone. Defined here rather
- * than reusing <code>google.type.DayOfWeek</code> so that this file needs no further import in any
- * generated client; the numbering is the same (ISO 8601, Monday = 1).
+ * Day of the week of a <code>CallingWindowSlot</code>, in the window&apos;s time zone. Defined here rather than reusing <code>google.type.DayOfWeek</code> so that this file needs no further import in any generated client; the numbering is the same (ISO 8601, Monday = 1).
  *
  * Protobuf type <code>ondewo.vtsi.CallingWindowDayOfWeek</code>
  */

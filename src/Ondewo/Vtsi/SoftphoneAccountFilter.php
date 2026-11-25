@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Narrows a softphone account listing. Every field is optional; an unset field or an empty repeated
- * field or map means &quot;do not filter on this&quot;. Fields are combined with AND; the values within
- * one repeated field are combined with OR; the entries of <code>labels</code> are combined with AND.
+ * Narrows a softphone account listing. Every field is optional; an unset field or an empty repeated field or map means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR; the entries of <code>labels</code> are combined with AND.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneAccountFilter</code>
  */

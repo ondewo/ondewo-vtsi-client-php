@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The response message for <code>ListS2tNormalizationPipelines</code>.</p>
+ * The response message for <code>ListS2tNormalizationPipelines</code>.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tNormalizationPipelinesResponse</code>
  */

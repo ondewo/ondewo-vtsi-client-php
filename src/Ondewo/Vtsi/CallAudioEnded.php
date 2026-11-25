@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Sent once when a call audio stream ends normally</p>
+ * Sent once when a call audio stream ends normally
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallAudioEnded</code>
  */

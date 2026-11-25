@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionChatLlmOptions configures a chat LLM as the turn detector: the LLM is asked, with the prompts
- * below and the transcription of the turn, whether the caller has finished.</p>
+ * TurnDetectionChatLlmOptions configures a chat LLM as the turn detector: the LLM is asked, with the prompts below and the transcription of the turn, whether the caller has finished.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionChatLlmOptions</code>
  */

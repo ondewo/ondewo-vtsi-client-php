@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Campaigns.UpdateCampaign">Campaigns.UpdateCampaign</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Campaigns.UpdateCampaign">Campaigns.UpdateCampaign</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateCampaignRequest</code>
  */
@@ -59,6 +58,23 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
      *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
      * </ul>
+     * <p>For the <code>optional</code> call-behaviour settings this gives a precise way to change one of them
+     * for the whole campaign: a path naming the setting with a value in <code>campaign</code> SETS it for
+     * every call that does not set its own; the same path with the setting left unset in <code>campaign</code>
+     * CLEARS it, so the calls inherit the deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in
+     * default again. Example: path
+     * <code>campaign_common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>
+     * with <code>enabled: true</code> makes every later call of the campaign interruptible and leaves every
+     * other stored setting as it is; the same path with <code>enabled</code> unset removes the campaign&apos;s
+     * choice. The path <code>campaign_common_services_config.voice_interaction_config</code> instead REPLACES
+     * the whole voice interaction default with the one sent, dropping every setting the request does not
+     * carry.</p>
+     * <p>Effect on calls: a changed default applies to every campaign call dispatched after the update, its
+     * retries included; a call already running keeps the configuration it was started with, and an idle
+     * pooled caller is reused only while a call&apos;s new effective configuration is the one that caller
+     * runs. <code>campaign_common_services_config</code> is not validated here but with each call, when
+     * calls are added and again at dispatch: an update that makes a waiting call&apos;s effective
+     * configuration invalid fails that call without a retry.</p>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      */
@@ -121,6 +137,23 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      *                 <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
      *             <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
      *           </ul>
+     *           <p>For the <code>optional</code> call-behaviour settings this gives a precise way to change one of them
+     *           for the whole campaign: a path naming the setting with a value in <code>campaign</code> SETS it for
+     *           every call that does not set its own; the same path with the setting left unset in <code>campaign</code>
+     *           CLEARS it, so the calls inherit the deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in
+     *           default again. Example: path
+     *           <code>campaign_common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>
+     *           with <code>enabled: true</code> makes every later call of the campaign interruptible and leaves every
+     *           other stored setting as it is; the same path with <code>enabled</code> unset removes the campaign&apos;s
+     *           choice. The path <code>campaign_common_services_config.voice_interaction_config</code> instead REPLACES
+     *           the whole voice interaction default with the one sent, dropping every setting the request does not
+     *           carry.</p>
+     *           <p>Effect on calls: a changed default applies to every campaign call dispatched after the update, its
+     *           retries included; a call already running keeps the configuration it was started with, and an idle
+     *           pooled caller is reused only while a call&apos;s new effective configuration is the one that caller
+     *           runs. <code>campaign_common_services_config</code> is not validated here but with each call, when
+     *           calls are added and again at dispatch: an update that makes a waiting call&apos;s effective
+     *           configuration invalid fails that call without a retry.</p>
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
      *           returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
@@ -209,6 +242,23 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
      *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
      * </ul>
+     * <p>For the <code>optional</code> call-behaviour settings this gives a precise way to change one of them
+     * for the whole campaign: a path naming the setting with a value in <code>campaign</code> SETS it for
+     * every call that does not set its own; the same path with the setting left unset in <code>campaign</code>
+     * CLEARS it, so the calls inherit the deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in
+     * default again. Example: path
+     * <code>campaign_common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>
+     * with <code>enabled: true</code> makes every later call of the campaign interruptible and leaves every
+     * other stored setting as it is; the same path with <code>enabled</code> unset removes the campaign&apos;s
+     * choice. The path <code>campaign_common_services_config.voice_interaction_config</code> instead REPLACES
+     * the whole voice interaction default with the one sent, dropping every setting the request does not
+     * carry.</p>
+     * <p>Effect on calls: a changed default applies to every campaign call dispatched after the update, its
+     * retries included; a call already running keeps the configuration it was started with, and an idle
+     * pooled caller is reused only while a call&apos;s new effective configuration is the one that caller
+     * runs. <code>campaign_common_services_config</code> is not validated here but with each call, when
+     * calls are added and again at dispatch: an update that makes a waiting call&apos;s effective
+     * configuration invalid fails that call without a retry.</p>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @return \Google\Protobuf\FieldMask|null
@@ -263,6 +313,23 @@ class UpdateCampaignRequest extends \Google\Protobuf\Internal\Message
      *       <code>INVALID_ARGUMENT</code> naming it: name the repeated or map field itself;</li>
      *   <li>a path and a sub-path of it in the same mask act as the shorter path alone.</li>
      * </ul>
+     * <p>For the <code>optional</code> call-behaviour settings this gives a precise way to change one of them
+     * for the whole campaign: a path naming the setting with a value in <code>campaign</code> SETS it for
+     * every call that does not set its own; the same path with the setting left unset in <code>campaign</code>
+     * CLEARS it, so the calls inherit the deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in
+     * default again. Example: path
+     * <code>campaign_common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>
+     * with <code>enabled: true</code> makes every later call of the campaign interruptible and leaves every
+     * other stored setting as it is; the same path with <code>enabled</code> unset removes the campaign&apos;s
+     * choice. The path <code>campaign_common_services_config.voice_interaction_config</code> instead REPLACES
+     * the whole voice interaction default with the one sent, dropping every setting the request does not
+     * carry.</p>
+     * <p>Effect on calls: a changed default applies to every campaign call dispatched after the update, its
+     * retries included; a call already running keeps the configuration it was started with, and an idle
+     * pooled caller is reused only while a call&apos;s new effective configuration is the one that caller
+     * runs. <code>campaign_common_services_config</code> is not validated here but with each call, when
+     * calls are added and again at dispatch: an update that makes a waiting call&apos;s effective
+     * configuration invalid fails that call without a retry.</p>
      *
      * Generated from protobuf field <code>.google.protobuf.FieldMask update_mask = 2;</code>
      * @param \Google\Protobuf\FieldMask $var

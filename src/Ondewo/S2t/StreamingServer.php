@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>StreamingServer contains information about the streaming server.</p>
+ * StreamingServer contains information about the streaming server.
  *
  * Generated from protobuf message <code>ondewo.s2t.StreamingServer</code>
  */

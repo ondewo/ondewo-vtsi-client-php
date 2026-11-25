@@ -10,21 +10,25 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * NLU Configuration
+ * NLU configuration of a call: which NLU agent answers the caller, in which language, how the call authenticates to the NLU, how the conversation is opened, and how the bot behaves when the NLU is slow or unreachable.
+ * Scope: the configuration of a LISTENER applies to every inbound call that listener deployment serves; the configuration of a caller, a campaign or a scheduled caller applies to its own calls. A pooled (persistent) caller is only reused for a request whose configuration is identical (the credentials are compared exactly, so a changed password deploys a new caller).
+ * Unless a field says otherwise, an unset <code>optional</code> field means &quot;inherit&quot;: the call keeps the built-in default of the speech-to-speech service. A value set here wins for the calls this configuration serves.
+ * The request is validated before any call is placed: the NLU must be reachable and the agent must exist and be readable with the given credentials. A missing <code>agent_name</code>, an unknown agent or rejected credentials are refused with <code>INVALID_ARGUMENT</code>; an NLU that does not answer at all is <code>UNAVAILABLE</code> (retryable).
  *
  * Generated from protobuf message <code>ondewo.vtsi.NluVtsiConfig</code>
  */
 class NluVtsiConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Base config
-     * Host, Port, and [Optional] GRPC cert
+     * Required: Address of the NLU gRPC server (host, port and the certificate its server certificate chains to).
+     * See <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig nlu_base_config = 1;</code>
      */
     protected $nlu_base_config = null;
     /**
-     * The resource name of the agent.
+     * Required: Resource name of the NLU agent that answers the caller. An empty or unknown agent is refused with
+     * <code>INVALID_ARGUMENT</code>.
      * Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>string agent_name = 4;</code>
@@ -32,45 +36,118 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     protected $agent_name = '';
     /**
      * Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
-     * language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
-     * whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
-     * default language applies).
+     * language tag the agent supports (e.g. <code>de-DE</code>). It is sent with every NLU request of the call and
+     * also selects the language of the default <code>failure_apology_message</code>. VTSI does not check it against
+     * the agent. An empty value is accepted with a warning, but the call then asks the NLU in no language, the
+     * agent cannot answer and the bot stays silent: always set a language the agent supports
      *
      * Generated from protobuf field <code>string language_code = 5;</code>
      */
     protected $language_code = '';
     /**
-     * name of intent to trigger at the start of a call
+     * Display name of the intent that opens the conversation, e.g. <code>Default Welcome Intent</code>. When the
+     * call is connected the bot triggers this intent before the caller says anything and speaks its answer (the
+     * greeting). Empty: the bot says nothing first and waits for the caller to speak. With answering machine
+     * detection active the intent is triggered only once the detector decided to greet
      *
      * Generated from protobuf field <code>string initial_intent = 6;</code>
      */
     protected $initial_intent = '';
     /**
-     * ondewo-nlu list of contexts
+     * Contexts created in the call&apos;s NLU session before the first NLU request, e.g. to hand the agent the
+     * customer number of an outbound call. Only the last segment of a context&apos;s <code>name</code> (the
+     * context id) is used: the context is created in the session of the call. A context without a name is skipped.
+     * Example: a context named <code>c-customer</code> with the parameter <code>customer_id</code> lets the agent
+     * greet a known customer by the data behind that id
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Context contexts = 7;</code>
      */
     private $contexts;
     /**
-     * http basic auth token
+     * HTTP basic auth token. Kept for wire compatibility only: it is not forwarded to the call and has no effect
      *
      * Generated from protobuf field <code>string http_basic_auth_token = 8;</code>
      */
     protected $http_basic_auth_token = '';
     /**
-     * Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
+     * Optional: Platform of the response messages the bot speaks. An NLU answer can carry messages for several
+     * platforms; the bot speaks only the text messages of this platform and skips every other one. Unset:
+     * <code>PLATFORM_UNSPECIFIED</code>, the messages without a platform. Set it to the platform the agent&apos;s
+     * voice answers are written for. A platform the agent&apos;s answers carry no text message for leaves the bot
+     * silent, so check the agent before changing it
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
      */
     protected $platform = null;
     /**
-     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
-     * values. Whether preemptive generation runs at all is set with
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the built-in
+     * defaults. The bounds only matter while preemptive generation is on, which is set with
      * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
      */
     protected $preemptive_generation_config = null;
+    /**
+     * Optional: Speak the filler sentences an AI Teams agent of the NLU sends while it is still working on a slow
+     * answer (e.g. &quot;One moment, I am checking that for you.&quot;), so the caller does not hear dead air. A
+     * filler is spoken before the answer of its turn, and a final answer that repeats a filler already spoken is not
+     * spoken a second time. <code>false</code>: every filler is dropped and only the answers are spoken. Only
+     * fillers the NLU marks as fillers are affected; agents that are not AI Teams agents send none. Default:
+     * <code>true</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_fillers_audible = 11;</code>
+     */
+    protected $ai_teams_fillers_audible = null;
+    /**
+     * Optional: Text the bot speaks when an NLU request of a turn still fails after its retries (the NLU is
+     * unreachable), so the caller hears a request to repeat instead of silence. Unset: a built-in apology in the
+     * language of <code>language_code</code>, German for <code>de</code> / <code>de-*</code> and English for every
+     * other language (&quot;Sorry, I didn&apos;t quite catch that. Could you please repeat that?&quot;). An empty
+     * text switches the apology off: the failed turn then stays unanswered. Leading and trailing spaces are removed.
+     * At most 500 characters and no control characters (a line break included); otherwise refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional string failure_apology_message = 12;</code>
+     */
+    protected $failure_apology_message = null;
+    /**
+     * Optional: Take the call&apos;s SIP context into the NLU session. <code>true</code> (default): the NLU session
+     * id of the call is derived from the SIP header <code>X-ondewo-phonesystem-call-id</code> when the call carries
+     * it (an <code>\@</code> becomes <code>_at_</code>), so the conversation can be found by the phone system&apos;s
+     * own call id; and the session gets the context <code>c-sip-context</code>, whose parameters are the SIP
+     * account (<code>account_name</code>), the called party (<code>callee_id</code>) and the SIP headers of the
+     * call, so the agent can read e.g. a customer header the dialer added. <code>false</code>: the session id is
+     * the one generated for the call, no <code>c-sip-context</code> is created, and an agent that reads SIP headers
+     * from that context finds nothing. There is no deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional bool session_id_from_sip_context = 13;</code>
+     */
+    protected $session_id_from_sip_context = null;
+    /**
+     * Optional: Seconds a result an AI Teams agent delivers on its own (a push, e.g. the later result of a tool that
+     * ran in the background) may wait at most to be spoken. A push is held while the caller speaks or the bot is
+     * still answering, and spoken once the floor is free; a push that has waited longer than this by then is dropped
+     * without being spoken and reported as dropped with the reason <code>stale</code>, because a result the caller
+     * asked for long ago is confusing once the conversation has moved on. Unit: seconds. Default: 30. Valid range:
+     * 0 - 3600; 0 switches the age limit off (every held push is spoken, subject to
+     * <code>ai_teams_push_max_spoken</code>). Pushes only reach the call with
+     * <code>ResponseTimingConfig.nlu_call_stream_enabled</code>; agents that are not AI Teams agents send none. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_AGE_SECONDS</code>
+     *
+     * Generated from protobuf field <code>optional float ai_teams_push_max_age_seconds = 14;</code>
+     */
+    protected $ai_teams_push_max_age_seconds = null;
+    /**
+     * Optional: Number of held pushes (see <code>ai_teams_push_max_age_seconds</code>) spoken at most when the floor
+     * becomes free: of the pushes still held after the age limit, only the NEWEST ones up to this number are spoken,
+     * oldest first; every older one is dropped without being spoken and reported as dropped with the reason
+     * <code>coalesced</code>. Example: three tool results arrived while the caller was talking; with 2 the caller
+     * hears the two latest. Default: 2. Valid range: 0 - 16; 0 switches the limit off (every held push is spoken).
+     * A set value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_SPOKEN</code>
+     *
+     * Generated from protobuf field <code>optional int32 ai_teams_push_max_spoken = 15;</code>
+     */
+    protected $ai_teams_push_max_spoken = null;
     protected $authentication;
 
     /**
@@ -80,32 +157,92 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\BaseServiceConfig $nlu_base_config
-     *           Base config
-     *           Host, Port, and [Optional] GRPC cert
+     *           Required: Address of the NLU gRPC server (host, port and the certificate its server certificate chains to).
+     *           See <code>BaseServiceConfig</code> for what is refused
      *     @type \Ondewo\Vtsi\Credentials $credentials
-     *           Credentials with classical username and password
+     *           Account name and password of the NLU user the call talks to the NLU as (typically a technical user of
+     *           the project). Used twice: once when the request is validated (the agent is read with these credentials)
+     *           and once inside the call, which logs in with them. This is the authentication current deployments use.
+     *           The values are never logged and can be withheld when the call configuration is read back
      *     @type string $auth_token
-     *           Authentication token
+     *           Authentication token. Kept for wire compatibility only: VTSI does not validate the request with it, and
+     *           the speech-to-speech service of current SIP images does not read it, so it has no effect there. It is
+     *           still handed to the call, so a call running an older SIP image (<code>SipBaseConfig.sip_sim_version</code>)
+     *           may still use it. Use <code>credentials</code> instead
      *     @type string $agent_name
-     *           The resource name of the agent.
+     *           Required: Resource name of the NLU agent that answers the caller. An empty or unknown agent is refused with
+     *           <code>INVALID_ARGUMENT</code>.
      *           Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
      *     @type string $language_code
      *           Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
-     *           language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
-     *           whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
-     *           default language applies).
+     *           language tag the agent supports (e.g. <code>de-DE</code>). It is sent with every NLU request of the call and
+     *           also selects the language of the default <code>failure_apology_message</code>. VTSI does not check it against
+     *           the agent. An empty value is accepted with a warning, but the call then asks the NLU in no language, the
+     *           agent cannot answer and the bot stays silent: always set a language the agent supports
      *     @type string $initial_intent
-     *           name of intent to trigger at the start of a call
+     *           Display name of the intent that opens the conversation, e.g. <code>Default Welcome Intent</code>. When the
+     *           call is connected the bot triggers this intent before the caller says anything and speaks its answer (the
+     *           greeting). Empty: the bot says nothing first and waits for the caller to speak. With answering machine
+     *           detection active the intent is triggered only once the detector decided to greet
      *     @type \Ondewo\Nlu\Context[] $contexts
-     *           ondewo-nlu list of contexts
+     *           Contexts created in the call&apos;s NLU session before the first NLU request, e.g. to hand the agent the
+     *           customer number of an outbound call. Only the last segment of a context&apos;s <code>name</code> (the
+     *           context id) is used: the context is created in the session of the call. A context without a name is skipped.
+     *           Example: a context named <code>c-customer</code> with the parameter <code>customer_id</code> lets the agent
+     *           greet a known customer by the data behind that id
      *     @type string $http_basic_auth_token
-     *           http basic auth token
+     *           HTTP basic auth token. Kept for wire compatibility only: it is not forwarded to the call and has no effect
      *     @type int $platform
-     *           Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
+     *           Optional: Platform of the response messages the bot speaks. An NLU answer can carry messages for several
+     *           platforms; the bot speaks only the text messages of this platform and skips every other one. Unset:
+     *           <code>PLATFORM_UNSPECIFIED</code>, the messages without a platform. Set it to the platform the agent&apos;s
+     *           voice answers are written for. A platform the agent&apos;s answers carry no text message for leaves the bot
+     *           silent, so check the agent before changing it
      *     @type \Ondewo\Vtsi\NluPreemptiveGenerationConfig $preemptive_generation_config
-     *           Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
-     *           values. Whether preemptive generation runs at all is set with
+     *           Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the built-in
+     *           defaults. The bounds only matter while preemptive generation is on, which is set with
      *           <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
+     *     @type bool $ai_teams_fillers_audible
+     *           Optional: Speak the filler sentences an AI Teams agent of the NLU sends while it is still working on a slow
+     *           answer (e.g. &quot;One moment, I am checking that for you.&quot;), so the caller does not hear dead air. A
+     *           filler is spoken before the answer of its turn, and a final answer that repeats a filler already spoken is not
+     *           spoken a second time. <code>false</code>: every filler is dropped and only the answers are spoken. Only
+     *           fillers the NLU marks as fillers are affected; agents that are not AI Teams agents send none. Default:
+     *           <code>true</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *     @type string $failure_apology_message
+     *           Optional: Text the bot speaks when an NLU request of a turn still fails after its retries (the NLU is
+     *           unreachable), so the caller hears a request to repeat instead of silence. Unset: a built-in apology in the
+     *           language of <code>language_code</code>, German for <code>de</code> / <code>de-*</code> and English for every
+     *           other language (&quot;Sorry, I didn&apos;t quite catch that. Could you please repeat that?&quot;). An empty
+     *           text switches the apology off: the failed turn then stays unanswered. Leading and trailing spaces are removed.
+     *           At most 500 characters and no control characters (a line break included); otherwise refused with
+     *           <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *     @type bool $session_id_from_sip_context
+     *           Optional: Take the call&apos;s SIP context into the NLU session. <code>true</code> (default): the NLU session
+     *           id of the call is derived from the SIP header <code>X-ondewo-phonesystem-call-id</code> when the call carries
+     *           it (an <code>\@</code> becomes <code>_at_</code>), so the conversation can be found by the phone system&apos;s
+     *           own call id; and the session gets the context <code>c-sip-context</code>, whose parameters are the SIP
+     *           account (<code>account_name</code>), the called party (<code>callee_id</code>) and the SIP headers of the
+     *           call, so the agent can read e.g. a customer header the dialer added. <code>false</code>: the session id is
+     *           the one generated for the call, no <code>c-sip-context</code> is created, and an agent that reads SIP headers
+     *           from that context finds nothing. There is no deployment-wide setting for it; a value set here wins
+     *     @type float $ai_teams_push_max_age_seconds
+     *           Optional: Seconds a result an AI Teams agent delivers on its own (a push, e.g. the later result of a tool that
+     *           ran in the background) may wait at most to be spoken. A push is held while the caller speaks or the bot is
+     *           still answering, and spoken once the floor is free; a push that has waited longer than this by then is dropped
+     *           without being spoken and reported as dropped with the reason <code>stale</code>, because a result the caller
+     *           asked for long ago is confusing once the conversation has moved on. Unit: seconds. Default: 30. Valid range:
+     *           0 - 3600; 0 switches the age limit off (every held push is spoken, subject to
+     *           <code>ai_teams_push_max_spoken</code>). Pushes only reach the call with
+     *           <code>ResponseTimingConfig.nlu_call_stream_enabled</code>; agents that are not AI Teams agents send none. A set
+     *           value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_AGE_SECONDS</code>
+     *     @type int $ai_teams_push_max_spoken
+     *           Optional: Number of held pushes (see <code>ai_teams_push_max_age_seconds</code>) spoken at most when the floor
+     *           becomes free: of the pushes still held after the age limit, only the NEWEST ones up to this number are spoken,
+     *           oldest first; every older one is dropped without being spoken and reported as dropped with the reason
+     *           <code>coalesced</code>. Example: three tool results arrived while the caller was talking; with 2 the caller
+     *           hears the two latest. Default: 2. Valid range: 0 - 16; 0 switches the limit off (every held push is spoken).
+     *           A set value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_SPOKEN</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -114,8 +251,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Base config
-     * Host, Port, and [Optional] GRPC cert
+     * Required: Address of the NLU gRPC server (host, port and the certificate its server certificate chains to).
+     * See <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig nlu_base_config = 1;</code>
      * @return \Ondewo\Vtsi\BaseServiceConfig|null
@@ -136,8 +273,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Base config
-     * Host, Port, and [Optional] GRPC cert
+     * Required: Address of the NLU gRPC server (host, port and the certificate its server certificate chains to).
+     * See <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig nlu_base_config = 1;</code>
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
@@ -151,7 +288,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Credentials with classical username and password
+     * Account name and password of the NLU user the call talks to the NLU as (typically a technical user of
+     * the project). Used twice: once when the request is validated (the agent is read with these credentials)
+     * and once inside the call, which logs in with them. This is the authentication current deployments use.
+     * The values are never logged and can be withheld when the call configuration is read back
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Credentials credentials = 2;</code>
      * @return \Ondewo\Vtsi\Credentials|null
@@ -167,7 +307,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Credentials with classical username and password
+     * Account name and password of the NLU user the call talks to the NLU as (typically a technical user of
+     * the project). Used twice: once when the request is validated (the agent is read with these credentials)
+     * and once inside the call, which logs in with them. This is the authentication current deployments use.
+     * The values are never logged and can be withheld when the call configuration is read back
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Credentials credentials = 2;</code>
      * @param \Ondewo\Vtsi\Credentials $var
@@ -181,7 +324,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Authentication token
+     * Authentication token. Kept for wire compatibility only: VTSI does not validate the request with it, and
+     * the speech-to-speech service of current SIP images does not read it, so it has no effect there. It is
+     * still handed to the call, so a call running an older SIP image (<code>SipBaseConfig.sip_sim_version</code>)
+     * may still use it. Use <code>credentials</code> instead
      *
      * Generated from protobuf field <code>string auth_token = 3;</code>
      * @return string
@@ -197,7 +343,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Authentication token
+     * Authentication token. Kept for wire compatibility only: VTSI does not validate the request with it, and
+     * the speech-to-speech service of current SIP images does not read it, so it has no effect there. It is
+     * still handed to the call, so a call running an older SIP image (<code>SipBaseConfig.sip_sim_version</code>)
+     * may still use it. Use <code>credentials</code> instead
      *
      * Generated from protobuf field <code>string auth_token = 3;</code>
      * @param string $var
@@ -212,7 +361,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The resource name of the agent.
+     * Required: Resource name of the NLU agent that answers the caller. An empty or unknown agent is refused with
+     * <code>INVALID_ARGUMENT</code>.
      * Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>string agent_name = 4;</code>
@@ -224,7 +374,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The resource name of the agent.
+     * Required: Resource name of the NLU agent that answers the caller. An empty or unknown agent is refused with
+     * <code>INVALID_ARGUMENT</code>.
      * Format: <pre><code>projects/&lt;uuid&gt;/agent</code></pre>
      *
      * Generated from protobuf field <code>string agent_name = 4;</code>
@@ -241,9 +392,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
-     * language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
-     * whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
-     * default language applies).
+     * language tag the agent supports (e.g. <code>de-DE</code>). It is sent with every NLU request of the call and
+     * also selects the language of the default <code>failure_apology_message</code>. VTSI does not check it against
+     * the agent. An empty value is accepted with a warning, but the call then asks the NLU in no language, the
+     * agent cannot answer and the bot stays silent: always set a language the agent supports
      *
      * Generated from protobuf field <code>string language_code = 5;</code>
      * @return string
@@ -255,9 +407,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Language of the NLU requests of the call: an ISO 639-1 code (e.g. <code>de</code>, <code>en</code>) or a
-     * language tag the agent supports (e.g. <code>de-DE</code>). VTSI does not validate it: the NLU agent decides
-     * whether it supports the value, and an empty value is accepted (a warning is logged, and the agent&apos;s
-     * default language applies).
+     * language tag the agent supports (e.g. <code>de-DE</code>). It is sent with every NLU request of the call and
+     * also selects the language of the default <code>failure_apology_message</code>. VTSI does not check it against
+     * the agent. An empty value is accepted with a warning, but the call then asks the NLU in no language, the
+     * agent cannot answer and the bot stays silent: always set a language the agent supports
      *
      * Generated from protobuf field <code>string language_code = 5;</code>
      * @param string $var
@@ -272,7 +425,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * name of intent to trigger at the start of a call
+     * Display name of the intent that opens the conversation, e.g. <code>Default Welcome Intent</code>. When the
+     * call is connected the bot triggers this intent before the caller says anything and speaks its answer (the
+     * greeting). Empty: the bot says nothing first and waits for the caller to speak. With answering machine
+     * detection active the intent is triggered only once the detector decided to greet
      *
      * Generated from protobuf field <code>string initial_intent = 6;</code>
      * @return string
@@ -283,7 +439,10 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * name of intent to trigger at the start of a call
+     * Display name of the intent that opens the conversation, e.g. <code>Default Welcome Intent</code>. When the
+     * call is connected the bot triggers this intent before the caller says anything and speaks its answer (the
+     * greeting). Empty: the bot says nothing first and waits for the caller to speak. With answering machine
+     * detection active the intent is triggered only once the detector decided to greet
      *
      * Generated from protobuf field <code>string initial_intent = 6;</code>
      * @param string $var
@@ -298,7 +457,11 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ondewo-nlu list of contexts
+     * Contexts created in the call&apos;s NLU session before the first NLU request, e.g. to hand the agent the
+     * customer number of an outbound call. Only the last segment of a context&apos;s <code>name</code> (the
+     * context id) is used: the context is created in the session of the call. A context without a name is skipped.
+     * Example: a context named <code>c-customer</code> with the parameter <code>customer_id</code> lets the agent
+     * greet a known customer by the data behind that id
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Context contexts = 7;</code>
      * @return RepeatedField<\Ondewo\Nlu\Context>
@@ -309,7 +472,11 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ondewo-nlu list of contexts
+     * Contexts created in the call&apos;s NLU session before the first NLU request, e.g. to hand the agent the
+     * customer number of an outbound call. Only the last segment of a context&apos;s <code>name</code> (the
+     * context id) is used: the context is created in the session of the call. A context without a name is skipped.
+     * Example: a context named <code>c-customer</code> with the parameter <code>customer_id</code> lets the agent
+     * greet a known customer by the data behind that id
      *
      * Generated from protobuf field <code>repeated .ondewo.nlu.Context contexts = 7;</code>
      * @param \Ondewo\Nlu\Context[] $var
@@ -324,7 +491,7 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * http basic auth token
+     * HTTP basic auth token. Kept for wire compatibility only: it is not forwarded to the call and has no effect
      *
      * Generated from protobuf field <code>string http_basic_auth_token = 8;</code>
      * @return string
@@ -335,7 +502,7 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * http basic auth token
+     * HTTP basic auth token. Kept for wire compatibility only: it is not forwarded to the call and has no effect
      *
      * Generated from protobuf field <code>string http_basic_auth_token = 8;</code>
      * @param string $var
@@ -350,7 +517,11 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
+     * Optional: Platform of the response messages the bot speaks. An NLU answer can carry messages for several
+     * platforms; the bot speaks only the text messages of this platform and skips every other one. Unset:
+     * <code>PLATFORM_UNSPECIFIED</code>, the messages without a platform. Set it to the platform the agent&apos;s
+     * voice answers are written for. A platform the agent&apos;s answers carry no text message for leaves the bot
+     * silent, so check the agent before changing it
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
      * @return int one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
@@ -371,7 +542,11 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Return the message specified in Intent.Message.Platform platform to the user in the DetectIntentResponse
+     * Optional: Platform of the response messages the bot speaks. An NLU answer can carry messages for several
+     * platforms; the bot speaks only the text messages of this platform and skips every other one. Unset:
+     * <code>PLATFORM_UNSPECIFIED</code>, the messages without a platform. Set it to the platform the agent&apos;s
+     * voice answers are written for. A platform the agent&apos;s answers carry no text message for leaves the bot
+     * silent, so check the agent before changing it
      *
      * Generated from protobuf field <code>optional .ondewo.nlu.Intent.Message.Platform platform = 9;</code>
      * @param int $var one of the values in {@see \Ondewo\Nlu\Intent\Message\Platform}
@@ -386,8 +561,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
-     * values. Whether preemptive generation runs at all is set with
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the built-in
+     * defaults. The bounds only matter while preemptive generation is on, which is set with
      * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
@@ -409,8 +584,8 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the deployment&apos;s
-     * values. Whether preemptive generation runs at all is set with
+     * Optional: Bounds of the preemptive (speculative) NLU requests of the call. Unset keeps the built-in
+     * defaults. The bounds only matter while preemptive generation is on, which is set with
      * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluPreemptiveGenerationConfig preemptive_generation_config = 10;</code>
@@ -420,6 +595,245 @@ class NluVtsiConfig extends \Google\Protobuf\Internal\Message
     public function setPreemptiveGenerationConfig(\Ondewo\Vtsi\NluPreemptiveGenerationConfig|null $var)
     {
         $this->preemptive_generation_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Speak the filler sentences an AI Teams agent of the NLU sends while it is still working on a slow
+     * answer (e.g. &quot;One moment, I am checking that for you.&quot;), so the caller does not hear dead air. A
+     * filler is spoken before the answer of its turn, and a final answer that repeats a filler already spoken is not
+     * spoken a second time. <code>false</code>: every filler is dropped and only the answers are spoken. Only
+     * fillers the NLU marks as fillers are affected; agents that are not AI Teams agents send none. Default:
+     * <code>true</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_fillers_audible = 11;</code>
+     * @return bool
+     */
+    public function getAiTeamsFillersAudible()
+    {
+        return isset($this->ai_teams_fillers_audible) ? $this->ai_teams_fillers_audible : false;
+    }
+
+    public function hasAiTeamsFillersAudible()
+    {
+        return isset($this->ai_teams_fillers_audible);
+    }
+
+    public function clearAiTeamsFillersAudible()
+    {
+        unset($this->ai_teams_fillers_audible);
+    }
+
+    /**
+     * Optional: Speak the filler sentences an AI Teams agent of the NLU sends while it is still working on a slow
+     * answer (e.g. &quot;One moment, I am checking that for you.&quot;), so the caller does not hear dead air. A
+     * filler is spoken before the answer of its turn, and a final answer that repeats a filler already spoken is not
+     * spoken a second time. <code>false</code>: every filler is dropped and only the answers are spoken. Only
+     * fillers the NLU marks as fillers are affected; agents that are not AI Teams agents send none. Default:
+     * <code>true</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_fillers_audible = 11;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setAiTeamsFillersAudible(bool $var)
+    {
+        $this->ai_teams_fillers_audible = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Text the bot speaks when an NLU request of a turn still fails after its retries (the NLU is
+     * unreachable), so the caller hears a request to repeat instead of silence. Unset: a built-in apology in the
+     * language of <code>language_code</code>, German for <code>de</code> / <code>de-*</code> and English for every
+     * other language (&quot;Sorry, I didn&apos;t quite catch that. Could you please repeat that?&quot;). An empty
+     * text switches the apology off: the failed turn then stays unanswered. Leading and trailing spaces are removed.
+     * At most 500 characters and no control characters (a line break included); otherwise refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional string failure_apology_message = 12;</code>
+     * @return string
+     */
+    public function getFailureApologyMessage()
+    {
+        return isset($this->failure_apology_message) ? $this->failure_apology_message : '';
+    }
+
+    public function hasFailureApologyMessage()
+    {
+        return isset($this->failure_apology_message);
+    }
+
+    public function clearFailureApologyMessage()
+    {
+        unset($this->failure_apology_message);
+    }
+
+    /**
+     * Optional: Text the bot speaks when an NLU request of a turn still fails after its retries (the NLU is
+     * unreachable), so the caller hears a request to repeat instead of silence. Unset: a built-in apology in the
+     * language of <code>language_code</code>, German for <code>de</code> / <code>de-*</code> and English for every
+     * other language (&quot;Sorry, I didn&apos;t quite catch that. Could you please repeat that?&quot;). An empty
+     * text switches the apology off: the failed turn then stays unanswered. Leading and trailing spaces are removed.
+     * At most 500 characters and no control characters (a line break included); otherwise refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a value set here wins for this call
+     *
+     * Generated from protobuf field <code>optional string failure_apology_message = 12;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setFailureApologyMessage(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->failure_apology_message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Take the call&apos;s SIP context into the NLU session. <code>true</code> (default): the NLU session
+     * id of the call is derived from the SIP header <code>X-ondewo-phonesystem-call-id</code> when the call carries
+     * it (an <code>\@</code> becomes <code>_at_</code>), so the conversation can be found by the phone system&apos;s
+     * own call id; and the session gets the context <code>c-sip-context</code>, whose parameters are the SIP
+     * account (<code>account_name</code>), the called party (<code>callee_id</code>) and the SIP headers of the
+     * call, so the agent can read e.g. a customer header the dialer added. <code>false</code>: the session id is
+     * the one generated for the call, no <code>c-sip-context</code> is created, and an agent that reads SIP headers
+     * from that context finds nothing. There is no deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional bool session_id_from_sip_context = 13;</code>
+     * @return bool
+     */
+    public function getSessionIdFromSipContext()
+    {
+        return isset($this->session_id_from_sip_context) ? $this->session_id_from_sip_context : false;
+    }
+
+    public function hasSessionIdFromSipContext()
+    {
+        return isset($this->session_id_from_sip_context);
+    }
+
+    public function clearSessionIdFromSipContext()
+    {
+        unset($this->session_id_from_sip_context);
+    }
+
+    /**
+     * Optional: Take the call&apos;s SIP context into the NLU session. <code>true</code> (default): the NLU session
+     * id of the call is derived from the SIP header <code>X-ondewo-phonesystem-call-id</code> when the call carries
+     * it (an <code>\@</code> becomes <code>_at_</code>), so the conversation can be found by the phone system&apos;s
+     * own call id; and the session gets the context <code>c-sip-context</code>, whose parameters are the SIP
+     * account (<code>account_name</code>), the called party (<code>callee_id</code>) and the SIP headers of the
+     * call, so the agent can read e.g. a customer header the dialer added. <code>false</code>: the session id is
+     * the one generated for the call, no <code>c-sip-context</code> is created, and an agent that reads SIP headers
+     * from that context finds nothing. There is no deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional bool session_id_from_sip_context = 13;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setSessionIdFromSipContext(bool $var)
+    {
+        $this->session_id_from_sip_context = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds a result an AI Teams agent delivers on its own (a push, e.g. the later result of a tool that
+     * ran in the background) may wait at most to be spoken. A push is held while the caller speaks or the bot is
+     * still answering, and spoken once the floor is free; a push that has waited longer than this by then is dropped
+     * without being spoken and reported as dropped with the reason <code>stale</code>, because a result the caller
+     * asked for long ago is confusing once the conversation has moved on. Unit: seconds. Default: 30. Valid range:
+     * 0 - 3600; 0 switches the age limit off (every held push is spoken, subject to
+     * <code>ai_teams_push_max_spoken</code>). Pushes only reach the call with
+     * <code>ResponseTimingConfig.nlu_call_stream_enabled</code>; agents that are not AI Teams agents send none. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_AGE_SECONDS</code>
+     *
+     * Generated from protobuf field <code>optional float ai_teams_push_max_age_seconds = 14;</code>
+     * @return float
+     */
+    public function getAiTeamsPushMaxAgeSeconds()
+    {
+        return isset($this->ai_teams_push_max_age_seconds) ? $this->ai_teams_push_max_age_seconds : 0.0;
+    }
+
+    public function hasAiTeamsPushMaxAgeSeconds()
+    {
+        return isset($this->ai_teams_push_max_age_seconds);
+    }
+
+    public function clearAiTeamsPushMaxAgeSeconds()
+    {
+        unset($this->ai_teams_push_max_age_seconds);
+    }
+
+    /**
+     * Optional: Seconds a result an AI Teams agent delivers on its own (a push, e.g. the later result of a tool that
+     * ran in the background) may wait at most to be spoken. A push is held while the caller speaks or the bot is
+     * still answering, and spoken once the floor is free; a push that has waited longer than this by then is dropped
+     * without being spoken and reported as dropped with the reason <code>stale</code>, because a result the caller
+     * asked for long ago is confusing once the conversation has moved on. Unit: seconds. Default: 30. Valid range:
+     * 0 - 3600; 0 switches the age limit off (every held push is spoken, subject to
+     * <code>ai_teams_push_max_spoken</code>). Pushes only reach the call with
+     * <code>ResponseTimingConfig.nlu_call_stream_enabled</code>; agents that are not AI Teams agents send none. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_AGE_SECONDS</code>
+     *
+     * Generated from protobuf field <code>optional float ai_teams_push_max_age_seconds = 14;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setAiTeamsPushMaxAgeSeconds(float $var)
+    {
+        $this->ai_teams_push_max_age_seconds = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Number of held pushes (see <code>ai_teams_push_max_age_seconds</code>) spoken at most when the floor
+     * becomes free: of the pushes still held after the age limit, only the NEWEST ones up to this number are spoken,
+     * oldest first; every older one is dropped without being spoken and reported as dropped with the reason
+     * <code>coalesced</code>. Example: three tool results arrived while the caller was talking; with 2 the caller
+     * hears the two latest. Default: 2. Valid range: 0 - 16; 0 switches the limit off (every held push is spoken).
+     * A set value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_SPOKEN</code>
+     *
+     * Generated from protobuf field <code>optional int32 ai_teams_push_max_spoken = 15;</code>
+     * @return int
+     */
+    public function getAiTeamsPushMaxSpoken()
+    {
+        return isset($this->ai_teams_push_max_spoken) ? $this->ai_teams_push_max_spoken : 0;
+    }
+
+    public function hasAiTeamsPushMaxSpoken()
+    {
+        return isset($this->ai_teams_push_max_spoken);
+    }
+
+    public function clearAiTeamsPushMaxSpoken()
+    {
+        unset($this->ai_teams_push_max_spoken);
+    }
+
+    /**
+     * Optional: Number of held pushes (see <code>ai_teams_push_max_age_seconds</code>) spoken at most when the floor
+     * becomes free: of the pushes still held after the age limit, only the NEWEST ones up to this number are spoken,
+     * oldest first; every older one is dropped without being spoken and reported as dropped with the reason
+     * <code>coalesced</code>. Example: three tool results arrived while the caller was talking; with 2 the caller
+     * hears the two latest. Default: 2. Valid range: 0 - 16; 0 switches the limit off (every held push is spoken).
+     * A set value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_PUSH_MAX_SPOKEN</code>
+     *
+     * Generated from protobuf field <code>optional int32 ai_teams_push_max_spoken = 15;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setAiTeamsPushMaxSpoken(int $var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->ai_teams_push_max_spoken = $var;
 
         return $this;
     }

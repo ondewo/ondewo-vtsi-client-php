@@ -8,12 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * The metric an A/B rollout optimizes when comparing each variant against the
- * control. Each value maps to a quantity already produced by the per-variant
- * results rollup (see GetAbExperimentResults). Higher-is-better vs.
- * lower-is-better is implied by the metric (e.g. PASS_RATE / CRITERION_SCORE /
- * SAFETY_SCORE are higher-is-better; ERROR_RATE / MEAN_LATENCY are
- * lower-is-better) and applied server-side when picking the winner.
+ * The metric an A/B rollout optimizes when comparing each variant against the control. Each value maps to a quantity already produced by the per-variant results rollup (see GetAbExperimentResults). Higher-is-better vs. lower-is-better is implied by the metric (e.g. PASS_RATE / CRITERION_SCORE / SAFETY_SCORE are higher-is-better; ERROR_RATE / MEAN_LATENCY are lower-is-better) and applied server-side when picking the winner.
  *
  * Protobuf type <code>ondewo.nlu.LlmEvaluationAbOptimizeMetric</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Plays a list of wav files</p>
+ * Plays a list of wav files
  *
  * Generated from protobuf message <code>ondewo.sip.SipPlayWavFilesRequest</code>
  */

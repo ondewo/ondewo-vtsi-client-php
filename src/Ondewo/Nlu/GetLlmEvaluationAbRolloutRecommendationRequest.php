@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to compute a rollout recommendation for an A/B experiment. Read-only /
- * stateless — computes the winner-vs-control statistics on demand under the
- * supplied guard-rails and returns a LlmEvaluationAbRolloutRecommendation
- * without mutating anything.
+ * Request to compute a rollout recommendation for an A/B experiment. Read-only / stateless — computes the winner-vs-control statistics on demand under the supplied guard-rails and returns a LlmEvaluationAbRolloutRecommendation without mutating anything.
  *
  * Generated from protobuf message <code>ondewo.nlu.GetLlmEvaluationAbRolloutRecommendationRequest</code>
  */

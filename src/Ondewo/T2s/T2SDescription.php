@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>T2SDescription message is used to describe the text-to-speech service.</p>
+ * T2SDescription message is used to describe the text-to-speech service.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2SDescription</code>
  */

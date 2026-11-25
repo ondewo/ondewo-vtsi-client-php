@@ -10,34 +10,12 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Assigns the callers of an <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code>
- * request to a campaign. The calls are NOT started by the request itself but added to the
- * campaign, which starts them under its <code>max_parallel_calls</code> limit.
- * <p>The whole request is applied atomically: either the campaign (when new), every campaign call
- * and every scheduled caller of the request are stored, or nothing is.</p>
- * <p>Effect per state of an EXISTING campaign: <code>CREATED</code>, <code>RUNNING</code>,
- * <code>STOPPING</code>, <code>STOPPED</code>, <code>HARD_STOPPING</code> and
- * <code>HARD_STOPPED</code> accept the calls as <code>NOT_STARTED</code> and keep their state (a
- * stopped campaign runs them after <code>ResumeCampaign</code>; see <code>start_mode</code> for
- * <code>CREATED</code>); <code>COMPLETED</code> accepts them and becomes <code>RUNNING</code>.</p>
- * <p>Errors, as gRPC status codes of the <code>AddCallersToCampaign</code> /
- * <code>AddScheduledCallersToCampaign</code> RPC: <code>NOT_FOUND</code> for an unknown
- * <code>campaign_name</code> / <code>display_name</code>
- * or a campaign deleted while the request ran; <code>INVALID_ARGUMENT</code> for a campaign of
- * another project, an invalid <code>new_campaign</code> (an output-only field set, a value out of
- * range) or an invalid caller entry (the message names its index); <code>ALREADY_EXISTS</code> for a
- * <code>new_campaign.display_name</code> used in the project; <code>FAILED_PRECONDITION</code> when
- * the campaign would exceed the server&apos;s maximum number of calls per campaign.</p>
- * <p>The project of the campaign is the project of the enclosing request:
- * <code>AddCallersToCampaignRequest.vtsi_project_name</code> /
- * <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>. It is where a new campaign is
- * created, where <code>display_name</code> is resolved, and the project a <code>campaign_name</code>
- * must belong to.</p>
- * <p>Every caller entry of the request is validated against its EFFECTIVE configuration, i.e. the
- * campaign&apos;s <code>campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>
- * with the entry&apos;s own config merged over it (see
- * <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>), so an entry may leave out what the campaign
- * supplies.</p>
+ * Assigns the callers of an <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> request to a campaign. The calls are NOT started by the request itself but added to the campaign, which starts them under its <code>max_parallel_calls</code> limit.
+ * The whole request is applied atomically: either the campaign (when new), every campaign call and every scheduled caller of the request are stored, or nothing is.
+ * Effect per state of an EXISTING campaign: <code>CREATED</code>, <code>RUNNING</code>, <code>STOPPING</code>, <code>STOPPED</code>, <code>HARD_STOPPING</code> and <code>HARD_STOPPED</code> accept the calls as <code>NOT_STARTED</code> and keep their state (a stopped campaign runs them after <code>ResumeCampaign</code>; see <code>start_mode</code> for <code>CREATED</code>); <code>COMPLETED</code> accepts them and becomes <code>RUNNING</code>.
+ * Errors, as gRPC status codes of the <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> RPC: <code>NOT_FOUND</code> for an unknown <code>campaign_name</code> / <code>display_name</code> or a campaign deleted while the request ran; <code>INVALID_ARGUMENT</code> for a campaign of another project, an invalid <code>new_campaign</code> (an output-only field set, a value out of range) or an invalid caller entry (the message names its index); <code>ALREADY_EXISTS</code> for a <code>new_campaign.display_name</code> used in the project; <code>FAILED_PRECONDITION</code> when the campaign would exceed the server&apos;s maximum number of calls per campaign.
+ * The project of the campaign is the project of the enclosing request: <code>AddCallersToCampaignRequest.vtsi_project_name</code> / <code>AddScheduledCallersToCampaignRequest.vtsi_project_name</code>. It is where a new campaign is created, where <code>display_name</code> is resolved, and the project a <code>campaign_name</code> must belong to.
+ * Every caller entry of the request is validated against its EFFECTIVE configuration, i.e. the campaign&apos;s <code>campaign_common_services_config</code> / <code>campaign_sip_caller_config</code> with the entry&apos;s own config merged over it (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>), so an entry may leave out what the campaign supplies.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignAssignment</code>
  */
@@ -66,7 +44,11 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      *           calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
      *           <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
      *           <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
-     *           (<code>calling_window.next_window_start</code> included) must be unset.
+     *           (<code>calling_window.next_window_start</code> included) must be unset. Its call defaults are
+     *           checked as on <code>CreateCampaign</code> and then apply to the calls of this request and to every
+     *           later call of the campaign exactly as described at
+     *           <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>; the entries of this request are validated
+     *           with them merged in.
      *     @type string $display_name
      *           Add the calls to the existing campaign with this exact, case-sensitive display name, resolved
      *           within the enclosing request&apos;s project
@@ -121,7 +103,11 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
      * <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
      * <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
-     * (<code>calling_window.next_window_start</code> included) must be unset.
+     * (<code>calling_window.next_window_start</code> included) must be unset. Its call defaults are
+     * checked as on <code>CreateCampaign</code> and then apply to the calls of this request and to every
+     * later call of the campaign exactly as described at
+     * <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>; the entries of this request are validated
+     * with them merged in.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign new_campaign = 2;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -141,7 +127,11 @@ class CampaignAssignment extends \Google\Protobuf\Internal\Message
      * calls to it. Only <code>display_name</code>, <code>max_parallel_calls</code>,
      * <code>max_attempts</code>, <code>retry_delay</code>, <code>campaign_common_services_config</code>,
      * <code>campaign_sip_caller_config</code> and <code>calling_window</code> are read; output-only fields
-     * (<code>calling_window.next_window_start</code> included) must be unset.
+     * (<code>calling_window.next_window_start</code> included) must be unset. Its call defaults are
+     * checked as on <code>CreateCampaign</code> and then apply to the calls of this request and to every
+     * later call of the campaign exactly as described at
+     * <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>; the entries of this request are validated
+     * with them merged in.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign new_campaign = 2;</code>
      * @param \Ondewo\Vtsi\Campaign $var

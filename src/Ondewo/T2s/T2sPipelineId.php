@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Pipeline Id representation.</p>
- * <p>Used in the creation, deletion and getter of pipelines.</p>
+ * Pipeline Id representation.
+ * Used in the creation, deletion and getter of pipelines.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2sPipelineId</code>
  */

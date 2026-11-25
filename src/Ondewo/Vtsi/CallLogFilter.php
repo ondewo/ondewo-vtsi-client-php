@@ -10,11 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on
- * this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
- * <p>Filters fall into two groups. IDENTITY filters select which containers and which calls are of
- * interest and are resolved against VTSI&apos;s own call records. CONTENT filters select which
- * entries of those containers to return.</p>
+ * Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
+ * Filters fall into two groups. IDENTITY filters select which containers and which calls are of interest and are resolved against VTSI&apos;s own call records. CONTENT filters select which entries of those containers to return.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallLogFilter</code>
  */

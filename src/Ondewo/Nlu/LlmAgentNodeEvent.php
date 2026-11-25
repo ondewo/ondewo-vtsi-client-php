@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Emitted on a streaming DetectIntent when a node of an AI Team graph starts, completes or fails.
- * A node inside a nested graph (a subgraph, or a member agent of a supervisor or swarm) is reported too,
- * with its full <code>llm_agent_node_event_node_path</code>.
+ * Emitted on a streaming DetectIntent when a node of an AI Team graph starts, completes or fails. A node inside a nested graph (a subgraph, or a member agent of a supervisor or swarm) is reported too, with its full <code>llm_agent_node_event_node_path</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmAgentNodeEvent</code>
  */

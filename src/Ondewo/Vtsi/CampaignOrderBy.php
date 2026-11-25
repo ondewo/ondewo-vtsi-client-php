@@ -8,8 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Order of a <code>ListCampaigns</code> listing. Every order breaks ties by the campaign&apos;s resource
- * <code>name</code>, ascending, so paging is stable.
+ * Order of a <code>ListCampaigns</code> listing. Every order breaks ties by the campaign&apos;s resource <code>name</code>, ascending, so paging is stable.
  *
  * Protobuf type <code>ondewo.vtsi.CampaignOrderBy</code>
  */

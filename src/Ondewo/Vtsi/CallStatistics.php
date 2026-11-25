@@ -10,12 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Aggregate figures over the calls of a project that a <code>CallFilter</code> matches, as returned by
- * <a href="index.html#ondewo.vtsi.Calls.GetCallStatistics">Calls.GetCallStatistics</a>.
- * <p>Every figure is computed in ONE read of the call records, so the figures are consistent with each other at
- * the moment of that read (e.g. the entries of <code>sip_status_type_counts</code> add up to <code>total</code>).
- * Every <code>*_counts</code> list holds one entry per value that occurs at least once (a value with count 0 is
- * left out), ordered by the enum number, ascending.</p>
+ * Aggregate figures over the calls of a project that a <code>CallFilter</code> matches, as returned by <a href="index.html#ondewo.vtsi.Calls.GetCallStatistics">Calls.GetCallStatistics</a>.
+ * Every figure is computed in ONE read of the call records, so the figures are consistent with each other at the moment of that read (e.g. the entries of <code>sip_status_type_counts</code> add up to <code>total</code>). Every <code>*_counts</code> list holds one entry per value that occurs at least once (a value with count 0 is left out), ordered by the enum number, ascending.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallStatistics</code>
  */

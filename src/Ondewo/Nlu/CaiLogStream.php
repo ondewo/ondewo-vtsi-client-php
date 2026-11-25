@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One capture of one server process or of one container. A server process that restarts, and a container
- * recreated under a new id, yield a NEW log stream.
+ * One capture of one server process or of one container. A server process that restarts, and a container recreated under a new id, yield a NEW log stream.
  *
  * Generated from protobuf message <code>ondewo.nlu.CaiLogStream</code>
  */

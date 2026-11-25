@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>SymSpell contains configuration for the SymSpell spelling correction.</p>
+ * SymSpell contains configuration for the SymSpell spelling correction.
  *
  * Generated from protobuf message <code>ondewo.s2t.SymSpell</code>
  */

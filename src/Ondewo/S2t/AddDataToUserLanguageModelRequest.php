@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>AddDataToUserLanguageModelRequest is used to request the addition of data to a user-specific language model.</p>
+ * AddDataToUserLanguageModelRequest is used to request the addition of data to a user-specific language model.
  *
  * Generated from protobuf message <code>ondewo.s2t.AddDataToUserLanguageModelRequest</code>
  */

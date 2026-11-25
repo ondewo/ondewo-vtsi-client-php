@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>NormalizeTextRequest message is used to request text normalization.</p>
+ * NormalizeTextRequest message is used to request text normalization.
  *
  * Generated from protobuf message <code>ondewo.t2s.NormalizeTextRequest</code>
  */

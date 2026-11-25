@@ -8,7 +8,7 @@ namespace Ondewo\Sip\AnsweringMachineDetectionResult;
 use UnexpectedValueException;
 
 /**
- * <p>Evidence that led to the verdict</p>
+ * Evidence that led to the verdict
  *
  * Protobuf type <code>ondewo.sip.AnsweringMachineDetectionResult.Cause</code>
  */

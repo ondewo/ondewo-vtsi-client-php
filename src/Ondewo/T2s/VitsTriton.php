@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>VitsTriton message contains settings for the Vits Triton inference.</p>
+ * VitsTriton message contains settings for the Vits Triton inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.VitsTriton</code>
  */

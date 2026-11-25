@@ -10,13 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Narrows a set of calls of one project: the calls <code>ListCalls</code> lists, <code>GetCallStatistics</code>
- * counts and <code>StopAllCalls</code> stops. Every field is optional; an unset field, or an empty repeated field
- * or map, does not filter. Fields are combined with AND, the values within one repeated field with OR (except
- * <code>caller_names</code> and <code>listener_names</code>, which are OR-ed with each other), and the entries
- * of <code>labels</code> with AND. The project is the enclosing request&apos;s <code>vtsi_project_name</code>.
- * An invalid value is rejected with <code>INVALID_ARGUMENT</code> naming the field, before anything is read or
- * stopped.
+ * Narrows a set of calls of one project: the calls <code>ListCalls</code> lists, <code>GetCallStatistics</code> counts and <code>StopAllCalls</code> stops. Every field is optional; an unset field, or an empty repeated field or map, does not filter. Fields are combined with AND, the values within one repeated field with OR (except <code>caller_names</code> and <code>listener_names</code>, which are OR-ed with each other), and the entries of <code>labels</code> with AND. The project is the enclosing request&apos;s <code>vtsi_project_name</code>. An invalid value is rejected with <code>INVALID_ARGUMENT</code> naming the field, before anything is read or stopped.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallFilter</code>
  */

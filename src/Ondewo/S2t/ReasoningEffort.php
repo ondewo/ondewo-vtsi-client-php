@@ -8,7 +8,7 @@ namespace Ondewo\S2t;
 use UnexpectedValueException;
 
 /**
- * <p>Effort level for reasoning models (e.g., o1, o3). Controls the trade-off between speed and quality.</p>
+ * Effort level for reasoning models (e.g., o1, o3). Controls the trade-off between speed and quality.
  *
  * Protobuf type <code>ondewo.s2t.ReasoningEffort</code>
  */

@@ -11,23 +11,20 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Callbacks for the NLU platform.
- * <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
- * callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
- * field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be
- * documented then; do not rely on any effect.</p>
+ * Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The callbacks are accepted and validated but currently NOT executed: no component of the call consumes them, and a call behaves exactly the same with or without them. The field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be documented then; do not rely on any effect.
  *
  * Generated from protobuf message <code>ondewo.vtsi.NluVtsiCallbacks</code>
  */
 class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Callback executed before the NLU will be called
+     * Names of callbacks to run before a request is sent to the NLU. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_nlu_callbacks = 1;</code>
      */
     private $pre_nlu_callbacks;
     /**
-     * Callback executed after the NLU has been called
+     * Names of callbacks to run after the NLU answered. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_nlu_callbacks = 2;</code>
      */
@@ -40,9 +37,9 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string[] $pre_nlu_callbacks
-     *           Callback executed before the NLU will be called
+     *           Names of callbacks to run before a request is sent to the NLU. No effect (see the message comment)
      *     @type string[] $post_nlu_callbacks
-     *           Callback executed after the NLU has been called
+     *           Names of callbacks to run after the NLU answered. No effect (see the message comment)
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +48,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed before the NLU will be called
+     * Names of callbacks to run before a request is sent to the NLU. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_nlu_callbacks = 1;</code>
      * @return RepeatedField<string>
@@ -62,7 +59,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed before the NLU will be called
+     * Names of callbacks to run before a request is sent to the NLU. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_nlu_callbacks = 1;</code>
      * @param string[] $var
@@ -77,7 +74,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed after the NLU has been called
+     * Names of callbacks to run after the NLU answered. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_nlu_callbacks = 2;</code>
      * @return RepeatedField<string>
@@ -88,7 +85,7 @@ class NluVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed after the NLU has been called
+     * Names of callbacks to run after the NLU answered. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_nlu_callbacks = 2;</code>
      * @param string[] $var

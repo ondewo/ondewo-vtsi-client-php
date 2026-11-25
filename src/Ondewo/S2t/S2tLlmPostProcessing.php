@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tLlmPostProcessing contains configuration for the speech-to-text postprocessing with LLM.</p>
+ * S2tLlmPostProcessing contains configuration for the speech-to-text postprocessing with LLM.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tLlmPostProcessing</code>
  */

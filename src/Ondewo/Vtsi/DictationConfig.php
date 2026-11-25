@@ -10,80 +10,120 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the dictation hold of a call: a final transcription whose dictated value is not complete yet is
- * held until the caller continues, so that the groups of the value reach the NLU as ONE turn. Every unset field
- * keeps its default; a field that is out of range is refused with <code>INVALID_ARGUMENT</code>
+ * Configuration of the dictation hold of a call. A caller who dictates a value often pauses 1 - 2.5 s between its groups (&quot;null sechs sechs vier ... eins zwei drei ...&quot;), and the speech-to-text service ends an utterance at every such pause, so without the hold the bot answers half a phone number. With the hold, a final transcription whose dictated value is not complete yet is held until the caller continues, and the groups reach the NLU as ONE turn; a complete value is released at once (a value that is only weakly complete is held at most <code>hold_generic_max_seconds</code>). The value recognition is German (number words, spelled letters, months); the hold is never applied while the bot speaks, and a caller who is not dictating costs no latency.
+ * The hold is ON by default, but only for a turn whose NLU answer asks for a dictated value (an expected slot, read with <code>expected_input_enabled</code>, also on by default): a turn that asks for no value is never held, so the default adds no latency there. How long a value is held depends on what the bot asked for: the expected value&apos;s category cap applies. The generic rule, a hold WITHOUT an expected value (a trailing digit group after a lead-in such as &quot;Kundennummer&quot;, or a trailing &quot;Stiege&quot;, &quot;Stock&quot;, &quot;Tür&quot;, &quot;am&quot;, &quot;um&quot;, ...), is a guess and stays off unless <code>hold_enabled</code> is set to true.
+ * Presence and precedence: every field is applied only when it is set; an unset field keeps the deployment setting (the <code>ONDEWO_VTSI_CSI_DICTATION_*</code> variable named at the field), else the default. A set per-call value wins over the deployment setting. A field that is out of range, and an unknown category, are refused with <code>INVALID_ARGUMENT</code>.
+ * Example, a line that collects IBANs from an agent whose prompts ask for them and gives an IBAN 4 s (the hold under the expected value is on by default):
+ * <pre><code>hold_max_seconds_by_category { key: &quot;iban&quot; value: 4.0 }</code></pre>
  *
  * Generated from protobuf message <code>ondewo.vtsi.DictationConfig</code>
  */
 class DictationConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Hold a final transcription whose dictated value is unfinished (default: false)
+     * Optional: Hold a final transcription whose dictated value is unfinished, up to the cap of its category (or
+     * the generic cap), instead of committing the turn at the caller&apos;s pause. Unset (the default): the hold
+     * applies only to a turn whose NLU answer asks for a value (an expected slot, see
+     * <code>expected_input_enabled</code>), and a turn that asks for none is never held. True: the generic rule
+     * (<code>hold_generic_max_seconds</code>) holds turns without an expected value too. False: the master switch is
+     * off, and nothing else in this message holds a turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool hold_enabled = 1;</code>
      */
     protected $hold_enabled = null;
     /**
-     * Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
-     * the bot asked for (default: false; without it only the generic rule holds)
+     * Optional: Read the expected value (slot) from every NLU answer, so that the hold applies the rule and cap of
+     * the value the bot asked for (default: true; false leaves the default hold nothing to hold under, and with
+     * <code>hold_enabled</code> true only the generic rule holds). The slot comes from a
+     * slot-filling prompt for a required parameter, a read-back intent, or an AI Team&apos;s expected input; every
+     * answer replaces it, so a slot never leaks into a later turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_EXPECTED_INPUT_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool expected_input_enabled = 2;</code>
      */
     protected $expected_input_enabled = null;
     /**
      * Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
-     * for confirmation as asking for a confirmation of that value (default: false)
+     * for confirmation (&quot;Ich wiederhole: 0664 1234567. Ist das korrekt?&quot;) as asking to confirm that value,
+     * also when the NLU answer carries no read-back marker (default: false). After such a read-back (from the marker
+     * or from this text rule) and while the hold is on, a lone &quot;nein&quot; is held up to the
+     * <code>confirm_value</code> cap for the correction that usually follows (&quot;Nein, die letzte ist
+     * sieben&quot;), and a lone &quot;ja&quot; for 0.6 s. Recognises digit, phone, card, IBAN, BIC and social
+     * security numbers read back in German; dates, times, addresses and e-mail addresses are not recognised. No
+     * deployment setting exists for it
      *
      * Generated from protobuf field <code>optional bool read_back_from_bot_text_enabled = 3;</code>
      */
     protected $read_back_from_bot_text_enabled = null;
     /**
-     * Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
-     * 0 switches the generic rule off)
+     * Optional: Seconds the generic rule (no expected value; only with <code>hold_enabled</code> true) holds at most,
+     * and the longest hold of an expected value that is only weakly complete (e.g. an address with only the street
+     * line, a date with only day and month) (valid range: 0 - 2; default: 1.5; 0 switches both off). The generic
+     * rule holds on a guess, which is why its ceiling is lower than a category&apos;s. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_GENERIC_MAX_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_generic_max_seconds = 4;</code>
      */
     protected $hold_generic_max_seconds = null;
     /**
-     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
-     * <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
-     * <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code> or
-     * <code>confirm_value</code> (valid range: 0 - 4 each). The rule without an expected value is not a category: it
-     * is set with <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is
-     * refused with <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole
-     * replica-wide table of the deployment, so a category not listed here keeps the speech-to-speech service's
-     * default cap, not a cap the replica-wide table set; an empty map keeps the replica-wide table
+     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category (valid range: 0 - 4
+     * each; 0 = no hold for that category). Categories and their defaults: <code>digits</code> 2.5,
+     * <code>phone</code> 2.5, <code>card</code> 3.0, <code>expiry_cvc</code> 2.0, <code>iban</code> 3.5,
+     * <code>bic</code> 2.5, <code>svnr</code> 2.5, <code>address</code> 3.0, <code>date</code> 2.0,
+     * <code>time</code> 1.5, <code>email</code> 2.5 and <code>confirm_value</code> 2.5 (the correction after a
+     * read-back). The rule without an expected value is not a category: it is set with
+     * <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is refused with
+     * <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole table of the
+     * deployment setting <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_MAX_SECONDS</code>, so a category not listed here
+     * keeps its default above, not a cap the deployment setting chose; an empty map keeps the deployment setting
      *
      * Generated from protobuf field <code>map<string, float> hold_max_seconds_by_category = 5;</code>
      */
     private $hold_max_seconds_by_category;
     /**
-     * Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
-     * (default: 1.5, valid range: 0 - 4)
+     * Optional: Seconds a full-length value whose checksum fails (an IBAN, a card number, ...) is held at most, so
+     * that the caller can still correct it but the bot soon gets the turn to ask again instead of waiting out the
+     * category&apos;s cap (valid range: 0 - 4; default: 1.5; never longer than the category&apos;s cap). Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_INVALID_CHECKSUM_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_invalid_checksum_seconds = 6;</code>
      */
     protected $hold_invalid_checksum_seconds = null;
     /**
-     * Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
-     * <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
+     * Optional: Commit the turn as soon as a stable partial transcription shows the expected value complete (and its
+     * checksum valid, where it has one), instead of waiting for the speech-to-text service&apos;s end-of-utterance
+     * silence (default: false). Saves the silence wait after a dictated value. Needs the hold (not
+     * <code>hold_enabled</code> false), <code>expected_input_enabled</code> and partial transcriptions; without an
+     * expected value it does nothing.
+     * Deployment setting: <code>ONDEWO_VTSI_CSI_DICTATION_EARLY_COMMIT_ON_COMPLETE_VALUE</code>
      *
      * Generated from protobuf field <code>optional bool early_commit_on_complete_value = 7;</code>
      */
     protected $early_commit_on_complete_value = null;
     /**
      * Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
-     * is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
-     * turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
-     * speech-to-text configuration
+     * is expected, so that the speech-to-text service itself stops cutting between the groups (valid: 0 = off, or
+     * 0.5 - 4; default: 0). Applies while an expected value other than a read-back confirmation is known, so it
+     * needs <code>expected_input_enabled</code> (not <code>hold_enabled</code>); after the turn the minimum silence
+     * is set back to <code>s2t_slot_min_duration_off_restore_seconds</code>. It only takes effect when the call&apos;s
+     * speech-to-text configuration carries a <code>pyannote</code> block (supplied in
+     * <code>S2tVtsiConfig.s2t_transcribe_request_config</code>, or created from
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> on a deployment that supports creating it) and
+     * the restore value is known (set, or a minimum silence in that block), and it needs a speech-to-text service
+     * that accepts the change mid-call. A value between 0 and 0.5 is refused with
+     * <code>INVALID_ARGUMENT</code>. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_seconds = 8;</code>
      */
     protected $s2t_slot_min_duration_off_seconds = null;
     /**
      * Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
-     * (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
+     * (valid range: 0.05 - 4; default: the minimum silence of the call&apos;s speech-to-text configuration). Set it to
+     * the pipeline&apos;s normal minimum silence when the speech-to-text configuration carries none; without any
+     * restore value, <code>s2t_slot_min_duration_off_seconds</code> stays off. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_restore_seconds = 9;</code>
      */
@@ -96,39 +136,77 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $hold_enabled
-     *           Optional: Hold a final transcription whose dictated value is unfinished (default: false)
+     *           Optional: Hold a final transcription whose dictated value is unfinished, up to the cap of its category (or
+     *           the generic cap), instead of committing the turn at the caller&apos;s pause. Unset (the default): the hold
+     *           applies only to a turn whose NLU answer asks for a value (an expected slot, see
+     *           <code>expected_input_enabled</code>), and a turn that asks for none is never held. True: the generic rule
+     *           (<code>hold_generic_max_seconds</code>) holds turns without an expected value too. False: the master switch is
+     *           off, and nothing else in this message holds a turn. Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_ACTIVE</code>
      *     @type bool $expected_input_enabled
-     *           Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
-     *           the bot asked for (default: false; without it only the generic rule holds)
+     *           Optional: Read the expected value (slot) from every NLU answer, so that the hold applies the rule and cap of
+     *           the value the bot asked for (default: true; false leaves the default hold nothing to hold under, and with
+     *           <code>hold_enabled</code> true only the generic rule holds). The slot comes from a
+     *           slot-filling prompt for a required parameter, a read-back intent, or an AI Team&apos;s expected input; every
+     *           answer replaces it, so a slot never leaks into a later turn. Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_EXPECTED_INPUT_ACTIVE</code>
      *     @type bool $read_back_from_bot_text_enabled
      *           Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
-     *           for confirmation as asking for a confirmation of that value (default: false)
+     *           for confirmation (&quot;Ich wiederhole: 0664 1234567. Ist das korrekt?&quot;) as asking to confirm that value,
+     *           also when the NLU answer carries no read-back marker (default: false). After such a read-back (from the marker
+     *           or from this text rule) and while the hold is on, a lone &quot;nein&quot; is held up to the
+     *           <code>confirm_value</code> cap for the correction that usually follows (&quot;Nein, die letzte ist
+     *           sieben&quot;), and a lone &quot;ja&quot; for 0.6 s. Recognises digit, phone, card, IBAN, BIC and social
+     *           security numbers read back in German; dates, times, addresses and e-mail addresses are not recognised. No
+     *           deployment setting exists for it
      *     @type float $hold_generic_max_seconds
-     *           Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
-     *           0 switches the generic rule off)
+     *           Optional: Seconds the generic rule (no expected value; only with <code>hold_enabled</code> true) holds at most,
+     *           and the longest hold of an expected value that is only weakly complete (e.g. an address with only the street
+     *           line, a date with only day and month) (valid range: 0 - 2; default: 1.5; 0 switches both off). The generic
+     *           rule holds on a guess, which is why its ceiling is lower than a category&apos;s. Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_GENERIC_MAX_SECONDS</code>
      *     @type array|\Google\Protobuf\Internal\MapField $hold_max_seconds_by_category
-     *           Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
-     *           <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
-     *           <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code> or
-     *           <code>confirm_value</code> (valid range: 0 - 4 each). The rule without an expected value is not a category: it
-     *           is set with <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is
-     *           refused with <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole
-     *           replica-wide table of the deployment, so a category not listed here keeps the speech-to-speech service's
-     *           default cap, not a cap the replica-wide table set; an empty map keeps the replica-wide table
+     *           Optional: Seconds an unfinished value of a category is held at most, keyed by the category (valid range: 0 - 4
+     *           each; 0 = no hold for that category). Categories and their defaults: <code>digits</code> 2.5,
+     *           <code>phone</code> 2.5, <code>card</code> 3.0, <code>expiry_cvc</code> 2.0, <code>iban</code> 3.5,
+     *           <code>bic</code> 2.5, <code>svnr</code> 2.5, <code>address</code> 3.0, <code>date</code> 2.0,
+     *           <code>time</code> 1.5, <code>email</code> 2.5 and <code>confirm_value</code> 2.5 (the correction after a
+     *           read-back). The rule without an expected value is not a category: it is set with
+     *           <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is refused with
+     *           <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole table of the
+     *           deployment setting <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_MAX_SECONDS</code>, so a category not listed here
+     *           keeps its default above, not a cap the deployment setting chose; an empty map keeps the deployment setting
      *     @type float $hold_invalid_checksum_seconds
-     *           Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
-     *           (default: 1.5, valid range: 0 - 4)
+     *           Optional: Seconds a full-length value whose checksum fails (an IBAN, a card number, ...) is held at most, so
+     *           that the caller can still correct it but the bot soon gets the turn to ask again instead of waiting out the
+     *           category&apos;s cap (valid range: 0 - 4; default: 1.5; never longer than the category&apos;s cap). Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_INVALID_CHECKSUM_SECONDS</code>
      *     @type bool $early_commit_on_complete_value
-     *           Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
-     *           <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
+     *           Optional: Commit the turn as soon as a stable partial transcription shows the expected value complete (and its
+     *           checksum valid, where it has one), instead of waiting for the speech-to-text service&apos;s end-of-utterance
+     *           silence (default: false). Saves the silence wait after a dictated value. Needs the hold (not
+     *           <code>hold_enabled</code> false), <code>expected_input_enabled</code> and partial transcriptions; without an
+     *           expected value it does nothing.
+     *           Deployment setting: <code>ONDEWO_VTSI_CSI_DICTATION_EARLY_COMMIT_ON_COMPLETE_VALUE</code>
      *     @type float $s2t_slot_min_duration_off_seconds
      *           Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
-     *           is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
-     *           turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
-     *           speech-to-text configuration
+     *           is expected, so that the speech-to-text service itself stops cutting between the groups (valid: 0 = off, or
+     *           0.5 - 4; default: 0). Applies while an expected value other than a read-back confirmation is known, so it
+     *           needs <code>expected_input_enabled</code> (not <code>hold_enabled</code>); after the turn the minimum silence
+     *           is set back to <code>s2t_slot_min_duration_off_restore_seconds</code>. It only takes effect when the call&apos;s
+     *           speech-to-text configuration carries a <code>pyannote</code> block (supplied in
+     *           <code>S2tVtsiConfig.s2t_transcribe_request_config</code>, or created from
+     *           <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> on a deployment that supports creating it) and
+     *           the restore value is known (set, or a minimum silence in that block), and it needs a speech-to-text service
+     *           that accepts the change mid-call. A value between 0 and 0.5 is refused with
+     *           <code>INVALID_ARGUMENT</code>. Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_SECONDS</code>
      *     @type float $s2t_slot_min_duration_off_restore_seconds
      *           Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
-     *           (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
+     *           (valid range: 0.05 - 4; default: the minimum silence of the call&apos;s speech-to-text configuration). Set it to
+     *           the pipeline&apos;s normal minimum silence when the speech-to-text configuration carries none; without any
+     *           restore value, <code>s2t_slot_min_duration_off_seconds</code> stays off. Deployment setting:
+     *           <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -137,7 +215,13 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hold a final transcription whose dictated value is unfinished (default: false)
+     * Optional: Hold a final transcription whose dictated value is unfinished, up to the cap of its category (or
+     * the generic cap), instead of committing the turn at the caller&apos;s pause. Unset (the default): the hold
+     * applies only to a turn whose NLU answer asks for a value (an expected slot, see
+     * <code>expected_input_enabled</code>), and a turn that asks for none is never held. True: the generic rule
+     * (<code>hold_generic_max_seconds</code>) holds turns without an expected value too. False: the master switch is
+     * off, and nothing else in this message holds a turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool hold_enabled = 1;</code>
      * @return bool
@@ -158,7 +242,13 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hold a final transcription whose dictated value is unfinished (default: false)
+     * Optional: Hold a final transcription whose dictated value is unfinished, up to the cap of its category (or
+     * the generic cap), instead of committing the turn at the caller&apos;s pause. Unset (the default): the hold
+     * applies only to a turn whose NLU answer asks for a value (an expected slot, see
+     * <code>expected_input_enabled</code>), and a turn that asks for none is never held. True: the generic rule
+     * (<code>hold_generic_max_seconds</code>) holds turns without an expected value too. False: the master switch is
+     * off, and nothing else in this message holds a turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool hold_enabled = 1;</code>
      * @param bool $var
@@ -172,8 +262,12 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
-     * the bot asked for (default: false; without it only the generic rule holds)
+     * Optional: Read the expected value (slot) from every NLU answer, so that the hold applies the rule and cap of
+     * the value the bot asked for (default: true; false leaves the default hold nothing to hold under, and with
+     * <code>hold_enabled</code> true only the generic rule holds). The slot comes from a
+     * slot-filling prompt for a required parameter, a read-back intent, or an AI Team&apos;s expected input; every
+     * answer replaces it, so a slot never leaks into a later turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_EXPECTED_INPUT_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool expected_input_enabled = 2;</code>
      * @return bool
@@ -194,8 +288,12 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Read the expected value (slot) from the NLU answer, so that the hold applies the rule of the value
-     * the bot asked for (default: false; without it only the generic rule holds)
+     * Optional: Read the expected value (slot) from every NLU answer, so that the hold applies the rule and cap of
+     * the value the bot asked for (default: true; false leaves the default hold nothing to hold under, and with
+     * <code>hold_enabled</code> true only the generic rule holds). The slot comes from a
+     * slot-filling prompt for a required parameter, a read-back intent, or an AI Team&apos;s expected input; every
+     * answer replaces it, so a slot never leaks into a later turn. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_EXPECTED_INPUT_ACTIVE</code>
      *
      * Generated from protobuf field <code>optional bool expected_input_enabled = 2;</code>
      * @param bool $var
@@ -210,7 +308,13 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
-     * for confirmation as asking for a confirmation of that value (default: false)
+     * for confirmation (&quot;Ich wiederhole: 0664 1234567. Ist das korrekt?&quot;) as asking to confirm that value,
+     * also when the NLU answer carries no read-back marker (default: false). After such a read-back (from the marker
+     * or from this text rule) and while the hold is on, a lone &quot;nein&quot; is held up to the
+     * <code>confirm_value</code> cap for the correction that usually follows (&quot;Nein, die letzte ist
+     * sieben&quot;), and a lone &quot;ja&quot; for 0.6 s. Recognises digit, phone, card, IBAN, BIC and social
+     * security numbers read back in German; dates, times, addresses and e-mail addresses are not recognised. No
+     * deployment setting exists for it
      *
      * Generated from protobuf field <code>optional bool read_back_from_bot_text_enabled = 3;</code>
      * @return bool
@@ -232,7 +336,13 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: With <code>expected_input_enabled</code>, take a bot answer that reads a complete value back and asks
-     * for confirmation as asking for a confirmation of that value (default: false)
+     * for confirmation (&quot;Ich wiederhole: 0664 1234567. Ist das korrekt?&quot;) as asking to confirm that value,
+     * also when the NLU answer carries no read-back marker (default: false). After such a read-back (from the marker
+     * or from this text rule) and while the hold is on, a lone &quot;nein&quot; is held up to the
+     * <code>confirm_value</code> cap for the correction that usually follows (&quot;Nein, die letzte ist
+     * sieben&quot;), and a lone &quot;ja&quot; for 0.6 s. Recognises digit, phone, card, IBAN, BIC and social
+     * security numbers read back in German; dates, times, addresses and e-mail addresses are not recognised. No
+     * deployment setting exists for it
      *
      * Generated from protobuf field <code>optional bool read_back_from_bot_text_enabled = 3;</code>
      * @param bool $var
@@ -246,8 +356,11 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
-     * 0 switches the generic rule off)
+     * Optional: Seconds the generic rule (no expected value; only with <code>hold_enabled</code> true) holds at most,
+     * and the longest hold of an expected value that is only weakly complete (e.g. an address with only the street
+     * line, a date with only day and month) (valid range: 0 - 2; default: 1.5; 0 switches both off). The generic
+     * rule holds on a guess, which is why its ceiling is lower than a category&apos;s. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_GENERIC_MAX_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_generic_max_seconds = 4;</code>
      * @return float
@@ -268,8 +381,11 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds the generic rule (no expected value) holds at most (default: 1.5, valid range: 0 - 2;
-     * 0 switches the generic rule off)
+     * Optional: Seconds the generic rule (no expected value; only with <code>hold_enabled</code> true) holds at most,
+     * and the longest hold of an expected value that is only weakly complete (e.g. an address with only the street
+     * line, a date with only day and month) (valid range: 0 - 2; default: 1.5; 0 switches both off). The generic
+     * rule holds on a guess, which is why its ceiling is lower than a category&apos;s. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_GENERIC_MAX_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_generic_max_seconds = 4;</code>
      * @param float $var
@@ -283,14 +399,16 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
-     * <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
-     * <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code> or
-     * <code>confirm_value</code> (valid range: 0 - 4 each). The rule without an expected value is not a category: it
-     * is set with <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is
-     * refused with <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole
-     * replica-wide table of the deployment, so a category not listed here keeps the speech-to-speech service's
-     * default cap, not a cap the replica-wide table set; an empty map keeps the replica-wide table
+     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category (valid range: 0 - 4
+     * each; 0 = no hold for that category). Categories and their defaults: <code>digits</code> 2.5,
+     * <code>phone</code> 2.5, <code>card</code> 3.0, <code>expiry_cvc</code> 2.0, <code>iban</code> 3.5,
+     * <code>bic</code> 2.5, <code>svnr</code> 2.5, <code>address</code> 3.0, <code>date</code> 2.0,
+     * <code>time</code> 1.5, <code>email</code> 2.5 and <code>confirm_value</code> 2.5 (the correction after a
+     * read-back). The rule without an expected value is not a category: it is set with
+     * <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is refused with
+     * <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole table of the
+     * deployment setting <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_MAX_SECONDS</code>, so a category not listed here
+     * keeps its default above, not a cap the deployment setting chose; an empty map keeps the deployment setting
      *
      * Generated from protobuf field <code>map<string, float> hold_max_seconds_by_category = 5;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -301,14 +419,16 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category: <code>digits</code>,
-     * <code>phone</code>, <code>card</code>, <code>expiry_cvc</code>, <code>iban</code>, <code>bic</code>,
-     * <code>svnr</code>, <code>address</code>, <code>date</code>, <code>time</code>, <code>email</code> or
-     * <code>confirm_value</code> (valid range: 0 - 4 each). The rule without an expected value is not a category: it
-     * is set with <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is
-     * refused with <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole
-     * replica-wide table of the deployment, so a category not listed here keeps the speech-to-speech service's
-     * default cap, not a cap the replica-wide table set; an empty map keeps the replica-wide table
+     * Optional: Seconds an unfinished value of a category is held at most, keyed by the category (valid range: 0 - 4
+     * each; 0 = no hold for that category). Categories and their defaults: <code>digits</code> 2.5,
+     * <code>phone</code> 2.5, <code>card</code> 3.0, <code>expiry_cvc</code> 2.0, <code>iban</code> 3.5,
+     * <code>bic</code> 2.5, <code>svnr</code> 2.5, <code>address</code> 3.0, <code>date</code> 2.0,
+     * <code>time</code> 1.5, <code>email</code> 2.5 and <code>confirm_value</code> 2.5 (the correction after a
+     * read-back). The rule without an expected value is not a category: it is set with
+     * <code>hold_generic_max_seconds</code>. An unknown category, <code>generic</code> included, is refused with
+     * <code>INVALID_ARGUMENT</code>. The map is ONE field: a non-empty map replaces the whole table of the
+     * deployment setting <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_MAX_SECONDS</code>, so a category not listed here
+     * keeps its default above, not a cap the deployment setting chose; an empty map keeps the deployment setting
      *
      * Generated from protobuf field <code>map<string, float> hold_max_seconds_by_category = 5;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
@@ -323,8 +443,10 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
-     * (default: 1.5, valid range: 0 - 4)
+     * Optional: Seconds a full-length value whose checksum fails (an IBAN, a card number, ...) is held at most, so
+     * that the caller can still correct it but the bot soon gets the turn to ask again instead of waiting out the
+     * category&apos;s cap (valid range: 0 - 4; default: 1.5; never longer than the category&apos;s cap). Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_INVALID_CHECKSUM_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_invalid_checksum_seconds = 6;</code>
      * @return float
@@ -345,8 +467,10 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds a full-length value whose checksum fails is held, so that the bot can ask again
-     * (default: 1.5, valid range: 0 - 4)
+     * Optional: Seconds a full-length value whose checksum fails (an IBAN, a card number, ...) is held at most, so
+     * that the caller can still correct it but the bot soon gets the turn to ask again instead of waiting out the
+     * category&apos;s cap (valid range: 0 - 4; default: 1.5; never longer than the category&apos;s cap). Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_HOLD_INVALID_CHECKSUM_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float hold_invalid_checksum_seconds = 6;</code>
      * @param float $var
@@ -360,8 +484,12 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
-     * <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
+     * Optional: Commit the turn as soon as a stable partial transcription shows the expected value complete (and its
+     * checksum valid, where it has one), instead of waiting for the speech-to-text service&apos;s end-of-utterance
+     * silence (default: false). Saves the silence wait after a dictated value. Needs the hold (not
+     * <code>hold_enabled</code> false), <code>expected_input_enabled</code> and partial transcriptions; without an
+     * expected value it does nothing.
+     * Deployment setting: <code>ONDEWO_VTSI_CSI_DICTATION_EARLY_COMMIT_ON_COMPLETE_VALUE</code>
      *
      * Generated from protobuf field <code>optional bool early_commit_on_complete_value = 7;</code>
      * @return bool
@@ -382,8 +510,12 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Commit the turn on a partial transcription as soon as the expected value is complete; needs
-     * <code>hold_enabled</code> and <code>expected_input_enabled</code> (default: false)
+     * Optional: Commit the turn as soon as a stable partial transcription shows the expected value complete (and its
+     * checksum valid, where it has one), instead of waiting for the speech-to-text service&apos;s end-of-utterance
+     * silence (default: false). Saves the silence wait after a dictated value. Needs the hold (not
+     * <code>hold_enabled</code> false), <code>expected_input_enabled</code> and partial transcriptions; without an
+     * expected value it does nothing.
+     * Deployment setting: <code>ONDEWO_VTSI_CSI_DICTATION_EARLY_COMMIT_ON_COMPLETE_VALUE</code>
      *
      * Generated from protobuf field <code>optional bool early_commit_on_complete_value = 7;</code>
      * @param bool $var
@@ -398,9 +530,17 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
-     * is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
-     * turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
-     * speech-to-text configuration
+     * is expected, so that the speech-to-text service itself stops cutting between the groups (valid: 0 = off, or
+     * 0.5 - 4; default: 0). Applies while an expected value other than a read-back confirmation is known, so it
+     * needs <code>expected_input_enabled</code> (not <code>hold_enabled</code>); after the turn the minimum silence
+     * is set back to <code>s2t_slot_min_duration_off_restore_seconds</code>. It only takes effect when the call&apos;s
+     * speech-to-text configuration carries a <code>pyannote</code> block (supplied in
+     * <code>S2tVtsiConfig.s2t_transcribe_request_config</code>, or created from
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> on a deployment that supports creating it) and
+     * the restore value is known (set, or a minimum silence in that block), and it needs a speech-to-text service
+     * that accepts the change mid-call. A value between 0 and 0.5 is refused with
+     * <code>INVALID_ARGUMENT</code>. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_seconds = 8;</code>
      * @return float
@@ -422,9 +562,17 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Minimum silence in seconds the speech-to-text service waits before it ends an utterance while a value
-     * is expected (default: 0 = off, valid range: 0 or 0.5 - 4). Only takes effect when a value to restore after the
-     * turn is known: <code>s2t_slot_min_duration_off_restore_seconds</code> or the minimum silence of the
-     * speech-to-text configuration
+     * is expected, so that the speech-to-text service itself stops cutting between the groups (valid: 0 = off, or
+     * 0.5 - 4; default: 0). Applies while an expected value other than a read-back confirmation is known, so it
+     * needs <code>expected_input_enabled</code> (not <code>hold_enabled</code>); after the turn the minimum silence
+     * is set back to <code>s2t_slot_min_duration_off_restore_seconds</code>. It only takes effect when the call&apos;s
+     * speech-to-text configuration carries a <code>pyannote</code> block (supplied in
+     * <code>S2tVtsiConfig.s2t_transcribe_request_config</code>, or created from
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> on a deployment that supports creating it) and
+     * the restore value is known (set, or a minimum silence in that block), and it needs a speech-to-text service
+     * that accepts the change mid-call. A value between 0 and 0.5 is refused with
+     * <code>INVALID_ARGUMENT</code>. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_seconds = 8;</code>
      * @param float $var
@@ -439,7 +587,10 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
-     * (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
+     * (valid range: 0.05 - 4; default: the minimum silence of the call&apos;s speech-to-text configuration). Set it to
+     * the pipeline&apos;s normal minimum silence when the speech-to-text configuration carries none; without any
+     * restore value, <code>s2t_slot_min_duration_off_seconds</code> stays off. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_restore_seconds = 9;</code>
      * @return float
@@ -461,7 +612,10 @@ class DictationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Minimum silence in seconds restored on the speech-to-text service after a turn with an expected value
-     * (default: the minimum silence of the speech-to-text configuration, valid range: 0.05 - 4)
+     * (valid range: 0.05 - 4; default: the minimum silence of the call&apos;s speech-to-text configuration). Set it to
+     * the pipeline&apos;s normal minimum silence when the speech-to-text configuration carries none; without any
+     * restore value, <code>s2t_slot_min_duration_off_seconds</code> stays off. Deployment setting:
+     * <code>ONDEWO_VTSI_CSI_DICTATION_S2T_SLOT_MIN_DURATION_OFF_RESTORE_SECONDS</code>
      *
      * Generated from protobuf field <code>optional float s2t_slot_min_duration_off_restore_seconds = 9;</code>
      * @param float $var

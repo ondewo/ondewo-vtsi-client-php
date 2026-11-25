@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>How an invited participant takes part in a call</p>
+ * How an invited participant takes part in a call
  *
  * Protobuf type <code>ondewo.vtsi.ParticipantMode</code>
  */

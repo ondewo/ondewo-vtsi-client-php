@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A SIP account on a VTSI project&apos;s Asterisk for a human using a softphone. Never carries a
- * secret.
+ * A SIP account on a VTSI project&apos;s Asterisk for a human using a softphone. Never carries a secret.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneAccount</code>
  */

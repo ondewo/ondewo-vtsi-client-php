@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>DeleteUserLanguageModelRequest is used to request the deletion of a user-specific language model.</p>
+ * DeleteUserLanguageModelRequest is used to request the deletion of a user-specific language model.
  *
  * Generated from protobuf message <code>ondewo.s2t.DeleteUserLanguageModelRequest</code>
  */

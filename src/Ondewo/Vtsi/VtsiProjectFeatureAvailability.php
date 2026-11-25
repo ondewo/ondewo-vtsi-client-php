@@ -10,26 +10,33 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Which features can run in a VTSI project. Output only</p>
+ * Which optional call features can run in a VTSI project, and if not, why. Output only; computed from the deployment&apos;s switches, where the project&apos;s Asterisk runs and the project&apos;s listener capacity, never from a single call&apos;s configuration.
  *
  * Generated from protobuf message <code>ondewo.vtsi.VtsiProjectFeatureAvailability</code>
  */
 class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Whether a WARM transfer can run a warm intro
+     * Whether a WARM transfer of this project can run a warm intro. Anything but
+     * <code>WARM_INTRO_AVAILABILITY_AVAILABLE</code> means an intro cannot be expected to run, whatever
+     * <code>VtsiProject.warm_transfer_defaults</code>, a call or a transfer configures; with
+     * <code>WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT</code> a WARM transfer joins its target without one.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroAvailability warm_intro = 1;</code>
      */
     protected $warm_intro = 0;
     /**
-     * Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted
+     * Whether the phase-B fields of <code>WarmTransferConfig</code> (an LLM-written summary, hold music for the
+     * caller) are accepted: <code>true</code> exactly when the deployment has enabled warm intros AND phase B. While
+     * <code>false</code>, setting one of them at any level is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code>.
      *
      * Generated from protobuf field <code>bool warm_intro_phase_b = 2;</code>
      */
     protected $warm_intro_phase_b = false;
     /**
-     * Whether the project can publish and route IVR menus
+     * Whether the project can publish IVR menus and route inbound numbers through them. Independent of the
+     * project&apos;s own switch <code>VtsiProject.ivr_menus_enabled</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.IvrAvailability ivr = 3;</code>
      */
@@ -42,11 +49,18 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $warm_intro
-     *           Whether a WARM transfer can run a warm intro
+     *           Whether a WARM transfer of this project can run a warm intro. Anything but
+     *           <code>WARM_INTRO_AVAILABILITY_AVAILABLE</code> means an intro cannot be expected to run, whatever
+     *           <code>VtsiProject.warm_transfer_defaults</code>, a call or a transfer configures; with
+     *           <code>WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT</code> a WARM transfer joins its target without one.
      *     @type bool $warm_intro_phase_b
-     *           Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted
+     *           Whether the phase-B fields of <code>WarmTransferConfig</code> (an LLM-written summary, hold music for the
+     *           caller) are accepted: <code>true</code> exactly when the deployment has enabled warm intros AND phase B. While
+     *           <code>false</code>, setting one of them at any level is refused with <code>FAILED_PRECONDITION</code>
+     *           <code>reason=phase-b-not-enabled</code>.
      *     @type int $ivr
-     *           Whether the project can publish and route IVR menus
+     *           Whether the project can publish IVR menus and route inbound numbers through them. Independent of the
+     *           project&apos;s own switch <code>VtsiProject.ivr_menus_enabled</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -55,7 +69,10 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a WARM transfer can run a warm intro
+     * Whether a WARM transfer of this project can run a warm intro. Anything but
+     * <code>WARM_INTRO_AVAILABILITY_AVAILABLE</code> means an intro cannot be expected to run, whatever
+     * <code>VtsiProject.warm_transfer_defaults</code>, a call or a transfer configures; with
+     * <code>WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT</code> a WARM transfer joins its target without one.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroAvailability warm_intro = 1;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\WarmIntroAvailability}
@@ -66,7 +83,10 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a WARM transfer can run a warm intro
+     * Whether a WARM transfer of this project can run a warm intro. Anything but
+     * <code>WARM_INTRO_AVAILABILITY_AVAILABLE</code> means an intro cannot be expected to run, whatever
+     * <code>VtsiProject.warm_transfer_defaults</code>, a call or a transfer configures; with
+     * <code>WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT</code> a WARM transfer joins its target without one.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroAvailability warm_intro = 1;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\WarmIntroAvailability}
@@ -81,7 +101,10 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted
+     * Whether the phase-B fields of <code>WarmTransferConfig</code> (an LLM-written summary, hold music for the
+     * caller) are accepted: <code>true</code> exactly when the deployment has enabled warm intros AND phase B. While
+     * <code>false</code>, setting one of them at any level is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code>.
      *
      * Generated from protobuf field <code>bool warm_intro_phase_b = 2;</code>
      * @return bool
@@ -92,7 +115,10 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the phase-B fields of <code>WarmTransferConfig</code> (LLM summary, hold music) are accepted
+     * Whether the phase-B fields of <code>WarmTransferConfig</code> (an LLM-written summary, hold music for the
+     * caller) are accepted: <code>true</code> exactly when the deployment has enabled warm intros AND phase B. While
+     * <code>false</code>, setting one of them at any level is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code>.
      *
      * Generated from protobuf field <code>bool warm_intro_phase_b = 2;</code>
      * @param bool $var
@@ -106,7 +132,8 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the project can publish and route IVR menus
+     * Whether the project can publish IVR menus and route inbound numbers through them. Independent of the
+     * project&apos;s own switch <code>VtsiProject.ivr_menus_enabled</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.IvrAvailability ivr = 3;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\IvrAvailability}
@@ -117,7 +144,8 @@ class VtsiProjectFeatureAvailability extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the project can publish and route IVR menus
+     * Whether the project can publish IVR menus and route inbound numbers through them. Independent of the
+     * project&apos;s own switch <code>VtsiProject.ivr_menus_enabled</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.IvrAvailability ivr = 3;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\IvrAvailability}

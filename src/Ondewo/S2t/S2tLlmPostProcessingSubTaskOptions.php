@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Common configuration for an individual LLM post-processing sub-task (e.g. email, phone number,
- * date and time, credit card number, social security number, time zone).
- * Used by both normalization and inverse-normalization tasks.</p>
+ * Common configuration for an individual LLM post-processing sub-task (e.g. email, phone number, date and time, credit card number, social security number, time zone). Used by both normalization and inverse-normalization tasks.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tLlmPostProcessingSubTaskOptions</code>
  */

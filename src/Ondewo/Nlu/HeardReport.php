@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Reports what the user heard of a turn's answer. At least one of <code>response_id</code> and
- * <code>client_turn_id</code> must be set. The server keeps the report with the highest <code>revision</code> per
- * turn and ignores a lower or equal one.
+ * Reports what the user heard of a turn's answer. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set. The server keeps the report with the highest <code>revision</code> per turn and ignores a lower or equal one.
  *
  * Generated from protobuf message <code>ondewo.nlu.HeardReport</code>
  */

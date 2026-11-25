@@ -10,30 +10,30 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Preemptive (speculative) generation of the answer: on a stable partial transcription a draft answer is generated
- * before the final transcription arrives, and played only when the final transcription matches it; a draft that
- * does not match is discarded and the caller hears nothing of it. Every field is optional; an unset field keeps
- * the deployment&apos;s value. A value outside its range is refused with <code>INVALID_ARGUMENT</code>.
- * The NLU bounds are set with <code>NluVtsiConfig.preemptive_generation_config</code>, the speech synthesis of a
- * draft with <code>T2sVtsiConfig.preemptive_synthesis_config</code>
+ * Preemptive (speculative) generation of the answer: on a stable partial transcription a draft answer is generated before the caller&apos;s final transcription arrives, and played only when the final transcription matches it; a draft that does not match is discarded and the caller hears nothing of it. A matching draft answers the caller sooner; every draft costs an extra NLU request (and, unless switched off, a speech synthesis), also when it is discarded. It never ends the caller&apos;s turn early.
+ * Every field is optional. An unset <code>enabled</code> keeps the deployment&apos;s setting (see the field); an unset <code>commit_wait_timeout_seconds</code> keeps the built-in default given at the field. A value outside its range is refused with <code>INVALID_ARGUMENT</code>. The NLU bounds (how many drafts a turn may start) are set with <code>NluVtsiConfig.preemptive_generation_config</code>, the speech synthesis of a draft with <code>T2sVtsiConfig.preemptive_synthesis_config</code>.
+ * Example: <code>enabled=false</code> switches speculation off for this call, e.g. to save NLU requests on an agent whose answers are expensive.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CsiPreemptiveGenerationConfig</code>
  */
 class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
-     * Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
-     * to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Enable preemptive generation on this call. Precedence: this field, else the deprecated
+     * <code>ResponseTimingConfig.preemptive_generation_enabled</code>, else the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code> (default <code>true</code>). Set together with the
+     * deprecated field to a different value, the request is refused with <code>INVALID_ARGUMENT</code>; the same
+     * value in both is accepted
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      */
     protected $enabled = null;
     /**
      * Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
-     * turn is answered normally (default: 3.0, valid range: 0 - 3). While
-     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
-     * only for the draft&apos;s first chunk
+     * turn is answered normally. While the bot waits here the caller hears nothing, so a long wait on a slow draft
+     * adds to the silence instead of saving time. Unset: 3.0. Valid range: 0 - 3. While
+     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the wait is for the whole draft; while it is on, only
+     * for the draft&apos;s first chunk. Only matters while preemptive generation is on
      *
      * Generated from protobuf field <code>optional float commit_wait_timeout_seconds = 2;</code>
      */
@@ -46,14 +46,17 @@ class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
-     *           Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
-     *           to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
+     *           Optional: Enable preemptive generation on this call. Precedence: this field, else the deprecated
+     *           <code>ResponseTimingConfig.preemptive_generation_enabled</code>, else the deployment-wide setting
+     *           <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code> (default <code>true</code>). Set together with the
+     *           deprecated field to a different value, the request is refused with <code>INVALID_ARGUMENT</code>; the same
+     *           value in both is accepted
      *     @type float $commit_wait_timeout_seconds
      *           Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
-     *           turn is answered normally (default: 3.0, valid range: 0 - 3). While
-     *           <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
-     *           only for the draft&apos;s first chunk
+     *           turn is answered normally. While the bot waits here the caller hears nothing, so a long wait on a slow draft
+     *           adds to the silence instead of saving time. Unset: 3.0. Valid range: 0 - 3. While
+     *           <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the wait is for the whole draft; while it is on, only
+     *           for the draft&apos;s first chunk. Only matters while preemptive generation is on
      * }
      */
     public function __construct($data = NULL) {
@@ -62,9 +65,11 @@ class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
-     * Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
-     * to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Enable preemptive generation on this call. Precedence: this field, else the deprecated
+     * <code>ResponseTimingConfig.preemptive_generation_enabled</code>, else the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code> (default <code>true</code>). Set together with the
+     * deprecated field to a different value, the request is refused with <code>INVALID_ARGUMENT</code>; the same
+     * value in both is accepted
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @return bool
@@ -85,9 +90,11 @@ class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable preemptive generation (default: the deployment&apos;s setting, which is true unless changed).
-     * Replaces the deprecated <code>ResponseTimingConfig.preemptive_generation_enabled</code>; set together with it
-     * to a different value, the request is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Enable preemptive generation on this call. Precedence: this field, else the deprecated
+     * <code>ResponseTimingConfig.preemptive_generation_enabled</code>, else the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code> (default <code>true</code>). Set together with the
+     * deprecated field to a different value, the request is refused with <code>INVALID_ARGUMENT</code>; the same
+     * value in both is accepted
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @param bool $var
@@ -102,9 +109,10 @@ class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
-     * turn is answered normally (default: 3.0, valid range: 0 - 3). While
-     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
-     * only for the draft&apos;s first chunk
+     * turn is answered normally. While the bot waits here the caller hears nothing, so a long wait on a slow draft
+     * adds to the silence instead of saving time. Unset: 3.0. Valid range: 0 - 3. While
+     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the wait is for the whole draft; while it is on, only
+     * for the draft&apos;s first chunk. Only matters while preemptive generation is on
      *
      * Generated from protobuf field <code>optional float commit_wait_timeout_seconds = 2;</code>
      * @return float
@@ -126,9 +134,10 @@ class CsiPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Optional: Seconds a draft that matches the final transcription may still take before it is discarded and the
-     * turn is answered normally (default: 3.0, valid range: 0 - 3). While
-     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the commit waits for the whole draft; while it is on,
-     * only for the draft&apos;s first chunk
+     * turn is answered normally. While the bot waits here the caller hears nothing, so a long wait on a slow draft
+     * adds to the silence instead of saving time. Unset: 3.0. Valid range: 0 - 3. While
+     * <code>T2sPreemptiveSynthesisConfig.chunked</code> is off the wait is for the whole draft; while it is on, only
+     * for the draft&apos;s first chunk. Only matters while preemptive generation is on
      *
      * Generated from protobuf field <code>optional float commit_wait_timeout_seconds = 2;</code>
      * @param float $var

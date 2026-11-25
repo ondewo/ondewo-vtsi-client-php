@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>ListS2tLanguageModelsRequest is used to request a list of available language models for specified pipelines.</p>
+ * ListS2tLanguageModelsRequest is used to request a list of available language models for specified pipelines.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tLanguageModelsRequest</code>
  */

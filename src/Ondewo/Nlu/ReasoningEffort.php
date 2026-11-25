@@ -8,8 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Effort level for reasoning models (e.g. o1, o3). Controls the trade-off
- * between speed and quality.
+ * Effort level for reasoning models (e.g. o1, o3). Controls the trade-off between speed and quality.
  *
  * Protobuf type <code>ondewo.nlu.ReasoningEffort</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Wiener message contains settings for Wiener postprocessing.</p>
+ * Wiener message contains settings for Wiener postprocessing.
  *
  * Generated from protobuf message <code>ondewo.t2s.Wiener</code>
  */

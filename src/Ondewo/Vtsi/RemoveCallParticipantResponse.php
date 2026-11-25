@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Response of <code>RemoveCallParticipant</code></p>
+ * Response of <code>RemoveCallParticipant</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.RemoveCallParticipantResponse</code>
  */

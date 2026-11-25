@@ -10,12 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A computed, read-only rollout recommendation for an A/B experiment: which
- * variant currently wins against the control on the chosen optimize metric,
- * under the requested statistical guard-rails. Stateless — recomputed on demand
- * by <code>LlmEvaluationGetAbRolloutRecommendation</code> from the per-variant
- * results rollup; nothing is persisted and no traffic / config changes. The
- * operator decides whether to apply it via <code>LlmEvaluationApplyAbRollout</code>.
+ * A computed, read-only rollout recommendation for an A/B experiment: which variant currently wins against the control on the chosen optimize metric, under the requested statistical guard-rails. Stateless — recomputed on demand by <code>LlmEvaluationGetAbRolloutRecommendation</code> from the per-variant results rollup; nothing is persisted and no traffic / config changes. The operator decides whether to apply it via <code>LlmEvaluationApplyAbRollout</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationAbRolloutRecommendation</code>
  */

@@ -11,6 +11,8 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request for starting a caller
+ * One request is one outbound call, and its configuration applies to that call only. Example: to place a call whose bot the callee may interrupt, set <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled = true</code> (the other fields of <code>interruption_handling_config</code> then tune when speech counts as an interruption); the next request without that block places its call with the default, in which the callee&apos;s speech does not interrupt the bot.
+ * The same message is the entry of <code>StartCallersRequest</code>, of a scheduled caller (<code>StartScheduledCallerRequest.request</code>) and of a campaign (<code>AddCallersToCampaignRequest</code>), with the differences described at those fields.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartCallerRequest</code>
  */
@@ -23,13 +25,34 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * SIP service configuration
+     * SIP configuration of the call: <code>callee_id</code> (required: whom to dial), <code>sip_headers</code> (sent
+     * on the INVITE, at most 64) and <code>sip_base_config.sip_sim_version</code> (the ondewo-sip image version;
+     * empty uses the server&apos;s default, deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>). A
+     * missing <code>callee_id</code> or too many headers is <code>INVALID_ARGUMENT</code>. On a pooled caller the
+     * callee and the headers are sent per call, so two requests that differ only there can be served by the same
+     * warm caller.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 2;</code>
      */
     protected $sip_caller_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call: speech-to-text, NLU agent, text-to-speech, CSI, the voice interaction
+     * (<code>voice_interaction_config</code>: turn detection, interruptions, response timing, answering machine
+     * detection, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration places no call and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this call.</p>
+     * <p>Pooled callers: the call is served by a warm pooled caller only when one runs exactly this
+     * configuration (credentials included); otherwise a new caller is deployed for it, which takes longer to
+     * connect but behaves the same. Answering machine detection
+     * (<code>voice_interaction_config.answering_machine_detection_config</code>) runs only on a pooled caller:
+     * while the deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is off, and on every scheduled
+     * caller, a request carrying it is refused with <code>INVALID_ARGUMENT</code>
+     * (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      */
@@ -77,9 +100,30 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\SipCallerConfig $sip_caller_config
-     *           SIP service configuration
+     *           SIP configuration of the call: <code>callee_id</code> (required: whom to dial), <code>sip_headers</code> (sent
+     *           on the INVITE, at most 64) and <code>sip_base_config.sip_sim_version</code> (the ondewo-sip image version;
+     *           empty uses the server&apos;s default, deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>). A
+     *           missing <code>callee_id</code> or too many headers is <code>INVALID_ARGUMENT</code>. On a pooled caller the
+     *           callee and the headers are sent per call, so two requests that differ only there can be served by the same
+     *           warm caller.
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *           Service configuration of the call: speech-to-text, NLU agent, text-to-speech, CSI, the voice interaction
+     *           (<code>voice_interaction_config</code>: turn detection, interruptions, response timing, answering machine
+     *           detection, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     *           <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     *           and T2S services (and RabbitMQ when configured); a refused configuration places no call and is answered
+     *           with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     *           field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.</p>
+     *           <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     *           where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     *           over both for this call.</p>
+     *           <p>Pooled callers: the call is served by a warm pooled caller only when one runs exactly this
+     *           configuration (credentials included); otherwise a new caller is deployed for it, which takes longer to
+     *           connect but behaves the same. Answering machine detection
+     *           (<code>voice_interaction_config.answering_machine_detection_config</code>) runs only on a pooled caller:
+     *           while the deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is off, and on every scheduled
+     *           caller, a request carrying it is refused with <code>INVALID_ARGUMENT</code>
+     *           (<code>reason=amd-requires-persistent-caller</code>).</p>
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the field paths to populate in <code>StartCallerResponse.caller</code>, relative to the
      *           <code>Caller</code> message (no <code>caller.</code> prefix), e.g. <code>call_name</code>, <code>sip_caller_config.callee_id</code>. Nested paths through singular
@@ -139,7 +183,12 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP configuration of the call: <code>callee_id</code> (required: whom to dial), <code>sip_headers</code> (sent
+     * on the INVITE, at most 64) and <code>sip_base_config.sip_sim_version</code> (the ondewo-sip image version;
+     * empty uses the server&apos;s default, deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>). A
+     * missing <code>callee_id</code> or too many headers is <code>INVALID_ARGUMENT</code>. On a pooled caller the
+     * callee and the headers are sent per call, so two requests that differ only there can be served by the same
+     * warm caller.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 2;</code>
      * @return \Ondewo\Vtsi\SipCallerConfig|null
@@ -160,7 +209,12 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP configuration of the call: <code>callee_id</code> (required: whom to dial), <code>sip_headers</code> (sent
+     * on the INVITE, at most 64) and <code>sip_base_config.sip_sim_version</code> (the ondewo-sip image version;
+     * empty uses the server&apos;s default, deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>). A
+     * missing <code>callee_id</code> or too many headers is <code>INVALID_ARGUMENT</code>. On a pooled caller the
+     * callee and the headers are sent per call, so two requests that differ only there can be served by the same
+     * warm caller.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 2;</code>
      * @param \Ondewo\Vtsi\SipCallerConfig $var
@@ -174,7 +228,23 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call: speech-to-text, NLU agent, text-to-speech, CSI, the voice interaction
+     * (<code>voice_interaction_config</code>: turn detection, interruptions, response timing, answering machine
+     * detection, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration places no call and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this call.</p>
+     * <p>Pooled callers: the call is served by a warm pooled caller only when one runs exactly this
+     * configuration (credentials included); otherwise a new caller is deployed for it, which takes longer to
+     * connect but behaves the same. Answering machine detection
+     * (<code>voice_interaction_config.answering_machine_detection_config</code>) runs only on a pooled caller:
+     * while the deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is off, and on every scheduled
+     * caller, a request carrying it is refused with <code>INVALID_ARGUMENT</code>
+     * (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -195,7 +265,23 @@ class StartCallerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call: speech-to-text, NLU agent, text-to-speech, CSI, the voice interaction
+     * (<code>voice_interaction_config</code>: turn detection, interruptions, response timing, answering machine
+     * detection, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration places no call and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this call.</p>
+     * <p>Pooled callers: the call is served by a warm pooled caller only when one runs exactly this
+     * configuration (credentials included); otherwise a new caller is deployed for it, which takes longer to
+     * connect but behaves the same. Answering machine detection
+     * (<code>voice_interaction_config.answering_machine_detection_config</code>) runs only on a pooled caller:
+     * while the deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is off, and on every scheduled
+     * caller, a request carrying it is refused with <code>INVALID_ARGUMENT</code>
+     * (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var

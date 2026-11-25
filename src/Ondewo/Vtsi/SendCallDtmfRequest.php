@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request of <code>SendCallDtmf</code></p>
+ * Request of <code>SendCallDtmf</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.SendCallDtmfRequest</code>
  */

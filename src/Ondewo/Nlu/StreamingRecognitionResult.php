@@ -15,19 +15,14 @@ use Google\Protobuf\RepeatedField;
  * 1.  transcript: &quot;tube&quot;
  * 2.  transcript: &quot;to be a&quot;
  * 3.  transcript: &quot;to be&quot;
- * 4.  transcript: &quot;to be or not to be&quot;
- *     is_final: true
+ * 4.  transcript: &quot;to be or not to be&quot; is_final: true
  * 5.  transcript: &quot; that&apos;s&quot;
  * 6.  transcript: &quot; that is&quot;
  * 7.  recognition_event_type: <code>RECOGNITION_EVENT_END_OF_SINGLE_UTTERANCE</code>
- * 8.  transcript: &quot; that is the question&quot;
- *     is_final: true
+ * 8.  transcript: &quot; that is the question&quot; is_final: true
  * Only two of the responses contain final results (#4 and #8 indicated by <code>is_final: true</code>). Concatenating these generates the full transcript: <code>"to be or not to be that is the question"</code>.
  * In each response we populate:
- * <ul>
- *     <li>for <code>MESSAGE_TYPE_TRANSCRIPT</code>: <code>transcript</code> and possibly <code>is_final</code>.</li>
- *     <li>for <code>MESSAGE_TYPE_END_OF_SINGLE_UTTERANCE</code>: only <code>event_type</code>.</li>
- * </ul>
+ * <ul> <li>for <code>MESSAGE_TYPE_TRANSCRIPT</code>: <code>transcript</code> and possibly <code>is_final</code>.</li> <li>for <code>MESSAGE_TYPE_END_OF_SINGLE_UTTERANCE</code>: only <code>event_type</code>.</li> </ul>
  *
  * Generated from protobuf message <code>ondewo.nlu.StreamingRecognitionResult</code>
  */

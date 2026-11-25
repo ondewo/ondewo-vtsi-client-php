@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration of the options to inverse-normalization task in LLM post-processing.</p>
+ * Configuration of the options to inverse-normalization task in LLM post-processing.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tLlmPostProcessingInverseNormalizationOptions</code>
  */

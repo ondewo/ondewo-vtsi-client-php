@@ -10,11 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The configuration of one warm transfer intro, as resolved by the caller of
- * <code>PrepareWarmTransferIntro</code>. A text left empty (or unset, for an <code>optional</code> field) falls back
- * to the agent's default text for the language (<code>Agent.warm_transfer_settings</code>), then to the built-in
- * default. Texts are spoken to the target, never to the caller, except <code>caller_declined_message</code> and
- * <code>caller_unreachable_message</code>.
+ * The configuration of one warm transfer intro, as resolved by the caller of <code>PrepareWarmTransferIntro</code>. A text left empty (or unset, for an <code>optional</code> field) falls back to the agent's default text for the language (<code>Agent.warm_transfer_settings</code>), then to the built-in default. Texts are spoken to the target, never to the caller, except <code>caller_declined_message</code> and <code>caller_unreachable_message</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.WarmTransferIntroConfig</code>
  */

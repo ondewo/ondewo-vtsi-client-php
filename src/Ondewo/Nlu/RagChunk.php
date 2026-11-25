@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Chunk of text extracted from a document.<br>
- * Chunks are the basic retrieval units used for vector similarity search in RAG.
+ * Chunk of text extracted from a document.<br> Chunks are the basic retrieval units used for vector similarity search in RAG.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagChunk</code>
  */

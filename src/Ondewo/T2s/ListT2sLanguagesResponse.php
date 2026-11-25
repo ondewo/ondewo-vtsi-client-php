@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Language Response representation.</p>
- * <p>The response message for ListT2sLanguages.</p>
+ * Language Response representation.
+ * The response message for ListT2sLanguages.
  *
  * Generated from protobuf message <code>ondewo.t2s.ListT2sLanguagesResponse</code>
  */

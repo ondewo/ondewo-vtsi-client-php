@@ -8,9 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Why the SERVER ended a <code>StreamLogs</code> stream. Carried by the final
- * <a href="index.html#ondewo.nlu.StreamLogsResponse">StreamLogsResponse</a> beside the human-readable
- * <code>end_reason</code>. A stream ended by the client has no final message.
+ * Why the SERVER ended a <code>StreamLogs</code> stream. Carried by the final <a href="index.html#ondewo.nlu.StreamLogsResponse">StreamLogsResponse</a> beside the human-readable <code>end_reason</code>. A stream ended by the client has no final message.
  *
  * Protobuf type <code>ondewo.nlu.CaiLogStreamEndReason</code>
  */

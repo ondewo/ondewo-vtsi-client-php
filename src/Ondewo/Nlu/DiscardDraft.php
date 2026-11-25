@@ -10,11 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Discards the session step of a preemptive draft: a turn the client started speculatively on a partial
- * transcript and then did not use. The server deletes the session step only when it belongs to this session and its
- * request carried <code>QueryParameters.preemptive_draft</code> = true; it answers
- * <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code>. Any other step is kept and the server answers
- * <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code>.
+ * Discards the session step of a preemptive draft: a turn the client started speculatively on a partial transcript and then did not use. The server deletes the session step only when it belongs to this session and its request carried <code>QueryParameters.preemptive_draft</code> = true; it answers <code>TURN_CONTROL_ACK_STATUS_DRAFT_DISCARDED</code>. Any other step is kept and the server answers <code>TURN_CONTROL_ACK_STATUS_UNKNOWN_TURN</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.DiscardDraft</code>
  */

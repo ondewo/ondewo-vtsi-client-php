@@ -8,7 +8,7 @@ namespace Ondewo\S2t;
 use UnexpectedValueException;
 
 /**
- * <p>Verbosity level for the response output.</p>
+ * Verbosity level for the response output.
  *
  * Protobuf type <code>ondewo.s2t.Verbosity</code>
  */

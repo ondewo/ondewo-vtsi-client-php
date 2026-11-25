@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One retrieved RAG chunk surfaced during an LLM call. Mirrors the five-field
- * chunk already emitted into <code>outputs.retrieved_chunks</code> (Struct) plus
- * a typed <code>rank</code>.
+ * One retrieved RAG chunk surfaced during an LLM call. Mirrors the five-field chunk already emitted into <code>outputs.retrieved_chunks</code> (Struct) plus a typed <code>rank</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmRetrievedChunk</code>
  */

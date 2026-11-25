@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration of the options to detect utterances</p>
+ * Configuration of the options to detect utterances
  *
  * Generated from protobuf message <code>ondewo.s2t.UtteranceDetectionOptions</code>
  */

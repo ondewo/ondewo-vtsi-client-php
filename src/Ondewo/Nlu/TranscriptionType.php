@@ -8,8 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Identifies whether a transcription was produced by an automatic
- * speech-to-text system or by a human annotator.
+ * Identifies whether a transcription was produced by an automatic speech-to-text system or by a human annotator.
  *
  * Protobuf type <code>ondewo.nlu.TranscriptionType</code>
  */

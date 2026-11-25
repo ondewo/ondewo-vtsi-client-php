@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents an intent.
- * Intents convert a number of user expressions or patterns into an action. An action is an extraction of a user command or sentence semantics.
+ * Represents an intent. Intents convert a number of user expressions or patterns into an action. An action is an extraction of a user command or sentence semantics.
  *
  * Generated from protobuf message <code>ondewo.nlu.Intent</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Controls one turn of a session. Sent as <code>StreamingDetectIntentRequest.turn_control</code> on a call-length
- * stream, or in an <code>InterruptTurnRequest</code>.
+ * Controls one turn of a session. Sent as <code>StreamingDetectIntentRequest.turn_control</code> on a call-length stream, or in an <code>InterruptTurnRequest</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.TurnControl</code>
  */

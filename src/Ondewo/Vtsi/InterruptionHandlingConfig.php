@@ -10,75 +10,188 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the interruption (barge-in) handling, i.e. the caller speaking while the bot is speaking
+ * Interruption (barge-in) handling: what happens when the caller speaks while the bot is speaking. Off by default: the caller is not listened to while the bot speaks, and speech never stops the bot. A DTMF key the bot asked for still stops it (<code>DtmfConfig.barge_in</code>, on by default; set it to false as well for a disclaimer that must be heard in full).
+ * With <code>enabled=true</code>, caller speech over the bot goes through these steps:
+ * (1) Is it an interruption? Speech within <code>first_message_protected_seconds</code> after the greeting started, speech shorter than <code>min_interruption_duration_seconds</code> and sounds without words (&quot;hmm&quot;, &quot;mhm&quot;) are ignored. Otherwise, with the turn detection mode <code>VAD</code> (and whenever no semantic turn detection runs for the call), any recognised speech interrupts; with <code>SEMANTIC_MODEL</code> or <code>AUDIO_MODEL</code> a final transcription with at least one word interrupts at once, and a partial transcription interrupts once it has <code>min_interruption_words</code> words. Speech that does not interrupt is dropped: the bot keeps talking and the speech is not answered. One exception: a final transcription with at least one word that is refused only because it was shorter than <code>min_interruption_duration_seconds</code> does not stop the bot either, but it is kept and answered as the caller&apos;s next turn once the bot has finished speaking.
+ * (2) The bot pauses: its voice fades out over <code>interruption_fade_out_ms</code>, and the rest of its answer is kept.
+ * (3) Real or false? If the caller&apos;s speech becomes a complete turn (a final transcription) within <code>false_interruption_timeout_seconds</code>, the interruption is REAL: the rest of the answer is discarded, the bot stays silent for <code>backoff_seconds</code> and then answers what the caller said. Its synthesis is cancelled (<code>t2s_cancel_on_barge_in</code>), and an NLU that supports it is told which turn was cut and what the caller heard of it (<code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>). If no turn is committed in time, the interruption is FALSE (a cough, a short noise): with <code>resume_after_false_interruption</code> the bot continues where its fade-out ended, so nothing is heard twice, else the rest of the answer is dropped, and then, as after a real one, its synthesis is cancelled and a call action it carries is dropped (<code>t2s_cancel_on_barge_in</code>). The window waits for a caller who is still speaking: each partial transcription that changes what the caller said extends it, up to twice <code>false_interruption_timeout_seconds</code> (at most 9 s) after the interruption.
+ * Example: let the caller interrupt, ignore anything shorter than 0.6 s, and never interrupt the first 3 s of the greeting: <code>enabled: true, min_interruption_duration_seconds: 0.6, first_message_protected_seconds: 3</code>
+ * Scope and precedence as in <code>VoiceInteractionConfig</code>: unset means inherit, i.e. the deployment&apos;s <code>ONDEWO_VTSI_*</code> setting where a field names one, else the default given at the field. A value outside a field&apos;s range is refused with <code>INVALID_ARGUMENT</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.InterruptionHandlingConfig</code>
  */
 class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
-     * (default: false, i.e. the bot cannot be interrupted)
+     * Optional: Let the caller interrupt (barge in on) the bot by speaking while it speaks (default: false). False:
+     * the caller&apos;s speech is not heard while the bot speaks, and speech never stops the bot. A DTMF key the bot
+     * asked for still stops it (see <code>DtmfConfig.barge_in</code>, on by default; set it to false as well for a
+     * disclaimer that must be heard in full). The speech-related fields of this message only matter when this is
+     * true. Exceptions: <code>transcribe_on_disabled_interruptions</code> and
+     * <code>cancel_on_speech_while_thinking</code>, plus <code>interruption_fade_out_ms</code>,
+     * <code>t2s_cancel_on_barge_in</code>, <code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>,
+     * <code>heard_text_alignment_enabled</code> and <code>ai_teams_cancel_pending_on_interrupt</code>, which also
+     * apply when a key stops the bot, when an operator mutes it and when a turn is replaced
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      */
     protected $enabled = null;
     /**
-     * Optional: Minimum duration in seconds of caller speech while the bot is speaking
-     * to trigger an interruption (noise gate) (default: 0.5)
+     * Optional: Minimum duration in seconds the caller must have been speaking over the bot before it counts as an
+     * interruption, measured from the start of the caller&apos;s speech (noise gate) (default: 0.5, valid range:
+     * 0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot. A final transcription with
+     * at least one word that is too short to interrupt is not lost: it is answered as the caller&apos;s next turn
+     * once the bot has finished speaking
      *
      * Generated from protobuf field <code>optional float min_interruption_duration_seconds = 2;</code>
      */
     protected $min_interruption_duration_seconds = null;
     /**
-     * Optional: Minimum number of transcribed words of caller speech while the bot is speaking
-     * to trigger an interruption (default: 2)
+     * Optional: Minimum number of words a PARTIAL transcription of caller speech over the bot needs to interrupt
+     * it early (default: 2, valid range: 0 - 10; 0 and 1 both let one word interrupt). Only used with the turn
+     * detection modes <code>SEMANTIC_MODEL</code> and <code>AUDIO_MODEL</code>: a FINAL transcription with at
+     * least one word always interrupts, so a short &quot;no&quot; still stops the bot, and with <code>VAD</code>
+     * any recognised speech interrupts. Higher values keep the bot talking over short remarks until the caller has
+     * said more
      *
      * Generated from protobuf field <code>optional int32 min_interruption_words = 3;</code>
      */
     protected $min_interruption_words = null;
     /**
-     * Optional: Time in seconds after an interruption trigger without a committed transcription
-     * after which the interruption is classified as a false interruption (default: 2.0)
+     * Optional: Seconds after an interruption within which the caller&apos;s speech must become a complete turn for
+     * the interruption to be REAL; otherwise it is FALSE (a cough, brief noise) and
+     * <code>resume_after_false_interruption</code> decides (default: 2.0, valid: 0 or more). Each partial
+     * transcription that changes what the caller said re-arms the window. The window lasts at most twice this value
+     * after the interruption, and never more than 9 s (a window of 9 s or more is not extended). The paused rest of
+     * an answer is kept for at most 10 s, so a longer window cannot resume it
      *
      * Generated from protobuf field <code>optional float false_interruption_timeout_seconds = 4;</code>
      */
     protected $false_interruption_timeout_seconds = null;
     /**
-     * Optional: Resume the paused bot response after a false interruption,
-     * e.g. a cough or brief background noise (default: true)
+     * Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s fade-out ended, with a
+     * short fade-in, so nothing the caller already heard is played twice, whatever
+     * <code>interruption_fade_out_ms</code> is (default: true). False: the rest of the answer is dropped
      *
      * Generated from protobuf field <code>optional bool resume_after_false_interruption = 5;</code>
      */
     protected $resume_after_false_interruption = null;
     /**
-     * Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)
+     * Optional: Seconds of silence after a REAL interruption before the bot&apos;s next answer plays, so the caller
+     * keeps the floor for a moment (default: 1.0, valid: 0 or more)
      *
      * Generated from protobuf field <code>optional float backoff_seconds = 6;</code>
      */
     protected $backoff_seconds = null;
     /**
-     * Optional: Protect the first bot message from interruptions
-     * for the given number of seconds (default: 0 = no protection)
+     * Optional: Seconds, counted from the start of the greeting, during which caller speech never interrupts the
+     * bot (default: 0 = no protection, valid: 0 or more). Speech in that window is ignored, not answered. Example:
+     * 5 makes sure the first 5 s of a greeting are heard
      *
      * Generated from protobuf field <code>optional float first_message_protected_seconds = 7;</code>
      */
     protected $first_message_protected_seconds = null;
     /**
-     * Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
-     * (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+     * Optional: Transcribe the caller while the bot speaks although interruptions are disabled (default: false).
+     * The speech neither stops the bot nor is answered. Only matters when <code>enabled</code> is false
      *
      * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      */
     protected $transcribe_on_disabled_interruptions = null;
     /**
-     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
-     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
-     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller interrupts it,
+     * so the bot trails off like a person instead of stopping with a click (default: 100, valid range: 0 - 500;
+     * 0 = stop at once). Any value above 0 also gives every other stop of the bot&apos;s voice a 5 ms ramp and fades
+     * a resumed answer back in over 20 ms. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_INTERRUPTION_FADE_OUT_MS</code>
      *
      * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
      */
     protected $interruption_fade_out_ms = null;
+    /**
+     * <p>Optional: Let the caller replace a turn the bot is still thinking about (default: false). When a caller turn
+     * is committed while the bot is still working on the previous one (its answer is being generated and nothing of
+     * it plays yet), that answer is cancelled and never spoken, and the new turn is answered at once; the earlier
+     * turn stays in the conversation history. Example: the caller says &quot;I need a taxi&quot; and, before the bot
+     * answers, &quot;for tomorrow morning&quot;: with true the bot answers only the second turn; with false it first
+     * speaks its answer to &quot;I need a taxi&quot;, then answers the second.</p>
+     * <p>Trade-off: a caller who says one sentence in two parts with a pause gets only the second part answered.
+     * Works whether or not <code>enabled</code> is set; has no effect with
+     * <code>ResponseTimingConfig.streaming_enabled=false</code>. The greeting and DTMF key entries are never
+     * replaced. An NLU that supports turn control is told to cancel the replaced turn
+     * (<code>nlu_turn_control_enabled</code>); another NLU still finishes it, but its answer is not spoken. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code></p>
+     *
+     * Generated from protobuf field <code>optional bool cancel_on_speech_while_thinking = 10;</code>
+     */
+    protected $cancel_on_speech_while_thinking = null;
+    /**
+     * <p>Optional: Whether a turn that was cut cancels the AI Teams asynchronous tool calls it dispatched that have
+     * not started yet. A turn is cut by a caller&apos;s interruption, by a turn replaced through
+     * <code>cancel_on_speech_while_thinking</code>, by an operator mute or takeover, or by the end of the call while
+     * its answer is still being generated (default: unset = the NLU deployment&apos;s own setting, which is
+     * on unless its operator turned it off). True or false decides it for this call alone, also against the
+     * deployment&apos;s setting.</p>
+     * <p>Only tools, agents or members whose team document declares <code>async.on_interrupt: cancel_pending</code>
+     * are ever cancelled (one declaring <code>keep</code> never is), only while the task is still pending (a task
+     * already running is delivered as usual), and only when the caller did not hear the dispatch acknowledged. Needs
+     * an NLU with turn control, <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>); without them nothing is cancelled and this value
+     * never reaches the NLU. Example:
+     * false keeps a callback the caller asked for even when they talked over the bot&apos;s confirmation</p>
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_cancel_pending_on_interrupt = 11;</code>
+     */
+    protected $ai_teams_cancel_pending_on_interrupt = null;
+    /**
+     * Optional: When an interruption discards the rest of the bot&apos;s answer, stop producing it (default: true).
+     * That is a REAL interruption, or a FALSE one while <code>resume_after_false_interruption</code> is false. In
+     * that case the answer&apos;s speech synthesis is cancelled at once, and a call action the answer carries (e.g. a
+     * transfer or hangup the answer would have triggered) is dropped. While a false interruption may still resume
+     * the answer, a further message of it is held until that is decided instead of starting. False restores the
+     * previous behaviour: the interrupted answer is synthesised to its end unheard, nothing is held and its call
+     * actions still run. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_T2S_CANCEL_ON_BARGE_IN</code>
+     *
+     * Generated from protobuf field <code>optional bool t2s_cancel_on_barge_in = 12;</code>
+     */
+    protected $t2s_cancel_on_barge_in = null;
+    /**
+     * Optional: Tell an NLU that supports turn control which turn was cancelled (default: true): the turn a real
+     * interruption cut, a turn replaced by <code>cancel_on_speech_while_thinking</code>, and a turn still being
+     * generated when the call ends. The NLU then stops generating it and stores it as an interrupted turn. An NLU
+     * without turn control is sent nothing either way. An operator mute or takeover through call control also tells
+     * the NLU that the current turn was cut. Turn control rides the call-length NLU request, so it needs
+     * <code>ResponseTimingConfig.streaming_enabled</code> and <code>nlu_call_stream_enabled</code> (both true by
+     * default); without them nothing is sent. <code>heard_report_enabled</code> and
+     * <code>ai_teams_cancel_pending_on_interrupt</code> depend on it. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_NLU_TURN_CONTROL_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool nlu_turn_control_enabled = 13;</code>
+     */
+    protected $nlu_turn_control_enabled = null;
+    /**
+     * Optional: Report to an NLU that supports turn control what the caller actually heard of an interrupted
+     * answer, so the conversation history and the agent&apos;s memory hold what was said rather than everything that
+     * was generated (default: true). Example: the bot is cut after &quot;Your appointment is on Monday&quot; of a
+     * longer answer; the agent&apos;s next turn knows the caller heard only that much. Needs
+     * <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>). A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_REPORT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_report_enabled = 14;</code>
+     */
+    protected $heard_report_enabled = null;
+    /**
+     * Optional: Place the cut of an interrupted answer on the sentence or word it fell in, using the timings the
+     * text-to-speech service returns, instead of estimating it proportionally over the whole message (default:
+     * true). Makes the heard report (<code>heard_report_enabled</code>) more precise and only matters with it; with
+     * a text-to-speech service that returns no timings nothing changes. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_text_alignment_enabled = 15;</code>
+     */
+    protected $heard_text_alignment_enabled = null;
 
     /**
      * Constructor.
@@ -87,32 +200,115 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
-     *           (default: false, i.e. the bot cannot be interrupted)
+     *           Optional: Let the caller interrupt (barge in on) the bot by speaking while it speaks (default: false). False:
+     *           the caller&apos;s speech is not heard while the bot speaks, and speech never stops the bot. A DTMF key the bot
+     *           asked for still stops it (see <code>DtmfConfig.barge_in</code>, on by default; set it to false as well for a
+     *           disclaimer that must be heard in full). The speech-related fields of this message only matter when this is
+     *           true. Exceptions: <code>transcribe_on_disabled_interruptions</code> and
+     *           <code>cancel_on_speech_while_thinking</code>, plus <code>interruption_fade_out_ms</code>,
+     *           <code>t2s_cancel_on_barge_in</code>, <code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>,
+     *           <code>heard_text_alignment_enabled</code> and <code>ai_teams_cancel_pending_on_interrupt</code>, which also
+     *           apply when a key stops the bot, when an operator mutes it and when a turn is replaced
      *     @type float $min_interruption_duration_seconds
-     *           Optional: Minimum duration in seconds of caller speech while the bot is speaking
-     *           to trigger an interruption (noise gate) (default: 0.5)
+     *           Optional: Minimum duration in seconds the caller must have been speaking over the bot before it counts as an
+     *           interruption, measured from the start of the caller&apos;s speech (noise gate) (default: 0.5, valid range:
+     *           0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot. A final transcription with
+     *           at least one word that is too short to interrupt is not lost: it is answered as the caller&apos;s next turn
+     *           once the bot has finished speaking
      *     @type int $min_interruption_words
-     *           Optional: Minimum number of transcribed words of caller speech while the bot is speaking
-     *           to trigger an interruption (default: 2)
+     *           Optional: Minimum number of words a PARTIAL transcription of caller speech over the bot needs to interrupt
+     *           it early (default: 2, valid range: 0 - 10; 0 and 1 both let one word interrupt). Only used with the turn
+     *           detection modes <code>SEMANTIC_MODEL</code> and <code>AUDIO_MODEL</code>: a FINAL transcription with at
+     *           least one word always interrupts, so a short &quot;no&quot; still stops the bot, and with <code>VAD</code>
+     *           any recognised speech interrupts. Higher values keep the bot talking over short remarks until the caller has
+     *           said more
      *     @type float $false_interruption_timeout_seconds
-     *           Optional: Time in seconds after an interruption trigger without a committed transcription
-     *           after which the interruption is classified as a false interruption (default: 2.0)
+     *           Optional: Seconds after an interruption within which the caller&apos;s speech must become a complete turn for
+     *           the interruption to be REAL; otherwise it is FALSE (a cough, brief noise) and
+     *           <code>resume_after_false_interruption</code> decides (default: 2.0, valid: 0 or more). Each partial
+     *           transcription that changes what the caller said re-arms the window. The window lasts at most twice this value
+     *           after the interruption, and never more than 9 s (a window of 9 s or more is not extended). The paused rest of
+     *           an answer is kept for at most 10 s, so a longer window cannot resume it
      *     @type bool $resume_after_false_interruption
-     *           Optional: Resume the paused bot response after a false interruption,
-     *           e.g. a cough or brief background noise (default: true)
+     *           Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s fade-out ended, with a
+     *           short fade-in, so nothing the caller already heard is played twice, whatever
+     *           <code>interruption_fade_out_ms</code> is (default: true). False: the rest of the answer is dropped
      *     @type float $backoff_seconds
-     *           Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)
+     *           Optional: Seconds of silence after a REAL interruption before the bot&apos;s next answer plays, so the caller
+     *           keeps the floor for a moment (default: 1.0, valid: 0 or more)
      *     @type float $first_message_protected_seconds
-     *           Optional: Protect the first bot message from interruptions
-     *           for the given number of seconds (default: 0 = no protection)
+     *           Optional: Seconds, counted from the start of the greeting, during which caller speech never interrupts the
+     *           bot (default: 0 = no protection, valid: 0 or more). Speech in that window is ignored, not answered. Example:
+     *           5 makes sure the first 5 s of a greeting are heard
      *     @type bool $transcribe_on_disabled_interruptions
-     *           Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
-     *           (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+     *           Optional: Transcribe the caller while the bot speaks although interruptions are disabled (default: false).
+     *           The speech neither stops the bot nor is answered. Only matters when <code>enabled</code> is false
      *     @type int $interruption_fade_out_ms
-     *           Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
-     *           interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
-     *           A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     *           Optional: Milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller interrupts it,
+     *           so the bot trails off like a person instead of stopping with a click (default: 100, valid range: 0 - 500;
+     *           0 = stop at once). Any value above 0 also gives every other stop of the bot&apos;s voice a 5 ms ramp and fades
+     *           a resumed answer back in over 20 ms. A set value wins over the deployment&apos;s
+     *           <code>ONDEWO_VTSI_INTERRUPTION_FADE_OUT_MS</code>
+     *     @type bool $cancel_on_speech_while_thinking
+     *           <p>Optional: Let the caller replace a turn the bot is still thinking about (default: false). When a caller turn
+     *           is committed while the bot is still working on the previous one (its answer is being generated and nothing of
+     *           it plays yet), that answer is cancelled and never spoken, and the new turn is answered at once; the earlier
+     *           turn stays in the conversation history. Example: the caller says &quot;I need a taxi&quot; and, before the bot
+     *           answers, &quot;for tomorrow morning&quot;: with true the bot answers only the second turn; with false it first
+     *           speaks its answer to &quot;I need a taxi&quot;, then answers the second.</p>
+     *           <p>Trade-off: a caller who says one sentence in two parts with a pause gets only the second part answered.
+     *           Works whether or not <code>enabled</code> is set; has no effect with
+     *           <code>ResponseTimingConfig.streaming_enabled=false</code>. The greeting and DTMF key entries are never
+     *           replaced. An NLU that supports turn control is told to cancel the replaced turn
+     *           (<code>nlu_turn_control_enabled</code>); another NLU still finishes it, but its answer is not spoken. A set
+     *           value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code></p>
+     *     @type bool $ai_teams_cancel_pending_on_interrupt
+     *           <p>Optional: Whether a turn that was cut cancels the AI Teams asynchronous tool calls it dispatched that have
+     *           not started yet. A turn is cut by a caller&apos;s interruption, by a turn replaced through
+     *           <code>cancel_on_speech_while_thinking</code>, by an operator mute or takeover, or by the end of the call while
+     *           its answer is still being generated (default: unset = the NLU deployment&apos;s own setting, which is
+     *           on unless its operator turned it off). True or false decides it for this call alone, also against the
+     *           deployment&apos;s setting.</p>
+     *           <p>Only tools, agents or members whose team document declares <code>async.on_interrupt: cancel_pending</code>
+     *           are ever cancelled (one declaring <code>keep</code> never is), only while the task is still pending (a task
+     *           already running is delivered as usual), and only when the caller did not hear the dispatch acknowledged. Needs
+     *           an NLU with turn control, <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     *           (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>); without them nothing is cancelled and this value
+     *           never reaches the NLU. Example:
+     *           false keeps a callback the caller asked for even when they talked over the bot&apos;s confirmation</p>
+     *     @type bool $t2s_cancel_on_barge_in
+     *           Optional: When an interruption discards the rest of the bot&apos;s answer, stop producing it (default: true).
+     *           That is a REAL interruption, or a FALSE one while <code>resume_after_false_interruption</code> is false. In
+     *           that case the answer&apos;s speech synthesis is cancelled at once, and a call action the answer carries (e.g. a
+     *           transfer or hangup the answer would have triggered) is dropped. While a false interruption may still resume
+     *           the answer, a further message of it is held until that is decided instead of starting. False restores the
+     *           previous behaviour: the interrupted answer is synthesised to its end unheard, nothing is held and its call
+     *           actions still run. A set value wins over the deployment&apos;s
+     *           <code>ONDEWO_VTSI_CSI_T2S_CANCEL_ON_BARGE_IN</code>
+     *     @type bool $nlu_turn_control_enabled
+     *           Optional: Tell an NLU that supports turn control which turn was cancelled (default: true): the turn a real
+     *           interruption cut, a turn replaced by <code>cancel_on_speech_while_thinking</code>, and a turn still being
+     *           generated when the call ends. The NLU then stops generating it and stores it as an interrupted turn. An NLU
+     *           without turn control is sent nothing either way. An operator mute or takeover through call control also tells
+     *           the NLU that the current turn was cut. Turn control rides the call-length NLU request, so it needs
+     *           <code>ResponseTimingConfig.streaming_enabled</code> and <code>nlu_call_stream_enabled</code> (both true by
+     *           default); without them nothing is sent. <code>heard_report_enabled</code> and
+     *           <code>ai_teams_cancel_pending_on_interrupt</code> depend on it. A set value wins over the deployment&apos;s
+     *           <code>ONDEWO_VTSI_CSI_NLU_TURN_CONTROL_ACTIVE</code>
+     *     @type bool $heard_report_enabled
+     *           Optional: Report to an NLU that supports turn control what the caller actually heard of an interrupted
+     *           answer, so the conversation history and the agent&apos;s memory hold what was said rather than everything that
+     *           was generated (default: true). Example: the bot is cut after &quot;Your appointment is on Monday&quot; of a
+     *           longer answer; the agent&apos;s next turn knows the caller heard only that much. Needs
+     *           <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     *           (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>). A set value wins over the deployment&apos;s
+     *           <code>ONDEWO_VTSI_CSI_HEARD_REPORT_ACTIVE</code>
+     *     @type bool $heard_text_alignment_enabled
+     *           Optional: Place the cut of an interrupted answer on the sentence or word it fell in, using the timings the
+     *           text-to-speech service returns, instead of estimating it proportionally over the whole message (default:
+     *           true). Makes the heard report (<code>heard_report_enabled</code>) more precise and only matters with it; with
+     *           a text-to-speech service that returns no timings nothing changes. A set value wins over the deployment&apos;s
+     *           <code>ONDEWO_VTSI_CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -121,8 +317,15 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
-     * (default: false, i.e. the bot cannot be interrupted)
+     * Optional: Let the caller interrupt (barge in on) the bot by speaking while it speaks (default: false). False:
+     * the caller&apos;s speech is not heard while the bot speaks, and speech never stops the bot. A DTMF key the bot
+     * asked for still stops it (see <code>DtmfConfig.barge_in</code>, on by default; set it to false as well for a
+     * disclaimer that must be heard in full). The speech-related fields of this message only matter when this is
+     * true. Exceptions: <code>transcribe_on_disabled_interruptions</code> and
+     * <code>cancel_on_speech_while_thinking</code>, plus <code>interruption_fade_out_ms</code>,
+     * <code>t2s_cancel_on_barge_in</code>, <code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>,
+     * <code>heard_text_alignment_enabled</code> and <code>ai_teams_cancel_pending_on_interrupt</code>, which also
+     * apply when a key stops the bot, when an operator mutes it and when a turn is replaced
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @return bool
@@ -143,8 +346,15 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable interruption (barge-in) handling, i.e. the caller can interrupt the bot while it is speaking
-     * (default: false, i.e. the bot cannot be interrupted)
+     * Optional: Let the caller interrupt (barge in on) the bot by speaking while it speaks (default: false). False:
+     * the caller&apos;s speech is not heard while the bot speaks, and speech never stops the bot. A DTMF key the bot
+     * asked for still stops it (see <code>DtmfConfig.barge_in</code>, on by default; set it to false as well for a
+     * disclaimer that must be heard in full). The speech-related fields of this message only matter when this is
+     * true. Exceptions: <code>transcribe_on_disabled_interruptions</code> and
+     * <code>cancel_on_speech_while_thinking</code>, plus <code>interruption_fade_out_ms</code>,
+     * <code>t2s_cancel_on_barge_in</code>, <code>nlu_turn_control_enabled</code>, <code>heard_report_enabled</code>,
+     * <code>heard_text_alignment_enabled</code> and <code>ai_teams_cancel_pending_on_interrupt</code>, which also
+     * apply when a key stops the bot, when an operator mutes it and when a turn is replaced
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @param bool $var
@@ -158,8 +368,11 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum duration in seconds of caller speech while the bot is speaking
-     * to trigger an interruption (noise gate) (default: 0.5)
+     * Optional: Minimum duration in seconds the caller must have been speaking over the bot before it counts as an
+     * interruption, measured from the start of the caller&apos;s speech (noise gate) (default: 0.5, valid range:
+     * 0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot. A final transcription with
+     * at least one word that is too short to interrupt is not lost: it is answered as the caller&apos;s next turn
+     * once the bot has finished speaking
      *
      * Generated from protobuf field <code>optional float min_interruption_duration_seconds = 2;</code>
      * @return float
@@ -180,8 +393,11 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum duration in seconds of caller speech while the bot is speaking
-     * to trigger an interruption (noise gate) (default: 0.5)
+     * Optional: Minimum duration in seconds the caller must have been speaking over the bot before it counts as an
+     * interruption, measured from the start of the caller&apos;s speech (noise gate) (default: 0.5, valid range:
+     * 0 - 10). Raise it (e.g. 0.8) to let short noises pass without stopping the bot. A final transcription with
+     * at least one word that is too short to interrupt is not lost: it is answered as the caller&apos;s next turn
+     * once the bot has finished speaking
      *
      * Generated from protobuf field <code>optional float min_interruption_duration_seconds = 2;</code>
      * @param float $var
@@ -195,8 +411,12 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum number of transcribed words of caller speech while the bot is speaking
-     * to trigger an interruption (default: 2)
+     * Optional: Minimum number of words a PARTIAL transcription of caller speech over the bot needs to interrupt
+     * it early (default: 2, valid range: 0 - 10; 0 and 1 both let one word interrupt). Only used with the turn
+     * detection modes <code>SEMANTIC_MODEL</code> and <code>AUDIO_MODEL</code>: a FINAL transcription with at
+     * least one word always interrupts, so a short &quot;no&quot; still stops the bot, and with <code>VAD</code>
+     * any recognised speech interrupts. Higher values keep the bot talking over short remarks until the caller has
+     * said more
      *
      * Generated from protobuf field <code>optional int32 min_interruption_words = 3;</code>
      * @return int
@@ -217,8 +437,12 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum number of transcribed words of caller speech while the bot is speaking
-     * to trigger an interruption (default: 2)
+     * Optional: Minimum number of words a PARTIAL transcription of caller speech over the bot needs to interrupt
+     * it early (default: 2, valid range: 0 - 10; 0 and 1 both let one word interrupt). Only used with the turn
+     * detection modes <code>SEMANTIC_MODEL</code> and <code>AUDIO_MODEL</code>: a FINAL transcription with at
+     * least one word always interrupts, so a short &quot;no&quot; still stops the bot, and with <code>VAD</code>
+     * any recognised speech interrupts. Higher values keep the bot talking over short remarks until the caller has
+     * said more
      *
      * Generated from protobuf field <code>optional int32 min_interruption_words = 3;</code>
      * @param int $var
@@ -233,8 +457,12 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Time in seconds after an interruption trigger without a committed transcription
-     * after which the interruption is classified as a false interruption (default: 2.0)
+     * Optional: Seconds after an interruption within which the caller&apos;s speech must become a complete turn for
+     * the interruption to be REAL; otherwise it is FALSE (a cough, brief noise) and
+     * <code>resume_after_false_interruption</code> decides (default: 2.0, valid: 0 or more). Each partial
+     * transcription that changes what the caller said re-arms the window. The window lasts at most twice this value
+     * after the interruption, and never more than 9 s (a window of 9 s or more is not extended). The paused rest of
+     * an answer is kept for at most 10 s, so a longer window cannot resume it
      *
      * Generated from protobuf field <code>optional float false_interruption_timeout_seconds = 4;</code>
      * @return float
@@ -255,8 +483,12 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Time in seconds after an interruption trigger without a committed transcription
-     * after which the interruption is classified as a false interruption (default: 2.0)
+     * Optional: Seconds after an interruption within which the caller&apos;s speech must become a complete turn for
+     * the interruption to be REAL; otherwise it is FALSE (a cough, brief noise) and
+     * <code>resume_after_false_interruption</code> decides (default: 2.0, valid: 0 or more). Each partial
+     * transcription that changes what the caller said re-arms the window. The window lasts at most twice this value
+     * after the interruption, and never more than 9 s (a window of 9 s or more is not extended). The paused rest of
+     * an answer is kept for at most 10 s, so a longer window cannot resume it
      *
      * Generated from protobuf field <code>optional float false_interruption_timeout_seconds = 4;</code>
      * @param float $var
@@ -270,8 +502,9 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Resume the paused bot response after a false interruption,
-     * e.g. a cough or brief background noise (default: true)
+     * Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s fade-out ended, with a
+     * short fade-in, so nothing the caller already heard is played twice, whatever
+     * <code>interruption_fade_out_ms</code> is (default: true). False: the rest of the answer is dropped
      *
      * Generated from protobuf field <code>optional bool resume_after_false_interruption = 5;</code>
      * @return bool
@@ -292,8 +525,9 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Resume the paused bot response after a false interruption,
-     * e.g. a cough or brief background noise (default: true)
+     * Optional: After a FALSE interruption, continue the paused answer where the bot&apos;s fade-out ended, with a
+     * short fade-in, so nothing the caller already heard is played twice, whatever
+     * <code>interruption_fade_out_ms</code> is (default: true). False: the rest of the answer is dropped
      *
      * Generated from protobuf field <code>optional bool resume_after_false_interruption = 5;</code>
      * @param bool $var
@@ -307,7 +541,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)
+     * Optional: Seconds of silence after a REAL interruption before the bot&apos;s next answer plays, so the caller
+     * keeps the floor for a moment (default: 1.0, valid: 0 or more)
      *
      * Generated from protobuf field <code>optional float backoff_seconds = 6;</code>
      * @return float
@@ -328,7 +563,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in seconds after a real interruption before the next bot response is played (default: 1.0)
+     * Optional: Seconds of silence after a REAL interruption before the bot&apos;s next answer plays, so the caller
+     * keeps the floor for a moment (default: 1.0, valid: 0 or more)
      *
      * Generated from protobuf field <code>optional float backoff_seconds = 6;</code>
      * @param float $var
@@ -342,8 +578,9 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Protect the first bot message from interruptions
-     * for the given number of seconds (default: 0 = no protection)
+     * Optional: Seconds, counted from the start of the greeting, during which caller speech never interrupts the
+     * bot (default: 0 = no protection, valid: 0 or more). Speech in that window is ignored, not answered. Example:
+     * 5 makes sure the first 5 s of a greeting are heard
      *
      * Generated from protobuf field <code>optional float first_message_protected_seconds = 7;</code>
      * @return float
@@ -364,8 +601,9 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Protect the first bot message from interruptions
-     * for the given number of seconds (default: 0 = no protection)
+     * Optional: Seconds, counted from the start of the greeting, during which caller speech never interrupts the
+     * bot (default: 0 = no protection, valid: 0 or more). Speech in that window is ignored, not answered. Example:
+     * 5 makes sure the first 5 s of a greeting are heard
      *
      * Generated from protobuf field <code>optional float first_message_protected_seconds = 7;</code>
      * @param float $var
@@ -379,8 +617,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
-     * (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+     * Optional: Transcribe the caller while the bot speaks although interruptions are disabled (default: false).
+     * The speech neither stops the bot nor is answered. Only matters when <code>enabled</code> is false
      *
      * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      * @return bool
@@ -401,8 +639,8 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Transcribe caller speech while the bot is speaking even if interruptions are disabled
-     * (default: false, i.e. caller speech during bot speech is not transcribed while <code>enabled</code> is false)
+     * Optional: Transcribe the caller while the bot speaks although interruptions are disabled (default: false).
+     * The speech neither stops the bot nor is answered. Only matters when <code>enabled</code> is false
      *
      * Generated from protobuf field <code>optional bool transcribe_on_disabled_interruptions = 8;</code>
      * @param bool $var
@@ -416,9 +654,11 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
-     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
-     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller interrupts it,
+     * so the bot trails off like a person instead of stopping with a click (default: 100, valid range: 0 - 500;
+     * 0 = stop at once). Any value above 0 also gives every other stop of the bot&apos;s voice a 5 ms ramp and fades
+     * a resumed answer back in over 20 ms. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_INTERRUPTION_FADE_OUT_MS</code>
      *
      * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
      * @return int
@@ -439,9 +679,11 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Duration in milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller
-     * interrupts it, instead of stopping abruptly (default: 100, valid range: 0 - 500; 0 = stop at once).
-     * A value outside the range is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: Milliseconds over which the bot&apos;s voice fades out (raised cosine) when the caller interrupts it,
+     * so the bot trails off like a person instead of stopping with a click (default: 100, valid range: 0 - 500;
+     * 0 = stop at once). Any value above 0 also gives every other stop of the bot&apos;s voice a 5 ms ramp and fades
+     * a resumed answer back in over 20 ms. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_INTERRUPTION_FADE_OUT_MS</code>
      *
      * Generated from protobuf field <code>optional int32 interruption_fade_out_ms = 9;</code>
      * @param int $var
@@ -451,6 +693,312 @@ class InterruptionHandlingConfig extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->interruption_fade_out_ms = $var;
+
+        return $this;
+    }
+
+    /**
+     * <p>Optional: Let the caller replace a turn the bot is still thinking about (default: false). When a caller turn
+     * is committed while the bot is still working on the previous one (its answer is being generated and nothing of
+     * it plays yet), that answer is cancelled and never spoken, and the new turn is answered at once; the earlier
+     * turn stays in the conversation history. Example: the caller says &quot;I need a taxi&quot; and, before the bot
+     * answers, &quot;for tomorrow morning&quot;: with true the bot answers only the second turn; with false it first
+     * speaks its answer to &quot;I need a taxi&quot;, then answers the second.</p>
+     * <p>Trade-off: a caller who says one sentence in two parts with a pause gets only the second part answered.
+     * Works whether or not <code>enabled</code> is set; has no effect with
+     * <code>ResponseTimingConfig.streaming_enabled=false</code>. The greeting and DTMF key entries are never
+     * replaced. An NLU that supports turn control is told to cancel the replaced turn
+     * (<code>nlu_turn_control_enabled</code>); another NLU still finishes it, but its answer is not spoken. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code></p>
+     *
+     * Generated from protobuf field <code>optional bool cancel_on_speech_while_thinking = 10;</code>
+     * @return bool
+     */
+    public function getCancelOnSpeechWhileThinking()
+    {
+        return isset($this->cancel_on_speech_while_thinking) ? $this->cancel_on_speech_while_thinking : false;
+    }
+
+    public function hasCancelOnSpeechWhileThinking()
+    {
+        return isset($this->cancel_on_speech_while_thinking);
+    }
+
+    public function clearCancelOnSpeechWhileThinking()
+    {
+        unset($this->cancel_on_speech_while_thinking);
+    }
+
+    /**
+     * <p>Optional: Let the caller replace a turn the bot is still thinking about (default: false). When a caller turn
+     * is committed while the bot is still working on the previous one (its answer is being generated and nothing of
+     * it plays yet), that answer is cancelled and never spoken, and the new turn is answered at once; the earlier
+     * turn stays in the conversation history. Example: the caller says &quot;I need a taxi&quot; and, before the bot
+     * answers, &quot;for tomorrow morning&quot;: with true the bot answers only the second turn; with false it first
+     * speaks its answer to &quot;I need a taxi&quot;, then answers the second.</p>
+     * <p>Trade-off: a caller who says one sentence in two parts with a pause gets only the second part answered.
+     * Works whether or not <code>enabled</code> is set; has no effect with
+     * <code>ResponseTimingConfig.streaming_enabled=false</code>. The greeting and DTMF key entries are never
+     * replaced. An NLU that supports turn control is told to cancel the replaced turn
+     * (<code>nlu_turn_control_enabled</code>); another NLU still finishes it, but its answer is not spoken. A set
+     * value wins over the deployment&apos;s <code>ONDEWO_VTSI_CSI_CANCEL_ON_SPEECH_WHILE_THINKING</code></p>
+     *
+     * Generated from protobuf field <code>optional bool cancel_on_speech_while_thinking = 10;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setCancelOnSpeechWhileThinking(bool $var)
+    {
+        $this->cancel_on_speech_while_thinking = $var;
+
+        return $this;
+    }
+
+    /**
+     * <p>Optional: Whether a turn that was cut cancels the AI Teams asynchronous tool calls it dispatched that have
+     * not started yet. A turn is cut by a caller&apos;s interruption, by a turn replaced through
+     * <code>cancel_on_speech_while_thinking</code>, by an operator mute or takeover, or by the end of the call while
+     * its answer is still being generated (default: unset = the NLU deployment&apos;s own setting, which is
+     * on unless its operator turned it off). True or false decides it for this call alone, also against the
+     * deployment&apos;s setting.</p>
+     * <p>Only tools, agents or members whose team document declares <code>async.on_interrupt: cancel_pending</code>
+     * are ever cancelled (one declaring <code>keep</code> never is), only while the task is still pending (a task
+     * already running is delivered as usual), and only when the caller did not hear the dispatch acknowledged. Needs
+     * an NLU with turn control, <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>); without them nothing is cancelled and this value
+     * never reaches the NLU. Example:
+     * false keeps a callback the caller asked for even when they talked over the bot&apos;s confirmation</p>
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_cancel_pending_on_interrupt = 11;</code>
+     * @return bool
+     */
+    public function getAiTeamsCancelPendingOnInterrupt()
+    {
+        return isset($this->ai_teams_cancel_pending_on_interrupt) ? $this->ai_teams_cancel_pending_on_interrupt : false;
+    }
+
+    public function hasAiTeamsCancelPendingOnInterrupt()
+    {
+        return isset($this->ai_teams_cancel_pending_on_interrupt);
+    }
+
+    public function clearAiTeamsCancelPendingOnInterrupt()
+    {
+        unset($this->ai_teams_cancel_pending_on_interrupt);
+    }
+
+    /**
+     * <p>Optional: Whether a turn that was cut cancels the AI Teams asynchronous tool calls it dispatched that have
+     * not started yet. A turn is cut by a caller&apos;s interruption, by a turn replaced through
+     * <code>cancel_on_speech_while_thinking</code>, by an operator mute or takeover, or by the end of the call while
+     * its answer is still being generated (default: unset = the NLU deployment&apos;s own setting, which is
+     * on unless its operator turned it off). True or false decides it for this call alone, also against the
+     * deployment&apos;s setting.</p>
+     * <p>Only tools, agents or members whose team document declares <code>async.on_interrupt: cancel_pending</code>
+     * are ever cancelled (one declaring <code>keep</code> never is), only while the task is still pending (a task
+     * already running is delivered as usual), and only when the caller did not hear the dispatch acknowledged. Needs
+     * an NLU with turn control, <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>); without them nothing is cancelled and this value
+     * never reaches the NLU. Example:
+     * false keeps a callback the caller asked for even when they talked over the bot&apos;s confirmation</p>
+     *
+     * Generated from protobuf field <code>optional bool ai_teams_cancel_pending_on_interrupt = 11;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setAiTeamsCancelPendingOnInterrupt(bool $var)
+    {
+        $this->ai_teams_cancel_pending_on_interrupt = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: When an interruption discards the rest of the bot&apos;s answer, stop producing it (default: true).
+     * That is a REAL interruption, or a FALSE one while <code>resume_after_false_interruption</code> is false. In
+     * that case the answer&apos;s speech synthesis is cancelled at once, and a call action the answer carries (e.g. a
+     * transfer or hangup the answer would have triggered) is dropped. While a false interruption may still resume
+     * the answer, a further message of it is held until that is decided instead of starting. False restores the
+     * previous behaviour: the interrupted answer is synthesised to its end unheard, nothing is held and its call
+     * actions still run. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_T2S_CANCEL_ON_BARGE_IN</code>
+     *
+     * Generated from protobuf field <code>optional bool t2s_cancel_on_barge_in = 12;</code>
+     * @return bool
+     */
+    public function getT2SCancelOnBargeIn()
+    {
+        return isset($this->t2s_cancel_on_barge_in) ? $this->t2s_cancel_on_barge_in : false;
+    }
+
+    public function hasT2SCancelOnBargeIn()
+    {
+        return isset($this->t2s_cancel_on_barge_in);
+    }
+
+    public function clearT2SCancelOnBargeIn()
+    {
+        unset($this->t2s_cancel_on_barge_in);
+    }
+
+    /**
+     * Optional: When an interruption discards the rest of the bot&apos;s answer, stop producing it (default: true).
+     * That is a REAL interruption, or a FALSE one while <code>resume_after_false_interruption</code> is false. In
+     * that case the answer&apos;s speech synthesis is cancelled at once, and a call action the answer carries (e.g. a
+     * transfer or hangup the answer would have triggered) is dropped. While a false interruption may still resume
+     * the answer, a further message of it is held until that is decided instead of starting. False restores the
+     * previous behaviour: the interrupted answer is synthesised to its end unheard, nothing is held and its call
+     * actions still run. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_T2S_CANCEL_ON_BARGE_IN</code>
+     *
+     * Generated from protobuf field <code>optional bool t2s_cancel_on_barge_in = 12;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setT2SCancelOnBargeIn(bool $var)
+    {
+        $this->t2s_cancel_on_barge_in = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Tell an NLU that supports turn control which turn was cancelled (default: true): the turn a real
+     * interruption cut, a turn replaced by <code>cancel_on_speech_while_thinking</code>, and a turn still being
+     * generated when the call ends. The NLU then stops generating it and stores it as an interrupted turn. An NLU
+     * without turn control is sent nothing either way. An operator mute or takeover through call control also tells
+     * the NLU that the current turn was cut. Turn control rides the call-length NLU request, so it needs
+     * <code>ResponseTimingConfig.streaming_enabled</code> and <code>nlu_call_stream_enabled</code> (both true by
+     * default); without them nothing is sent. <code>heard_report_enabled</code> and
+     * <code>ai_teams_cancel_pending_on_interrupt</code> depend on it. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_NLU_TURN_CONTROL_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool nlu_turn_control_enabled = 13;</code>
+     * @return bool
+     */
+    public function getNluTurnControlEnabled()
+    {
+        return isset($this->nlu_turn_control_enabled) ? $this->nlu_turn_control_enabled : false;
+    }
+
+    public function hasNluTurnControlEnabled()
+    {
+        return isset($this->nlu_turn_control_enabled);
+    }
+
+    public function clearNluTurnControlEnabled()
+    {
+        unset($this->nlu_turn_control_enabled);
+    }
+
+    /**
+     * Optional: Tell an NLU that supports turn control which turn was cancelled (default: true): the turn a real
+     * interruption cut, a turn replaced by <code>cancel_on_speech_while_thinking</code>, and a turn still being
+     * generated when the call ends. The NLU then stops generating it and stores it as an interrupted turn. An NLU
+     * without turn control is sent nothing either way. An operator mute or takeover through call control also tells
+     * the NLU that the current turn was cut. Turn control rides the call-length NLU request, so it needs
+     * <code>ResponseTimingConfig.streaming_enabled</code> and <code>nlu_call_stream_enabled</code> (both true by
+     * default); without them nothing is sent. <code>heard_report_enabled</code> and
+     * <code>ai_teams_cancel_pending_on_interrupt</code> depend on it. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_NLU_TURN_CONTROL_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool nlu_turn_control_enabled = 13;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setNluTurnControlEnabled(bool $var)
+    {
+        $this->nlu_turn_control_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Report to an NLU that supports turn control what the caller actually heard of an interrupted
+     * answer, so the conversation history and the agent&apos;s memory hold what was said rather than everything that
+     * was generated (default: true). Example: the bot is cut after &quot;Your appointment is on Monday&quot; of a
+     * longer answer; the agent&apos;s next turn knows the caller heard only that much. Needs
+     * <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>). A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_REPORT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_report_enabled = 14;</code>
+     * @return bool
+     */
+    public function getHeardReportEnabled()
+    {
+        return isset($this->heard_report_enabled) ? $this->heard_report_enabled : false;
+    }
+
+    public function hasHeardReportEnabled()
+    {
+        return isset($this->heard_report_enabled);
+    }
+
+    public function clearHeardReportEnabled()
+    {
+        unset($this->heard_report_enabled);
+    }
+
+    /**
+     * Optional: Report to an NLU that supports turn control what the caller actually heard of an interrupted
+     * answer, so the conversation history and the agent&apos;s memory hold what was said rather than everything that
+     * was generated (default: true). Example: the bot is cut after &quot;Your appointment is on Monday&quot; of a
+     * longer answer; the agent&apos;s next turn knows the caller heard only that much. Needs
+     * <code>nlu_turn_control_enabled</code> and the call-length NLU request
+     * (<code>ResponseTimingConfig.nlu_call_stream_enabled</code>). A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_REPORT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_report_enabled = 14;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setHeardReportEnabled(bool $var)
+    {
+        $this->heard_report_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Place the cut of an interrupted answer on the sentence or word it fell in, using the timings the
+     * text-to-speech service returns, instead of estimating it proportionally over the whole message (default:
+     * true). Makes the heard report (<code>heard_report_enabled</code>) more precise and only matters with it; with
+     * a text-to-speech service that returns no timings nothing changes. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_text_alignment_enabled = 15;</code>
+     * @return bool
+     */
+    public function getHeardTextAlignmentEnabled()
+    {
+        return isset($this->heard_text_alignment_enabled) ? $this->heard_text_alignment_enabled : false;
+    }
+
+    public function hasHeardTextAlignmentEnabled()
+    {
+        return isset($this->heard_text_alignment_enabled);
+    }
+
+    public function clearHeardTextAlignmentEnabled()
+    {
+        unset($this->heard_text_alignment_enabled);
+    }
+
+    /**
+     * Optional: Place the cut of an interrupted answer on the sentence or word it fell in, using the timings the
+     * text-to-speech service returns, instead of estimating it proportionally over the whole message (default:
+     * true). Makes the heard report (<code>heard_report_enabled</code>) more precise and only matters with it; with
+     * a text-to-speech service that returns no timings nothing changes. A set value wins over the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_HEARD_TEXT_ALIGNMENT_ACTIVE</code>
+     *
+     * Generated from protobuf field <code>optional bool heard_text_alignment_enabled = 15;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setHeardTextAlignmentEnabled(bool $var)
+    {
+        $this->heard_text_alignment_enabled = $var;
 
         return $this;
     }

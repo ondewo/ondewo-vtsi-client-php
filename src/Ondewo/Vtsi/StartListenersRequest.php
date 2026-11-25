@@ -23,7 +23,10 @@ class StartListenersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Listeners that should be started
+     * Listeners that should be started, each with its OWN configuration (<code>sip_base_config</code>,
+     * <code>common_services_config</code>), which applies to every inbound call that listener answers. Entries
+     * may carry different configurations, e.g. a group of listeners with interruptions enabled beside a group
+     * without; nothing is shared between the entries.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerRequest listener_requests = 2;</code>
      */
@@ -80,7 +83,10 @@ class StartListenersRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartListenerRequest[] $listener_requests
-     *           Listeners that should be started
+     *           Listeners that should be started, each with its OWN configuration (<code>sip_base_config</code>,
+     *           <code>common_services_config</code>), which applies to every inbound call that listener answers. Entries
+     *           may carry different configurations, e.g. a group of listeners with interruptions enabled beside a group
+     *           without; nothing is shared between the entries.
      *     @type string $idempotency_key
      *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
      *           deduplication. A retry carrying the same key returns the response of the first successful attempt instead
@@ -145,7 +151,10 @@ class StartListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Listeners that should be started
+     * Listeners that should be started, each with its OWN configuration (<code>sip_base_config</code>,
+     * <code>common_services_config</code>), which applies to every inbound call that listener answers. Entries
+     * may carry different configurations, e.g. a group of listeners with interruptions enabled beside a group
+     * without; nothing is shared between the entries.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerRequest listener_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartListenerRequest>
@@ -156,7 +165,10 @@ class StartListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Listeners that should be started
+     * Listeners that should be started, each with its OWN configuration (<code>sip_base_config</code>,
+     * <code>common_services_config</code>), which applies to every inbound call that listener answers. Entries
+     * may carry different configurations, e.g. a group of listeners with interruptions enabled beside a group
+     * without; nothing is shared between the entries.
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartListenerRequest listener_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartListenerRequest[] $var

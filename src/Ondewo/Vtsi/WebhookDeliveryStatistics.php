@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Delivery counters of a webhook. Approximate: summed over every server replica and flushed every
- * few seconds.
+ * Delivery counters of a webhook. Approximate: summed over every server replica and flushed every few seconds.
  *
  * Generated from protobuf message <code>ondewo.vtsi.WebhookDeliveryStatistics</code>
  */

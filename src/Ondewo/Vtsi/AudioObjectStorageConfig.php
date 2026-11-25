@@ -10,20 +10,25 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Minio Audio Object Store
+ * Storage of the call audio: the caller&apos;s audio of every final transcription and the bot&apos;s audio of every answer as it was played (an answer the caller interrupted is stored as far as it played) are stored as audio files of the call&apos;s NLU session, next to the session&apos;s text.
+ * Nothing is stored unless <code>activate_audio_object_storage</code> AND the flag of the side are <code>true</code>. Every unset flag counts as <code>false</code>; there is no deployment-wide default for these flags.
+ * Example: <code>activate_audio_object_storage=true</code>, <code>audio_object_storage_services_activation_config.activate_s2t=true</code> and <code>activate_t2s=true</code> store both sides of the conversation. With only <code>activate_audio_object_storage=true</code> nothing is stored.
+ * The audio of a warm-transfer intro call is governed by <code>WarmTransferConfig.store_intro_audio</code> instead.
  *
  * Generated from protobuf message <code>ondewo.vtsi.AudioObjectStorageConfig</code>
  */
 class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Audio storage should be activated or not
+     * Optional: Master switch of the audio storage of the call. Unset or <code>false</code>: no audio of the call
+     * is stored, whatever the per-side flags say
      *
      * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      */
     protected $activate_audio_object_storage = null;
     /**
-     * Configuration of the Minio Audio Object Store
+     * Which side of the conversation is stored while <code>activate_audio_object_storage</code> is
+     * <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageServicesActivationConfig audio_object_storage_services_activation_config = 2;</code>
      */
@@ -36,9 +41,11 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $activate_audio_object_storage
-     *           Audio storage should be activated or not
+     *           Optional: Master switch of the audio storage of the call. Unset or <code>false</code>: no audio of the call
+     *           is stored, whatever the per-side flags say
      *     @type \Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig $audio_object_storage_services_activation_config
-     *           Configuration of the Minio Audio Object Store
+     *           Which side of the conversation is stored while <code>activate_audio_object_storage</code> is
+     *           <code>true</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +54,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Audio storage should be activated or not
+     * Optional: Master switch of the audio storage of the call. Unset or <code>false</code>: no audio of the call
+     * is stored, whatever the per-side flags say
      *
      * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      * @return bool
@@ -68,7 +76,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Audio storage should be activated or not
+     * Optional: Master switch of the audio storage of the call. Unset or <code>false</code>: no audio of the call
+     * is stored, whatever the per-side flags say
      *
      * Generated from protobuf field <code>optional bool activate_audio_object_storage = 1;</code>
      * @param bool $var
@@ -82,7 +91,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Minio Audio Object Store
+     * Which side of the conversation is stored while <code>activate_audio_object_storage</code> is
+     * <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageServicesActivationConfig audio_object_storage_services_activation_config = 2;</code>
      * @return \Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig|null
@@ -103,7 +113,8 @@ class AudioObjectStorageConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Minio Audio Object Store
+     * Which side of the conversation is stored while <code>activate_audio_object_storage</code> is
+     * <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageServicesActivationConfig audio_object_storage_services_activation_config = 2;</code>
      * @param \Ondewo\Vtsi\AudioObjectStorageServicesActivationConfig $var

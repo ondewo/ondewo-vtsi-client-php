@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Thinking / reasoning block emitted by the model (e.g. Anthropic extended thinking,
- * OpenAI o-series reasoning).
+ * Thinking / reasoning block emitted by the model (e.g. Anthropic extended thinking, OpenAI o-series reasoning).
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmThinkingMetadata</code>
  */

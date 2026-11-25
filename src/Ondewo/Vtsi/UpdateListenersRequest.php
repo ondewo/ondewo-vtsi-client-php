@@ -11,9 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateListeners">Calls.UpdateListeners</a>.
- * <p>Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with listeners instead of callers and
- * <code>UpdateListener</code> as the role reference; every other error is reported per entry, e.g. a
- * well-formed name of the right project that names no listener is that entry&apos;s <code>NOT_FOUND</code>.</p>
+ * Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with listeners instead of callers and <code>UpdateListener</code> as the role reference; every other error is reported per entry, e.g. a well-formed name of the right project that names no listener is that entry&apos;s <code>NOT_FOUND</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateListenersRequest</code>
  */
@@ -27,7 +25,9 @@ class UpdateListenersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The updates, applied one by one and each like <code>UpdateListener</code>.
+     * The updates, applied one by one and each like <code>UpdateListener</code>: each changes the stored
+     * configuration of its listener only, which its calls use once the server recreates the listener, never
+     * before (see <code>UpdateListenerRequest.listener</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateListenerRequest update_listener_requests = 2;</code>
      */
@@ -61,7 +61,9 @@ class UpdateListenersRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project of every listener of the request.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\UpdateListenerRequest[] $update_listener_requests
-     *           The updates, applied one by one and each like <code>UpdateListener</code>.
+     *           The updates, applied one by one and each like <code>UpdateListener</code>: each changes the stored
+     *           configuration of its listener only, which its calls use once the server recreates the listener, never
+     *           before (see <code>UpdateListenerRequest.listener</code>).
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the field paths to populate in the <code>listener</code> of EVERY entry of
      *           <code>UpdateListenersResponse.update_listener_responses</code>, relative to the <code>Listener</code>
@@ -108,7 +110,9 @@ class UpdateListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The updates, applied one by one and each like <code>UpdateListener</code>.
+     * The updates, applied one by one and each like <code>UpdateListener</code>: each changes the stored
+     * configuration of its listener only, which its calls use once the server recreates the listener, never
+     * before (see <code>UpdateListenerRequest.listener</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateListenerRequest update_listener_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\UpdateListenerRequest>
@@ -119,7 +123,9 @@ class UpdateListenersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The updates, applied one by one and each like <code>UpdateListener</code>.
+     * The updates, applied one by one and each like <code>UpdateListener</code>: each changes the stored
+     * configuration of its listener only, which its calls use once the server recreates the listener, never
+     * before (see <code>UpdateListenerRequest.listener</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateListenerRequest update_listener_requests = 2;</code>
      * @param \Ondewo\Vtsi\UpdateListenerRequest[] $var

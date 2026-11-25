@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to promote an annotation-queue item into a regression dataset. Thin
- * server-side composition over LlmEvaluationCreateExamplesFromSession; the item
- * status is flipped to PROMOTED and the dataset name stamped on success.
+ * Request to promote an annotation-queue item into a regression dataset. Thin server-side composition over LlmEvaluationCreateExamplesFromSession; the item status is flipped to PROMOTED and the dataset name stamped on success.
  *
  * Generated from protobuf message <code>ondewo.nlu.PromoteLlmEvaluationAnnotationQueueItemRequest</code>
  */

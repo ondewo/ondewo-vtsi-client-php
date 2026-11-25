@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response with the rotated password.
- * The password is returned ONCE and cannot be retrieved later.
+ * Response with the rotated password. The password is returned ONCE and cannot be retrieved later.
  *
  * Generated from protobuf message <code>ondewo.nlu.RotateProjectTechnicalUserPasswordResponse</code>
  */

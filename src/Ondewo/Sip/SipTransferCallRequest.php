@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request for transferring a call with or without headers</p>
+ * Request for transferring a call with or without headers
  *
  * Generated from protobuf message <code>ondewo.sip.SipTransferCallRequest</code>
  */

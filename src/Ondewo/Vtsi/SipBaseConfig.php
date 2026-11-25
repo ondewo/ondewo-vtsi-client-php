@@ -10,15 +10,22 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The base config is for both the listener and caller. If you only provide it you will get a listener
- * You will need to provide <code>SipCallerConfig</code> for the caller
+ * SIP side of a listener or caller: which version of the SIP container image carries the call. A listener is started with this message alone (<code>StartListenerRequest.sip_base_config</code>); a caller needs the callee as well and carries it inside <code>SipCallerConfig</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SipBaseConfig</code>
  */
 class SipBaseConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc.
+     * Optional: Tag of the SIP container image the call runs in, e.g. a semantic version (<code>5.1.0</code>,
+     * <code>1.1.0-pre-release</code>), a moving tag (<code>latest</code>, <code>develop</code>) or a build tag.
+     * Empty (the default): the deployment&apos;s <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code> is filled in and
+     * stored with the call. A valid tag is up to 128 letters, digits, <code>.</code>, <code>_</code> or
+     * <code>-</code>, starting with a letter, digit or <code>_</code>; anything else (a <code>/</code>, a
+     * <code>:</code>, whitespace, a leading <code>.</code> or <code>-</code>) is refused with
+     * <code>INVALID_ARGUMENT</code>. A host that already has the image runs its copy at once and refreshes it in
+     * the background, so after a moving tag was re-pointed a call may still run the previous image. Pin a version
+     * to know exactly which image a call ran. Part of the configuration a pooled persistent caller is matched by.
      *
      * Generated from protobuf field <code>string sip_sim_version = 1;</code>
      */
@@ -31,7 +38,15 @@ class SipBaseConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $sip_sim_version
-     *           version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc.
+     *           Optional: Tag of the SIP container image the call runs in, e.g. a semantic version (<code>5.1.0</code>,
+     *           <code>1.1.0-pre-release</code>), a moving tag (<code>latest</code>, <code>develop</code>) or a build tag.
+     *           Empty (the default): the deployment&apos;s <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code> is filled in and
+     *           stored with the call. A valid tag is up to 128 letters, digits, <code>.</code>, <code>_</code> or
+     *           <code>-</code>, starting with a letter, digit or <code>_</code>; anything else (a <code>/</code>, a
+     *           <code>:</code>, whitespace, a leading <code>.</code> or <code>-</code>) is refused with
+     *           <code>INVALID_ARGUMENT</code>. A host that already has the image runs its copy at once and refreshes it in
+     *           the background, so after a moving tag was re-pointed a call may still run the previous image. Pin a version
+     *           to know exactly which image a call ran. Part of the configuration a pooled persistent caller is matched by.
      * }
      */
     public function __construct($data = NULL) {
@@ -40,7 +55,15 @@ class SipBaseConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc.
+     * Optional: Tag of the SIP container image the call runs in, e.g. a semantic version (<code>5.1.0</code>,
+     * <code>1.1.0-pre-release</code>), a moving tag (<code>latest</code>, <code>develop</code>) or a build tag.
+     * Empty (the default): the deployment&apos;s <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code> is filled in and
+     * stored with the call. A valid tag is up to 128 letters, digits, <code>.</code>, <code>_</code> or
+     * <code>-</code>, starting with a letter, digit or <code>_</code>; anything else (a <code>/</code>, a
+     * <code>:</code>, whitespace, a leading <code>.</code> or <code>-</code>) is refused with
+     * <code>INVALID_ARGUMENT</code>. A host that already has the image runs its copy at once and refreshes it in
+     * the background, so after a moving tag was re-pointed a call may still run the previous image. Pin a version
+     * to know exactly which image a call ran. Part of the configuration a pooled persistent caller is matched by.
      *
      * Generated from protobuf field <code>string sip_sim_version = 1;</code>
      * @return string
@@ -51,7 +74,15 @@ class SipBaseConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * version of sip to use for call, semantic versioning e.g., 1.0.0, 1.1.0-pre-release, etc.
+     * Optional: Tag of the SIP container image the call runs in, e.g. a semantic version (<code>5.1.0</code>,
+     * <code>1.1.0-pre-release</code>), a moving tag (<code>latest</code>, <code>develop</code>) or a build tag.
+     * Empty (the default): the deployment&apos;s <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code> is filled in and
+     * stored with the call. A valid tag is up to 128 letters, digits, <code>.</code>, <code>_</code> or
+     * <code>-</code>, starting with a letter, digit or <code>_</code>; anything else (a <code>/</code>, a
+     * <code>:</code>, whitespace, a leading <code>.</code> or <code>-</code>) is refused with
+     * <code>INVALID_ARGUMENT</code>. A host that already has the image runs its copy at once and refreshes it in
+     * the background, so after a moving tag was re-pointed a call may still run the previous image. Pin a version
+     * to know exactly which image a call ran. Part of the configuration a pooled persistent caller is matched by.
      *
      * Generated from protobuf field <code>string sip_sim_version = 1;</code>
      * @param string $var

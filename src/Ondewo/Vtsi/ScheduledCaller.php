@@ -40,7 +40,13 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      */
     protected $sip_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call this scheduled caller places when it fires (speech-to-text, NLU agent,
+     * text-to-speech, CSI, voice interaction and the call&apos;s media), as stored from
+     * <code>StartScheduledCallerRequest.request</code>. Fields left unset inherit, when the call is placed, the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default; of a campaign&apos;s
+     * scheduled caller the campaign&apos;s call defaults are merged under it at every dispatch. Not updatable:
+     * cancel the scheduled caller and create a new one to change it. Redacted by role like
+     * <code>Caller.common_services_config</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      */
@@ -55,7 +61,10 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     protected $scheduled_time = null;
     /**
      * Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
-     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
+     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message.
+     * Applies to the one call placed when the scheduled caller fires. Only <code>sip_headers</code> is updatable
+     * (<code>UpdateScheduledCaller</code>, while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>); a
+     * header change is used by the call placed after it, never by a call already placed.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 6;</code>
      */
@@ -141,14 +150,23 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
      *           This is the sip_base_config half of sip_caller_config below and is kept for wire compatibility
      *           with clients built before field 6 existed
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *           Service configuration of the call this scheduled caller places when it fires (speech-to-text, NLU agent,
+     *           text-to-speech, CSI, voice interaction and the call&apos;s media), as stored from
+     *           <code>StartScheduledCallerRequest.request</code>. Fields left unset inherit, when the call is placed, the
+     *           deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default; of a campaign&apos;s
+     *           scheduled caller the campaign&apos;s call defaults are merged under it at every dispatch. Not updatable:
+     *           cancel the scheduled caller and create a new one to change it. Redacted by role like
+     *           <code>Caller.common_services_config</code>.
      *     @type \Google\Protobuf\Timestamp $scheduled_time
      *           Time at or after which the call is started, in UTC (see
      *           <code>StartScheduledCallerRequest.scheduled_time</code>). Updatable with <code>UpdateScheduledCaller</code>
      *           while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>.
      *     @type \Ondewo\Vtsi\SipCallerConfig $sip_caller_config
      *           Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
-     *           that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
+     *           that will be sent. sip_config (field 3) carries only the sip_base_config half of this message.
+     *           Applies to the one call placed when the scheduled caller fires. Only <code>sip_headers</code> is updatable
+     *           (<code>UpdateScheduledCaller</code>, while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>); a
+     *           header change is used by the call placed after it, never by a call already placed.
      *     @type int $status
      *           Lifecycle state of this scheduled caller
      *     @type string $vtsi_project_name
@@ -284,7 +302,13 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call this scheduled caller places when it fires (speech-to-text, NLU agent,
+     * text-to-speech, CSI, voice interaction and the call&apos;s media), as stored from
+     * <code>StartScheduledCallerRequest.request</code>. Fields left unset inherit, when the call is placed, the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default; of a campaign&apos;s
+     * scheduled caller the campaign&apos;s call defaults are merged under it at every dispatch. Not updatable:
+     * cancel the scheduled caller and create a new one to change it. Redacted by role like
+     * <code>Caller.common_services_config</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -305,7 +329,13 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of the call this scheduled caller places when it fires (speech-to-text, NLU agent,
+     * text-to-speech, CSI, voice interaction and the call&apos;s media), as stored from
+     * <code>StartScheduledCallerRequest.request</code>. Fields left unset inherit, when the call is placed, the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default; of a campaign&apos;s
+     * scheduled caller the campaign&apos;s call defaults are merged under it at every dispatch. Not updatable:
+     * cancel the scheduled caller and create a new one to change it. Redacted by role like
+     * <code>Caller.common_services_config</code>.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var
@@ -359,7 +389,10 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
 
     /**
      * Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
-     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
+     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message.
+     * Applies to the one call placed when the scheduled caller fires. Only <code>sip_headers</code> is updatable
+     * (<code>UpdateScheduledCaller</code>, while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>); a
+     * header change is used by the call placed after it, never by a call already placed.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 6;</code>
      * @return \Ondewo\Vtsi\SipCallerConfig|null
@@ -381,7 +414,10 @@ class ScheduledCaller extends \Google\Protobuf\Internal\Message
 
     /**
      * Full SIP caller configuration, including the callee_id that will be dialled and the sip_headers
-     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message
+     * that will be sent. sip_config (field 3) carries only the sip_base_config half of this message.
+     * Applies to the one call placed when the scheduled caller fires. Only <code>sip_headers</code> is updatable
+     * (<code>UpdateScheduledCaller</code>, while the status is <code>SCHEDULED_CALLER_STATUS_PENDING</code>); a
+     * header change is used by the call placed after it, never by a call already placed.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 6;</code>
      * @param \Ondewo\Vtsi\SipCallerConfig $var

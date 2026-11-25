@@ -11,13 +11,8 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request message for getting crawler results of a crawler run.
- * Results are returned in pages. Request the first page with an empty
- * <code>page_token</code>, then continue with each response <code>next_page_token</code>.
- * Example:
- * <pre><code>RagGetCrawlerResults(run_name, page_token="")
- * -> next_page_token="..."
- * RagGetCrawlerResults(run_name, page_token="...")
- * </code></pre>
+ * Results are returned in pages. Request the first page with an empty <code>page_token</code>, then continue with each response <code>next_page_token</code>.
+ * Example: <pre><code>RagGetCrawlerResults(run_name, page_token="")&#10;-> next_page_token="..."&#10;RagGetCrawlerResults(run_name, page_token="...")&#10;</code></pre>
  *
  * Generated from protobuf message <code>ondewo.nlu.RagGetCrawlerResultsRequest</code>
  */

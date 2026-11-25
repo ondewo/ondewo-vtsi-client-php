@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Audit of one warm intro, in <code>CallTransferRecord.warm_intro</code>. Output only. Holds NO intro text and NO
- * decline reason text.</p>
+ * Audit of one warm intro, in <code>CallTransferRecord.warm_intro</code>. Output only. Holds NO intro text and NO decline reason text.
  *
  * Generated from protobuf message <code>ondewo.vtsi.WarmIntroRecord</code>
  */
@@ -36,7 +35,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
      */
     protected $decided_by = 0;
     /**
-     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)
+     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU
+     * session); <code>false</code> also when <code>decline_reason_question</code> is <code>&quot;&quot;</code>
      *
      * Generated from protobuf field <code>bool decline_reason_present = 4;</code>
      */
@@ -61,21 +61,24 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
      */
     protected $intro_duration = null;
     /**
-     * The text source actually used
+     * The text source actually requested (UNSPECIFIED resolved); see <code>text_fell_back</code> for what was spoken
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource text_source = 8;</code>
      */
     protected $text_source = 0;
     /**
-     * Whether the LLM summary failed or timed out and the TEMPLATE was used
+     * Whether the LLM summary could not be written (no LLM, failed, too slow, empty) and the built-in template was
+     * spoken instead
      *
      * Generated from protobuf field <code>bool text_fell_back = 9;</code>
      */
     protected $text_fell_back = false;
     /**
      * Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
-     * <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
-     * <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
+     * <code>no-decision</code>, <code>voicemail-suspected</code>, <code>intro-timeout</code>,
+     * <code>target-hung-up</code>, <code>busy</code>, <code>no-answer</code>, <code>no-free-listener</code>,
+     * <code>prepare-failed</code>; empty on accept. New tokens may be added: treat an unknown one as a failure
+     * without a known cause
      *
      * Generated from protobuf field <code>string cause = 10;</code>
      */
@@ -83,7 +86,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     /**
      * Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
      * when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
-     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
+     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>: the caller may not have been
+     * told
      *
      * Generated from protobuf field <code>bool notice_delivered = 11;</code>
      */
@@ -110,7 +114,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
      *     @type int $decided_by
      *           How it was taken
      *     @type bool $decline_reason_present
-     *           Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)
+     *           Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU
+     *           session); <code>false</code> also when <code>decline_reason_question</code> is <code>&quot;&quot;</code>
      *     @type string $intro_call_name
      *           The intro bot&apos;s call, labelled <code>{&quot;purpose&quot;: &quot;warm_intro&quot;}</code>. Empty when no
      *           intro bot answered
@@ -119,17 +124,21 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
      *     @type \Google\Protobuf\Duration $intro_duration
      *           From the target&apos;s answer to the decision or the end of the intro
      *     @type int $text_source
-     *           The text source actually used
+     *           The text source actually requested (UNSPECIFIED resolved); see <code>text_fell_back</code> for what was spoken
      *     @type bool $text_fell_back
-     *           Whether the LLM summary failed or timed out and the TEMPLATE was used
+     *           Whether the LLM summary could not be written (no LLM, failed, too slow, empty) and the built-in template was
+     *           spoken instead
      *     @type string $cause
      *           Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
-     *           <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
-     *           <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
+     *           <code>no-decision</code>, <code>voicemail-suspected</code>, <code>intro-timeout</code>,
+     *           <code>target-hung-up</code>, <code>busy</code>, <code>no-answer</code>, <code>no-free-listener</code>,
+     *           <code>prepare-failed</code>; empty on accept. New tokens may be added: treat an unknown one as a failure
+     *           without a known cause
      *     @type bool $notice_delivered
      *           Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
      *           when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
-     *           goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
+     *           goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>: the caller may not have been
+     *           told
      *     @type bool $intro_started
      *           Whether the intro started (an intro bot answered). <code>false</code> with
      *           <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code> means the target was joined without an intro;
@@ -220,7 +229,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)
+     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU
+     * session); <code>false</code> also when <code>decline_reason_question</code> is <code>&quot;&quot;</code>
      *
      * Generated from protobuf field <code>bool decline_reason_present = 4;</code>
      * @return bool
@@ -231,7 +241,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU session)
+     * Whether the target gave a reason for a decline (the reason itself never leaves the intro bot&apos;s NLU
+     * session); <code>false</code> also when <code>decline_reason_question</code> is <code>&quot;&quot;</code>
      *
      * Generated from protobuf field <code>bool decline_reason_present = 4;</code>
      * @param bool $var
@@ -343,7 +354,7 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The text source actually used
+     * The text source actually requested (UNSPECIFIED resolved); see <code>text_fell_back</code> for what was spoken
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource text_source = 8;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\WarmIntroTextSource}
@@ -354,7 +365,7 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The text source actually used
+     * The text source actually requested (UNSPECIFIED resolved); see <code>text_fell_back</code> for what was spoken
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource text_source = 8;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\WarmIntroTextSource}
@@ -369,7 +380,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the LLM summary failed or timed out and the TEMPLATE was used
+     * Whether the LLM summary could not be written (no LLM, failed, too slow, empty) and the built-in template was
+     * spoken instead
      *
      * Generated from protobuf field <code>bool text_fell_back = 9;</code>
      * @return bool
@@ -380,7 +392,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the LLM summary failed or timed out and the TEMPLATE was used
+     * Whether the LLM summary could not be written (no LLM, failed, too slow, empty) and the built-in template was
+     * spoken instead
      *
      * Generated from protobuf field <code>bool text_fell_back = 9;</code>
      * @param bool $var
@@ -395,8 +408,10 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
 
     /**
      * Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
-     * <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
-     * <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
+     * <code>no-decision</code>, <code>voicemail-suspected</code>, <code>intro-timeout</code>,
+     * <code>target-hung-up</code>, <code>busy</code>, <code>no-answer</code>, <code>no-free-listener</code>,
+     * <code>prepare-failed</code>; empty on accept. New tokens may be added: treat an unknown one as a failure
+     * without a known cause
      *
      * Generated from protobuf field <code>string cause = 10;</code>
      * @return string
@@ -408,8 +423,10 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
 
     /**
      * Bounded kebab-case token naming why the intro ended or did not run, e.g. <code>declined</code>,
-     * <code>voicemail-suspected</code>, <code>target-hung-up</code>, <code>no-free-listener</code>,
-     * <code>prepare-failed</code>, <code>intro-timeout</code>; empty on accept
+     * <code>no-decision</code>, <code>voicemail-suspected</code>, <code>intro-timeout</code>,
+     * <code>target-hung-up</code>, <code>busy</code>, <code>no-answer</code>, <code>no-free-listener</code>,
+     * <code>prepare-failed</code>; empty on accept. New tokens may be added: treat an unknown one as a failure
+     * without a known cause
      *
      * Generated from protobuf field <code>string cause = 10;</code>
      * @param string $var
@@ -426,7 +443,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     /**
      * Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
      * when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
-     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
+     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>: the caller may not have been
+     * told
      *
      * Generated from protobuf field <code>bool notice_delivered = 11;</code>
      * @return bool
@@ -439,7 +457,8 @@ class WarmIntroRecord extends \Google\Protobuf\Internal\Message
     /**
      * Whether the caller&apos;s bot queued the outcome notice (decline / unreachable) for the caller. Only meaningful
      * when a notice was owed (every decision but <code>WARM_INTRO_DECISION_ACCEPTED</code>); <code>false</code> there
-     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>
+     * goes with <code>VTSI_EVENT_CALL_WARM_TRANSFER_OUTCOME_NOTICE_UNDELIVERED</code>: the caller may not have been
+     * told
      *
      * Generated from protobuf field <code>bool notice_delivered = 11;</code>
      * @param bool $var

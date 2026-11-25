@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration for cloud provider settings for Text-to-Speech (T2S).</p>
+ * Configuration for cloud provider settings for Text-to-Speech (T2S).
  *
  * Generated from protobuf message <code>ondewo.t2s.T2sCloudProviderConfig</code>
  */

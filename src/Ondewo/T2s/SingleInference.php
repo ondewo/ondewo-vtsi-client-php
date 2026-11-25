@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>SingleInference message inference settings of text2audio models.</p>
+ * SingleInference message inference settings of text2audio models.
  *
  * Generated from protobuf message <code>ondewo.t2s.SingleInference</code>
  */

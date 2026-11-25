@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents the metadata of the long-running operation that can be a parent operation for sub-operations or
- * can be a sub-operation itself
+ * Represents the metadata of the long-running operation that can be a parent operation for sub-operations or can be a sub-operation itself
  *
  * Generated from protobuf message <code>ondewo.nlu.OperationMetadata</code>
  */

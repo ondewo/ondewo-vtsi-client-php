@@ -8,7 +8,7 @@ namespace Ondewo\Sip\SipEndCallRequest;
 use UnexpectedValueException;
 
 /**
- * <p>Why the call is being ended</p>
+ * Why the call is being ended
  *
  * Protobuf type <code>ondewo.sip.SipEndCallRequest.EndCallReason</code>
  */

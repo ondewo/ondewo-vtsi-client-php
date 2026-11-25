@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>WhisperTriton contains information about the Whisper model using Triton.</p>
+ * WhisperTriton contains information about the Whisper model using Triton.
  *
  * Generated from protobuf message <code>ondewo.s2t.WhisperTriton</code>
  */

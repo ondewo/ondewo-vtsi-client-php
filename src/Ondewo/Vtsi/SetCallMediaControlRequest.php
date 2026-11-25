@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request to mute the bot of a call and/or stop it listening</p>
+ * Request to mute the bot of a call and/or stop it listening
  *
  * Generated from protobuf message <code>ondewo.vtsi.SetCallMediaControlRequest</code>
  */

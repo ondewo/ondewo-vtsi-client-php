@@ -8,8 +8,7 @@ namespace Ondewo\Vtsi\VtsiProjectSorting;
 use UnexpectedValueException;
 
 /**
- * Enum to specify the sorting field for VTSI projects.
- * Enum defining the field by which VTSI projects can be sorted
+ * Enum to specify the sorting field for VTSI projects. Enum defining the field by which VTSI projects can be sorted
  *
  * Protobuf type <code>ondewo.vtsi.VtsiProjectSorting.VtsiProjectSortingField</code>
  */

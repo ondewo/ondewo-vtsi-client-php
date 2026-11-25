@@ -10,60 +10,66 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * CSI configuration
+ * Configuration of the speech-to-speech service of a call (the service that streams the caller&apos;s audio to speech-to-text, sends the transcriptions to the NLU and plays the synthesized answers): control messages, preemptive generation, storage of the call audio and publishing of call events to a RabbitMQ message broker.
+ * Scope: the configuration of a LISTENER applies to every inbound call that listener deployment serves; the configuration of a caller, a campaign or a scheduled caller applies to its own calls. A pooled (persistent) caller is only reused for a request whose configuration is identical.
+ * Unset fields inherit: the deployment-wide <code>ONDEWO_VTSI_*</code> setting where a field names one, else the built-in default. A value set here wins over both for this call.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CsiVtsiConfig</code>
  */
 class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Callback for the Speech-2-Text platform
+     * Speech-to-text callbacks. Accepted and validated, but they have no effect: see <code>S2tVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiCallbacks s2t_vtsi_callbacks = 1;</code>
      */
     protected $s2t_vtsi_callbacks = null;
     /**
-     * Callback for the NLU platform
+     * NLU callbacks. Accepted and validated, but they have no effect: see <code>NluVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiCallbacks nlu_vtsi_callbacks = 2;</code>
      */
     protected $nlu_vtsi_callbacks = null;
     /**
-     * Callback for the Text-2-Speech platform
+     * Text-to-speech callbacks. Accepted and validated, but they have no effect: see <code>T2sVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiCallbacks t2s_vtsi_callbacks = 3;</code>
      */
     protected $t2s_vtsi_callbacks = null;
     /**
-     * Configuration of the Minio Audio Object Store
+     * Optional: Store the audio of the call (what the caller said and what the bot said) as audio files of the
+     * call&apos;s NLU session. Unset: nothing is stored. See <code>AudioObjectStorageConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageConfig audio_object_store_config = 4;</code>
      */
     protected $audio_object_store_config = null;
     /**
-     * Configuration of the RabbitMQ Message Broker
+     * Optional: Publish the events of the call (transcriptions, NLU answers, synthesized answers, SIP status) to a
+     * RabbitMQ message broker and receive control messages for the call from it. Unset: nothing is published. See
+     * <code>MessageBrokerConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerConfig message_broker_config = 5;</code>
      */
     protected $message_broker_config = null;
     /**
-     * Setting to activate if it is possible to send control messages
-     * <ul>
-     *   <li>via RabbitMQ to remote control the system</li>
-     *   <li>via embeddings in NLU text responses</li>
-     * </ul>
-     * Explicitly optional: leaving the field unset means the caller expresses no preference and the
-     * server keeps its own configured default. That is NOT the same as sending
-     * <pre><code>false</code></pre>, which is a request to switch control messages off. A
-     * presence-less bool cannot tell the two apart, so an unset field arrived as
-     * <pre><code>false</code></pre> and silently disabled control messages for callers that never
-     * mentioned them.
+     * Optional: Execute the control messages the NLU agent returns with an answer. A control message is an
+     * intent&apos;s webhook payload that names a <code>service</code> (<code>ondewo_nlu</code>,
+     * <code>ondewo_s2t</code>, <code>ondewo_t2s</code> or <code>ondewo_sip</code>), a <code>method</code> and its
+     * <code>parameters</code>; with this switch on, the bot performs that action in the call when the intent
+     * answers (e.g. a SIP action of the call or a change of the speech settings). <code>false</code>: payloads are
+     * ignored and the answers are only spoken. Control messages that arrive over RabbitMQ are not governed by this
+     * switch but by <code>message_broker_config</code>.
+     * <p>Unset is NOT the same as <code>false</code>: unset keeps the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_SERVER_ACTIVATE_CONTROL_MESSAGES</code> (default <code>true</code>), while
+     * <code>false</code> switches control messages off for this call.</p>
      *
      * Generated from protobuf field <code>optional bool activate_control_messages = 6;</code>
      */
     protected $activate_control_messages = null;
     /**
-     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     * Optional: Preemptive (speculative) generation of the answer: whether it runs on this call and how long a
+     * matching draft may still take. Unset keeps the deployment&apos;s setting. See
+     * <code>CsiPreemptiveGenerationConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
      */
@@ -76,29 +82,33 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\S2tVtsiCallbacks $s2t_vtsi_callbacks
-     *           Callback for the Speech-2-Text platform
+     *           Speech-to-text callbacks. Accepted and validated, but they have no effect: see <code>S2tVtsiCallbacks</code>
      *     @type \Ondewo\Vtsi\NluVtsiCallbacks $nlu_vtsi_callbacks
-     *           Callback for the NLU platform
+     *           NLU callbacks. Accepted and validated, but they have no effect: see <code>NluVtsiCallbacks</code>
      *     @type \Ondewo\Vtsi\T2sVtsiCallbacks $t2s_vtsi_callbacks
-     *           Callback for the Text-2-Speech platform
+     *           Text-to-speech callbacks. Accepted and validated, but they have no effect: see <code>T2sVtsiCallbacks</code>
      *     @type \Ondewo\Vtsi\AudioObjectStorageConfig $audio_object_store_config
-     *           Configuration of the Minio Audio Object Store
+     *           Optional: Store the audio of the call (what the caller said and what the bot said) as audio files of the
+     *           call&apos;s NLU session. Unset: nothing is stored. See <code>AudioObjectStorageConfig</code>
      *     @type \Ondewo\Vtsi\MessageBrokerConfig $message_broker_config
-     *           Configuration of the RabbitMQ Message Broker
+     *           Optional: Publish the events of the call (transcriptions, NLU answers, synthesized answers, SIP status) to a
+     *           RabbitMQ message broker and receive control messages for the call from it. Unset: nothing is published. See
+     *           <code>MessageBrokerConfig</code>
      *     @type bool $activate_control_messages
-     *           Setting to activate if it is possible to send control messages
-     *           <ul>
-     *             <li>via RabbitMQ to remote control the system</li>
-     *             <li>via embeddings in NLU text responses</li>
-     *           </ul>
-     *           Explicitly optional: leaving the field unset means the caller expresses no preference and the
-     *           server keeps its own configured default. That is NOT the same as sending
-     *           <pre><code>false</code></pre>, which is a request to switch control messages off. A
-     *           presence-less bool cannot tell the two apart, so an unset field arrived as
-     *           <pre><code>false</code></pre> and silently disabled control messages for callers that never
-     *           mentioned them.
+     *           Optional: Execute the control messages the NLU agent returns with an answer. A control message is an
+     *           intent&apos;s webhook payload that names a <code>service</code> (<code>ondewo_nlu</code>,
+     *           <code>ondewo_s2t</code>, <code>ondewo_t2s</code> or <code>ondewo_sip</code>), a <code>method</code> and its
+     *           <code>parameters</code>; with this switch on, the bot performs that action in the call when the intent
+     *           answers (e.g. a SIP action of the call or a change of the speech settings). <code>false</code>: payloads are
+     *           ignored and the answers are only spoken. Control messages that arrive over RabbitMQ are not governed by this
+     *           switch but by <code>message_broker_config</code>.
+     *           <p>Unset is NOT the same as <code>false</code>: unset keeps the deployment-wide setting
+     *           <code>ONDEWO_VTSI_CSI_SERVER_ACTIVATE_CONTROL_MESSAGES</code> (default <code>true</code>), while
+     *           <code>false</code> switches control messages off for this call.</p>
      *     @type \Ondewo\Vtsi\CsiPreemptiveGenerationConfig $preemptive_generation_config
-     *           Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     *           Optional: Preemptive (speculative) generation of the answer: whether it runs on this call and how long a
+     *           matching draft may still take. Unset keeps the deployment&apos;s setting. See
+     *           <code>CsiPreemptiveGenerationConfig</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -107,7 +117,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the Speech-2-Text platform
+     * Speech-to-text callbacks. Accepted and validated, but they have no effect: see <code>S2tVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiCallbacks s2t_vtsi_callbacks = 1;</code>
      * @return \Ondewo\Vtsi\S2tVtsiCallbacks|null
@@ -128,7 +138,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the Speech-2-Text platform
+     * Speech-to-text callbacks. Accepted and validated, but they have no effect: see <code>S2tVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiCallbacks s2t_vtsi_callbacks = 1;</code>
      * @param \Ondewo\Vtsi\S2tVtsiCallbacks $var
@@ -142,7 +152,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the NLU platform
+     * NLU callbacks. Accepted and validated, but they have no effect: see <code>NluVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiCallbacks nlu_vtsi_callbacks = 2;</code>
      * @return \Ondewo\Vtsi\NluVtsiCallbacks|null
@@ -163,7 +173,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the NLU platform
+     * NLU callbacks. Accepted and validated, but they have no effect: see <code>NluVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiCallbacks nlu_vtsi_callbacks = 2;</code>
      * @param \Ondewo\Vtsi\NluVtsiCallbacks $var
@@ -177,7 +187,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the Text-2-Speech platform
+     * Text-to-speech callbacks. Accepted and validated, but they have no effect: see <code>T2sVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiCallbacks t2s_vtsi_callbacks = 3;</code>
      * @return \Ondewo\Vtsi\T2sVtsiCallbacks|null
@@ -198,7 +208,7 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback for the Text-2-Speech platform
+     * Text-to-speech callbacks. Accepted and validated, but they have no effect: see <code>T2sVtsiCallbacks</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiCallbacks t2s_vtsi_callbacks = 3;</code>
      * @param \Ondewo\Vtsi\T2sVtsiCallbacks $var
@@ -212,7 +222,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Minio Audio Object Store
+     * Optional: Store the audio of the call (what the caller said and what the bot said) as audio files of the
+     * call&apos;s NLU session. Unset: nothing is stored. See <code>AudioObjectStorageConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageConfig audio_object_store_config = 4;</code>
      * @return \Ondewo\Vtsi\AudioObjectStorageConfig|null
@@ -233,7 +244,8 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Minio Audio Object Store
+     * Optional: Store the audio of the call (what the caller said and what the bot said) as audio files of the
+     * call&apos;s NLU session. Unset: nothing is stored. See <code>AudioObjectStorageConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.AudioObjectStorageConfig audio_object_store_config = 4;</code>
      * @param \Ondewo\Vtsi\AudioObjectStorageConfig $var
@@ -247,7 +259,9 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the RabbitMQ Message Broker
+     * Optional: Publish the events of the call (transcriptions, NLU answers, synthesized answers, SIP status) to a
+     * RabbitMQ message broker and receive control messages for the call from it. Unset: nothing is published. See
+     * <code>MessageBrokerConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerConfig message_broker_config = 5;</code>
      * @return \Ondewo\Vtsi\MessageBrokerConfig|null
@@ -268,7 +282,9 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the RabbitMQ Message Broker
+     * Optional: Publish the events of the call (transcriptions, NLU answers, synthesized answers, SIP status) to a
+     * RabbitMQ message broker and receive control messages for the call from it. Unset: nothing is published. See
+     * <code>MessageBrokerConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerConfig message_broker_config = 5;</code>
      * @param \Ondewo\Vtsi\MessageBrokerConfig $var
@@ -282,17 +298,16 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Setting to activate if it is possible to send control messages
-     * <ul>
-     *   <li>via RabbitMQ to remote control the system</li>
-     *   <li>via embeddings in NLU text responses</li>
-     * </ul>
-     * Explicitly optional: leaving the field unset means the caller expresses no preference and the
-     * server keeps its own configured default. That is NOT the same as sending
-     * <pre><code>false</code></pre>, which is a request to switch control messages off. A
-     * presence-less bool cannot tell the two apart, so an unset field arrived as
-     * <pre><code>false</code></pre> and silently disabled control messages for callers that never
-     * mentioned them.
+     * Optional: Execute the control messages the NLU agent returns with an answer. A control message is an
+     * intent&apos;s webhook payload that names a <code>service</code> (<code>ondewo_nlu</code>,
+     * <code>ondewo_s2t</code>, <code>ondewo_t2s</code> or <code>ondewo_sip</code>), a <code>method</code> and its
+     * <code>parameters</code>; with this switch on, the bot performs that action in the call when the intent
+     * answers (e.g. a SIP action of the call or a change of the speech settings). <code>false</code>: payloads are
+     * ignored and the answers are only spoken. Control messages that arrive over RabbitMQ are not governed by this
+     * switch but by <code>message_broker_config</code>.
+     * <p>Unset is NOT the same as <code>false</code>: unset keeps the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_SERVER_ACTIVATE_CONTROL_MESSAGES</code> (default <code>true</code>), while
+     * <code>false</code> switches control messages off for this call.</p>
      *
      * Generated from protobuf field <code>optional bool activate_control_messages = 6;</code>
      * @return bool
@@ -313,17 +328,16 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Setting to activate if it is possible to send control messages
-     * <ul>
-     *   <li>via RabbitMQ to remote control the system</li>
-     *   <li>via embeddings in NLU text responses</li>
-     * </ul>
-     * Explicitly optional: leaving the field unset means the caller expresses no preference and the
-     * server keeps its own configured default. That is NOT the same as sending
-     * <pre><code>false</code></pre>, which is a request to switch control messages off. A
-     * presence-less bool cannot tell the two apart, so an unset field arrived as
-     * <pre><code>false</code></pre> and silently disabled control messages for callers that never
-     * mentioned them.
+     * Optional: Execute the control messages the NLU agent returns with an answer. A control message is an
+     * intent&apos;s webhook payload that names a <code>service</code> (<code>ondewo_nlu</code>,
+     * <code>ondewo_s2t</code>, <code>ondewo_t2s</code> or <code>ondewo_sip</code>), a <code>method</code> and its
+     * <code>parameters</code>; with this switch on, the bot performs that action in the call when the intent
+     * answers (e.g. a SIP action of the call or a change of the speech settings). <code>false</code>: payloads are
+     * ignored and the answers are only spoken. Control messages that arrive over RabbitMQ are not governed by this
+     * switch but by <code>message_broker_config</code>.
+     * <p>Unset is NOT the same as <code>false</code>: unset keeps the deployment-wide setting
+     * <code>ONDEWO_VTSI_CSI_SERVER_ACTIVATE_CONTROL_MESSAGES</code> (default <code>true</code>), while
+     * <code>false</code> switches control messages off for this call.</p>
      *
      * Generated from protobuf field <code>optional bool activate_control_messages = 6;</code>
      * @param bool $var
@@ -337,7 +351,9 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     * Optional: Preemptive (speculative) generation of the answer: whether it runs on this call and how long a
+     * matching draft may still take. Unset keeps the deployment&apos;s setting. See
+     * <code>CsiPreemptiveGenerationConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
      * @return \Ondewo\Vtsi\CsiPreemptiveGenerationConfig|null
@@ -358,7 +374,9 @@ class CsiVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Preemptive (speculative) generation of the answer. Unset keeps the deployment&apos;s values
+     * Optional: Preemptive (speculative) generation of the answer: whether it runs on this call and how long a
+     * matching draft may still take. Unset keeps the deployment&apos;s setting. See
+     * <code>CsiPreemptiveGenerationConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiPreemptiveGenerationConfig preemptive_generation_config = 7;</code>
      * @param \Ondewo\Vtsi\CsiPreemptiveGenerationConfig $var

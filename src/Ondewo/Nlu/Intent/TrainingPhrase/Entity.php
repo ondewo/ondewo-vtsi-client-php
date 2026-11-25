@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents an entity annotation in a training phrase. The entity can be annotated on the level of
- * entity type only or both entity type and entity value.
+ * Represents an entity annotation in a training phrase. The entity can be annotated on the level of entity type only or both entity type and entity value.
  *
  * Generated from protobuf message <code>ondewo.nlu.Intent.TrainingPhrase.Entity</code>
  */

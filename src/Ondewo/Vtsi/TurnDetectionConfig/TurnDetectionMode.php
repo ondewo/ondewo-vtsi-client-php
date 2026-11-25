@@ -8,32 +8,54 @@ namespace Ondewo\Vtsi\TurnDetectionConfig;
 use UnexpectedValueException;
 
 /**
- * Mode of the turn detection
+ * How the end of the caller&apos;s turn is detected
  *
  * Protobuf type <code>ondewo.vtsi.TurnDetectionConfig.TurnDetectionMode</code>
  */
 class TurnDetectionMode
 {
     /**
-     * Unspecified turn detection mode defaults to SEMANTIC_MODEL
+     * No mode chosen: the speech-to-text side is configured as for <code>SEMANTIC_MODEL</code> (its turn
+     * detection model is used where the deployment provides one), and the interruption rules follow what the
+     * call actually got: those of <code>SEMANTIC_MODEL</code> when a turn detection model is active for the call,
+     * those of <code>VAD</code> otherwise. Every field of this message is valid with it
      *
      * Generated from protobuf enum <code>TURN_DETECTION_MODE_UNSPECIFIED = 0;</code>
      */
     const TURN_DETECTION_MODE_UNSPECIFIED = 0;
     /**
-     * Turn detection based on voice activity detection, i.e. pauses in the caller audio (fallback mode)
+     * The turn ends on silence alone: the speech-to-text service commits a final transcription once the caller
+     * was silent for its minimum silence (<code>min_endpointing_delay_seconds</code>). VTSI asks no turn
+     * detection model, not even a deployment-wide one; a turn detection block already in the call&apos;s
+     * <code>S2tVtsiConfig.s2t_transcribe_request_config</code> is passed on unchanged, so remove it there as
+     * well. With interruptions enabled, any caller speech that lasts the
+     * minimum interruption duration interrupts the bot. The fields read only by a turn detection model are
+     * refused with this mode
      *
      * Generated from protobuf enum <code>VAD = 1;</code>
      */
     const VAD = 1;
     /**
-     * Turn detection based on a semantic (LLM) turn detection model of the speech-to-text service (default)
+     * The speech-to-text service asks a turn detection model whether the words so far are a finished turn, so
+     * that a caller who pauses mid-sentence keeps the turn. The model must be provided by the deployment (a
+     * turn detection endpoint configured with <code>ONDEWO_VTSI_S2T_TURN_DETECTION_BASE_URL</code>, an audio
+     * Smart Turn model, or a turn detection block in the call&apos;s
+     * <code>S2tVtsiConfig.s2t_transcribe_request_config</code>); without one the call keeps silence-based
+     * endpointing and only the interruption rules below apply. With interruptions enabled, a final
+     * transcription with at least one meaningful word interrupts the bot, and a partial transcription needs
+     * <code>InterruptionHandlingConfig.min_interruption_words</code>, so a short &quot;mhm&quot; does not stop
+     * the bot
      *
      * Generated from protobuf enum <code>SEMANTIC_MODEL = 2;</code>
      */
     const SEMANTIC_MODEL = 2;
     /**
-     * Turn detection based on an audio-native turn detection model
+     * Reserved for an audio-native turn detection model run by the speech-to-speech service on the caller
+     * audio. The released speech-to-speech service does not run such a model yet: a call in this mode ends its
+     * turns on the speech-to-text silence detection, as with <code>VAD</code>, and applies the interruption
+     * rules of <code>SEMANTIC_MODEL</code>. The fields read only by a turn detection model are refused with this
+     * mode. To use an audio turn model today, choose <code>SEMANTIC_MODEL</code> with a Smart Turn model in
+     * <code>semantic_model_name</code>
      *
      * Generated from protobuf enum <code>AUDIO_MODEL = 3;</code>
      */

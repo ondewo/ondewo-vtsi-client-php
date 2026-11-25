@@ -8,8 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * The calendar granularity of a feedback time series. When set (non-unspecified) it overrides the
- * fixed-width bucket_width_seconds on the request.
+ * The calendar granularity of a feedback time series. When set (non-unspecified) it overrides the fixed-width bucket_width_seconds on the request.
  *
  * Protobuf type <code>ondewo.nlu.FeedbackTimeGranularity</code>
  */

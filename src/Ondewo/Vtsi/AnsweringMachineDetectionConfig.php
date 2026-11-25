@@ -10,177 +10,221 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the answering machine detection (AMD) of an outbound call, i.e. deciding in the first
- * seconds after the callee answered whether a person, an answering machine, a fax, an IVR or a network
- * announcement picked up, and hanging up on the non-human ones.
- * Detection listens first: the bot stays silent until the verdict is reached or the decision window ends.
- * Every field is optional: an unset field takes the default of the CSI container (listed per field below).
- * Only accepted for pooled persistent callers; the settings are part of the caller container configuration,
- * so callers with different AMD settings are never pooled together.
- * The verdict of a call is reported as ondewo.sip.SipStatus.amd_result. Reaching a hang-up-eligible verdict sets
- * the non-terminal status ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_ANSWERING_MACHINE_DETECTED (the call is
- * still up), and a call ended by AMD reaches the terminal status OUTGOING_CALL_FINISHED with one of these
- * descriptions:
- * <ul>
- * <li>"Answering machine detected with hang up": the caller hung up without leaving a voice message</li>
- * <li>"Answering machine detected with left voice message and hang up": the caller hung up after starting the
- * voice message</li>
- * <li>"Answering machine detected, call ended by the answering machine": the far end hung up before a voice
- * message was started</li>
- * <li>"Answering machine detected, call ended by the answering machine after leaving a voice message": the far
- * end hung up after the voice message was started</li>
- * </ul>
- * The description is also recorded on the call as Call.answering_machine_detection_end_description.
- * Compliance: leaving a recorded message on a consumer's mailbox for marketing purposes requires the consent of
- * the callee in many jurisdictions (e.g. in Germany § 7 UWG). HANG_UP is therefore the default action.
+ * Answering machine detection (AMD) of an outbound call: in the first seconds after the callee answered, the call decides who or what picked up (a person, an answering machine, a fax, an automated menu (IVR), a call screening assistant or a network announcement such as &quot;the number is not reachable&quot;) and can hang up on the ones that are not a person, or leave a voice message on a mailbox.
+ * How the call behaves while AMD decides: detection LISTENS first. The bot stays silent and nothing the callee says reaches the NLU until a verdict is reached or the decision window ends; the bot&apos;s greeting therefore starts only after the verdict. The possible verdicts and what happens with each:
+ * <ul> <li>a person, no speech at all (<code>initial_silence_ms</code>) or no verdict in time (UNKNOWN): the call continues with the bot&apos;s greeting like any other call; it is never hung up</li> <li>an answering machine (MACHINE): hung up under <code>HANG_UP</code>; under <code>LEAVE_VOICE_MESSAGE</code> a voice message is spoken first</li> <li>a fax, a network announcement, an IVR or a call screening assistant: hung up (also under <code>LEAVE_VOICE_MESSAGE</code>, without a message) only when its switch <code>hang_up_on_fax</code> / <code>hang_up_on_network_announcement</code> / <code>hang_up_on_ivr</code> / <code>hang_up_on_call_screening</code> is on; otherwise the call continues like a call to a person</li> <li>under <code>DETECT_ONLY</code> nothing is ever hung up</li> </ul>
+ * Reporting: the verdict is reported as <code>ondewo.sip.SipStatus.amd_result</code>. A verdict that would hang up (MACHINE, or a verdict whose <code>hang_up_on_*</code> switch is on) sets the non-terminal status <code>ondewo.sip.SipStatus.StatusType.OUTGOING_CALL_ANSWERING_MACHINE_DETECTED</code> (the call is still up), also under <code>DETECT_ONLY</code>. A call ended by AMD reaches the terminal status <code>OUTGOING_CALL_FINISHED</code> exactly once, with one of these descriptions, also recorded on the call as <code>Call.answering_machine_detection_end_description</code>:
+ * <ul> <li>&quot;Answering machine detected with hang up&quot;: the caller hung up without leaving a voice message</li> <li>&quot;Answering machine detected with left voice message and hang up&quot;: the caller hung up after starting the voice message</li> <li>&quot;Answering machine detected, call ended by the answering machine&quot;: the far end hung up before a voice message was started</li> <li>&quot;Answering machine detected, call ended by the answering machine after leaving a voice message&quot;: the far end hung up after the voice message was started</li> </ul>
+ * Where it is accepted: only on a caller served by the caller pool (a pooled persistent caller), i.e. <code>StartCaller</code> / <code>StartCallers</code> and the callers of a campaign while the deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is on (the default). On a listener (also in <code>UpdateListener</code>), a scheduled caller, an <code>UpdateCaller</code> of a caller that is not pooled, or while <code>ONDEWO_VTSI_CALLER_PERSISTENT</code> is off the request is refused with <code>INVALID_ARGUMENT</code> (<code>reason=amd-requires-persistent-caller</code>) instead of placing calls that are silently not screened. The settings are part of the pooled caller&apos;s configuration: callers with different AMD settings are never pooled together, so a pooled caller is only reused for calls with identical settings.
+ * Defaults and precedence: every scalar is <code>optional</code>. A field left unset inherits the deployment&apos;s <code>ONDEWO_VTSI_AMD_&lt;FIELD&gt;</code> setting when the operator set one (e.g. <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>), else the built-in default listed per field. A set value always wins over the deployment setting. Leaving the whole message unset runs no detection unless the deployment switched it on with <code>ONDEWO_VTSI_AMD_ACTIVE</code>. A value outside a documented range is refused with <code>INVALID_ARGUMENT</code>.
+ * Example: screen a campaign and hang up on mailboxes and faxes, with the built-in tuning:
+ * <pre><code>answering_machine_detection_config { active: true action: HANG_UP }</code></pre>
+ * To calibrate first, run the same campaign with <code>action: DETECT_ONLY</code>: every call is detected and reported but every callee is greeted.
+ * Compliance: leaving a recorded message on a consumer&apos;s mailbox for marketing purposes requires the consent of the callee in many jurisdictions (e.g. in Germany § 7 UWG). <code>HANG_UP</code> is therefore the default action.
  *
  * Generated from protobuf message <code>ondewo.vtsi.AnsweringMachineDetectionConfig</code>
  */
 class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Master switch of the answering machine detection (default: false)
+     * Optional: Master switch: <code>true</code> runs the detection on every outbound call of this caller
+     * (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_ACTIVE</code>). While it is
+     * <code>false</code> no other field of this message has an effect and calls behave exactly as without AMD
      *
      * Generated from protobuf field <code>optional bool active = 1;</code>
      */
     protected $active = null;
     /**
-     * Optional: Action on a non-human verdict (default: HANG_UP)
+     * Optional: What the call does on a verdict that is not a person (default: <code>HANG_UP</code>; deployment
+     * setting <code>ONDEWO_VTSI_AMD_ACTION</code>). See <code>AmdAction</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction action = 2;</code>
      */
     protected $action = null;
     /**
-     * Optional: Sensitivity of the detection (default: LOW)
+     * Optional: How readily a machine is detected (default: <code>LOW</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>). See <code>AmdSensitivity</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity sensitivity = 3;</code>
      */
     protected $sensitivity = null;
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
-     * machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
-     * (default: 4000, valid range: 1500 - 10000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached when nothing so far
+     * pointed to a machine (default: 4000, valid range: 1500 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_MAX_DECISION_TIME_MS</code>). When it is reached the verdict is UNKNOWN and the call
+     * continues with the greeting. It is roughly the longest a person waits for the bot when nothing pointed to a
+     * machine; a smaller value greets sooner, a larger one gives the detection more time
      *
      * Generated from protobuf field <code>optional int32 max_decision_time_ms = 4;</code>
      */
     protected $max_decision_time_ms = null;
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
-     * machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached once something pointed
+     * to a machine, e.g. a long greeting, a weaker machine phrase or beep, or continuous music (default: 11000,
+     * valid range: 4000 - 20000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_MACHINE_WAIT_MS</code>). Such
+     * evidence extends the decision window from <code>max_decision_time_ms</code> to this value, because a
+     * mailbox greeting can be long. When it is reached without a decision the verdict is UNKNOWN and the call
+     * continues with the greeting
      *
      * Generated from protobuf field <code>optional int32 max_machine_wait_ms = 5;</code>
      */
     protected $max_machine_wait_ms = null;
     /**
-     * Optional: Time in milliseconds to wait for a beep after a long greeting ended
-     * (default: 1500, valid range: 0 - 4000)
+     * Optional: Milliseconds to keep listening for a mailbox beep after a long greeting ended (default: 1500, valid
+     * range: 0 - 4000; deployment setting <code>ONDEWO_VTSI_AMD_BEEP_WAIT_AFTER_GREETING_MS</code>). Under
+     * <code>LEAVE_VOICE_MESSAGE</code> it is also the shortest silence after the greeting before the voice message
+     * may start without a beep, so a message does not talk over a late beep
      *
      * Generated from protobuf field <code>optional int32 beep_wait_after_greeting_ms = 6;</code>
      */
     protected $beep_wait_after_greeting_ms = null;
     /**
-     * Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
-     * is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
+     * Optional: Milliseconds of silence after the callee answered, without any speech, after which the verdict is
+     * NO_SPEECH (default: 3500, valid range: 1000 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_INITIAL_SILENCE_MS</code>). NO_SPEECH is treated like a person: the bot greets, the call
+     * is not hung up. Needs <code>cadence_detection_active</code>; without it a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code>
      *
      * Generated from protobuf field <code>optional int32 initial_silence_ms = 7;</code>
      */
     protected $initial_silence_ms = null;
     /**
-     * Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
-     * (default: 2400, valid range: 1000 - 6000)
+     * Optional: Milliseconds of continuous speech beyond which a greeting points to a machine (default: 2400,
+     * valid range: 1000 - 6000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_HUMAN_GREETING_MS</code>). People
+     * answer briefly (&quot;Hello?&quot;), mailboxes talk longer. A long greeting alone never hangs up; it extends
+     * the window to <code>max_machine_wait_ms</code> and, from sensitivity <code>MEDIUM</code>, can decide together
+     * with other evidence. A larger value treats long-winded people more safely and recognises fewer machines by
+     * their greeting length
      *
      * Generated from protobuf field <code>optional int32 max_human_greeting_ms = 8;</code>
      */
     protected $max_human_greeting_ms = null;
     /**
-     * Optional: Silence in milliseconds after the first speech burst that ends a human greeting
-     * (default: 900, valid range: 300 - 3000)
+     * Optional: Milliseconds of silence after the callee&apos;s first words that end a short, person-like greeting
+     * (default: 900, valid range: 300 - 3000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_GREETING_END_SILENCE_MS</code>). Under <code>LEAVE_VOICE_MESSAGE</code> it is also a
+     * lower bound of the silence after the machine greeting before the voice message may start
      *
      * Generated from protobuf field <code>optional int32 greeting_end_silence_ms = 9;</code>
      */
     protected $greeting_end_silence_ms = null;
     /**
-     * Optional: Enable the tone detector for the beep of an answering machine (default: true)
+     * Optional: Whether the tone detector listens for the beep of an answering machine (default: <code>true</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_BEEP_DETECTION_ACTIVE</code>). With <code>false</code> a beep is no
+     * evidence, and under <code>LEAVE_VOICE_MESSAGE</code> the message starts when the greeting ended in silence or
+     * at <code>voice_message_max_beep_wait_ms</code> instead of after the beep
      *
      * Generated from protobuf field <code>optional bool beep_detection_active = 10;</code>
      */
     protected $beep_detection_active = null;
     /**
-     * Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate an answering machine, added to the built-in German and English phrase lists (at most
+     * 50 phrases, each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no
+     * deployment setting). Hearing one of them in the callee&apos;s greeting is strong evidence: it alone decides
+     * MACHINE, at every sensitivity. Phrases are matched word by word against the transcribed greeting, ignoring
+     * case, punctuation and the spelling of umlauts and tolerating small transcription differences. Empty (the
+     * default) adds nothing.
+     * Example: <code>&quot;mailbox von&quot;</code>, the wording of a carrier&apos;s mailbox the built-in lists do
+     * not know. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_machine_phrases = 11;</code>
      */
     private $additional_machine_phrases;
     /**
-     * Additional phrases that indicate a person, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate a person, added to the built-in German and English phrase lists (at most 50 phrases,
+     * each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no deployment
+     * setting). Hearing one of them counts as evidence of a person, matched like
+     * <code>additional_machine_phrases</code>, e.g. the way the people you call usually answer the phone. Empty
+     * (the default) adds nothing. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_human_phrases = 12;</code>
      */
     private $additional_human_phrases;
     /**
-     * Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)
+     * Optional: Hang up on a FAX verdict (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_FAX</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (a fax never gets a voice message); <code>false</code> lets the call continue
+     * with the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_fax = 13;</code>
      */
     protected $hang_up_on_fax = null;
     /**
-     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
-     * when the action is HANG_UP (default: true)
+     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. &quot;the number is not reachable&quot; or a special
+     * information tone (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_NETWORK_ANNOUNCEMENT</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left); <code>false</code> lets the call continue with
+     * the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_network_announcement = 14;</code>
      */
     protected $hang_up_on_network_announcement = null;
     /**
-     * Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)
+     * Optional: Hang up on an IVR verdict, i.e. an automated menu such as &quot;press 1 for ...&quot; (default:
+     * <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_IVR</code>). With the default the bot
+     * greets the IVR. Applies under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is
+     * left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_ivr = 15;</code>
      */
     protected $hang_up_on_ivr = null;
     /**
-     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
-     * the call, when the action is HANG_UP (default: false)
+     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of the
+     * call (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_CALL_SCREENING</code>).
+     * With the default the bot greets the assistant, which may then put the call through to the person. Applies
+     * under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_call_screening = 16;</code>
      */
     protected $hang_up_on_call_screening = null;
     /**
-     * Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
-     * LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
-     * 1 - 200 characters when set)
+     * Optional: Name of the NLU intent whose fulfillment is the voice message under
+     * <code>LEAVE_VOICE_MESSAGE</code>; it is triggered once per call (default: the welcome intent of the NLU
+     * project; 1 - 200 characters and not blank when set, otherwise refused with <code>INVALID_ARGUMENT</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_INTENT</code>). Ignored under the other actions.
+     * Example: an intent <code>i.voice_message</code> whose response is &quot;Hello, this is ... Please call us back
+     * at ...&quot;
      *
      * Generated from protobuf field <code>optional string voice_message_intent = 17;</code>
      */
     protected $voice_message_intent = null;
     /**
-     * Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
-     * machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
-     * 0 speaks immediately (default: 10000, valid range: 0 - 30000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the longest time in milliseconds after the verdict to wait
+     * for the beep, or for the machine greeting to end in silence, before the voice message is spoken anyway
+     * (default: 10000, valid range: 0 - 30000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_MAX_BEEP_WAIT_MS</code>). <code>0</code> speaks it immediately at the
+     * verdict, possibly over the rest of the greeting. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_max_beep_wait_ms = 18;</code>
      */
     protected $voice_message_max_beep_wait_ms = null;
     /**
-     * Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
-     * LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
-     * (default: 30000, valid range: 5000 - 120000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the time in milliseconds after the verdict at which the call
+     * is hung up at the latest, also when the voice message has not finished playing (default: 30000, valid range:
+     * 5000 - 120000; deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_TIMEOUT_MS</code>). It bounds the wait
+     * for the beep plus the message itself, so choose it above <code>voice_message_max_beep_wait_ms</code> plus
+     * the length of the message, or the message is cut off. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_timeout_ms = 19;</code>
      */
     protected $voice_message_timeout_ms = null;
     /**
-     * Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
-     * built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
-     * removes this evidence and the detection rules that need it (default: true)
+     * Optional: Whether the words of the transcribed greeting are used as evidence, i.e. the built-in phrase lists
+     * plus <code>additional_machine_phrases</code> and <code>additional_human_phrases</code> (default:
+     * <code>true</code>; deployment setting <code>ONDEWO_VTSI_AMD_KEYWORD_DETECTION_ACTIVE</code>). With
+     * <code>false</code> the call is decided on tones and the rhythm of speech and silence alone: a mailbox phrase
+     * can no longer lead to a hangup, and the two phrase lists have no effect
      *
      * Generated from protobuf field <code>optional bool keyword_detection_active = 20;</code>
      */
     protected $keyword_detection_active = null;
     /**
-     * Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
-     * length and the silence after it; turning it off removes this evidence and the detection rules that
-     * need it (default: true)
+     * Optional: Whether the rhythm of speech and silence of the greeting is used as evidence, e.g. its length and
+     * the silence after it (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_CADENCE_DETECTION_ACTIVE</code>). With <code>false</code> the call is decided on tones and
+     * phrases alone; <code>max_human_greeting_ms</code>, <code>greeting_end_silence_ms</code> and
+     * <code>initial_silence_ms</code> then no longer decide the verdict, and a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code> instead of NO_SPEECH. The start of a voice message is still timed
      *
      * Generated from protobuf field <code>optional bool cadence_detection_active = 21;</code>
      */
@@ -193,68 +237,124 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $active
-     *           Optional: Master switch of the answering machine detection (default: false)
+     *           Optional: Master switch: <code>true</code> runs the detection on every outbound call of this caller
+     *           (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_ACTIVE</code>). While it is
+     *           <code>false</code> no other field of this message has an effect and calls behave exactly as without AMD
      *     @type int $action
-     *           Optional: Action on a non-human verdict (default: HANG_UP)
+     *           Optional: What the call does on a verdict that is not a person (default: <code>HANG_UP</code>; deployment
+     *           setting <code>ONDEWO_VTSI_AMD_ACTION</code>). See <code>AmdAction</code>
      *     @type int $sensitivity
-     *           Optional: Sensitivity of the detection (default: LOW)
+     *           Optional: How readily a machine is detected (default: <code>LOW</code>; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>). See <code>AmdSensitivity</code>
      *     @type int $max_decision_time_ms
-     *           Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
-     *           machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
-     *           (default: 4000, valid range: 1500 - 10000)
+     *           Optional: Milliseconds after the callee answered by which a verdict must be reached when nothing so far
+     *           pointed to a machine (default: 4000, valid range: 1500 - 10000; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_MAX_DECISION_TIME_MS</code>). When it is reached the verdict is UNKNOWN and the call
+     *           continues with the greeting. It is roughly the longest a person waits for the bot when nothing pointed to a
+     *           machine; a smaller value greets sooner, a larger one gives the detection more time
      *     @type int $max_machine_wait_ms
-     *           Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
-     *           machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
+     *           Optional: Milliseconds after the callee answered by which a verdict must be reached once something pointed
+     *           to a machine, e.g. a long greeting, a weaker machine phrase or beep, or continuous music (default: 11000,
+     *           valid range: 4000 - 20000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_MACHINE_WAIT_MS</code>). Such
+     *           evidence extends the decision window from <code>max_decision_time_ms</code> to this value, because a
+     *           mailbox greeting can be long. When it is reached without a decision the verdict is UNKNOWN and the call
+     *           continues with the greeting
      *     @type int $beep_wait_after_greeting_ms
-     *           Optional: Time in milliseconds to wait for a beep after a long greeting ended
-     *           (default: 1500, valid range: 0 - 4000)
+     *           Optional: Milliseconds to keep listening for a mailbox beep after a long greeting ended (default: 1500, valid
+     *           range: 0 - 4000; deployment setting <code>ONDEWO_VTSI_AMD_BEEP_WAIT_AFTER_GREETING_MS</code>). Under
+     *           <code>LEAVE_VOICE_MESSAGE</code> it is also the shortest silence after the greeting before the voice message
+     *           may start without a beep, so a message does not talk over a late beep
      *     @type int $initial_silence_ms
-     *           Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
-     *           is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
+     *           Optional: Milliseconds of silence after the callee answered, without any speech, after which the verdict is
+     *           NO_SPEECH (default: 3500, valid range: 1000 - 10000; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_INITIAL_SILENCE_MS</code>). NO_SPEECH is treated like a person: the bot greets, the call
+     *           is not hung up. Needs <code>cadence_detection_active</code>; without it a silent line ends as UNKNOWN at
+     *           <code>max_decision_time_ms</code>
      *     @type int $max_human_greeting_ms
-     *           Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
-     *           (default: 2400, valid range: 1000 - 6000)
+     *           Optional: Milliseconds of continuous speech beyond which a greeting points to a machine (default: 2400,
+     *           valid range: 1000 - 6000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_HUMAN_GREETING_MS</code>). People
+     *           answer briefly (&quot;Hello?&quot;), mailboxes talk longer. A long greeting alone never hangs up; it extends
+     *           the window to <code>max_machine_wait_ms</code> and, from sensitivity <code>MEDIUM</code>, can decide together
+     *           with other evidence. A larger value treats long-winded people more safely and recognises fewer machines by
+     *           their greeting length
      *     @type int $greeting_end_silence_ms
-     *           Optional: Silence in milliseconds after the first speech burst that ends a human greeting
-     *           (default: 900, valid range: 300 - 3000)
+     *           Optional: Milliseconds of silence after the callee&apos;s first words that end a short, person-like greeting
+     *           (default: 900, valid range: 300 - 3000; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_GREETING_END_SILENCE_MS</code>). Under <code>LEAVE_VOICE_MESSAGE</code> it is also a
+     *           lower bound of the silence after the machine greeting before the voice message may start
      *     @type bool $beep_detection_active
-     *           Optional: Enable the tone detector for the beep of an answering machine (default: true)
+     *           Optional: Whether the tone detector listens for the beep of an answering machine (default: <code>true</code>;
+     *           deployment setting <code>ONDEWO_VTSI_AMD_BEEP_DETECTION_ACTIVE</code>). With <code>false</code> a beep is no
+     *           evidence, and under <code>LEAVE_VOICE_MESSAGE</code> the message starts when the greeting ended in silence or
+     *           at <code>voice_message_max_beep_wait_ms</code> instead of after the beep
      *     @type string[] $additional_machine_phrases
-     *           Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
-     *           (maximum 50 phrases, each 1 - 80 characters)
+     *           Phrases that indicate an answering machine, added to the built-in German and English phrase lists (at most
+     *           50 phrases, each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no
+     *           deployment setting). Hearing one of them in the callee&apos;s greeting is strong evidence: it alone decides
+     *           MACHINE, at every sensitivity. Phrases are matched word by word against the transcribed greeting, ignoring
+     *           case, punctuation and the spelling of umlauts and tolerating small transcription differences. Empty (the
+     *           default) adds nothing.
+     *           Example: <code>&quot;mailbox von&quot;</code>, the wording of a carrier&apos;s mailbox the built-in lists do
+     *           not know. Needs <code>keyword_detection_active</code>
      *     @type string[] $additional_human_phrases
-     *           Additional phrases that indicate a person, added to the built-in de and en phrase lists
-     *           (maximum 50 phrases, each 1 - 80 characters)
+     *           Phrases that indicate a person, added to the built-in German and English phrase lists (at most 50 phrases,
+     *           each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no deployment
+     *           setting). Hearing one of them counts as evidence of a person, matched like
+     *           <code>additional_machine_phrases</code>, e.g. the way the people you call usually answer the phone. Empty
+     *           (the default) adds nothing. Needs <code>keyword_detection_active</code>
      *     @type bool $hang_up_on_fax
-     *           Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)
+     *           Optional: Hang up on a FAX verdict (default: <code>true</code>; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_HANG_UP_ON_FAX</code>). Applies under <code>HANG_UP</code> and
+     *           <code>LEAVE_VOICE_MESSAGE</code> (a fax never gets a voice message); <code>false</code> lets the call continue
+     *           with the greeting
      *     @type bool $hang_up_on_network_announcement
-     *           Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
-     *           when the action is HANG_UP (default: true)
+     *           Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. &quot;the number is not reachable&quot; or a special
+     *           information tone (default: <code>true</code>; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_HANG_UP_ON_NETWORK_ANNOUNCEMENT</code>). Applies under <code>HANG_UP</code> and
+     *           <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left); <code>false</code> lets the call continue with
+     *           the greeting
      *     @type bool $hang_up_on_ivr
-     *           Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)
+     *           Optional: Hang up on an IVR verdict, i.e. an automated menu such as &quot;press 1 for ...&quot; (default:
+     *           <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_IVR</code>). With the default the bot
+     *           greets the IVR. Applies under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is
+     *           left)
      *     @type bool $hang_up_on_call_screening
-     *           Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
-     *           the call, when the action is HANG_UP (default: false)
+     *           Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of the
+     *           call (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_CALL_SCREENING</code>).
+     *           With the default the bot greets the assistant, which may then put the call through to the person. Applies
+     *           under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left)
      *     @type string $voice_message_intent
-     *           Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
-     *           LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
-     *           1 - 200 characters when set)
+     *           Optional: Name of the NLU intent whose fulfillment is the voice message under
+     *           <code>LEAVE_VOICE_MESSAGE</code>; it is triggered once per call (default: the welcome intent of the NLU
+     *           project; 1 - 200 characters and not blank when set, otherwise refused with <code>INVALID_ARGUMENT</code>;
+     *           deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_INTENT</code>). Ignored under the other actions.
+     *           Example: an intent <code>i.voice_message</code> whose response is &quot;Hello, this is ... Please call us back
+     *           at ...&quot;
      *     @type int $voice_message_max_beep_wait_ms
-     *           Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
-     *           machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
-     *           0 speaks immediately (default: 10000, valid range: 0 - 30000)
+     *           Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the longest time in milliseconds after the verdict to wait
+     *           for the beep, or for the machine greeting to end in silence, before the voice message is spoken anyway
+     *           (default: 10000, valid range: 0 - 30000; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_MAX_BEEP_WAIT_MS</code>). <code>0</code> speaks it immediately at the
+     *           verdict, possibly over the rest of the greeting. Ignored under the other actions
      *     @type int $voice_message_timeout_ms
-     *           Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
-     *           LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
-     *           (default: 30000, valid range: 5000 - 120000)
+     *           Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the time in milliseconds after the verdict at which the call
+     *           is hung up at the latest, also when the voice message has not finished playing (default: 30000, valid range:
+     *           5000 - 120000; deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_TIMEOUT_MS</code>). It bounds the wait
+     *           for the beep plus the message itself, so choose it above <code>voice_message_max_beep_wait_ms</code> plus
+     *           the length of the message, or the message is cut off. Ignored under the other actions
      *     @type bool $keyword_detection_active
-     *           Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
-     *           built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
-     *           removes this evidence and the detection rules that need it (default: true)
+     *           Optional: Whether the words of the transcribed greeting are used as evidence, i.e. the built-in phrase lists
+     *           plus <code>additional_machine_phrases</code> and <code>additional_human_phrases</code> (default:
+     *           <code>true</code>; deployment setting <code>ONDEWO_VTSI_AMD_KEYWORD_DETECTION_ACTIVE</code>). With
+     *           <code>false</code> the call is decided on tones and the rhythm of speech and silence alone: a mailbox phrase
+     *           can no longer lead to a hangup, and the two phrase lists have no effect
      *     @type bool $cadence_detection_active
-     *           Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
-     *           length and the silence after it; turning it off removes this evidence and the detection rules that
-     *           need it (default: true)
+     *           Optional: Whether the rhythm of speech and silence of the greeting is used as evidence, e.g. its length and
+     *           the silence after it (default: <code>true</code>; deployment setting
+     *           <code>ONDEWO_VTSI_AMD_CADENCE_DETECTION_ACTIVE</code>). With <code>false</code> the call is decided on tones and
+     *           phrases alone; <code>max_human_greeting_ms</code>, <code>greeting_end_silence_ms</code> and
+     *           <code>initial_silence_ms</code> then no longer decide the verdict, and a silent line ends as UNKNOWN at
+     *           <code>max_decision_time_ms</code> instead of NO_SPEECH. The start of a voice message is still timed
      * }
      */
     public function __construct($data = NULL) {
@@ -263,7 +363,9 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Master switch of the answering machine detection (default: false)
+     * Optional: Master switch: <code>true</code> runs the detection on every outbound call of this caller
+     * (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_ACTIVE</code>). While it is
+     * <code>false</code> no other field of this message has an effect and calls behave exactly as without AMD
      *
      * Generated from protobuf field <code>optional bool active = 1;</code>
      * @return bool
@@ -284,7 +386,9 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Master switch of the answering machine detection (default: false)
+     * Optional: Master switch: <code>true</code> runs the detection on every outbound call of this caller
+     * (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_ACTIVE</code>). While it is
+     * <code>false</code> no other field of this message has an effect and calls behave exactly as without AMD
      *
      * Generated from protobuf field <code>optional bool active = 1;</code>
      * @param bool $var
@@ -298,7 +402,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Action on a non-human verdict (default: HANG_UP)
+     * Optional: What the call does on a verdict that is not a person (default: <code>HANG_UP</code>; deployment
+     * setting <code>ONDEWO_VTSI_AMD_ACTION</code>). See <code>AmdAction</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction action = 2;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdAction}
@@ -319,7 +424,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Action on a non-human verdict (default: HANG_UP)
+     * Optional: What the call does on a verdict that is not a person (default: <code>HANG_UP</code>; deployment
+     * setting <code>ONDEWO_VTSI_AMD_ACTION</code>). See <code>AmdAction</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdAction action = 2;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdAction}
@@ -334,7 +440,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Sensitivity of the detection (default: LOW)
+     * Optional: How readily a machine is detected (default: <code>LOW</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>). See <code>AmdSensitivity</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity sensitivity = 3;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdSensitivity}
@@ -355,7 +462,8 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Sensitivity of the detection (default: LOW)
+     * Optional: How readily a machine is detected (default: <code>LOW</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>). See <code>AmdSensitivity</code>
      *
      * Generated from protobuf field <code>optional .ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity sensitivity = 3;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\AnsweringMachineDetectionConfig\AmdSensitivity}
@@ -370,9 +478,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
-     * machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
-     * (default: 4000, valid range: 1500 - 10000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached when nothing so far
+     * pointed to a machine (default: 4000, valid range: 1500 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_MAX_DECISION_TIME_MS</code>). When it is reached the verdict is UNKNOWN and the call
+     * continues with the greeting. It is roughly the longest a person waits for the bot when nothing pointed to a
+     * machine; a smaller value greets sooner, a larger one gives the detection more time
      *
      * Generated from protobuf field <code>optional int32 max_decision_time_ms = 4;</code>
      * @return int
@@ -393,9 +503,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict when no
-     * machine-leaning evidence was seen; the verdict is UNKNOWN when it is reached
-     * (default: 4000, valid range: 1500 - 10000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached when nothing so far
+     * pointed to a machine (default: 4000, valid range: 1500 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_MAX_DECISION_TIME_MS</code>). When it is reached the verdict is UNKNOWN and the call
+     * continues with the greeting. It is roughly the longest a person waits for the bot when nothing pointed to a
+     * machine; a smaller value greets sooner, a larger one gives the detection more time
      *
      * Generated from protobuf field <code>optional int32 max_decision_time_ms = 4;</code>
      * @param int $var
@@ -410,8 +522,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
-     * machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached once something pointed
+     * to a machine, e.g. a long greeting, a weaker machine phrase or beep, or continuous music (default: 11000,
+     * valid range: 4000 - 20000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_MACHINE_WAIT_MS</code>). Such
+     * evidence extends the decision window from <code>max_decision_time_ms</code> to this value, because a
+     * mailbox greeting can be long. When it is reached without a decision the verdict is UNKNOWN and the call
+     * continues with the greeting
      *
      * Generated from protobuf field <code>optional int32 max_machine_wait_ms = 5;</code>
      * @return int
@@ -432,8 +548,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the callee answered to reach a verdict once
-     * machine-leaning evidence extended the decision window (default: 11000, valid range: 4000 - 20000)
+     * Optional: Milliseconds after the callee answered by which a verdict must be reached once something pointed
+     * to a machine, e.g. a long greeting, a weaker machine phrase or beep, or continuous music (default: 11000,
+     * valid range: 4000 - 20000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_MACHINE_WAIT_MS</code>). Such
+     * evidence extends the decision window from <code>max_decision_time_ms</code> to this value, because a
+     * mailbox greeting can be long. When it is reached without a decision the verdict is UNKNOWN and the call
+     * continues with the greeting
      *
      * Generated from protobuf field <code>optional int32 max_machine_wait_ms = 5;</code>
      * @param int $var
@@ -448,8 +568,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Time in milliseconds to wait for a beep after a long greeting ended
-     * (default: 1500, valid range: 0 - 4000)
+     * Optional: Milliseconds to keep listening for a mailbox beep after a long greeting ended (default: 1500, valid
+     * range: 0 - 4000; deployment setting <code>ONDEWO_VTSI_AMD_BEEP_WAIT_AFTER_GREETING_MS</code>). Under
+     * <code>LEAVE_VOICE_MESSAGE</code> it is also the shortest silence after the greeting before the voice message
+     * may start without a beep, so a message does not talk over a late beep
      *
      * Generated from protobuf field <code>optional int32 beep_wait_after_greeting_ms = 6;</code>
      * @return int
@@ -470,8 +592,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Time in milliseconds to wait for a beep after a long greeting ended
-     * (default: 1500, valid range: 0 - 4000)
+     * Optional: Milliseconds to keep listening for a mailbox beep after a long greeting ended (default: 1500, valid
+     * range: 0 - 4000; deployment setting <code>ONDEWO_VTSI_AMD_BEEP_WAIT_AFTER_GREETING_MS</code>). Under
+     * <code>LEAVE_VOICE_MESSAGE</code> it is also the shortest silence after the greeting before the voice message
+     * may start without a beep, so a message does not talk over a late beep
      *
      * Generated from protobuf field <code>optional int32 beep_wait_after_greeting_ms = 6;</code>
      * @param int $var
@@ -486,8 +610,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
-     * is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
+     * Optional: Milliseconds of silence after the callee answered, without any speech, after which the verdict is
+     * NO_SPEECH (default: 3500, valid range: 1000 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_INITIAL_SILENCE_MS</code>). NO_SPEECH is treated like a person: the bot greets, the call
+     * is not hung up. Needs <code>cadence_detection_active</code>; without it a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code>
      *
      * Generated from protobuf field <code>optional int32 initial_silence_ms = 7;</code>
      * @return int
@@ -508,8 +635,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in milliseconds after the callee answered without any speech, after which the verdict
-     * is NO_SPEECH, which is treated like a person (default: 3500, valid range: 1000 - 10000)
+     * Optional: Milliseconds of silence after the callee answered, without any speech, after which the verdict is
+     * NO_SPEECH (default: 3500, valid range: 1000 - 10000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_INITIAL_SILENCE_MS</code>). NO_SPEECH is treated like a person: the bot greets, the call
+     * is not hung up. Needs <code>cadence_detection_active</code>; without it a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code>
      *
      * Generated from protobuf field <code>optional int32 initial_silence_ms = 7;</code>
      * @param int $var
@@ -524,8 +654,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
-     * (default: 2400, valid range: 1000 - 6000)
+     * Optional: Milliseconds of continuous speech beyond which a greeting points to a machine (default: 2400,
+     * valid range: 1000 - 6000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_HUMAN_GREETING_MS</code>). People
+     * answer briefly (&quot;Hello?&quot;), mailboxes talk longer. A long greeting alone never hangs up; it extends
+     * the window to <code>max_machine_wait_ms</code> and, from sensitivity <code>MEDIUM</code>, can decide together
+     * with other evidence. A larger value treats long-winded people more safely and recognises fewer machines by
+     * their greeting length
      *
      * Generated from protobuf field <code>optional int32 max_human_greeting_ms = 8;</code>
      * @return int
@@ -546,8 +680,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Continuous speech in milliseconds beyond which a greeting is machine-leaning
-     * (default: 2400, valid range: 1000 - 6000)
+     * Optional: Milliseconds of continuous speech beyond which a greeting points to a machine (default: 2400,
+     * valid range: 1000 - 6000; deployment setting <code>ONDEWO_VTSI_AMD_MAX_HUMAN_GREETING_MS</code>). People
+     * answer briefly (&quot;Hello?&quot;), mailboxes talk longer. A long greeting alone never hangs up; it extends
+     * the window to <code>max_machine_wait_ms</code> and, from sensitivity <code>MEDIUM</code>, can decide together
+     * with other evidence. A larger value treats long-winded people more safely and recognises fewer machines by
+     * their greeting length
      *
      * Generated from protobuf field <code>optional int32 max_human_greeting_ms = 8;</code>
      * @param int $var
@@ -562,8 +700,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in milliseconds after the first speech burst that ends a human greeting
-     * (default: 900, valid range: 300 - 3000)
+     * Optional: Milliseconds of silence after the callee&apos;s first words that end a short, person-like greeting
+     * (default: 900, valid range: 300 - 3000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_GREETING_END_SILENCE_MS</code>). Under <code>LEAVE_VOICE_MESSAGE</code> it is also a
+     * lower bound of the silence after the machine greeting before the voice message may start
      *
      * Generated from protobuf field <code>optional int32 greeting_end_silence_ms = 9;</code>
      * @return int
@@ -584,8 +724,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Silence in milliseconds after the first speech burst that ends a human greeting
-     * (default: 900, valid range: 300 - 3000)
+     * Optional: Milliseconds of silence after the callee&apos;s first words that end a short, person-like greeting
+     * (default: 900, valid range: 300 - 3000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_GREETING_END_SILENCE_MS</code>). Under <code>LEAVE_VOICE_MESSAGE</code> it is also a
+     * lower bound of the silence after the machine greeting before the voice message may start
      *
      * Generated from protobuf field <code>optional int32 greeting_end_silence_ms = 9;</code>
      * @param int $var
@@ -600,7 +742,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the tone detector for the beep of an answering machine (default: true)
+     * Optional: Whether the tone detector listens for the beep of an answering machine (default: <code>true</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_BEEP_DETECTION_ACTIVE</code>). With <code>false</code> a beep is no
+     * evidence, and under <code>LEAVE_VOICE_MESSAGE</code> the message starts when the greeting ended in silence or
+     * at <code>voice_message_max_beep_wait_ms</code> instead of after the beep
      *
      * Generated from protobuf field <code>optional bool beep_detection_active = 10;</code>
      * @return bool
@@ -621,7 +766,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the tone detector for the beep of an answering machine (default: true)
+     * Optional: Whether the tone detector listens for the beep of an answering machine (default: <code>true</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_BEEP_DETECTION_ACTIVE</code>). With <code>false</code> a beep is no
+     * evidence, and under <code>LEAVE_VOICE_MESSAGE</code> the message starts when the greeting ended in silence or
+     * at <code>voice_message_max_beep_wait_ms</code> instead of after the beep
      *
      * Generated from protobuf field <code>optional bool beep_detection_active = 10;</code>
      * @param bool $var
@@ -635,8 +783,14 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate an answering machine, added to the built-in German and English phrase lists (at most
+     * 50 phrases, each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no
+     * deployment setting). Hearing one of them in the callee&apos;s greeting is strong evidence: it alone decides
+     * MACHINE, at every sensitivity. Phrases are matched word by word against the transcribed greeting, ignoring
+     * case, punctuation and the spelling of umlauts and tolerating small transcription differences. Empty (the
+     * default) adds nothing.
+     * Example: <code>&quot;mailbox von&quot;</code>, the wording of a carrier&apos;s mailbox the built-in lists do
+     * not know. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_machine_phrases = 11;</code>
      * @return RepeatedField<string>
@@ -647,8 +801,14 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Additional phrases that indicate an answering machine, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate an answering machine, added to the built-in German and English phrase lists (at most
+     * 50 phrases, each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no
+     * deployment setting). Hearing one of them in the callee&apos;s greeting is strong evidence: it alone decides
+     * MACHINE, at every sensitivity. Phrases are matched word by word against the transcribed greeting, ignoring
+     * case, punctuation and the spelling of umlauts and tolerating small transcription differences. Empty (the
+     * default) adds nothing.
+     * Example: <code>&quot;mailbox von&quot;</code>, the wording of a carrier&apos;s mailbox the built-in lists do
+     * not know. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_machine_phrases = 11;</code>
      * @param string[] $var
@@ -663,8 +823,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Additional phrases that indicate a person, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate a person, added to the built-in German and English phrase lists (at most 50 phrases,
+     * each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no deployment
+     * setting). Hearing one of them counts as evidence of a person, matched like
+     * <code>additional_machine_phrases</code>, e.g. the way the people you call usually answer the phone. Empty
+     * (the default) adds nothing. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_human_phrases = 12;</code>
      * @return RepeatedField<string>
@@ -675,8 +838,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Additional phrases that indicate a person, added to the built-in de and en phrase lists
-     * (maximum 50 phrases, each 1 - 80 characters)
+     * Phrases that indicate a person, added to the built-in German and English phrase lists (at most 50 phrases,
+     * each 1 - 80 characters and not blank; otherwise refused with <code>INVALID_ARGUMENT</code>; no deployment
+     * setting). Hearing one of them counts as evidence of a person, matched like
+     * <code>additional_machine_phrases</code>, e.g. the way the people you call usually answer the phone. Empty
+     * (the default) adds nothing. Needs <code>keyword_detection_active</code>
      *
      * Generated from protobuf field <code>repeated string additional_human_phrases = 12;</code>
      * @param string[] $var
@@ -691,7 +857,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)
+     * Optional: Hang up on a FAX verdict (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_FAX</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (a fax never gets a voice message); <code>false</code> lets the call continue
+     * with the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_fax = 13;</code>
      * @return bool
@@ -712,7 +881,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a FAX verdict when the action is HANG_UP (default: true)
+     * Optional: Hang up on a FAX verdict (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_FAX</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (a fax never gets a voice message); <code>false</code> lets the call continue
+     * with the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_fax = 13;</code>
      * @param bool $var
@@ -726,8 +898,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
-     * when the action is HANG_UP (default: true)
+     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. &quot;the number is not reachable&quot; or a special
+     * information tone (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_NETWORK_ANNOUNCEMENT</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left); <code>false</code> lets the call continue with
+     * the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_network_announcement = 14;</code>
      * @return bool
@@ -748,8 +923,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. "the number is not reachable",
-     * when the action is HANG_UP (default: true)
+     * Optional: Hang up on a NETWORK_ANNOUNCEMENT verdict, e.g. &quot;the number is not reachable&quot; or a special
+     * information tone (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_HANG_UP_ON_NETWORK_ANNOUNCEMENT</code>). Applies under <code>HANG_UP</code> and
+     * <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left); <code>false</code> lets the call continue with
+     * the greeting
      *
      * Generated from protobuf field <code>optional bool hang_up_on_network_announcement = 14;</code>
      * @param bool $var
@@ -763,7 +941,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)
+     * Optional: Hang up on an IVR verdict, i.e. an automated menu such as &quot;press 1 for ...&quot; (default:
+     * <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_IVR</code>). With the default the bot
+     * greets the IVR. Applies under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is
+     * left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_ivr = 15;</code>
      * @return bool
@@ -784,7 +965,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on an IVR verdict, i.e. an automated menu, when the action is HANG_UP (default: false)
+     * Optional: Hang up on an IVR verdict, i.e. an automated menu such as &quot;press 1 for ...&quot; (default:
+     * <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_IVR</code>). With the default the bot
+     * greets the IVR. Applies under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is
+     * left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_ivr = 15;</code>
      * @param bool $var
@@ -798,8 +982,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
-     * the call, when the action is HANG_UP (default: false)
+     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of the
+     * call (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_CALL_SCREENING</code>).
+     * With the default the bot greets the assistant, which may then put the call through to the person. Applies
+     * under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_call_screening = 16;</code>
      * @return bool
@@ -820,8 +1006,10 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of
-     * the call, when the action is HANG_UP (default: false)
+     * Optional: Hang up on a CALL_SCREENING verdict, i.e. a call screening assistant asking for the reason of the
+     * call (default: <code>false</code>; deployment setting <code>ONDEWO_VTSI_AMD_HANG_UP_ON_CALL_SCREENING</code>).
+     * With the default the bot greets the assistant, which may then put the call through to the person. Applies
+     * under <code>HANG_UP</code> and <code>LEAVE_VOICE_MESSAGE</code> (no voice message is left)
      *
      * Generated from protobuf field <code>optional bool hang_up_on_call_screening = 16;</code>
      * @param bool $var
@@ -835,9 +1023,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
-     * LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
-     * 1 - 200 characters when set)
+     * Optional: Name of the NLU intent whose fulfillment is the voice message under
+     * <code>LEAVE_VOICE_MESSAGE</code>; it is triggered once per call (default: the welcome intent of the NLU
+     * project; 1 - 200 characters and not blank when set, otherwise refused with <code>INVALID_ARGUMENT</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_INTENT</code>). Ignored under the other actions.
+     * Example: an intent <code>i.voice_message</code> whose response is &quot;Hello, this is ... Please call us back
+     * at ...&quot;
      *
      * Generated from protobuf field <code>optional string voice_message_intent = 17;</code>
      * @return string
@@ -858,9 +1049,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Name of the NLU intent whose fulfillment is the voice message when the action is
-     * LEAVE_VOICE_MESSAGE; it is triggered once (default: the welcome intent of the NLU project,
-     * 1 - 200 characters when set)
+     * Optional: Name of the NLU intent whose fulfillment is the voice message under
+     * <code>LEAVE_VOICE_MESSAGE</code>; it is triggered once per call (default: the welcome intent of the NLU
+     * project; 1 - 200 characters and not blank when set, otherwise refused with <code>INVALID_ARGUMENT</code>;
+     * deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_INTENT</code>). Ignored under the other actions.
+     * Example: an intent <code>i.voice_message</code> whose response is &quot;Hello, this is ... Please call us back
+     * at ...&quot;
      *
      * Generated from protobuf field <code>optional string voice_message_intent = 17;</code>
      * @param string $var
@@ -875,9 +1069,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
-     * machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
-     * 0 speaks immediately (default: 10000, valid range: 0 - 30000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the longest time in milliseconds after the verdict to wait
+     * for the beep, or for the machine greeting to end in silence, before the voice message is spoken anyway
+     * (default: 10000, valid range: 0 - 30000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_MAX_BEEP_WAIT_MS</code>). <code>0</code> speaks it immediately at the
+     * verdict, possibly over the rest of the greeting. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_max_beep_wait_ms = 18;</code>
      * @return int
@@ -898,9 +1094,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the verdict to wait for the beep, or for the end of the
-     * machine greeting, before the voice message is spoken when the action is LEAVE_VOICE_MESSAGE;
-     * 0 speaks immediately (default: 10000, valid range: 0 - 30000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the longest time in milliseconds after the verdict to wait
+     * for the beep, or for the machine greeting to end in silence, before the voice message is spoken anyway
+     * (default: 10000, valid range: 0 - 30000; deployment setting
+     * <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_MAX_BEEP_WAIT_MS</code>). <code>0</code> speaks it immediately at the
+     * verdict, possibly over the rest of the greeting. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_max_beep_wait_ms = 18;</code>
      * @param int $var
@@ -915,9 +1113,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
-     * LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
-     * (default: 30000, valid range: 5000 - 120000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the time in milliseconds after the verdict at which the call
+     * is hung up at the latest, also when the voice message has not finished playing (default: 30000, valid range:
+     * 5000 - 120000; deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_TIMEOUT_MS</code>). It bounds the wait
+     * for the beep plus the message itself, so choose it above <code>voice_message_max_beep_wait_ms</code> plus
+     * the length of the message, or the message is cut off. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_timeout_ms = 19;</code>
      * @return int
@@ -938,9 +1138,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Maximum time in milliseconds after the verdict until the call is hung up when the action is
-     * LEAVE_VOICE_MESSAGE, also when the voice message has not finished playing
-     * (default: 30000, valid range: 5000 - 120000)
+     * Optional: Under <code>LEAVE_VOICE_MESSAGE</code>, the time in milliseconds after the verdict at which the call
+     * is hung up at the latest, also when the voice message has not finished playing (default: 30000, valid range:
+     * 5000 - 120000; deployment setting <code>ONDEWO_VTSI_AMD_VOICE_MESSAGE_TIMEOUT_MS</code>). It bounds the wait
+     * for the beep plus the message itself, so choose it above <code>voice_message_max_beep_wait_ms</code> plus
+     * the length of the message, or the message is cut off. Ignored under the other actions
      *
      * Generated from protobuf field <code>optional int32 voice_message_timeout_ms = 19;</code>
      * @param int $var
@@ -955,9 +1157,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
-     * built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
-     * removes this evidence and the detection rules that need it (default: true)
+     * Optional: Whether the words of the transcribed greeting are used as evidence, i.e. the built-in phrase lists
+     * plus <code>additional_machine_phrases</code> and <code>additional_human_phrases</code> (default:
+     * <code>true</code>; deployment setting <code>ONDEWO_VTSI_AMD_KEYWORD_DETECTION_ACTIVE</code>). With
+     * <code>false</code> the call is decided on tones and the rhythm of speech and silence alone: a mailbox phrase
+     * can no longer lead to a hangup, and the two phrase lists have no effect
      *
      * Generated from protobuf field <code>optional bool keyword_detection_active = 20;</code>
      * @return bool
@@ -978,9 +1182,11 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the detection of machine and person phrases in the transcribed greeting, i.e. the
-     * built-in phrase lists plus additional_machine_phrases and additional_human_phrases; turning it off
-     * removes this evidence and the detection rules that need it (default: true)
+     * Optional: Whether the words of the transcribed greeting are used as evidence, i.e. the built-in phrase lists
+     * plus <code>additional_machine_phrases</code> and <code>additional_human_phrases</code> (default:
+     * <code>true</code>; deployment setting <code>ONDEWO_VTSI_AMD_KEYWORD_DETECTION_ACTIVE</code>). With
+     * <code>false</code> the call is decided on tones and the rhythm of speech and silence alone: a mailbox phrase
+     * can no longer lead to a hangup, and the two phrase lists have no effect
      *
      * Generated from protobuf field <code>optional bool keyword_detection_active = 20;</code>
      * @param bool $var
@@ -994,9 +1200,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
-     * length and the silence after it; turning it off removes this evidence and the detection rules that
-     * need it (default: true)
+     * Optional: Whether the rhythm of speech and silence of the greeting is used as evidence, e.g. its length and
+     * the silence after it (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_CADENCE_DETECTION_ACTIVE</code>). With <code>false</code> the call is decided on tones and
+     * phrases alone; <code>max_human_greeting_ms</code>, <code>greeting_end_silence_ms</code> and
+     * <code>initial_silence_ms</code> then no longer decide the verdict, and a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code> instead of NO_SPEECH. The start of a voice message is still timed
      *
      * Generated from protobuf field <code>optional bool cadence_detection_active = 21;</code>
      * @return bool
@@ -1017,9 +1226,12 @@ class AnsweringMachineDetectionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable the detection based on the speech and silence cadence of the greeting, e.g. its
-     * length and the silence after it; turning it off removes this evidence and the detection rules that
-     * need it (default: true)
+     * Optional: Whether the rhythm of speech and silence of the greeting is used as evidence, e.g. its length and
+     * the silence after it (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_AMD_CADENCE_DETECTION_ACTIVE</code>). With <code>false</code> the call is decided on tones and
+     * phrases alone; <code>max_human_greeting_ms</code>, <code>greeting_end_silence_ms</code> and
+     * <code>initial_silence_ms</code> then no longer decide the verdict, and a silent line ends as UNKNOWN at
+     * <code>max_decision_time_ms</code> instead of NO_SPEECH. The start of a voice message is still timed
      *
      * Generated from protobuf field <code>optional bool cadence_detection_active = 21;</code>
      * @param bool $var

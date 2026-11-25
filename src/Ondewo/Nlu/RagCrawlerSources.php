@@ -11,9 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Crawl entry points.
- * Both inputs can be provided at the same time:
- * - Sitemaps are expanded into a crawl URL list (in discovery order)
- * - Seed URLs are appended afterwards (in the order provided)
+ * Both inputs can be provided at the same time: - Sitemaps are expanded into a crawl URL list (in discovery order) - Seed URLs are appended afterwards (in the order provided)
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerSources</code>
  */

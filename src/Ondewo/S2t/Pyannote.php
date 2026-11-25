@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Pyannote contains configuration for the Pyannote voice activity detection model.</p>
- * <p>Library: <a href="https://github.com/pyannote/pyannote-audio/blob/develop/tutorials/voice_activity_detection.ipynb">pyannote-audio</a></p>
+ * Pyannote contains configuration for the Pyannote voice activity detection model.
+ * Library: <a href="https://github.com/pyannote/pyannote-audio/blob/develop/tutorials/voice_activity_detection.ipynb">pyannote-audio</a>
  *
  * Generated from protobuf message <code>ondewo.s2t.Pyannote</code>
  */

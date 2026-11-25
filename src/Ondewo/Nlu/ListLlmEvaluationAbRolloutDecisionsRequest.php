@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to list A/B rollout decisions within a project, optionally narrowed by
- * filter (typically by experiment).
+ * Request to list A/B rollout decisions within a project, optionally narrowed by filter (typically by experiment).
  *
  * Generated from protobuf message <code>ondewo.nlu.ListLlmEvaluationAbRolloutDecisionsRequest</code>
  */

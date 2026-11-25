@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionHoldBands carries the hold bands of <code>TurnDetectionEndOfUtteranceLlmOptions</code>. No other
- * detector reads them.</p>
+ * TurnDetectionHoldBands carries the hold bands of <code>TurnDetectionEndOfUtteranceLlmOptions</code>. No other detector reads them.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionHoldBands</code>
  */

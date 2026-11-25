@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCall">Calls.UpdateCall</a>, and one entry
- * of <code>UpdateCallsResponse</code>.
+ * The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateCall">Calls.UpdateCall</a>, and one entry of <code>UpdateCallsResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateCallResponse</code>
  */

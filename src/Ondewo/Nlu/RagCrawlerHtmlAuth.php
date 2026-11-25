@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Form/HTML login configuration.
- * Selector types and selector strings identify login form fields in the page
- * DOM. Credentials are then filled before form submission.
+ * Selector types and selector strings identify login form fields in the page DOM. Credentials are then filled before form submission.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerHtmlAuth</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>LanguageModelPipelineId contains information about a pipeline and its available language models.</p>
+ * LanguageModelPipelineId contains information about a pipeline and its available language models.
  *
  * Generated from protobuf message <code>ondewo.s2t.LanguageModelPipelineId</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The project&apos;s listener queue as a transfer target. Carries no fields</p>
+ * The project&apos;s listener queue as a transfer target. Carries no fields
  *
  * Generated from protobuf message <code>ondewo.vtsi.ListenerQueueTarget</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>PhonemizerId message represents the ID of a phonemizer.</p>
+ * PhonemizerId message represents the ID of a phonemizer.
  *
  * Generated from protobuf message <code>ondewo.t2s.PhonemizerId</code>
  */

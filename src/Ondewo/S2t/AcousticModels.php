@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>AcousticModels contains information about different types of acoustic models.</p>
+ * AcousticModels contains information about different types of acoustic models.
  *
  * Generated from protobuf message <code>ondewo.s2t.AcousticModels</code>
  */

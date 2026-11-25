@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Identifies a field of <a href="index.html#ondewo.vtsi.CallLogFilter">CallLogFilter</a>. Used by
- * <a href="index.html#ondewo.vtsi.ListCallLogsResponse">ListCallLogsResponse.scope_limited_filters</a>
- * to declare which filters could only be applied inside the returned window.
+ * Identifies a field of <a href="index.html#ondewo.vtsi.CallLogFilter">CallLogFilter</a>. Used by <a href="index.html#ondewo.vtsi.ListCallLogsResponse">ListCallLogsResponse.scope_limited_filters</a> to declare which filters could only be applied inside the returned window.
  *
  * Protobuf type <code>ondewo.vtsi.CallLogFilterField</code>
  */

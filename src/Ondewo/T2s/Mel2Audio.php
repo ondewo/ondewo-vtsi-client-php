@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Mel2Audio message contains settings for mel-to-audio inference.</p>
+ * Mel2Audio message contains settings for mel-to-audio inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.Mel2Audio</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One problem of an IVR menu draft</p>
+ * One problem of an IVR menu draft
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrMenuIssue</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * An immutable persisted report artifact (release summaries, gate sign-offs,
- * exported evaluation snapshots).
+ * An immutable persisted report artifact (release summaries, gate sign-offs, exported evaluation snapshots).
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationReport</code>
  */

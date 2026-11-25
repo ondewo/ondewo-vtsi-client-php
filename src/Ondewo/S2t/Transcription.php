@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The transcription message</p>
+ * The transcription message
  *
  * Generated from protobuf message <code>ondewo.s2t.Transcription</code>
  */

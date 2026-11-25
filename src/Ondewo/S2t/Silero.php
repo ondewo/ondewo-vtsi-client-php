@@ -10,11 +10,9 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Silero contains configuration for the Silero voice activity detection model.</p>
- * <p>Unlike <code>Pyannote</code>, Silero is configured with its own parameters rather than
- * <code>(min_duration_on, min_duration_off)</code>. They carry exactly the meaning they have
- * upstream in <code>get_speech_timestamps</code> / <code>VADIterator</code>.</p>
- * <p>Library: <a href="https://github.com/snakers4/silero-vad">silero-vad</a></p>
+ * Silero contains configuration for the Silero voice activity detection model.
+ * Unlike <code>Pyannote</code>, Silero is configured with its own parameters rather than <code>(min_duration_on, min_duration_off)</code>. They carry exactly the meaning they have upstream in <code>get_speech_timestamps</code> / <code>VADIterator</code>.
+ * Library: <a href="https://github.com/snakers4/silero-vad">silero-vad</a>
  *
  * Generated from protobuf message <code>ondewo.s2t.Silero</code>
  */

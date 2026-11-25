@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The top-level message sent by the client to the <code>StreamingDetectIntent</code> method.
- * Multiple request messages should be sent in order:
- * 1.  The first message must contain <code>session</code>, <code>query_input</code> plus optionally <code>query_params</code> and/or <code>single_utterance</code>. The message must not contain <code>input_audio</code>.
- * 2.  If <code>query_input</code> was set to a streaming input audio config, all subsequent messages must contain only <code>input_audio</code>. Otherwise, finish the request stream.
+ * The top-level message sent by the client to the <code>StreamingDetectIntent</code> method. Multiple request messages should be sent in order: 1.  The first message must contain <code>session</code>, <code>query_input</code> plus optionally <code>query_params</code> and/or <code>single_utterance</code>. The message must not contain <code>input_audio</code>. 2.  If <code>query_input</code> was set to a streaming input audio config, all subsequent messages must contain only <code>input_audio</code>. Otherwise, finish the request stream.
  *
  * Generated from protobuf message <code>ondewo.nlu.StreamingDetectIntentRequest</code>
  */

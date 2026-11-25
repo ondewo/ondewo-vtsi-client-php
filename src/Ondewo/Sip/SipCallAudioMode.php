@@ -8,7 +8,7 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>Mode of a <code>SipStreamCallAudio</code> stream</p>
+ * Mode of a <code>SipStreamCallAudio</code> stream
  *
  * Protobuf type <code>ondewo.sip.SipCallAudioMode</code>
  */

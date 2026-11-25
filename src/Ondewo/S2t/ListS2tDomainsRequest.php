@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request message to list available domains. Optionally also filters can be set.</p>
+ * Request message to list available domains. Optionally also filters can be set.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tDomainsRequest</code>
  */

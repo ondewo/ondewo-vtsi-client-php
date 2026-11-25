@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Response of <code>StreamCallAudio</code> and <code>ListenCallAudio</code></p>
+ * Response of <code>StreamCallAudio</code> and <code>ListenCallAudio</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.StreamCallAudioResponse</code>
  */

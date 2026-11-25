@@ -27,6 +27,15 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
      * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
      * request is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>Its <code>sip_caller_config</code> and <code>common_services_config</code> are stored now and are the
+     * configuration of the one call placed when the scheduled caller fires, with the same inheritance as
+     * <code>StartCallerRequest.common_services_config</code> (unset fields take the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting in force at that time, otherwise the built-in default). After creation
+     * only <code>scheduled_time</code> and <code>sip_caller_config.sip_headers</code> can be changed
+     * (<code>UpdateScheduledCaller</code>); for any other change cancel it and create a new one. A scheduled
+     * caller is never served by a pooled caller: its call always gets a newly deployed caller, so answering
+     * machine detection (<code>voice_interaction_config.answering_machine_detection_config</code>) is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      */
@@ -72,6 +81,15 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      *           <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
      *           is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
      *           request is refused with <code>INVALID_ARGUMENT</code>.
+     *           <p>Its <code>sip_caller_config</code> and <code>common_services_config</code> are stored now and are the
+     *           configuration of the one call placed when the scheduled caller fires, with the same inheritance as
+     *           <code>StartCallerRequest.common_services_config</code> (unset fields take the deployment-wide
+     *           <code>ONDEWO_VTSI_*</code> setting in force at that time, otherwise the built-in default). After creation
+     *           only <code>scheduled_time</code> and <code>sip_caller_config.sip_headers</code> can be changed
+     *           (<code>UpdateScheduledCaller</code>); for any other change cancel it and create a new one. A scheduled
+     *           caller is never served by a pooled caller: its call always gets a newly deployed caller, so answering
+     *           machine detection (<code>voice_interaction_config.answering_machine_detection_config</code>) is refused
+     *           with <code>INVALID_ARGUMENT</code> (<code>reason=amd-requires-persistent-caller</code>).</p>
      *     @type \Google\Protobuf\Timestamp $scheduled_time
      *           Time at or after which the call is started, in UTC. The scheduler checks for due scheduled callers
      *           periodically, so the call starts at the first check at or after this time (typically within a few seconds),
@@ -129,6 +147,15 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
      * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
      * request is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>Its <code>sip_caller_config</code> and <code>common_services_config</code> are stored now and are the
+     * configuration of the one call placed when the scheduled caller fires, with the same inheritance as
+     * <code>StartCallerRequest.common_services_config</code> (unset fields take the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting in force at that time, otherwise the built-in default). After creation
+     * only <code>scheduled_time</code> and <code>sip_caller_config.sip_headers</code> can be changed
+     * (<code>UpdateScheduledCaller</code>); for any other change cancel it and create a new one. A scheduled
+     * caller is never served by a pooled caller: its call always gets a newly deployed caller, so answering
+     * machine detection (<code>voice_interaction_config.answering_machine_detection_config</code>) is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      * @return \Ondewo\Vtsi\StartCallerRequest|null
@@ -153,6 +180,15 @@ class StartScheduledCallerRequest extends \Google\Protobuf\Internal\Message
      * <code>StartCaller</code> (the live checks of the configuration run when the call is started, not when it
      * is scheduled). Its own <code>field_mask</code> and <code>validate_only</code> must be unset, otherwise the
      * request is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>Its <code>sip_caller_config</code> and <code>common_services_config</code> are stored now and are the
+     * configuration of the one call placed when the scheduled caller fires, with the same inheritance as
+     * <code>StartCallerRequest.common_services_config</code> (unset fields take the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting in force at that time, otherwise the built-in default). After creation
+     * only <code>scheduled_time</code> and <code>sip_caller_config.sip_headers</code> can be changed
+     * (<code>UpdateScheduledCaller</code>); for any other change cancel it and create a new one. A scheduled
+     * caller is never served by a pooled caller: its call always gets a newly deployed caller, so answering
+     * machine detection (<code>voice_interaction_config.answering_machine_detection_config</code>) is refused
+     * with <code>INVALID_ARGUMENT</code> (<code>reason=amd-requires-persistent-caller</code>).</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.StartCallerRequest request = 2;</code>
      * @param \Ondewo\Vtsi\StartCallerRequest $var

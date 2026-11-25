@@ -10,14 +10,15 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the SIP caller
+ * SIP side of an outbound call: the SIP container image, whom to dial and the SIP headers of the INVITE. Used by <code>StartCaller</code>, scheduled callers and campaigns (<code>Campaign.campaign_sip_caller_config</code>, merged under each call&apos;s own value).
+ * Pooled persistent callers: <code>callee_id</code> and <code>sip_headers</code> are sent with each call and are NOT part of the configuration a pooled caller is matched by, so calls to different callees, or with different headers, can reuse the same caller; <code>sip_base_config</code> is part of it.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SipCallerConfig</code>
  */
 class SipCallerConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * SIP configuration
+     * SIP container image of the call (see <code>SipBaseConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 1;</code>
      */
@@ -40,10 +41,11 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * SIP headers sent on the outbound INVITE, header name to value, e.g.
      * <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
      * <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
-     * convention <code>X-</code> headers); VTSI does not restrict them further, and a header the SIP stack or the
-     * Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>, which only takes
-     * <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by the caller&apos;s
-     * own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
+     * convention <code>X-</code> headers). <code>X-ondewo-vtsi-caller-call-id</code> is reserved: on a pooled
+     * persistent caller VTSI replaces it with the id of the call. VTSI does not restrict the other keys; a header
+     * the SIP stack or the Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>,
+     * which only takes <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by
+     * the caller&apos;s own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
      *
      * Generated from protobuf field <code>map<string, string> sip_headers = 3;</code>
      */
@@ -56,7 +58,7 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\SipBaseConfig $sip_base_config
-     *           SIP configuration
+     *           SIP container image of the call (see <code>SipBaseConfig</code>)
      *     @type string $callee_id
      *           The callee to dial: a phone number, e.g. <code>+4365012345678</code>, or a SIP / VoIP id, e.g.
      *           <code>ondewo0001\@ondewo.com</code> or a dialplan extension of the project&apos;s Asterisk. Required, at most
@@ -71,10 +73,11 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      *           SIP headers sent on the outbound INVITE, header name to value, e.g.
      *           <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
      *           <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
-     *           convention <code>X-</code> headers); VTSI does not restrict them further, and a header the SIP stack or the
-     *           Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>, which only takes
-     *           <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by the caller&apos;s
-     *           own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
+     *           convention <code>X-</code> headers). <code>X-ondewo-vtsi-caller-call-id</code> is reserved: on a pooled
+     *           persistent caller VTSI replaces it with the id of the call. VTSI does not restrict the other keys; a header
+     *           the SIP stack or the Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>,
+     *           which only takes <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by
+     *           the caller&apos;s own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -83,7 +86,7 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP configuration
+     * SIP container image of the call (see <code>SipBaseConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 1;</code>
      * @return \Ondewo\Vtsi\SipBaseConfig|null
@@ -104,7 +107,7 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP configuration
+     * SIP container image of the call (see <code>SipBaseConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 1;</code>
      * @param \Ondewo\Vtsi\SipBaseConfig $var
@@ -163,10 +166,11 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * SIP headers sent on the outbound INVITE, header name to value, e.g.
      * <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
      * <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
-     * convention <code>X-</code> headers); VTSI does not restrict them further, and a header the SIP stack or the
-     * Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>, which only takes
-     * <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by the caller&apos;s
-     * own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
+     * convention <code>X-</code> headers). <code>X-ondewo-vtsi-caller-call-id</code> is reserved: on a pooled
+     * persistent caller VTSI replaces it with the id of the call. VTSI does not restrict the other keys; a header
+     * the SIP stack or the Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>,
+     * which only takes <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by
+     * the caller&apos;s own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
      *
      * Generated from protobuf field <code>map<string, string> sip_headers = 3;</code>
      * @return \Google\Protobuf\Internal\MapField
@@ -180,10 +184,11 @@ class SipCallerConfig extends \Google\Protobuf\Internal\Message
      * SIP headers sent on the outbound INVITE, header name to value, e.g.
      * <code>{"X-ondewo-phonesystem-call-id": "4711"}</code>. At most 64 entries, otherwise
      * <code>INVALID_ARGUMENT</code>. Keys are sent as SIP header names, so they should be valid header names (by
-     * convention <code>X-</code> headers); VTSI does not restrict them further, and a header the SIP stack or the
-     * Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>, which only takes
-     * <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by the caller&apos;s
-     * own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
+     * convention <code>X-</code> headers). <code>X-ondewo-vtsi-caller-call-id</code> is reserved: on a pooled
+     * persistent caller VTSI replaces it with the id of the call. VTSI does not restrict the other keys; a header
+     * the SIP stack or the Asterisk cannot send is dropped by them. Unlike <code>TransferCallRequest.headers</code>,
+     * which only takes <code>X-ondewo-*</code> keys because it is delivered through the dialplan, these are sent by
+     * the caller&apos;s own SIP stack. Updatable on a scheduled caller with <code>UpdateScheduledCaller</code>.
      *
      * Generated from protobuf field <code>map<string, string> sip_headers = 3;</code>
      * @param array|\Google\Protobuf\Internal\MapField $var

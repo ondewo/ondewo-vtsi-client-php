@@ -23,7 +23,11 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * Callers that should be started
+     * Callers that should be started, one outbound call each, each with its OWN configuration
+     * (<code>sip_caller_config</code>, <code>common_services_config</code>) that applies to its own call only.
+     * Entries may differ in any field; entries that share one <code>common_services_config</code> are validated
+     * against the upstream services once. Pooled callers are matched per entry (see
+     * <code>StartCallerRequest.common_services_config</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      */
@@ -80,7 +84,11 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartCallerRequest[] $caller_requests
-     *           Callers that should be started
+     *           Callers that should be started, one outbound call each, each with its OWN configuration
+     *           (<code>sip_caller_config</code>, <code>common_services_config</code>) that applies to its own call only.
+     *           Entries may differ in any field; entries that share one <code>common_services_config</code> are validated
+     *           against the upstream services once. Pooled callers are matched per entry (see
+     *           <code>StartCallerRequest.common_services_config</code>).
      *     @type string $idempotency_key
      *           Optional client idempotency key: at most 255 printable ASCII characters, no whitespace; empty means no
      *           deduplication. A retry carrying the same key returns the response of the first successful attempt instead
@@ -145,7 +153,11 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callers that should be started
+     * Callers that should be started, one outbound call each, each with its OWN configuration
+     * (<code>sip_caller_config</code>, <code>common_services_config</code>) that applies to its own call only.
+     * Entries may differ in any field; entries that share one <code>common_services_config</code> are validated
+     * against the upstream services once. Pooled callers are matched per entry (see
+     * <code>StartCallerRequest.common_services_config</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartCallerRequest>
@@ -156,7 +168,11 @@ class StartCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callers that should be started
+     * Callers that should be started, one outbound call each, each with its OWN configuration
+     * (<code>sip_caller_config</code>, <code>common_services_config</code>) that applies to its own call only.
+     * Entries may differ in any field; entries that share one <code>common_services_config</code> are validated
+     * against the upstream services once. Pooled callers are matched per entry (see
+     * <code>StartCallerRequest.common_services_config</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartCallerRequest[] $var

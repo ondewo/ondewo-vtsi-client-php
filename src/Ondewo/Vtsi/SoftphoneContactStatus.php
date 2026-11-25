@@ -8,8 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Reachability of one registered contact of a softphone account, as the project&apos;s Asterisk
- * qualifies it (SIP <code>OPTIONS</code>).
+ * Reachability of one registered contact of a softphone account, as the project&apos;s Asterisk qualifies it (SIP <code>OPTIONS</code>).
  *
  * Protobuf type <code>ondewo.vtsi.SoftphoneContactStatus</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>VoiceSettings message contains settings for ElevenLabs inference.</p>
+ * VoiceSettings message contains settings for ElevenLabs inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.VoiceSettings</code>
  */

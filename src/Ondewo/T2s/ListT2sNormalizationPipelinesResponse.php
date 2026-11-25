@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Pipeline Response representation.</p>
- * <p>The response message for ListT2sNormalizationPipelines.</p>
+ * Pipeline Response representation.
+ * The response message for ListT2sNormalizationPipelines.
  *
  * Generated from protobuf message <code>ondewo.t2s.ListT2sNormalizationPipelinesResponse</code>
  */

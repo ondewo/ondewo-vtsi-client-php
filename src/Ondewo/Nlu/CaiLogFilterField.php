@@ -8,9 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Identifies a field of <a href="index.html#ondewo.nlu.CaiLogFilter">CaiLogFilter</a>. Used by
- * <a href="index.html#ondewo.nlu.ListLogsResponse">ListLogsResponse.scope_limited_filters</a> to declare which
- * filters could only be applied inside the returned window.
+ * Identifies a field of <a href="index.html#ondewo.nlu.CaiLogFilter">CaiLogFilter</a>. Used by <a href="index.html#ondewo.nlu.ListLogsResponse">ListLogsResponse.scope_limited_filters</a> to declare which filters could only be applied inside the returned window.
  *
  * Protobuf type <code>ondewo.nlu.CaiLogFilterField</code>
  */

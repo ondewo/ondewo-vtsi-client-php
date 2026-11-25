@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request message for adding crawler output to one or more datasets.<br>
- * Either <code>crawler_names</code> or <code>crawler_result_names</code> (or both) must be provided.
+ * Request message for adding crawler output to one or more datasets.<br> Either <code>crawler_names</code> or <code>crawler_result_names</code> (or both) must be provided.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagAddCrawlerResultsToDatasetsRequest</code>
  */

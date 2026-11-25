@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to clone an IVR menu. The clone has no <code>inbound_phone_numbers</code>, <code>default_inbound</code>
- * <code>false</code> and the state DRAFT.
+ * Request to clone an IVR menu. The clone has no <code>inbound_phone_numbers</code>, <code>default_inbound</code> <code>false</code> and the state DRAFT.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CloneIvrMenuRequest</code>
  */

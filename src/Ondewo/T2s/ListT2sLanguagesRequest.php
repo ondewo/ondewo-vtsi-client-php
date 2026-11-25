@@ -10,9 +10,9 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Language Request representation.</p>
- * <p>The request message for ListT2sLanguages.</p>
- * <p>Filter languages of pipelines by attributed in request.</p>
+ * Language Request representation.
+ * The request message for ListT2sLanguages.
+ * Filter languages of pipelines by attributed in request.
  *
  * Generated from protobuf message <code>ondewo.t2s.ListT2sLanguagesRequest</code>
  */

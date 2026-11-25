@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Represents an entity type.
- * Entity types serve as a tool for extracting parameter values from natural
- * language queries.
+ * Represents an entity type. Entity types serve as a tool for extracting parameter values from natural language queries.
  *
  * Generated from protobuf message <code>ondewo.nlu.EntityType</code>
  */

@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>What a WARM transfer does when its warm intro cannot run</p>
+ * What a WARM transfer does when its warm intro cannot run
  *
  * Protobuf type <code>ondewo.vtsi.WarmIntroUnavailablePolicy</code>
  */
@@ -21,14 +21,17 @@ class WarmIntroUnavailablePolicy
      */
     const WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED = 0;
     /**
-     * Join the target directly, as a WARM transfer without an intro
+     * Ring the target and join them directly, as a WARM transfer without an intro
+     * (<code>WarmIntroRecord.intro_started = false</code>, <code>cause</code> says why). The caller still reaches
+     * a person; the target is not briefed
      *
      * Generated from protobuf enum <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO = 1;</code>
      */
     const WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO = 1;
     /**
-     * Hang up the target and keep the call with the bot, which tells the caller
-     * (<code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE</code>)
+     * Hang up the target (or ring nothing) and keep the call with the bot, which tells the caller
+     * <code>caller_unreachable_message</code> (<code>TRANSFER_OUTCOME_INTRO_UNAVAILABLE</code>) and goes on with the
+     * conversation
      *
      * Generated from protobuf enum <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER = 2;</code>
      */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference.</p>
+ * T2sCloudServiceAmazon message contains settings for the Amazon Cloud service inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2sCloudServiceAmazon</code>
  */

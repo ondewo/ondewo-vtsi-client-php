@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One weekly slot of a <code>CampaignCallingWindow</code>: on <code>day_of_week</code>, from
- * <code>start_minute</code> (inclusive) to <code>end_minute</code> (exclusive), counted in minutes after local
- * midnight of <code>CampaignCallingWindow.time_zone</code>. Example: Monday 09:00 to 17:30 is
- * <code>{day_of_week: CALLING_WINDOW_DAY_OF_WEEK_MONDAY, start_minute: 540, end_minute: 1050}</code>.
+ * One weekly slot of a <code>CampaignCallingWindow</code>: on <code>day_of_week</code>, from <code>start_minute</code> (inclusive) to <code>end_minute</code> (exclusive), counted in minutes after local midnight of <code>CampaignCallingWindow.time_zone</code>. Example: Monday 09:00 to 17:30 is <code>{day_of_week: CALLING_WINDOW_DAY_OF_WEEK_MONDAY, start_minute: 540, end_minute: 1050}</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallingWindowSlot</code>
  */

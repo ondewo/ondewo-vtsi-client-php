@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request to list all speech-to-text pipelines. Optionally also filter criteria can be set</p>
+ * Request to list all speech-to-text pipelines. Optionally also filter criteria can be set
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tPipelinesRequest</code>
  */

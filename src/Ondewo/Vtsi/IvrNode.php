@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One node of an IVR menu. Which fields apply depends on <code>type</code>; a field set on a node type it does not
- * apply to is refused with <code>INVALID_ARGUMENT</code>.</p>
+ * One node of an IVR menu. Which fields apply depends on <code>type</code>; a field set on a node type it does not apply to is refused with <code>INVALID_ARGUMENT</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrNode</code>
  */

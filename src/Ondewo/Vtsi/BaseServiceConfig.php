@@ -10,31 +10,39 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Base configuration of services (ondewo-nlu, text-to-speech, speech-to-text, asterisk)
+ * Address and server trust of one upstream service of a call: the speech-to-text (S2T), NLU and text-to-speech (T2S) services of a <code>CommonServicesConfig</code>, and the Asterisk of an <code>AsteriskConfig</code>.
+ * For S2T, NLU and T2S the request is checked LIVE when the caller or listener is started: VTSI connects to the service with these values (the S2T pipeline and the NLU agent are read), so an address that cannot be reached, or a certificate the service&apos;s certificate does not chain to, refuses the request instead of failing later inside the call.
  *
  * Generated from protobuf message <code>ondewo.vtsi.BaseServiceConfig</code>
  */
 class BaseServiceConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Host name or IP address of the service. Required: an empty host is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * Host name or IP address of the service, as the call reaches it, e.g. <code>s2t.example.com</code>.
+     * Required: an empty host (or one of only whitespace) is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string host = 1;</code>
      */
     protected $host = '';
     /**
-     * TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * TCP port of the service&apos;s gRPC server, 1 to 65535. A value of 0 or below (also an unset port) or above
+     * 65535 is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 port = 2;</code>
      */
     protected $port = 0;
     /**
-     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
-     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
-     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
-     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
+     * Optional: The PEM certificate(s) the service&apos;s gRPC server certificate chains to (its CA, or its
+     * self-signed certificate), with real or escaped (<code>\n</code>) newlines. Used for the S2T, NLU and T2S
+     * services: the connection to them is always TLS, and the server certificate and host name are always
+     * verified; there is no plaintext mode.
+     * <p>Empty (the default): the server is verified against the deployment&apos;s CA bundle,
+     * <code>ONDEWO_VTSI_CALL_UPSTREAM_CLIENT_CA_FILE</code>. Set: it is verified against these certificates
+     * instead.</p>
+     * <p>Only <code>-----BEGIN CERTIFICATE-----</code> blocks are accepted. A value carrying a private key, a
+     * file path, any other PEM block type or a certificate that cannot be parsed is refused with
+     * <code>INVALID_ARGUMENT</code>: the value is stored with the call and handed to the call, so it must
+     * never hold secret material.</p>
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      */
@@ -47,16 +55,23 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $host
-     *           Host name or IP address of the service. Required: an empty host is refused with
-     *           <code>INVALID_ARGUMENT</code>.
+     *           Host name or IP address of the service, as the call reaches it, e.g. <code>s2t.example.com</code>.
+     *           Required: an empty host (or one of only whitespace) is refused with <code>INVALID_ARGUMENT</code>.
      *     @type int $port
-     *           TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
-     *           <code>INVALID_ARGUMENT</code>.
+     *           TCP port of the service&apos;s gRPC server, 1 to 65535. A value of 0 or below (also an unset port) or above
+     *           65535 is refused with <code>INVALID_ARGUMENT</code>.
      *     @type string $grpc_cert
-     *           PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
-     *           escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
-     *           server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
-     *           refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
+     *           Optional: The PEM certificate(s) the service&apos;s gRPC server certificate chains to (its CA, or its
+     *           self-signed certificate), with real or escaped (<code>\n</code>) newlines. Used for the S2T, NLU and T2S
+     *           services: the connection to them is always TLS, and the server certificate and host name are always
+     *           verified; there is no plaintext mode.
+     *           <p>Empty (the default): the server is verified against the deployment&apos;s CA bundle,
+     *           <code>ONDEWO_VTSI_CALL_UPSTREAM_CLIENT_CA_FILE</code>. Set: it is verified against these certificates
+     *           instead.</p>
+     *           <p>Only <code>-----BEGIN CERTIFICATE-----</code> blocks are accepted. A value carrying a private key, a
+     *           file path, any other PEM block type or a certificate that cannot be parsed is refused with
+     *           <code>INVALID_ARGUMENT</code>: the value is stored with the call and handed to the call, so it must
+     *           never hold secret material.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -65,8 +80,8 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host name or IP address of the service. Required: an empty host is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * Host name or IP address of the service, as the call reaches it, e.g. <code>s2t.example.com</code>.
+     * Required: an empty host (or one of only whitespace) is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string host = 1;</code>
      * @return string
@@ -77,8 +92,8 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host name or IP address of the service. Required: an empty host is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * Host name or IP address of the service, as the call reaches it, e.g. <code>s2t.example.com</code>.
+     * Required: an empty host (or one of only whitespace) is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>string host = 1;</code>
      * @param string $var
@@ -93,8 +108,8 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * TCP port of the service&apos;s gRPC server, 1 to 65535. A value of 0 or below (also an unset port) or above
+     * 65535 is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 port = 2;</code>
      * @return int
@@ -105,8 +120,8 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * TCP port of the service, 1 to 65535. A value of 0 or below (also an unset port) is refused with
-     * <code>INVALID_ARGUMENT</code>.
+     * TCP port of the service&apos;s gRPC server, 1 to 65535. A value of 0 or below (also an unset port) or above
+     * 65535 is refused with <code>INVALID_ARGUMENT</code>.
      *
      * Generated from protobuf field <code>int32 port = 2;</code>
      * @param int $var
@@ -121,10 +136,17 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
-     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
-     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
-     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
+     * Optional: The PEM certificate(s) the service&apos;s gRPC server certificate chains to (its CA, or its
+     * self-signed certificate), with real or escaped (<code>\n</code>) newlines. Used for the S2T, NLU and T2S
+     * services: the connection to them is always TLS, and the server certificate and host name are always
+     * verified; there is no plaintext mode.
+     * <p>Empty (the default): the server is verified against the deployment&apos;s CA bundle,
+     * <code>ONDEWO_VTSI_CALL_UPSTREAM_CLIENT_CA_FILE</code>. Set: it is verified against these certificates
+     * instead.</p>
+     * <p>Only <code>-----BEGIN CERTIFICATE-----</code> blocks are accepted. A value carrying a private key, a
+     * file path, any other PEM block type or a certificate that cannot be parsed is refused with
+     * <code>INVALID_ARGUMENT</code>: the value is stored with the call and handed to the call, so it must
+     * never hold secret material.</p>
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      * @return string
@@ -135,10 +157,17 @@ class BaseServiceConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * PEM certificate(s) the service&apos;s gRPC server certificate chains to (CA or self-signed leaf), with real or
-     * escaped newlines; never a private key. Required for the S2T, NLU and T2S configs of a call unless the VTSI
-     * server runs with ONDEWO_VTSI_ALLOW_INSECURE_UPSTREAM=True (lab and CI only); an empty value is otherwise
-     * refused with FAILED_PRECONDITION (UPSTREAM_TLS_REQUIRED).
+     * Optional: The PEM certificate(s) the service&apos;s gRPC server certificate chains to (its CA, or its
+     * self-signed certificate), with real or escaped (<code>\n</code>) newlines. Used for the S2T, NLU and T2S
+     * services: the connection to them is always TLS, and the server certificate and host name are always
+     * verified; there is no plaintext mode.
+     * <p>Empty (the default): the server is verified against the deployment&apos;s CA bundle,
+     * <code>ONDEWO_VTSI_CALL_UPSTREAM_CLIENT_CA_FILE</code>. Set: it is verified against these certificates
+     * instead.</p>
+     * <p>Only <code>-----BEGIN CERTIFICATE-----</code> blocks are accepted. A value carrying a private key, a
+     * file path, any other PEM block type or a certificate that cannot be parsed is refused with
+     * <code>INVALID_ARGUMENT</code>: the value is stored with the call and handed to the call, so it must
+     * never hold secret material.</p>
      *
      * Generated from protobuf field <code>string grpc_cert = 3;</code>
      * @param string $var

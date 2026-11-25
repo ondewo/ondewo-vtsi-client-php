@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration options for OpenAI client chat completion requests used in turn detection and LLM post-processing.</p>
+ * Configuration options for OpenAI client chat completion requests used in turn detection and LLM post-processing.
  *
  * Generated from protobuf message <code>ondewo.s2t.OpenaiLlmOptions</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Qwen3TtsCustomVoice message contains settings for inference of qwen3-TTS-CustomVoice model.</p>
+ * Qwen3TtsCustomVoice message contains settings for inference of qwen3-TTS-CustomVoice model.
  *
  * Generated from protobuf message <code>ondewo.t2s.Qwen3TtsCustomVoice</code>
  */

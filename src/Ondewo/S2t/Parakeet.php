@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Parakeet contains information about the Parakeet model.</p>
+ * Parakeet contains information about the Parakeet model.
  *
  * Generated from protobuf message <code>ondewo.s2t.Parakeet</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Response message to list available languages</p>
+ * Response message to list available languages
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tLanguagesResponse</code>
  */

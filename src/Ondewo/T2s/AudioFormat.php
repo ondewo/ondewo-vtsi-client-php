@@ -8,7 +8,7 @@ namespace Ondewo\T2s;
 use UnexpectedValueException;
 
 /**
- * <p>AudioFormat enum represents various audio file formats for storing digital audio data.</p>
+ * AudioFormat enum represents various audio file formats for storing digital audio data.
  *
  * Protobuf type <code>ondewo.t2s.AudioFormat</code>
  */

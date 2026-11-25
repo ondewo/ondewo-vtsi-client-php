@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tNormalization contains configuration for the speech-to-text normalization.</p>
+ * S2tNormalization contains configuration for the speech-to-text normalization.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tNormalization</code>
  */

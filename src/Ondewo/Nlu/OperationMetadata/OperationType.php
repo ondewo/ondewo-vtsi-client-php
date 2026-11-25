@@ -8,8 +8,7 @@ namespace Ondewo\Nlu\OperationMetadata;
 use UnexpectedValueException;
 
 /**
- * Type of operation.
- * It can be creating, importing, exporting, deleting, restoring, building cache, training or exporting benchmark an agent
+ * Type of operation. It can be creating, importing, exporting, deleting, restoring, building cache, training or exporting benchmark an agent
  *
  * Protobuf type <code>ondewo.nlu.OperationMetadata.OperationType</code>
  */

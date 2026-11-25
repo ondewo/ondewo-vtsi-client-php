@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Calls.AddScheduledCallersToCampaign">Calls.AddScheduledCallersToCampaign</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.AddScheduledCallersToCampaignRequest</code>
  */
@@ -27,6 +26,9 @@ class AddScheduledCallersToCampaignRequest extends \Google\Protobuf\Internal\Mes
     /**
      * Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
      * <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
+     * <p>Each entry&apos;s configuration (<code>request</code>) is merged over the campaign&apos;s call defaults at
+     * every dispatch, exactly as for <code>AddCallersToCampaignRequest.caller_requests</code>, and applies to that
+     * entry&apos;s call only. Like every scheduled caller, its calls are never served by a pooled caller.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      */
@@ -64,6 +66,9 @@ class AddScheduledCallersToCampaignRequest extends \Google\Protobuf\Internal\Mes
      *     @type \Ondewo\Vtsi\StartScheduledCallerRequest[] $scheduled_caller_requests
      *           Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
      *           <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
+     *           <p>Each entry&apos;s configuration (<code>request</code>) is merged over the campaign&apos;s call defaults at
+     *           every dispatch, exactly as for <code>AddCallersToCampaignRequest.caller_requests</code>, and applies to that
+     *           entry&apos;s call only. Like every scheduled caller, its calls are never served by a pooled caller.</p>
      *     @type \Ondewo\Vtsi\CampaignAssignment $campaign_assignment
      *           Required. Which campaign, and whether it starts dialling.
      *     @type string $idempotency_key
@@ -114,6 +119,9 @@ class AddScheduledCallersToCampaignRequest extends \Google\Protobuf\Internal\Mes
     /**
      * Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
      * <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
+     * <p>Each entry&apos;s configuration (<code>request</code>) is merged over the campaign&apos;s call defaults at
+     * every dispatch, exactly as for <code>AddCallersToCampaignRequest.caller_requests</code>, and applies to that
+     * entry&apos;s call only. Like every scheduled caller, its calls are never served by a pooled caller.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartScheduledCallerRequest>
@@ -126,6 +134,9 @@ class AddScheduledCallersToCampaignRequest extends \Google\Protobuf\Internal\Mes
     /**
      * Scheduled callers to add, at least one. A scheduled caller of a campaign can be cancelled with
      * <code>CancelScheduledCaller</code> only while its campaign call has no attempt dispatching or in progress.
+     * <p>Each entry&apos;s configuration (<code>request</code>) is merged over the campaign&apos;s call defaults at
+     * every dispatch, exactly as for <code>AddCallersToCampaignRequest.caller_requests</code>, and applies to that
+     * entry&apos;s call only. Like every scheduled caller, its calls are never served by a pooled caller.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartScheduledCallerRequest scheduled_caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartScheduledCallerRequest[] $var

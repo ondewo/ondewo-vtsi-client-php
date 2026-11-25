@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Represents a Configuration for the text to speech conversion.</p>
+ * Represents a Configuration for the text to speech conversion.
  *
  * Generated from protobuf message <code>ondewo.t2s.RequestConfig</code>
  */

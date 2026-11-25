@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The request message for <code>ListS2tNormalizationPipelines</code>.</p>
- * <p>Filter pipelines by attributes in request.</p>
+ * The request message for <code>ListS2tNormalizationPipelines</code>.
+ * Filter pipelines by attributes in request.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tNormalizationPipelinesRequest</code>
  */

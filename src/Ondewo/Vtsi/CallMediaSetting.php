@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Desired setting of one media control flag of a call</p>
+ * Desired setting of one media control flag of a call
  *
  * Protobuf type <code>ondewo.vtsi.CallMediaSetting</code>
  */

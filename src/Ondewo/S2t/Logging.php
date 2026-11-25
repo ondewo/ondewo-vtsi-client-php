@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Logging contains configuration for logging.</p>
+ * Logging contains configuration for logging.
  *
  * Generated from protobuf message <code>ondewo.s2t.Logging</code>
  */

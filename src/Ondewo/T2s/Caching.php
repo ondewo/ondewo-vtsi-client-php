@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Caching message contains settings for caching.</p>
+ * Caching message contains settings for caching.
  *
  * Generated from protobuf message <code>ondewo.t2s.Caching</code>
  */

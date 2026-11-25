@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Status information for a SIP account, session, or call</p>
+ * Status information for a SIP account, session, or call
  *
  * Generated from protobuf message <code>ondewo.sip.SipStatus</code>
  */

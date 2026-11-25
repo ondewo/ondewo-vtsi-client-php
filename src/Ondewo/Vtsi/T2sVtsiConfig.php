@@ -10,30 +10,67 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Text-2-Speech Configuration
+ * Text-to-speech configuration of the call: which text-to-speech service and pipeline voices the bot, and how the answers of preemptive drafts are synthesized.
+ * Scope: the configuration of a listener applies to every inbound call that listener deployment serves; the configuration of a caller, a campaign or a scheduled caller applies to its own calls. A pooled persistent caller is reused only for a request with the identical configuration, so callers with different values are never shared.
+ * The service and the pipeline are checked when the request arrives: an empty <code>t2s_pipeline_id</code>, a pipeline the text-to-speech service does not know and an inactive pipeline are refused with <code>INVALID_ARGUMENT</code>; a text-to-speech service that does not answer is reported as <code>UNAVAILABLE</code> (a campaign then retries the call later).
  *
  * Generated from protobuf message <code>ondewo.vtsi.T2sVtsiConfig</code>
  */
 class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Host, port and trust anchor of the text-to-speech service the call uses. Required; see
+     * <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig t2s_base_config = 1;</code>
      */
     protected $t2s_base_config = null;
     /**
-     * Configuration of Text-2-Speech
+     * Request configuration sent with the speech synthesis of the bot&apos;s utterances. <code>t2s_pipeline_id</code>
+     * is required and selects the text-to-speech pipeline, i.e. the voice the bot speaks with; the other fields
+     * (e.g. <code>length_scale</code>, the time stretching of the speech) are optional and keep the pipeline&apos;s
+     * defaults when unset.
+     * Example: <code>t2s_pipeline_id=&quot;my-german-voice&quot;</code> lets the bot speak with that pipeline
      *
      * Generated from protobuf field <code>.ondewo.t2s.RequestConfig t2s_request_config = 2;</code>
      */
     protected $t2s_request_config = null;
     /**
-     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     * Optional: Whether and how the answer of a preemptive (speculative) draft is synthesized before the final
+     * transcription arrives. Unset keeps the built-in defaults listed in <code>T2sPreemptiveSynthesisConfig</code>.
+     * Only matters while preemptive generation is on (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
      */
     protected $preemptive_synthesis_config = null;
+    /**
+     * Optional: Seconds one speech synthesis request of the call may take before it is given up (default: 20, valid
+     * range: 1 - 120). A failed or timed-out request of an answer is retried, so a slow text-to-speech service can
+     * keep the caller waiting for several times this value; a lower value gives up sooner. The opening message of
+     * the call stops retrying when the time the caller is kept muted at the start of the call runs out, and an
+     * audible AI Teams filler gets one attempt of at most 1 s, never more than this value. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float synthesize_timeout_seconds = 4;</code>
+     */
+    protected $synthesize_timeout_seconds = null;
+    /**
+     * Optional: How long the synthesized audio of the bot&apos;s answers is kept for reuse (case-insensitive):
+     * <ul>
+     *   <li><code>call</code> (the default when unset): everything synthesized during a call is dropped when the
+     *       call ends. Audio synthesized when the speech-to-speech service starts (the greeting, the answers of
+     *       static intents, fillers) is kept, so the next call still starts without a synthesis wait.</li>
+     *   <li><code>process</code>: nothing is dropped; an utterance repeated in a later call served by the same
+     *       container is not synthesized again. The audio of one caller (e.g. a name or an amount the bot read
+     *       back) then stays in memory while later callers of a listener are served. The audio is reused only for
+     *       the identical request, so it is never played to another caller unless the bot says the same text.</li>
+     * </ul>
+     * Any other value is refused with <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a
+     * value set here wins
+     *
+     * Generated from protobuf field <code>optional string cache_retention = 5;</code>
+     */
+    protected $cache_retention = null;
 
     /**
      * Constructor.
@@ -42,11 +79,38 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\BaseServiceConfig $t2s_base_config
-     *           Host, Port, and [Optional] GRPC cert
+     *           Host, port and trust anchor of the text-to-speech service the call uses. Required; see
+     *           <code>BaseServiceConfig</code> for what is refused
      *     @type \Ondewo\T2s\RequestConfig $t2s_request_config
-     *           Configuration of Text-2-Speech
+     *           Request configuration sent with the speech synthesis of the bot&apos;s utterances. <code>t2s_pipeline_id</code>
+     *           is required and selects the text-to-speech pipeline, i.e. the voice the bot speaks with; the other fields
+     *           (e.g. <code>length_scale</code>, the time stretching of the speech) are optional and keep the pipeline&apos;s
+     *           defaults when unset.
+     *           Example: <code>t2s_pipeline_id=&quot;my-german-voice&quot;</code> lets the bot speak with that pipeline
      *     @type \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig $preemptive_synthesis_config
-     *           Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     *           Optional: Whether and how the answer of a preemptive (speculative) draft is synthesized before the final
+     *           transcription arrives. Unset keeps the built-in defaults listed in <code>T2sPreemptiveSynthesisConfig</code>.
+     *           Only matters while preemptive generation is on (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>)
+     *     @type float $synthesize_timeout_seconds
+     *           Optional: Seconds one speech synthesis request of the call may take before it is given up (default: 20, valid
+     *           range: 1 - 120). A failed or timed-out request of an answer is retried, so a slow text-to-speech service can
+     *           keep the caller waiting for several times this value; a lower value gives up sooner. The opening message of
+     *           the call stops retrying when the time the caller is kept muted at the start of the call runs out, and an
+     *           audible AI Teams filler gets one attempt of at most 1 s, never more than this value. There is no
+     *           deployment-wide setting for it; a value set here wins
+     *     @type string $cache_retention
+     *           Optional: How long the synthesized audio of the bot&apos;s answers is kept for reuse (case-insensitive):
+     *           <ul>
+     *             <li><code>call</code> (the default when unset): everything synthesized during a call is dropped when the
+     *                 call ends. Audio synthesized when the speech-to-speech service starts (the greeting, the answers of
+     *                 static intents, fillers) is kept, so the next call still starts without a synthesis wait.</li>
+     *             <li><code>process</code>: nothing is dropped; an utterance repeated in a later call served by the same
+     *                 container is not synthesized again. The audio of one caller (e.g. a name or an amount the bot read
+     *                 back) then stays in memory while later callers of a listener are served. The audio is reused only for
+     *                 the identical request, so it is never played to another caller unless the bot says the same text.</li>
+     *           </ul>
+     *           Any other value is refused with <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a
+     *           value set here wins
      * }
      */
     public function __construct($data = NULL) {
@@ -55,7 +119,8 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Host, port and trust anchor of the text-to-speech service the call uses. Required; see
+     * <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig t2s_base_config = 1;</code>
      * @return \Ondewo\Vtsi\BaseServiceConfig|null
@@ -76,7 +141,8 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Host, port and trust anchor of the text-to-speech service the call uses. Required; see
+     * <code>BaseServiceConfig</code> for what is refused
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig t2s_base_config = 1;</code>
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
@@ -90,7 +156,11 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of Text-2-Speech
+     * Request configuration sent with the speech synthesis of the bot&apos;s utterances. <code>t2s_pipeline_id</code>
+     * is required and selects the text-to-speech pipeline, i.e. the voice the bot speaks with; the other fields
+     * (e.g. <code>length_scale</code>, the time stretching of the speech) are optional and keep the pipeline&apos;s
+     * defaults when unset.
+     * Example: <code>t2s_pipeline_id=&quot;my-german-voice&quot;</code> lets the bot speak with that pipeline
      *
      * Generated from protobuf field <code>.ondewo.t2s.RequestConfig t2s_request_config = 2;</code>
      * @return \Ondewo\T2s\RequestConfig|null
@@ -111,7 +181,11 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of Text-2-Speech
+     * Request configuration sent with the speech synthesis of the bot&apos;s utterances. <code>t2s_pipeline_id</code>
+     * is required and selects the text-to-speech pipeline, i.e. the voice the bot speaks with; the other fields
+     * (e.g. <code>length_scale</code>, the time stretching of the speech) are optional and keep the pipeline&apos;s
+     * defaults when unset.
+     * Example: <code>t2s_pipeline_id=&quot;my-german-voice&quot;</code> lets the bot speak with that pipeline
      *
      * Generated from protobuf field <code>.ondewo.t2s.RequestConfig t2s_request_config = 2;</code>
      * @param \Ondewo\T2s\RequestConfig $var
@@ -125,7 +199,9 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     * Optional: Whether and how the answer of a preemptive (speculative) draft is synthesized before the final
+     * transcription arrives. Unset keeps the built-in defaults listed in <code>T2sPreemptiveSynthesisConfig</code>.
+     * Only matters while preemptive generation is on (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
      * @return \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig|null
@@ -146,7 +222,9 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Speech synthesis of preemptive (speculative) drafts. Unset keeps the deployment&apos;s values
+     * Optional: Whether and how the answer of a preemptive (speculative) draft is synthesized before the final
+     * transcription arrives. Unset keeps the built-in defaults listed in <code>T2sPreemptiveSynthesisConfig</code>.
+     * Only matters while preemptive generation is on (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sPreemptiveSynthesisConfig preemptive_synthesis_config = 3;</code>
      * @param \Ondewo\Vtsi\T2sPreemptiveSynthesisConfig $var
@@ -155,6 +233,109 @@ class T2sVtsiConfig extends \Google\Protobuf\Internal\Message
     public function setPreemptiveSynthesisConfig(\Ondewo\Vtsi\T2sPreemptiveSynthesisConfig|null $var)
     {
         $this->preemptive_synthesis_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds one speech synthesis request of the call may take before it is given up (default: 20, valid
+     * range: 1 - 120). A failed or timed-out request of an answer is retried, so a slow text-to-speech service can
+     * keep the caller waiting for several times this value; a lower value gives up sooner. The opening message of
+     * the call stops retrying when the time the caller is kept muted at the start of the call runs out, and an
+     * audible AI Teams filler gets one attempt of at most 1 s, never more than this value. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float synthesize_timeout_seconds = 4;</code>
+     * @return float
+     */
+    public function getSynthesizeTimeoutSeconds()
+    {
+        return isset($this->synthesize_timeout_seconds) ? $this->synthesize_timeout_seconds : 0.0;
+    }
+
+    public function hasSynthesizeTimeoutSeconds()
+    {
+        return isset($this->synthesize_timeout_seconds);
+    }
+
+    public function clearSynthesizeTimeoutSeconds()
+    {
+        unset($this->synthesize_timeout_seconds);
+    }
+
+    /**
+     * Optional: Seconds one speech synthesis request of the call may take before it is given up (default: 20, valid
+     * range: 1 - 120). A failed or timed-out request of an answer is retried, so a slow text-to-speech service can
+     * keep the caller waiting for several times this value; a lower value gives up sooner. The opening message of
+     * the call stops retrying when the time the caller is kept muted at the start of the call runs out, and an
+     * audible AI Teams filler gets one attempt of at most 1 s, never more than this value. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float synthesize_timeout_seconds = 4;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setSynthesizeTimeoutSeconds(float $var)
+    {
+        $this->synthesize_timeout_seconds = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: How long the synthesized audio of the bot&apos;s answers is kept for reuse (case-insensitive):
+     * <ul>
+     *   <li><code>call</code> (the default when unset): everything synthesized during a call is dropped when the
+     *       call ends. Audio synthesized when the speech-to-speech service starts (the greeting, the answers of
+     *       static intents, fillers) is kept, so the next call still starts without a synthesis wait.</li>
+     *   <li><code>process</code>: nothing is dropped; an utterance repeated in a later call served by the same
+     *       container is not synthesized again. The audio of one caller (e.g. a name or an amount the bot read
+     *       back) then stays in memory while later callers of a listener are served. The audio is reused only for
+     *       the identical request, so it is never played to another caller unless the bot says the same text.</li>
+     * </ul>
+     * Any other value is refused with <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a
+     * value set here wins
+     *
+     * Generated from protobuf field <code>optional string cache_retention = 5;</code>
+     * @return string
+     */
+    public function getCacheRetention()
+    {
+        return isset($this->cache_retention) ? $this->cache_retention : '';
+    }
+
+    public function hasCacheRetention()
+    {
+        return isset($this->cache_retention);
+    }
+
+    public function clearCacheRetention()
+    {
+        unset($this->cache_retention);
+    }
+
+    /**
+     * Optional: How long the synthesized audio of the bot&apos;s answers is kept for reuse (case-insensitive):
+     * <ul>
+     *   <li><code>call</code> (the default when unset): everything synthesized during a call is dropped when the
+     *       call ends. Audio synthesized when the speech-to-speech service starts (the greeting, the answers of
+     *       static intents, fillers) is kept, so the next call still starts without a synthesis wait.</li>
+     *   <li><code>process</code>: nothing is dropped; an utterance repeated in a later call served by the same
+     *       container is not synthesized again. The audio of one caller (e.g. a name or an amount the bot read
+     *       back) then stays in memory while later callers of a listener are served. The audio is reused only for
+     *       the identical request, so it is never played to another caller unless the bot says the same text.</li>
+     * </ul>
+     * Any other value is refused with <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it; a
+     * value set here wins
+     *
+     * Generated from protobuf field <code>optional string cache_retention = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setCacheRetention(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->cache_retention = $var;
 
         return $this;
     }

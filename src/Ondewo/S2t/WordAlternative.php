@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The word alternative message</p>
+ * The word alternative message
  *
  * Generated from protobuf message <code>ondewo.s2t.WordAlternative</code>
  */

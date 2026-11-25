@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * The state of VTSI&apos;s capture of one log stream. This describes the CAPTURE, not the container:
- * a healthy container whose capture lease was lost is <code>DETACHED</code>, and a container that no
- * longer exists but whose capture completed cleanly is <code>STOPPED</code>.
+ * The state of VTSI&apos;s capture of one log stream. This describes the CAPTURE, not the container: a healthy container whose capture lease was lost is <code>DETACHED</code>, and a container that no longer exists but whose capture completed cleanly is <code>STOPPED</code>.
  *
  * Protobuf type <code>ondewo.vtsi.LogCaptureState</code>
  */

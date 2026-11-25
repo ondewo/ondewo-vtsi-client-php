@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>CustomPhonemizerProto message represents a custom phonemizer.</p>
+ * CustomPhonemizerProto message represents a custom phonemizer.
  *
  * Generated from protobuf message <code>ondewo.t2s.CustomPhonemizerProto</code>
  */

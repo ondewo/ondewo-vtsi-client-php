@@ -11,11 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * URL and domain restrictions.
- * Filters are evaluated during link discovery/scheduling and help avoid
- * crawling irrelevant, duplicate, or unsafe sections (auth/logout pages,
- * marketing subdomains, binary downloads, etc.).
- * These include domains to be excluded in the sources (e.g. through sitemaps or seed URLs)
- * and domains to be excluded in the deep crawl or extraction of pages to be crawled.
+ * Filters are evaluated during link discovery/scheduling and help avoid crawling irrelevant, duplicate, or unsafe sections (auth/logout pages, marketing subdomains, binary downloads, etc.). These include domains to be excluded in the sources (e.g. through sitemaps or seed URLs) and domains to be excluded in the deep crawl or extraction of pages to be crawled.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerFilters</code>
  */

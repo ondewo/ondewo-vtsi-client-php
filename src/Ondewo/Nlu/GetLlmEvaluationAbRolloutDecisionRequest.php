@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to get a single A/B rollout decision (the applied audit record) for an
- * experiment.
+ * Request to get a single A/B rollout decision (the applied audit record) for an experiment.
  *
  * Generated from protobuf message <code>ondewo.nlu.GetLlmEvaluationAbRolloutDecisionRequest</code>
  */

@@ -8,8 +8,7 @@ namespace Ondewo\T2s\UpdateCustomPhonemizerRequest;
 use UnexpectedValueException;
 
 /**
- * The update method to be used.
- * UpdateMethod enum defines the method for updating custom phonemizers.
+ * The update method to be used. UpdateMethod enum defines the method for updating custom phonemizers.
  *
  * Protobuf type <code>ondewo.t2s.UpdateCustomPhonemizerRequest.UpdateMethod</code>
  */

@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>An IVR menu of a VTSI project. The graph fields (<code>entry_node_id</code>, <code>nodes</code>,
- * <code>language_code</code>, <code>t2s_pipeline_id</code>) are versioned by <code>revision</code>; the routing
- * fields (<code>inbound_phone_numbers</code>, <code>default_inbound</code>, <code>disabled</code>) take effect on the
- * next publish.</p>
+ * An IVR menu of a VTSI project. The graph fields (<code>entry_node_id</code>, <code>nodes</code>, <code>language_code</code>, <code>t2s_pipeline_id</code>) are versioned by <code>revision</code>; the routing fields (<code>inbound_phone_numbers</code>, <code>default_inbound</code>, <code>disabled</code>) take effect on the next publish.
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrMenu</code>
  */

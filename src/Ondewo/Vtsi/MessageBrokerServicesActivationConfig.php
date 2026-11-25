@@ -10,32 +10,32 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the RabbitMQ Message Broker
+ * Which services of the call publish their events to RabbitMQ. Only takes effect while <code>MessageBrokerConfig.activate_message_broker</code> is <code>true</code>; every unset flag counts as <code>false</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.MessageBrokerServicesActivationConfig</code>
  */
 class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * should RabbitMQ Message Broker be activated for Speech-2-Text platform
+     * Optional: Publish every final transcription of the caller. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      */
     protected $activate_s2t = null;
     /**
-     * should RabbitMQ Message Broker be activated for NLU platform
+     * Optional: Publish every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      */
     protected $activate_nlu = null;
     /**
-     * should RabbitMQ Message Broker be activated for Text-2-Speech platform
+     * Optional: Publish every synthesized answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      */
     protected $activate_t2s = null;
     /**
-     * should RabbitMQ Message Broker be activated for SIP platform
+     * Optional: Publish the SIP information of the call with every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      */
@@ -48,13 +48,13 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $activate_s2t
-     *           should RabbitMQ Message Broker be activated for Speech-2-Text platform
+     *           Optional: Publish every final transcription of the caller. Unset: <code>false</code>
      *     @type bool $activate_nlu
-     *           should RabbitMQ Message Broker be activated for NLU platform
+     *           Optional: Publish every NLU answer. Unset: <code>false</code>
      *     @type bool $activate_t2s
-     *           should RabbitMQ Message Broker be activated for Text-2-Speech platform
+     *           Optional: Publish every synthesized answer. Unset: <code>false</code>
      *     @type bool $activate_sip
-     *           should RabbitMQ Message Broker be activated for SIP platform
+     *           Optional: Publish the SIP information of the call with every NLU answer. Unset: <code>false</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -63,7 +63,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for Speech-2-Text platform
+     * Optional: Publish every final transcription of the caller. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @return bool
@@ -84,7 +84,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for Speech-2-Text platform
+     * Optional: Publish every final transcription of the caller. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @param bool $var
@@ -98,7 +98,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for NLU platform
+     * Optional: Publish every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      * @return bool
@@ -119,7 +119,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for NLU platform
+     * Optional: Publish every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_nlu = 2;</code>
      * @param bool $var
@@ -133,7 +133,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for Text-2-Speech platform
+     * Optional: Publish every synthesized answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      * @return bool
@@ -154,7 +154,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for Text-2-Speech platform
+     * Optional: Publish every synthesized answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 3;</code>
      * @param bool $var
@@ -168,7 +168,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for SIP platform
+     * Optional: Publish the SIP information of the call with every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      * @return bool
@@ -189,7 +189,7 @@ class MessageBrokerServicesActivationConfig extends \Google\Protobuf\Internal\Me
     }
 
     /**
-     * should RabbitMQ Message Broker be activated for SIP platform
+     * Optional: Publish the SIP information of the call with every NLU answer. Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_sip = 4;</code>
      * @param bool $var

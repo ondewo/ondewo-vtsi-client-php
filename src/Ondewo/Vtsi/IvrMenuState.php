@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Publication state of an IVR menu</p>
+ * Publication state of an IVR menu
  *
  * Protobuf type <code>ondewo.vtsi.IvrMenuState</code>
  */

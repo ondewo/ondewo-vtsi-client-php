@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">Logs.ExportCallLogs</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">Logs.ExportCallLogs</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.ExportCallLogsRequest</code>
  */

@@ -8,8 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Audio encoding of the audio content sent in the conversational query request.
- * Refer to the <a href="/speech/docs/basics">Cloud Speech API documentation</a> for more details.
+ * Audio encoding of the audio content sent in the conversational query request. Refer to the <a href="/speech/docs/basics">Cloud Speech API documentation</a> for more details.
  *
  * Protobuf type <code>ondewo.nlu.AudioEncoding</code>
  */

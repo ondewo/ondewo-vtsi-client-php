@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Cancels a turn. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set; when both
- * are, <code>client_turn_id</code> is authoritative.
+ * Cancels a turn. At least one of <code>response_id</code> and <code>client_turn_id</code> must be set; when both are, <code>client_turn_id</code> is authoritative.
  *
  * Generated from protobuf message <code>ondewo.nlu.CancelTurn</code>
  */

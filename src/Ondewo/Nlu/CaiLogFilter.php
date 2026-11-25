@@ -10,11 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on
- * this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
- * <p>Filters fall into two groups. IDENTITY filters (fields 1 to 19) select which log streams, operations and
- * projects are of interest. CONTENT filters (fields 20 to 30) select which entries of those to return. The time
- * window (fields 31, 32) is neither.</p>
+ * Narrows a log query. Every field is optional; an empty repeated field means &quot;do not filter on this&quot;. Fields are combined with AND; the values within one repeated field are combined with OR.
+ * Filters fall into two groups. IDENTITY filters (fields 1 to 19) select which log streams, operations and projects are of interest. CONTENT filters (fields 20 to 30) select which entries of those to return. The time window (fields 31, 32) is neither.
  *
  * Generated from protobuf message <code>ondewo.nlu.CaiLogFilter</code>
  */

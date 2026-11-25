@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Record of the last transfer attempt of a call</p>
+ * Record of the last transfer attempt of a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallTransferRecord</code>
  */

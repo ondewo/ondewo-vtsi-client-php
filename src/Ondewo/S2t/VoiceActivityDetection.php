@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>VoiceActivityDetection contains information about voice activity detection settings.</p>
+ * VoiceActivityDetection contains information about voice activity detection settings.
  *
  * Generated from protobuf message <code>ondewo.s2t.VoiceActivityDetection</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Sent once when a <code>SipStreamCallAudio</code> stream ends normally</p>
+ * Sent once when a <code>SipStreamCallAudio</code> stream ends normally
  *
  * Generated from protobuf message <code>ondewo.sip.SipCallAudioEnded</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Everything needed to configure a softphone for one account, except the secrets. Every field is output
- * only.
+ * Everything needed to configure a softphone for one account, except the secrets. Every field is output only.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneProvisioning</code>
  */

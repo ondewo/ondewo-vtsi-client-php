@@ -8,8 +8,7 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>Owner of a media control hold. Each owner holds its own mute and pause; releasing one owner's hold never releases
- * another owner's</p>
+ * Owner of a media control hold. Each owner holds its own mute and pause; releasing one owner's hold never releases another owner's
  *
  * Protobuf type <code>ondewo.sip.MediaControlOwner</code>
  */

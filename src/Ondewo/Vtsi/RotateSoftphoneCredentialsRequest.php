@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>.
- * At least one of <code>rotate_sip_password</code> and <code>rotate_certificate</code> must be
- * <code>true</code>.
+ * The request message for <a href="index.html#ondewo.vtsi.Softphones.RotateSoftphoneCredentials">Softphones.RotateSoftphoneCredentials</a>. At least one of <code>rotate_sip_password</code> and <code>rotate_certificate</code> must be <code>true</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.RotateSoftphoneCredentialsRequest</code>
  */

@@ -8,8 +8,7 @@ namespace Ondewo\Nlu\OperationMetadata;
 use UnexpectedValueException;
 
 /**
- * Structure to set status of operation.
- * An operation may not be started if NOT_STARTED is set, in progress if IN_PROGRESS, finished if DONE, interrupted if CANCELED or failed if FAILED.
+ * Structure to set status of operation. An operation may not be started if NOT_STARTED is set, in progress if IN_PROGRESS, finished if DONE, interrupted if CANCELED or failed if FAILED.
  *
  * Protobuf type <code>ondewo.nlu.OperationMetadata.Status</code>
  */

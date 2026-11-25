@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Mode of a call audio stream</p>
+ * Mode of a call audio stream
  *
  * Protobuf type <code>ondewo.vtsi.CallAudioMode</code>
  */

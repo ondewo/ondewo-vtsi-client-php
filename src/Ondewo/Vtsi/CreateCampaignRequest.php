@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Campaigns.CreateCampaign">Campaigns.CreateCampaign</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Campaigns.CreateCampaign">Campaigns.CreateCampaign</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CreateCampaignRequest</code>
  */
@@ -27,7 +26,13 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
      * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
-     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>): every call added later takes
+     * each setting from them unless its own entry sets it, and a setting neither sets inherits the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in default. Only what
+     * <code>campaign_sip_caller_config</code> sets is checked here (<code>INVALID_ARGUMENT</code> naming the
+     * field); <code>campaign_common_services_config</code> is checked with each call when calls are added, so
+     * an out-of-range value in it is refused by <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code>, not by this RPC.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      */
@@ -77,7 +82,13 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
      *     @type \Ondewo\Vtsi\Campaign $campaign
      *           The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
      *           and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
-     *           the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+     *           the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>): every call added later takes
+     *           each setting from them unless its own entry sets it, and a setting neither sets inherits the
+     *           deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in default. Only what
+     *           <code>campaign_sip_caller_config</code> sets is checked here (<code>INVALID_ARGUMENT</code> naming the
+     *           field); <code>campaign_common_services_config</code> is checked with each call when calls are added, so
+     *           an out-of-range value in it is refused by <code>AddCallersToCampaign</code> /
+     *           <code>AddScheduledCallersToCampaign</code>, not by this RPC.
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the <code>Campaign</code> field paths to populate, relative to the
      *           returned <code>Campaign</code> and WITHOUT a <code>campaign.</code> prefix, e.g. <code>state</code>,
@@ -140,7 +151,13 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
      * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
-     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>): every call added later takes
+     * each setting from them unless its own entry sets it, and a setting neither sets inherits the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in default. Only what
+     * <code>campaign_sip_caller_config</code> sets is checked here (<code>INVALID_ARGUMENT</code> naming the
+     * field); <code>campaign_common_services_config</code> is checked with each call when calls are added, so
+     * an out-of-range value in it is refused by <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code>, not by this RPC.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @return \Ondewo\Vtsi\Campaign|null
@@ -163,7 +180,13 @@ class CreateCampaignRequest extends \Google\Protobuf\Internal\Message
     /**
      * The campaign to create. Output-only fields must be unset. <code>campaign_common_services_config</code>
      * and <code>campaign_sip_caller_config</code> may be set: they become the defaults of every call of
-     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>).
+     * the campaign (see <a href="index.html#ondewo.vtsi.Campaign">Campaign</a>): every call added later takes
+     * each setting from them unless its own entry sets it, and a setting neither sets inherits the
+     * deployment-wide <code>ONDEWO_VTSI_*</code> setting or the built-in default. Only what
+     * <code>campaign_sip_caller_config</code> sets is checked here (<code>INVALID_ARGUMENT</code> naming the
+     * field); <code>campaign_common_services_config</code> is checked with each call when calls are added, so
+     * an out-of-range value in it is refused by <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code>, not by this RPC.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Campaign campaign = 2;</code>
      * @param \Ondewo\Vtsi\Campaign $var

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Number of calls whose last transfer attempt had one outcome, an entry of
- * <code>CallStatistics.transfer_outcome_counts</code>.
+ * Number of calls whose last transfer attempt had one outcome, an entry of <code>CallStatistics.transfer_outcome_counts</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.TransferOutcomeCount</code>
  */

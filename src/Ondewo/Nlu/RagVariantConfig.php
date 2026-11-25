@@ -10,13 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * RAGFlow variant override for an A/B experiment running on a RAG-classifier
- * project (<code>IntentRagflowClassifier</code>). Where an IntentAgent variant
- * overrides the LLM via <code>ccai_service_names</code>, a RAG variant overrides
- * the project's chat-assistant LLM CcaiService and the retrieval parameters used
- * when answering the assigned sessions. Override-or-inherit semantics apply per
- * field: an empty / zero value means "inherit the project's base
- * IntentRagflowClassifier config for this field".
+ * RAGFlow variant override for an A/B experiment running on a RAG-classifier project (<code>IntentRagflowClassifier</code>). Where an IntentAgent variant overrides the LLM via <code>ccai_service_names</code>, a RAG variant overrides the project's chat-assistant LLM CcaiService and the retrieval parameters used when answering the assigned sessions. Override-or-inherit semantics apply per field: an empty / zero value means "inherit the project's base IntentRagflowClassifier config for this field".
  *
  * Generated from protobuf message <code>ondewo.nlu.RagVariantConfig</code>
  */

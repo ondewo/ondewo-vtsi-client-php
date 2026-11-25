@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>CreateUserLanguageModelRequest is used to request the creation of a new user-specific language model.</p>
+ * CreateUserLanguageModelRequest is used to request the creation of a new user-specific language model.
  *
  * Generated from protobuf message <code>ondewo.s2t.CreateUserLanguageModelRequest</code>
  */

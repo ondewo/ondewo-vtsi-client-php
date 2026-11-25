@@ -10,9 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionPipecatSmartTurnOptions configures pipecat Smart Turn v3.2 as the turn detector. It judges the
- * turn from the caller's audio alone and is served by Triton.</p>
- * <p>Model: <a href="https://github.com/pipecat-ai/smart-turn">pipecat Smart Turn</a></p>
+ * TurnDetectionPipecatSmartTurnOptions configures pipecat Smart Turn v3.2 as the turn detector. It judges the turn from the caller's audio alone and is served by Triton.
+ * Model: <a href="https://github.com/pipecat-ai/smart-turn">pipecat Smart Turn</a>
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionPipecatSmartTurnOptions</code>
  */

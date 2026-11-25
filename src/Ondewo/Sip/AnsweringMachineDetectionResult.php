@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Result of the answering machine detection (AMD) of an outbound call</p>
- * <p>Carries identifiers from closed vocabularies only: never audio, transcript text or a phone number</p>
+ * Result of the answering machine detection (AMD) of an outbound call
+ * Carries identifiers from closed vocabularies only: never audio, transcript text or a phone number
  *
  * Generated from protobuf message <code>ondewo.sip.AnsweringMachineDetectionResult</code>
  */

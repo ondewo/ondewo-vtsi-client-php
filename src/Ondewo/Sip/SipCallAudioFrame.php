@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One frame of call audio</p>
+ * One frame of call audio
  *
  * Generated from protobuf message <code>ondewo.sip.SipCallAudioFrame</code>
  */

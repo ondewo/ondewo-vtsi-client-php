@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>ListS2tPipelinesResponse is used to return a list of all speech-to-text pipelines.</p>
+ * ListS2tPipelinesResponse is used to return a list of all speech-to-text pipelines.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tPipelinesResponse</code>
  */

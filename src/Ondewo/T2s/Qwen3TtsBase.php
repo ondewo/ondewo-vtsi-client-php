@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Qwen3TtsBase message contains settings for inference of qwen3-TTS-Base model.</p>
+ * Qwen3TtsBase message contains settings for inference of qwen3-TTS-Base model.
  *
  * Generated from protobuf message <code>ondewo.t2s.Qwen3TtsBase</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The agent's settings of warm transfer intros. A text a <code>WarmTransferIntroConfig</code> leaves empty falls back
- * to the agent's text for the intro's language, then to the built-in default.
+ * The agent's settings of warm transfer intros. A text a <code>WarmTransferIntroConfig</code> leaves empty falls back to the agent's text for the intro's language, then to the built-in default.
  *
  * Generated from protobuf message <code>ondewo.nlu.WarmTransferAgentSettings</code>
  */

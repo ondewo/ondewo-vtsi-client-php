@@ -8,9 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * Represents the options for views of an entity type.
- * An entity type can be a sizable object. Therefore, we provide a resource view that
- * does not return all values and synonyms besides the full view that is set by default.
+ * Represents the options for views of an entity type. An entity type can be a sizable object. Therefore, we provide a resource view that does not return all values and synonyms besides the full view that is set by default.
  *
  * Protobuf type <code>ondewo.nlu.EntityTypeView</code>
  */

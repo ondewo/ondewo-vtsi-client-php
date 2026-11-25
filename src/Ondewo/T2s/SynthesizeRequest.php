@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Represents a Synthesize Request.</p>
- * <p>A Synthesize Request contains the information need to perform a text to speech conversion.</p>
+ * Represents a Synthesize Request.
+ * A Synthesize Request contains the information need to perform a text to speech conversion.
  *
  * Generated from protobuf message <code>ondewo.t2s.SynthesizeRequest</code>
  */

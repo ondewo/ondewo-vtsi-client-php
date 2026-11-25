@@ -11,6 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Caller represents a caller instance that initiates outbound calls
+ * Its configuration (<code>sip_caller_config</code>, <code>common_services_config</code>) is the configuration of the outbound call(s) it places. A ONE-SHOT caller is exactly one call: the configuration applies to that call and to nothing else. A POOLED caller (<code>pooled</code>, deployment setting <code>ONDEWO_VTSI_CALLER_PERSISTENT</code>, on by default) is kept warm after its call and reused for a later <code>StartCaller</code> only when that request asks for the IDENTICAL configuration: everything except <code>sip_caller_config.callee_id</code> and <code>sip_caller_config.sip_headers</code>, which are sent per call, must match, the SIP image version and the credentials included. A request that differs in any other field is served by a newly deployed caller, so a pooled caller never places a call with another request&apos;s configuration.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Caller</code>
  */
@@ -33,15 +34,28 @@ class Caller extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
-     * there).
+     * SIP configuration of the caller&apos;s call: the callee it dials (<code>callee_id</code>), the SIP headers
+     * sent on the INVITE (<code>sip_headers</code>) and the ondewo-sip image version
+     * (<code>sip_base_config.sip_sim_version</code>; stored with the tag the server deployed, the deployment
+     * setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>, when the request left it empty). Populated in the
+     * <code>SHALLOW</code> and
+     * <code>FULL</code> views. Updatable with <code>UpdateCaller</code>, which changes the STORED configuration
+     * only and never a running call (see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      */
     protected $sip_caller_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
-     * (stored configuration only, see there).
+     * Service configuration of the caller&apos;s call(s): speech-to-text, NLU agent, text-to-speech, CSI and, in
+     * <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers, detects answering machines and handles the call&apos;s media.
+     * Populated in the <code>FULL</code> view only, and redacted by role like
+     * <code>Listener.common_services_config</code>.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both.</p>
+     * <p>Updatable with <code>UpdateCaller</code> (stored configuration only, see there): no update ever changes a
+     * call that is running or was already placed.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      */
@@ -114,11 +128,24 @@ class Caller extends \Google\Protobuf\Internal\Message
      *           <pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           Output only.
      *     @type \Ondewo\Vtsi\SipCallerConfig $sip_caller_config
-     *           SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
-     *           there).
+     *           SIP configuration of the caller&apos;s call: the callee it dials (<code>callee_id</code>), the SIP headers
+     *           sent on the INVITE (<code>sip_headers</code>) and the ondewo-sip image version
+     *           (<code>sip_base_config.sip_sim_version</code>; stored with the tag the server deployed, the deployment
+     *           setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>, when the request left it empty). Populated in the
+     *           <code>SHALLOW</code> and
+     *           <code>FULL</code> views. Updatable with <code>UpdateCaller</code>, which changes the STORED configuration
+     *           only and never a running call (see there).
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
-     *           (stored configuration only, see there).
+     *           Service configuration of the caller&apos;s call(s): speech-to-text, NLU agent, text-to-speech, CSI and, in
+     *           <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     *           lets itself be interrupted, times its answers, detects answering machines and handles the call&apos;s media.
+     *           Populated in the <code>FULL</code> view only, and redacted by role like
+     *           <code>Listener.common_services_config</code>.
+     *           <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     *           <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     *           default. A value set here wins over both.</p>
+     *           <p>Updatable with <code>UpdateCaller</code> (stored configuration only, see there): no update ever changes a
+     *           call that is running or was already placed.</p>
      *     @type string $vtsi_project_name
      *           Output only. VTSI project of the caller, the project segment of <code>name</code>, of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -215,8 +242,13 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
-     * there).
+     * SIP configuration of the caller&apos;s call: the callee it dials (<code>callee_id</code>), the SIP headers
+     * sent on the INVITE (<code>sip_headers</code>) and the ondewo-sip image version
+     * (<code>sip_base_config.sip_sim_version</code>; stored with the tag the server deployed, the deployment
+     * setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>, when the request left it empty). Populated in the
+     * <code>SHALLOW</code> and
+     * <code>FULL</code> views. Updatable with <code>UpdateCaller</code>, which changes the STORED configuration
+     * only and never a running call (see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      * @return \Ondewo\Vtsi\SipCallerConfig|null
@@ -237,8 +269,13 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration. Updatable with <code>UpdateCaller</code> (stored configuration only, see
-     * there).
+     * SIP configuration of the caller&apos;s call: the callee it dials (<code>callee_id</code>), the SIP headers
+     * sent on the INVITE (<code>sip_headers</code>) and the ondewo-sip image version
+     * (<code>sip_base_config.sip_sim_version</code>; stored with the tag the server deployed, the deployment
+     * setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>, when the request left it empty). Populated in the
+     * <code>SHALLOW</code> and
+     * <code>FULL</code> views. Updatable with <code>UpdateCaller</code>, which changes the STORED configuration
+     * only and never a running call (see there).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipCallerConfig sip_caller_config = 3;</code>
      * @param \Ondewo\Vtsi\SipCallerConfig $var
@@ -252,8 +289,16 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
-     * (stored configuration only, see there).
+     * Service configuration of the caller&apos;s call(s): speech-to-text, NLU agent, text-to-speech, CSI and, in
+     * <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers, detects answering machines and handles the call&apos;s media.
+     * Populated in the <code>FULL</code> view only, and redacted by role like
+     * <code>Listener.common_services_config</code>.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both.</p>
+     * <p>Updatable with <code>UpdateCaller</code> (stored configuration only, see there): no update ever changes a
+     * call that is running or was already placed.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -274,8 +319,16 @@ class Caller extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateCaller</code>
-     * (stored configuration only, see there).
+     * Service configuration of the caller&apos;s call(s): speech-to-text, NLU agent, text-to-speech, CSI and, in
+     * <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers, detects answering machines and handles the call&apos;s media.
+     * Populated in the <code>FULL</code> view only, and redacted by role like
+     * <code>Listener.common_services_config</code>.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both.</p>
+     * <p>Updatable with <code>UpdateCaller</code> (stored configuration only, see there): no update ever changes a
+     * call that is running or was already placed.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var

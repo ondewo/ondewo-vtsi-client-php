@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Crawl run behavior.
- * This block controls scheduling, traversal, extraction outputs, retries,
- * diagnostics capture, and deep crawling options for each crawler run.
+ * This block controls scheduling, traversal, extraction outputs, retries, diagnostics capture, and deep crawling options for each crawler run.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerConfig</code>
  */

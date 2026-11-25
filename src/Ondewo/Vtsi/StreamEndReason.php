@@ -8,13 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Why the SERVER ended a stream. Carried, next to the free-text <code>end_reason</code>, on the last
- * message of <code>Campaigns.StreamCampaignStatus</code>
- * (<code>StreamCampaignStatusResponse.end_reason_type</code>) and of <code>Events.SubscribeVtsiEvents</code>
- * (<code>SubscribeVtsiEventsResponse.end_reason_type</code>). A stream ended by the client, by a gRPC status
- * or by a broken connection carries no last message at all. Defined in this file because
- * <code>events.proto</code> imports it and not the other way round. New values may be added: treat an
- * unknown value like <code>STREAM_END_REASON_UNSPECIFIED</code> (reconnect).
+ * Why the SERVER ended a stream. Carried, next to the free-text <code>end_reason</code>, on the last message of <code>Campaigns.StreamCampaignStatus</code> (<code>StreamCampaignStatusResponse.end_reason_type</code>) and of <code>Events.SubscribeVtsiEvents</code> (<code>SubscribeVtsiEventsResponse.end_reason_type</code>). A stream ended by the client, by a gRPC status or by a broken connection carries no last message at all. Defined in this file because <code>events.proto</code> imports it and not the other way round. New values may be added: treat an unknown value like <code>STREAM_END_REASON_UNSPECIFIED</code> (reconnect).
  *
  * Protobuf type <code>ondewo.vtsi.StreamEndReason</code>
  */

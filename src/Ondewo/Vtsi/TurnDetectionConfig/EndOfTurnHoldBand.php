@@ -10,21 +10,23 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One hold band of the semantic turn detection model
+ * One hold band of an end-of-utterance turn detection model
  *
  * Generated from protobuf message <code>ondewo.vtsi.TurnDetectionConfig.EndOfTurnHoldBand</code>
  */
 class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)
+     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1); the lower
+     * bound is the next lower band&apos;s upper bound, or the end-of-turn threshold
      *
      * Generated from protobuf field <code>float upper_probability = 1;</code>
      */
     protected $upper_probability = 0.0;
     /**
-     * Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
-     * <code>incomplete_max_silence_seconds</code>)
+     * Seconds of silence a turn in the band waits before it is committed; speech inside it resumes the turn
+     * (valid range: 0 - 4, and at most <code>incomplete_max_silence_seconds</code> when that is set in the same
+     * message)
      *
      * Generated from protobuf field <code>float max_silence_seconds = 2;</code>
      */
@@ -37,10 +39,12 @@ class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type float $upper_probability
-     *           Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)
+     *           Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1); the lower
+     *           bound is the next lower band&apos;s upper bound, or the end-of-turn threshold
      *     @type float $max_silence_seconds
-     *           Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
-     *           <code>incomplete_max_silence_seconds</code>)
+     *           Seconds of silence a turn in the band waits before it is committed; speech inside it resumes the turn
+     *           (valid range: 0 - 4, and at most <code>incomplete_max_silence_seconds</code> when that is set in the same
+     *           message)
      * }
      */
     public function __construct($data = NULL) {
@@ -49,7 +53,8 @@ class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)
+     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1); the lower
+     * bound is the next lower band&apos;s upper bound, or the end-of-turn threshold
      *
      * Generated from protobuf field <code>float upper_probability = 1;</code>
      * @return float
@@ -60,7 +65,8 @@ class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1)
+     * Exclusive upper bound of the end-of-turn probabilities the band covers (valid range: 0 - 1); the lower
+     * bound is the next lower band&apos;s upper bound, or the end-of-turn threshold
      *
      * Generated from protobuf field <code>float upper_probability = 1;</code>
      * @param float $var
@@ -74,8 +80,9 @@ class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
-     * <code>incomplete_max_silence_seconds</code>)
+     * Seconds of silence a turn in the band waits before it is committed; speech inside it resumes the turn
+     * (valid range: 0 - 4, and at most <code>incomplete_max_silence_seconds</code> when that is set in the same
+     * message)
      *
      * Generated from protobuf field <code>float max_silence_seconds = 2;</code>
      * @return float
@@ -86,8 +93,9 @@ class EndOfTurnHoldBand extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Seconds of silence a turn in the band waits before it is committed (valid range: 0 - 4; never longer than
-     * <code>incomplete_max_silence_seconds</code>)
+     * Seconds of silence a turn in the band waits before it is committed; speech inside it resumes the turn
+     * (valid range: 0 - 4, and at most <code>incomplete_max_silence_seconds</code> when that is set in the same
+     * message)
      *
      * Generated from protobuf field <code>float max_silence_seconds = 2;</code>
      * @param float $var

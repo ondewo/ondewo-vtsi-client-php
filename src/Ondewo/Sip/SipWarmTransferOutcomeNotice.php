@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One-shot notice of a warm-transfer outcome for the bot. The pipeline tells the caller at most once per
- * <code>request_id</code> and call. Carries no reason text the target gave</p>
+ * One-shot notice of a warm-transfer outcome for the bot. The pipeline tells the caller at most once per <code>request_id</code> and call. Carries no reason text the target gave
  *
  * Generated from protobuf message <code>ondewo.sip.SipWarmTransferOutcomeNotice</code>
  */

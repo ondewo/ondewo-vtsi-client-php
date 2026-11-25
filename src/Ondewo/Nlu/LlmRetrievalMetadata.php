@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Typed view of the chunks retrieved for one LLM call. Populated alongside the
- * unstructured <code>outputs.retrieved_chunks</code> Struct (field 18 on
- * LlmTelemetry, kept for back-compat); both carry the same chunk list.
+ * Typed view of the chunks retrieved for one LLM call. Populated alongside the unstructured <code>outputs.retrieved_chunks</code> Struct (field 18 on LlmTelemetry, kept for back-compat); both carry the same chunk list.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmRetrievalMetadata</code>
  */

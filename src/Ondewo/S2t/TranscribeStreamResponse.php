@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>The response message of a stream transcription</p>
+ * The response message of a stream transcription
  *
  * Generated from protobuf message <code>ondewo.s2t.TranscribeStreamResponse</code>
  */

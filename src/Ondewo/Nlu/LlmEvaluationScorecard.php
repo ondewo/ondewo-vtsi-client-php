@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A scorecard: a named weighted multi-criteria roll-up definition applied to
- * experiments for release reporting.
+ * A scorecard: a named weighted multi-criteria roll-up definition applied to experiments for release reporting.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationScorecard</code>
  */

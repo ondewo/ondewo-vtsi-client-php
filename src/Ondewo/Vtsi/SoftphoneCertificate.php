@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A client certificate issued to a softphone account by the project&apos;s SOFTPHONE certificate
- * authority. Carries public material only: the private key exists solely inside the PKCS#12 bundle that
- * was returned once when the certificate was issued. Every field is output only.
+ * A client certificate issued to a softphone account by the project&apos;s SOFTPHONE certificate authority. Carries public material only: the private key exists solely inside the PKCS#12 bundle that was returned once when the certificate was issued. Every field is output only.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneCertificate</code>
  */

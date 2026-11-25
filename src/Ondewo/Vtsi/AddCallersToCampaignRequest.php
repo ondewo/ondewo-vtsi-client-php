@@ -25,6 +25,18 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
     protected $vtsi_project_name = '';
     /**
      * Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request.
+     * <p>Each entry is one campaign call. Its configuration is merged OVER the campaign&apos;s call defaults
+     * (<code>Campaign.campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>), the
+     * entry&apos;s own value winning, so an entry may leave out whatever the campaign supplies; the effective
+     * configuration must be one a <code>StartCallerRequest</code> would be accepted with. The campaign defaults
+     * are read again whenever the call is dispatched (its first attempt and every retry), so a campaign update
+     * reaches every attempt not yet dispatched; only the callee is fixed when the call is added (see
+     * <code>Campaign.campaign_sip_caller_config</code>). A field set neither by the entry nor by the campaign
+     * inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default. Example: set
+     * <code>voice_interaction_config</code> once in the campaign&apos;s defaults to give every call of the
+     * campaign the same turn taking, and set only <code>sip_caller_config.callee_id</code> per entry. Campaign
+     * calls are served by pooled callers like <code>StartCaller</code> requests with the same effective
+     * configuration.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      */
@@ -61,6 +73,18 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\StartCallerRequest[] $caller_requests
      *           Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request.
+     *           <p>Each entry is one campaign call. Its configuration is merged OVER the campaign&apos;s call defaults
+     *           (<code>Campaign.campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>), the
+     *           entry&apos;s own value winning, so an entry may leave out whatever the campaign supplies; the effective
+     *           configuration must be one a <code>StartCallerRequest</code> would be accepted with. The campaign defaults
+     *           are read again whenever the call is dispatched (its first attempt and every retry), so a campaign update
+     *           reaches every attempt not yet dispatched; only the callee is fixed when the call is added (see
+     *           <code>Campaign.campaign_sip_caller_config</code>). A field set neither by the entry nor by the campaign
+     *           inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default. Example: set
+     *           <code>voice_interaction_config</code> once in the campaign&apos;s defaults to give every call of the
+     *           campaign the same turn taking, and set only <code>sip_caller_config.callee_id</code> per entry. Campaign
+     *           calls are served by pooled callers like <code>StartCaller</code> requests with the same effective
+     *           configuration.</p>
      *     @type \Ondewo\Vtsi\CampaignAssignment $campaign_assignment
      *           Required. Which campaign, and whether it starts dialling.
      *     @type string $idempotency_key
@@ -110,6 +134,18 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request.
+     * <p>Each entry is one campaign call. Its configuration is merged OVER the campaign&apos;s call defaults
+     * (<code>Campaign.campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>), the
+     * entry&apos;s own value winning, so an entry may leave out whatever the campaign supplies; the effective
+     * configuration must be one a <code>StartCallerRequest</code> would be accepted with. The campaign defaults
+     * are read again whenever the call is dispatched (its first attempt and every retry), so a campaign update
+     * reaches every attempt not yet dispatched; only the callee is fixed when the call is added (see
+     * <code>Campaign.campaign_sip_caller_config</code>). A field set neither by the entry nor by the campaign
+     * inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default. Example: set
+     * <code>voice_interaction_config</code> once in the campaign&apos;s defaults to give every call of the
+     * campaign the same turn taking, and set only <code>sip_caller_config.callee_id</code> per entry. Campaign
+     * calls are served by pooled callers like <code>StartCaller</code> requests with the same effective
+     * configuration.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\StartCallerRequest>
@@ -121,6 +157,18 @@ class AddCallersToCampaignRequest extends \Google\Protobuf\Internal\Message
 
     /**
      * Callers to add, at least one. The project&apos;s caller limit is checked per started call, not for the request.
+     * <p>Each entry is one campaign call. Its configuration is merged OVER the campaign&apos;s call defaults
+     * (<code>Campaign.campaign_common_services_config</code> / <code>campaign_sip_caller_config</code>), the
+     * entry&apos;s own value winning, so an entry may leave out whatever the campaign supplies; the effective
+     * configuration must be one a <code>StartCallerRequest</code> would be accepted with. The campaign defaults
+     * are read again whenever the call is dispatched (its first attempt and every retry), so a campaign update
+     * reaches every attempt not yet dispatched; only the callee is fixed when the call is added (see
+     * <code>Campaign.campaign_sip_caller_config</code>). A field set neither by the entry nor by the campaign
+     * inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in default. Example: set
+     * <code>voice_interaction_config</code> once in the campaign&apos;s defaults to give every call of the
+     * campaign the same turn taking, and set only <code>sip_caller_config.callee_id</code> per entry. Campaign
+     * calls are served by pooled callers like <code>StartCaller</code> requests with the same effective
+     * configuration.</p>
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.StartCallerRequest caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\StartCallerRequest[] $var

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>T2SCustomLengthScales message contains custom length scales for text types.</p>
+ * T2SCustomLengthScales message contains custom length scales for text types.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2SCustomLengthScales</code>
  */

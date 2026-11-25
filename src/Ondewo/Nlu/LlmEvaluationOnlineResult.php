@@ -10,11 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A self-contained online-evaluation result: one row per scored session step.
- * Per-criterion feedbacks are stored as an embedded repeated LlmEvaluationFeedback
- * list (exactly like LlmEvaluationTurnResult.feedbacks — NOT persisted into the
- * experiment-scoped llm_feedback table). Produced by the online-evaluation worker;
- * read-only over the API.
+ * A self-contained online-evaluation result: one row per scored session step. Per-criterion feedbacks are stored as an embedded repeated LlmEvaluationFeedback list (exactly like LlmEvaluationTurnResult.feedbacks — NOT persisted into the experiment-scoped llm_feedback table). Produced by the online-evaluation worker; read-only over the API.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationOnlineResult</code>
  */

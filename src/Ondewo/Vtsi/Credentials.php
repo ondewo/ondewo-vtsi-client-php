@@ -10,20 +10,22 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Credentials
+ * User name and password the call logs in to the NLU service with (the NLU <code>credentials</code> of <code>NluVtsiConfig</code>), usually the project&apos;s technical user.
+ * They are checked when the caller or listener is started: VTSI reads the configured NLU agent with them, so credentials the NLU service (or its login server) refuses refuse the request. Where the deployment logs in through Keycloak, the same login also authorizes the S2T and T2S checks of that request. The password is never logged, and read responses may withhold it depending on the reader&apos;s role (see <code>GetCaller</code>).
+ * Pooled callers: credentials are not part of the configuration a pooled caller is matched by, but they are compared exactly before one is reused, so a changed password always gets a caller that logs in with it.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Credentials</code>
  */
 class Credentials extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Account name - usually email address
+     * Account name the call logs in with, usually an email address, e.g. <code>technical-user\@example.com</code>
      *
      * Generated from protobuf field <code>string account_name = 1;</code>
      */
     protected $account_name = '';
     /**
-     * password of the account
+     * Password of <code>account_name</code>. Stored with the call and never logged
      *
      * Generated from protobuf field <code>string password = 2;</code>
      */
@@ -36,9 +38,9 @@ class Credentials extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $account_name
-     *           Account name - usually email address
+     *           Account name the call logs in with, usually an email address, e.g. <code>technical-user\@example.com</code>
      *     @type string $password
-     *           password of the account
+     *           Password of <code>account_name</code>. Stored with the call and never logged
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +49,7 @@ class Credentials extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Account name - usually email address
+     * Account name the call logs in with, usually an email address, e.g. <code>technical-user\@example.com</code>
      *
      * Generated from protobuf field <code>string account_name = 1;</code>
      * @return string
@@ -58,7 +60,7 @@ class Credentials extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Account name - usually email address
+     * Account name the call logs in with, usually an email address, e.g. <code>technical-user\@example.com</code>
      *
      * Generated from protobuf field <code>string account_name = 1;</code>
      * @param string $var
@@ -73,7 +75,7 @@ class Credentials extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * password of the account
+     * Password of <code>account_name</code>. Stored with the call and never logged
      *
      * Generated from protobuf field <code>string password = 2;</code>
      * @return string
@@ -84,7 +86,7 @@ class Credentials extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * password of the account
+     * Password of <code>account_name</code>. Stored with the call and never logged
      *
      * Generated from protobuf field <code>string password = 2;</code>
      * @param string $var

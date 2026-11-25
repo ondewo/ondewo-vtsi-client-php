@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>NormalizeTextResponse message is used to store the normalized text response.</p>
+ * NormalizeTextResponse message is used to store the normalized text response.
  *
  * Generated from protobuf message <code>ondewo.t2s.NormalizeTextResponse</code>
  */

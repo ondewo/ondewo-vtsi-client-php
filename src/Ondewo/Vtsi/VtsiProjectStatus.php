@@ -8,10 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Status of a VtsiProject.
- * Released with unprefixed value names, which are package scoped in proto3 (so no other enum of
- * <code>ondewo.vtsi</code> can declare e.g. <code>UNSPECIFIED</code>); kept for wire and source
- * compatibility.
+ * Status of a VtsiProject. Released with unprefixed value names, which are package scoped in proto3 (so no other enum of <code>ondewo.vtsi</code> can declare e.g. <code>UNSPECIFIED</code>); kept for wire and source compatibility.
  *
  * Protobuf type <code>ondewo.vtsi.VtsiProjectStatus</code>
  */

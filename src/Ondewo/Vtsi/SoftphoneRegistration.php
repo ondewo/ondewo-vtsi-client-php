@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output
- * only. Never carries a secret.
+ * The live registrations of one softphone account on its project&apos;s Asterisk. Every field is output only. Never carries a secret.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneRegistration</code>
  */

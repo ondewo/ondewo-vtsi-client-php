@@ -8,8 +8,7 @@ namespace Ondewo\Nlu;
 use UnexpectedValueException;
 
 /**
- * The state of CAI&apos;s capture of one log stream. This describes the CAPTURE, not the process or the
- * container.
+ * The state of CAI&apos;s capture of one log stream. This describes the CAPTURE, not the process or the container.
  *
  * Protobuf type <code>ondewo.nlu.CaiLogCaptureState</code>
  */

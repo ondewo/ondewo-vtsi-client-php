@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>ListS2tLanguagesRequest is used to request a list of available languages. Optionally, filters can be set.</p>
+ * ListS2tLanguagesRequest is used to request a list of available languages. Optionally, filters can be set.
  *
  * Generated from protobuf message <code>ondewo.s2t.ListS2tLanguagesRequest</code>
  */

@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to apply an A/B rollout: promotes the chosen variant's config to the
- * project's classifier default, stops the experiment and writes the audit
- * decision. Idempotent — re-applying the same already-applied experiment returns
- * the existing decision rather than promoting twice.
+ * Request to apply an A/B rollout: promotes the chosen variant's config to the project's classifier default, stops the experiment and writes the audit decision. Idempotent — re-applying the same already-applied experiment returns the existing decision rather than promoting twice.
  *
  * Generated from protobuf message <code>ondewo.nlu.ApplyLlmEvaluationAbRolloutRequest</code>
  */

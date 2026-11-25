@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request message for updating an existing dataset.
- * The same field constraints as for <code>RagCreateDatasetRequest</code> apply here.
+ * Request message for updating an existing dataset. The same field constraints as for <code>RagCreateDatasetRequest</code> apply here.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagUpdateDatasetRequest</code>
  */

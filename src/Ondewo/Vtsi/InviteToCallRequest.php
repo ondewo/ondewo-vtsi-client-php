@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request to invite a softphone account into a call</p>
+ * Request to invite a softphone account into a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.InviteToCallRequest</code>
  */

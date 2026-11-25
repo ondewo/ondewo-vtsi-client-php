@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The default texts of warm transfer intros in one language. An empty text = the built-in default. The fields and
- * placeholders are those of the same-named fields of <code>WarmTransferIntroConfig</code>.
+ * The default texts of warm transfer intros in one language. An empty text = the built-in default. The fields and placeholders are those of the same-named fields of <code>WarmTransferIntroConfig</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.WarmTransferAgentTexts</code>
  */

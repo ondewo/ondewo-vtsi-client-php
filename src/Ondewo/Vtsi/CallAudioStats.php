@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Counters of a call audio stream, sent periodically</p>
+ * Counters of a call audio stream, sent periodically
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallAudioStats</code>
  */

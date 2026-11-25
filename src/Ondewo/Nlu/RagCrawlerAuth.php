@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Authentication configuration.
- * Supports both browser/form login and HTTP auth patterns used by Crawl4AI pipelines when crawling protected content.
- * HTTP Auth is used on all pages of the sources, while html_auth is a separate authentication flow used in the beginning of the crawl to extract the cookies. This is done through a login screen. If HTTP Auth is set, this would ALSO be used on the HTML auth page.
+ * Supports both browser/form login and HTTP auth patterns used by Crawl4AI pipelines when crawling protected content. HTTP Auth is used on all pages of the sources, while html_auth is a separate authentication flow used in the beginning of the crawl to extract the cookies. This is done through a login screen. If HTTP Auth is set, this would ALSO be used on the HTML auth page.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerAuth</code>
  */

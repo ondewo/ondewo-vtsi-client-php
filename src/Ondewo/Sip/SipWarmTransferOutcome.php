@@ -8,7 +8,7 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>Outcome of a warm transfer that the bot tells the caller</p>
+ * Outcome of a warm transfer that the bot tells the caller
  *
  * Protobuf type <code>ondewo.sip.SipWarmTransferOutcome</code>
  */

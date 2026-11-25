@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Sent once when a call audio stream is connected</p>
+ * Sent once when a call audio stream is connected
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallAudioStarted</code>
  */

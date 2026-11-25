@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>CompositeInference message combines text-to-mel and mel-to-audio inference settings.</p>
+ * CompositeInference message combines text-to-mel and mel-to-audio inference settings.
  *
  * Generated from protobuf message <code>ondewo.t2s.CompositeInference</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>A participant invited into a call</p>
+ * A participant invited into a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallParticipant</code>
  */

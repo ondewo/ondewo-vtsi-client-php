@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Wav2Vec contains information about the Wav2Vec model.</p>
+ * Wav2Vec contains information about the Wav2Vec model.
  *
  * Generated from protobuf message <code>ondewo.s2t.Wav2Vec</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * An A/B experiment: a set of routing variants split over live DetectIntent
- * traffic for a (project, language_code) scope.
+ * An A/B experiment: a set of routing variants split over live DetectIntent traffic for a (project, language_code) scope.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationAbExperiment</code>
  */

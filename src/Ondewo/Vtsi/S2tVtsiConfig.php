@@ -10,24 +10,53 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Speech-2-Text Configuration
+ * Speech-to-text (S2T) configuration of a call: which S2T service and pipeline transcribe the caller, how each utterance is transcribed, and what happens when the S2T service becomes unreachable during the call.
+ * Checked when the caller or listener is started: the S2T service must be reachable and the pipeline named in <code>s2t_transcribe_request_config.s2t_pipeline_id</code> must exist and be active, otherwise the request is refused.
  *
  * Generated from protobuf message <code>ondewo.vtsi.S2tVtsiConfig</code>
  */
 class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Address and server trust of the S2T service (see <code>BaseServiceConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig s2t_base_config = 1;</code>
      */
     protected $s2t_base_config = null;
     /**
-     * Configuration of Speech-2-Text
+     * The transcription request the call sends to the S2T service for the caller&apos;s audio, e.g. the pipeline,
+     * the voice activity detection and which results are returned. <code>s2t_pipeline_id</code> is required: an
+     * empty one is refused with <code>INVALID_ARGUMENT</code>, and one that does not exist or is not active
+     * refuses the request.
+     * <p>VTSI adds what the call&apos;s <code>VoiceInteractionConfig</code> needs and never overwrites a value set
+     * here: for example, with interruptions enabled, preemptive generation enabled or a
+     * <code>TurnDetectionConfig</code> present, partial (not final) transcripts and the start-of-speech signal are
+     * requested unless this config already says otherwise.
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> is applied through the <code>pyannote</code>
+     * block of this config. Supply a <code>pyannote</code> block when you set it: without one the delay is applied
+     * only where the deployment supports creating the block, and is otherwise dropped with a warning in the server
+     * log.</p>
      *
      * Generated from protobuf field <code>.ondewo.s2t.TranscribeRequestConfig s2t_transcribe_request_config = 2;</code>
      */
     protected $s2t_transcribe_request_config = null;
+    /**
+     * Optional: What the call does when the S2T service stays unreachable after all retries, i.e. when the bot can
+     * no longer hear the caller:
+     * <ul>
+     *   <li><code>hangup</code> (the default when unset): the call is ended.</li>
+     *   <li><code>human_handover</code>: a handover to a human agent is requested. This trigger carries no
+     *       transfer target, so the call currently ends as with <code>hangup</code>.</li>
+     *   <li><code>none</code>: nothing is done; the call stays up, but nothing the caller says is transcribed or
+     *       answered any more.</li>
+     * </ul>
+     * Case-insensitive, e.g. <code>HANGUP</code> is accepted; any other value is refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it: unset always means
+     * <code>hangup</code>.
+     *
+     * Generated from protobuf field <code>optional string failure_sip_trigger = 3;</code>
+     */
+    protected $failure_sip_trigger = null;
 
     /**
      * Constructor.
@@ -36,9 +65,33 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\BaseServiceConfig $s2t_base_config
-     *           Host, Port, and [Optional] GRPC cert
+     *           Address and server trust of the S2T service (see <code>BaseServiceConfig</code>). Required
      *     @type \Ondewo\S2t\TranscribeRequestConfig $s2t_transcribe_request_config
-     *           Configuration of Speech-2-Text
+     *           The transcription request the call sends to the S2T service for the caller&apos;s audio, e.g. the pipeline,
+     *           the voice activity detection and which results are returned. <code>s2t_pipeline_id</code> is required: an
+     *           empty one is refused with <code>INVALID_ARGUMENT</code>, and one that does not exist or is not active
+     *           refuses the request.
+     *           <p>VTSI adds what the call&apos;s <code>VoiceInteractionConfig</code> needs and never overwrites a value set
+     *           here: for example, with interruptions enabled, preemptive generation enabled or a
+     *           <code>TurnDetectionConfig</code> present, partial (not final) transcripts and the start-of-speech signal are
+     *           requested unless this config already says otherwise.
+     *           <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> is applied through the <code>pyannote</code>
+     *           block of this config. Supply a <code>pyannote</code> block when you set it: without one the delay is applied
+     *           only where the deployment supports creating the block, and is otherwise dropped with a warning in the server
+     *           log.</p>
+     *     @type string $failure_sip_trigger
+     *           Optional: What the call does when the S2T service stays unreachable after all retries, i.e. when the bot can
+     *           no longer hear the caller:
+     *           <ul>
+     *             <li><code>hangup</code> (the default when unset): the call is ended.</li>
+     *             <li><code>human_handover</code>: a handover to a human agent is requested. This trigger carries no
+     *                 transfer target, so the call currently ends as with <code>hangup</code>.</li>
+     *             <li><code>none</code>: nothing is done; the call stays up, but nothing the caller says is transcribed or
+     *                 answered any more.</li>
+     *           </ul>
+     *           Case-insensitive, e.g. <code>HANGUP</code> is accepted; any other value is refused with
+     *           <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it: unset always means
+     *           <code>hangup</code>.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +100,7 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Address and server trust of the S2T service (see <code>BaseServiceConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig s2t_base_config = 1;</code>
      * @return \Ondewo\Vtsi\BaseServiceConfig|null
@@ -68,7 +121,7 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Host, Port, and [Optional] GRPC cert
+     * Address and server trust of the S2T service (see <code>BaseServiceConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.BaseServiceConfig s2t_base_config = 1;</code>
      * @param \Ondewo\Vtsi\BaseServiceConfig $var
@@ -82,7 +135,18 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of Speech-2-Text
+     * The transcription request the call sends to the S2T service for the caller&apos;s audio, e.g. the pipeline,
+     * the voice activity detection and which results are returned. <code>s2t_pipeline_id</code> is required: an
+     * empty one is refused with <code>INVALID_ARGUMENT</code>, and one that does not exist or is not active
+     * refuses the request.
+     * <p>VTSI adds what the call&apos;s <code>VoiceInteractionConfig</code> needs and never overwrites a value set
+     * here: for example, with interruptions enabled, preemptive generation enabled or a
+     * <code>TurnDetectionConfig</code> present, partial (not final) transcripts and the start-of-speech signal are
+     * requested unless this config already says otherwise.
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> is applied through the <code>pyannote</code>
+     * block of this config. Supply a <code>pyannote</code> block when you set it: without one the delay is applied
+     * only where the deployment supports creating the block, and is otherwise dropped with a warning in the server
+     * log.</p>
      *
      * Generated from protobuf field <code>.ondewo.s2t.TranscribeRequestConfig s2t_transcribe_request_config = 2;</code>
      * @return \Ondewo\S2t\TranscribeRequestConfig|null
@@ -103,7 +167,18 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of Speech-2-Text
+     * The transcription request the call sends to the S2T service for the caller&apos;s audio, e.g. the pipeline,
+     * the voice activity detection and which results are returned. <code>s2t_pipeline_id</code> is required: an
+     * empty one is refused with <code>INVALID_ARGUMENT</code>, and one that does not exist or is not active
+     * refuses the request.
+     * <p>VTSI adds what the call&apos;s <code>VoiceInteractionConfig</code> needs and never overwrites a value set
+     * here: for example, with interruptions enabled, preemptive generation enabled or a
+     * <code>TurnDetectionConfig</code> present, partial (not final) transcripts and the start-of-speech signal are
+     * requested unless this config already says otherwise.
+     * <code>TurnDetectionConfig.min_endpointing_delay_seconds</code> is applied through the <code>pyannote</code>
+     * block of this config. Supply a <code>pyannote</code> block when you set it: without one the delay is applied
+     * only where the deployment supports creating the block, and is otherwise dropped with a warning in the server
+     * log.</p>
      *
      * Generated from protobuf field <code>.ondewo.s2t.TranscribeRequestConfig s2t_transcribe_request_config = 2;</code>
      * @param \Ondewo\S2t\TranscribeRequestConfig $var
@@ -112,6 +187,64 @@ class S2tVtsiConfig extends \Google\Protobuf\Internal\Message
     public function setS2TTranscribeRequestConfig(\Ondewo\S2t\TranscribeRequestConfig|null $var)
     {
         $this->s2t_transcribe_request_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: What the call does when the S2T service stays unreachable after all retries, i.e. when the bot can
+     * no longer hear the caller:
+     * <ul>
+     *   <li><code>hangup</code> (the default when unset): the call is ended.</li>
+     *   <li><code>human_handover</code>: a handover to a human agent is requested. This trigger carries no
+     *       transfer target, so the call currently ends as with <code>hangup</code>.</li>
+     *   <li><code>none</code>: nothing is done; the call stays up, but nothing the caller says is transcribed or
+     *       answered any more.</li>
+     * </ul>
+     * Case-insensitive, e.g. <code>HANGUP</code> is accepted; any other value is refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it: unset always means
+     * <code>hangup</code>.
+     *
+     * Generated from protobuf field <code>optional string failure_sip_trigger = 3;</code>
+     * @return string
+     */
+    public function getFailureSipTrigger()
+    {
+        return isset($this->failure_sip_trigger) ? $this->failure_sip_trigger : '';
+    }
+
+    public function hasFailureSipTrigger()
+    {
+        return isset($this->failure_sip_trigger);
+    }
+
+    public function clearFailureSipTrigger()
+    {
+        unset($this->failure_sip_trigger);
+    }
+
+    /**
+     * Optional: What the call does when the S2T service stays unreachable after all retries, i.e. when the bot can
+     * no longer hear the caller:
+     * <ul>
+     *   <li><code>hangup</code> (the default when unset): the call is ended.</li>
+     *   <li><code>human_handover</code>: a handover to a human agent is requested. This trigger carries no
+     *       transfer target, so the call currently ends as with <code>hangup</code>.</li>
+     *   <li><code>none</code>: nothing is done; the call stays up, but nothing the caller says is transcribed or
+     *       answered any more.</li>
+     * </ul>
+     * Case-insensitive, e.g. <code>HANGUP</code> is accepted; any other value is refused with
+     * <code>INVALID_ARGUMENT</code>. There is no deployment-wide setting for it: unset always means
+     * <code>hangup</code>.
+     *
+     * Generated from protobuf field <code>optional string failure_sip_trigger = 3;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setFailureSipTrigger(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->failure_sip_trigger = $var;
 
         return $this;
     }

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>GlowTTSTriton message contains settings for the GlowTTS Triton inference.</p>
+ * GlowTTSTriton message contains settings for the GlowTTS Triton inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.GlowTTSTriton</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to persist a session review for a given session.
- * As a side effect, training data in ondewo-cai may also be updated.
+ * Request to persist a session review for a given session. As a side effect, training data in ondewo-cai may also be updated.
  *
  * Generated from protobuf message <code>ondewo.nlu.CreateSessionReviewRequest</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>StreamingSynthesizeRequest is used to perform streaming synthesize.</p>
+ * StreamingSynthesizeRequest is used to perform streaming synthesize.
  *
  * Generated from protobuf message <code>ondewo.t2s.StreamingSynthesizeRequest</code>
  */

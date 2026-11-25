@@ -10,32 +10,33 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Bounds of the preemptive (speculative) NLU requests: on a stable partial transcription the speech-to-speech
- * service asks the NLU for the answer of a draft BEFORE the final transcription arrives, and keeps it only when the
- * final transcription matches the draft. Every field is optional; an unset field keeps the deployment&apos;s value.
- * A value outside its range is refused with <code>INVALID_ARGUMENT</code>
+ * Bounds of the preemptive (speculative) NLU requests. While preemptive generation is on (<code>CsiVtsiConfig.preemptive_generation_config.enabled</code>), the bot asks the NLU for the answer of a stable partial transcription BEFORE the caller&apos;s final transcription arrives, and uses that draft only when the final transcription matches it; otherwise the draft is discarded and the caller hears nothing of it. A draft never ends the caller&apos;s turn early; it only saves time when it matches. Every extra draft is an extra NLU request, and these bounds limit how many a turn may cost.
+ * Every field is optional; an unset field keeps the built-in default (there is no deployment-wide setting for these). A value outside its range is refused with <code>INVALID_ARGUMENT</code>.
+ * Example: <code>max_drafts_per_turn=1</code> and <code>min_stable_dwell_seconds=0.5</code> allow one draft per turn, started only after the partial transcription stayed unchanged for half a second: fewer extra NLU requests, less time saved.
  *
  * Generated from protobuf message <code>ondewo.vtsi.NluPreemptiveGenerationConfig</code>
  */
 class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
-     * 0 = no drafts)
+     * Optional: Number of drafts one caller turn may start at most. Unset: 2. Valid range: 0 - 5; 0 starts no draft
+     * at all, i.e. preemptive generation does nothing on this call
      *
      * Generated from protobuf field <code>optional int32 max_drafts_per_turn = 1;</code>
      */
     protected $max_drafts_per_turn = null;
     /**
-     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
-     * (default: 0.25, valid range: 0 - 2; 0 = no wait)
+     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts. A
+     * longer wait drafts less often on a caller who only paused to breathe. Unset: 0.25. Valid range: 0 - 2;
+     * 0 = no wait
      *
      * Generated from protobuf field <code>optional float min_stable_dwell_seconds = 2;</code>
      */
     protected $min_stable_dwell_seconds = null;
     /**
-     * Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
-     * valid range: 0 - 5; 0 = no limit)
+     * Optional: Minimum seconds between the starts of two drafts within one turn, so a caller whose transcription
+     * keeps changing cannot use up <code>max_drafts_per_turn</code> at once. Unset: 0.5. Valid range: 0 - 5;
+     * 0 = no minimum interval
      *
      * Generated from protobuf field <code>optional float min_interval_seconds = 3;</code>
      */
@@ -48,14 +49,16 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $max_drafts_per_turn
-     *           Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
-     *           0 = no drafts)
+     *           Optional: Number of drafts one caller turn may start at most. Unset: 2. Valid range: 0 - 5; 0 starts no draft
+     *           at all, i.e. preemptive generation does nothing on this call
      *     @type float $min_stable_dwell_seconds
-     *           Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
-     *           (default: 0.25, valid range: 0 - 2; 0 = no wait)
+     *           Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts. A
+     *           longer wait drafts less often on a caller who only paused to breathe. Unset: 0.25. Valid range: 0 - 2;
+     *           0 = no wait
      *     @type float $min_interval_seconds
-     *           Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
-     *           valid range: 0 - 5; 0 = no limit)
+     *           Optional: Minimum seconds between the starts of two drafts within one turn, so a caller whose transcription
+     *           keeps changing cannot use up <code>max_drafts_per_turn</code> at once. Unset: 0.5. Valid range: 0 - 5;
+     *           0 = no minimum interval
      * }
      */
     public function __construct($data = NULL) {
@@ -64,8 +67,8 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
-     * 0 = no drafts)
+     * Optional: Number of drafts one caller turn may start at most. Unset: 2. Valid range: 0 - 5; 0 starts no draft
+     * at all, i.e. preemptive generation does nothing on this call
      *
      * Generated from protobuf field <code>optional int32 max_drafts_per_turn = 1;</code>
      * @return int
@@ -86,8 +89,8 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Number of drafts one caller turn may start at most (default: 2, valid range: 0 - 5;
-     * 0 = no drafts)
+     * Optional: Number of drafts one caller turn may start at most. Unset: 2. Valid range: 0 - 5; 0 starts no draft
+     * at all, i.e. preemptive generation does nothing on this call
      *
      * Generated from protobuf field <code>optional int32 max_drafts_per_turn = 1;</code>
      * @param int $var
@@ -102,8 +105,9 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
-     * (default: 0.25, valid range: 0 - 2; 0 = no wait)
+     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts. A
+     * longer wait drafts less often on a caller who only paused to breathe. Unset: 0.25. Valid range: 0 - 2;
+     * 0 = no wait
      *
      * Generated from protobuf field <code>optional float min_stable_dwell_seconds = 2;</code>
      * @return float
@@ -124,8 +128,9 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts
-     * (default: 0.25, valid range: 0 - 2; 0 = no wait)
+     * Optional: Seconds a partial transcription must stay unchanged before the first draft of a turn starts. A
+     * longer wait drafts less often on a caller who only paused to breathe. Unset: 0.25. Valid range: 0 - 2;
+     * 0 = no wait
      *
      * Generated from protobuf field <code>optional float min_stable_dwell_seconds = 2;</code>
      * @param float $var
@@ -139,8 +144,9 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
-     * valid range: 0 - 5; 0 = no limit)
+     * Optional: Minimum seconds between the starts of two drafts within one turn, so a caller whose transcription
+     * keeps changing cannot use up <code>max_drafts_per_turn</code> at once. Unset: 0.5. Valid range: 0 - 5;
+     * 0 = no minimum interval
      *
      * Generated from protobuf field <code>optional float min_interval_seconds = 3;</code>
      * @return float
@@ -161,8 +167,9 @@ class NluPreemptiveGenerationConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Minimum seconds between the starts of two drafts within one turn (default: 0.5,
-     * valid range: 0 - 5; 0 = no limit)
+     * Optional: Minimum seconds between the starts of two drafts within one turn, so a caller whose transcription
+     * keeps changing cannot use up <code>max_drafts_per_turn</code> at once. Unset: 0.5. Valid range: 0 - 5;
+     * 0 = no minimum interval
      *
      * Generated from protobuf field <code>optional float min_interval_seconds = 3;</code>
      * @param float $var

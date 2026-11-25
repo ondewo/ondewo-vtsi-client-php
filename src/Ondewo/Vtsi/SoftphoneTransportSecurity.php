@@ -8,10 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * How a softphone account secures its SIP signalling to the project&apos;s Asterisk. Both modes use TLS
- * for signalling, SRTP for media and SIP digest authentication with the account&apos;s own credentials;
- * they differ in which TLS port the softphone connects to and whether it must present a client
- * certificate.
+ * How a softphone account secures its SIP signalling to the project&apos;s Asterisk. Both modes use TLS for signalling, SRTP for media and SIP digest authentication with the account&apos;s own credentials; they differ in which TLS port the softphone connects to and whether it must present a client certificate.
  *
  * Protobuf type <code>ondewo.vtsi.SoftphoneTransportSecurity</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Speech2TextConfig is a configuration message for the speech-to-text pipeline</p>
+ * Speech2TextConfig is a configuration message for the speech-to-text pipeline
  *
  * Generated from protobuf message <code>ondewo.s2t.Speech2TextConfig</code>
  */

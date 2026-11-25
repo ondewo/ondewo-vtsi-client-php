@@ -8,7 +8,7 @@ namespace Ondewo\Sip\AnsweringMachineDetectionResult;
 use UnexpectedValueException;
 
 /**
- * <p>Who or what answered the call</p>
+ * Who or what answered the call
  *
  * Protobuf type <code>ondewo.sip.AnsweringMachineDetectionResult.Verdict</code>
  */

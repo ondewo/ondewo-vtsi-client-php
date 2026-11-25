@@ -8,9 +8,7 @@ namespace Ondewo\S2t;
 use UnexpectedValueException;
 
 /**
- * <p>TsdMethod selects the model used for target-speaker detection (TSD): deciding whether a
- * newly detected utterance came from the main speaker of the call, so that speech from anyone
- * else (crosstalk, background speakers, barge-in) can be rejected.</p>
+ * TsdMethod selects the model used for target-speaker detection (TSD): deciding whether a newly detected utterance came from the main speaker of the call, so that speech from anyone else (crosstalk, background speakers, barge-in) can be rejected.
  *
  * Protobuf type <code>ondewo.s2t.TsdMethod</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tDescription contains descriptive information about the speech-to-text pipeline.</p>
+ * S2tDescription contains descriptive information about the speech-to-text pipeline.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tDescription</code>
  */

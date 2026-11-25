@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Outcome of a transfer</p>
+ * Outcome of a transfer
  *
  * Protobuf type <code>ondewo.vtsi.TransferOutcome</code>
  */

@@ -8,17 +8,9 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>How a <code>SipTransferCall</code> handles a transfer that the container parked in
- * <code>SipStatus.delegated_transfer</code> instead of sending it.</p>
- * <p>Every value other than <code>SIP_TRANSFER_DELEGATION_UNSPECIFIED</code> requires the
- * <code>x-ondewo-sip-call-control-token</code> metadatum (otherwise <code>CallControlUnauthenticated</code>) and the
- * <code>x-ondewo-expected-call-id</code> metadatum naming the ongoing call (missing or different:
- * <code>CallScopeMismatch</code>), plus <code>delegated_request_id</code> (otherwise
- * <code>DelegatedRequestMismatch</code>). Refusals are RETURNED in <code>exception_name</code> /
- * <code>description</code> and never assigned to the shared status.</p>
- * <p>A parked transfer that is neither claimed nor ended within <code>SIP_TRANSFER_DELEGATION_CLAIM_TIMEOUT_S</code> is
- * dropped WITHOUT a REFER, and the pipeline is told with <code>SIP_WARM_TRANSFER_OUTCOME_DELEGATION_EXPIRED</code>. A
- * claimed transfer never expires.</p>
+ * How a <code>SipTransferCall</code> handles a transfer that the container parked in <code>SipStatus.delegated_transfer</code> instead of sending it.
+ * Every value other than <code>SIP_TRANSFER_DELEGATION_UNSPECIFIED</code> requires the <code>x-ondewo-sip-call-control-token</code> metadatum (otherwise <code>CallControlUnauthenticated</code>) and the <code>x-ondewo-expected-call-id</code> metadatum naming the ongoing call (missing or different: <code>CallScopeMismatch</code>), plus <code>delegated_request_id</code> (otherwise <code>DelegatedRequestMismatch</code>). Refusals are RETURNED in <code>exception_name</code> / <code>description</code> and never assigned to the shared status.
+ * A parked transfer that is neither claimed nor ended within <code>SIP_TRANSFER_DELEGATION_CLAIM_TIMEOUT_S</code> is dropped WITHOUT a REFER, and the pipeline is told with <code>SIP_WARM_TRANSFER_OUTCOME_DELEGATION_EXPIRED</code>. A claimed transfer never expires.
  *
  * Protobuf type <code>ondewo.sip.SipTransferDelegation</code>
  */

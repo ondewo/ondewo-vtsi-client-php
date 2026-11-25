@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration details specific to the Eleven Labs text-to-speech provider.</p>
+ * Configuration details specific to the Eleven Labs text-to-speech provider.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2sCloudProviderConfigElevenLabs</code>
  */

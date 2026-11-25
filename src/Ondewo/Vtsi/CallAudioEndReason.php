@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Why a call audio stream ended</p>
+ * Why a call audio stream ended
  *
  * Protobuf type <code>ondewo.vtsi.CallAudioEndReason</code>
  */

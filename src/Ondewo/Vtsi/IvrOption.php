@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One key of a MENU node</p>
+ * One key of a MENU node
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrOption</code>
  */

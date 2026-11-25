@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The response message for
- * <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>.
+ * The response message for <a href="index.html#ondewo.vtsi.Logs.DeleteCallLogs">Logs.DeleteCallLogs</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.DeleteCallLogsResponse</code>
  */

@@ -10,48 +10,132 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the response timing, i.e. when and how the bot responds
+ * Response timing of the call: what the bot does while the caller stays silent, how it bridges a slow answer, and how an answer is requested from the NLU and streamed to the caller.
+ * Every scalar is <code>optional</code>: an unset field inherits, i.e. the call keeps the deployment&apos;s value where a replica-wide <code>ONDEWO_VTSI_*</code> setting exists for it (named per field), and the built-in default listed per field otherwise. A set value always wins over the deployment setting. A value outside its range is refused with <code>INVALID_ARGUMENT</code>.
+ * Scope: the configuration of a listener applies to every inbound call that listener deployment serves; the configuration of a caller, a campaign or a scheduled caller applies to its own calls. A pooled persistent caller is reused only for a request with the identical configuration.
+ * The caller-silence windows (<code>turn_timeout_seconds</code>, <code>silence_end_call_timeout_seconds</code>) restart whenever the caller speaks, presses a key or the bot plays audio, and never elapse while the bot is speaking, an answer is being prepared or an interruption is being decided. While listening is paused through call control, neither window and no soft-timeout filler fires.
  *
  * Generated from protobuf message <code>ondewo.vtsi.ResponseTimingConfig</code>
  */
 class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Optional: Seconds of caller silence after a bot response until a follow-up event
-     * is triggered (default: 20.0, valid range: 1.0 - 30.0)
+     * Optional: Seconds of caller silence after which the bot re-engages the caller by triggering
+     * <code>turn_timeout_intent</code> (default: 20.0, valid range: 1.0 - 30.0). Has no effect unless
+     * <code>turn_timeout_intent</code> is set. As long as the caller stays silent, the re-engagement repeats every
+     * <code>turn_timeout_seconds</code>.
+     * Example: <code>turn_timeout_seconds=8</code> with <code>turn_timeout_intent=&quot;i.still.there&quot;</code>
+     * plays the answer of the intent <code>i.still.there</code> (e.g. &quot;Are you still there?&quot;) after 8 s of
+     * silence
      *
      * Generated from protobuf field <code>optional float turn_timeout_seconds = 1;</code>
      */
     protected $turn_timeout_seconds = null;
     /**
-     * Optional: Seconds of caller silence until the call is ended.
-     * Unset = off (-1 is also accepted as explicit off)
+     * Optional: Seconds of caller silence after which the bot hangs up (default: off). Any value above 0 is
+     * accepted; -1 is also accepted as an explicit off, and 0 or any other negative value is refused with
+     * <code>INVALID_ARGUMENT</code>. The hangup happens at once, without a closing message. Every bot utterance
+     * restarts this window, a turn-timeout re-engagement included: with <code>turn_timeout_intent</code> set, the
+     * call only ends on silence when this value is below <code>turn_timeout_seconds</code>.
+     * Example: <code>silence_end_call_timeout_seconds=30</code> without a <code>turn_timeout_intent</code> ends a
+     * call after 30 s in which neither the caller nor the bot said anything
      *
      * Generated from protobuf field <code>optional float silence_end_call_timeout_seconds = 2;</code>
      */
     protected $silence_end_call_timeout_seconds = null;
     /**
-     * Configuration of the soft timeout filler messages
+     * Optional: Filler messages the bot speaks while an answer takes long to prepare (default: off). See
+     * <code>SoftTimeoutConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftTimeoutConfig soft_timeout_config = 3;</code>
      */
     protected $soft_timeout_config = null;
     /**
-     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
-     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
-     * setting, which is true unless changed). Still honoured when it is set alone; set together with
-     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
-     * with <code>INVALID_ARGUMENT</code>
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>, which does the same.
+     * Ask the NLU for the answer of a stable partial transcription before the caller finished speaking, so that a
+     * matching answer is ready sooner (default: the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code>, which is true unless changed). Still honoured when
+     * it is set alone; set together with <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to the same
+     * value it is accepted, to a different value the request is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      */
     protected $preemptive_generation_enabled = null;
     /**
-     * Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)
+     * Optional: Start playing an answer as soon as its first audio chunk is synthesized, instead of waiting until the
+     * speech synthesis of the whole answer has finished (default: true). Shortens the pause before the bot answers,
+     * the more the longer the answer. <code>false</code> waits for the whole synthesis of every answer. Applies to
+     * the answers of caller turns while <code>streaming_enabled</code> is on (its default); the opening message of
+     * the call and the turn-timeout re-engagement are always synthesized whole
      *
      * Generated from protobuf field <code>optional bool t2s_chunked_streaming_enabled = 5;</code>
      */
     protected $t2s_chunked_streaming_enabled = null;
+    /**
+     * Optional: Ask the NLU for each answer with its streaming request instead of the unary one (default: the
+     * deployment&apos;s <code>ONDEWO_VTSI_CSI_STREAMING_ACTIVE</code>, and true when that is not set).
+     * <code>false</code> asks every caller turn with the unary request, and the caller is not transcribed while an
+     * answer is being prepared, so speech in that time is lost. It also turns off <code>nlu_call_stream_enabled</code>
+     * (and with it turn control, heard reports and results the NLU delivers on its own), the chunked playback of
+     * answers (<code>t2s_chunked_streaming_enabled</code>) and
+     * <code>InterruptionHandlingConfig.cancel_on_speech_while_thinking</code>
+     *
+     * Generated from protobuf field <code>optional bool streaming_enabled = 6;</code>
+     */
+    protected $streaming_enabled = null;
+    /**
+     * Optional: Keep ONE streaming NLU request open for the whole call instead of opening one per caller turn
+     * (default: the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_CALL_STREAM_ACTIVE</code>, and true when that is not
+     * set). Only takes effect while <code>streaming_enabled</code> is on. It is the only way an NLU can deliver a
+     * result on its own, e.g. the later result of an AI Teams tool that ran in the background: with
+     * <code>false</code> such results never reach the call
+     *
+     * Generated from protobuf field <code>optional bool nlu_call_stream_enabled = 7;</code>
+     */
+    protected $nlu_call_stream_enabled = null;
+    /**
+     * Optional: Display name of the NLU intent the bot triggers to re-engage a silent caller after
+     * <code>turn_timeout_seconds</code>; the bot speaks the answer of that intent (default: none, i.e. silence never
+     * triggers a re-engagement). Name an intent of the NLU agent of the call. 1 - 256 characters, not blank, no
+     * control characters; any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Example: <code>&quot;i.still.there&quot;</code>
+     *
+     * Generated from protobuf field <code>optional string turn_timeout_intent = 8;</code>
+     */
+    protected $turn_timeout_intent = null;
+    /**
+     * Optional: Milliseconds of silence kept at most at the start and at the end of every synthesized bot utterance;
+     * longer silence at the edges is cut off, so the bot starts speaking sooner and the caller is not kept waiting
+     * after it (default: 40, valid range: -1 - 1000). Silence inside an utterance is never changed. 0 keeps no edge
+     * silence at all; -1 turns the trimming off and plays the audio exactly as synthesized. A value outside the range
+     * is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 t2s_max_edge_silence_ms = 9;</code>
+     */
+    protected $t2s_max_edge_silence_ms = null;
+    /**
+     * Optional: Seconds a caller turn waits at most for the first answer of the NLU on the call-length NLU request
+     * (<code>nlu_call_stream_enabled</code>); past it the turn is treated as a failed NLU request, i.e. the bot
+     * speaks <code>NluVtsiConfig.failure_apology_message</code> (default: 120, valid range: 5 - 600). A lower value
+     * keeps a caller whose NLU hangs from waiting in silence for two minutes, but cuts off an agent that
+     * legitimately thinks longer. Only matters with <code>streaming_enabled</code> and
+     * <code>nlu_call_stream_enabled</code> on; the per-turn request has its own deadline. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_timeout_seconds = 10;</code>
+     */
+    protected $nlu_call_stream_turn_timeout_seconds = null;
+    /**
+     * Optional: Seconds of silence on the call-length NLU request after a turn was already answered that end the turn
+     * when the NLU never marks it finished (default: 5, valid range: 1 - 60). While a turn is open the next caller
+     * turn waits behind it, so a lower value frees it sooner; it must stay above the longest pause the agent makes
+     * between two parts of one answer, or the rest of the answer is lost. Only matters with
+     * <code>streaming_enabled</code> and <code>nlu_call_stream_enabled</code> on. There is no deployment-wide
+     * setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_quiet_seconds = 11;</code>
+     */
+    protected $nlu_call_stream_turn_quiet_seconds = null;
 
     /**
      * Constructor.
@@ -60,21 +144,78 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type float $turn_timeout_seconds
-     *           Optional: Seconds of caller silence after a bot response until a follow-up event
-     *           is triggered (default: 20.0, valid range: 1.0 - 30.0)
+     *           Optional: Seconds of caller silence after which the bot re-engages the caller by triggering
+     *           <code>turn_timeout_intent</code> (default: 20.0, valid range: 1.0 - 30.0). Has no effect unless
+     *           <code>turn_timeout_intent</code> is set. As long as the caller stays silent, the re-engagement repeats every
+     *           <code>turn_timeout_seconds</code>.
+     *           Example: <code>turn_timeout_seconds=8</code> with <code>turn_timeout_intent=&quot;i.still.there&quot;</code>
+     *           plays the answer of the intent <code>i.still.there</code> (e.g. &quot;Are you still there?&quot;) after 8 s of
+     *           silence
      *     @type float $silence_end_call_timeout_seconds
-     *           Optional: Seconds of caller silence until the call is ended.
-     *           Unset = off (-1 is also accepted as explicit off)
+     *           Optional: Seconds of caller silence after which the bot hangs up (default: off). Any value above 0 is
+     *           accepted; -1 is also accepted as an explicit off, and 0 or any other negative value is refused with
+     *           <code>INVALID_ARGUMENT</code>. The hangup happens at once, without a closing message. Every bot utterance
+     *           restarts this window, a turn-timeout re-engagement included: with <code>turn_timeout_intent</code> set, the
+     *           call only ends on silence when this value is below <code>turn_timeout_seconds</code>.
+     *           Example: <code>silence_end_call_timeout_seconds=30</code> without a <code>turn_timeout_intent</code> ends a
+     *           call after 30 s in which neither the caller nor the bot said anything
      *     @type \Ondewo\Vtsi\SoftTimeoutConfig $soft_timeout_config
-     *           Configuration of the soft timeout filler messages
+     *           Optional: Filler messages the bot speaks while an answer takes long to prepare (default: off). See
+     *           <code>SoftTimeoutConfig</code>
      *     @type bool $preemptive_generation_enabled
-     *           Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
-     *           Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
-     *           setting, which is true unless changed). Still honoured when it is set alone; set together with
-     *           <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
-     *           with <code>INVALID_ARGUMENT</code>
+     *           Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>, which does the same.
+     *           Ask the NLU for the answer of a stable partial transcription before the caller finished speaking, so that a
+     *           matching answer is ready sooner (default: the deployment&apos;s
+     *           <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code>, which is true unless changed). Still honoured when
+     *           it is set alone; set together with <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to the same
+     *           value it is accepted, to a different value the request is refused with <code>INVALID_ARGUMENT</code>
      *     @type bool $t2s_chunked_streaming_enabled
-     *           Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)
+     *           Optional: Start playing an answer as soon as its first audio chunk is synthesized, instead of waiting until the
+     *           speech synthesis of the whole answer has finished (default: true). Shortens the pause before the bot answers,
+     *           the more the longer the answer. <code>false</code> waits for the whole synthesis of every answer. Applies to
+     *           the answers of caller turns while <code>streaming_enabled</code> is on (its default); the opening message of
+     *           the call and the turn-timeout re-engagement are always synthesized whole
+     *     @type bool $streaming_enabled
+     *           Optional: Ask the NLU for each answer with its streaming request instead of the unary one (default: the
+     *           deployment&apos;s <code>ONDEWO_VTSI_CSI_STREAMING_ACTIVE</code>, and true when that is not set).
+     *           <code>false</code> asks every caller turn with the unary request, and the caller is not transcribed while an
+     *           answer is being prepared, so speech in that time is lost. It also turns off <code>nlu_call_stream_enabled</code>
+     *           (and with it turn control, heard reports and results the NLU delivers on its own), the chunked playback of
+     *           answers (<code>t2s_chunked_streaming_enabled</code>) and
+     *           <code>InterruptionHandlingConfig.cancel_on_speech_while_thinking</code>
+     *     @type bool $nlu_call_stream_enabled
+     *           Optional: Keep ONE streaming NLU request open for the whole call instead of opening one per caller turn
+     *           (default: the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_CALL_STREAM_ACTIVE</code>, and true when that is not
+     *           set). Only takes effect while <code>streaming_enabled</code> is on. It is the only way an NLU can deliver a
+     *           result on its own, e.g. the later result of an AI Teams tool that ran in the background: with
+     *           <code>false</code> such results never reach the call
+     *     @type string $turn_timeout_intent
+     *           Optional: Display name of the NLU intent the bot triggers to re-engage a silent caller after
+     *           <code>turn_timeout_seconds</code>; the bot speaks the answer of that intent (default: none, i.e. silence never
+     *           triggers a re-engagement). Name an intent of the NLU agent of the call. 1 - 256 characters, not blank, no
+     *           control characters; any other value is refused with <code>INVALID_ARGUMENT</code>.
+     *           Example: <code>&quot;i.still.there&quot;</code>
+     *     @type int $t2s_max_edge_silence_ms
+     *           Optional: Milliseconds of silence kept at most at the start and at the end of every synthesized bot utterance;
+     *           longer silence at the edges is cut off, so the bot starts speaking sooner and the caller is not kept waiting
+     *           after it (default: 40, valid range: -1 - 1000). Silence inside an utterance is never changed. 0 keeps no edge
+     *           silence at all; -1 turns the trimming off and plays the audio exactly as synthesized. A value outside the range
+     *           is refused with <code>INVALID_ARGUMENT</code>
+     *     @type float $nlu_call_stream_turn_timeout_seconds
+     *           Optional: Seconds a caller turn waits at most for the first answer of the NLU on the call-length NLU request
+     *           (<code>nlu_call_stream_enabled</code>); past it the turn is treated as a failed NLU request, i.e. the bot
+     *           speaks <code>NluVtsiConfig.failure_apology_message</code> (default: 120, valid range: 5 - 600). A lower value
+     *           keeps a caller whose NLU hangs from waiting in silence for two minutes, but cuts off an agent that
+     *           legitimately thinks longer. Only matters with <code>streaming_enabled</code> and
+     *           <code>nlu_call_stream_enabled</code> on; the per-turn request has its own deadline. There is no
+     *           deployment-wide setting for it; a value set here wins
+     *     @type float $nlu_call_stream_turn_quiet_seconds
+     *           Optional: Seconds of silence on the call-length NLU request after a turn was already answered that end the turn
+     *           when the NLU never marks it finished (default: 5, valid range: 1 - 60). While a turn is open the next caller
+     *           turn waits behind it, so a lower value frees it sooner; it must stay above the longest pause the agent makes
+     *           between two parts of one answer, or the rest of the answer is lost. Only matters with
+     *           <code>streaming_enabled</code> and <code>nlu_call_stream_enabled</code> on. There is no deployment-wide
+     *           setting for it; a value set here wins
      * }
      */
     public function __construct($data = NULL) {
@@ -83,8 +224,13 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds of caller silence after a bot response until a follow-up event
-     * is triggered (default: 20.0, valid range: 1.0 - 30.0)
+     * Optional: Seconds of caller silence after which the bot re-engages the caller by triggering
+     * <code>turn_timeout_intent</code> (default: 20.0, valid range: 1.0 - 30.0). Has no effect unless
+     * <code>turn_timeout_intent</code> is set. As long as the caller stays silent, the re-engagement repeats every
+     * <code>turn_timeout_seconds</code>.
+     * Example: <code>turn_timeout_seconds=8</code> with <code>turn_timeout_intent=&quot;i.still.there&quot;</code>
+     * plays the answer of the intent <code>i.still.there</code> (e.g. &quot;Are you still there?&quot;) after 8 s of
+     * silence
      *
      * Generated from protobuf field <code>optional float turn_timeout_seconds = 1;</code>
      * @return float
@@ -105,8 +251,13 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds of caller silence after a bot response until a follow-up event
-     * is triggered (default: 20.0, valid range: 1.0 - 30.0)
+     * Optional: Seconds of caller silence after which the bot re-engages the caller by triggering
+     * <code>turn_timeout_intent</code> (default: 20.0, valid range: 1.0 - 30.0). Has no effect unless
+     * <code>turn_timeout_intent</code> is set. As long as the caller stays silent, the re-engagement repeats every
+     * <code>turn_timeout_seconds</code>.
+     * Example: <code>turn_timeout_seconds=8</code> with <code>turn_timeout_intent=&quot;i.still.there&quot;</code>
+     * plays the answer of the intent <code>i.still.there</code> (e.g. &quot;Are you still there?&quot;) after 8 s of
+     * silence
      *
      * Generated from protobuf field <code>optional float turn_timeout_seconds = 1;</code>
      * @param float $var
@@ -120,8 +271,13 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds of caller silence until the call is ended.
-     * Unset = off (-1 is also accepted as explicit off)
+     * Optional: Seconds of caller silence after which the bot hangs up (default: off). Any value above 0 is
+     * accepted; -1 is also accepted as an explicit off, and 0 or any other negative value is refused with
+     * <code>INVALID_ARGUMENT</code>. The hangup happens at once, without a closing message. Every bot utterance
+     * restarts this window, a turn-timeout re-engagement included: with <code>turn_timeout_intent</code> set, the
+     * call only ends on silence when this value is below <code>turn_timeout_seconds</code>.
+     * Example: <code>silence_end_call_timeout_seconds=30</code> without a <code>turn_timeout_intent</code> ends a
+     * call after 30 s in which neither the caller nor the bot said anything
      *
      * Generated from protobuf field <code>optional float silence_end_call_timeout_seconds = 2;</code>
      * @return float
@@ -142,8 +298,13 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Seconds of caller silence until the call is ended.
-     * Unset = off (-1 is also accepted as explicit off)
+     * Optional: Seconds of caller silence after which the bot hangs up (default: off). Any value above 0 is
+     * accepted; -1 is also accepted as an explicit off, and 0 or any other negative value is refused with
+     * <code>INVALID_ARGUMENT</code>. The hangup happens at once, without a closing message. Every bot utterance
+     * restarts this window, a turn-timeout re-engagement included: with <code>turn_timeout_intent</code> set, the
+     * call only ends on silence when this value is below <code>turn_timeout_seconds</code>.
+     * Example: <code>silence_end_call_timeout_seconds=30</code> without a <code>turn_timeout_intent</code> ends a
+     * call after 30 s in which neither the caller nor the bot said anything
      *
      * Generated from protobuf field <code>optional float silence_end_call_timeout_seconds = 2;</code>
      * @param float $var
@@ -157,7 +318,8 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the soft timeout filler messages
+     * Optional: Filler messages the bot speaks while an answer takes long to prepare (default: off). See
+     * <code>SoftTimeoutConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftTimeoutConfig soft_timeout_config = 3;</code>
      * @return \Ondewo\Vtsi\SoftTimeoutConfig|null
@@ -178,7 +340,8 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the soft timeout filler messages
+     * Optional: Filler messages the bot speaks while an answer takes long to prepare (default: off). See
+     * <code>SoftTimeoutConfig</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SoftTimeoutConfig soft_timeout_config = 3;</code>
      * @param \Ondewo\Vtsi\SoftTimeoutConfig $var
@@ -192,11 +355,12 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
-     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
-     * setting, which is true unless changed). Still honoured when it is set alone; set together with
-     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
-     * with <code>INVALID_ARGUMENT</code>
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>, which does the same.
+     * Ask the NLU for the answer of a stable partial transcription before the caller finished speaking, so that a
+     * matching answer is ready sooner (default: the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code>, which is true unless changed). Still honoured when
+     * it is set alone; set together with <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to the same
+     * value it is accepted, to a different value the request is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      * @return bool
@@ -217,11 +381,12 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>.
-     * Enable preemptive response generation on an eagerly detected end of turn (default: the deployment&apos;s
-     * setting, which is true unless changed). Still honoured when it is set alone; set together with
-     * <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to a different value, the request is refused
-     * with <code>INVALID_ARGUMENT</code>
+     * Optional, DEPRECATED: use <code>CsiVtsiConfig.preemptive_generation_config.enabled</code>, which does the same.
+     * Ask the NLU for the answer of a stable partial transcription before the caller finished speaking, so that a
+     * matching answer is ready sooner (default: the deployment&apos;s
+     * <code>ONDEWO_VTSI_CSI_PREEMPTIVE_GENERATION_ACTIVE</code>, which is true unless changed). Still honoured when
+     * it is set alone; set together with <code>CsiVtsiConfig.preemptive_generation_config.enabled</code> to the same
+     * value it is accepted, to a different value the request is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional bool preemptive_generation_enabled = 4;</code>
      * @param bool $var
@@ -235,7 +400,11 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)
+     * Optional: Start playing an answer as soon as its first audio chunk is synthesized, instead of waiting until the
+     * speech synthesis of the whole answer has finished (default: true). Shortens the pause before the bot answers,
+     * the more the longer the answer. <code>false</code> waits for the whole synthesis of every answer. Applies to
+     * the answers of caller turns while <code>streaming_enabled</code> is on (its default); the opening message of
+     * the call and the turn-timeout re-engagement are always synthesized whole
      *
      * Generated from protobuf field <code>optional bool t2s_chunked_streaming_enabled = 5;</code>
      * @return bool
@@ -256,7 +425,11 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Optional: Enable chunked text-to-speech streaming for a lower time to first audio (default: false)
+     * Optional: Start playing an answer as soon as its first audio chunk is synthesized, instead of waiting until the
+     * speech synthesis of the whole answer has finished (default: true). Shortens the pause before the bot answers,
+     * the more the longer the answer. <code>false</code> waits for the whole synthesis of every answer. Applies to
+     * the answers of caller turns while <code>streaming_enabled</code> is on (its default); the opening message of
+     * the call and the turn-timeout re-engagement are always synthesized whole
      *
      * Generated from protobuf field <code>optional bool t2s_chunked_streaming_enabled = 5;</code>
      * @param bool $var
@@ -265,6 +438,276 @@ class ResponseTimingConfig extends \Google\Protobuf\Internal\Message
     public function setT2SChunkedStreamingEnabled(bool $var)
     {
         $this->t2s_chunked_streaming_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Ask the NLU for each answer with its streaming request instead of the unary one (default: the
+     * deployment&apos;s <code>ONDEWO_VTSI_CSI_STREAMING_ACTIVE</code>, and true when that is not set).
+     * <code>false</code> asks every caller turn with the unary request, and the caller is not transcribed while an
+     * answer is being prepared, so speech in that time is lost. It also turns off <code>nlu_call_stream_enabled</code>
+     * (and with it turn control, heard reports and results the NLU delivers on its own), the chunked playback of
+     * answers (<code>t2s_chunked_streaming_enabled</code>) and
+     * <code>InterruptionHandlingConfig.cancel_on_speech_while_thinking</code>
+     *
+     * Generated from protobuf field <code>optional bool streaming_enabled = 6;</code>
+     * @return bool
+     */
+    public function getStreamingEnabled()
+    {
+        return isset($this->streaming_enabled) ? $this->streaming_enabled : false;
+    }
+
+    public function hasStreamingEnabled()
+    {
+        return isset($this->streaming_enabled);
+    }
+
+    public function clearStreamingEnabled()
+    {
+        unset($this->streaming_enabled);
+    }
+
+    /**
+     * Optional: Ask the NLU for each answer with its streaming request instead of the unary one (default: the
+     * deployment&apos;s <code>ONDEWO_VTSI_CSI_STREAMING_ACTIVE</code>, and true when that is not set).
+     * <code>false</code> asks every caller turn with the unary request, and the caller is not transcribed while an
+     * answer is being prepared, so speech in that time is lost. It also turns off <code>nlu_call_stream_enabled</code>
+     * (and with it turn control, heard reports and results the NLU delivers on its own), the chunked playback of
+     * answers (<code>t2s_chunked_streaming_enabled</code>) and
+     * <code>InterruptionHandlingConfig.cancel_on_speech_while_thinking</code>
+     *
+     * Generated from protobuf field <code>optional bool streaming_enabled = 6;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setStreamingEnabled(bool $var)
+    {
+        $this->streaming_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Keep ONE streaming NLU request open for the whole call instead of opening one per caller turn
+     * (default: the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_CALL_STREAM_ACTIVE</code>, and true when that is not
+     * set). Only takes effect while <code>streaming_enabled</code> is on. It is the only way an NLU can deliver a
+     * result on its own, e.g. the later result of an AI Teams tool that ran in the background: with
+     * <code>false</code> such results never reach the call
+     *
+     * Generated from protobuf field <code>optional bool nlu_call_stream_enabled = 7;</code>
+     * @return bool
+     */
+    public function getNluCallStreamEnabled()
+    {
+        return isset($this->nlu_call_stream_enabled) ? $this->nlu_call_stream_enabled : false;
+    }
+
+    public function hasNluCallStreamEnabled()
+    {
+        return isset($this->nlu_call_stream_enabled);
+    }
+
+    public function clearNluCallStreamEnabled()
+    {
+        unset($this->nlu_call_stream_enabled);
+    }
+
+    /**
+     * Optional: Keep ONE streaming NLU request open for the whole call instead of opening one per caller turn
+     * (default: the deployment&apos;s <code>ONDEWO_VTSI_CSI_NLU_CALL_STREAM_ACTIVE</code>, and true when that is not
+     * set). Only takes effect while <code>streaming_enabled</code> is on. It is the only way an NLU can deliver a
+     * result on its own, e.g. the later result of an AI Teams tool that ran in the background: with
+     * <code>false</code> such results never reach the call
+     *
+     * Generated from protobuf field <code>optional bool nlu_call_stream_enabled = 7;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setNluCallStreamEnabled(bool $var)
+    {
+        $this->nlu_call_stream_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Display name of the NLU intent the bot triggers to re-engage a silent caller after
+     * <code>turn_timeout_seconds</code>; the bot speaks the answer of that intent (default: none, i.e. silence never
+     * triggers a re-engagement). Name an intent of the NLU agent of the call. 1 - 256 characters, not blank, no
+     * control characters; any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Example: <code>&quot;i.still.there&quot;</code>
+     *
+     * Generated from protobuf field <code>optional string turn_timeout_intent = 8;</code>
+     * @return string
+     */
+    public function getTurnTimeoutIntent()
+    {
+        return isset($this->turn_timeout_intent) ? $this->turn_timeout_intent : '';
+    }
+
+    public function hasTurnTimeoutIntent()
+    {
+        return isset($this->turn_timeout_intent);
+    }
+
+    public function clearTurnTimeoutIntent()
+    {
+        unset($this->turn_timeout_intent);
+    }
+
+    /**
+     * Optional: Display name of the NLU intent the bot triggers to re-engage a silent caller after
+     * <code>turn_timeout_seconds</code>; the bot speaks the answer of that intent (default: none, i.e. silence never
+     * triggers a re-engagement). Name an intent of the NLU agent of the call. 1 - 256 characters, not blank, no
+     * control characters; any other value is refused with <code>INVALID_ARGUMENT</code>.
+     * Example: <code>&quot;i.still.there&quot;</code>
+     *
+     * Generated from protobuf field <code>optional string turn_timeout_intent = 8;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setTurnTimeoutIntent(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->turn_timeout_intent = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Milliseconds of silence kept at most at the start and at the end of every synthesized bot utterance;
+     * longer silence at the edges is cut off, so the bot starts speaking sooner and the caller is not kept waiting
+     * after it (default: 40, valid range: -1 - 1000). Silence inside an utterance is never changed. 0 keeps no edge
+     * silence at all; -1 turns the trimming off and plays the audio exactly as synthesized. A value outside the range
+     * is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 t2s_max_edge_silence_ms = 9;</code>
+     * @return int
+     */
+    public function getT2SMaxEdgeSilenceMs()
+    {
+        return isset($this->t2s_max_edge_silence_ms) ? $this->t2s_max_edge_silence_ms : 0;
+    }
+
+    public function hasT2SMaxEdgeSilenceMs()
+    {
+        return isset($this->t2s_max_edge_silence_ms);
+    }
+
+    public function clearT2SMaxEdgeSilenceMs()
+    {
+        unset($this->t2s_max_edge_silence_ms);
+    }
+
+    /**
+     * Optional: Milliseconds of silence kept at most at the start and at the end of every synthesized bot utterance;
+     * longer silence at the edges is cut off, so the bot starts speaking sooner and the caller is not kept waiting
+     * after it (default: 40, valid range: -1 - 1000). Silence inside an utterance is never changed. 0 keeps no edge
+     * silence at all; -1 turns the trimming off and plays the audio exactly as synthesized. A value outside the range
+     * is refused with <code>INVALID_ARGUMENT</code>
+     *
+     * Generated from protobuf field <code>optional int32 t2s_max_edge_silence_ms = 9;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setT2SMaxEdgeSilenceMs(int $var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->t2s_max_edge_silence_ms = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds a caller turn waits at most for the first answer of the NLU on the call-length NLU request
+     * (<code>nlu_call_stream_enabled</code>); past it the turn is treated as a failed NLU request, i.e. the bot
+     * speaks <code>NluVtsiConfig.failure_apology_message</code> (default: 120, valid range: 5 - 600). A lower value
+     * keeps a caller whose NLU hangs from waiting in silence for two minutes, but cuts off an agent that
+     * legitimately thinks longer. Only matters with <code>streaming_enabled</code> and
+     * <code>nlu_call_stream_enabled</code> on; the per-turn request has its own deadline. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_timeout_seconds = 10;</code>
+     * @return float
+     */
+    public function getNluCallStreamTurnTimeoutSeconds()
+    {
+        return isset($this->nlu_call_stream_turn_timeout_seconds) ? $this->nlu_call_stream_turn_timeout_seconds : 0.0;
+    }
+
+    public function hasNluCallStreamTurnTimeoutSeconds()
+    {
+        return isset($this->nlu_call_stream_turn_timeout_seconds);
+    }
+
+    public function clearNluCallStreamTurnTimeoutSeconds()
+    {
+        unset($this->nlu_call_stream_turn_timeout_seconds);
+    }
+
+    /**
+     * Optional: Seconds a caller turn waits at most for the first answer of the NLU on the call-length NLU request
+     * (<code>nlu_call_stream_enabled</code>); past it the turn is treated as a failed NLU request, i.e. the bot
+     * speaks <code>NluVtsiConfig.failure_apology_message</code> (default: 120, valid range: 5 - 600). A lower value
+     * keeps a caller whose NLU hangs from waiting in silence for two minutes, but cuts off an agent that
+     * legitimately thinks longer. Only matters with <code>streaming_enabled</code> and
+     * <code>nlu_call_stream_enabled</code> on; the per-turn request has its own deadline. There is no
+     * deployment-wide setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_timeout_seconds = 10;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setNluCallStreamTurnTimeoutSeconds(float $var)
+    {
+        $this->nlu_call_stream_turn_timeout_seconds = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds of silence on the call-length NLU request after a turn was already answered that end the turn
+     * when the NLU never marks it finished (default: 5, valid range: 1 - 60). While a turn is open the next caller
+     * turn waits behind it, so a lower value frees it sooner; it must stay above the longest pause the agent makes
+     * between two parts of one answer, or the rest of the answer is lost. Only matters with
+     * <code>streaming_enabled</code> and <code>nlu_call_stream_enabled</code> on. There is no deployment-wide
+     * setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_quiet_seconds = 11;</code>
+     * @return float
+     */
+    public function getNluCallStreamTurnQuietSeconds()
+    {
+        return isset($this->nlu_call_stream_turn_quiet_seconds) ? $this->nlu_call_stream_turn_quiet_seconds : 0.0;
+    }
+
+    public function hasNluCallStreamTurnQuietSeconds()
+    {
+        return isset($this->nlu_call_stream_turn_quiet_seconds);
+    }
+
+    public function clearNluCallStreamTurnQuietSeconds()
+    {
+        unset($this->nlu_call_stream_turn_quiet_seconds);
+    }
+
+    /**
+     * Optional: Seconds of silence on the call-length NLU request after a turn was already answered that end the turn
+     * when the NLU never marks it finished (default: 5, valid range: 1 - 60). While a turn is open the next caller
+     * turn waits behind it, so a lower value frees it sooner; it must stay above the longest pause the agent makes
+     * between two parts of one answer, or the rest of the answer is lost. Only matters with
+     * <code>streaming_enabled</code> and <code>nlu_call_stream_enabled</code> on. There is no deployment-wide
+     * setting for it; a value set here wins
+     *
+     * Generated from protobuf field <code>optional float nlu_call_stream_turn_quiet_seconds = 11;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setNluCallStreamTurnQuietSeconds(float $var)
+    {
+        $this->nlu_call_stream_turn_quiet_seconds = $var;
 
         return $this;
     }

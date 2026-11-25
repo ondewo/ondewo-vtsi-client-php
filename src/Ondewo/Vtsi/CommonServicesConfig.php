@@ -10,42 +10,70 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI which are common for both listener and caller
+ * The service configuration of a call: speech-to-text (S2T), NLU, text-to-speech (T2S), the speech-to-speech service (CSI), the voice interaction (turn-taking, interruptions, response timing, AMD, DTMF, transfers) and the media behaviour of the call&apos;s SIP container. The same message is used by callers, listeners, scheduled callers and campaigns.
+ * <b>Unset means inherit.</b> Every <code>optional</code> field and every message left unset sends nothing to the call, so the call runs with the deployment&apos;s setting where the operator configured one (an <code>ONDEWO_VTSI_*</code> setting of the VTSI server, named at the field) and otherwise with the built-in default documented at the field. A value set here always wins over both: per-call value &gt; deployment setting &gt; built-in default. A value outside its documented range is refused with <code>INVALID_ARGUMENT</code> and nothing is started.
+ * <b>Scope.</b>
+ * <ul> <li>A <b>listener</b>&apos;s configuration applies to every inbound call that listener deployment serves, one after the other, until it is stopped. <code>UpdateListener</code> changes the stored configuration only (see there).</li> <li>A <b>caller</b> or <b>scheduled caller</b> applies its configuration to its own call.</li> <li>A <b>campaign</b>&apos;s <code>campaign_common_services_config</code> is the default of every call of the campaign; each call&apos;s own configuration is merged over it, so a field the call sets wins (see <code>Campaign</code>).</li> <li>A <b>pooled persistent caller</b> is reused only for a request whose configuration is identical (only the callee and its SIP headers may differ), so a different value of any field here gets a different caller.</li> </ul>
+ * Example: to let the caller interrupt (barge in on) the bot, set <code>voice_interaction_config.interruption_handling_config.enabled = true</code> and leave everything else unset to keep the defaults; add e.g. <code>min_interruption_duration_seconds = 0.8</code> to let short noises pass. (How many words interrupt depends on the turn detection mode, see <code>InterruptionHandlingConfig</code>.)
  *
  * Generated from protobuf message <code>ondewo.vtsi.CommonServicesConfig</code>
  */
 class CommonServicesConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * speech-to-text service configuration
+     * Speech-to-text configuration (see <code>S2tVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiConfig s2t_vtsi_config = 1;</code>
      */
     protected $s2t_vtsi_config = null;
     /**
-     * ondewo-nlu configuration
+     * NLU configuration: the agent, its login and its language (see <code>NluVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiConfig nlu_vtsi_config = 2;</code>
      */
     protected $nlu_vtsi_config = null;
     /**
-     * text-to-speech service configuration
+     * Text-to-speech configuration (see <code>T2sVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiConfig t2s_vtsi_config = 3;</code>
      */
     protected $t2s_vtsi_config = null;
     /**
-     * CSI service configuration
+     * Speech-to-speech service (CSI) configuration: callbacks, message broker, audio storage and preemptive
+     * generation (see <code>CsiVtsiConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiVtsiConfig csi_vtsi_config = 4;</code>
      */
     protected $csi_vtsi_config = null;
     /**
-     * Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing
+     * Optional: How the bot talks with the caller: turn detection, interruption (barge-in) handling, response
+     * timing, answering machine detection, DTMF keys and transfers (see <code>VoiceInteractionConfig</code>).
+     * Unset: the call runs with the deployment&apos;s settings and the built-in defaults of every one of them
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VoiceInteractionConfig voice_interaction_config = 5;</code>
      */
     protected $voice_interaction_config = null;
+    /**
+     * Optional: Media and SIP behaviour of the call&apos;s SIP container: audio buffering, the media clock,
+     * statistics logging, hangup and dial timeouts, the SIP registration and live call audio streams (see
+     * <code>SipVtsiConfig</code>). Unset, or an unset field: the container&apos;s default applies
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipVtsiConfig sip_vtsi_config = 6;</code>
+     */
+    protected $sip_vtsi_config = null;
+    /**
+     * Optional: Seconds a call may last at most, counted from when it was connected; then VTSI hangs it up (an
+     * outbound call of a caller, and each inbound call of a listener). Valid range: 1 - 86400; 0 and any value
+     * outside the range are refused with <code>INVALID_ARGUMENT</code>. It can only shorten a call: the
+     * deployment&apos;s own cap on callers (<code>ONDEWO_VTSI_CALLER_MAX_CALL_DURATION_SEC</code>, default 1200 s,
+     * counted from the deployment of the caller; for a pooled caller with that cap off,
+     * <code>ONDEWO_VTSI_CALLER_POOLED_MAX_CALL_DURATION_SEC</code>) still applies, and whichever is reached first
+     * ends the call. Unset: only the deployment&apos;s cap applies, and an inbound call of a listener is not capped.
+     * Example: <code>max_call_duration_seconds=300</code> ends a survey call after five minutes
+     *
+     * Generated from protobuf field <code>optional uint32 max_call_duration_seconds = 7;</code>
+     */
+    protected $max_call_duration_seconds = null;
 
     /**
      * Constructor.
@@ -54,15 +82,31 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\S2tVtsiConfig $s2t_vtsi_config
-     *           speech-to-text service configuration
+     *           Speech-to-text configuration (see <code>S2tVtsiConfig</code>). Required
      *     @type \Ondewo\Vtsi\NluVtsiConfig $nlu_vtsi_config
-     *           ondewo-nlu configuration
+     *           NLU configuration: the agent, its login and its language (see <code>NluVtsiConfig</code>). Required
      *     @type \Ondewo\Vtsi\T2sVtsiConfig $t2s_vtsi_config
-     *           text-to-speech service configuration
+     *           Text-to-speech configuration (see <code>T2sVtsiConfig</code>). Required
      *     @type \Ondewo\Vtsi\CsiVtsiConfig $csi_vtsi_config
-     *           CSI service configuration
+     *           Speech-to-speech service (CSI) configuration: callbacks, message broker, audio storage and preemptive
+     *           generation (see <code>CsiVtsiConfig</code>)
      *     @type \Ondewo\Vtsi\VoiceInteractionConfig $voice_interaction_config
-     *           Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing
+     *           Optional: How the bot talks with the caller: turn detection, interruption (barge-in) handling, response
+     *           timing, answering machine detection, DTMF keys and transfers (see <code>VoiceInteractionConfig</code>).
+     *           Unset: the call runs with the deployment&apos;s settings and the built-in defaults of every one of them
+     *     @type \Ondewo\Vtsi\SipVtsiConfig $sip_vtsi_config
+     *           Optional: Media and SIP behaviour of the call&apos;s SIP container: audio buffering, the media clock,
+     *           statistics logging, hangup and dial timeouts, the SIP registration and live call audio streams (see
+     *           <code>SipVtsiConfig</code>). Unset, or an unset field: the container&apos;s default applies
+     *     @type int $max_call_duration_seconds
+     *           Optional: Seconds a call may last at most, counted from when it was connected; then VTSI hangs it up (an
+     *           outbound call of a caller, and each inbound call of a listener). Valid range: 1 - 86400; 0 and any value
+     *           outside the range are refused with <code>INVALID_ARGUMENT</code>. It can only shorten a call: the
+     *           deployment&apos;s own cap on callers (<code>ONDEWO_VTSI_CALLER_MAX_CALL_DURATION_SEC</code>, default 1200 s,
+     *           counted from the deployment of the caller; for a pooled caller with that cap off,
+     *           <code>ONDEWO_VTSI_CALLER_POOLED_MAX_CALL_DURATION_SEC</code>) still applies, and whichever is reached first
+     *           ends the call. Unset: only the deployment&apos;s cap applies, and an inbound call of a listener is not capped.
+     *           Example: <code>max_call_duration_seconds=300</code> ends a survey call after five minutes
      * }
      */
     public function __construct($data = NULL) {
@@ -71,7 +115,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * speech-to-text service configuration
+     * Speech-to-text configuration (see <code>S2tVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiConfig s2t_vtsi_config = 1;</code>
      * @return \Ondewo\Vtsi\S2tVtsiConfig|null
@@ -92,7 +136,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * speech-to-text service configuration
+     * Speech-to-text configuration (see <code>S2tVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.S2tVtsiConfig s2t_vtsi_config = 1;</code>
      * @param \Ondewo\Vtsi\S2tVtsiConfig $var
@@ -106,7 +150,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ondewo-nlu configuration
+     * NLU configuration: the agent, its login and its language (see <code>NluVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiConfig nlu_vtsi_config = 2;</code>
      * @return \Ondewo\Vtsi\NluVtsiConfig|null
@@ -127,7 +171,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * ondewo-nlu configuration
+     * NLU configuration: the agent, its login and its language (see <code>NluVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.NluVtsiConfig nlu_vtsi_config = 2;</code>
      * @param \Ondewo\Vtsi\NluVtsiConfig $var
@@ -141,7 +185,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * text-to-speech service configuration
+     * Text-to-speech configuration (see <code>T2sVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiConfig t2s_vtsi_config = 3;</code>
      * @return \Ondewo\Vtsi\T2sVtsiConfig|null
@@ -162,7 +206,7 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * text-to-speech service configuration
+     * Text-to-speech configuration (see <code>T2sVtsiConfig</code>). Required
      *
      * Generated from protobuf field <code>.ondewo.vtsi.T2sVtsiConfig t2s_vtsi_config = 3;</code>
      * @param \Ondewo\Vtsi\T2sVtsiConfig $var
@@ -176,7 +220,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * CSI service configuration
+     * Speech-to-speech service (CSI) configuration: callbacks, message broker, audio storage and preemptive
+     * generation (see <code>CsiVtsiConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiVtsiConfig csi_vtsi_config = 4;</code>
      * @return \Ondewo\Vtsi\CsiVtsiConfig|null
@@ -197,7 +242,8 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * CSI service configuration
+     * Speech-to-speech service (CSI) configuration: callbacks, message broker, audio storage and preemptive
+     * generation (see <code>CsiVtsiConfig</code>)
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CsiVtsiConfig csi_vtsi_config = 4;</code>
      * @param \Ondewo\Vtsi\CsiVtsiConfig $var
@@ -211,7 +257,9 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing
+     * Optional: How the bot talks with the caller: turn detection, interruption (barge-in) handling, response
+     * timing, answering machine detection, DTMF keys and transfers (see <code>VoiceInteractionConfig</code>).
+     * Unset: the call runs with the deployment&apos;s settings and the built-in defaults of every one of them
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VoiceInteractionConfig voice_interaction_config = 5;</code>
      * @return \Ondewo\Vtsi\VoiceInteractionConfig|null
@@ -232,7 +280,9 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Voice interaction configuration for turn detection, interruption (barge-in) handling and response timing
+     * Optional: How the bot talks with the caller: turn detection, interruption (barge-in) handling, response
+     * timing, answering machine detection, DTMF keys and transfers (see <code>VoiceInteractionConfig</code>).
+     * Unset: the call runs with the deployment&apos;s settings and the built-in defaults of every one of them
      *
      * Generated from protobuf field <code>.ondewo.vtsi.VoiceInteractionConfig voice_interaction_config = 5;</code>
      * @param \Ondewo\Vtsi\VoiceInteractionConfig $var
@@ -241,6 +291,95 @@ class CommonServicesConfig extends \Google\Protobuf\Internal\Message
     public function setVoiceInteractionConfig(\Ondewo\Vtsi\VoiceInteractionConfig|null $var)
     {
         $this->voice_interaction_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Media and SIP behaviour of the call&apos;s SIP container: audio buffering, the media clock,
+     * statistics logging, hangup and dial timeouts, the SIP registration and live call audio streams (see
+     * <code>SipVtsiConfig</code>). Unset, or an unset field: the container&apos;s default applies
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipVtsiConfig sip_vtsi_config = 6;</code>
+     * @return \Ondewo\Vtsi\SipVtsiConfig|null
+     */
+    public function getSipVtsiConfig()
+    {
+        return $this->sip_vtsi_config;
+    }
+
+    public function hasSipVtsiConfig()
+    {
+        return isset($this->sip_vtsi_config);
+    }
+
+    public function clearSipVtsiConfig()
+    {
+        unset($this->sip_vtsi_config);
+    }
+
+    /**
+     * Optional: Media and SIP behaviour of the call&apos;s SIP container: audio buffering, the media clock,
+     * statistics logging, hangup and dial timeouts, the SIP registration and live call audio streams (see
+     * <code>SipVtsiConfig</code>). Unset, or an unset field: the container&apos;s default applies
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.SipVtsiConfig sip_vtsi_config = 6;</code>
+     * @param \Ondewo\Vtsi\SipVtsiConfig $var
+     * @return $this
+     */
+    public function setSipVtsiConfig(\Ondewo\Vtsi\SipVtsiConfig|null $var)
+    {
+        $this->sip_vtsi_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Seconds a call may last at most, counted from when it was connected; then VTSI hangs it up (an
+     * outbound call of a caller, and each inbound call of a listener). Valid range: 1 - 86400; 0 and any value
+     * outside the range are refused with <code>INVALID_ARGUMENT</code>. It can only shorten a call: the
+     * deployment&apos;s own cap on callers (<code>ONDEWO_VTSI_CALLER_MAX_CALL_DURATION_SEC</code>, default 1200 s,
+     * counted from the deployment of the caller; for a pooled caller with that cap off,
+     * <code>ONDEWO_VTSI_CALLER_POOLED_MAX_CALL_DURATION_SEC</code>) still applies, and whichever is reached first
+     * ends the call. Unset: only the deployment&apos;s cap applies, and an inbound call of a listener is not capped.
+     * Example: <code>max_call_duration_seconds=300</code> ends a survey call after five minutes
+     *
+     * Generated from protobuf field <code>optional uint32 max_call_duration_seconds = 7;</code>
+     * @return int
+     */
+    public function getMaxCallDurationSeconds()
+    {
+        return isset($this->max_call_duration_seconds) ? $this->max_call_duration_seconds : 0;
+    }
+
+    public function hasMaxCallDurationSeconds()
+    {
+        return isset($this->max_call_duration_seconds);
+    }
+
+    public function clearMaxCallDurationSeconds()
+    {
+        unset($this->max_call_duration_seconds);
+    }
+
+    /**
+     * Optional: Seconds a call may last at most, counted from when it was connected; then VTSI hangs it up (an
+     * outbound call of a caller, and each inbound call of a listener). Valid range: 1 - 86400; 0 and any value
+     * outside the range are refused with <code>INVALID_ARGUMENT</code>. It can only shorten a call: the
+     * deployment&apos;s own cap on callers (<code>ONDEWO_VTSI_CALLER_MAX_CALL_DURATION_SEC</code>, default 1200 s,
+     * counted from the deployment of the caller; for a pooled caller with that cap off,
+     * <code>ONDEWO_VTSI_CALLER_POOLED_MAX_CALL_DURATION_SEC</code>) still applies, and whichever is reached first
+     * ends the call. Unset: only the deployment&apos;s cap applies, and an inbound call of a listener is not capped.
+     * Example: <code>max_call_duration_seconds=300</code> ends a survey call after five minutes
+     *
+     * Generated from protobuf field <code>optional uint32 max_call_duration_seconds = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setMaxCallDurationSeconds(int $var)
+    {
+        GPBUtil::checkUint32($var);
+        $this->max_call_duration_seconds = $var;
 
         return $this;
     }

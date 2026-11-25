@@ -8,13 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Structure of VTSI_PROJECT view
- * <ul>
- *   <li>CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li>
- *   <li>UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li>
- *   <li>GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL</li>
- *   <li>ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW</li>
- * </ul>
+ * Structure of VTSI_PROJECT view <ul> <li>CreateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li> <li>UpdateVTSI_PROJECT: VTSI_PROJECT_VIEW_SHALLOW</li> <li>GetVTSI_PROJECT: VTSI_PROJECT_VIEW_FULL</li> <li>ListVTSI_PROJECTs: VTSI_PROJECT_VIEW_SHALLOW</li> </ul>
  *
  * Protobuf type <code>ondewo.vtsi.VtsiProjectView</code>
  */

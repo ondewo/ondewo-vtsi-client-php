@@ -8,7 +8,7 @@ namespace Ondewo\Sip;
 use UnexpectedValueException;
 
 /**
- * <p>Answer of the speech-to-speech pipeline to a <code>SipWarmTransferOutcomeNotice</code></p>
+ * Answer of the speech-to-speech pipeline to a <code>SipWarmTransferOutcomeNotice</code>
  *
  * Protobuf type <code>ondewo.sip.SipWarmTransferOutcomeNoticeStatus</code>
  */

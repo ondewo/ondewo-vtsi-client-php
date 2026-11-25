@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One capture generation of one container on one docker channel. A container that is recreated
- * yields a NEW log stream, because a recreated container is a different docker container and the
- * previous container&apos;s logs no longer exist anywhere except here.
+ * One capture generation of one container on one docker channel. A container that is recreated yields a NEW log stream, because a recreated container is a different docker container and the previous container&apos;s logs no longer exist anywhere except here.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallLogStream</code>
  */

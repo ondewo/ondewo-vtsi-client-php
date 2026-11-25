@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Why an invited participant failed or left: the typed form of <code>CallParticipant.end_reason</code>, one value
- * per string that field documents. New values may be added; a client that meets a value it does not know reads
- * <code>CallParticipant.end_reason</code> instead.</p>
+ * Why an invited participant failed or left: the typed form of <code>CallParticipant.end_reason</code>, one value per string that field documents. New values may be added; a client that meets a value it does not know reads <code>CallParticipant.end_reason</code> instead.
  *
  * Protobuf type <code>ondewo.vtsi.ParticipantEndReason</code>
  */

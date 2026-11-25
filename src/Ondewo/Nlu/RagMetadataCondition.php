@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Condition to filter document metadata on.
- * String comparison is always case-insensitive.
+ * Condition to filter document metadata on. String comparison is always case-insensitive.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagMetadataCondition</code>
  */

@@ -10,13 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The persisted audit record of an A/B rollout that an operator explicitly
- * applied: it captures which variant's config was promoted to the project's
- * classifier default, on which metric, and the statistics at the moment of
- * application. Written + returned by <code>LlmEvaluationApplyAbRollout</code>;
- * read back via <code>LlmEvaluationGetAbRolloutDecision</code> /
- * <code>LlmEvaluationListAbRolloutDecisions</code>. There is no auto-rollout —
- * every decision row corresponds to an explicit operator action.
+ * The persisted audit record of an A/B rollout that an operator explicitly applied: it captures which variant's config was promoted to the project's classifier default, on which metric, and the statistics at the moment of application. Written + returned by <code>LlmEvaluationApplyAbRollout</code>; read back via <code>LlmEvaluationGetAbRolloutDecision</code> / <code>LlmEvaluationListAbRolloutDecisions</code>. There is no auto-rollout — every decision row corresponds to an explicit operator action.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationAbRolloutDecision</code>
  */

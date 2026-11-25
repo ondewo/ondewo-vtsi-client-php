@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tInference contains information about inference models used in the speech-to-text pipeline.</p>
+ * S2tInference contains information about inference models used in the speech-to-text pipeline.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tInference</code>
  */

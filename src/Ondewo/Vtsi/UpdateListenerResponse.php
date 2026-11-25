@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateListener">Calls.UpdateListener</a>, and
- * one entry of <code>UpdateListenersResponse</code>.
+ * The response message for <a href="index.html#ondewo.vtsi.Calls.UpdateListener">Calls.UpdateListener</a>, and one entry of <code>UpdateListenersResponse</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateListenerResponse</code>
  */

@@ -19,7 +19,7 @@
 namespace Ondewo\Sip;
 
 /**
- * <p>ONDEWO-SIP API available at <a href="https://github.com/ondewo/ondewo-sip-api">GitHub</a></p>
+ * ONDEWO-SIP API available at <a href="https://github.com/ondewo/ondewo-sip-api">GitHub</a>
  */
 class SipClient extends \Grpc\BaseStub {
 

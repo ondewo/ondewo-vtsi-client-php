@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Request for starting a new SIP session for a specified account</p>
+ * Request for starting a new SIP session for a specified account
  *
  * Generated from protobuf message <code>ondewo.sip.SipStartSessionRequest</code>
  */

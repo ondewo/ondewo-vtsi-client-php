@@ -8,32 +8,37 @@ namespace Ondewo\Vtsi\AnsweringMachineDetectionConfig;
 use UnexpectedValueException;
 
 /**
- * Sensitivity of the detection: selects the enabled detection rules and their internal thresholds
+ * How readily the detection decides that a machine answered. It selects which detection rules may hang up; the timing fields below are not changed by it. Whatever the sensitivity, a person-like answer, silence and an undecided call are never hung up on
  *
  * Protobuf type <code>ondewo.vtsi.AnsweringMachineDetectionConfig.AmdSensitivity</code>
  */
 class AmdSensitivity
 {
     /**
-     * Unspecified sensitivity defaults to LOW
+     * Not set explicitly. As a value of <code>sensitivity</code> it selects the built-in default
+     * <code>LOW</code>; leave <code>sensitivity</code> unset instead to inherit the deployment setting
+     * <code>ONDEWO_VTSI_AMD_SENSITIVITY</code>
      *
      * Generated from protobuf enum <code>AMD_SENSITIVITY_UNSPECIFIED = 0;</code>
      */
     const AMD_SENSITIVITY_UNSPECIFIED = 0;
     /**
-     * Most conservative towards people: only strong machine evidence leads to a machine verdict (default)
+     * Most conservative towards people (default): a machine verdict needs one piece of strong evidence on its
+     * own, e.g. a clear mailbox beep or a mailbox phrase such as &quot;leave a message after the beep&quot;.
+     * Fewest people hung up on; some machines are missed and greeted
      *
      * Generated from protobuf enum <code>LOW = 1;</code>
      */
     const LOW = 1;
     /**
-     * Balanced between missed machines and people classified as machines
+     * Balanced: in addition, a long greeting together with a weaker machine phrase is enough
      *
      * Generated from protobuf enum <code>MEDIUM = 2;</code>
      */
     const MEDIUM = 2;
     /**
-     * Most aggressive: detects more machines at a higher risk of hanging up on a person
+     * Most aggressive: in addition, a long greeting together with a weaker beep is enough. Detects the most
+     * machines, at the highest risk of hanging up on a person
      *
      * Generated from protobuf enum <code>HIGH = 3;</code>
      */

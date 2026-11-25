@@ -11,23 +11,20 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Callbacks for the Speech-2-Text platform.
- * <p>Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The
- * callbacks are accepted and validated but currently NOT executed: no component of the call consumes them. The
- * field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be
- * documented then; do not rely on any effect.</p>
+ * Each entry is a non-empty string (an empty entry is <code>INVALID_ARGUMENT</code>) naming a callback. The callbacks are accepted and validated but currently NOT executed: no component of the call consumes them, and a call behaves exactly the same with or without them. The field is kept for wire compatibility and reserved for a future callback mechanism, whose naming scheme will be documented then; do not rely on any effect.
  *
  * Generated from protobuf message <code>ondewo.vtsi.S2tVtsiCallbacks</code>
  */
 class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Callback executed before the Speech-2-Text will be called
+     * Names of callbacks to run before the audio is sent to speech-to-text. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_s2t_callbacks = 1;</code>
      */
     private $pre_s2t_callbacks;
     /**
-     * Callback executed after the Speech-2-Text has been called
+     * Names of callbacks to run after speech-to-text returned a transcription. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_s2t_callbacks = 2;</code>
      */
@@ -40,9 +37,9 @@ class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string[] $pre_s2t_callbacks
-     *           Callback executed before the Speech-2-Text will be called
+     *           Names of callbacks to run before the audio is sent to speech-to-text. No effect (see the message comment)
      *     @type string[] $post_s2t_callbacks
-     *           Callback executed after the Speech-2-Text has been called
+     *           Names of callbacks to run after speech-to-text returned a transcription. No effect (see the message comment)
      * }
      */
     public function __construct($data = NULL) {
@@ -51,7 +48,7 @@ class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed before the Speech-2-Text will be called
+     * Names of callbacks to run before the audio is sent to speech-to-text. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_s2t_callbacks = 1;</code>
      * @return RepeatedField<string>
@@ -62,7 +59,7 @@ class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed before the Speech-2-Text will be called
+     * Names of callbacks to run before the audio is sent to speech-to-text. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string pre_s2t_callbacks = 1;</code>
      * @param string[] $var
@@ -77,7 +74,7 @@ class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed after the Speech-2-Text has been called
+     * Names of callbacks to run after speech-to-text returned a transcription. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_s2t_callbacks = 2;</code>
      * @return RepeatedField<string>
@@ -88,7 +85,7 @@ class S2tVtsiCallbacks extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Callback executed after the Speech-2-Text has been called
+     * Names of callbacks to run after speech-to-text returned a transcription. No effect (see the message comment)
      *
      * Generated from protobuf field <code>repeated string post_s2t_callbacks = 2;</code>
      * @param string[] $var

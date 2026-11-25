@@ -10,8 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Domains Response representation.</p>
- * <p>The response message for ListT2sDomains.</p>
+ * Domains Response representation.
+ * The response message for ListT2sDomains.
  *
  * Generated from protobuf message <code>ondewo.t2s.ListT2sDomainsResponse</code>
  */

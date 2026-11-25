@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A single captured log record. One record may span several physical lines: a Python traceback, a protobuf
- * <code>str()</code> dump and a multi-line banner are all one record and are stored and returned as one entry.
+ * A single captured log record. One record may span several physical lines: a Python traceback, a protobuf <code>str()</code> dump and a multi-line banner are all one record and are stored and returned as one entry.
  *
  * Generated from protobuf message <code>ondewo.nlu.CaiLogEntry</code>
  */

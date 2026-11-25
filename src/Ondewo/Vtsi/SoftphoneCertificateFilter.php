@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Narrows a softphone certificate listing. Combined like
- * <a href="index.html#ondewo.vtsi.SoftphoneAccountFilter">SoftphoneAccountFilter</a>.
+ * Narrows a softphone certificate listing. Combined like <a href="index.html#ondewo.vtsi.SoftphoneAccountFilter">SoftphoneAccountFilter</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneCertificateFilter</code>
  */

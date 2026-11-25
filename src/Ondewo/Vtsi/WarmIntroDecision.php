@@ -8,32 +8,36 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>The target&apos;s decision in a warm intro</p>
+ * The target&apos;s decision in a warm intro
  *
  * Protobuf type <code>ondewo.vtsi.WarmIntroDecision</code>
  */
 class WarmIntroDecision
 {
     /**
-     * No decision yet (the intro runs, or it never started)
+     * No decision: the intro still runs, it never started, the target never answered or hung up before deciding
      *
      * Generated from protobuf enum <code>WARM_INTRO_DECISION_UNSPECIFIED = 0;</code>
      */
     const WARM_INTRO_DECISION_UNSPECIFIED = 0;
     /**
-     * The target accepted and was joined
+     * The target accepted and was joined; the bot leaves the call
      *
      * Generated from protobuf enum <code>WARM_INTRO_DECISION_ACCEPTED = 1;</code>
      */
     const WARM_INTRO_DECISION_ACCEPTED = 1;
     /**
-     * The target declined; the call stays with the bot
+     * The target declined and was hung up; the call stays with the bot, which tells the caller
+     * <code>caller_declined_message</code>
      *
      * Generated from protobuf enum <code>WARM_INTRO_DECISION_DECLINED = 2;</code>
      */
     const WARM_INTRO_DECISION_DECLINED = 2;
     /**
-     * The target answered but gave no decision in time (also a mailbox that answered)
+     * The target answered but gave no decision: no answer within <code>decision_timeout_s</code> or
+     * <code>max_intro_duration_s</code>, two unclear answers, or no yes to the <code>ready_question</code> (also a
+     * mailbox that answered). The call stays with the bot, which tells the caller
+     * <code>caller_unreachable_message</code>
      *
      * Generated from protobuf enum <code>WARM_INTRO_DECISION_NO_DECISION = 3;</code>
      */

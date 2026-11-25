@@ -11,12 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * A single piece of user feedback about a whole session or a single session step (turn).
- * The rating is intentionally extensible: <code>rating</code> carries the thumbs signal surfaced in the UI
- * today, while <code>score</code> and <code>categorical_value</code> allow richer scales (star / NPS / CSAT)
- * to be added later without a schema change. The feedback is pinned to the exact forensic context it is
- * about (<code>session_id</code>, <code>session_step_id</code>, <code>response_id</code>,
- * <code>session_step_llm_telemetry_id</code>) so the full conversation state up to the feedback can be
- * reconstructed from the already-persisted session step.
+ * The rating is intentionally extensible: <code>rating</code> carries the thumbs signal surfaced in the UI today, while <code>score</code> and <code>categorical_value</code> allow richer scales (star / NPS / CSAT) to be added later without a schema change. The feedback is pinned to the exact forensic context it is about (<code>session_id</code>, <code>session_step_id</code>, <code>response_id</code>, <code>session_step_llm_telemetry_id</code>) so the full conversation state up to the feedback can be reconstructed from the already-persisted session step.
  *
  * Generated from protobuf message <code>ondewo.nlu.SessionFeedback</code>
  */

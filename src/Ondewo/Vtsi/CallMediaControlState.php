@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Effective media control state of a call</p>
+ * Effective media control state of a call
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallMediaControlState</code>
  */

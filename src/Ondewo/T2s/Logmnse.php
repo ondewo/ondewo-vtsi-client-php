@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Logmnse message contains settings for Logmnse postprocessing.</p>
+ * Logmnse message contains settings for Logmnse postprocessing.
  *
  * Generated from protobuf message <code>ondewo.t2s.Logmnse</code>
  */

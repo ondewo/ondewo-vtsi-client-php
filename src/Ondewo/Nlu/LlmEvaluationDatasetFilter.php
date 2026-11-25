@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Filter conditions for ListDatasets. All fields are optional; multiple fields
- * set at the same time are combined via logical AND.
+ * Filter conditions for ListDatasets. All fields are optional; multiple fields set at the same time are combined via logical AND.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationDatasetFilter</code>
  */

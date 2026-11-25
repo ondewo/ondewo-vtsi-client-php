@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>HiFiGan message contains settings for the HiFiGan inference.</p>
+ * HiFiGan message contains settings for the HiFiGan inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.HiFiGan</code>
  */

@@ -9,10 +9,7 @@ use UnexpectedValueException;
 
 /**
  * The kind of resource a call, a status or a statistics bucket belongs to.
- * <p>Quirk kept for wire compatibility: the zero value is <code>BOTH</code>, not an <code>*_UNSPECIFIED</code>
- * sentinel. It is never the type of a stored call: <code>Call.call_type</code> is <code>LISTENER</code>,
- * <code>CALLER</code> or, for a call placed by a scheduled caller, <code>SCHEDULED_CALLER</code>. In
- * <code>CallFilter.call_types</code> an empty list, or a list holding <code>BOTH</code>, matches every call.</p>
+ * Quirk kept for wire compatibility: the zero value is <code>BOTH</code>, not an <code>*_UNSPECIFIED</code> sentinel. It is never the type of a stored call: <code>Call.call_type</code> is <code>LISTENER</code>, <code>CALLER</code> or, for a call placed by a scheduled caller, <code>SCHEDULED_CALLER</code>. In <code>CallFilter.call_types</code> an empty list, or a list holding <code>BOTH</code>, matches every call.
  *
  * Protobuf type <code>ondewo.vtsi.CallType</code>
  */

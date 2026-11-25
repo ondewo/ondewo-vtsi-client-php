@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request message for running a crawler.
- * This starts a long-running operation and returns immediately.
- * Clients should poll operation status via <code>RagGetCrawlerRun</code>.
+ * This starts a long-running operation and returns immediately. Clients should poll operation status via <code>RagGetCrawlerRun</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagStartCrawlerRequest</code>
  */

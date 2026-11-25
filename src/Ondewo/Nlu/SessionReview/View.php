@@ -8,8 +8,7 @@ namespace Ondewo\Nlu\SessionReview;
 use UnexpectedValueException;
 
 /**
- * Represents the options for views of a session_review.
- * A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data
+ * Represents the options for views of a session_review. A session_review can be a sizable object. Therefore, we provide a resource view that does not return all data
  *
  * Protobuf type <code>ondewo.nlu.SessionReview.View</code>
  */

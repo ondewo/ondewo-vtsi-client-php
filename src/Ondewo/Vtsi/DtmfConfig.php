@@ -10,46 +10,97 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the DTMF keys a caller presses. A key reaches the bot only when the bot&apos;s last answer
- * declared a key menu or a key entry (ondewo-cai intent tags <code>ondewo-voice:dtmf-menu:&lt;id&gt;</code> /
- * <code>ondewo-voice:dtmf-digits:&lt;id&gt;</code>); it is then sent to the NLU as the turn text
- * <code>[DTMF:&lt;keys&gt;]</code>. Every field is <code>optional</code>; unset keeps the deployment&apos;s value
- * (the <code>ONDEWO_VTSI_CSI_DTMF_*</code> / <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code> settings, else
- * the default).
+ * How the call treats the DTMF keys (the telephone keypad) the caller presses. Keys let a caller answer a menu (&quot;for sales press 1, for support press 2&quot;) or type a value such as a PIN or a customer number instead of speaking it.
+ * A key reaches the bot only when the bot&apos;s LAST answer asked for keys: a key menu or a key entry, declared in the ONDEWO NLU agent by the intent tags <code>ondewo-voice:dtmf-menu:&lt;id&gt;</code> / <code>ondewo-voice:dtmf-digits:&lt;id&gt;</code> (or by an AI team through its <code>c-voice-turn</code> context). The finished choice or entry is then sent to the NLU as the caller&apos;s turn, by default as the text <code>[DTMF:&lt;keys&gt;]</code> (<code>*</code> and <code>#</code> spelled <code>STAR</code> and <code>HASH</code>, an invalid entry as <code>[DTMF:INVALID]</code>), together with a one-turn context <code>c-dtmf</code>. A menu key is sent at once; a key entry is sent when the caller presses the terminator (<code>#</code> by default), reaches the declared maximum number of keys, or stops pressing for <code>inter_digit_timeout_ms</code>. Keys are never written to a log in clear.
+ * While a key entry is open, and shortly after a key turn, the caller&apos;s speech is not sent to the NLU: a key wins its turn. Keys are also ignored while answering machine detection is still deciding on an outbound call.
+ * Scope: applies to every call of the deployment it is set on: every inbound call a listener serves, every call of a caller, a campaign or a scheduled caller. A pooled persistent caller is only reused for a call with an identical configuration.
+ * Every field is <code>optional</code>. A field left unset inherits: the deployment&apos;s <code>ONDEWO_VTSI_CSI_DTMF_*</code> / <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code> setting where one exists and is set, else the built-in default listed per field. A set value always wins over the deployment setting. Leaving the whole message unset keeps the deployment settings, and without them gives the built-in behaviour: keys on, a key interrupts the bot, keys the bot did not ask for are ignored.
+ * Example: a bot that must let the caller finish listening before keys count, and that treats every key as a menu choice even when no menu was declared:
+ * <pre><code>dtmf_config { barge_in: false undeclared_policy: &quot;COMMIT_SINGLE&quot; }</code></pre>
  *
  * Generated from protobuf message <code>ondewo.vtsi.DtmfConfig</code>
  */
 class DtmfConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
-     * the call
+     * Optional: Whether the caller&apos;s keys are used at all (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_ACTIVE</code> and <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code>).
+     * <code>false</code> ignores every key of the call: no key interrupts the bot and no key turn reaches the NLU,
+     * also when the bot declared a menu or an entry. <code>true</code> switches keys on for this call even when
+     * the deployment switched them off. The other fields have no effect while this is <code>false</code>
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      */
     protected $enabled = null;
     /**
-     * Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)
+     * Optional: Whether a key pressed while the bot speaks stops the bot at once, like a spoken interruption
+     * (default: <code>true</code>; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_BARGE_IN_ACTIVE</code>).
+     * <p>A key interruption is always treated as a real one (a key is never mistaken for a cough), and it
+     * applies even when spoken interruptions are switched off for the call
+     * (<code>InterruptionHandlingConfig</code>): a key is the caller&apos;s deliberate choice. A key entry interrupts
+     * at its first key, a menu key when it is taken. Only a key the bot asked for interrupts; a key that is ignored
+     * (see <code>undeclared_policy</code>) never does.</p>
+     * <p><code>false</code> lets the bot finish its sentence first; the key is still collected and sent as the
+     * caller&apos;s next turn.</p>
      *
      * Generated from protobuf field <code>optional bool barge_in = 2;</code>
      */
     protected $barge_in = null;
     /**
-     * Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
-     * (default 2000, valid range 300 - 10000; a value outside the range is refused with
-     * <code>INVALID_ARGUMENT</code>)
+     * Optional: Milliseconds of no further key after which an open key entry (e.g. a PIN or a customer number) is
+     * considered finished and sent to the NLU, when the caller presses no terminator (default: 2000, valid range:
+     * 300 - 10000; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_INTER_DIGIT_TIMEOUT_MS</code>). A value outside
+     * the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>It applies to key entries only, never to a menu (a menu key is taken at once), and only to an entry
+     * whose declaration names no timeout of its own: the tag option <code>timeout_ms=N</code> of
+     * <code>ondewo-voice:dtmf-digits</code> wins. An entry ended by this timeout with fewer keys than the
+     * declared minimum is sent as <code>[DTMF:INVALID]</code>.</p>
+     * <p>Example: <code>4000</code> gives callers who type a long customer number slowly more time between two
+     * keys; a smaller value answers sooner after the last key.</p>
      *
      * Generated from protobuf field <code>optional uint32 inter_digit_timeout_ms = 3;</code>
      */
     protected $inter_digit_timeout_ms = null;
     /**
-     * What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
-     * not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
-     * value is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: What a key does that the bot did not ask for, i.e. when the bot&apos;s last answer declared no menu
+     * and no entry, or the declared one was already used (default: <code>DROP</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_UNDECLARED_POLICY</code>). The values, written exactly in upper case:
+     * <ul>
+     * <li><code>DROP</code>: the key is ignored; it does not interrupt the bot and starts no turn, so a project
+     * that declares no keys sees no change</li>
+     * <li><code>COMMIT_SINGLE</code>: every such key is taken as a one-key menu choice: it interrupts a speaking bot
+     * (when <code>barge_in</code> is on) and is sent to the NLU as its own turn, e.g. <code>[DTMF:1]</code></li>
+     * </ul>
+     * Any other value (also <code>drop</code> in lower case) is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string undeclared_policy = 4;</code>
      */
     protected $undeclared_policy = null;
+    /**
+     * Optional: Milliseconds after a key turn was sent during which a spoken sentence of the caller is NOT sent to
+     * the NLU, so a word the caller says while pressing does not become a second turn (default: 300, valid range:
+     * 0 - 5000; no deployment setting). A value outside the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>0</code> switches this guard off. It does not change that speech is ignored while a key entry is still
+     * open, nor while an entry declared with the tag option <code>nospeech</code> is asked for
+     *
+     * Generated from protobuf field <code>optional uint32 speech_guard_ms = 5;</code>
+     */
+    protected $speech_guard_ms = null;
+    /**
+     * Optional: The text a key choice or key entry is sent to the NLU as, with <code>{digits}</code> standing for
+     * the keys (default: <code>[DTMF:{digits}]</code>; no deployment setting). Example: <code>Taste {digits}</code>
+     * sends the entry 4711 as <code>Taste 4711</code> and an invalid entry as <code>Taste INVALID</code>.
+     * <p>Rules: 1 - 64 characters, no control character; <code>{digits}</code> must occur exactly once and no
+     * other placeholder may occur (write a literal brace twice: <code>{{</code> / <code>}}</code>, but not around
+     * the word <code>digits</code>). Otherwise refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Change it only together with the training phrases of the NLU agent: the ONDEWO NLU recognises a key turn
+     * by the default <code>[DTMF:...]</code> form only (it passes that form to intent detection unchanged,
+     * matches <code>[DTMF:ANY]</code> training phrases and stores masked entries masked). With another template
+     * the turn is handled like ordinary text.</p>
+     *
+     * Generated from protobuf field <code>optional string text_template = 6;</code>
+     */
+    protected $text_template = null;
 
     /**
      * Constructor.
@@ -58,18 +109,60 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
-     *           the call
+     *           Optional: Whether the caller&apos;s keys are used at all (default: <code>true</code>; deployment setting
+     *           <code>ONDEWO_VTSI_CSI_DTMF_ACTIVE</code> and <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code>).
+     *           <code>false</code> ignores every key of the call: no key interrupts the bot and no key turn reaches the NLU,
+     *           also when the bot declared a menu or an entry. <code>true</code> switches keys on for this call even when
+     *           the deployment switched them off. The other fields have no effect while this is <code>false</code>
      *     @type bool $barge_in
-     *           Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)
+     *           Optional: Whether a key pressed while the bot speaks stops the bot at once, like a spoken interruption
+     *           (default: <code>true</code>; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_BARGE_IN_ACTIVE</code>).
+     *           <p>A key interruption is always treated as a real one (a key is never mistaken for a cough), and it
+     *           applies even when spoken interruptions are switched off for the call
+     *           (<code>InterruptionHandlingConfig</code>): a key is the caller&apos;s deliberate choice. A key entry interrupts
+     *           at its first key, a menu key when it is taken. Only a key the bot asked for interrupts; a key that is ignored
+     *           (see <code>undeclared_policy</code>) never does.</p>
+     *           <p><code>false</code> lets the bot finish its sentence first; the key is still collected and sent as the
+     *           caller&apos;s next turn.</p>
      *     @type int $inter_digit_timeout_ms
-     *           Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
-     *           (default 2000, valid range 300 - 10000; a value outside the range is refused with
-     *           <code>INVALID_ARGUMENT</code>)
+     *           Optional: Milliseconds of no further key after which an open key entry (e.g. a PIN or a customer number) is
+     *           considered finished and sent to the NLU, when the caller presses no terminator (default: 2000, valid range:
+     *           300 - 10000; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_INTER_DIGIT_TIMEOUT_MS</code>). A value outside
+     *           the range is refused with <code>INVALID_ARGUMENT</code>.
+     *           <p>It applies to key entries only, never to a menu (a menu key is taken at once), and only to an entry
+     *           whose declaration names no timeout of its own: the tag option <code>timeout_ms=N</code> of
+     *           <code>ondewo-voice:dtmf-digits</code> wins. An entry ended by this timeout with fewer keys than the
+     *           declared minimum is sent as <code>[DTMF:INVALID]</code>.</p>
+     *           <p>Example: <code>4000</code> gives callers who type a long customer number slowly more time between two
+     *           keys; a smaller value answers sooner after the last key.</p>
      *     @type string $undeclared_policy
-     *           What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
-     *           not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
-     *           value is refused with <code>INVALID_ARGUMENT</code>
+     *           Optional: What a key does that the bot did not ask for, i.e. when the bot&apos;s last answer declared no menu
+     *           and no entry, or the declared one was already used (default: <code>DROP</code>; deployment setting
+     *           <code>ONDEWO_VTSI_CSI_DTMF_UNDECLARED_POLICY</code>). The values, written exactly in upper case:
+     *           <ul>
+     *           <li><code>DROP</code>: the key is ignored; it does not interrupt the bot and starts no turn, so a project
+     *           that declares no keys sees no change</li>
+     *           <li><code>COMMIT_SINGLE</code>: every such key is taken as a one-key menu choice: it interrupts a speaking bot
+     *           (when <code>barge_in</code> is on) and is sent to the NLU as its own turn, e.g. <code>[DTMF:1]</code></li>
+     *           </ul>
+     *           Any other value (also <code>drop</code> in lower case) is refused with <code>INVALID_ARGUMENT</code>
+     *     @type int $speech_guard_ms
+     *           Optional: Milliseconds after a key turn was sent during which a spoken sentence of the caller is NOT sent to
+     *           the NLU, so a word the caller says while pressing does not become a second turn (default: 300, valid range:
+     *           0 - 5000; no deployment setting). A value outside the range is refused with <code>INVALID_ARGUMENT</code>.
+     *           <code>0</code> switches this guard off. It does not change that speech is ignored while a key entry is still
+     *           open, nor while an entry declared with the tag option <code>nospeech</code> is asked for
+     *     @type string $text_template
+     *           Optional: The text a key choice or key entry is sent to the NLU as, with <code>{digits}</code> standing for
+     *           the keys (default: <code>[DTMF:{digits}]</code>; no deployment setting). Example: <code>Taste {digits}</code>
+     *           sends the entry 4711 as <code>Taste 4711</code> and an invalid entry as <code>Taste INVALID</code>.
+     *           <p>Rules: 1 - 64 characters, no control character; <code>{digits}</code> must occur exactly once and no
+     *           other placeholder may occur (write a literal brace twice: <code>{{</code> / <code>}}</code>, but not around
+     *           the word <code>digits</code>). Otherwise refused with <code>INVALID_ARGUMENT</code>.</p>
+     *           <p>Change it only together with the training phrases of the NLU agent: the ONDEWO NLU recognises a key turn
+     *           by the default <code>[DTMF:...]</code> form only (it passes that form to intent detection unchanged,
+     *           matches <code>[DTMF:ANY]</code> training phrases and stores masked entries masked). With another template
+     *           the turn is handled like ordinary text.</p>
      * }
      */
     public function __construct($data = NULL) {
@@ -78,8 +171,11 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
-     * the call
+     * Optional: Whether the caller&apos;s keys are used at all (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_ACTIVE</code> and <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code>).
+     * <code>false</code> ignores every key of the call: no key interrupts the bot and no key turn reaches the NLU,
+     * also when the bot declared a menu or an entry. <code>true</code> switches keys on for this call even when
+     * the deployment switched them off. The other fields have no effect while this is <code>false</code>
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @return bool
@@ -100,8 +196,11 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a pressed key is forwarded to the bot at all (default true). <code>false</code> ignores every key of
-     * the call
+     * Optional: Whether the caller&apos;s keys are used at all (default: <code>true</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_ACTIVE</code> and <code>ONDEWO_VTSI_SIP_DTMF_FORWARD_ACTIVE</code>).
+     * <code>false</code> ignores every key of the call: no key interrupts the bot and no key turn reaches the NLU,
+     * also when the bot declared a menu or an entry. <code>true</code> switches keys on for this call even when
+     * the deployment switched them off. The other fields have no effect while this is <code>false</code>
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @param bool $var
@@ -115,7 +214,15 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)
+     * Optional: Whether a key pressed while the bot speaks stops the bot at once, like a spoken interruption
+     * (default: <code>true</code>; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_BARGE_IN_ACTIVE</code>).
+     * <p>A key interruption is always treated as a real one (a key is never mistaken for a cough), and it
+     * applies even when spoken interruptions are switched off for the call
+     * (<code>InterruptionHandlingConfig</code>): a key is the caller&apos;s deliberate choice. A key entry interrupts
+     * at its first key, a menu key when it is taken. Only a key the bot asked for interrupts; a key that is ignored
+     * (see <code>undeclared_policy</code>) never does.</p>
+     * <p><code>false</code> lets the bot finish its sentence first; the key is still collected and sent as the
+     * caller&apos;s next turn.</p>
      *
      * Generated from protobuf field <code>optional bool barge_in = 2;</code>
      * @return bool
@@ -136,7 +243,15 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether a key pressed while the bot speaks stops the bot, like a spoken interruption (default true)
+     * Optional: Whether a key pressed while the bot speaks stops the bot at once, like a spoken interruption
+     * (default: <code>true</code>; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_BARGE_IN_ACTIVE</code>).
+     * <p>A key interruption is always treated as a real one (a key is never mistaken for a cough), and it
+     * applies even when spoken interruptions are switched off for the call
+     * (<code>InterruptionHandlingConfig</code>): a key is the caller&apos;s deliberate choice. A key entry interrupts
+     * at its first key, a menu key when it is taken. Only a key the bot asked for interrupts; a key that is ignored
+     * (see <code>undeclared_policy</code>) never does.</p>
+     * <p><code>false</code> lets the bot finish its sentence first; the key is still collected and sent as the
+     * caller&apos;s next turn.</p>
      *
      * Generated from protobuf field <code>optional bool barge_in = 2;</code>
      * @param bool $var
@@ -150,9 +265,16 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
-     * (default 2000, valid range 300 - 10000; a value outside the range is refused with
-     * <code>INVALID_ARGUMENT</code>)
+     * Optional: Milliseconds of no further key after which an open key entry (e.g. a PIN or a customer number) is
+     * considered finished and sent to the NLU, when the caller presses no terminator (default: 2000, valid range:
+     * 300 - 10000; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_INTER_DIGIT_TIMEOUT_MS</code>). A value outside
+     * the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>It applies to key entries only, never to a menu (a menu key is taken at once), and only to an entry
+     * whose declaration names no timeout of its own: the tag option <code>timeout_ms=N</code> of
+     * <code>ondewo-voice:dtmf-digits</code> wins. An entry ended by this timeout with fewer keys than the
+     * declared minimum is sent as <code>[DTMF:INVALID]</code>.</p>
+     * <p>Example: <code>4000</code> gives callers who type a long customer number slowly more time between two
+     * keys; a smaller value answers sooner after the last key.</p>
      *
      * Generated from protobuf field <code>optional uint32 inter_digit_timeout_ms = 3;</code>
      * @return int
@@ -173,9 +295,16 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Milliseconds after the last key of a key entry (e.g. a PIN) without a terminator before the entry is sent
-     * (default 2000, valid range 300 - 10000; a value outside the range is refused with
-     * <code>INVALID_ARGUMENT</code>)
+     * Optional: Milliseconds of no further key after which an open key entry (e.g. a PIN or a customer number) is
+     * considered finished and sent to the NLU, when the caller presses no terminator (default: 2000, valid range:
+     * 300 - 10000; deployment setting <code>ONDEWO_VTSI_CSI_DTMF_INTER_DIGIT_TIMEOUT_MS</code>). A value outside
+     * the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <p>It applies to key entries only, never to a menu (a menu key is taken at once), and only to an entry
+     * whose declaration names no timeout of its own: the tag option <code>timeout_ms=N</code> of
+     * <code>ondewo-voice:dtmf-digits</code> wins. An entry ended by this timeout with fewer keys than the
+     * declared minimum is sent as <code>[DTMF:INVALID]</code>.</p>
+     * <p>Example: <code>4000</code> gives callers who type a long customer number slowly more time between two
+     * keys; a smaller value answers sooner after the last key.</p>
      *
      * Generated from protobuf field <code>optional uint32 inter_digit_timeout_ms = 3;</code>
      * @param int $var
@@ -190,9 +319,16 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
-     * not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
-     * value is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: What a key does that the bot did not ask for, i.e. when the bot&apos;s last answer declared no menu
+     * and no entry, or the declared one was already used (default: <code>DROP</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_UNDECLARED_POLICY</code>). The values, written exactly in upper case:
+     * <ul>
+     * <li><code>DROP</code>: the key is ignored; it does not interrupt the bot and starts no turn, so a project
+     * that declares no keys sees no change</li>
+     * <li><code>COMMIT_SINGLE</code>: every such key is taken as a one-key menu choice: it interrupts a speaking bot
+     * (when <code>barge_in</code> is on) and is sent to the NLU as its own turn, e.g. <code>[DTMF:1]</code></li>
+     * </ul>
+     * Any other value (also <code>drop</code> in lower case) is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string undeclared_policy = 4;</code>
      * @return string
@@ -213,9 +349,16 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What a key the bot declared nothing for does: <code>DROP</code> (default; the key is ignored and the bot is
-     * not interrupted) or <code>COMMIT_SINGLE</code> (the key is sent to the NLU as a one-key turn). Any other
-     * value is refused with <code>INVALID_ARGUMENT</code>
+     * Optional: What a key does that the bot did not ask for, i.e. when the bot&apos;s last answer declared no menu
+     * and no entry, or the declared one was already used (default: <code>DROP</code>; deployment setting
+     * <code>ONDEWO_VTSI_CSI_DTMF_UNDECLARED_POLICY</code>). The values, written exactly in upper case:
+     * <ul>
+     * <li><code>DROP</code>: the key is ignored; it does not interrupt the bot and starts no turn, so a project
+     * that declares no keys sees no change</li>
+     * <li><code>COMMIT_SINGLE</code>: every such key is taken as a one-key menu choice: it interrupts a speaking bot
+     * (when <code>barge_in</code> is on) and is sent to the NLU as its own turn, e.g. <code>[DTMF:1]</code></li>
+     * </ul>
+     * Any other value (also <code>drop</code> in lower case) is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string undeclared_policy = 4;</code>
      * @param string $var
@@ -225,6 +368,104 @@ class DtmfConfig extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, true);
         $this->undeclared_policy = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: Milliseconds after a key turn was sent during which a spoken sentence of the caller is NOT sent to
+     * the NLU, so a word the caller says while pressing does not become a second turn (default: 300, valid range:
+     * 0 - 5000; no deployment setting). A value outside the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>0</code> switches this guard off. It does not change that speech is ignored while a key entry is still
+     * open, nor while an entry declared with the tag option <code>nospeech</code> is asked for
+     *
+     * Generated from protobuf field <code>optional uint32 speech_guard_ms = 5;</code>
+     * @return int
+     */
+    public function getSpeechGuardMs()
+    {
+        return isset($this->speech_guard_ms) ? $this->speech_guard_ms : 0;
+    }
+
+    public function hasSpeechGuardMs()
+    {
+        return isset($this->speech_guard_ms);
+    }
+
+    public function clearSpeechGuardMs()
+    {
+        unset($this->speech_guard_ms);
+    }
+
+    /**
+     * Optional: Milliseconds after a key turn was sent during which a spoken sentence of the caller is NOT sent to
+     * the NLU, so a word the caller says while pressing does not become a second turn (default: 300, valid range:
+     * 0 - 5000; no deployment setting). A value outside the range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>0</code> switches this guard off. It does not change that speech is ignored while a key entry is still
+     * open, nor while an entry declared with the tag option <code>nospeech</code> is asked for
+     *
+     * Generated from protobuf field <code>optional uint32 speech_guard_ms = 5;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSpeechGuardMs(int $var)
+    {
+        GPBUtil::checkUint32($var);
+        $this->speech_guard_ms = $var;
+
+        return $this;
+    }
+
+    /**
+     * Optional: The text a key choice or key entry is sent to the NLU as, with <code>{digits}</code> standing for
+     * the keys (default: <code>[DTMF:{digits}]</code>; no deployment setting). Example: <code>Taste {digits}</code>
+     * sends the entry 4711 as <code>Taste 4711</code> and an invalid entry as <code>Taste INVALID</code>.
+     * <p>Rules: 1 - 64 characters, no control character; <code>{digits}</code> must occur exactly once and no
+     * other placeholder may occur (write a literal brace twice: <code>{{</code> / <code>}}</code>, but not around
+     * the word <code>digits</code>). Otherwise refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Change it only together with the training phrases of the NLU agent: the ONDEWO NLU recognises a key turn
+     * by the default <code>[DTMF:...]</code> form only (it passes that form to intent detection unchanged,
+     * matches <code>[DTMF:ANY]</code> training phrases and stores masked entries masked). With another template
+     * the turn is handled like ordinary text.</p>
+     *
+     * Generated from protobuf field <code>optional string text_template = 6;</code>
+     * @return string
+     */
+    public function getTextTemplate()
+    {
+        return isset($this->text_template) ? $this->text_template : '';
+    }
+
+    public function hasTextTemplate()
+    {
+        return isset($this->text_template);
+    }
+
+    public function clearTextTemplate()
+    {
+        unset($this->text_template);
+    }
+
+    /**
+     * Optional: The text a key choice or key entry is sent to the NLU as, with <code>{digits}</code> standing for
+     * the keys (default: <code>[DTMF:{digits}]</code>; no deployment setting). Example: <code>Taste {digits}</code>
+     * sends the entry 4711 as <code>Taste 4711</code> and an invalid entry as <code>Taste INVALID</code>.
+     * <p>Rules: 1 - 64 characters, no control character; <code>{digits}</code> must occur exactly once and no
+     * other placeholder may occur (write a literal brace twice: <code>{{</code> / <code>}}</code>, but not around
+     * the word <code>digits</code>). Otherwise refused with <code>INVALID_ARGUMENT</code>.</p>
+     * <p>Change it only together with the training phrases of the NLU agent: the ONDEWO NLU recognises a key turn
+     * by the default <code>[DTMF:...]</code> form only (it passes that form to intent detection unchanged,
+     * matches <code>[DTMF:ANY]</code> training phrases and stores masked entries masked). With another template
+     * the turn is handled like ordinary text.</p>
+     *
+     * Generated from protobuf field <code>optional string text_template = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setTextTemplate(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->text_template = $var;
 
         return $this;
     }

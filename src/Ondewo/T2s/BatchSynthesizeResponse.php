@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>BatchSynthesizeResponse message is used to store the responses for a batch synthesis request.</p>
+ * BatchSynthesizeResponse message is used to store the responses for a batch synthesis request.
  *
  * Generated from protobuf message <code>ondewo.t2s.BatchSynthesizeResponse</code>
  */

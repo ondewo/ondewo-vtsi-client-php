@@ -10,20 +10,24 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the RabbitMQ Message Broker
+ * Publishing of call events to a RabbitMQ message broker, and receiving control messages for the call from it.
+ * While <code>activate_message_broker</code> is <code>true</code>, the call publishes its NLU project and session with every NLU answer, starts listening for control messages addressed to its session after the first final transcription (they are executed in the call), and publishes the events of every service whose flag in <code>message_broker_services_activation_config</code> is <code>true</code>. Every unset flag counts as <code>false</code>; there is no deployment-wide default for these flags.
+ * Activating the broker requires a complete <code>rabbit_mq_config</code>: host, both ports, user and password must be set. When the request is validated the broker must be reachable over TLS, present a certificate for <code>host</code> that the deployment trusts, accept VTSI&apos;s client certificate and accept the credentials; otherwise the request is refused with <code>INVALID_ARGUMENT</code>. The call connects to the broker over TLS as well.
+ * Example: <code>activate_message_broker=true</code> with <code>message_broker_services_activation_config.activate_s2t=true</code> publishes every final transcription of the call, e.g. for a live transcript in another application.
  *
  * Generated from protobuf message <code>ondewo.vtsi.MessageBrokerConfig</code>
  */
 class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Should the broker be activated or not
+     * Optional: Master switch of the message broker for the call. Unset or <code>false</code>: nothing is published,
+     * no control message is received over RabbitMQ, and <code>rabbit_mq_config</code> is not validated
      *
      * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      */
     protected $activate_message_broker = null;
     /**
-     * Configuration of the Broker service activation
+     * Which services publish their events while <code>activate_message_broker</code> is <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerServicesActivationConfig message_broker_services_activation_config = 2;</code>
      */
@@ -37,11 +41,13 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $activate_message_broker
-     *           Should the broker be activated or not
+     *           Optional: Master switch of the message broker for the call. Unset or <code>false</code>: nothing is published,
+     *           no control message is received over RabbitMQ, and <code>rabbit_mq_config</code> is not validated
      *     @type \Ondewo\Vtsi\MessageBrokerServicesActivationConfig $message_broker_services_activation_config
-     *           Configuration of the Broker service activation
+     *           Which services publish their events while <code>activate_message_broker</code> is <code>true</code>
      *     @type \Ondewo\Vtsi\RabbitMqConfig $rabbit_mq_config
-     *           Configuration of the RabbitMQ Message Broker
+     *           Address and credentials of the RabbitMQ server. Required while <code>activate_message_broker</code> is
+     *           <code>true</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -50,7 +56,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Should the broker be activated or not
+     * Optional: Master switch of the message broker for the call. Unset or <code>false</code>: nothing is published,
+     * no control message is received over RabbitMQ, and <code>rabbit_mq_config</code> is not validated
      *
      * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      * @return bool
@@ -71,7 +78,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Should the broker be activated or not
+     * Optional: Master switch of the message broker for the call. Unset or <code>false</code>: nothing is published,
+     * no control message is received over RabbitMQ, and <code>rabbit_mq_config</code> is not validated
      *
      * Generated from protobuf field <code>optional bool activate_message_broker = 1;</code>
      * @param bool $var
@@ -85,7 +93,7 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Broker service activation
+     * Which services publish their events while <code>activate_message_broker</code> is <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerServicesActivationConfig message_broker_services_activation_config = 2;</code>
      * @return \Ondewo\Vtsi\MessageBrokerServicesActivationConfig|null
@@ -106,7 +114,7 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the Broker service activation
+     * Which services publish their events while <code>activate_message_broker</code> is <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.MessageBrokerServicesActivationConfig message_broker_services_activation_config = 2;</code>
      * @param \Ondewo\Vtsi\MessageBrokerServicesActivationConfig $var
@@ -120,7 +128,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the RabbitMQ Message Broker
+     * Address and credentials of the RabbitMQ server. Required while <code>activate_message_broker</code> is
+     * <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.RabbitMqConfig rabbit_mq_config = 3;</code>
      * @return \Ondewo\Vtsi\RabbitMqConfig|null
@@ -136,7 +145,8 @@ class MessageBrokerConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the RabbitMQ Message Broker
+     * Address and credentials of the RabbitMQ server. Required while <code>activate_message_broker</code> is
+     * <code>true</code>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.RabbitMqConfig rabbit_mq_config = 3;</code>
      * @param \Ondewo\Vtsi\RabbitMqConfig $var

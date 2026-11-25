@@ -10,27 +10,32 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the voice interaction behavior of a call:
- * turn detection, interruption (barge-in) handling and response timing
+ * How the bot of a call takes turns, lets the caller interrupt it, times its answers, reads the caller&apos;s keypad and transfers the call: turn detection, interruption (barge-in) handling, response timing, answering machine detection, DTMF keys, warm intros and the transfers the bot starts itself.
+ * Scope: set in the <code>CommonServicesConfig</code> of a listener, it applies to every inbound call that listener deployment serves; set for a caller, a campaign or a scheduled caller, it applies to each of its own calls. A pooled persistent caller is reused only for a request with an identical configuration, so two requests that differ here never share a caller.
+ * Precedence: every sub-message and every field is optional, and unset means inherit. A set per-call value wins over the deployment&apos;s <code>ONDEWO_VTSI_*</code> setting for the same behaviour (where one exists), which wins over the built-in default. A value outside its documented range is refused with <code>INVALID_ARGUMENT</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.VoiceInteractionConfig</code>
  */
 class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Configuration of the turn detection
+     * When the caller&apos;s turn is over and the bot may answer: turn detection mode, endpointing delays, partial
+     * transcriptions and dictation holds (see <code>TurnDetectionConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig turn_detection_config = 1;</code>
      */
     protected $turn_detection_config = null;
     /**
-     * Configuration of the interruption (barge-in) handling
+     * Whether and how the caller can interrupt (barge in on) the bot while it speaks, and what happens to the
+     * interrupted answer (see <code>InterruptionHandlingConfig</code>). Unset: speech never interrupts the bot; a
+     * DTMF key the bot asked for still does unless <code>DtmfConfig.barge_in</code> is false
      *
      * Generated from protobuf field <code>.ondewo.vtsi.InterruptionHandlingConfig interruption_handling_config = 2;</code>
      */
     protected $interruption_handling_config = null;
     /**
-     * Configuration of the response timing
+     * When and how the bot responds, e.g. after caller silence, with fillers while it is thinking, and how its
+     * answers are streamed (see <code>ResponseTimingConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ResponseTimingConfig response_timing_config = 3;</code>
      */
@@ -58,6 +63,15 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.ondewo.vtsi.WarmTransferConfig warm_transfer_config = 6;</code>
      */
     protected $warm_transfer_config = null;
+    /**
+     * How the transfers the bot starts itself behave: a transfer the NLU agent or an LLM agent decides on during
+     * the conversation, not one a client asks for with <code>TransferCall</code> (see
+     * <code>BotTransferConfig</code>). Unset keeps the defaults: wait up to 5 s for the outcome, and keep the
+     * call with the bot when the transfer fails
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.BotTransferConfig bot_transfer_config = 7;</code>
+     */
+    protected $bot_transfer_config = null;
 
     /**
      * Constructor.
@@ -66,11 +80,15 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Ondewo\Vtsi\TurnDetectionConfig $turn_detection_config
-     *           Configuration of the turn detection
+     *           When the caller&apos;s turn is over and the bot may answer: turn detection mode, endpointing delays, partial
+     *           transcriptions and dictation holds (see <code>TurnDetectionConfig</code>). Unset keeps the defaults
      *     @type \Ondewo\Vtsi\InterruptionHandlingConfig $interruption_handling_config
-     *           Configuration of the interruption (barge-in) handling
+     *           Whether and how the caller can interrupt (barge in on) the bot while it speaks, and what happens to the
+     *           interrupted answer (see <code>InterruptionHandlingConfig</code>). Unset: speech never interrupts the bot; a
+     *           DTMF key the bot asked for still does unless <code>DtmfConfig.barge_in</code> is false
      *     @type \Ondewo\Vtsi\ResponseTimingConfig $response_timing_config
-     *           Configuration of the response timing
+     *           When and how the bot responds, e.g. after caller silence, with fillers while it is thinking, and how its
+     *           answers are streamed (see <code>ResponseTimingConfig</code>). Unset keeps the defaults
      *     @type \Ondewo\Vtsi\AnsweringMachineDetectionConfig $answering_machine_detection_config
      *           Configuration of the answering machine detection (AMD) of an outbound call.
      *           Only accepted for pooled persistent callers: a listener or a one-shot caller that carries it
@@ -82,6 +100,11 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
      *           Configuration of the warm intro of a WARM transfer of this call (see <code>WarmTransferConfig</code>). Unset
      *           inherits the project default <code>VtsiProject.warm_transfer_defaults</code>; a
      *           <code>TransferCallRequest.warm_transfer_config</code> wins over it for that one transfer
+     *     @type \Ondewo\Vtsi\BotTransferConfig $bot_transfer_config
+     *           How the transfers the bot starts itself behave: a transfer the NLU agent or an LLM agent decides on during
+     *           the conversation, not one a client asks for with <code>TransferCall</code> (see
+     *           <code>BotTransferConfig</code>). Unset keeps the defaults: wait up to 5 s for the outcome, and keep the
+     *           call with the bot when the transfer fails
      * }
      */
     public function __construct($data = NULL) {
@@ -90,7 +113,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the turn detection
+     * When the caller&apos;s turn is over and the bot may answer: turn detection mode, endpointing delays, partial
+     * transcriptions and dictation holds (see <code>TurnDetectionConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig turn_detection_config = 1;</code>
      * @return \Ondewo\Vtsi\TurnDetectionConfig|null
@@ -111,7 +135,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the turn detection
+     * When the caller&apos;s turn is over and the bot may answer: turn detection mode, endpointing delays, partial
+     * transcriptions and dictation holds (see <code>TurnDetectionConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.TurnDetectionConfig turn_detection_config = 1;</code>
      * @param \Ondewo\Vtsi\TurnDetectionConfig $var
@@ -125,7 +150,9 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the interruption (barge-in) handling
+     * Whether and how the caller can interrupt (barge in on) the bot while it speaks, and what happens to the
+     * interrupted answer (see <code>InterruptionHandlingConfig</code>). Unset: speech never interrupts the bot; a
+     * DTMF key the bot asked for still does unless <code>DtmfConfig.barge_in</code> is false
      *
      * Generated from protobuf field <code>.ondewo.vtsi.InterruptionHandlingConfig interruption_handling_config = 2;</code>
      * @return \Ondewo\Vtsi\InterruptionHandlingConfig|null
@@ -146,7 +173,9 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the interruption (barge-in) handling
+     * Whether and how the caller can interrupt (barge in on) the bot while it speaks, and what happens to the
+     * interrupted answer (see <code>InterruptionHandlingConfig</code>). Unset: speech never interrupts the bot; a
+     * DTMF key the bot asked for still does unless <code>DtmfConfig.barge_in</code> is false
      *
      * Generated from protobuf field <code>.ondewo.vtsi.InterruptionHandlingConfig interruption_handling_config = 2;</code>
      * @param \Ondewo\Vtsi\InterruptionHandlingConfig $var
@@ -160,7 +189,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the response timing
+     * When and how the bot responds, e.g. after caller silence, with fillers while it is thinking, and how its
+     * answers are streamed (see <code>ResponseTimingConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ResponseTimingConfig response_timing_config = 3;</code>
      * @return \Ondewo\Vtsi\ResponseTimingConfig|null
@@ -181,7 +211,8 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Configuration of the response timing
+     * When and how the bot responds, e.g. after caller silence, with fillers while it is thinking, and how its
+     * answers are streamed (see <code>ResponseTimingConfig</code>). Unset keeps the defaults
      *
      * Generated from protobuf field <code>.ondewo.vtsi.ResponseTimingConfig response_timing_config = 3;</code>
      * @param \Ondewo\Vtsi\ResponseTimingConfig $var
@@ -305,6 +336,47 @@ class VoiceInteractionConfig extends \Google\Protobuf\Internal\Message
     public function setWarmTransferConfig(\Ondewo\Vtsi\WarmTransferConfig|null $var)
     {
         $this->warm_transfer_config = $var;
+
+        return $this;
+    }
+
+    /**
+     * How the transfers the bot starts itself behave: a transfer the NLU agent or an LLM agent decides on during
+     * the conversation, not one a client asks for with <code>TransferCall</code> (see
+     * <code>BotTransferConfig</code>). Unset keeps the defaults: wait up to 5 s for the outcome, and keep the
+     * call with the bot when the transfer fails
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.BotTransferConfig bot_transfer_config = 7;</code>
+     * @return \Ondewo\Vtsi\BotTransferConfig|null
+     */
+    public function getBotTransferConfig()
+    {
+        return $this->bot_transfer_config;
+    }
+
+    public function hasBotTransferConfig()
+    {
+        return isset($this->bot_transfer_config);
+    }
+
+    public function clearBotTransferConfig()
+    {
+        unset($this->bot_transfer_config);
+    }
+
+    /**
+     * How the transfers the bot starts itself behave: a transfer the NLU agent or an LLM agent decides on during
+     * the conversation, not one a client asks for with <code>TransferCall</code> (see
+     * <code>BotTransferConfig</code>). Unset keeps the defaults: wait up to 5 s for the outcome, and keep the
+     * call with the bot when the transfer fails
+     *
+     * Generated from protobuf field <code>.ondewo.vtsi.BotTransferConfig bot_transfer_config = 7;</code>
+     * @param \Ondewo\Vtsi\BotTransferConfig $var
+     * @return $this
+     */
+    public function setBotTransferConfig(\Ondewo\Vtsi\BotTransferConfig|null $var)
+    {
+        $this->bot_transfer_config = $var;
 
         return $this;
     }

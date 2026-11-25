@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>An audio prompt. Exactly one source must be set.</p>
+ * An audio prompt. Exactly one source must be set.
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrPrompt</code>
  */

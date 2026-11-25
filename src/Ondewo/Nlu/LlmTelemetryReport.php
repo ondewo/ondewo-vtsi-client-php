@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Aggregated telemetry across all LLM calls in one DetectIntent turn, or across
- * a session / agent-domain scope when used as a statistics report payload. The
- * breakdown fields (6+) are populated only for the matching report type; a
- * *_LLM_TOTAL_STATISTICS report populates all of them.
+ * Aggregated telemetry across all LLM calls in one DetectIntent turn, or across a session / agent-domain scope when used as a statistics report payload. The breakdown fields (6+) are populated only for the matching report type; a *_LLM_TOTAL_STATISTICS report populates all of them.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmTelemetryReport</code>
  */

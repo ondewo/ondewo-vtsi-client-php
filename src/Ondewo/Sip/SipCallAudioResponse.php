@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Response of <code>SipStreamCallAudio</code></p>
+ * Response of <code>SipStreamCallAudio</code>
  *
  * Generated from protobuf message <code>ondewo.sip.SipCallAudioResponse</code>
  */

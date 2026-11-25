@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>How a call is transferred</p>
+ * How a call is transferred
  *
  * Protobuf type <code>ondewo.vtsi.TransferMode</code>
  */

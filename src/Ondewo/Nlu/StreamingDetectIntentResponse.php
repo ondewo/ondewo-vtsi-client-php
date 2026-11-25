@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The top-level message returned from the <code>StreamingDetectIntent</code> method.
- * Multiple response messages can be returned in order:
- * 1.  If the input was set to streaming audio, the first one or more messages contain <code>recognition_result</code>. Each <code>recognition_result</code> represents a more complete transcript of what the user said. The last <code>recognition_result</code> has <code>is_final</code> set to <code>true</code>.
- * 2.  The next message contains <code>response_id</code>, <code>query_result</code> and optionally <code>webhook_status</code> if a WebHook was called.
+ * The top-level message returned from the <code>StreamingDetectIntent</code> method. Multiple response messages can be returned in order: 1.  If the input was set to streaming audio, the first one or more messages contain <code>recognition_result</code>. Each <code>recognition_result</code> represents a more complete transcript of what the user said. The last <code>recognition_result</code> has <code>is_final</code> set to <code>true</code>. 2.  The next message contains <code>response_id</code>, <code>query_result</code> and optionally <code>webhook_status</code> if a WebHook was called.
  *
  * Generated from protobuf message <code>ondewo.nlu.StreamingDetectIntentResponse</code>
  */

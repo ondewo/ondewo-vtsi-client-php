@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Threshold set evaluated by a release gate. Nested in a dedicated message so
- * presence can be detected at the message level (proto3 scalars carry no presence).
+ * Threshold set evaluated by a release gate. Nested in a dedicated message so presence can be detected at the message level (proto3 scalars carry no presence).
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationReleaseGateThresholds</code>
  */

@@ -10,20 +10,22 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One human transfer target of <code>VtsiProject.transfer_target_directory</code>. Carries no secret</p>
+ * One human transfer target of <code>VtsiProject.transfer_target_directory</code>: how a warm intro names and describes the person behind one phone number or softphone account. Both texts are given to the intro bot and may be spoken to the target; neither may contain SIP markup (<code>&lt;SIP:</code>), which is refused with <code>INVALID_ARGUMENT</code>. Carries no secret.
  *
  * Generated from protobuf message <code>ondewo.vtsi.TransferTargetDirectoryItem</code>
  */
 class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters
+     * Required. Who the target is, spoken as <code>{callee_name}</code> in a warm intro, e.g.
+     * <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters, not blank.
      *
      * Generated from protobuf field <code>string display_name = 1;</code>
      */
     protected $display_name = '';
     /**
-     * The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters
+     * OPTIONAL: The target&apos;s role and context, given to the intro bot for its briefing, e.g.
+     * <code>Handles invoices and payment reminders</code>. At most 512 characters; empty: no description.
      *
      * Generated from protobuf field <code>string description = 2;</code>
      */
@@ -36,9 +38,11 @@ class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $display_name
-     *           Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters
+     *           Required. Who the target is, spoken as <code>{callee_name}</code> in a warm intro, e.g.
+     *           <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters, not blank.
      *     @type string $description
-     *           The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters
+     *           OPTIONAL: The target&apos;s role and context, given to the intro bot for its briefing, e.g.
+     *           <code>Handles invoices and payment reminders</code>. At most 512 characters; empty: no description.
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +51,8 @@ class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters
+     * Required. Who the target is, spoken as <code>{callee_name}</code> in a warm intro, e.g.
+     * <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters, not blank.
      *
      * Generated from protobuf field <code>string display_name = 1;</code>
      * @return string
@@ -58,7 +63,8 @@ class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Who the target is, e.g. <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters
+     * Required. Who the target is, spoken as <code>{callee_name}</code> in a warm intro, e.g.
+     * <code>Frau Berger, Buchhaltung</code>. 1 to 128 characters, not blank.
      *
      * Generated from protobuf field <code>string display_name = 1;</code>
      * @param string $var
@@ -73,7 +79,8 @@ class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters
+     * OPTIONAL: The target&apos;s role and context, given to the intro bot for its briefing, e.g.
+     * <code>Handles invoices and payment reminders</code>. At most 512 characters; empty: no description.
      *
      * Generated from protobuf field <code>string description = 2;</code>
      * @return string
@@ -84,7 +91,8 @@ class TransferTargetDirectoryItem extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The target&apos;s role and context, for a warm intro&apos;s briefing. At most 512 characters
+     * OPTIONAL: The target&apos;s role and context, given to the intro bot for its briefing, e.g.
+     * <code>Handles invoices and payment reminders</code>. At most 512 characters; empty: no description.
      *
      * Generated from protobuf field <code>string description = 2;</code>
      * @param string $var

@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>The kind of an IVR node</p>
+ * The kind of an IVR node
  *
  * Protobuf type <code>ondewo.vtsi.IvrNodeType</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One campaign call a <code>CancelCampaignCalls</code> / <code>RetryCampaignCalls</code> request did not act on,
- * and why. A refusal is a result, not an error.
+ * One campaign call a <code>CancelCampaignCalls</code> / <code>RetryCampaignCalls</code> request did not act on, and why. A refusal is a result, not an error.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignCallRefusal</code>
  */

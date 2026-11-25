@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A release gate: a named set of thresholds over evaluator scores, regression
- * deltas and telemetry that decides whether a candidate configuration ships.
+ * A release gate: a named set of thresholds over evaluator scores, regression deltas and telemetry that decides whether a candidate configuration ships.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationReleaseGate</code>
  */

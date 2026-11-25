@@ -8,7 +8,7 @@ namespace Ondewo\S2t\TurnDetectionContextTurn;
 use UnexpectedValueException;
 
 /**
- * <p>Who spoke the turn.</p>
+ * Who spoke the turn.
  *
  * Protobuf type <code>ondewo.s2t.TurnDetectionContextTurn.Role</code>
  */

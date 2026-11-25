@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>A test call of an IVR menu, started by <code>TestIvrMenu</code>. Leaves no call record and no NLU session.</p>
+ * A test call of an IVR menu, started by <code>TestIvrMenu</code>. Leaves no call record and no NLU session.
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrMenuTest</code>
  */

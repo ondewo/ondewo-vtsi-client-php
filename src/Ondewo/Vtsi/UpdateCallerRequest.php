@@ -20,6 +20,13 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * The caller to update, identified by <code>caller.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>), carrying the new values
      * of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the caller&apos;s STORED configuration, never a call. A call that is running
+     * or was already placed keeps the configuration its container was deployed with. A one-shot caller places
+     * no further call, so for it the update changes only what is stored and returned. A pooled caller is
+     * deployed from the stored configuration only when the server recycles the project&apos;s pooled callers
+     * (see <code>Calls.UpdateCaller</code>); until then it keeps running, and being matched by, the
+     * configuration it was deployed with. To place a call with a new configuration, start a new caller with
+     * it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 1;</code>
      */
@@ -42,6 +49,12 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      *   <li>a path naming a scalar, repeated or map field replaces exactly that field; a repeated or map field is
      *       replaced as a whole, never appended to; a named scalar left at its zero value writes what
      *       <code>StartCaller</code> stores for that value (the create default);</li>
+     *   <li>a path naming an <code>optional</code> field (e.g.
+     *       <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>)
+     *       writes the value sent when the request&apos;s <code>caller</code> sets it, <code>false</code> and
+     *       <code>0</code> included, and CLEARS it when it does not, so that the configuration inherits that
+     *       setting again (the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in
+     *       default);</li>
      *   <li>a field that no path names is left untouched;</li>
      *   <li>a path naming a member of a <code>oneof</code> (e.g.
      *       <code>common_services_config.nlu_vtsi_config.auth_token</code>) SETS that member, clearing the other
@@ -102,6 +115,13 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      *           The caller to update, identified by <code>caller.name</code>
      *           (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>), carrying the new values
      *           of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     *           <p>What the new values change: the caller&apos;s STORED configuration, never a call. A call that is running
+     *           or was already placed keeps the configuration its container was deployed with. A one-shot caller places
+     *           no further call, so for it the update changes only what is stored and returned. A pooled caller is
+     *           deployed from the stored configuration only when the server recycles the project&apos;s pooled callers
+     *           (see <code>Calls.UpdateCaller</code>); until then it keeps running, and being matched by, the
+     *           configuration it was deployed with. To place a call with a new configuration, start a new caller with
+     *           it.</p>
      *     @type \Google\Protobuf\FieldMask $update_mask
      *           Required. Paths relative to <code>Caller</code>, WITHOUT a <code>caller.</code> prefix. Updatable paths:
      *           <code>sip_caller_config</code> and <code>common_services_config</code>, each also as any nested sub-path
@@ -120,6 +140,12 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      *             <li>a path naming a scalar, repeated or map field replaces exactly that field; a repeated or map field is
      *                 replaced as a whole, never appended to; a named scalar left at its zero value writes what
      *                 <code>StartCaller</code> stores for that value (the create default);</li>
+     *             <li>a path naming an <code>optional</code> field (e.g.
+     *                 <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>)
+     *                 writes the value sent when the request&apos;s <code>caller</code> sets it, <code>false</code> and
+     *                 <code>0</code> included, and CLEARS it when it does not, so that the configuration inherits that
+     *                 setting again (the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in
+     *                 default);</li>
      *             <li>a field that no path names is left untouched;</li>
      *             <li>a path naming a member of a <code>oneof</code> (e.g.
      *                 <code>common_services_config.nlu_vtsi_config.auth_token</code>) SETS that member, clearing the other
@@ -168,6 +194,13 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * The caller to update, identified by <code>caller.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>), carrying the new values
      * of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the caller&apos;s STORED configuration, never a call. A call that is running
+     * or was already placed keeps the configuration its container was deployed with. A one-shot caller places
+     * no further call, so for it the update changes only what is stored and returned. A pooled caller is
+     * deployed from the stored configuration only when the server recycles the project&apos;s pooled callers
+     * (see <code>Calls.UpdateCaller</code>); until then it keeps running, and being matched by, the
+     * configuration it was deployed with. To place a call with a new configuration, start a new caller with
+     * it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 1;</code>
      * @return \Ondewo\Vtsi\Caller|null
@@ -191,6 +224,13 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      * The caller to update, identified by <code>caller.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/callers/&lt;caller_uuid&gt;</code></pre>), carrying the new values
      * of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the caller&apos;s STORED configuration, never a call. A call that is running
+     * or was already placed keeps the configuration its container was deployed with. A one-shot caller places
+     * no further call, so for it the update changes only what is stored and returned. A pooled caller is
+     * deployed from the stored configuration only when the server recycles the project&apos;s pooled callers
+     * (see <code>Calls.UpdateCaller</code>); until then it keeps running, and being matched by, the
+     * configuration it was deployed with. To place a call with a new configuration, start a new caller with
+     * it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Caller caller = 1;</code>
      * @param \Ondewo\Vtsi\Caller $var
@@ -221,6 +261,12 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      *   <li>a path naming a scalar, repeated or map field replaces exactly that field; a repeated or map field is
      *       replaced as a whole, never appended to; a named scalar left at its zero value writes what
      *       <code>StartCaller</code> stores for that value (the create default);</li>
+     *   <li>a path naming an <code>optional</code> field (e.g.
+     *       <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>)
+     *       writes the value sent when the request&apos;s <code>caller</code> sets it, <code>false</code> and
+     *       <code>0</code> included, and CLEARS it when it does not, so that the configuration inherits that
+     *       setting again (the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in
+     *       default);</li>
      *   <li>a field that no path names is left untouched;</li>
      *   <li>a path naming a member of a <code>oneof</code> (e.g.
      *       <code>common_services_config.nlu_vtsi_config.auth_token</code>) SETS that member, clearing the other
@@ -275,6 +321,12 @@ class UpdateCallerRequest extends \Google\Protobuf\Internal\Message
      *   <li>a path naming a scalar, repeated or map field replaces exactly that field; a repeated or map field is
      *       replaced as a whole, never appended to; a named scalar left at its zero value writes what
      *       <code>StartCaller</code> stores for that value (the create default);</li>
+     *   <li>a path naming an <code>optional</code> field (e.g.
+     *       <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled</code>)
+     *       writes the value sent when the request&apos;s <code>caller</code> sets it, <code>false</code> and
+     *       <code>0</code> included, and CLEARS it when it does not, so that the configuration inherits that
+     *       setting again (the deployment-wide <code>ONDEWO_VTSI_*</code> setting, otherwise the built-in
+     *       default);</li>
      *   <li>a field that no path names is left untouched;</li>
      *   <li>a path naming a member of a <code>oneof</code> (e.g.
      *       <code>common_services_config.nlu_vtsi_config.auth_token</code>) SETS that member, clearing the other

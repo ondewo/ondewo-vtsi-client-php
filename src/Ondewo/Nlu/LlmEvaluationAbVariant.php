@@ -10,19 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One routing variant of an A/B experiment. The variant overrides the model used
- * for the sessions assigned to it. A variant is one of two shapes depending on
- * the project's classifier:
- * <ul>
- *   <li><b>IntentAgent projects</b> — the variant overrides the LLM connection
- *       via <code>ccai_service_names</code> (+ optional <code>model_name</code> /
- *       <code>prompt_version</code>).</li>
- *   <li><b>RAG projects</b> (<code>IntentRagflowClassifier</code>) — the variant
- *       overrides the chat-assistant LLM CcaiService and retrieval parameters via
- *       <code>rag_variant_config</code>.</li>
- * </ul>
- * The two override shapes are mutually exclusive per variant; the server applies
- * whichever matches the project's classifier type.
+ * One routing variant of an A/B experiment. The variant overrides the model used for the sessions assigned to it. A variant is one of two shapes depending on the project's classifier: <ul> <li><b>IntentAgent projects</b> — the variant overrides the LLM connection via <code>ccai_service_names</code> (+ optional <code>model_name</code> / <code>prompt_version</code>).</li> <li><b>RAG projects</b> (<code>IntentRagflowClassifier</code>) — the variant overrides the chat-assistant LLM CcaiService and retrieval parameters via <code>rag_variant_config</code>.</li> </ul> The two override shapes are mutually exclusive per variant; the server applies whichever matches the project's classifier type.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationAbVariant</code>
  */

@@ -10,12 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>A transfer that the in-container speech-to-speech pipeline asked for and the container handed to a client instead
- * of sending it (see <code>SipTransferDelegation</code>). Call-scoped: empty when no transfer is parked, when no call
- * is ongoing, and after the call ended.</p>
- * <p><code>SipGetSipStatus</code>, <code>SipGetSipStatusHistory</code> and every other response report only
- * <code>request_id</code>, <code>requested_at</code> and <code>target_is_phone_number</code>. The target and the headers
- * are filled ONLY in the response of a <code>SIP_TRANSFER_DELEGATION_CLAIM</code>.</p>
+ * A transfer that the in-container speech-to-speech pipeline asked for and the container handed to a client instead of sending it (see <code>SipTransferDelegation</code>). Call-scoped: empty when no transfer is parked, when no call is ongoing, and after the call ended.
+ * <code>SipGetSipStatus</code>, <code>SipGetSipStatusHistory</code> and every other response report only <code>request_id</code>, <code>requested_at</code> and <code>target_is_phone_number</code>. The target and the headers are filled ONLY in the response of a <code>SIP_TRANSFER_DELEGATION_CLAIM</code>.
  *
  * Generated from protobuf message <code>ondewo.sip.SipDelegatedTransfer</code>
  */

@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Describes one docker container started by a remote operation. A single operation may start several
- * containers sequentially (hardware-check, GPU pre-allocation, build-cache, and one training container
- * per algorithm), so containers are enumerated by
- * <a href="index.html#ondewo.nlu.Operations.ListRemoteOperationContainers">Operations.ListRemoteOperationContainers</a>.
+ * Describes one docker container started by a remote operation. A single operation may start several containers sequentially (hardware-check, GPU pre-allocation, build-cache, and one training container per algorithm), so containers are enumerated by <a href="index.html#ondewo.nlu.Operations.ListRemoteOperationContainers">Operations.ListRemoteOperationContainers</a>.
  *
  * Generated from protobuf message <code>ondewo.nlu.RemoteOperationContainer</code>
  */

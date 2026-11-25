@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Vits message contains settings for the Vits inference.</p>
+ * Vits message contains settings for the Vits inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.Vits</code>
  */

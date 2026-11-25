@@ -11,9 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Browser runtime configuration.
- * This block maps closely to Crawl4AI BrowserConfig and controls browser
- * process setup (engine, headless mode, viewport, context, proxy, cookies,
- * user-agent behavior, and launch arguments).
+ * This block maps closely to Crawl4AI BrowserConfig and controls browser process setup (engine, headless mode, viewport, context, proxy, cookies, user-agent behavior, and launch arguments).
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerBrowserConfig</code>
  */

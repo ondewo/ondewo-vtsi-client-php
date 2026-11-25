@@ -10,20 +10,21 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the Minio Audio Object Store
+ * Which side of the conversation is stored. Only takes effect while <code>AudioObjectStorageConfig.activate_audio_object_storage</code> is <code>true</code>; every unset flag counts as <code>false</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.AudioObjectStorageServicesActivationConfig</code>
  */
 class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Should audio object store save audio sent to the Speech-2-Text platform
+     * Optional: Store the caller&apos;s audio (the audio sent to speech-to-text), one file per final transcription.
+     * Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      */
     protected $activate_s2t = null;
     /**
-     * Should audio object store save audio generated from the Text-2-Speech platform
+     * Optional: Store the bot&apos;s audio (the synthesized answers as they were played). Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      */
@@ -36,9 +37,10 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $activate_s2t
-     *           Should audio object store save audio sent to the Speech-2-Text platform
+     *           Optional: Store the caller&apos;s audio (the audio sent to speech-to-text), one file per final transcription.
+     *           Unset: <code>false</code>
      *     @type bool $activate_t2s
-     *           Should audio object store save audio generated from the Text-2-Speech platform
+     *           Optional: Store the bot&apos;s audio (the synthesized answers as they were played). Unset: <code>false</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -47,7 +49,8 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     }
 
     /**
-     * Should audio object store save audio sent to the Speech-2-Text platform
+     * Optional: Store the caller&apos;s audio (the audio sent to speech-to-text), one file per final transcription.
+     * Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @return bool
@@ -68,7 +71,8 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     }
 
     /**
-     * Should audio object store save audio sent to the Speech-2-Text platform
+     * Optional: Store the caller&apos;s audio (the audio sent to speech-to-text), one file per final transcription.
+     * Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_s2t = 1;</code>
      * @param bool $var
@@ -82,7 +86,7 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     }
 
     /**
-     * Should audio object store save audio generated from the Text-2-Speech platform
+     * Optional: Store the bot&apos;s audio (the synthesized answers as they were played). Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      * @return bool
@@ -103,7 +107,7 @@ class AudioObjectStorageServicesActivationConfig extends \Google\Protobuf\Intern
     }
 
     /**
-     * Should audio object store save audio generated from the Text-2-Speech platform
+     * Optional: Store the bot&apos;s audio (the synthesized answers as they were played). Unset: <code>false</code>
      *
      * Generated from protobuf field <code>optional bool activate_t2s = 2;</code>
      * @param bool $var

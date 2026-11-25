@@ -10,15 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Calls.CancelScheduledCallers">Calls.CancelScheduledCallers</a>.
- * <p>Rejected as a whole, nothing being cancelled, with: <code>INVALID_ARGUMENT</code> for a malformed
- * <code>vtsi_project_name</code>, no entry, more than 1000 entries, a name given twice, a name that is malformed or
- * whose project segment differs from <code>vtsi_project_name</code>, or an unknown <code>field_mask</code> path
- * (each naming the entry index or the path); <code>NOT_FOUND</code> for an unknown project; with authorization
- * enforced <code>PERMISSION_DENIED</code> for a project the caller holds no role on or a role below the one
- * <code>CancelScheduledCaller</code> requires. Every other error is reported per entry, e.g. a well-formed name of
- * the right project that names no scheduled caller is that entry&apos;s <code>NOT_FOUND</code>.</p>
+ * The request message for <a href="index.html#ondewo.vtsi.Calls.CancelScheduledCallers">Calls.CancelScheduledCallers</a>.
+ * Rejected as a whole, nothing being cancelled, with: <code>INVALID_ARGUMENT</code> for a malformed <code>vtsi_project_name</code>, no entry, more than 1000 entries, a name given twice, a name that is malformed or whose project segment differs from <code>vtsi_project_name</code>, or an unknown <code>field_mask</code> path (each naming the entry index or the path); <code>NOT_FOUND</code> for an unknown project; with authorization enforced <code>PERMISSION_DENIED</code> for a project the caller holds no role on or a role below the one <code>CancelScheduledCaller</code> requires. Every other error is reported per entry, e.g. a well-formed name of the right project that names no scheduled caller is that entry&apos;s <code>NOT_FOUND</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CancelScheduledCallersRequest</code>
  */

@@ -10,207 +10,240 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Warm intro of a WARM transfer: after the human target answered and before the target is joined, an ONDEWO bot
- * (a free listener of the project, in an NLU session of its own) greets the target, confirms that a person is on
- * the line, briefs them (who calls and why), asks whether they accept the call and, on a decline, asks what to tell
- * the caller. Meanwhile the caller stays with the paused bot of the call. On accept the target is joined and the
- * bot leaves as in every WARM transfer; on a decline, no decision or an unreachable target the call stays with the
- * bot, which tells the caller (<code>caller_declined_message</code> / <code>caller_unreachable_message</code>).</p>
- * <p>Levels: unset fields inherit, the most specific level winning per field (protobuf <code>MergeFrom</code>):
- * <code>TransferCallRequest.warm_transfer_config</code> &gt; <code>VoiceInteractionConfig.warm_transfer_config</code>
- * of the call (listener, caller, campaign) &gt; <code>VtsiProject.warm_transfer_defaults</code> &gt; the
- * deployment&apos;s <code>ONDEWO_VTSI_WARM_TRANSFER_*</code> settings &gt; the ONDEWO NLU agent&apos;s warm transfer
- * settings (texts only) &gt; the built-in default. <code>enabled</code> unset at every level is
- * <code>false</code>: a WARM transfer then behaves exactly as before 9.5.0. An NLU agent whose warm transfer
- * settings switch warm intros off makes the intro unavailable, and <code>on_intro_unavailable</code> decides.</p>
- * <p>Requires the deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> (default
- * <code>false</code>); otherwise an explicit <code>enabled=true</code> is refused with
- * <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-disabled</code>, at every level (also on
- * <code>UpdateVtsiProject</code>). <code>VtsiProject.feature_availability.warm_intro</code> says up front whether
- * warm intros can run in a project. Fields marked <i>phase B</i> are refused with <code>FAILED_PRECONDITION</code>
- * <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
- * (<code>VtsiProject.feature_availability.warm_intro_phase_b</code>).</p>
- * <p>Texts are spoken by text-to-speech in the language of the intro bot. The placeholders are
- * <code>{project}</code>, <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code>,
- * <code>{summary}</code> and <code>{reason}</code>, where a field lists them; an unknown placeholder is refused with
- * <code>INVALID_ARGUMENT</code>. A text must not contain SIP markup (<code>&lt;SIP:</code>): refused with
- * <code>INVALID_ARGUMENT</code>. No text of an intro (the briefing, the decline reason) is ever stored by VTSI,
- * logged, sent in an event or a SIP header: it lives only in the intro bot&apos;s NLU session.</p>
- * <p>Every scalar is <code>optional</code>: unset inherits, a set value (also <code>&quot;&quot;</code> or
- * <code>0</code>) is that level&apos;s value. Values outside a documented range are refused with
- * <code>INVALID_ARGUMENT</code>.</p>
+ * Warm intro of a WARM transfer: after the human target answered and before the target is joined, an ONDEWO bot (a free listener of the project, in an NLU session of its own) greets the target, confirms that a person is on the line, briefs them (who calls and why), asks whether they accept the call and, on a decline, asks what to tell the caller. Meanwhile the caller stays with the paused bot of the call and hears only what <code>caller_disclosure_message</code>, <code>caller_hold_message</code> and <code>caller_hold_music</code> configure (silence by default). On accept the caller hears <code>caller_accepted_message</code>, the target is joined and the bot leaves as in every WARM transfer; on a decline, no decision or an unreachable target the target is hung up and the call stays with the bot, which tells the caller (<code>caller_declined_message</code> / <code>caller_unreachable_message</code>) and goes on with the conversation.
+ * The conversation with the target, step by step, with the default settings:
+ * <pre>&#10;1. ready_question   &quot;... Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder drücken&#10;                    Sie 1.&quot;&#10;                    yes / key 1: go on; anything else: asked once more; no answer within decision_timeout_s or&#10;                    a second unclear answer: NO_DECISION (a mailbox is suspected)&#10;2. briefing + accept_question&#10;                    &quot;{caller_name} möchte mit Ihnen sprechen. Es geht um {topic}. Möchten Sie das Gespräch&#10;                    übernehmen? Ja oder 1, nein oder 2.&quot;&#10;                    yes / key 1: ACCEPTED; no / key 2: step 3; unclear: asked once more, then NO_DECISION&#10;3. decline_reason_question  &quot;Was darf ich dem Anrufer ausrichten?&quot;&#10;                    whatever the target says next is the reason; silence: a decline without a reason&#10;</pre>
+ * Levels: unset fields inherit, the most specific level winning per field (protobuf <code>MergeFrom</code>): <code>TransferCallRequest.warm_transfer_config</code> (one transfer) &gt; <code>VoiceInteractionConfig.warm_transfer_config</code> of the call (listener, caller, campaign, scheduled caller) &gt; <code>VtsiProject.warm_transfer_defaults</code> &gt; the built-in defaults documented at each field. The texts <code>ready_question</code>, <code>accept_question</code>, <code>decline_reason_question</code>, <code>caller_declined_message</code> and <code>caller_unreachable_message</code> have one more level between the project and the built-in text: the warm transfer settings of the ONDEWO NLU agent, in the intro&apos;s language. The built-in texts exist in German and English; any other language gets the English one. The deployment settings <code>ONDEWO_VTSI_WARM_TRANSFER_*</code> are not field defaults: they switch the feature on and off and govern how many listeners are kept free (below). A LISTENER&apos;s config applies to every inbound call that listener serves, a caller&apos;s, campaign&apos;s or scheduled caller&apos;s config to its own calls; a pooled persistent caller is only reused for a call with an identical configuration.
+ * Example: the project sets <code>warm_transfer_defaults { enabled: true caller_hold_message: &quot;Einen Moment bitte, ich kündige Sie an.&quot; }</code>; one campaign sets <code>warm_transfer_config { decision_timeout_s: 30 }</code>. A WARM transfer of that campaign then runs an intro with the project&apos;s hold message and a 30 s decision timeout, and every other field at its default.
+ * Requires the deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> (default <code>false</code>); otherwise an explicit <code>enabled=true</code> is refused with <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-disabled</code>, at every level (also on <code>UpdateVtsiProject</code>), and a value stored before the switch was turned off is ignored: every WARM transfer behaves exactly as before 9.5.0. <code>VtsiProject.feature_availability.warm_intro</code> says up front whether warm intros can run in a project. Fields marked <i>phase B</i> (<code>intro_text_source = WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>, <code>caller_hold_music = true</code>, a non-empty <code>llm_ccai_service_name</code>) are refused with <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B (<code>ONDEWO_VTSI_WARM_TRANSFER_PHASE_B</code>, <code>VtsiProject.feature_availability.warm_intro_phase_b</code>).
+ * A WARM transfer with an enabled intro is refused before anything rings when the target is not a person (<code>INVALID_ARGUMENT</code> <code>reason=warm-intro-target-not-human</code>: only a phone number or a softphone account can be briefed) and with <code>FAILED_PRECONDITION</code> when in-call control is not configured (<code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>, <code>reason=call-control-disabled</code>), the call has no live NLU session (<code>no-nlu-session</code>), the project has no listener to spare (<code>warm-intro-needs-listener</code>), a listener the intro may reach uses another NLU project than the call (<code>warm-intro-cross-project</code>) or the call cannot tell the caller the outcome (<code>warm-intro-notice-unsupported</code>: an older component, or a listener or pooled caller deployed before warm intros were switched on in the deployment; such a container refuses warm intros until it is redeployed). What can only fail once the transfer runs (no listener free at that moment, the NLU agent has warm intros switched off, the intro could not be prepared within <code>ONDEWO_VTSI_WARM_TRANSFER_PREPARE_TIMEOUT_S</code>, default 6 s) makes the intro unavailable, and <code>on_intro_unavailable</code> decides.
+ * Texts are spoken by text-to-speech: what the target hears in the voice and language of the intro bot, what the caller hears (<code>caller_disclosure_message</code>, <code>caller_hold_message</code>, <code>caller_accepted_message</code>) in the voice and language of the call. The placeholders are <code>{project}</code>, <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code>, <code>{summary}</code> and <code>{reason}</code>, where a field lists them; any other placeholder is refused with <code>INVALID_ARGUMENT</code> <code>reason=unknown-placeholder</code>. A text must not contain SIP markup (<code>&lt;SIP:</code>): refused with <code>INVALID_ARGUMENT</code> <code>reason=sip-markup</code>. No text of an intro (the briefing, the decline reason) is ever stored by VTSI, logged, sent in an event or a SIP header: it lives only in the intro bot&apos;s NLU session.
+ * Every scalar is <code>optional</code>: unset inherits, a set value (also <code>&quot;&quot;</code> or <code>0</code>) is that level&apos;s value. Values outside a documented range are refused with <code>INVALID_ARGUMENT</code> (<code>reason=out-of-range</code>, <code>text-too-long</code>, ...), naming the field.
  *
  * Generated from protobuf message <code>ondewo.vtsi.WarmTransferConfig</code>
  */
 class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Master switch of the warm intro. Unset at every level means <code>false</code>
+     * Master switch of the warm intro: <code>true</code> turns every WARM transfer on this level into a WARM
+     * transfer with an intro. Unset at every level means <code>false</code>: the target is joined without an intro,
+     * as before 9.5.0. Only a WARM transfer gets an intro. <code>enabled=true</code> needs
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> in the deployment, else <code>FAILED_PRECONDITION</code>
+     * <code>reason=warm-intro-disabled</code>. Set <code>false</code> on a <code>TransferCallRequest</code> to skip the
+     * intro for that one transfer while the project or the call enables it
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      */
     protected $enabled = null;
     /**
-     * TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
-     * <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
-     * (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
-     * (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
-     * characters
+     * With <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>: the briefing the target hears after the
+     * <code>ready_question</code>, with the placeholders <code>{caller_name}</code>, <code>{callee_name}</code>,
+     * and <code>{topic}</code> (what the call&apos;s NLU session knows of the caller and the topic; a value that is
+     * not known renders empty, an unknown caller as &quot;Ein Anrufer&quot; / &quot;A caller&quot;).
+     * <code>{summary}</code> is accepted but always renders empty with a TEMPLATE: only an LLM summary writes one.
+     * Unset or empty: the built-in template, (de) &quot;{caller_name} möchte mit Ihnen sprechen. Es
+     * geht um {topic}.&quot; (without the second sentence when no topic is known). Example: &quot;{caller_name} ruft
+     * wegen {topic} an.&quot; With <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> (<i>phase B</i>): the instruction
+     * to the LLM that writes the briefing from the call so far; unset or empty, a built-in instruction asks for at
+     * most two short sentences on who calls and why. The briefing spoken is capped at 600 characters. At most 4000
+     * characters, else <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string intro_prompt = 2;</code>
      */
     protected $intro_prompt = null;
     /**
-     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
-     * else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
-     * <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
+     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> (default) means
+     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the deployment has enabled phase B, else
+     * <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. An LLM summary that cannot be written (the project has no LLM
+     * service, the LLM fails, is too slow or answers nothing) falls back to the built-in template, and
+     * <code>WarmIntroRecord.text_fell_back</code> says so. An explicit <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>
+     * is <i>phase B</i>: refused with <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while
+     * the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource intro_text_source = 3;</code>
      */
     protected $intro_text_source = 0;
     /**
-     * The first sentence the target hears, before anything about the caller (it carries no personal data, so a
-     * mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
-     * &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
-     * Sie ja oder drücken Sie 1.&quot; At most 1000 characters
+     * The first sentence the target hears, before anything about the caller: it carries no personal data, so a
+     * mailbox that answers records nothing about the caller. Placeholder <code>{project}</code> (the project&apos;s
+     * display name). Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;Hier ist der
+     * digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder drücken
+     * Sie 1.&quot; (the effective <code>accept_dtmf</code> in place of 1). A configured text should name the accept
+     * key itself. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string ready_question = 4;</code>
      */
     protected $ready_question = null;
     /**
-     * Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
-     * <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
-     * right after the <code>ready_question</code>
+     * Whether the briefing is spoken only after the target confirmed being there, by saying yes or pressing
+     * <code>accept_dtmf</code> at the <code>ready_question</code>. Default <code>true</code>: the mailbox guard, so a
+     * voicemail that answers never records the briefing; an intro whose <code>ready_question</code> gets no yes ends
+     * with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause <code>voicemail-suspected</code>). <code>false</code>
+     * skips the <code>ready_question</code>: the target hears the briefing and the <code>accept_question</code> at
+     * once, which is faster but lets a mailbox record the briefing
      *
      * Generated from protobuf field <code>optional bool confirm_human_before_intro = 5;</code>
      */
     protected $confirm_human_before_intro = null;
     /**
-     * The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
-     * 2.&quot; At most 1000 characters
+     * The question after the briefing. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder 2.&quot; (the effective
+     * <code>accept_dtmf</code> / <code>decline_dtmf</code> in place of 1 / 2). A configured text should name the keys
+     * itself. An answer that is neither yes nor no is asked once more, a second one ends the intro with
+     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string accept_question = 6;</code>
      */
     protected $accept_question = null;
     /**
-     * Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
-     * ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
-     * the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
-     * NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
-     * receives it. At most 1000 characters
+     * Asked after a decline, to learn what to tell the caller. Unset: the NLU agent&apos;s text, else the built-in
+     * one, (de) &quot;Was darf ich dem Anrufer ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;.
+     * <code>&quot;&quot;</code> means: do not ask; the intro bot thanks the target (&quot;Danke, ich richte es
+     * aus.&quot;) and hangs up, and the caller hears the decline without a reason. Whatever the target says next
+     * is the reason (a key press gives none; no answer within <code>decision_timeout_s</code> is a decline without a
+     * reason). The reason is relayed to the caller only
+     * through the bot&apos;s NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more
+     * masked); VTSI never receives it. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string decline_reason_question = 7;</code>
      */
     protected $decline_reason_question = null;
     /**
      * What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
-     * Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
-     * {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
+     * Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;{callee_name} kann das Gespräch
+     * gerade nicht übernehmen und lässt ausrichten: {reason}&quot;, or &quot;{callee_name} kann das Gespräch gerade
+     * nicht übernehmen.&quot; when the target gave no reason. A configured text that names <code>{reason}</code> is
+     * used only when a reason was given (else the built-in text without a reason is spoken); one without
+     * <code>{reason}</code> is always used. An unknown target is named &quot;Die gewünschte Person&quot; / &quot;The
+     * person you asked for&quot;. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_declined_message = 8;</code>
      */
     protected $caller_declined_message = null;
     /**
-     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
-     * the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
-     * <code>{callee_name}</code>. At most 1000 characters
+     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro, or
+     * the intro could not run with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>. Placeholder
+     * <code>{callee_name}</code>. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;{callee_name} ist gerade nicht erreichbar.&quot;, (en) &quot;{callee_name} cannot be reached right
+     * now.&quot; At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_unreachable_message = 9;</code>
      */
     protected $caller_unreachable_message = null;
     /**
-     * The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
-     * <code>0-9 * #</code>
+     * The key the target presses to accept, which also answers the <code>ready_question</code>. Default
+     * <code>1</code>; exactly one of <code>0-9 * #</code>, else <code>INVALID_ARGUMENT</code>
+     * <code>reason=invalid-dtmf-key</code>. A key is decisive at once; speech (&quot;ja&quot;, &quot;yes&quot;, the
+     * NLU agent&apos;s extra phrases) works as well
      *
      * Generated from protobuf field <code>optional string accept_dtmf = 10;</code>
      */
     protected $accept_dtmf = null;
     /**
-     * The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
-     * effective <code>accept_dtmf</code>
+     * The key the target presses to decline. Default <code>2</code>; exactly one of <code>0-9 * #</code> and
+     * different from the effective <code>accept_dtmf</code>: equal keys on one level, or after inheritance when the
+     * transfer starts (e.g. the project sets <code>accept_dtmf=&quot;2&quot;</code> and nothing overrides the default
+     * <code>decline_dtmf</code>), are refused with <code>INVALID_ARGUMENT</code> <code>reason=dtmf-keys-equal</code>
      *
      * Generated from protobuf field <code>optional string decline_dtmf = 11;</code>
      */
     protected $decline_dtmf = null;
     /**
-     * Seconds from a question to the target&apos;s decision before the intro ends with
-     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
+     * Seconds the target has to answer each question (<code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>), counted from the moment the question is asked plus the time it takes to
+     * speak. No answer in time ends the intro: <code>WARM_INTRO_DECISION_NO_DECISION</code> at the first two
+     * questions, a decline without a reason at the third. Default 20, valid range 5 - 60
      *
      * Generated from protobuf field <code>optional uint32 decision_timeout_s = 12;</code>
      */
     protected $decision_timeout_s = null;
     /**
-     * Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
-     * waits at most the ring time plus this
+     * Hard cap in seconds from the moment the target answered the call to the decision, whatever the questions do.
+     * Past it the intro bot is hung up and the intro ends with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause
+     * <code>intro-timeout</code>). Default 90, valid range 30 - 300. The caller waits at most the ring time plus this
      *
      * Generated from protobuf field <code>optional uint32 max_intro_duration_s = 13;</code>
      */
     protected $max_intro_duration_s = null;
     /**
-     * Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
-     * resolves from the target softphone account&apos;s <code>display_name</code>, then from
-     * <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
+     * Who the target is, spoken as <code>{callee_name}</code> to the target and to the caller, e.g. &quot;Frau
+     * Berger, Buchhaltung&quot;. Unset or empty: the target softphone account&apos;s <code>display_name</code>, then
+     * the target&apos;s entry in <code>VtsiProject.transfer_target_directory</code>, else no name (the texts then use
+     * a name-less wording). At most 128 characters. Meaningful per transfer only: set it on the
+     * <code>TransferCallRequest</code>, or let the directory name every target
      *
      * Generated from protobuf field <code>optional string callee_display_name = 14;</code>
      */
     protected $callee_display_name = null;
     /**
-     * The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
-     * account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
-     * 512 characters. Meaningful per transfer only
+     * The target&apos;s role and context, handed to the briefing (LLM_SUMMARY). Unset or empty: the target softphone
+     * account&apos;s <code>description</code>, then the target&apos;s entry in
+     * <code>VtsiProject.transfer_target_directory</code>. At most 512 characters. Meaningful per transfer only
      *
      * Generated from protobuf field <code>optional string callee_description = 15;</code>
      */
     protected $callee_description = null;
     /**
-     * What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
+     * What happens when the intro cannot run although the transfer was accepted: no listener free at that moment, the
+     * NLU agent has warm intros switched off, or the intro could not be prepared in time. Not consulted for the
+     * refusals before anything rings (see the message). <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code>
+     * (default) means <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>; choose
+     * <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code> when a target must never be joined unannounced
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroUnavailablePolicy on_intro_unavailable = 16;</code>
      */
     protected $on_intro_unavailable = 0;
     /**
-     * Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
-     * intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
-     * on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * Whether the bot&apos;s OWN transfers to a person (a transfer or human handover the NLU answer asks for, to a
+     * phone number or a softphone account) get a warm intro too: the bot does not send the transfer itself but hands
+     * it to VTSI, which runs it as a WARM transfer with an intro. Only when <code>enabled</code> is effectively
+     * <code>true</code> and <code>ONDEWO_VTSI_CALL_CONTROL_KEY</code> is set; any other bot transfer is sent exactly
+     * as the bot asked. Default <code>false</code>. Valid on the call and project levels; set on a
+     * <code>TransferCallRequest</code> it is refused with <code>INVALID_ARGUMENT</code>
+     * <code>reason=field-not-valid-on-level</code>
      *
      * Generated from protobuf field <code>optional bool apply_to_bot_transfers = 17;</code>
      */
     protected $apply_to_bot_transfers = null;
     /**
      * Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
-     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
-     * characters
+     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence, or the hold music).
+     * Repeated every <code>caller_reassure_interval_s</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_hold_message = 18;</code>
      */
     protected $caller_hold_message = null;
     /**
-     * <i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)
+     * <i>Phase B</i>: music on hold for the caller between the hold messages while the intro runs. Default
+     * <code>false</code> (silence). <code>true</code> is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>optional bool caller_hold_music = 19;</code>
      */
     protected $caller_hold_music = null;
     /**
-     * Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
-     * Valid: 0 or 15 - 120
+     * Repeat <code>caller_hold_message</code> while the intro runs, with N seconds of silence between two
+     * repetitions. <code>0</code> (default): it is spoken once. Valid: 0 or 15 - 120, e.g. 20 to reassure a waiting
+     * caller about every 20 seconds. Without a <code>caller_hold_message</code> it has no effect
      *
      * Generated from protobuf field <code>optional uint32 caller_reassure_interval_s = 20;</code>
      */
     protected $caller_reassure_interval_s = null;
     /**
-     * The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
-     * agent&apos;s warm transfer setting, else the project&apos;s first LLM service
+     * <i>Phase B</i>: the resource name of the LLM service of the ONDEWO NLU project that writes the briefing of an
+     * LLM_SUMMARY intro (and decides a spoken answer to its <code>accept_question</code> that the built-in phrases
+     * leave unclear). Empty (default): the NLU agent&apos;s warm transfer setting, else the project&apos;s first LLM
+     * service of the intro&apos;s language. A name the project has no LLM service of for that language means no LLM:
+     * the built-in template is spoken (<code>WarmIntroRecord.text_fell_back</code>). A non-empty value is refused with
+     * <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while the deployment has not enabled
+     * phase B
      *
      * Generated from protobuf field <code>optional string llm_ccai_service_name = 21;</code>
      */
     protected $llm_ccai_service_name = null;
     /**
-     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
-     * Default empty: none. At most 1000 characters
+     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target:
+     * &quot;Ich kündige Sie jetzt bei der Kollegin an.&quot; Default empty: none. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_disclosure_message = 22;</code>
      */
@@ -218,23 +251,29 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     /**
      * Spoken to the caller after the target accepted and before the target is joined, placeholder
      * <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
-     * hear it. Default empty: none. At most 1000 characters
+     * hear it; the join waits until it has been spoken, at most
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ACCEPTED_CLIP_MAX_S</code> (default 6 s). Default empty: none, the target is
+     * joined at once. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_accepted_message = 23;</code>
      */
     protected $caller_accepted_message = null;
     /**
-     * Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
-     * Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
+     * Whether the intro bot&apos;s NLU session may store the intro audio (the target&apos;s voice and the
+     * bot&apos;s). Default <code>false</code>. This version validates and inherits the field but does not act on it
+     * yet: setting it to <code>true</code> changes nothing
      *
      * Generated from protobuf field <code>optional bool store_intro_audio = 24;</code>
      */
     protected $store_intro_audio = null;
     /**
      * Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
-     * reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
-     * listener free for customer calls. At most 50 entries; set on another level it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * reserved as intro bots. Empty (default): any free listener of the project takes the intro, but only while more
+     * than <code>ONDEWO_VTSI_WARM_TRANSFER_RESERVED_LISTENERS</code> (default 1) listeners are ready, so customer calls
+     * keep that many. Listed: only these listeners take intros, and they no longer answer customer calls (no reserve
+     * is kept); a project whose listed listeners are none of them deployed refuses an intro with
+     * <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-needs-listener</code>. At most 50 distinct listeners
+     * of this project; set on another level it is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>repeated string intro_listener_names = 25;</code>
      */
@@ -247,100 +286,159 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $enabled
-     *           Master switch of the warm intro. Unset at every level means <code>false</code>
+     *           Master switch of the warm intro: <code>true</code> turns every WARM transfer on this level into a WARM
+     *           transfer with an intro. Unset at every level means <code>false</code>: the target is joined without an intro,
+     *           as before 9.5.0. Only a WARM transfer gets an intro. <code>enabled=true</code> needs
+     *           <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> in the deployment, else <code>FAILED_PRECONDITION</code>
+     *           <code>reason=warm-intro-disabled</code>. Set <code>false</code> on a <code>TransferCallRequest</code> to skip the
+     *           intro for that one transfer while the project or the call enables it
      *     @type string $intro_prompt
-     *           TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
-     *           <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
-     *           (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
-     *           (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
-     *           characters
+     *           With <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>: the briefing the target hears after the
+     *           <code>ready_question</code>, with the placeholders <code>{caller_name}</code>, <code>{callee_name}</code>,
+     *           and <code>{topic}</code> (what the call&apos;s NLU session knows of the caller and the topic; a value that is
+     *           not known renders empty, an unknown caller as &quot;Ein Anrufer&quot; / &quot;A caller&quot;).
+     *           <code>{summary}</code> is accepted but always renders empty with a TEMPLATE: only an LLM summary writes one.
+     *           Unset or empty: the built-in template, (de) &quot;{caller_name} möchte mit Ihnen sprechen. Es
+     *           geht um {topic}.&quot; (without the second sentence when no topic is known). Example: &quot;{caller_name} ruft
+     *           wegen {topic} an.&quot; With <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> (<i>phase B</i>): the instruction
+     *           to the LLM that writes the briefing from the call so far; unset or empty, a built-in instruction asks for at
+     *           most two short sentences on who calls and why. The briefing spoken is capped at 600 characters. At most 4000
+     *           characters, else <code>INVALID_ARGUMENT</code>
      *     @type int $intro_text_source
-     *           How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
-     *           <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
-     *           else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
-     *           <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
+     *           How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> (default) means
+     *           <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the deployment has enabled phase B, else
+     *           <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. An LLM summary that cannot be written (the project has no LLM
+     *           service, the LLM fails, is too slow or answers nothing) falls back to the built-in template, and
+     *           <code>WarmIntroRecord.text_fell_back</code> says so. An explicit <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>
+     *           is <i>phase B</i>: refused with <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while
+     *           the deployment has not enabled phase B
      *     @type string $ready_question
-     *           The first sentence the target hears, before anything about the caller (it carries no personal data, so a
-     *           mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
-     *           &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
-     *           Sie ja oder drücken Sie 1.&quot; At most 1000 characters
+     *           The first sentence the target hears, before anything about the caller: it carries no personal data, so a
+     *           mailbox that answers records nothing about the caller. Placeholder <code>{project}</code> (the project&apos;s
+     *           display name). Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;Hier ist der
+     *           digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder drücken
+     *           Sie 1.&quot; (the effective <code>accept_dtmf</code> in place of 1). A configured text should name the accept
+     *           key itself. At most 1000 characters
      *     @type bool $confirm_human_before_intro
-     *           Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
-     *           <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
-     *           right after the <code>ready_question</code>
+     *           Whether the briefing is spoken only after the target confirmed being there, by saying yes or pressing
+     *           <code>accept_dtmf</code> at the <code>ready_question</code>. Default <code>true</code>: the mailbox guard, so a
+     *           voicemail that answers never records the briefing; an intro whose <code>ready_question</code> gets no yes ends
+     *           with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause <code>voicemail-suspected</code>). <code>false</code>
+     *           skips the <code>ready_question</code>: the target hears the briefing and the <code>accept_question</code> at
+     *           once, which is faster but lets a mailbox record the briefing
      *     @type string $accept_question
-     *           The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
-     *           2.&quot; At most 1000 characters
+     *           The question after the briefing. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     *           &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder 2.&quot; (the effective
+     *           <code>accept_dtmf</code> / <code>decline_dtmf</code> in place of 1 / 2). A configured text should name the keys
+     *           itself. An answer that is neither yes nor no is asked once more, a second one ends the intro with
+     *           <code>WARM_INTRO_DECISION_NO_DECISION</code>. At most 1000 characters
      *     @type string $decline_reason_question
-     *           Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
-     *           ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
-     *           the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
-     *           NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
-     *           receives it. At most 1000 characters
+     *           Asked after a decline, to learn what to tell the caller. Unset: the NLU agent&apos;s text, else the built-in
+     *           one, (de) &quot;Was darf ich dem Anrufer ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;.
+     *           <code>&quot;&quot;</code> means: do not ask; the intro bot thanks the target (&quot;Danke, ich richte es
+     *           aus.&quot;) and hangs up, and the caller hears the decline without a reason. Whatever the target says next
+     *           is the reason (a key press gives none; no answer within <code>decision_timeout_s</code> is a decline without a
+     *           reason). The reason is relayed to the caller only
+     *           through the bot&apos;s NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more
+     *           masked); VTSI never receives it. At most 1000 characters
      *     @type string $caller_declined_message
      *           What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
-     *           Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
-     *           {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
+     *           Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;{callee_name} kann das Gespräch
+     *           gerade nicht übernehmen und lässt ausrichten: {reason}&quot;, or &quot;{callee_name} kann das Gespräch gerade
+     *           nicht übernehmen.&quot; when the target gave no reason. A configured text that names <code>{reason}</code> is
+     *           used only when a reason was given (else the built-in text without a reason is spoken); one without
+     *           <code>{reason}</code> is always used. An unknown target is named &quot;Die gewünschte Person&quot; / &quot;The
+     *           person you asked for&quot;. At most 1000 characters
      *     @type string $caller_unreachable_message
-     *           What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
-     *           the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
-     *           <code>{callee_name}</code>. At most 1000 characters
+     *           What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro, or
+     *           the intro could not run with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>. Placeholder
+     *           <code>{callee_name}</code>. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     *           &quot;{callee_name} ist gerade nicht erreichbar.&quot;, (en) &quot;{callee_name} cannot be reached right
+     *           now.&quot; At most 1000 characters
      *     @type string $accept_dtmf
-     *           The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
-     *           <code>0-9 * #</code>
+     *           The key the target presses to accept, which also answers the <code>ready_question</code>. Default
+     *           <code>1</code>; exactly one of <code>0-9 * #</code>, else <code>INVALID_ARGUMENT</code>
+     *           <code>reason=invalid-dtmf-key</code>. A key is decisive at once; speech (&quot;ja&quot;, &quot;yes&quot;, the
+     *           NLU agent&apos;s extra phrases) works as well
      *     @type string $decline_dtmf
-     *           The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
-     *           effective <code>accept_dtmf</code>
+     *           The key the target presses to decline. Default <code>2</code>; exactly one of <code>0-9 * #</code> and
+     *           different from the effective <code>accept_dtmf</code>: equal keys on one level, or after inheritance when the
+     *           transfer starts (e.g. the project sets <code>accept_dtmf=&quot;2&quot;</code> and nothing overrides the default
+     *           <code>decline_dtmf</code>), are refused with <code>INVALID_ARGUMENT</code> <code>reason=dtmf-keys-equal</code>
      *     @type int $decision_timeout_s
-     *           Seconds from a question to the target&apos;s decision before the intro ends with
-     *           <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
+     *           Seconds the target has to answer each question (<code>ready_question</code>, <code>accept_question</code>,
+     *           <code>decline_reason_question</code>), counted from the moment the question is asked plus the time it takes to
+     *           speak. No answer in time ends the intro: <code>WARM_INTRO_DECISION_NO_DECISION</code> at the first two
+     *           questions, a decline without a reason at the third. Default 20, valid range 5 - 60
      *     @type int $max_intro_duration_s
-     *           Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
-     *           waits at most the ring time plus this
+     *           Hard cap in seconds from the moment the target answered the call to the decision, whatever the questions do.
+     *           Past it the intro bot is hung up and the intro ends with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause
+     *           <code>intro-timeout</code>). Default 90, valid range 30 - 300. The caller waits at most the ring time plus this
      *     @type string $callee_display_name
-     *           Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
-     *           resolves from the target softphone account&apos;s <code>display_name</code>, then from
-     *           <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
+     *           Who the target is, spoken as <code>{callee_name}</code> to the target and to the caller, e.g. &quot;Frau
+     *           Berger, Buchhaltung&quot;. Unset or empty: the target softphone account&apos;s <code>display_name</code>, then
+     *           the target&apos;s entry in <code>VtsiProject.transfer_target_directory</code>, else no name (the texts then use
+     *           a name-less wording). At most 128 characters. Meaningful per transfer only: set it on the
+     *           <code>TransferCallRequest</code>, or let the directory name every target
      *     @type string $callee_description
-     *           The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
-     *           account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
-     *           512 characters. Meaningful per transfer only
+     *           The target&apos;s role and context, handed to the briefing (LLM_SUMMARY). Unset or empty: the target softphone
+     *           account&apos;s <code>description</code>, then the target&apos;s entry in
+     *           <code>VtsiProject.transfer_target_directory</code>. At most 512 characters. Meaningful per transfer only
      *     @type int $on_intro_unavailable
-     *           What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
-     *           <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
-     *           <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
+     *           What happens when the intro cannot run although the transfer was accepted: no listener free at that moment, the
+     *           NLU agent has warm intros switched off, or the intro could not be prepared in time. Not consulted for the
+     *           refusals before anything rings (see the message). <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code>
+     *           (default) means <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>; choose
+     *           <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code> when a target must never be joined unannounced
      *     @type bool $apply_to_bot_transfers
-     *           Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
-     *           intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
-     *           on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
-     *           <code>INVALID_ARGUMENT</code>
+     *           Whether the bot&apos;s OWN transfers to a person (a transfer or human handover the NLU answer asks for, to a
+     *           phone number or a softphone account) get a warm intro too: the bot does not send the transfer itself but hands
+     *           it to VTSI, which runs it as a WARM transfer with an intro. Only when <code>enabled</code> is effectively
+     *           <code>true</code> and <code>ONDEWO_VTSI_CALL_CONTROL_KEY</code> is set; any other bot transfer is sent exactly
+     *           as the bot asked. Default <code>false</code>. Valid on the call and project levels; set on a
+     *           <code>TransferCallRequest</code> it is refused with <code>INVALID_ARGUMENT</code>
+     *           <code>reason=field-not-valid-on-level</code>
      *     @type string $caller_hold_message
      *           Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
-     *           Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
-     *           characters
+     *           Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence, or the hold music).
+     *           Repeated every <code>caller_reassure_interval_s</code>. At most 1000 characters
      *     @type bool $caller_hold_music
-     *           <i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)
+     *           <i>Phase B</i>: music on hold for the caller between the hold messages while the intro runs. Default
+     *           <code>false</code> (silence). <code>true</code> is refused with <code>FAILED_PRECONDITION</code>
+     *           <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
      *     @type int $caller_reassure_interval_s
-     *           Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
-     *           Valid: 0 or 15 - 120
+     *           Repeat <code>caller_hold_message</code> while the intro runs, with N seconds of silence between two
+     *           repetitions. <code>0</code> (default): it is spoken once. Valid: 0 or 15 - 120, e.g. 20 to reassure a waiting
+     *           caller about every 20 seconds. Without a <code>caller_hold_message</code> it has no effect
      *     @type string $llm_ccai_service_name
-     *           The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
-     *           agent&apos;s warm transfer setting, else the project&apos;s first LLM service
+     *           <i>Phase B</i>: the resource name of the LLM service of the ONDEWO NLU project that writes the briefing of an
+     *           LLM_SUMMARY intro (and decides a spoken answer to its <code>accept_question</code> that the built-in phrases
+     *           leave unclear). Empty (default): the NLU agent&apos;s warm transfer setting, else the project&apos;s first LLM
+     *           service of the intro&apos;s language. A name the project has no LLM service of for that language means no LLM:
+     *           the built-in template is spoken (<code>WarmIntroRecord.text_fell_back</code>). A non-empty value is refused with
+     *           <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while the deployment has not enabled
+     *           phase B
      *     @type string $caller_disclosure_message
-     *           Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
-     *           Default empty: none. At most 1000 characters
+     *           Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target:
+     *           &quot;Ich kündige Sie jetzt bei der Kollegin an.&quot; Default empty: none. At most 1000 characters
      *     @type string $caller_accepted_message
      *           Spoken to the caller after the target accepted and before the target is joined, placeholder
      *           <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
-     *           hear it. Default empty: none. At most 1000 characters
+     *           hear it; the join waits until it has been spoken, at most
+     *           <code>ONDEWO_VTSI_WARM_TRANSFER_ACCEPTED_CLIP_MAX_S</code> (default 6 s). Default empty: none, the target is
+     *           joined at once. At most 1000 characters
      *     @type bool $store_intro_audio
-     *           Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
-     *           Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
+     *           Whether the intro bot&apos;s NLU session may store the intro audio (the target&apos;s voice and the
+     *           bot&apos;s). Default <code>false</code>. This version validates and inherits the field but does not act on it
+     *           yet: setting it to <code>true</code> changes nothing
      *     @type string[] $intro_listener_names
      *           Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
-     *           reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
-     *           listener free for customer calls. At most 50 entries; set on another level it is refused with
-     *           <code>INVALID_ARGUMENT</code>
+     *           reserved as intro bots. Empty (default): any free listener of the project takes the intro, but only while more
+     *           than <code>ONDEWO_VTSI_WARM_TRANSFER_RESERVED_LISTENERS</code> (default 1) listeners are ready, so customer calls
+     *           keep that many. Listed: only these listeners take intros, and they no longer answer customer calls (no reserve
+     *           is kept); a project whose listed listeners are none of them deployed refuses an intro with
+     *           <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-needs-listener</code>. At most 50 distinct listeners
+     *           of this project; set on another level it is refused with <code>INVALID_ARGUMENT</code>
      * }
      */
     public function __construct($data = NULL) {
@@ -349,7 +447,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Master switch of the warm intro. Unset at every level means <code>false</code>
+     * Master switch of the warm intro: <code>true</code> turns every WARM transfer on this level into a WARM
+     * transfer with an intro. Unset at every level means <code>false</code>: the target is joined without an intro,
+     * as before 9.5.0. Only a WARM transfer gets an intro. <code>enabled=true</code> needs
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> in the deployment, else <code>FAILED_PRECONDITION</code>
+     * <code>reason=warm-intro-disabled</code>. Set <code>false</code> on a <code>TransferCallRequest</code> to skip the
+     * intro for that one transfer while the project or the call enables it
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @return bool
@@ -370,7 +473,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Master switch of the warm intro. Unset at every level means <code>false</code>
+     * Master switch of the warm intro: <code>true</code> turns every WARM transfer on this level into a WARM
+     * transfer with an intro. Unset at every level means <code>false</code>: the target is joined without an intro,
+     * as before 9.5.0. Only a WARM transfer gets an intro. <code>enabled=true</code> needs
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED=true</code> in the deployment, else <code>FAILED_PRECONDITION</code>
+     * <code>reason=warm-intro-disabled</code>. Set <code>false</code> on a <code>TransferCallRequest</code> to skip the
+     * intro for that one transfer while the project or the call enables it
      *
      * Generated from protobuf field <code>optional bool enabled = 1;</code>
      * @param bool $var
@@ -384,11 +492,17 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
-     * <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
-     * (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
-     * (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
-     * characters
+     * With <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>: the briefing the target hears after the
+     * <code>ready_question</code>, with the placeholders <code>{caller_name}</code>, <code>{callee_name}</code>,
+     * and <code>{topic}</code> (what the call&apos;s NLU session knows of the caller and the topic; a value that is
+     * not known renders empty, an unknown caller as &quot;Ein Anrufer&quot; / &quot;A caller&quot;).
+     * <code>{summary}</code> is accepted but always renders empty with a TEMPLATE: only an LLM summary writes one.
+     * Unset or empty: the built-in template, (de) &quot;{caller_name} möchte mit Ihnen sprechen. Es
+     * geht um {topic}.&quot; (without the second sentence when no topic is known). Example: &quot;{caller_name} ruft
+     * wegen {topic} an.&quot; With <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> (<i>phase B</i>): the instruction
+     * to the LLM that writes the briefing from the call so far; unset or empty, a built-in instruction asks for at
+     * most two short sentences on who calls and why. The briefing spoken is capped at 600 characters. At most 4000
+     * characters, else <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string intro_prompt = 2;</code>
      * @return string
@@ -409,11 +523,17 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * TEMPLATE: the briefing spoken to the target after the readiness answer, with the placeholders
-     * <code>{caller_name}</code>, <code>{callee_name}</code>, <code>{topic}</code> and <code>{summary}</code>
-     * (default e.g. &quot;Ich habe {caller_name} in der Leitung, es geht um {topic}.&quot;). LLM_SUMMARY
-     * (<i>phase B</i>): the instruction to the LLM that writes the briefing from the call so far. At most 4000
-     * characters
+     * With <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>: the briefing the target hears after the
+     * <code>ready_question</code>, with the placeholders <code>{caller_name}</code>, <code>{callee_name}</code>,
+     * and <code>{topic}</code> (what the call&apos;s NLU session knows of the caller and the topic; a value that is
+     * not known renders empty, an unknown caller as &quot;Ein Anrufer&quot; / &quot;A caller&quot;).
+     * <code>{summary}</code> is accepted but always renders empty with a TEMPLATE: only an LLM summary writes one.
+     * Unset or empty: the built-in template, (de) &quot;{caller_name} möchte mit Ihnen sprechen. Es
+     * geht um {topic}.&quot; (without the second sentence when no topic is known). Example: &quot;{caller_name} ruft
+     * wegen {topic} an.&quot; With <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> (<i>phase B</i>): the instruction
+     * to the LLM that writes the briefing from the call so far; unset or empty, a built-in instruction asks for at
+     * most two short sentences on who calls and why. The briefing spoken is capped at 600 characters. At most 4000
+     * characters, else <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>optional string intro_prompt = 2;</code>
      * @param string $var
@@ -428,10 +548,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
-     * else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
-     * <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
+     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> (default) means
+     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the deployment has enabled phase B, else
+     * <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. An LLM summary that cannot be written (the project has no LLM
+     * service, the LLM fails, is too slow or answers nothing) falls back to the built-in template, and
+     * <code>WarmIntroRecord.text_fell_back</code> says so. An explicit <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>
+     * is <i>phase B</i>: refused with <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while
+     * the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource intro_text_source = 3;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\WarmIntroTextSource}
@@ -442,10 +565,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when phase B is enabled and the project has an LLM service,
-     * else <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> is
-     * <i>phase B</i>; when the LLM fails or is too slow the TEMPLATE is used (<code>WarmIntroRecord.text_fell_back</code>)
+     * How the briefing is produced. <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED</code> (default) means
+     * <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> when the deployment has enabled phase B, else
+     * <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code>. An LLM summary that cannot be written (the project has no LLM
+     * service, the LLM fails, is too slow or answers nothing) falls back to the built-in template, and
+     * <code>WarmIntroRecord.text_fell_back</code> says so. An explicit <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code>
+     * is <i>phase B</i>: refused with <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while
+     * the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroTextSource intro_text_source = 3;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\WarmIntroTextSource}
@@ -460,10 +586,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The first sentence the target hears, before anything about the caller (it carries no personal data, so a
-     * mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
-     * &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
-     * Sie ja oder drücken Sie 1.&quot; At most 1000 characters
+     * The first sentence the target hears, before anything about the caller: it carries no personal data, so a
+     * mailbox that answers records nothing about the caller. Placeholder <code>{project}</code> (the project&apos;s
+     * display name). Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;Hier ist der
+     * digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder drücken
+     * Sie 1.&quot; (the effective <code>accept_dtmf</code> in place of 1). A configured text should name the accept
+     * key itself. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string ready_question = 4;</code>
      * @return string
@@ -484,10 +612,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The first sentence the target hears, before anything about the caller (it carries no personal data, so a
-     * mailbox that answers records nothing about the caller). Placeholder <code>{project}</code>. Default (de):
-     * &quot;Hier ist der digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen
-     * Sie ja oder drücken Sie 1.&quot; At most 1000 characters
+     * The first sentence the target hears, before anything about the caller: it carries no personal data, so a
+     * mailbox that answers records nothing about the caller. Placeholder <code>{project}</code> (the project&apos;s
+     * display name). Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;Hier ist der
+     * digitale Assistent von {project}. Ich habe einen Anruf für Sie. Sind Sie am Apparat? Sagen Sie ja oder drücken
+     * Sie 1.&quot; (the effective <code>accept_dtmf</code> in place of 1). A configured text should name the accept
+     * key itself. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string ready_question = 4;</code>
      * @param string $var
@@ -502,9 +632,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
-     * <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
-     * right after the <code>ready_question</code>
+     * Whether the briefing is spoken only after the target confirmed being there, by saying yes or pressing
+     * <code>accept_dtmf</code> at the <code>ready_question</code>. Default <code>true</code>: the mailbox guard, so a
+     * voicemail that answers never records the briefing; an intro whose <code>ready_question</code> gets no yes ends
+     * with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause <code>voicemail-suspected</code>). <code>false</code>
+     * skips the <code>ready_question</code>: the target hears the briefing and the <code>accept_question</code> at
+     * once, which is faster but lets a mailbox record the briefing
      *
      * Generated from protobuf field <code>optional bool confirm_human_before_intro = 5;</code>
      * @return bool
@@ -525,9 +658,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the briefing is spoken only after the target answered the <code>ready_question</code> (by voice or
-     * <code>accept_dtmf</code>). Default <code>true</code>: the mailbox guard. <code>false</code> briefs the target
-     * right after the <code>ready_question</code>
+     * Whether the briefing is spoken only after the target confirmed being there, by saying yes or pressing
+     * <code>accept_dtmf</code> at the <code>ready_question</code>. Default <code>true</code>: the mailbox guard, so a
+     * voicemail that answers never records the briefing; an intro whose <code>ready_question</code> gets no yes ends
+     * with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause <code>voicemail-suspected</code>). <code>false</code>
+     * skips the <code>ready_question</code>: the target hears the briefing and the <code>accept_question</code> at
+     * once, which is faster but lets a mailbox record the briefing
      *
      * Generated from protobuf field <code>optional bool confirm_human_before_intro = 5;</code>
      * @param bool $var
@@ -541,8 +677,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
-     * 2.&quot; At most 1000 characters
+     * The question after the briefing. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder 2.&quot; (the effective
+     * <code>accept_dtmf</code> / <code>decline_dtmf</code> in place of 1 / 2). A configured text should name the keys
+     * itself. An answer that is neither yes nor no is asked once more, a second one ends the intro with
+     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string accept_question = 6;</code>
      * @return string
@@ -563,8 +702,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The question after the briefing. Default (de): &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder
-     * 2.&quot; At most 1000 characters
+     * The question after the briefing. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;Möchten Sie das Gespräch übernehmen? Ja oder 1, nein oder 2.&quot; (the effective
+     * <code>accept_dtmf</code> / <code>decline_dtmf</code> in place of 1 / 2). A configured text should name the keys
+     * itself. An answer that is neither yes nor no is asked once more, a second one ends the intro with
+     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string accept_question = 6;</code>
      * @param string $var
@@ -579,11 +721,14 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
-     * ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
-     * the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
-     * NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
-     * receives it. At most 1000 characters
+     * Asked after a decline, to learn what to tell the caller. Unset: the NLU agent&apos;s text, else the built-in
+     * one, (de) &quot;Was darf ich dem Anrufer ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;.
+     * <code>&quot;&quot;</code> means: do not ask; the intro bot thanks the target (&quot;Danke, ich richte es
+     * aus.&quot;) and hangs up, and the caller hears the decline without a reason. Whatever the target says next
+     * is the reason (a key press gives none; no answer within <code>decision_timeout_s</code> is a decline without a
+     * reason). The reason is relayed to the caller only
+     * through the bot&apos;s NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more
+     * masked); VTSI never receives it. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string decline_reason_question = 7;</code>
      * @return string
@@ -604,11 +749,14 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Asked after a decline, to learn what to tell the caller. Default (de): &quot;Was darf ich dem Anrufer
-     * ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;. <code>&quot;&quot;</code> means: do not ask,
-     * the caller hears the decline without a reason. The answer is relayed to the caller only through the bot&apos;s
-     * NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more masked); VTSI never
-     * receives it. At most 1000 characters
+     * Asked after a decline, to learn what to tell the caller. Unset: the NLU agent&apos;s text, else the built-in
+     * one, (de) &quot;Was darf ich dem Anrufer ausrichten?&quot;, (en) &quot;What may I tell the caller?&quot;.
+     * <code>&quot;&quot;</code> means: do not ask; the intro bot thanks the target (&quot;Danke, ich richte es
+     * aus.&quot;) and hangs up, and the caller hears the decline without a reason. Whatever the target says next
+     * is the reason (a key press gives none; no answer within <code>decision_timeout_s</code> is a decline without a
+     * reason). The reason is relayed to the caller only
+     * through the bot&apos;s NLU (normalised: SIP markup removed, at most 300 characters, digit runs of 12 or more
+     * masked); VTSI never receives it. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string decline_reason_question = 7;</code>
      * @param string $var
@@ -624,8 +772,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
-     * Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
-     * {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
+     * Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;{callee_name} kann das Gespräch
+     * gerade nicht übernehmen und lässt ausrichten: {reason}&quot;, or &quot;{callee_name} kann das Gespräch gerade
+     * nicht übernehmen.&quot; when the target gave no reason. A configured text that names <code>{reason}</code> is
+     * used only when a reason was given (else the built-in text without a reason is spoken); one without
+     * <code>{reason}</code> is always used. An unknown target is named &quot;Die gewünschte Person&quot; / &quot;The
+     * person you asked for&quot;. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_declined_message = 8;</code>
      * @return string
@@ -647,8 +799,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * What the caller hears after a decline, placeholders <code>{callee_name}</code> and <code>{reason}</code>.
-     * Default (de): &quot;{callee_name} kann das Gespräch gerade nicht übernehmen und lässt ausrichten:
-     * {reason}&quot;; without a reason a variant without the clause is spoken. At most 1000 characters
+     * Unset or empty: the NLU agent&apos;s text, else the built-in one, (de) &quot;{callee_name} kann das Gespräch
+     * gerade nicht übernehmen und lässt ausrichten: {reason}&quot;, or &quot;{callee_name} kann das Gespräch gerade
+     * nicht übernehmen.&quot; when the target gave no reason. A configured text that names <code>{reason}</code> is
+     * used only when a reason was given (else the built-in text without a reason is spoken); one without
+     * <code>{reason}</code> is always used. An unknown target is named &quot;Die gewünschte Person&quot; / &quot;The
+     * person you asked for&quot;. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_declined_message = 8;</code>
      * @param string $var
@@ -663,9 +819,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
-     * the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
-     * <code>{callee_name}</code>. At most 1000 characters
+     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro, or
+     * the intro could not run with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>. Placeholder
+     * <code>{callee_name}</code>. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;{callee_name} ist gerade nicht erreichbar.&quot;, (en) &quot;{callee_name} cannot be reached right
+     * now.&quot; At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_unreachable_message = 9;</code>
      * @return string
@@ -686,9 +844,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro or
-     * the intro could not run (with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>). Placeholder
-     * <code>{callee_name}</code>. At most 1000 characters
+     * What the caller hears when the target was busy, did not answer, gave no decision, hung up during the intro, or
+     * the intro could not run with <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code>. Placeholder
+     * <code>{callee_name}</code>. Unset or empty: the NLU agent&apos;s text, else the built-in one, (de)
+     * &quot;{callee_name} ist gerade nicht erreichbar.&quot;, (en) &quot;{callee_name} cannot be reached right
+     * now.&quot; At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_unreachable_message = 9;</code>
      * @param string $var
@@ -703,8 +863,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
-     * <code>0-9 * #</code>
+     * The key the target presses to accept, which also answers the <code>ready_question</code>. Default
+     * <code>1</code>; exactly one of <code>0-9 * #</code>, else <code>INVALID_ARGUMENT</code>
+     * <code>reason=invalid-dtmf-key</code>. A key is decisive at once; speech (&quot;ja&quot;, &quot;yes&quot;, the
+     * NLU agent&apos;s extra phrases) works as well
      *
      * Generated from protobuf field <code>optional string accept_dtmf = 10;</code>
      * @return string
@@ -725,8 +887,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The key that accepts (and answers the <code>ready_question</code>). Default <code>1</code>; exactly one of
-     * <code>0-9 * #</code>
+     * The key the target presses to accept, which also answers the <code>ready_question</code>. Default
+     * <code>1</code>; exactly one of <code>0-9 * #</code>, else <code>INVALID_ARGUMENT</code>
+     * <code>reason=invalid-dtmf-key</code>. A key is decisive at once; speech (&quot;ja&quot;, &quot;yes&quot;, the
+     * NLU agent&apos;s extra phrases) works as well
      *
      * Generated from protobuf field <code>optional string accept_dtmf = 10;</code>
      * @param string $var
@@ -741,8 +905,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
-     * effective <code>accept_dtmf</code>
+     * The key the target presses to decline. Default <code>2</code>; exactly one of <code>0-9 * #</code> and
+     * different from the effective <code>accept_dtmf</code>: equal keys on one level, or after inheritance when the
+     * transfer starts (e.g. the project sets <code>accept_dtmf=&quot;2&quot;</code> and nothing overrides the default
+     * <code>decline_dtmf</code>), are refused with <code>INVALID_ARGUMENT</code> <code>reason=dtmf-keys-equal</code>
      *
      * Generated from protobuf field <code>optional string decline_dtmf = 11;</code>
      * @return string
@@ -763,8 +929,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The key that declines. Default <code>2</code>; exactly one of <code>0-9 * #</code>, different from the
-     * effective <code>accept_dtmf</code>
+     * The key the target presses to decline. Default <code>2</code>; exactly one of <code>0-9 * #</code> and
+     * different from the effective <code>accept_dtmf</code>: equal keys on one level, or after inheritance when the
+     * transfer starts (e.g. the project sets <code>accept_dtmf=&quot;2&quot;</code> and nothing overrides the default
+     * <code>decline_dtmf</code>), are refused with <code>INVALID_ARGUMENT</code> <code>reason=dtmf-keys-equal</code>
      *
      * Generated from protobuf field <code>optional string decline_dtmf = 11;</code>
      * @param string $var
@@ -779,8 +947,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Seconds from a question to the target&apos;s decision before the intro ends with
-     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
+     * Seconds the target has to answer each question (<code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>), counted from the moment the question is asked plus the time it takes to
+     * speak. No answer in time ends the intro: <code>WARM_INTRO_DECISION_NO_DECISION</code> at the first two
+     * questions, a decline without a reason at the third. Default 20, valid range 5 - 60
      *
      * Generated from protobuf field <code>optional uint32 decision_timeout_s = 12;</code>
      * @return int
@@ -801,8 +971,10 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Seconds from a question to the target&apos;s decision before the intro ends with
-     * <code>WARM_INTRO_DECISION_NO_DECISION</code>. Default 20, valid range 5 - 60
+     * Seconds the target has to answer each question (<code>ready_question</code>, <code>accept_question</code>,
+     * <code>decline_reason_question</code>), counted from the moment the question is asked plus the time it takes to
+     * speak. No answer in time ends the intro: <code>WARM_INTRO_DECISION_NO_DECISION</code> at the first two
+     * questions, a decline without a reason at the third. Default 20, valid range 5 - 60
      *
      * Generated from protobuf field <code>optional uint32 decision_timeout_s = 12;</code>
      * @param int $var
@@ -817,8 +989,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
-     * waits at most the ring time plus this
+     * Hard cap in seconds from the moment the target answered the call to the decision, whatever the questions do.
+     * Past it the intro bot is hung up and the intro ends with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause
+     * <code>intro-timeout</code>). Default 90, valid range 30 - 300. The caller waits at most the ring time plus this
      *
      * Generated from protobuf field <code>optional uint32 max_intro_duration_s = 13;</code>
      * @return int
@@ -839,8 +1012,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Hard cap in seconds from the target&apos;s answer to the decision. Default 90, valid range 30 - 300. The caller
-     * waits at most the ring time plus this
+     * Hard cap in seconds from the moment the target answered the call to the decision, whatever the questions do.
+     * Past it the intro bot is hung up and the intro ends with <code>WARM_INTRO_DECISION_NO_DECISION</code> (cause
+     * <code>intro-timeout</code>). Default 90, valid range 30 - 300. The caller waits at most the ring time plus this
      *
      * Generated from protobuf field <code>optional uint32 max_intro_duration_s = 13;</code>
      * @param int $var
@@ -855,9 +1029,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
-     * resolves from the target softphone account&apos;s <code>display_name</code>, then from
-     * <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
+     * Who the target is, spoken as <code>{callee_name}</code> to the target and to the caller, e.g. &quot;Frau
+     * Berger, Buchhaltung&quot;. Unset or empty: the target softphone account&apos;s <code>display_name</code>, then
+     * the target&apos;s entry in <code>VtsiProject.transfer_target_directory</code>, else no name (the texts then use
+     * a name-less wording). At most 128 characters. Meaningful per transfer only: set it on the
+     * <code>TransferCallRequest</code>, or let the directory name every target
      *
      * Generated from protobuf field <code>optional string callee_display_name = 14;</code>
      * @return string
@@ -878,9 +1054,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Who the target is, spoken as <code>{callee_name}</code>, e.g. &quot;Frau Berger, Buchhaltung&quot;. Unset
-     * resolves from the target softphone account&apos;s <code>display_name</code>, then from
-     * <code>VtsiProject.transfer_target_directory</code>. At most 128 characters. Meaningful per transfer only
+     * Who the target is, spoken as <code>{callee_name}</code> to the target and to the caller, e.g. &quot;Frau
+     * Berger, Buchhaltung&quot;. Unset or empty: the target softphone account&apos;s <code>display_name</code>, then
+     * the target&apos;s entry in <code>VtsiProject.transfer_target_directory</code>, else no name (the texts then use
+     * a name-less wording). At most 128 characters. Meaningful per transfer only: set it on the
+     * <code>TransferCallRequest</code>, or let the directory name every target
      *
      * Generated from protobuf field <code>optional string callee_display_name = 14;</code>
      * @param string $var
@@ -895,9 +1073,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
-     * account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
-     * 512 characters. Meaningful per transfer only
+     * The target&apos;s role and context, handed to the briefing (LLM_SUMMARY). Unset or empty: the target softphone
+     * account&apos;s <code>description</code>, then the target&apos;s entry in
+     * <code>VtsiProject.transfer_target_directory</code>. At most 512 characters. Meaningful per transfer only
      *
      * Generated from protobuf field <code>optional string callee_description = 15;</code>
      * @return string
@@ -918,9 +1096,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The target&apos;s role and context for the briefing (LLM_SUMMARY). Unset resolves from the target softphone
-     * account&apos;s <code>description</code>, then from <code>VtsiProject.transfer_target_directory</code>. At most
-     * 512 characters. Meaningful per transfer only
+     * The target&apos;s role and context, handed to the briefing (LLM_SUMMARY). Unset or empty: the target softphone
+     * account&apos;s <code>description</code>, then the target&apos;s entry in
+     * <code>VtsiProject.transfer_target_directory</code>. At most 512 characters. Meaningful per transfer only
      *
      * Generated from protobuf field <code>optional string callee_description = 15;</code>
      * @param string $var
@@ -935,9 +1113,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
+     * What happens when the intro cannot run although the transfer was accepted: no listener free at that moment, the
+     * NLU agent has warm intros switched off, or the intro could not be prepared in time. Not consulted for the
+     * refusals before anything rings (see the message). <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code>
+     * (default) means <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>; choose
+     * <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code> when a target must never be joined unannounced
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroUnavailablePolicy on_intro_unavailable = 16;</code>
      * @return int one of the values in {@see \Ondewo\Vtsi\WarmIntroUnavailablePolicy}
@@ -948,9 +1128,11 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * What happens when the intro cannot run (no free listener, the NLU could not prepare the intro).
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code> means
-     * <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>
+     * What happens when the intro cannot run although the transfer was accepted: no listener free at that moment, the
+     * NLU agent has warm intros switched off, or the intro could not be prepared in time. Not consulted for the
+     * refusals before anything rings (see the message). <code>WARM_INTRO_UNAVAILABLE_POLICY_UNSPECIFIED</code>
+     * (default) means <code>WARM_INTRO_UNAVAILABLE_POLICY_CONNECT_WITHOUT_INTRO</code>; choose
+     * <code>WARM_INTRO_UNAVAILABLE_POLICY_RETURN_TO_CALLER</code> when a target must never be joined unannounced
      *
      * Generated from protobuf field <code>.ondewo.vtsi.WarmIntroUnavailablePolicy on_intro_unavailable = 16;</code>
      * @param int $var one of the values in {@see \Ondewo\Vtsi\WarmIntroUnavailablePolicy}
@@ -965,10 +1147,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
-     * intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
-     * on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * Whether the bot&apos;s OWN transfers to a person (a transfer or human handover the NLU answer asks for, to a
+     * phone number or a softphone account) get a warm intro too: the bot does not send the transfer itself but hands
+     * it to VTSI, which runs it as a WARM transfer with an intro. Only when <code>enabled</code> is effectively
+     * <code>true</code> and <code>ONDEWO_VTSI_CALL_CONTROL_KEY</code> is set; any other bot transfer is sent exactly
+     * as the bot asked. Default <code>false</code>. Valid on the call and project levels; set on a
+     * <code>TransferCallRequest</code> it is refused with <code>INVALID_ARGUMENT</code>
+     * <code>reason=field-not-valid-on-level</code>
      *
      * Generated from protobuf field <code>optional bool apply_to_bot_transfers = 17;</code>
      * @return bool
@@ -989,10 +1174,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the bot&apos;s OWN transfers to a human (the NLU answer&apos;s transfer or human handover) get a warm
-     * intro too: the transfer is handed to VTSI instead of being sent by the bot. Default <code>false</code>. Valid
-     * on the call and project levels; set on a <code>TransferCallRequest</code> it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * Whether the bot&apos;s OWN transfers to a person (a transfer or human handover the NLU answer asks for, to a
+     * phone number or a softphone account) get a warm intro too: the bot does not send the transfer itself but hands
+     * it to VTSI, which runs it as a WARM transfer with an intro. Only when <code>enabled</code> is effectively
+     * <code>true</code> and <code>ONDEWO_VTSI_CALL_CONTROL_KEY</code> is set; any other bot transfer is sent exactly
+     * as the bot asked. Default <code>false</code>. Valid on the call and project levels; set on a
+     * <code>TransferCallRequest</code> it is refused with <code>INVALID_ARGUMENT</code>
+     * <code>reason=field-not-valid-on-level</code>
      *
      * Generated from protobuf field <code>optional bool apply_to_bot_transfers = 17;</code>
      * @param bool $var
@@ -1007,8 +1195,8 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
-     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
-     * characters
+     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence, or the hold music).
+     * Repeated every <code>caller_reassure_interval_s</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_hold_message = 18;</code>
      * @return string
@@ -1030,8 +1218,8 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Spoken to the caller while the intro runs, after <code>caller_disclosure_message</code>, e.g. &quot;Einen
-     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence). At most 1000
-     * characters
+     * Moment bitte, ich verbinde Sie.&quot; <code>&quot;&quot;</code> or unset: none (silence, or the hold music).
+     * Repeated every <code>caller_reassure_interval_s</code>. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_hold_message = 18;</code>
      * @param string $var
@@ -1046,7 +1234,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)
+     * <i>Phase B</i>: music on hold for the caller between the hold messages while the intro runs. Default
+     * <code>false</code> (silence). <code>true</code> is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>optional bool caller_hold_music = 19;</code>
      * @return bool
@@ -1067,7 +1257,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * <i>Phase B</i>: music on hold for the caller between the hold messages. Default <code>false</code> (silence)
+     * <i>Phase B</i>: music on hold for the caller between the hold messages while the intro runs. Default
+     * <code>false</code> (silence). <code>true</code> is refused with <code>FAILED_PRECONDITION</code>
+     * <code>reason=phase-b-not-enabled</code> while the deployment has not enabled phase B
      *
      * Generated from protobuf field <code>optional bool caller_hold_music = 19;</code>
      * @param bool $var
@@ -1081,8 +1273,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
-     * Valid: 0 or 15 - 120
+     * Repeat <code>caller_hold_message</code> while the intro runs, with N seconds of silence between two
+     * repetitions. <code>0</code> (default): it is spoken once. Valid: 0 or 15 - 120, e.g. 20 to reassure a waiting
+     * caller about every 20 seconds. Without a <code>caller_hold_message</code> it has no effect
      *
      * Generated from protobuf field <code>optional uint32 caller_reassure_interval_s = 20;</code>
      * @return int
@@ -1103,8 +1296,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Repeat <code>caller_hold_message</code> every N seconds while the intro runs. <code>0</code> (default): never.
-     * Valid: 0 or 15 - 120
+     * Repeat <code>caller_hold_message</code> while the intro runs, with N seconds of silence between two
+     * repetitions. <code>0</code> (default): it is spoken once. Valid: 0 or 15 - 120, e.g. 20 to reassure a waiting
+     * caller about every 20 seconds. Without a <code>caller_hold_message</code> it has no effect
      *
      * Generated from protobuf field <code>optional uint32 caller_reassure_interval_s = 20;</code>
      * @param int $var
@@ -1119,8 +1313,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
-     * agent&apos;s warm transfer setting, else the project&apos;s first LLM service
+     * <i>Phase B</i>: the resource name of the LLM service of the ONDEWO NLU project that writes the briefing of an
+     * LLM_SUMMARY intro (and decides a spoken answer to its <code>accept_question</code> that the built-in phrases
+     * leave unclear). Empty (default): the NLU agent&apos;s warm transfer setting, else the project&apos;s first LLM
+     * service of the intro&apos;s language. A name the project has no LLM service of for that language means no LLM:
+     * the built-in template is spoken (<code>WarmIntroRecord.text_fell_back</code>). A non-empty value is refused with
+     * <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while the deployment has not enabled
+     * phase B
      *
      * Generated from protobuf field <code>optional string llm_ccai_service_name = 21;</code>
      * @return string
@@ -1141,8 +1340,13 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The LLM service of the ONDEWO NLU agent that writes the briefing (LLM_SUMMARY, <i>phase B</i>). Empty: the
-     * agent&apos;s warm transfer setting, else the project&apos;s first LLM service
+     * <i>Phase B</i>: the resource name of the LLM service of the ONDEWO NLU project that writes the briefing of an
+     * LLM_SUMMARY intro (and decides a spoken answer to its <code>accept_question</code> that the built-in phrases
+     * leave unclear). Empty (default): the NLU agent&apos;s warm transfer setting, else the project&apos;s first LLM
+     * service of the intro&apos;s language. A name the project has no LLM service of for that language means no LLM:
+     * the built-in template is spoken (<code>WarmIntroRecord.text_fell_back</code>). A non-empty value is refused with
+     * <code>FAILED_PRECONDITION</code> <code>reason=phase-b-not-enabled</code> while the deployment has not enabled
+     * phase B
      *
      * Generated from protobuf field <code>optional string llm_ccai_service_name = 21;</code>
      * @param string $var
@@ -1157,8 +1361,8 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
-     * Default empty: none. At most 1000 characters
+     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target:
+     * &quot;Ich kündige Sie jetzt bei der Kollegin an.&quot; Default empty: none. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_disclosure_message = 22;</code>
      * @return string
@@ -1179,8 +1383,8 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target.
-     * Default empty: none. At most 1000 characters
+     * Spoken to the caller FIRST when the intro starts, e.g. that the call is being announced to the target:
+     * &quot;Ich kündige Sie jetzt bei der Kollegin an.&quot; Default empty: none. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_disclosure_message = 22;</code>
      * @param string $var
@@ -1197,7 +1401,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     /**
      * Spoken to the caller after the target accepted and before the target is joined, placeholder
      * <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
-     * hear it. Default empty: none. At most 1000 characters
+     * hear it; the join waits until it has been spoken, at most
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ACCEPTED_CLIP_MAX_S</code> (default 6 s). Default empty: none, the target is
+     * joined at once. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_accepted_message = 23;</code>
      * @return string
@@ -1220,7 +1426,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     /**
      * Spoken to the caller after the target accepted and before the target is joined, placeholder
      * <code>{callee_name}</code>, e.g. &quot;Ich verbinde Sie jetzt mit {callee_name}.&quot; The target does not
-     * hear it. Default empty: none. At most 1000 characters
+     * hear it; the join waits until it has been spoken, at most
+     * <code>ONDEWO_VTSI_WARM_TRANSFER_ACCEPTED_CLIP_MAX_S</code> (default 6 s). Default empty: none, the target is
+     * joined at once. At most 1000 characters
      *
      * Generated from protobuf field <code>optional string caller_accepted_message = 23;</code>
      * @param string $var
@@ -1235,8 +1443,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
-     * Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
+     * Whether the intro bot&apos;s NLU session may store the intro audio (the target&apos;s voice and the
+     * bot&apos;s). Default <code>false</code>. This version validates and inherits the field but does not act on it
+     * yet: setting it to <code>true</code> changes nothing
      *
      * Generated from protobuf field <code>optional bool store_intro_audio = 24;</code>
      * @return bool
@@ -1257,8 +1466,9 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Whether the intro bot&apos;s NLU session stores the intro audio (the target&apos;s voice and the bot&apos;s).
-     * Default <code>false</code>: no audio is stored; the session&apos;s text follows the conversation retention
+     * Whether the intro bot&apos;s NLU session may store the intro audio (the target&apos;s voice and the
+     * bot&apos;s). Default <code>false</code>. This version validates and inherits the field but does not act on it
+     * yet: setting it to <code>true</code> changes nothing
      *
      * Generated from protobuf field <code>optional bool store_intro_audio = 24;</code>
      * @param bool $var
@@ -1273,9 +1483,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
-     * reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
-     * listener free for customer calls. At most 50 entries; set on another level it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * reserved as intro bots. Empty (default): any free listener of the project takes the intro, but only while more
+     * than <code>ONDEWO_VTSI_WARM_TRANSFER_RESERVED_LISTENERS</code> (default 1) listeners are ready, so customer calls
+     * keep that many. Listed: only these listeners take intros, and they no longer answer customer calls (no reserve
+     * is kept); a project whose listed listeners are none of them deployed refuses an intro with
+     * <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-needs-listener</code>. At most 50 distinct listeners
+     * of this project; set on another level it is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>repeated string intro_listener_names = 25;</code>
      * @return RepeatedField<string>
@@ -1287,9 +1500,12 @@ class WarmTransferConfig extends \Google\Protobuf\Internal\Message
 
     /**
      * Project level only: listeners (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>)
-     * reserved as intro bots. Empty (default): any free listener of the project, keeping at least one ready
-     * listener free for customer calls. At most 50 entries; set on another level it is refused with
-     * <code>INVALID_ARGUMENT</code>
+     * reserved as intro bots. Empty (default): any free listener of the project takes the intro, but only while more
+     * than <code>ONDEWO_VTSI_WARM_TRANSFER_RESERVED_LISTENERS</code> (default 1) listeners are ready, so customer calls
+     * keep that many. Listed: only these listeners take intros, and they no longer answer customer calls (no reserve
+     * is kept); a project whose listed listeners are none of them deployed refuses an intro with
+     * <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-needs-listener</code>. At most 50 distinct listeners
+     * of this project; set on another level it is refused with <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>repeated string intro_listener_names = 25;</code>
      * @param string[] $var

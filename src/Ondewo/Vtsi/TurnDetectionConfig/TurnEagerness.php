@@ -8,32 +8,33 @@ namespace Ondewo\Vtsi\TurnDetectionConfig;
 use UnexpectedValueException;
 
 /**
- * Eagerness of the turn detection
+ * How eagerly the bot takes the turn
  *
  * Protobuf type <code>ondewo.vtsi.TurnDetectionConfig.TurnEagerness</code>
  */
 class TurnEagerness
 {
     /**
-     * Unspecified turn eagerness defaults to NORMAL
+     * No eagerness chosen: the same as <code>NORMAL</code>
      *
      * Generated from protobuf enum <code>TURN_EAGERNESS_UNSPECIFIED = 0;</code>
      */
     const TURN_EAGERNESS_UNSPECIFIED = 0;
     /**
-     * Patient turn taking: scales the endpointing delays by a factor of 1.7
+     * Patient turn taking, e.g. for collecting structured information: both endpointing delays are multiplied
+     * by 1.7
      *
      * Generated from protobuf enum <code>PATIENT = 1;</code>
      */
     const PATIENT = 1;
     /**
-     * Normal turn taking: keeps the endpointing delays unchanged (factor 1.0)
+     * Normal turn taking: both endpointing delays are used as set (factor 1.0)
      *
      * Generated from protobuf enum <code>NORMAL = 2;</code>
      */
     const NORMAL = 2;
     /**
-     * Eager turn taking: scales the endpointing delays by a factor of 0.6
+     * Eager turn taking, for quick exchanges: both endpointing delays are multiplied by 0.6
      *
      * Generated from protobuf enum <code>EAGER = 3;</code>
      */

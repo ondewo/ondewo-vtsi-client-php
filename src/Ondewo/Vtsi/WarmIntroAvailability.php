@@ -8,44 +8,53 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>Whether a project can run warm intros, and if not, why</p>
+ * Whether a project can run warm intros, and if not, why. When several reasons apply, the first one in this order is reported: <code>DISABLED_BY_DEPLOYMENT</code>, <code>NEEDS_CALL_CONTROL_KEY</code>, <code>NEEDS_LOCAL_ASTERISK</code>, <code>NEEDS_LISTENER</code>.
  *
  * Protobuf type <code>ondewo.vtsi.WarmIntroAvailability</code>
  */
 class WarmIntroAvailability
 {
     /**
-     * Not computed (e.g. an older server)
+     * Not computed, e.g. by a server older than warm intros. Treat it as unknown, not as available.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_UNSPECIFIED = 0;</code>
      */
     const WARM_INTRO_AVAILABILITY_UNSPECIFIED = 0;
     /**
-     * Warm intros can run
+     * Warm intros can run: a WARM transfer whose effective <code>WarmTransferConfig.enabled</code> is
+     * <code>true</code> runs one.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_AVAILABLE = 1;</code>
      */
     const WARM_INTRO_AVAILABILITY_AVAILABLE = 1;
     /**
-     * The deployment switch <code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code> is off
+     * The operator switched warm intros off for the whole deployment (<code>ONDEWO_VTSI_WARM_TRANSFER_ENABLED</code>
+     * is <code>false</code>, its default). Writing <code>enabled=true</code> at any level is refused with
+     * <code>FAILED_PRECONDITION</code> <code>reason=warm-intro-disabled</code>.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT = 2;</code>
      */
     const WARM_INTRO_AVAILABILITY_DISABLED_BY_DEPLOYMENT = 2;
     /**
-     * The project&apos;s Asterisk is not run by this server (or is older than Asterisk 22)
+     * The deployment runs on several hosts, where the server cannot reach the
+     * project&apos;s Asterisk directly to run the intro.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_NEEDS_LOCAL_ASTERISK = 3;</code>
      */
     const WARM_INTRO_AVAILABILITY_NEEDS_LOCAL_ASTERISK = 3;
     /**
-     * The project has no listener to run the intro (a project with pooled callers only)
+     * The project cannot spare a listener to run the intro bot: its <code>max_listeners</code> is not above the
+     * number of listeners the deployment keeps free for customer calls (1 unless the operator changed it), and
+     * <code>warm_transfer_defaults.intro_listener_names</code> reserves none. A caller-only project
+     * (<code>max_listeners = 0</code>) is the typical case. Raise <code>max_listeners</code> or reserve intro
+     * listeners.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_NEEDS_LISTENER = 4;</code>
      */
     const WARM_INTRO_AVAILABILITY_NEEDS_LISTENER = 4;
     /**
-     * The deployment has no call-control key (<code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>)
+     * The operator has not configured in-call control for the deployment (no
+     * <code>ONDEWO_VTSI_CALL_CONTROL_KEY</code>), so the bot of a running call cannot be paused while the intro runs.
      *
      * Generated from protobuf enum <code>WARM_INTRO_AVAILABILITY_NEEDS_CALL_CONTROL_KEY = 5;</code>
      */

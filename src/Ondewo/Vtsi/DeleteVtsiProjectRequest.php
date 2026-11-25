@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to delete a VTSI project
- * A deployed VTSI project is undeployed automatically before it is deleted (see
- * <a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject">DeleteVtsiProject</a>).
+ * Request to delete a VTSI project A deployed VTSI project is undeployed automatically before it is deleted (see <a href="index.html#ondewo.vtsi.Projects.DeleteVtsiProject">DeleteVtsiProject</a>).
  *
  * Generated from protobuf message <code>ondewo.vtsi.DeleteVtsiProjectRequest</code>
  */

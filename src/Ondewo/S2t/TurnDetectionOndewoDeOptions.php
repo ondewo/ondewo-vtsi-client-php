@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionOndewoDeOptions configures the ONDEWO German turn-detection model as the turn detector. It judges
- * the turn from its text and word timing and is served by vLLM.</p>
+ * TurnDetectionOndewoDeOptions configures the ONDEWO German turn-detection model as the turn detector. It judges the turn from its text and word timing and is served by vLLM.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionOndewoDeOptions</code>
  */

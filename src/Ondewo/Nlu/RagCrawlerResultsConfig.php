@@ -11,8 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Structured output configuration.
- * Use this block to define result payload shape and metadata behavior,
- * similar to Crawl4AI markdown/output-generation toggles.
+ * Use this block to define result payload shape and metadata behavior, similar to Crawl4AI markdown/output-generation toggles.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerResultsConfig</code>
  */

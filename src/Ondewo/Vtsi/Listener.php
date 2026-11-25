@@ -11,9 +11,8 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Listener represents a listener instance that waits for incoming calls.
- * <p>A listener is persistent: its container takes one call after the other, and <code>call_name</code> names
- * the current call (or the record that waits for the next one). Listeners are never pooled, so a
- * <code>Listener</code> has no <code>pooled</code> field.</p>
+ * A listener is persistent: its container takes one call after the other, and <code>call_name</code> names the current call (or the record that waits for the next one). Listeners are never pooled, so a <code>Listener</code> has no <code>pooled</code> field.
+ * Its configuration (<code>sip_base_config</code>, <code>common_services_config</code>) is applied ONCE, when the listener&apos;s container is deployed, and then governs EVERY inbound call that container answers: the same agent, voices, turn taking, interruption handling and timing for the first call and for the hundredth. Each call still starts clean (its own NLU session, nothing carried over from the previous call); only the configuration is shared.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Listener</code>
  */
@@ -36,15 +35,32 @@ class Listener extends \Google\Protobuf\Internal\Message
      */
     protected $call_name = '';
     /**
-     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
-     * there).
+     * SIP service configuration of the listener&apos;s container, i.e. which ondewo-sip image version
+     * (<code>sip_sim_version</code>) answers the listener&apos;s calls. As stored: a request that left
+     * <code>sip_sim_version</code> empty is stored (and returned) with the image tag the server deployed, the
+     * deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>. Applies to every call of the listener.
+     * Updatable with <code>UpdateListener</code>, which changes the STORED configuration only: the running
+     * container and every call it answers keep the configuration they were deployed with until the server
+     * recreates the listener (see <code>UpdateListener</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      */
     protected $sip_base_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
-     * (stored configuration only, see there).
+     * Service configuration of every call of the listener: speech-to-text, NLU agent, text-to-speech, CSI and,
+     * in <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers and handles the call&apos;s media. Populated in the
+     * <code>FULL</code> view only, and redacted by role: the whole configuration, credentials included, is
+     * returned only to a caller who may see the whole project; every other caller receives only the identity and
+     * routing fields (agent, language, service hosts and ports, ...) and <code>voice_interaction_config</code>,
+     * everything else left empty.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both. The returned configuration is what was requested, not the
+     * resolved values.</p>
+     * <p>Updatable with <code>UpdateListener</code> (stored configuration only, see there): a change reaches the
+     * listener&apos;s calls only once the server recreates the listener from it. To apply a new configuration to
+     * the calls right away, stop the listener (which hangs up its current call) and start a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      */
@@ -96,11 +112,28 @@ class Listener extends \Google\Protobuf\Internal\Message
      *           <pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;/calls/&lt;call_uuid&gt;</code></pre>
      *           Output only.
      *     @type \Ondewo\Vtsi\SipBaseConfig $sip_base_config
-     *           SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
-     *           there).
+     *           SIP service configuration of the listener&apos;s container, i.e. which ondewo-sip image version
+     *           (<code>sip_sim_version</code>) answers the listener&apos;s calls. As stored: a request that left
+     *           <code>sip_sim_version</code> empty is stored (and returned) with the image tag the server deployed, the
+     *           deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>. Applies to every call of the listener.
+     *           Updatable with <code>UpdateListener</code>, which changes the STORED configuration only: the running
+     *           container and every call it answers keep the configuration they were deployed with until the server
+     *           recreates the listener (see <code>UpdateListener</code>).
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
-     *           (stored configuration only, see there).
+     *           Service configuration of every call of the listener: speech-to-text, NLU agent, text-to-speech, CSI and,
+     *           in <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     *           lets itself be interrupted, times its answers and handles the call&apos;s media. Populated in the
+     *           <code>FULL</code> view only, and redacted by role: the whole configuration, credentials included, is
+     *           returned only to a caller who may see the whole project; every other caller receives only the identity and
+     *           routing fields (agent, language, service hosts and ports, ...) and <code>voice_interaction_config</code>,
+     *           everything else left empty.
+     *           <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     *           <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     *           default. A value set here wins over both. The returned configuration is what was requested, not the
+     *           resolved values.</p>
+     *           <p>Updatable with <code>UpdateListener</code> (stored configuration only, see there): a change reaches the
+     *           listener&apos;s calls only once the server recreates the listener from it. To apply a new configuration to
+     *           the calls right away, stop the listener (which hangs up its current call) and start a new one with it.</p>
      *     @type string $vtsi_project_name
      *           Output only. VTSI project of the listener, the project segment of <code>name</code>, of the form
      *           <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
@@ -184,8 +217,13 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
-     * there).
+     * SIP service configuration of the listener&apos;s container, i.e. which ondewo-sip image version
+     * (<code>sip_sim_version</code>) answers the listener&apos;s calls. As stored: a request that left
+     * <code>sip_sim_version</code> empty is stored (and returned) with the image tag the server deployed, the
+     * deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>. Applies to every call of the listener.
+     * Updatable with <code>UpdateListener</code>, which changes the STORED configuration only: the running
+     * container and every call it answers keep the configuration they were deployed with until the server
+     * recreates the listener (see <code>UpdateListener</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      * @return \Ondewo\Vtsi\SipBaseConfig|null
@@ -206,8 +244,13 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration. Updatable with <code>UpdateListener</code> (stored configuration only, see
-     * there).
+     * SIP service configuration of the listener&apos;s container, i.e. which ondewo-sip image version
+     * (<code>sip_sim_version</code>) answers the listener&apos;s calls. As stored: a request that left
+     * <code>sip_sim_version</code> empty is stored (and returned) with the image tag the server deployed, the
+     * deployment setting <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>. Applies to every call of the listener.
+     * Updatable with <code>UpdateListener</code>, which changes the STORED configuration only: the running
+     * container and every call it answers keep the configuration they were deployed with until the server
+     * recreates the listener (see <code>UpdateListener</code>).
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 3;</code>
      * @param \Ondewo\Vtsi\SipBaseConfig $var
@@ -221,8 +264,20 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
-     * (stored configuration only, see there).
+     * Service configuration of every call of the listener: speech-to-text, NLU agent, text-to-speech, CSI and,
+     * in <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers and handles the call&apos;s media. Populated in the
+     * <code>FULL</code> view only, and redacted by role: the whole configuration, credentials included, is
+     * returned only to a caller who may see the whole project; every other caller receives only the identity and
+     * routing fields (agent, language, service hosts and ports, ...) and <code>voice_interaction_config</code>,
+     * everything else left empty.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both. The returned configuration is what was requested, not the
+     * resolved values.</p>
+     * <p>Updatable with <code>UpdateListener</code> (stored configuration only, see there): a change reaches the
+     * listener&apos;s calls only once the server recreates the listener from it. To apply a new configuration to
+     * the calls right away, stop the listener (which hangs up its current call) and start a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -243,8 +298,20 @@ class Listener extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI. Updatable with <code>UpdateListener</code>
-     * (stored configuration only, see there).
+     * Service configuration of every call of the listener: speech-to-text, NLU agent, text-to-speech, CSI and,
+     * in <code>voice_interaction_config</code> and <code>sip_vtsi_config</code>, how the bot listens, takes turns,
+     * lets itself be interrupted, times its answers and handles the call&apos;s media. Populated in the
+     * <code>FULL</code> view only, and redacted by role: the whole configuration, credentials included, is
+     * returned only to a caller who may see the whole project; every other caller receives only the identity and
+     * routing fields (agent, language, service hosts and ports, ...) and <code>voice_interaction_config</code>,
+     * everything else left empty.
+     * <p>A field left unset here was left unset by the request, and the call INHERITS for it: the deployment-wide
+     * <code>ONDEWO_VTSI_*</code> setting where the server&apos;s operator configured one, otherwise the built-in
+     * default. A value set here wins over both. The returned configuration is what was requested, not the
+     * resolved values.</p>
+     * <p>Updatable with <code>UpdateListener</code> (stored configuration only, see there): a change reaches the
+     * listener&apos;s calls only once the server recreates the listener from it. To apply a new configuration to
+     * the calls right away, stop the listener (which hangs up its current call) and start a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 4;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var

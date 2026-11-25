@@ -10,14 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionOptions configures turn detection: deciding, at a pause of the caller, whether the caller has
- * finished the turn. Exactly one turn detector is chosen by <code>oneof_turn_detector</code>; the fields outside it
- * apply to every detector.</p>
- * <p>Precedence for every field: the request config's value
- * (<code>TranscribeRequestConfig.utterance_detection.turn_detection</code>), then the pipeline config's value
- * (<code>StreamingSpeechRecognition.turn_detection</code>), then the server's configured value. When the request
- * config chooses a different detector than the pipeline config, the request config's detector is used with only
- * its own fields: none of the pipeline config's detector fields carry over.</p>
+ * TurnDetectionOptions configures turn detection: deciding, at a pause of the caller, whether the caller has finished the turn. Exactly one turn detector is chosen by <code>oneof_turn_detector</code>; the fields outside it apply to every detector.
+ * Precedence for every field: the request config's value (<code>TranscribeRequestConfig.utterance_detection.turn_detection</code>), then the pipeline config's value (<code>StreamingSpeechRecognition.turn_detection</code>), then the server's configured value. When the request config chooses a different detector than the pipeline config, the request config's detector is used with only its own fields: none of the pipeline config's detector fields carry over.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionOptions</code>
  */

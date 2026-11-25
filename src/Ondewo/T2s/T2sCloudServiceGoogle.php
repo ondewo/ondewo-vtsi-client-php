@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>T2sCloudServiceGoogle message contains settings for the Google Cloud service inference.</p>
+ * T2sCloudServiceGoogle message contains settings for the Google Cloud service inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2sCloudServiceGoogle</code>
  */

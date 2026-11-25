@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * On complete success: no fields set (empty message).
- * On partial success/failure: both fields set.
+ * On complete success: no fields set (empty message). On partial success/failure: both fields set.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagPartialSuccess</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>CkptFile contains information about checkpoint files.</p>
+ * CkptFile contains information about checkpoint files.
  *
  * Generated from protobuf message <code>ondewo.s2t.CkptFile</code>
  */

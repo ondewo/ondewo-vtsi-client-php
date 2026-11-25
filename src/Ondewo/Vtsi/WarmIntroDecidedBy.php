@@ -8,7 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>How the decision of a warm intro was taken</p>
+ * How the decision of a warm intro was taken
  *
  * Protobuf type <code>ondewo.vtsi.WarmIntroDecidedBy</code>
  */

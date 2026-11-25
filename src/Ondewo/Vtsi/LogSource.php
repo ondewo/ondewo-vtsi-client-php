@@ -8,8 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * Which process inside the container emitted a log entry. All of these share a single docker log
- * stream, because ondewo-csi runs as a child process of the ondewo-sip container.
+ * Which process inside the container emitted a log entry. All of these share a single docker log stream, because ondewo-csi runs as a child process of the ondewo-sip container.
  *
  * Protobuf type <code>ondewo.vtsi.LogSource</code>
  */

@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Native-safety breakdown aggregate across the LLM calls in scope. Computed from
- * the per-call LlmSafetyAssessment records.
+ * Native-safety breakdown aggregate across the LLM calls in scope. Computed from the per-call LlmSafetyAssessment records.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmSafetyStats</code>
  */

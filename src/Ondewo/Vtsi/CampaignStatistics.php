@@ -10,28 +10,10 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Progress of a campaign. Every call of the campaign is counted in exactly one of
- * <code>not_started</code>, <code>in_progress</code>, <code>retry_pending</code>,
- * <code>completed</code>, <code>failed</code> and <code>cancelled</code>; their sum is
- * <code>total</code>.
- * <p>Read as the four buckets "completed / failed / in progress / not started" (e.g. 100 calls:
- * 20 completed, 30 failed, 10 in progress, 40 not started):</p>
- * <ul>
- * <li>completed = <code>completed</code></li>
- * <li>failed = <code>failed</code> + <code>cancelled</code> (finished without completing; a hard
- * stop or a cancelled schedule is reported separately in <code>cancelled</code>)</li>
- * <li>in progress = <code>in_progress</code> + <code>retry_pending</code> (started at least once and
- * not finished: a call waiting for its next attempt is still being worked on)</li>
- * <li>not started = <code>not_started</code></li>
- * </ul>
- * <p>Bounds: every call counter is at most the campaign&apos;s number of calls, itself at most
- * <code>ONDEWO_VTSI_CAMPAIGN_MAX_CALLS</code> (100000 by default); <code>total_attempts</code> and
- * <code>answering_machine_detected</code> are at most that times the attempt limit (10 by default, plus the
- * budgets added by <code>RetryCampaignCalls</code>), far below the <code>int32</code> range.
- * <code>total_attempts</code>, <code>calls_retried</code> and <code>answering_machine_detected</code> never
- * decrease; the state buckets move as calls change state (<code>RetryCampaignCalls</code> moves calls out of
- * <code>failed</code> / <code>cancelled</code>). The statistics are computed when read, from one consistent
- * snapshot.</p>
+ * Progress of a campaign. Every call of the campaign is counted in exactly one of <code>not_started</code>, <code>in_progress</code>, <code>retry_pending</code>, <code>completed</code>, <code>failed</code> and <code>cancelled</code>; their sum is <code>total</code>.
+ * Read as the four buckets "completed / failed / in progress / not started" (e.g. 100 calls: 20 completed, 30 failed, 10 in progress, 40 not started):
+ * <ul> <li>completed = <code>completed</code></li> <li>failed = <code>failed</code> + <code>cancelled</code> (finished without completing; a hard stop or a cancelled schedule is reported separately in <code>cancelled</code>)</li> <li>in progress = <code>in_progress</code> + <code>retry_pending</code> (started at least once and not finished: a call waiting for its next attempt is still being worked on)</li> <li>not started = <code>not_started</code></li> </ul>
+ * Bounds: every call counter is at most the campaign&apos;s number of calls, itself at most <code>ONDEWO_VTSI_CAMPAIGN_MAX_CALLS</code> (100000 by default); <code>total_attempts</code> and <code>answering_machine_detected</code> are at most that times the attempt limit (10 by default, plus the budgets added by <code>RetryCampaignCalls</code>), far below the <code>int32</code> range. <code>total_attempts</code>, <code>calls_retried</code> and <code>answering_machine_detected</code> never decrease; the state buckets move as calls change state (<code>RetryCampaignCalls</code> moves calls out of <code>failed</code> / <code>cancelled</code>). The statistics are computed when read, from one consistent snapshot.
  *
  * Generated from protobuf message <code>ondewo.vtsi.CampaignStatistics</code>
  */

@@ -12,8 +12,7 @@ use Google\Protobuf\RepeatedField;
 /**
  * Incremental crawling: skip re-fetching pages a sitemap reports as unchanged.
  * A page is reused from the most recent completed run of the same crawler when its sitemap/ <code>&lt;lastmod&gt;</code> is not newer than the <code>page_last_updated_date</code> of the copy that run holds. A reused page is part of the new run exactly like a freshly fetched one; only <code>RagCrawlerResult.last_crawled_date</code> still reports when its content was actually fetched.
- * A page is always fetched when any of the following holds: its sitemap entry carries no <code>&lt;lastmod&gt;</code>; the most recent completed run did not contain it; there is no completed previous
- * run; the crawler configuration changed since that run; or <code>max_age_days</code> has elapsed.
+ * A page is always fetched when any of the following holds: its sitemap entry carries no <code>&lt;lastmod&gt;</code>; the most recent completed run did not contain it; there is no completed previous run; the crawler configuration changed since that run; or <code>max_age_days</code> has elapsed.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawlerIncrementalConfig</code>
  */

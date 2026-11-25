@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Configuration details specific to the Amazon web service speech-to-text provider.</p>
+ * Configuration details specific to the Amazon web service speech-to-text provider.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tCloudProviderConfigAmazon</code>
  */

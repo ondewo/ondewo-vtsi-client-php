@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Target of a transfer</p>
+ * Target of a transfer
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallTarget</code>
  */

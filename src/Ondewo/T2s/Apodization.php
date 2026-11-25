@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Apodization message contains settings for apodization postprocessing.</p>
+ * Apodization message contains settings for apodization postprocessing.
  *
  * Generated from protobuf message <code>ondewo.t2s.Apodization</code>
  */

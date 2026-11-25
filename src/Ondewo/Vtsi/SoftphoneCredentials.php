@@ -10,10 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * ONE-TIME secrets of a softphone account, returned only by <code>CreateSoftphoneAccount</code> and
- * <code>RotateSoftphoneCredentials</code>. VTSI keeps no copy of the private key or of
- * <code>pkcs12_password</code> and cannot return them again: store them now, or rotate later. Never log
- * this message.
+ * ONE-TIME secrets of a softphone account, returned only by <code>CreateSoftphoneAccount</code> and <code>RotateSoftphoneCredentials</code>. VTSI keeps no copy of the private key or of <code>pkcs12_password</code> and cannot return them again: store them now, or rotate later. Never log this message.
  *
  * Generated from protobuf message <code>ondewo.vtsi.SoftphoneCredentials</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Text2Mel message contains settings for text-to-mel inference.</p>
+ * Text2Mel message contains settings for text-to-mel inference.
  *
  * Generated from protobuf message <code>ondewo.t2s.Text2Mel</code>
  */

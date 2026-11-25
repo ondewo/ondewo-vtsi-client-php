@@ -11,16 +11,8 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * RagCrawler definition.
- * This object represents a reusable crawler profile that can be run multiple times.
- * It is modeled after Crawl4AI concepts:
- * <ul>
- *     <li>seed/sitemap discovery (<code>RagCrawlerSources</code>)</li>
- *     <li>URL/domain constraints (<code>RagCrawlerFilters</code>)</li>
- *     <li>authentication/session bootstrap (<code>RagCrawlerAuth</code>, <code>RagCrawlerBrowserConfig</code>)</li>
- *     <li>run behavior and extraction output (<code>RagCrawlerConfig</code>)</li>
- * </ul>
- * The same crawler can be executed multiple times; each execution creates
- * a separate crawler run and result set.
+ * This object represents a reusable crawler profile that can be run multiple times. It is modeled after Crawl4AI concepts: <ul> <li>seed/sitemap discovery (<code>RagCrawlerSources</code>)</li> <li>URL/domain constraints (<code>RagCrawlerFilters</code>)</li> <li>authentication/session bootstrap (<code>RagCrawlerAuth</code>, <code>RagCrawlerBrowserConfig</code>)</li> <li>run behavior and extraction output (<code>RagCrawlerConfig</code>)</li> </ul>
+ * The same crawler can be executed multiple times; each execution creates a separate crawler run and result set.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagCrawler</code>
  */

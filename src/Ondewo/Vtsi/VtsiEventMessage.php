@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * One event. This is the body of a webhook request (proto3 JSON with the original field names)
- * and the unit of the <code>SubscribeVtsiEvents</code> stream.
+ * One event. This is the body of a webhook request (proto3 JSON with the original field names) and the unit of the <code>SubscribeVtsiEvents</code> stream.
  *
  * Generated from protobuf message <code>ondewo.vtsi.VtsiEventMessage</code>
  */

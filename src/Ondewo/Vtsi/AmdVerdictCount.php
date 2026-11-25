@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Number of calls with one answering machine detection verdict, an entry of
- * <code>CallStatistics.amd_verdict_counts</code>.
+ * Number of calls with one answering machine detection verdict, an entry of <code>CallStatistics.amd_verdict_counts</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.AmdVerdictCount</code>
  */

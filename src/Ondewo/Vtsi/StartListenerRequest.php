@@ -11,6 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * Request for starting a listener
+ * The listener&apos;s configuration is fixed when its container is deployed and then applies to EVERY inbound call the listener answers, one after the other, until the listener is stopped or the server recreates it (see <code>UpdateListener</code>). Example: to let callers of one hotline interrupt the bot, start its listeners with <code>common_services_config.voice_interaction_config.interruption_handling_config.enabled = true</code>; every call those listeners take then allows barge-in, while a listener started without the block keeps the default.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StartListenerRequest</code>
  */
@@ -23,13 +24,29 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * SIP service configuration
+     * SIP service configuration of the listener&apos;s container. <code>sip_sim_version</code> picks the ondewo-sip
+     * image version; empty uses the server&apos;s default (deployment setting
+     * <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>), and the tag actually deployed is what the listener stores
+     * and returns.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 2;</code>
      */
     protected $sip_base_config = null;
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of every call this listener will answer: speech-to-text, NLU agent, text-to-speech,
+     * CSI, the voice interaction (<code>voice_interaction_config</code>: turn detection, interruptions, response
+     * timing, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration starts nothing and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>voice_interaction_config.answering_machine_detection_config</code> is refused on a listener
+     * (<code>INVALID_ARGUMENT</code>, <code>reason=amd-requires-persistent-caller</code>): a listener never dials
+     * out.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this listener&apos;s calls. A deployment setting is read when the listener&apos;s container is
+     * deployed, so a later change of it reaches a running listener only when the listener is recreated.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      */
@@ -76,9 +93,25 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
      *     @type string $vtsi_project_name
      *           VTSI project name which to perform the call of the form <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\SipBaseConfig $sip_base_config
-     *           SIP service configuration
+     *           SIP service configuration of the listener&apos;s container. <code>sip_sim_version</code> picks the ondewo-sip
+     *           image version; empty uses the server&apos;s default (deployment setting
+     *           <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>), and the tag actually deployed is what the listener stores
+     *           and returns.
      *     @type \Ondewo\Vtsi\CommonServicesConfig $common_services_config
-     *           Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     *           Service configuration of every call this listener will answer: speech-to-text, NLU agent, text-to-speech,
+     *           CSI, the voice interaction (<code>voice_interaction_config</code>: turn detection, interruptions, response
+     *           timing, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     *           <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     *           and T2S services (and RabbitMQ when configured); a refused configuration starts nothing and is answered
+     *           with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     *           field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.
+     *           <code>voice_interaction_config.answering_machine_detection_config</code> is refused on a listener
+     *           (<code>INVALID_ARGUMENT</code>, <code>reason=amd-requires-persistent-caller</code>): a listener never dials
+     *           out.</p>
+     *           <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     *           where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     *           over both for this listener&apos;s calls. A deployment setting is read when the listener&apos;s container is
+     *           deployed, so a later change of it reaches a running listener only when the listener is recreated.</p>
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the field paths to populate in <code>StartListenerResponse.listener</code>, relative to the
      *           <code>Listener</code> message (no <code>listener.</code> prefix), e.g. <code>call_name</code>, <code>common_services_config.nlu_vtsi_config.agent_name</code>. Nested paths through singular
@@ -137,7 +170,10 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration of the listener&apos;s container. <code>sip_sim_version</code> picks the ondewo-sip
+     * image version; empty uses the server&apos;s default (deployment setting
+     * <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>), and the tag actually deployed is what the listener stores
+     * and returns.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 2;</code>
      * @return \Ondewo\Vtsi\SipBaseConfig|null
@@ -158,7 +194,10 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * SIP service configuration
+     * SIP service configuration of the listener&apos;s container. <code>sip_sim_version</code> picks the ondewo-sip
+     * image version; empty uses the server&apos;s default (deployment setting
+     * <code>ONDEWO_VTSI_DEFAULT_SIP_IMAGE_TAG</code>), and the tag actually deployed is what the listener stores
+     * and returns.
      *
      * Generated from protobuf field <code>.ondewo.vtsi.SipBaseConfig sip_base_config = 2;</code>
      * @param \Ondewo\Vtsi\SipBaseConfig $var
@@ -172,7 +211,20 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of every call this listener will answer: speech-to-text, NLU agent, text-to-speech,
+     * CSI, the voice interaction (<code>voice_interaction_config</code>: turn detection, interruptions, response
+     * timing, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration starts nothing and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>voice_interaction_config.answering_machine_detection_config</code> is refused on a listener
+     * (<code>INVALID_ARGUMENT</code>, <code>reason=amd-requires-persistent-caller</code>): a listener never dials
+     * out.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this listener&apos;s calls. A deployment setting is read when the listener&apos;s container is
+     * deployed, so a later change of it reaches a running listener only when the listener is recreated.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      * @return \Ondewo\Vtsi\CommonServicesConfig|null
@@ -193,7 +245,20 @@ class StartListenerRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Service Configs of Speech-2-Text, NLU, Text-2-Speech and CSI
+     * Service configuration of every call this listener will answer: speech-to-text, NLU agent, text-to-speech,
+     * CSI, the voice interaction (<code>voice_interaction_config</code>: turn detection, interruptions, response
+     * timing, transfers, DTMF) and the call&apos;s media (<code>sip_vtsi_config</code>).
+     * <p>Validated as a whole before anything is started, including live checks against the configured NLU, S2T
+     * and T2S services (and RabbitMQ when configured); a refused configuration starts nothing and is answered
+     * with <code>INVALID_ARGUMENT</code>, an unreachable service with <code>UNAVAILABLE</code>. A value outside a
+     * field&apos;s documented range is refused with <code>INVALID_ARGUMENT</code>.
+     * <code>voice_interaction_config.answering_machine_detection_config</code> is refused on a listener
+     * (<code>INVALID_ARGUMENT</code>, <code>reason=amd-requires-persistent-caller</code>): a listener never dials
+     * out.</p>
+     * <p>Inheritance: every field left unset inherits the deployment-wide <code>ONDEWO_VTSI_*</code> setting
+     * where the server&apos;s operator configured one, otherwise the built-in default; a value set here wins
+     * over both for this listener&apos;s calls. A deployment setting is read when the listener&apos;s container is
+     * deployed, so a later change of it reaches a running listener only when the listener is recreated.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.CommonServicesConfig common_services_config = 3;</code>
      * @param \Ondewo\Vtsi\CommonServicesConfig $var

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Response of <code>SetCallMediaControl</code></p>
+ * Response of <code>SetCallMediaControl</code>
  *
  * Generated from protobuf message <code>ondewo.vtsi.SetCallMediaControlResponse</code>
  */

@@ -10,14 +10,15 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Configuration of the RabbitMQ Message Broker
+ * Address and credentials of the RabbitMQ server the call publishes to. Validated only while <code>MessageBrokerConfig.activate_message_broker</code> is <code>true</code>: then every field is required, and the server is contacted with these credentials when the request is validated
  *
  * Generated from protobuf message <code>ondewo.vtsi.RabbitMqConfig</code>
  */
 class RabbitMqConfig extends \Google\Protobuf\Internal\Message
 {
     /**
-     * host where the rabbit mq server runs
+     * Host name or IP address of the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string host = 1;</code>
      */
@@ -30,21 +31,23 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      */
     protected $port = 0;
     /**
-     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
-     * the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
-     * is <code>INVALID_ARGUMENT</code>
+     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. Required while
+     * the broker is activated (0 or below is <code>INVALID_ARGUMENT</code>), but currently not used: neither the
+     * connectivity check nor the call connects to it
      *
      * Generated from protobuf field <code>int32 port_2 = 3;</code>
      */
     protected $port_2 = 0;
     /**
-     * user of server
+     * User name on the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string user = 4;</code>
      */
     protected $user = '';
     /**
-     * password of server
+     * Password of <code>user</code>. Required while the broker is activated; empty is <code>INVALID_ARGUMENT</code>.
+     * Never logged, and can be withheld when the call configuration is read back
      *
      * Generated from protobuf field <code>string password = 5;</code>
      */
@@ -57,18 +60,21 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $host
-     *           host where the rabbit mq server runs
+     *           Host name or IP address of the RabbitMQ server. Required while the broker is activated; empty is
+     *           <code>INVALID_ARGUMENT</code>
      *     @type int $port
      *           AMQP port of the RabbitMQ server (typically <code>5672</code>), 1 to 65535; used for the messages and for the
      *           connectivity check at start. 0 or below is <code>INVALID_ARGUMENT</code>
      *     @type int $port_2
-     *           Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
-     *           the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
-     *           is <code>INVALID_ARGUMENT</code>
+     *           Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. Required while
+     *           the broker is activated (0 or below is <code>INVALID_ARGUMENT</code>), but currently not used: neither the
+     *           connectivity check nor the call connects to it
      *     @type string $user
-     *           user of server
+     *           User name on the RabbitMQ server. Required while the broker is activated; empty is
+     *           <code>INVALID_ARGUMENT</code>
      *     @type string $password
-     *           password of server
+     *           Password of <code>user</code>. Required while the broker is activated; empty is <code>INVALID_ARGUMENT</code>.
+     *           Never logged, and can be withheld when the call configuration is read back
      * }
      */
     public function __construct($data = NULL) {
@@ -77,7 +83,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * host where the rabbit mq server runs
+     * Host name or IP address of the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string host = 1;</code>
      * @return string
@@ -88,7 +95,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * host where the rabbit mq server runs
+     * Host name or IP address of the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string host = 1;</code>
      * @param string $var
@@ -131,9 +139,9 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
-     * the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
-     * is <code>INVALID_ARGUMENT</code>
+     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. Required while
+     * the broker is activated (0 or below is <code>INVALID_ARGUMENT</code>), but currently not used: neither the
+     * connectivity check nor the call connects to it
      *
      * Generated from protobuf field <code>int32 port_2 = 3;</code>
      * @return int
@@ -144,9 +152,9 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. It is passed to
-     * the call&apos;s CSI process as <code>RABBIT_PORT_2</code> and is not used for the connectivity check. 0 or below
-     * is <code>INVALID_ARGUMENT</code>
+     * Management (HTTP API) port of the RabbitMQ server (typically <code>15672</code>), 1 to 65535. Required while
+     * the broker is activated (0 or below is <code>INVALID_ARGUMENT</code>), but currently not used: neither the
+     * connectivity check nor the call connects to it
      *
      * Generated from protobuf field <code>int32 port_2 = 3;</code>
      * @param int $var
@@ -161,7 +169,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * user of server
+     * User name on the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string user = 4;</code>
      * @return string
@@ -172,7 +181,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * user of server
+     * User name on the RabbitMQ server. Required while the broker is activated; empty is
+     * <code>INVALID_ARGUMENT</code>
      *
      * Generated from protobuf field <code>string user = 4;</code>
      * @param string $var
@@ -187,7 +197,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * password of server
+     * Password of <code>user</code>. Required while the broker is activated; empty is <code>INVALID_ARGUMENT</code>.
+     * Never logged, and can be withheld when the call configuration is read back
      *
      * Generated from protobuf field <code>string password = 5;</code>
      * @return string
@@ -198,7 +209,8 @@ class RabbitMqConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * password of server
+     * Password of <code>user</code>. Required while the broker is activated; empty is <code>INVALID_ARGUMENT</code>.
+     * Never logged, and can be withheld when the call configuration is read back
      *
      * Generated from protobuf field <code>string password = 5;</code>
      * @param string $var

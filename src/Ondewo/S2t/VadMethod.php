@@ -8,7 +8,7 @@ namespace Ondewo\S2t;
 use UnexpectedValueException;
 
 /**
- * <p>VadMethod selects the model used to split the audio stream into utterances.</p>
+ * VadMethod selects the model used to split the audio stream into utterances.
  *
  * Protobuf type <code>ondewo.s2t.VadMethod</code>
  */

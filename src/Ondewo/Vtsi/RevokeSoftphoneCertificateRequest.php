@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Softphones.RevokeSoftphoneCertificate">Softphones.RevokeSoftphoneCertificate</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Softphones.RevokeSoftphoneCertificate">Softphones.RevokeSoftphoneCertificate</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.RevokeSoftphoneCertificateRequest</code>
  */

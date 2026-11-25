@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Safety section of a release gate: a separate adversarial experiment scored
- * with safety evaluators.
+ * Safety section of a release gate: a separate adversarial experiment scored with safety evaluators.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationReleaseGateSafetyConfig</code>
  */

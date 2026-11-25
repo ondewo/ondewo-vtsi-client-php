@@ -11,15 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCallers">Calls.UpdateCallers</a>.
- * <p>Rejected as a whole, nothing being written, with: <code>INVALID_ARGUMENT</code> for a malformed
- * <code>vtsi_project_name</code>, no entry, more than 1000 entries, two entries naming the same caller, an entry
- * whose <code>caller.name</code> is malformed or whose project segment differs from
- * <code>vtsi_project_name</code>, an entry with its own <code>field_mask</code> or <code>validate_only</code> set, or an unknown
- * <code>field_mask</code> path (each naming the entry index or the path); <code>NOT_FOUND</code> for an unknown
- * project; with authorization enforced <code>PERMISSION_DENIED</code> for a project the caller holds no role on
- * or a role below the one <code>UpdateCaller</code> requires. Every other error is reported per entry, e.g. a
- * well-formed name of the right project that names no caller is that entry&apos;s
- * <code>NOT_FOUND</code>.</p>
+ * Rejected as a whole, nothing being written, with: <code>INVALID_ARGUMENT</code> for a malformed <code>vtsi_project_name</code>, no entry, more than 1000 entries, two entries naming the same caller, an entry whose <code>caller.name</code> is malformed or whose project segment differs from <code>vtsi_project_name</code>, an entry with its own <code>field_mask</code> or <code>validate_only</code> set, or an unknown <code>field_mask</code> path (each naming the entry index or the path); <code>NOT_FOUND</code> for an unknown project; with authorization enforced <code>PERMISSION_DENIED</code> for a project the caller holds no role on or a role below the one <code>UpdateCaller</code> requires. Every other error is reported per entry, e.g. a well-formed name of the right project that names no caller is that entry&apos;s <code>NOT_FOUND</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateCallersRequest</code>
  */
@@ -33,7 +25,8 @@ class UpdateCallersRequest extends \Google\Protobuf\Internal\Message
      */
     protected $vtsi_project_name = '';
     /**
-     * The updates, applied one by one and each like <code>UpdateCaller</code>.
+     * The updates, applied one by one and each like <code>UpdateCaller</code>: each changes the stored
+     * configuration of its caller only, and no running or placed call (see <code>UpdateCallerRequest.caller</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateCallerRequest update_caller_requests = 2;</code>
      */
@@ -67,7 +60,8 @@ class UpdateCallersRequest extends \Google\Protobuf\Internal\Message
      *           VTSI project of every caller of the request.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/project</code></pre>
      *     @type \Ondewo\Vtsi\UpdateCallerRequest[] $update_caller_requests
-     *           The updates, applied one by one and each like <code>UpdateCaller</code>.
+     *           The updates, applied one by one and each like <code>UpdateCaller</code>: each changes the stored
+     *           configuration of its caller only, and no running or placed call (see <code>UpdateCallerRequest.caller</code>).
      *     @type \Google\Protobuf\FieldMask $field_mask
      *           Optional. Partial response: the field paths to populate in the <code>caller</code> of EVERY entry of
      *           <code>UpdateCallersResponse.update_caller_responses</code>, relative to the <code>Caller</code> message (no
@@ -114,7 +108,8 @@ class UpdateCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The updates, applied one by one and each like <code>UpdateCaller</code>.
+     * The updates, applied one by one and each like <code>UpdateCaller</code>: each changes the stored
+     * configuration of its caller only, and no running or placed call (see <code>UpdateCallerRequest.caller</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateCallerRequest update_caller_requests = 2;</code>
      * @return RepeatedField<\Ondewo\Vtsi\UpdateCallerRequest>
@@ -125,7 +120,8 @@ class UpdateCallersRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The updates, applied one by one and each like <code>UpdateCaller</code>.
+     * The updates, applied one by one and each like <code>UpdateCaller</code>: each changes the stored
+     * configuration of its caller only, and no running or placed call (see <code>UpdateCallerRequest.caller</code>).
      *
      * Generated from protobuf field <code>repeated .ondewo.vtsi.UpdateCallerRequest update_caller_requests = 2;</code>
      * @param \Ondewo\Vtsi\UpdateCallerRequest[] $var

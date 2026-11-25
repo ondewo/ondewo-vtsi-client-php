@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A human-review annotation-queue item: one per failing session step enqueued by
- * the online-evaluation worker. The reviewer annotates (status / reason) and may
- * promote the offending session into a regression dataset.
+ * A human-review annotation-queue item: one per failing session step enqueued by the online-evaluation worker. The reviewer annotates (status / reason) and may promote the offending session into a regression dataset.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationAnnotationQueueItem</code>
  */

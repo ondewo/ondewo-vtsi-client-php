@@ -10,11 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Native safety assessment for one LLM call, computed at telemetry build time by
- * a dependency-free (regex / substring) assessor over the call's input / output
- * text. Additive, optional: absent when safety scoring is disabled. This is the
- * live MONITORING signal; the offline LLM-judge safety evaluators live in
- * <code>llm_evaluation.proto</code>.
+ * Native safety assessment for one LLM call, computed at telemetry build time by a dependency-free (regex / substring) assessor over the call's input / output text. Additive, optional: absent when safety scoring is disabled. This is the live MONITORING signal; the offline LLM-judge safety evaluators live in <code>llm_evaluation.proto</code>.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmSafetyAssessment</code>
  */

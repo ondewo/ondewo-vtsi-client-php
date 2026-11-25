@@ -9,9 +9,7 @@ use UnexpectedValueException;
 
 /**
  * Defines the types of CCAI (Call Center AI) services available in the system.
- * Each service type represents a specific capability or module within the ONDEWO platform
- * that enables comprehensive call center and customer interaction management. Services can be
- * composed in workflows and are identified by their type, language code, and provider configuration.
+ * Each service type represents a specific capability or module within the ONDEWO platform that enables comprehensive call center and customer interaction management. Services can be composed in workflows and are identified by their type, language code, and provider configuration.
  *
  * Protobuf type <code>ondewo.nlu.CcaiServiceType</code>
  */

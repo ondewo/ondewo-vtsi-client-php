@@ -8,9 +8,7 @@ namespace Ondewo\Nlu\EntityType;
 use UnexpectedValueException;
 
 /**
- * Represents different entity type expansion modes. Automated expansion
- * allows an agent to recognize values that have not been explicitly listed in
- * the entity (for example, new kinds of shopping list items).
+ * Represents different entity type expansion modes. Automated expansion allows an agent to recognize values that have not been explicitly listed in the entity (for example, new kinds of shopping list items).
  *
  * Protobuf type <code>ondewo.nlu.EntityType.AutoExpansionMode</code>
  */

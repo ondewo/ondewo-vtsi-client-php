@@ -20,6 +20,14 @@ class UpdateListenerRequest extends \Google\Protobuf\Internal\Message
      * The listener to update, identified by <code>listener.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>), carrying the new
      * values of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the listener&apos;s STORED configuration. <code>UpdateListener</code> does NOT
+     * redeploy the listener: its running container answers its current call and every following inbound call
+     * with the configuration it was deployed with. The stored configuration takes effect only when the server
+     * recreates the listener from it, i.e. when it recycles the project&apos;s listeners onto its Asterisk (an
+     * <code>UpdateVtsiProject</code> of a deployed project, the recovery after the project&apos;s Asterisk
+     * restarted, a change of the project&apos;s TLS trust anchor); a restart of the same container keeps the old
+     * configuration. To make every following call use the new configuration at once, stop the listener and start
+     * a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 1;</code>
      */
@@ -68,6 +76,14 @@ class UpdateListenerRequest extends \Google\Protobuf\Internal\Message
      *           The listener to update, identified by <code>listener.name</code>
      *           (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>), carrying the new
      *           values of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     *           <p>What the new values change: the listener&apos;s STORED configuration. <code>UpdateListener</code> does NOT
+     *           redeploy the listener: its running container answers its current call and every following inbound call
+     *           with the configuration it was deployed with. The stored configuration takes effect only when the server
+     *           recreates the listener from it, i.e. when it recycles the project&apos;s listeners onto its Asterisk (an
+     *           <code>UpdateVtsiProject</code> of a deployed project, the recovery after the project&apos;s Asterisk
+     *           restarted, a change of the project&apos;s TLS trust anchor); a restart of the same container keeps the old
+     *           configuration. To make every following call use the new configuration at once, stop the listener and start
+     *           a new one with it.</p>
      *     @type \Google\Protobuf\FieldMask $update_mask
      *           Required. Paths relative to <code>Listener</code>, WITHOUT a <code>listener.</code> prefix. Updatable
      *           paths: <code>sip_base_config</code> and <code>common_services_config</code>, each also as any nested
@@ -100,6 +116,14 @@ class UpdateListenerRequest extends \Google\Protobuf\Internal\Message
      * The listener to update, identified by <code>listener.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>), carrying the new
      * values of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the listener&apos;s STORED configuration. <code>UpdateListener</code> does NOT
+     * redeploy the listener: its running container answers its current call and every following inbound call
+     * with the configuration it was deployed with. The stored configuration takes effect only when the server
+     * recreates the listener from it, i.e. when it recycles the project&apos;s listeners onto its Asterisk (an
+     * <code>UpdateVtsiProject</code> of a deployed project, the recovery after the project&apos;s Asterisk
+     * restarted, a change of the project&apos;s TLS trust anchor); a restart of the same container keeps the old
+     * configuration. To make every following call use the new configuration at once, stop the listener and start
+     * a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 1;</code>
      * @return \Ondewo\Vtsi\Listener|null
@@ -123,6 +147,14 @@ class UpdateListenerRequest extends \Google\Protobuf\Internal\Message
      * The listener to update, identified by <code>listener.name</code>
      * (<pre><code>projects/&lt;project_uuid&gt;/listeners/&lt;listener_uuid&gt;</code></pre>), carrying the new
      * values of the fields named in <code>update_mask</code>. Its fields that no path names are ignored.
+     * <p>What the new values change: the listener&apos;s STORED configuration. <code>UpdateListener</code> does NOT
+     * redeploy the listener: its running container answers its current call and every following inbound call
+     * with the configuration it was deployed with. The stored configuration takes effect only when the server
+     * recreates the listener from it, i.e. when it recycles the project&apos;s listeners onto its Asterisk (an
+     * <code>UpdateVtsiProject</code> of a deployed project, the recovery after the project&apos;s Asterisk
+     * restarted, a change of the project&apos;s TLS trust anchor); a restart of the same container keeps the old
+     * configuration. To make every following call use the new configuration at once, stop the listener and start
+     * a new one with it.</p>
      *
      * Generated from protobuf field <code>.ondewo.vtsi.Listener listener = 1;</code>
      * @param \Ondewo\Vtsi\Listener $var

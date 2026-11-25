@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A call of a listener or caller: one record per call, kept after the call ended. Every field is output only
- * except <code>labels</code> (see <code>UpdateCall</code>). The WAITING record of a persistent listener or pooled
- * caller (status <code>NO_ONGOING_CALL</code>, not active, no start time) is a <code>Call</code> too.
+ * A call of a listener or caller: one record per call, kept after the call ended. Every field is output only except <code>labels</code> (see <code>UpdateCall</code>). The WAITING record of a persistent listener or pooled caller (status <code>NO_ONGOING_CALL</code>, not active, no start time) is a <code>Call</code> too.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Call</code>
  */
@@ -236,6 +234,17 @@ class Call extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string ivr_menu_name = 29;</code>
      */
     protected $ivr_menu_name = '';
+    /**
+     * Output only. The inbound phone number the caller dialled, as the project&apos;s Asterisk received it from the
+     * carrier trunk (from <code>X-ondewo-dialed-number</code>, which the trunk&apos;s IVR entry hook sets on every
+     * inbound call), e.g. <code>+493052187211</code>: digits with an optional leading <code>+</code>, at most 32
+     * characters. It is the company&apos;s own number, not the caller&apos;s (that is <code>phone_number</code>).
+     * Empty when the call did not come in over the carrier trunk, or the dialled number was not numeric. Set in the
+     * SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string dialed_number = 30;</code>
+     */
+    protected $dialed_number = '';
 
     /**
      * Constructor.
@@ -345,6 +354,13 @@ class Call extends \Google\Protobuf\Internal\Message
      *           <code>ivr_menu_display_name</code> names, so a client can find the menu by id instead of by its label.
      *           The format is: <pre><code>projects/&lt;project_uuid&gt;/ivr_menus/&lt;ivr_menu_uuid&gt;</code></pre>
      *           Empty when the call did not pass an IVR menu. Set in the SHALLOW and FULL views
+     *     @type string $dialed_number
+     *           Output only. The inbound phone number the caller dialled, as the project&apos;s Asterisk received it from the
+     *           carrier trunk (from <code>X-ondewo-dialed-number</code>, which the trunk&apos;s IVR entry hook sets on every
+     *           inbound call), e.g. <code>+493052187211</code>: digits with an optional leading <code>+</code>, at most 32
+     *           characters. It is the company&apos;s own number, not the caller&apos;s (that is <code>phone_number</code>).
+     *           Empty when the call did not come in over the carrier trunk, or the dialled number was not numeric. Set in the
+     *           SHALLOW and FULL views
      * }
      */
     public function __construct($data = NULL) {
@@ -1330,6 +1346,42 @@ class Call extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, true);
         $this->ivr_menu_name = $var;
+
+        return $this;
+    }
+
+    /**
+     * Output only. The inbound phone number the caller dialled, as the project&apos;s Asterisk received it from the
+     * carrier trunk (from <code>X-ondewo-dialed-number</code>, which the trunk&apos;s IVR entry hook sets on every
+     * inbound call), e.g. <code>+493052187211</code>: digits with an optional leading <code>+</code>, at most 32
+     * characters. It is the company&apos;s own number, not the caller&apos;s (that is <code>phone_number</code>).
+     * Empty when the call did not come in over the carrier trunk, or the dialled number was not numeric. Set in the
+     * SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string dialed_number = 30;</code>
+     * @return string
+     */
+    public function getDialedNumber()
+    {
+        return $this->dialed_number;
+    }
+
+    /**
+     * Output only. The inbound phone number the caller dialled, as the project&apos;s Asterisk received it from the
+     * carrier trunk (from <code>X-ondewo-dialed-number</code>, which the trunk&apos;s IVR entry hook sets on every
+     * inbound call), e.g. <code>+493052187211</code>: digits with an optional leading <code>+</code>, at most 32
+     * characters. It is the company&apos;s own number, not the caller&apos;s (that is <code>phone_number</code>).
+     * Empty when the call did not come in over the carrier trunk, or the dialled number was not numeric. Set in the
+     * SHALLOW and FULL views
+     *
+     * Generated from protobuf field <code>string dialed_number = 30;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setDialedNumber(string $var)
+    {
+        GPBUtil::checkString($var, true);
+        $this->dialed_number = $var;
 
         return $this;
     }

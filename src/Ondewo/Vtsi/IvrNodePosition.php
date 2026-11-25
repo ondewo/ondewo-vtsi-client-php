@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Position of a node on the editor canvas</p>
+ * Position of a node on the editor canvas
  *
  * Generated from protobuf message <code>ondewo.vtsi.IvrNodePosition</code>
  */

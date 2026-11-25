@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>PtFiles contains information about PT files.</p>
+ * PtFiles contains information about PT files.
  *
  * Generated from protobuf message <code>ondewo.s2t.PtFiles</code>
  */

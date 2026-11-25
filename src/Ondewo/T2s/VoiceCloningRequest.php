@@ -10,9 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>VoiceCloningRequest message represents the request for cloning a voice.</p>
- * <p>A VoiceCloningRequest contains a sample audio of the speaker to be cloned together with
- * its transcription and the information about the speaker and the model to use for cloning.</p>
+ * VoiceCloningRequest message represents the request for cloning a voice.
+ * A VoiceCloningRequest contains a sample audio of the speaker to be cloned together with its transcription and the information about the speaker and the model to use for cloning.
  *
  * Generated from protobuf message <code>ondewo.t2s.VoiceCloningRequest</code>
  */

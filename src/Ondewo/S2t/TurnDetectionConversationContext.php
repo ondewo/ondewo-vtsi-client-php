@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TurnDetectionConversationContext carries the latest turns of the conversation for
- * <code>TurnDetectionEndOfUtteranceLlmOptions</code> (see
- * <code>TurnDetectionOptions.turn_detection_conversation_context</code>). No other detector reads it.</p>
+ * TurnDetectionConversationContext carries the latest turns of the conversation for <code>TurnDetectionEndOfUtteranceLlmOptions</code> (see <code>TurnDetectionOptions.turn_detection_conversation_context</code>). No other detector reads it.
  *
  * Generated from protobuf message <code>ondewo.s2t.TurnDetectionConversationContext</code>
  */

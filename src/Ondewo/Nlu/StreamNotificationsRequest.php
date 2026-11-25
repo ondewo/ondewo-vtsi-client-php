@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Message for streaming notifications in real time via
- * <a href="index.html#ondewo.nlu.Users.StreamNotifications">Users.StreamNotifications</a>.
+ * Message for streaming notifications in real time via <a href="index.html#ondewo.nlu.Users.StreamNotifications">Users.StreamNotifications</a>.
  *
  * Generated from protobuf message <code>ondewo.nlu.StreamNotificationsRequest</code>
  */

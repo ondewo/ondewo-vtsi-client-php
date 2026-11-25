@@ -8,26 +8,29 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * <p>How the briefing of a warm intro is produced</p>
+ * How the briefing of a warm intro is produced
  *
  * Protobuf type <code>ondewo.vtsi.WarmIntroTextSource</code>
  */
 class WarmIntroTextSource
 {
     /**
-     * See <code>WarmTransferConfig.intro_text_source</code>
+     * Chosen by the deployment: <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY</code> with phase B enabled, else
+     * <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE</code> (see <code>WarmTransferConfig.intro_text_source</code>)
      *
      * Generated from protobuf enum <code>WARM_INTRO_TEXT_SOURCE_UNSPECIFIED = 0;</code>
      */
     const WARM_INTRO_TEXT_SOURCE_UNSPECIFIED = 0;
     /**
-     * <code>WarmTransferConfig.intro_prompt</code> as a template
+     * <code>WarmTransferConfig.intro_prompt</code> as a template with placeholders, else the built-in template.
+     * Predictable wording, no LLM
      *
      * Generated from protobuf enum <code>WARM_INTRO_TEXT_SOURCE_TEMPLATE = 1;</code>
      */
     const WARM_INTRO_TEXT_SOURCE_TEMPLATE = 1;
     /**
-     * An LLM summary of the call so far, instructed by <code>WarmTransferConfig.intro_prompt</code> (phase B)
+     * <i>Phase B</i>: an LLM summary of the call so far, instructed by <code>WarmTransferConfig.intro_prompt</code>;
+     * the built-in template when no summary can be written (<code>WarmIntroRecord.text_fell_back</code>)
      *
      * Generated from protobuf enum <code>WARM_INTRO_TEXT_SOURCE_LLM_SUMMARY = 2;</code>
      */

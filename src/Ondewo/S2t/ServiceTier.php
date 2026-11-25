@@ -8,7 +8,7 @@ namespace Ondewo\S2t;
 use UnexpectedValueException;
 
 /**
- * <p>Latency tier to use for processing an OpenAI request. Affects cost and throughput.</p>
+ * Latency tier to use for processing an OpenAI request. Affects cost and throughput.
  *
  * Protobuf type <code>ondewo.s2t.ServiceTier</code>
  */

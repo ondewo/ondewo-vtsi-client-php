@@ -11,14 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateCalls">Calls.UpdateCalls</a>.
- * <p>Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with calls instead of callers and
- * <code>UpdateCall</code> as the role reference (<code>INVALID_ARGUMENT</code> for a malformed
- * <code>vtsi_project_name</code>, no entry, more than 1000 entries, two entries naming the same call, an entry
- * whose <code>call.name</code> is malformed or whose project segment differs from
- * <code>vtsi_project_name</code>, an entry with its own <code>field_mask</code>, an unknown
- * <code>field_mask</code> path; <code>NOT_FOUND</code> for an unknown project; <code>PERMISSION_DENIED</code>);
- * every other error is reported per entry, e.g. a well-formed name of the right project that names no call is
- * that entry&apos;s <code>NOT_FOUND</code>.</p>
+ * Rejected as a whole exactly like <code>UpdateCallersRequest</code>, with calls instead of callers and <code>UpdateCall</code> as the role reference (<code>INVALID_ARGUMENT</code> for a malformed <code>vtsi_project_name</code>, no entry, more than 1000 entries, two entries naming the same call, an entry whose <code>call.name</code> is malformed or whose project segment differs from <code>vtsi_project_name</code>, an entry with its own <code>field_mask</code>, an unknown <code>field_mask</code> path; <code>NOT_FOUND</code> for an unknown project; <code>PERMISSION_DENIED</code>); every other error is reported per entry, e.g. a well-formed name of the right project that names no call is that entry&apos;s <code>NOT_FOUND</code>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateCallsRequest</code>
  */

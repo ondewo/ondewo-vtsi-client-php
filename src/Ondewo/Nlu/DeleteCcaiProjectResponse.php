@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Response to delete a CCAI service project
- * If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
+ * Response to delete a CCAI service project If a deployed CCAI service project was deleted then it was undeployed beforehand automatically
  *
  * Generated from protobuf message <code>ondewo.nlu.DeleteCcaiProjectResponse</code>
  */

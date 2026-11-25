@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription, and narrows a
- * <code>RedeliverWebhookEvents</code> window. Every set field narrows the selection (AND); the entries of one
- * list are alternatives (OR).
+ * Selects events for <code>SubscribeVtsiEvents</code> without a stored subscription, and narrows a <code>RedeliverWebhookEvents</code> window. Every set field narrows the selection (AND); the entries of one list are alternatives (OR).
  *
  * Generated from protobuf message <code>ondewo.vtsi.VtsiEventFilter</code>
  */

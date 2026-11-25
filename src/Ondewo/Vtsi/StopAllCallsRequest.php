@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request to stop all calls of a VTSI project (hang them up and release their listeners and callers), or, with
- * <code>call_filter</code>, those of them the filter matches.
+ * Request to stop all calls of a VTSI project (hang them up and release their listeners and callers), or, with <code>call_filter</code>, those of them the filter matches.
  *
  * Generated from protobuf message <code>ondewo.vtsi.StopAllCallsRequest</code>
  */

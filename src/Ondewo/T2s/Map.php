@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>Map message represents a word-to-phoneme mapping in a custom phonemizer.</p>
+ * Map message represents a word-to-phoneme mapping in a custom phonemizer.
  *
  * Generated from protobuf message <code>ondewo.t2s.Map</code>
  */

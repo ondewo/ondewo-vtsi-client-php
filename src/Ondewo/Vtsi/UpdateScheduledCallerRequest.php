@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * The request message for
- * <a href="index.html#ondewo.vtsi.Calls.UpdateScheduledCaller">Calls.UpdateScheduledCaller</a>.
+ * The request message for <a href="index.html#ondewo.vtsi.Calls.UpdateScheduledCaller">Calls.UpdateScheduledCaller</a>.
  *
  * Generated from protobuf message <code>ondewo.vtsi.UpdateScheduledCallerRequest</code>
  */

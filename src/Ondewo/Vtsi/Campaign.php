@@ -11,6 +11,7 @@ use Google\Protobuf\RepeatedField;
 
 /**
  * A campaign: a set of outbound calls started with a limit on how many run at the same time.
+ * Besides when and how often calls are placed (<code>max_parallel_calls</code>, <code>max_attempts</code>, <code>retry_delay</code>, <code>calling_window</code>), a campaign can carry call defaults (<code>campaign_common_services_config</code>, <code>campaign_sip_caller_config</code>) that decide how each of its calls behaves: which agent answers, which voice, whether the callee may interrupt the bot, and so on. Every call takes them unless it sets its own value.
  *
  * Generated from protobuf message <code>ondewo.vtsi.Campaign</code>
  */
@@ -167,11 +168,42 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
      *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
      * </ul>
-     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
-     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
-     * out what the campaign supplies. Because the default is read live, an update that makes the effective
-     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
-     * cannot succeed by repetition (it is not retried).</p>
+     * <p>What this means for the call-behaviour settings: almost every one of them (turn detection,
+     * interruptions, response timing, DTMF, dictation, bot transfers, <code>sip_vtsi_config</code>, ...) is an
+     * <code>optional</code> scalar, where unset means &quot;inherit&quot;. A setting the campaign leaves unset
+     * falls through to the deployment-wide <code>ONDEWO_VTSI_*</code> setting, if the operator set one, and
+     * otherwise to its built-in default. A setting the campaign sets applies to every call of the campaign
+     * and wins over the deployment-wide setting. A call can override it in either direction, because an
+     * <code>optional</code> field the call sets wins also when it is <code>false</code> or <code>0</code>; but a
+     * call cannot take a campaign value back to &quot;inherit&quot;: to let the calls inherit again, clear the
+     * field in the campaign (see <code>UpdateCampaignRequest.update_mask</code>).</p>
+     * <p>Example: with</p>
+     * <pre><code>campaign_common_services_config {
+     *   voice_interaction_config {
+     *     interruption_handling_config { enabled: true }
+     *     response_timing_config { turn_timeout_seconds: 8 turn_timeout_intent: &quot;i.still.there&quot; }
+     *   }
+     * }</code></pre>
+     * <p>every call of the campaign lets the callee interrupt the bot and, after 8 s of callee silence, plays the
+     * answer of the intent <code>i.still.there</code>, while every other interruption and timing setting the
+     * campaign leaves unset keeps the deployment&apos;s value. A call whose entry carries
+     * <code>interruption_handling_config { enabled: false }</code> is not interruptible and still uses 8 s; a
+     * call whose entry carries <code>response_timing_config { turn_timeout_seconds: 5 }</code> uses 5 s (the
+     * intent still comes from the campaign) and is interruptible.</p>
+     * <p>Validation: the default itself is NOT checked when it is created or updated (it may be partial; the
+     * calls may supply the rest). The effective configuration of each call is validated exactly as a
+     * <code>StartCallerRequest</code> carrying it, so an entry of <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code> may leave out what the campaign supplies, and a value out of
+     * its range, set by the campaign or by the entry, refuses that request with <code>INVALID_ARGUMENT</code>
+     * naming the entry&apos;s index; nothing is added. Because the default is read live, an update that makes
+     * the effective configuration of a not yet dispatched call invalid fails that call at dispatch as a
+     * failure that cannot succeed by repetition (it is not retried).</p>
+     * <p>Pooled callers: when the server keeps callers warm between calls (a pooled, persistent caller), a
+     * call reuses an idle pooled caller only when its effective configuration is the same as the one that
+     * caller was deployed with, apart from the callee and the SIP headers. Calls of one campaign that do not
+     * set their own call-behaviour values can therefore share warm callers; a call with values of its own,
+     * and every call dispatched after an update that changed its effective configuration, cannot reuse a
+     * warm caller of another configuration and is placed by a caller of its own.</p>
      * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
      * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
      * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
@@ -187,7 +219,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
      * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
      * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
-     * out by default. A client that reads such a campaign and writes the whole config back with
+     * out by default. Every field outside that list reads back unset for them, also when the campaign sets
+     * it, so such a reader cannot tell from the response whether the calls inherit a setting there. A
+     * client that reads such a campaign and writes the whole config back with
      * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
      * credentials with the withheld (empty) ones; update a sub-path instead.</p>
      *
@@ -204,7 +238,17 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
      * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
      * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
-     * key with the call&apos;s header winning on a shared name.</p>
+     * key with the call&apos;s header winning on a shared name, so every call sends the campaign&apos;s headers
+     * plus its own. Example: a campaign default <code>sip_headers { key: &quot;X-Campaign&quot; value:
+     * &quot;spring&quot; }</code> and an entry with <code>sip_headers { key: &quot;X-Customer&quot; value:
+     * &quot;42&quot; }</code> dial with both headers.</p>
+     * <p>Validation: what this default sets is checked when it is created or updated
+     * (<code>INVALID_ARGUMENT</code> naming the field): <code>sip_base_config.sip_sim_version</code> must be a
+     * valid image tag, <code>callee_id</code> at most 2048 characters and, when it holds no letter and no
+     * <code>\@</code>, a valid phone number, and at most 64 <code>sip_headers</code>. The complete effective
+     * configuration is validated when a call is added and again at dispatch, as for
+     * <code>campaign_common_services_config</code>. The callee and the SIP headers never keep a call from
+     * reusing an idle pooled caller; the image version does.</p>
      * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
      * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
      * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
@@ -389,11 +433,42 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *             <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
      *                 <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
      *           </ul>
-     *           <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
-     *           so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
-     *           out what the campaign supplies. Because the default is read live, an update that makes the effective
-     *           configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
-     *           cannot succeed by repetition (it is not retried).</p>
+     *           <p>What this means for the call-behaviour settings: almost every one of them (turn detection,
+     *           interruptions, response timing, DTMF, dictation, bot transfers, <code>sip_vtsi_config</code>, ...) is an
+     *           <code>optional</code> scalar, where unset means &quot;inherit&quot;. A setting the campaign leaves unset
+     *           falls through to the deployment-wide <code>ONDEWO_VTSI_*</code> setting, if the operator set one, and
+     *           otherwise to its built-in default. A setting the campaign sets applies to every call of the campaign
+     *           and wins over the deployment-wide setting. A call can override it in either direction, because an
+     *           <code>optional</code> field the call sets wins also when it is <code>false</code> or <code>0</code>; but a
+     *           call cannot take a campaign value back to &quot;inherit&quot;: to let the calls inherit again, clear the
+     *           field in the campaign (see <code>UpdateCampaignRequest.update_mask</code>).</p>
+     *           <p>Example: with</p>
+     *           <pre><code>campaign_common_services_config {
+     *             voice_interaction_config {
+     *               interruption_handling_config { enabled: true }
+     *               response_timing_config { turn_timeout_seconds: 8 turn_timeout_intent: &quot;i.still.there&quot; }
+     *             }
+     *           }</code></pre>
+     *           <p>every call of the campaign lets the callee interrupt the bot and, after 8 s of callee silence, plays the
+     *           answer of the intent <code>i.still.there</code>, while every other interruption and timing setting the
+     *           campaign leaves unset keeps the deployment&apos;s value. A call whose entry carries
+     *           <code>interruption_handling_config { enabled: false }</code> is not interruptible and still uses 8 s; a
+     *           call whose entry carries <code>response_timing_config { turn_timeout_seconds: 5 }</code> uses 5 s (the
+     *           intent still comes from the campaign) and is interruptible.</p>
+     *           <p>Validation: the default itself is NOT checked when it is created or updated (it may be partial; the
+     *           calls may supply the rest). The effective configuration of each call is validated exactly as a
+     *           <code>StartCallerRequest</code> carrying it, so an entry of <code>AddCallersToCampaign</code> /
+     *           <code>AddScheduledCallersToCampaign</code> may leave out what the campaign supplies, and a value out of
+     *           its range, set by the campaign or by the entry, refuses that request with <code>INVALID_ARGUMENT</code>
+     *           naming the entry&apos;s index; nothing is added. Because the default is read live, an update that makes
+     *           the effective configuration of a not yet dispatched call invalid fails that call at dispatch as a
+     *           failure that cannot succeed by repetition (it is not retried).</p>
+     *           <p>Pooled callers: when the server keeps callers warm between calls (a pooled, persistent caller), a
+     *           call reuses an idle pooled caller only when its effective configuration is the same as the one that
+     *           caller was deployed with, apart from the callee and the SIP headers. Calls of one campaign that do not
+     *           set their own call-behaviour values can therefore share warm callers; a call with values of its own,
+     *           and every call dispatched after an update that changed its effective configuration, cannot reuse a
+     *           warm caller of another configuration and is placed by a caller of its own.</p>
      *           <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
      *           <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
      *           <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
@@ -409,7 +484,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *           (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
      *           interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
      *           disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
-     *           out by default. A client that reads such a campaign and writes the whole config back with
+     *           out by default. Every field outside that list reads back unset for them, also when the campaign sets
+     *           it, so such a reader cannot tell from the response whether the calls inherit a setting there. A
+     *           client that reads such a campaign and writes the whole config back with
      *           <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
      *           credentials with the withheld (empty) ones; update a sub-path instead.</p>
      *     @type \Ondewo\Vtsi\SipCallerConfig $campaign_sip_caller_config
@@ -422,7 +499,17 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *           <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
      *           is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
      *           merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
-     *           key with the call&apos;s header winning on a shared name.</p>
+     *           key with the call&apos;s header winning on a shared name, so every call sends the campaign&apos;s headers
+     *           plus its own. Example: a campaign default <code>sip_headers { key: &quot;X-Campaign&quot; value:
+     *           &quot;spring&quot; }</code> and an entry with <code>sip_headers { key: &quot;X-Customer&quot; value:
+     *           &quot;42&quot; }</code> dial with both headers.</p>
+     *           <p>Validation: what this default sets is checked when it is created or updated
+     *           (<code>INVALID_ARGUMENT</code> naming the field): <code>sip_base_config.sip_sim_version</code> must be a
+     *           valid image tag, <code>callee_id</code> at most 2048 characters and, when it holds no letter and no
+     *           <code>\@</code>, a valid phone number, and at most 64 <code>sip_headers</code>. The complete effective
+     *           configuration is validated when a call is added and again at dispatch, as for
+     *           <code>campaign_common_services_config</code>. The callee and the SIP headers never keep a call from
+     *           reusing an idle pooled caller; the image version does.</p>
      *           <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
      *           call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
      *           <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
@@ -1080,11 +1167,42 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
      *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
      * </ul>
-     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
-     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
-     * out what the campaign supplies. Because the default is read live, an update that makes the effective
-     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
-     * cannot succeed by repetition (it is not retried).</p>
+     * <p>What this means for the call-behaviour settings: almost every one of them (turn detection,
+     * interruptions, response timing, DTMF, dictation, bot transfers, <code>sip_vtsi_config</code>, ...) is an
+     * <code>optional</code> scalar, where unset means &quot;inherit&quot;. A setting the campaign leaves unset
+     * falls through to the deployment-wide <code>ONDEWO_VTSI_*</code> setting, if the operator set one, and
+     * otherwise to its built-in default. A setting the campaign sets applies to every call of the campaign
+     * and wins over the deployment-wide setting. A call can override it in either direction, because an
+     * <code>optional</code> field the call sets wins also when it is <code>false</code> or <code>0</code>; but a
+     * call cannot take a campaign value back to &quot;inherit&quot;: to let the calls inherit again, clear the
+     * field in the campaign (see <code>UpdateCampaignRequest.update_mask</code>).</p>
+     * <p>Example: with</p>
+     * <pre><code>campaign_common_services_config {
+     *   voice_interaction_config {
+     *     interruption_handling_config { enabled: true }
+     *     response_timing_config { turn_timeout_seconds: 8 turn_timeout_intent: &quot;i.still.there&quot; }
+     *   }
+     * }</code></pre>
+     * <p>every call of the campaign lets the callee interrupt the bot and, after 8 s of callee silence, plays the
+     * answer of the intent <code>i.still.there</code>, while every other interruption and timing setting the
+     * campaign leaves unset keeps the deployment&apos;s value. A call whose entry carries
+     * <code>interruption_handling_config { enabled: false }</code> is not interruptible and still uses 8 s; a
+     * call whose entry carries <code>response_timing_config { turn_timeout_seconds: 5 }</code> uses 5 s (the
+     * intent still comes from the campaign) and is interruptible.</p>
+     * <p>Validation: the default itself is NOT checked when it is created or updated (it may be partial; the
+     * calls may supply the rest). The effective configuration of each call is validated exactly as a
+     * <code>StartCallerRequest</code> carrying it, so an entry of <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code> may leave out what the campaign supplies, and a value out of
+     * its range, set by the campaign or by the entry, refuses that request with <code>INVALID_ARGUMENT</code>
+     * naming the entry&apos;s index; nothing is added. Because the default is read live, an update that makes
+     * the effective configuration of a not yet dispatched call invalid fails that call at dispatch as a
+     * failure that cannot succeed by repetition (it is not retried).</p>
+     * <p>Pooled callers: when the server keeps callers warm between calls (a pooled, persistent caller), a
+     * call reuses an idle pooled caller only when its effective configuration is the same as the one that
+     * caller was deployed with, apart from the callee and the SIP headers. Calls of one campaign that do not
+     * set their own call-behaviour values can therefore share warm callers; a call with values of its own,
+     * and every call dispatched after an update that changed its effective configuration, cannot reuse a
+     * warm caller of another configuration and is placed by a caller of its own.</p>
      * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
      * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
      * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
@@ -1100,7 +1218,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
      * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
      * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
-     * out by default. A client that reads such a campaign and writes the whole config back with
+     * out by default. Every field outside that list reads back unset for them, also when the campaign sets
+     * it, so such a reader cannot tell from the response whether the calls inherit a setting there. A
+     * client that reads such a campaign and writes the whole config back with
      * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
      * credentials with the withheld (empty) ones; update a sub-path instead.</p>
      *
@@ -1149,11 +1269,42 @@ class Campaign extends \Google\Protobuf\Internal\Message
      *   <li>a oneof member the call sets replaces whichever member the campaign set (e.g.
      *       <code>nlu_vtsi_config.credentials</code> versus <code>nlu_vtsi_config.auth_token</code>).</li>
      * </ul>
-     * <p>The effective configuration is validated exactly as a <code>StartCallerRequest</code> carrying it,
-     * so an entry of <code>AddCallersToCampaign</code> / <code>AddScheduledCallersToCampaign</code> may leave
-     * out what the campaign supplies. Because the default is read live, an update that makes the effective
-     * configuration of a not yet dispatched call invalid fails that call at dispatch as a failure that
-     * cannot succeed by repetition (it is not retried).</p>
+     * <p>What this means for the call-behaviour settings: almost every one of them (turn detection,
+     * interruptions, response timing, DTMF, dictation, bot transfers, <code>sip_vtsi_config</code>, ...) is an
+     * <code>optional</code> scalar, where unset means &quot;inherit&quot;. A setting the campaign leaves unset
+     * falls through to the deployment-wide <code>ONDEWO_VTSI_*</code> setting, if the operator set one, and
+     * otherwise to its built-in default. A setting the campaign sets applies to every call of the campaign
+     * and wins over the deployment-wide setting. A call can override it in either direction, because an
+     * <code>optional</code> field the call sets wins also when it is <code>false</code> or <code>0</code>; but a
+     * call cannot take a campaign value back to &quot;inherit&quot;: to let the calls inherit again, clear the
+     * field in the campaign (see <code>UpdateCampaignRequest.update_mask</code>).</p>
+     * <p>Example: with</p>
+     * <pre><code>campaign_common_services_config {
+     *   voice_interaction_config {
+     *     interruption_handling_config { enabled: true }
+     *     response_timing_config { turn_timeout_seconds: 8 turn_timeout_intent: &quot;i.still.there&quot; }
+     *   }
+     * }</code></pre>
+     * <p>every call of the campaign lets the callee interrupt the bot and, after 8 s of callee silence, plays the
+     * answer of the intent <code>i.still.there</code>, while every other interruption and timing setting the
+     * campaign leaves unset keeps the deployment&apos;s value. A call whose entry carries
+     * <code>interruption_handling_config { enabled: false }</code> is not interruptible and still uses 8 s; a
+     * call whose entry carries <code>response_timing_config { turn_timeout_seconds: 5 }</code> uses 5 s (the
+     * intent still comes from the campaign) and is interruptible.</p>
+     * <p>Validation: the default itself is NOT checked when it is created or updated (it may be partial; the
+     * calls may supply the rest). The effective configuration of each call is validated exactly as a
+     * <code>StartCallerRequest</code> carrying it, so an entry of <code>AddCallersToCampaign</code> /
+     * <code>AddScheduledCallersToCampaign</code> may leave out what the campaign supplies, and a value out of
+     * its range, set by the campaign or by the entry, refuses that request with <code>INVALID_ARGUMENT</code>
+     * naming the entry&apos;s index; nothing is added. Because the default is read live, an update that makes
+     * the effective configuration of a not yet dispatched call invalid fails that call at dispatch as a
+     * failure that cannot succeed by repetition (it is not retried).</p>
+     * <p>Pooled callers: when the server keeps callers warm between calls (a pooled, persistent caller), a
+     * call reuses an idle pooled caller only when its effective configuration is the same as the one that
+     * caller was deployed with, apart from the callee and the SIP headers. Calls of one campaign that do not
+     * set their own call-behaviour values can therefore share warm callers; a call with values of its own,
+     * and every call dispatched after an update that changed its effective configuration, cannot reuse a
+     * warm caller of another configuration and is placed by a caller of its own.</p>
      * <p>Returned by <code>CreateCampaign</code>, <code>GetCampaign</code>, <code>UpdateCampaign</code>,
      * <code>ListCampaigns</code>, <code>StartCampaign</code>, <code>StopCampaign</code>,
      * <code>HardStopCampaign</code> and <code>ResumeCampaign</code>. Left UNSET (whatever is stored) in
@@ -1169,7 +1320,9 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * (agent, language, initial intent, platform, service hosts and ports, CSI control messages, voice
      * interaction config): a <code>PROJECT_EXECUTOR</code>, and also every caller when authorization is
      * disabled or only monitored, because a <code>Campaign</code> has no view that could leave the config
-     * out by default. A client that reads such a campaign and writes the whole config back with
+     * out by default. Every field outside that list reads back unset for them, also when the campaign sets
+     * it, so such a reader cannot tell from the response whether the calls inherit a setting there. A
+     * client that reads such a campaign and writes the whole config back with
      * <code>update_mask</code> path <code>campaign_common_services_config</code> overwrites the stored
      * credentials with the withheld (empty) ones; update a sub-path instead.</p>
      *
@@ -1194,7 +1347,17 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
      * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
      * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
-     * key with the call&apos;s header winning on a shared name.</p>
+     * key with the call&apos;s header winning on a shared name, so every call sends the campaign&apos;s headers
+     * plus its own. Example: a campaign default <code>sip_headers { key: &quot;X-Campaign&quot; value:
+     * &quot;spring&quot; }</code> and an entry with <code>sip_headers { key: &quot;X-Customer&quot; value:
+     * &quot;42&quot; }</code> dial with both headers.</p>
+     * <p>Validation: what this default sets is checked when it is created or updated
+     * (<code>INVALID_ARGUMENT</code> naming the field): <code>sip_base_config.sip_sim_version</code> must be a
+     * valid image tag, <code>callee_id</code> at most 2048 characters and, when it holds no letter and no
+     * <code>\@</code>, a valid phone number, and at most 64 <code>sip_headers</code>. The complete effective
+     * configuration is validated when a call is added and again at dispatch, as for
+     * <code>campaign_common_services_config</code>. The callee and the SIP headers never keep a call from
+     * reusing an idle pooled caller; the image version does.</p>
      * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
      * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
      * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>
@@ -1237,7 +1400,17 @@ class Campaign extends \Google\Protobuf\Internal\Message
      * <code>campaign_common_services_config</code>: the effective <code>sip_caller_config</code> of a call
      * is a copy of this value with the call&apos;s own <code>StartCallerRequest.sip_caller_config</code>
      * merged over it (<code>MergeFrom</code>, the call winning); <code>sip_headers</code> are merged by
-     * key with the call&apos;s header winning on a shared name.</p>
+     * key with the call&apos;s header winning on a shared name, so every call sends the campaign&apos;s headers
+     * plus its own. Example: a campaign default <code>sip_headers { key: &quot;X-Campaign&quot; value:
+     * &quot;spring&quot; }</code> and an entry with <code>sip_headers { key: &quot;X-Customer&quot; value:
+     * &quot;42&quot; }</code> dial with both headers.</p>
+     * <p>Validation: what this default sets is checked when it is created or updated
+     * (<code>INVALID_ARGUMENT</code> naming the field): <code>sip_base_config.sip_sim_version</code> must be a
+     * valid image tag, <code>callee_id</code> at most 2048 characters and, when it holds no letter and no
+     * <code>\@</code>, a valid phone number, and at most 64 <code>sip_headers</code>. The complete effective
+     * configuration is validated when a call is added and again at dispatch, as for
+     * <code>campaign_common_services_config</code>. The callee and the SIP headers never keep a call from
+     * reusing an idle pooled caller; the image version does.</p>
      * <p>EXCEPT <code>callee_id</code>, which is resolved ONCE, when the call is added to the campaign: the
      * call&apos;s own <code>callee_id</code> or, when that is empty, this value&apos;s
      * <code>callee_id</code> at that moment. The result is stored as <code>CampaignCall.phone_number</code>

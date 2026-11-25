@@ -8,9 +8,7 @@ namespace Ondewo\Vtsi;
 use UnexpectedValueException;
 
 /**
- * File format of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> export. Every
- * format is UTF-8 with <code>\n</code> line endings and one entry per record; a multi-line entry stays one
- * record.
+ * File format of an <a href="index.html#ondewo.vtsi.Logs.ExportCallLogs">ExportCallLogs</a> export. Every format is UTF-8 with <code>\n</code> line endings and one entry per record; a multi-line entry stays one record.
  *
  * Protobuf type <code>ondewo.vtsi.LogExportFormat</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>T2SInference message is used to specify the text-to-speech inference settings.</p>
+ * T2SInference message is used to specify the text-to-speech inference settings.
  *
  * Generated from protobuf message <code>ondewo.t2s.T2SInference</code>
  */

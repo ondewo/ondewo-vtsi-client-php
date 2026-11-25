@@ -10,9 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * A key + up/down counts breakdown bucket (by language / intent / author type / ...).
- * A feedback-native filter for feedback list + analytics requests, complementing SessionFilter (which
- * filters the parent sessions). All set fields are AND-combined; repeated fields are OR-within-field.
+ * A key + up/down counts breakdown bucket (by language / intent / author type / ...). A feedback-native filter for feedback list + analytics requests, complementing SessionFilter (which filters the parent sessions). All set fields are AND-combined; repeated fields are OR-within-field.
  *
  * Generated from protobuf message <code>ondewo.nlu.FeedbackFilter</code>
  */

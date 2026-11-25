@@ -10,11 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * An online-evaluation config: a per-(project, language_code) definition that a
- * swarm-safe background worker uses to sample already-persisted live session
- * steps, score the recorded answer with a reference-free evaluator set, and
- * enqueue failing steps into the annotation queue. Mirrors the LlmEvaluationSchedule
- * scoping / audit / enabled-flag shape.
+ * An online-evaluation config: a per-(project, language_code) definition that a swarm-safe background worker uses to sample already-persisted live session steps, score the recorded answer with a reference-free evaluator set, and enqueue failing steps into the annotation queue. Mirrors the LlmEvaluationSchedule scoping / audit / enabled-flag shape.
  *
  * Generated from protobuf message <code>ondewo.nlu.LlmEvaluationOnlineConfig</code>
  */

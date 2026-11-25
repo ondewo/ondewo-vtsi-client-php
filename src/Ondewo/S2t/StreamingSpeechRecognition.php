@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>StreamingSpeechRecognition contains information about streaming speech recognition settings.</p>
+ * StreamingSpeechRecognition contains information about streaming speech recognition settings.
  *
  * Generated from protobuf message <code>ondewo.s2t.StreamingSpeechRecognition</code>
  */

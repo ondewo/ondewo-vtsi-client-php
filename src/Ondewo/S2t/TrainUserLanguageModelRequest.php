@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>TrainUserLanguageModelRequest is used to request the training of a user-specific language model.</p>
+ * TrainUserLanguageModelRequest is used to request the training of a user-specific language model.
  *
  * Generated from protobuf message <code>ondewo.s2t.TrainUserLanguageModelRequest</code>
  */

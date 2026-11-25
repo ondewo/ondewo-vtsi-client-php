@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>LanguageModels contains information about language models.</p>
+ * LanguageModels contains information about language models.
  *
  * Generated from protobuf message <code>ondewo.s2t.LanguageModels</code>
  */

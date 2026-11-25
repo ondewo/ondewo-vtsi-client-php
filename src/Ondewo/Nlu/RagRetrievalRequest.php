@@ -10,8 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * Request message for retrieving chunks using vector similarity search.<br>
- * Supports hybrid search combining vector similarity with keyword matching.
+ * Request message for retrieving chunks using vector similarity search.<br> Supports hybrid search combining vector similarity with keyword matching.
  *
  * Generated from protobuf message <code>ondewo.nlu.RagRetrievalRequest</code>
  */

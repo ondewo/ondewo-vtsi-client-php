@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>One 20 ms frame of call audio</p>
+ * One 20 ms frame of call audio
  *
  * Generated from protobuf message <code>ondewo.vtsi.CallAudioFrame</code>
  */

@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>S2tGetServiceInfoResponse is used to return version information about the speech-to-text service.</p>
+ * S2tGetServiceInfoResponse is used to return version information about the speech-to-text service.
  *
  * Generated from protobuf message <code>ondewo.s2t.S2tGetServiceInfoResponse</code>
  */

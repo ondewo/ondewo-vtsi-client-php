@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>WordDetail provides word-specific information for recognized words.</p>
+ * WordDetail provides word-specific information for recognized words.
  *
  * Generated from protobuf message <code>ondewo.s2t.WordDetail</code>
  */

@@ -10,11 +10,8 @@ use Google\Protobuf\Internal\GPBUtil;
 use Google\Protobuf\RepeatedField;
 
 /**
- * <p>WespeakerTsd contains configuration for the WeSpeaker target-speaker detection (TSD)
- * model. Given a reference speaker embedding, it decides whether a newly detected utterance
- * was spoken by the same person, so that speech from a different speaker (e.g. background
- * noise, crosstalk, or a barge-in) can be rejected.</p>
- * <p>Library: <a href="https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM">wespeaker-voxceleb-resnet34-LM</a></p>
+ * WespeakerTsd contains configuration for the WeSpeaker target-speaker detection (TSD) model. Given a reference speaker embedding, it decides whether a newly detected utterance was spoken by the same person, so that speech from a different speaker (e.g. background noise, crosstalk, or a barge-in) can be rejected.
+ * Library: <a href="https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM">wespeaker-voxceleb-resnet34-LM</a>
  *
  * Generated from protobuf message <code>ondewo.s2t.WespeakerTsd</code>
  */
